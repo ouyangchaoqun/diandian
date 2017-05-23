@@ -44,3 +44,11 @@
 		}
 	}
 </script>
+<style>
+	#tabs{
+		position: fixed;
+	}
+	#app{
+		height:100%;
+	}
+</style>

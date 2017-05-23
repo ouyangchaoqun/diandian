@@ -1,0 +1,132 @@
+.friends_box{
+    padding-bottom: 50px;
+}
+.friend_header{
+    border-bottom:1px solid #eeeeee;
+    background:#fff;
+    padding:10px 0;
+}
+.friend_header a{
+    width:90%;
+    height:24px;
+    line-height:24px;
+    text-align:center;
+    background:#eeeeee;
+    margin:0 auto;
+    font-size:12px;
+    border:1px solid #eeeeee;
+    border-radius:5px;
+    color:#999999;
+    display: block;
+}
+.friends_mood{
+    margin-top:1px;
+    background: #ffffff;
+    padding:10px 20px 10px 10px;
+}
+.friendHeaderImg{
+    width:40px;
+    height: 40px;
+    display: block;
+    border-radius: 3px;
+    float: left;
+}
+.friendState{
+    margin-left:55px;
+}
+.mood_state{
+    font-size:15px;
+    color:#ff6600;
+    margin-bottom: 10px;
+    display: block;
+}
+.mood_text{
+    font-size:15px;
+    color:#333333;
+    margin-bottom: 10px;
+}
+.stateBottom{
+    height: 30px;
+    font-size: 12px;
+}
+.time{
+    font-size:12px;
+    color:#999999;
+    float: left;
+    line-height: 30px;
+}
+.time_right{
+    color: #999999;
+    float: right;
+}
+.friendsLoc{
+    font-size:12px;
+    color:#516591;
+}
+.time_right img{
+    float: left;
+}
+.frined_zan{
+    float: left;
+    margin-right:3px;
+}
+.frined_com{
+    float: left;
+    margin-right:5px;
+}
+.time_rightimg1{
+    width: 22px;
+    margin-top:-3px;
+    margin-right:10px;
+}
+.time_rightimg2{
+    margin-top:2px;
+    width:18px;
+}
+.friendImgList{
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.friendImgList li{
+    float: left;
+}
+.friendImgList img{
+    display: block;
+    margin-right: 5px;
+    height:80px;
+    width:80px;
+}
+.commont_box{
+    padding-top:10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    position: relative;
+    margin-top:10px;
+    padding-bottom: 15px;
+    padding-left:10px;
+}
+.arrow{
+    width:15px;
+    height:15px;
+    background: #f9f9f9;
+    position: absolute;
+    left:20px;
+    top:-6px;
+    transform:rotate(45deg);
+}
+.friend_commont{
+    margin-bottom: 6px;
+}
+.name{
+    font-size: 14px;
+    color:#666699;
+
+}
+.commont{
+    font-size: 14px;
+    color:#333333;
+}
+.me_commont{
+    font-size: 13px;
+    margin-bottom: 6px;
+}

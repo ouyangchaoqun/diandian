@@ -1,6 +1,61 @@
 <template id="me">
 	<div>
-		<h2>我的</h2>
+		<div class="me_top">
+			<router-link to="/me/personal" class="me1">
+				<img class="me1_left" src="../images/13.jpg"/>
+				<div class="me1_right">
+					<div class="perfec_top">欧阳</div>
+					<div class="perfec">
+						<span>完善资料</span>
+						<img class="edit" src="../images/edit.png"/>
+					</div>
+				</div>
+				<img class="me1_back" src="../images/back.png"/>
+			</router-link>
+		</div>
+		<router-link to = "/me/moodCount" class="me_lists ">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg1.png"/>
+				<div class="listtext">我的心情指数</div>
+				<img class="listimg2" src="../images/back.png" />
+			</div>
+		</router-link>
+		<router-link to="/me/friendsCount" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg2.png"/>
+				<div class="listtext">我的好友</div>
+				<img class="listimg2" src="../images/back.png"/>
+			</div>
+		</router-link>
+		<router-link to="/me/remind" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg3.png"/>
+				<div class="listtext">心情记录提醒设置</div>
+				<img class="listimg2" src="../images/back.png"/>
+			</div>
+		</router-link>
+		<router-link to="/me/privacy" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg4.png"/>
+				<div class="listtext">隐私设置</div>
+				<img class="listimg2" src="../images/back.png"/>
+			</div>
+		</router-link>
+		<router-link to="/me/problem" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg5.png"/>
+				<div class="listtext">常见问题Q&A</div>
+				<img class="listimg2" src="../images/back.png"/>
+			</div>
+		</router-link>
+		<router-link to="/me/proposal" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg6.png"/>
+				<div class="listtext">意见反馈</div>
+				<img class="listimg2" src="../images/back.png"/>
+			</div>
+		</router-link>
+		<a class="me_bottom" url="">生成邀请卡</a>
 	</div>
 </template>
 
