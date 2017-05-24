@@ -55,7 +55,7 @@
 				<img class="listimg2" src="../images/back.png"/>
 			</div>
 		</router-link>
-		<a class="me_bottom" url="">生成邀请卡</a>
+		<a class="me_bottom weui-btn weui-btn_primary" url="">生成邀请卡</a>
 	</div>
 </template>
 

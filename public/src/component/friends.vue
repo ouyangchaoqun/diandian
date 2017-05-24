@@ -1,7 +1,7 @@
 <template id="friends">
 	<div class="friends_box">
 		<div class="friend_header">
-			<a href="">以下是我关注的朋友，猜猜TA是谁？</a>
+			<router-link to="/me/friendsCount">以下是我关注的朋友，猜猜TA是谁？</router-link>
 		</div>
 		<div class="friends_mood">
 			<img class="friendHeaderImg" src="../images/13.jpg" alt="">

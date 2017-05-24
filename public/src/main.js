@@ -13,7 +13,6 @@ import remind from "./component/remind.vue";
 import privacy from "./component/privacy.vue";
 import problem from "./component/problem.vue";
 import proposal from "./component/proposal.vue";
-
 Vue.use(VueRouter)
 var routers=[
     {path:'/mood',component:mood},
