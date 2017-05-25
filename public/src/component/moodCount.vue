@@ -5,10 +5,11 @@
             <div class="mooditem">每月心情指数</div>
             <div class="mooditem">每年心情指数</div>
         </div>
-        <div style="background: #ffffff;height: 100%;">111aaaaaaaaa</div>
+       <button>获取</button>
     </div>
 </template>
 <script type="text/javascript">
+
     var moodCount={
         template:'#moodCount'
     }
@@ -39,4 +40,25 @@
         color: #339900;
     }
 </style>
+<script>
+    export default {
+        data() {
+            return {
+
+            }
+        }
+        /*methods:{
+            getD:function () {
+                this.$http.get('http://api.mood.hh-idea.com/api/documentation').then(response => {
+
+                    // get body data
+                    console.log(response.body)
+
+                }, response => {
+                    // error callback
+                });
+            }
+        }*/
+    }
+</script>
 

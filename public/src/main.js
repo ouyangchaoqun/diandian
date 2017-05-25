@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 import mood from './component/mood.vue';
 import calendar from './component/calendar.vue';
 import friends from './component/friends.vue';
@@ -13,9 +14,11 @@ import remind from "./component/remind.vue";
 import privacy from "./component/privacy.vue";
 import problem from "./component/problem.vue";
 import proposal from "./component/proposal.vue";
+import writeMood from "./component/writeMood.vue"
 Vue.use(VueRouter)
+Vue.use(VueResource)
 var routers=[
-    {path:'/mood',component:mood},
+    {path:'/mood',component:writeMood},
     {path:'/calendar',component:calendar},
     {path:'/friends',component:friends},
     {path:'/me',component:me},
