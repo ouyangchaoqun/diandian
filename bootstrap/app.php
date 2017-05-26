@@ -81,8 +81,8 @@ $app->singleton(
 
 $app->register(Overtrue\LaravelWechat\ServiceProvider::class);
 
-
- $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+//$app->register(AbsoluteSoftware\Curl\CurlServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
