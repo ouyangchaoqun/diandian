@@ -1,4 +1,4 @@
-<template id="calendar">
+<template id="calendar" >
 	<div class="calendar_box">
 		<div class="banner">
 			<img src="../images/banner.jpg"/>
@@ -22,7 +22,7 @@
 					</div>
 					<div class="dateBgView">
 						<div class="dateEmptyView"  v-for="item in empytGrids">{{item}}</div>
-						<div class="dateView" :class={dateSelectView:isactive} v-for="(item,index) in days">
+						<div v-for="(item,index) in days" :key="index" :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']" @click="showSwiper()">
 							<div class="datesView">{{item}} </div>
 							<img src="../images/face1.png"/>
 						</div>
@@ -30,13 +30,45 @@
 				</div>
 			</div>
 		</div>
+		<!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
+		<div :class="[swiper_box,{show_box:isa,hidden_box:isb}]" @click="hideSwiper()">
+			<div id="bg_back" >
+				<div class="swiper-container clickBox">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<img src="../images/bg_mood_01.png" alt="" />
+							<div class="clickBox_time">
+								<span>4月13日</span><span>星期1</span><span>08:20:40</span>
+								<div class="clickBox_bottom">今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<img src="../images/bg_mood_02.png" alt="" />
+							<div class="clickBox_time">
+								<span>4月13日</span><span>星期2</span><span>08:20:40</span>
+								<div class="clickBox_bottom">今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴天很高兴</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<img src="../images/bg_mood_04.png" alt="" />
+							<div class="clickBox_time">
+								<span>4月13日</span><span>星期</span><span>08:20:40</span>
+								<div class="clickBox_bottom">今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴天很高兴</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
 
 	</div>
 </template>
-
 <script type="text/javascript">
-	var calendar={
+    /*import swiper_box from './swiper_box.vue';*/
+    import Swiper from "../js/swiper-3.4.2.min"
+    var calendar={
 		template:'#calendar'
 	}
     export default {
@@ -48,13 +80,28 @@
                 weeks_ch : ['日', '一', '二', '三', '四', '五', '六'],
                 empytGrids : [],
 				days:[],
-				isactive:false
+				isa:true,
+                commonClass:'dateView',
+                _month:'',
+				today:'',
+				index:'',
+                isa:false,
+				isb:true,
+                swiper_box:true
 			}
         },
+        mounted(){
+            var mySwiper = new Swiper('.swiper-container', {
+                direction: 'horizontal',
+                loop: true
+            })
+        },
+		/*components:{
+			"v-swiper_box":swiper_box
+		},*/
 		created:function () {
             this.setNowDate();
-
-        },
+		 },
 		methods:{
 			setNowDate: function () {
                 var date = new Date();
@@ -71,11 +118,11 @@
                 var _month = date2.getMonth() +1
 				this.cur_year=cur_year,
 				this.cur_month= cur_month
-				/*if(_month == cur_month&&index == today-1){
-                    this.isactive = true
-				}else {
-				    this.isactive = false
-				}*/
+               	this._month = _month
+                this.today = today
+				console.log(today)
+                console.log(cur_month)
+
 			},
             getThisMonthDays(year, month) {
                 return new Date(year, month, 0).getDate();
@@ -136,6 +183,14 @@
                     this.calculateEmptyGrids(newYear, newMonth);
                     	this.cur_year= newYear,
 						this.cur_month= newMonth
+            },
+			showSwiper:function () {
+				this.isa = true;
+				this.isb = false
+            },
+            hideSwiper:function () {
+                this.isa = false;
+                this.isb = true
             }
 		}
 
@@ -143,6 +198,12 @@
 </script>
 
 <style>
+	.show_box{
+		visibility: inherit;
+	}
+	.hidden_box{
+		visibility: hidden;
+	}
 	.calendar_box{
 		height:100%;
 		background: #ffffff;
@@ -217,7 +278,7 @@
 
 	.leftBgView {
 		text-align: right;
-		height: 80rpx;
+		height: 40px;
 		display: flex;
 		flex-direction: row-reverse;
 	}
@@ -312,9 +373,9 @@
 
 	.datesView {
 
-		height: 60rpx;
+		height: 30px;
 		color: #828080;
-		font-size: 26rpx;
+		font-size: 13px;
 		font-weight: 200;
 		display: flex;
 		align-items: center;
@@ -363,6 +424,65 @@
 		background: rgba(0,0,0,0.5);
 		height:100%;width:100%;
 		z-index:1;
+
+	}
+
+	.swiper_box{
+
+		position: absolute;
+		top:25%;
+		left:50%;
+		margin-left: -100px;
+	}
+	#bg_back{
+		position:fixed;
+		top: 0;left: 0;
+		background: rgba(0,0,0,0.5);
+		height:100%;width:100%;
+		z-index:100;
+	}
+	.clickBox {
+		width: 100%;
+		text-align: center;
+		z-index:100;
+		border-radius: 10px;
+		position: absolute;
+		top:30%;
+		font-size: 18px;
+		color: #666666;
+		height:auto;
+	}
+	.clickBox img{
+		width:90%;
+		height:auto;
+	}
+
+
+	.clickBox_time {
+		position: absolute;
+		bottom: 5%;
+		width: 90%;
+		height: 30%;
+		left: 50%;
+		margin-left: -50%;
+	}
+
+	.clickBox_time span {
+		font-size: 12px;
+		color: #999999;
+		margin: 0 5px;
+		line-height: 22px;
+	;
+	}
+
+	.clickBox_bottom {
+		font-size: 13px;
+		color: #333333;
+		line-height: 20px;
+		padding: 0 36px;
+		overflow: auto;
+		height: 36px;
+
 
 	}
 
