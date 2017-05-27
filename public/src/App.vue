@@ -64,6 +64,12 @@
             }, response => {
                 // error callback
             });
+            if(!cookie.get("openId")){
+                cookie.set("openId","oVLAc0m8L3Yq8cvAU5vRDnjqCpTQ");
+                //todo 通过code获取 openId
+
+            }
+
             console.log("建立");
         }
 

@@ -16,6 +16,7 @@ $app->get('/', function () use ($app) {
 
 
 
+$app->options('/api/{url:[a-z/\d]+}','ApiController@url');;
 $app->get('/api/{url:[a-z/\d]+}','ApiController@url');;
 $app->post('/api/{url:[a-z/\d]+}','ApiController@url');
 $app->delete('/api/{url:[a-z/\d]+}','ApiController@url');
