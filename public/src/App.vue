@@ -2,7 +2,7 @@
     <div id="app">
         <router-view></router-view>
         <div class="weui-tabbar" id="tabs">
-            <router-link to='/mood' class="weui-tabbar__item  tab">
+            <router-link to='/writeMood' class="weui-tabbar__item  tab">
 				<span style="display: inline-block;">
 					<img src="./images/face1.png" class="weui-tabbar__icon"/>
 				</span>
