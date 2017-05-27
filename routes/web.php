@@ -16,10 +16,10 @@ $app->get('/', function () use ($app) {
 
 
 
-$app->get('/api','ApiController@url');
-$app->post('/api','ApiController@url');
-$app->delete('/api','ApiController@url');
-$app->put('/api','ApiController@url');
+$app->get('/api/{url:[a-z/\d]+}','ApiController@url');;
+$app->post('/api/{url:[a-z/\d]+}','ApiController@url');
+$app->delete('/api/{url:[a-z/\d]+}','ApiController@url');
+$app->put('/api/{url:[a-z/\d]+}','ApiController@url');
 
 
 
