@@ -10,6 +10,19 @@
         </div>
     </div>
 </template>
+<style>
+    .privacy{
+        height:50px;
+        background: #fff;
+        margin-bottom: 1px;
+        padding:0 15px;
+        line-height: 50px;
+    }
+    .privacy span{
+        font-size: 15px;
+        color: #333333;
+    }
+</style>
 <script type="text/javascript">
     var privacy={
         template:'#privacy'

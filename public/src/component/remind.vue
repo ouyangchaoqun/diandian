@@ -15,6 +15,34 @@
 
     </div>
 </template>
+<style>
+    .top20_box{
+        padding-top:20px;
+    }
+    .remind{
+        height:50px;
+        padding:0 15px;
+        background:#fff;
+        margin-bottom: 1px;
+        line-height: 50px;
+    }
+    .switchFlag{
+        float: right;
+    }
+    .remind span{
+        font-size: 15px;
+        color:#333333;
+    }
+    .remind switch{
+        float: right;
+    }
+    .remind div{
+        float: right;
+    }
+    .remind div span{
+        margin-right: 4px;
+    }
+</style>
 <script type="text/javascript">
     import weui from "../js/weui"
     var remind={

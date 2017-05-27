@@ -15,6 +15,8 @@ import privacy from "./component/privacy.vue";
 import problem from "./component/problem.vue";
 import proposal from "./component/proposal.vue";
 import writeMood from "./component/writeMood.vue"
+import myIndex from "./component/myIndex.vue"
+import friendIndex from "./component/friendIndex.vue"
 Vue.use(VueRouter)
 Vue.use(VueResource)
 var routers=[
@@ -23,6 +25,8 @@ var routers=[
     {path:'/friends',component:friends},
     {path:'/me',component:me},
     {path:'/myCenter',component:myCenter},
+    {path:'/myCenter/myIndex',component:myIndex},
+    {path:'/myCenter/friendIndex',component:friendIndex},
     {path:'/me/personal',component:personal},
     {path:'/me/moodCount',component:moodCount},
     {path:'/me/friendsCount',component:friendsCount},
