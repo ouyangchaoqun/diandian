@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin:*');
 require_once __DIR__.'/../vendor/autoload.php';
 try {
     (new Dotenv\Dotenv(__DIR__.'/../'))->load();
@@ -81,8 +81,8 @@ $app->singleton(
 
 $app->register(Overtrue\LaravelWechat\ServiceProvider::class);
 
-
- $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+//$app->register(AbsoluteSoftware\Curl\CurlServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 

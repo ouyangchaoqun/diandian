@@ -8,10 +8,9 @@
         "php": ">=5.6.4",
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
-        "darkaonline/swagger-lume": "~2.0",
         "johnlui/aliyun-oss": "~2.0",
         "overtrue/laravel-wechat": "~3.0",
-        "flc/alidayu": "^2.0"
+        "absolute-software/laravel-curl": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -34,6 +33,12 @@
             "php -r \"copy('.env.example', '.env');\""
         ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Absolute-Software/laravel-curl"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
