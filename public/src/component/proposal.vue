@@ -9,12 +9,15 @@
         </div>
 
 
-
-
     </div>
+
+
+
 </template>
 
 <style>
+
+
     .feedback{
         padding:20px;
         font-size:15px;
@@ -44,6 +47,7 @@
     }
 </style>
 <script type="es6">
+    import weui from "../js/weui"
     var proposal={
         template:'#proposal'
     }
@@ -57,11 +61,12 @@
         methods:{
             onSubmit:function () {
                 let _this = this;
-
                 this.$http.put(web.API_PATH+'base/feedback/add',{"content":_this.$refs.content.value,"userId":null}).then(response => {
-
+                    xqzs.weui.toast("success","提交成功",function () {
+                        
+                    })
                 }, response => {
-                    // error callback
+                    // error
                 });
 
 
