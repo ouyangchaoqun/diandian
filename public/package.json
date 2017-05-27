@@ -25,6 +25,7 @@
     "vue-router": "^2.5.3",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "weixin-js-sdk": "^1.2.0"
   }
 }

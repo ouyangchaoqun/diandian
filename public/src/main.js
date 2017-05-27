@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
-import mood from './component/mood.vue';
+import validate from './component/validate.vue';
 import calendar from './component/calendar.vue';
 import friends from './component/friends.vue';
 import me from './component/me.vue';
@@ -20,7 +20,7 @@ import friendIndex from "./component/friendIndex.vue"
 Vue.use(VueRouter)
 Vue.use(VueResource)
 var routers=[
-    {path:'/mood',component:writeMood},
+    {path:'/writeMood',component:writeMood},
     {path:'/calendar',component:calendar},
     {path:'/friends',component:friends},
     {path:'/me',component:me},
@@ -28,6 +28,7 @@ var routers=[
     {path:'/myCenter/myIndex',component:myIndex},
     {path:'/myCenter/friendIndex',component:friendIndex},
     {path:'/me/personal',component:personal},
+    {path:'/me/personal/validate',component:validate},
     {path:'/me/moodCount',component:moodCount},
     {path:'/me/friendsCount',component:friendsCount},
     {path:'/me/remind',component:remind},

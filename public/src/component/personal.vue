@@ -10,7 +10,7 @@
                 <img src="../images/goto.jpg" alt="">
             </a>
         </div>
-        <router-link to="/mood">
+        <router-link to="/me/personal/validate">
             <div class="list0 list02">
                 <span>绑定手机号</span>
                 <img src="../images/goto.jpg" alt="">
