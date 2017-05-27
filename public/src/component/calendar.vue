@@ -32,7 +32,7 @@
 		</div>
 		<!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
-		<div :class="[swiper_box,{show_box:isa,hidden_box:isb}]" @click="hideSwiper()">
+		<div :class="[{show_box:isa,hidden_box:isb}]" @click="hideSwiper()">
 			<div id="bg_back" >
 				<div class="swiper-container clickBox">
 					<div class="swiper-wrapper">
@@ -66,8 +66,7 @@
 	</div>
 </template>
 <script type="text/javascript">
-    /*import swiper_box from './swiper_box.vue';*/
-    import Swiper from "../js/swiper-3.4.2.min"
+
     var calendar={
 		template:'#calendar'
 	}
@@ -90,10 +89,9 @@
                 swiper_box:true
 			}
         },
-        mounted(){
+        mounted(){                                            //轮播配置
             var mySwiper = new Swiper('.swiper-container', {
-                direction: 'horizontal',
-                loop: true
+                direction: 'horizontal'
             })
         },
 		/*components:{
@@ -106,12 +104,12 @@
 			setNowDate: function () {
                 var date = new Date();
                 var cur_year = date.getFullYear();   /**年份 */
-                console.log(cur_year)
+                //console.log(cur_year)
                 var cur_month = date.getMonth() + 1;    /**月 */
-                console.log(cur_month)
+                //console.log(cur_month)
                 var todayIndex = date.getDay() - 1;
                 var today = date.getDate();              /**日 */
-                console.log(today)
+                //console.log(today)
 				this.calculateEmptyGrids(cur_year, cur_month);          /**调用计算空格子*/
                 this.calculateDays(cur_year, cur_month);
                 var date2 = new Date();
@@ -120,8 +118,8 @@
 				this.cur_month= cur_month
                	this._month = _month
                 this.today = today
-				console.log(today)
-                console.log(cur_month)
+				//console.log(today)
+                //console.log(cur_month)
 
 			},
             getThisMonthDays(year, month) {
@@ -132,13 +130,13 @@
             },
             calculateEmptyGrids(year, month) {                                 /**计算空格子*/
             var firstDayOfWeek = this.getFirstDayOfWeek(year, month);
-                console.log(firstDayOfWeek)
+                //console.log(firstDayOfWeek)
 				var empytGrids=[]
                 if (firstDayOfWeek > 0) {
                     for (var i = 0; i < firstDayOfWeek; i++) {
 						empytGrids.push(i);
                     }
-                    console.log(empytGrids)
+                    //console.log(empytGrids)
 						this.hasEmptyGrid=true,
                         this.empytGrids = empytGrids
                    ;
@@ -156,7 +154,7 @@
 				this.days = days
 				console.log(days)
 			},
-            oldMonth:function() {
+            oldMonth:function() {                             //上个月
 				var cur_year = this.cur_year;
                 var cur_month = this.cur_month;
 				var newMonth = cur_month - 1;
@@ -170,7 +168,7 @@
 						this.cur_year= newYear,
                         this.cur_month= newMonth
 			},
-			nextMonth:function () {
+			nextMonth:function () {                             //下个月
 				var cur_year = this.cur_year;
                 var cur_month = this.cur_month;
 				var newMonth = cur_month + 1;
@@ -184,11 +182,11 @@
                     	this.cur_year= newYear,
 						this.cur_month= newMonth
             },
-			showSwiper:function () {
+			showSwiper:function () {                                 //日期点击事件
 				this.isa = true;
 				this.isb = false
             },
-            hideSwiper:function () {
+            hideSwiper:function () {                                 //轮播隐藏事件
                 this.isa = false;
                 this.isb = true
             }
@@ -238,16 +236,6 @@
 		top:10px;
 		display: block;
 	}
-	.rl_date{
-		font-size:16px;
-		color:#666666;
-		width:80px;
-		margin:0 auto;
-		line-height: 40px;
-	}
-	.week_day{
-		display: flex;
-	}
 	.week_day text{
 		flex: 1;
 		text-align: center;
@@ -283,15 +271,6 @@
 		flex-direction: row-reverse;
 	}
 
-	.leftView {
-		width: 40px;
-		height: 100%;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
-
 	.centerView {
 		width: 50%;
 		height: 40px;
@@ -309,14 +288,6 @@
 		flex-direction: row;
 	}
 
-	.rightView {
-		width: 40px;
-		height: 100%;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
 
 	.weekBgView {
 		height: 25px;
@@ -376,7 +347,6 @@
 		height: 30px;
 		color: #828080;
 		font-size: 13px;
-		font-weight: 200;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -386,21 +356,6 @@
 		background:#fef8e5;
 	}
 
-	.swiper_box{
-		width:90%;
-		height:476rpx;
-		position: absolute;
-		top:25%;
-		left:50%;
-		margin-left:-45%;
-		z-index: 100;
-	border-radius: 15px;
-	}
-	.swiper_box image{
-		height:100%;
-		width:100%;
-		box-shadow: 0px 2px 2px #ccc;
-	}
 	.clickBox_time{
 		position:absolute;
 		text-align:center;
@@ -411,7 +366,7 @@
 		height:72px;
 		overflow: hidden;
 	}
-	.clickBox_time text{
+	.clickBox_time span{
 		margin:0 5px;
 	}
 	.clickBox_bottom{

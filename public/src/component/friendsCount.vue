@@ -39,6 +39,30 @@
         
     </div>
 </template>
+<style>
+    .friendsCount_box{
+        margin-top: 25px;
+        overflow: inherit;
+    }
+    .friendsCount_cell{
+        color: #666666;
+        font-size: 14px;
+        position: absolute;
+        top:-22px;
+        left:15px;
+    }
+    .img_frinedsCount{
+        width:40px;
+        height: 40px;
+        display: block;
+        border-radius: 5px;
+    }
+    .name_friendsCount{
+        color: #333333;
+        font-size: 14px;
+        margin-left:13px;
+    }
+</style>
 <script type="text/javascript">
     var friendsCount={
         template:'#friendsCount'

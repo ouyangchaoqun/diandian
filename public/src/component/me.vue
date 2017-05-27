@@ -58,7 +58,91 @@
 		<a class="me_bottom weui-btn weui-btn_primary" url="">生成邀请卡</a>
 	</div>
 </template>
-
+<style>
+	.me_top{
+		background:#e5e5e5;
+		padding: 15px 0;
+	}
+	.me1_left{
+		height:60px;
+		width:60px;
+		display: block;
+		border-radius: 5px;
+		float: left;
+	}
+	.me1{
+		background:#fff;
+		padding:15px;
+		height:60px;
+		display: block;
+	}
+	.me1_right{
+		float: left;
+		margin-left: 14px;
+	}
+	.perfec_top{
+		color: #333333;
+		font-size:14px;
+		margin-bottom:12px;
+	}
+	.perfec{
+		font-size:12px;
+		color: #666666;
+		position: relative;
+	}
+	.perfec img{
+		position: absolute;
+		top:-1px;
+		left: 55px;
+	}
+	.edit{
+		height:20px;
+		width:20px;
+	}
+	.me1_back{
+		display: block;
+		float: right;
+		width:20px;
+		height:20px;
+		transform: rotate(180deg);
+		margin-top:20px;
+	}
+	.me_lists{
+		background:#fff;
+		padding:0 15px;
+		display: block;
+	}
+	.me_list{
+		height:60px;
+		border-bottom:1px solid #e5e5e5;
+		line-height: 60px;
+	}
+	.listimg1{
+		width:30px;
+		height:30px;
+		display: block;
+		float: left;
+		margin-top: 16px;
+	}
+	.listimg2{
+		display: block;
+		float: right;
+		width:20px;
+		height:20px;
+		transform: rotate(180deg);
+		margin-top:20px;
+	}
+	.listtext{
+		font-size:15px;
+		color: #333333;
+		float: left;
+		margin-left:15px;
+	}
+	.me_bottom{
+		width:90%;
+		margin:30px auto;
+	}
+</style>
 <script type="text/javascript">
 	var me={
 		template:'#me'

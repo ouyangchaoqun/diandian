@@ -13,6 +13,36 @@
 
     </div>
 </template>
+
+<style>
+    .feedback{
+        padding:20px;
+        font-size:15px;
+        color:#999999;
+        position: relative;
+        height:180px;
+        background:#fff;
+    }
+
+    .feedback textarea{
+        height:150px;
+        width:100%;
+        outline: none;
+        border:0;
+        resize: none;
+        font-size:15px;
+        color:#999999;
+    }
+    .feedback span{
+        position:absolute;
+        right:20px;
+        bottom:20px;
+    }
+    .feedback_btn{
+        padding:0 20px;
+        margin-top:34px;
+    }
+</style>
 <script type="es6">
     var proposal={
         template:'#proposal'

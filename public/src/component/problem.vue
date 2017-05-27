@@ -15,7 +15,24 @@
         </div>
     </div>
 </template>
-
+<style>
+    .problem_box{
+        background: #ffffff;
+        height:100%;
+    }
+    .problem{
+        padding:20px 15px 0 15px;
+    }
+    .protit{
+        color:#333333;
+        font-size: 16px;
+    }
+    .protex{
+        color:#666666;
+        font-size: 14px;
+        margin-top:5px;
+    }
+</style>
 <script type="text/javascript">
 
     var problem={
