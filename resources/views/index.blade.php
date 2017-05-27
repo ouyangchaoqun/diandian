@@ -20,6 +20,11 @@
     <div id="app">
 
     </div>
+    <script>
+        var web={};
+        web.BASE_PATH="http://web.m.xqzs.cn/";
+        web.API_PATH=web.BASE_PATH+"api/";
+    </script>
     <script src="/dist/build.js"></script>
   </body>
 </html>

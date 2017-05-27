@@ -35,28 +35,19 @@
     </div>
 </template>
 <script type="es6">
-    import wx from 'weixin-js-sdk'
+    import wx from 'weixin-js-sdk';
+
     export default {
         name: 'app',
         data() {
             return {
-                wxConfig: {}
+                wxConfig: {},
             }
         },
         created: function () {
             let _this=this;
 
-//            this.$http.interceptors.push(function(request, next) {
-//                request.headers.set('X-CSRF-TOKEN', 'bear');
-//                request.headers.set('Authorization', 'bear bear');
-//                next();
-//            });
-            this.$http.get('http://api.m.xqzs.cn/api/v1/wei/xin/config',{
-                headers: {
-                    'X-CSRF-TOKEN': 'bear',
-                },
-                emulateJSON:true
-            }).then(response => {
+            this.$http.get(web.API_PATH+'wei/xin/config').then(response => {
                 _this.wxConfig = response.body;
                 wx.config( _this.wxConfig);
                 console.log(_this.wxConfig );

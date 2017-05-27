@@ -42,6 +42,3 @@ new Vue({
   router:router,
   render: h => h(App)
 });
-
-
-Vue.http.headers.common['Authori111zation'] = 'BasicYXBpOnBh22222222c3N3b3Jk';
