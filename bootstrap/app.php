@@ -1,5 +1,12 @@
 <?php
 header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Methods:PUT,DELETE,POST,GET');
+header('Access-Control-Allow-Headers:Content-Type');
+
+
+
+session_start();
+
 require_once __DIR__.'/../vendor/autoload.php';
 try {
     (new Dotenv\Dotenv(__DIR__.'/../'))->load();
@@ -22,7 +29,7 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 //
-//$app->withFacades();
+$app->withFacades();
 //
 //$app->withEloquent();
 
@@ -82,7 +89,6 @@ $app->singleton(
 $app->register(Overtrue\LaravelWechat\ServiceProvider::class);
 
 $app->register(App\Providers\AppServiceProvider::class);
-//$app->register(AbsoluteSoftware\Curl\CurlServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
