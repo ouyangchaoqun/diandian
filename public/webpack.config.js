@@ -6,8 +6,20 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'build.js',  libraryTarget: 'umd',
+      umdNamedDefine: true
   },
+    externals: {
+        vue: {
+            root: 'Vue',
+            commonjs: 'vue',
+            commonjs2: 'vue',
+            amd: 'vue'
+        }
+    },
+    resolve: {
+        extensions: [ '.js', '.vue']
+    },
   module: {
     rules: [
       {

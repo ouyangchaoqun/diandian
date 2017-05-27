@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
     <title>pro1</title>
     <link rel="stylesheet" type="text/css" href="src/css/weui.css"/>
-    <link rel="stylesheet" href="src/css/myCenter.css">
-    <link rel="stylesheet" href="src/css/friends.css">
-    <link rel="stylesheet" href="src/css/me.css">
-    <link rel="stylesheet" href="src/css/proposal.css">
-    <link rel="stylesheet" href="src/css/problem.css">
-    <link rel="stylesheet" href="src/css/privacy.css">
-    <link rel="stylesheet" href="src/css/remind.css">
-    <link rel="stylesheet" href="src/css/friendsCount.css">
+    <link rel="stylesheet" href="src/css/swiper-3.4.2.min.css">
+    <script src="src/js/jquery-3.0.0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.3"></script>
+    <script src="src/js/swiper-3.4.2.min.js"></script>
+
+    <script src="/src/js/vue.min.js"></script>
+    <script src="/src/js/vue.min.js"></script>
+     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="src/js/swiper-3.3.1.jquery.min.js"></script>
+    <script src="src/js/chart001.js"></script>
   </head>
   <body>
     <div id="app">
@@ -25,6 +26,8 @@
         web.BASE_PATH="http://web.m.xqzs.cn/";
         web.API_PATH=web.BASE_PATH+"api/";
     </script>
+
+
     <script src="/src/js/cookie.js"></script>
     <script src="/dist/build.js"></script>
   </body>
