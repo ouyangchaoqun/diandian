@@ -12,7 +12,6 @@
     <script src="src/js/swiper-3.4.2.min.js"></script>
 
     <script src="/src/js/vue.min.js"></script>
-    <script src="/src/js/vue.min.js"></script>
      <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
     <script src="src/js/swiper-3.3.1.jquery.min.js"></script>
     <script src="src/js/chart001.js"></script>
