@@ -437,9 +437,9 @@
 		padding: 0 36px;
 		overflow: auto;
 		height: 36px;
-
-
 	}
-
+.swiper-slide{
+	height:auto;
+}
 
 </style>

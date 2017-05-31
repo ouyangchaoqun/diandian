@@ -2,9 +2,10 @@
 	<div class="myIndex_box">
 		<div class="banner index_banner">
 			<img src="../images/banner.jpg"/>
-			<div class="userHeaderImg">
+			<router-link to="/me/friendsCount/friendSet" class="userHeaderImg">
+
 				<img src="../images/13.jpg" alt="">
-			</div>
+			</router-link>
 		</div>
 		<!--banner end -->
 

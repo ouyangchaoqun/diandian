@@ -27,7 +27,7 @@
     var privacy={
         template:'#privacy'
     }
-    module.exports=privacy
+    /*module.exports=privacy*/
 </script>
 
 

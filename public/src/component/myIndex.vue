@@ -2,66 +2,79 @@
 	<div class="myIndex_box">
 		<div class="banner index_banner">
 			<img src="../images/banner.jpg"/>
-			<div class="userHeaderImg">
+			<router-link to="/me" class="userHeaderImg">
 				<img src="../images/13.jpg" alt="">
-			</div>
+			</router-link>
 		</div>
 		<!--banner end -->
 
 		<div class="chart_box">
-
-
 				<v-chart></v-chart>
-
-
 		</div>
-			<div class="myMood_list">
-				<img class="moodImg" src="../images/list_mood_02.png" alt="">
-				<div class="moodImg_right">
-					<div class="moodState">不开心</div>
-					<div class="moodContext">早上好，今天请继续加油！早上好，今天请继续加油！早上好，今天请继续加油！</div>
-					<div class="moodPhotoLists">
-						<div class="moodPhotoList"></div>
-						<div class="moodPhotoList"></div>
-						<div class="moodPhotoList"></div>
-
-					</div>
-					<div class="moodLoc">聚光中心</div>
-					<div class="moodTime">
-						<span >05月27日</span>
-						<span >10:20</span>
-						<div class="moodFollow">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/list_dianz_nor.png" alt="">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
-						</div>
+		<div class="myMood_list">
+			<img class="moodImg" src="../images/list_mood_02.png" alt="">
+			<div class="moodImg_right">
+				<div class="moodState">不开心</div>
+				<router-link to="/myCenter/myIndex/Edit" class="editMood">
+					20分钟内可以补充文字和图片
+					<img src="../images/bianji.png" alt="">
+				</router-link>
+				<div class="moodTime">
+					<span >10秒前</span>
+					<div class="moodFollow">
+						<span class="followCount">0</span>
+						<img class="followtype" src="../images/list_dianz_nor.png" alt="">
 					</div>
 				</div>
 			</div>
-			<div class="myMood_list">
-				<img class="moodImg" src="../images/list_mood_02.png" alt="">
-				<div class="moodImg_right">
-					<div class="moodState">不开心</div>
-					<div class="moodContext">早上好，今天请继续加油！早上好，今天请继续加油！早上好，今天请继续加油！</div>
-					<div class="moodPhotoLists">
-						<div class="moodPhotoList"></div>
-						<div class="moodPhotoList"></div>
+		</div>
+		<div class="myMood_list">
+			<img class="moodImg" src="../images/list_mood_02.png" alt="">
+			<div class="moodImg_right">
+				<div class="moodState">不开心</div>
+				<div class="moodContext">早上好，今天请继续加油！早上好，今天请继续加油！早上好，今天请继续加油！</div>
+				<div class="moodPhotoLists">
+					<div class="moodPhotoList"></div>
+					<div class="moodPhotoList"></div>
+					<div class="moodPhotoList"></div>
 
-					</div>
-					<div class="moodLoc">聚光中心</div>
-					<div class="moodTime">
-						<span >05月27日</span>
-						<span >10:20</span>
-						<div class="moodFollow">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/list_dianz_nor.png" alt="">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
-						</div>
+				</div>
+				<div class="moodLoc">聚光中心</div>
+				<div class="moodTime">
+					<span >05月27日</span>
+					<span >10:20</span>
+					<div class="moodFollow">
+						<span class="followCount">0</span>
+						<img class="followtype" src="../images/list_dianz_nor.png" alt="">
+						<span class="followCount">0</span>
+						<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="myMood_list">
+			<img class="moodImg" src="../images/list_mood_02.png" alt="">
+			<div class="moodImg_right">
+				<div class="moodState">不开心</div>
+				<div class="moodContext">早上好，今天请继续加油！早上好，今天请继续加油！早上好，今天请继续加油！</div>
+				<div class="moodPhotoLists">
+					<div class="moodPhotoList"></div>
+					<div class="moodPhotoList"></div>
+
+				</div>
+				<div class="moodLoc">聚光中心</div>
+				<div class="moodTime">
+					<span >05月27日</span>
+					<span >10:20</span>
+					<div class="moodFollow">
+						<span class="followCount">0</span>
+						<img class="followtype" src="../images/list_dianz_nor.png" alt="">
+						<span class="followCount">0</span>
+						<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</div>
 </template>
@@ -83,6 +96,24 @@
     }
 </script>
 <style>
+	.editMood{
+		height:34px;
+		line-height: 34px;
+		font-size: 14px;
+		color:#999999;
+		background: #dcdcdc;
+		display: block;
+		padding-left: 10px;
+		border-radius: 5px;
+		margin-bottom: 10px;
+		position: relative;
+	}
+	.editMood img{
+		position: absolute;
+		top:7px;
+		right:10px;
+		width:20px;
+	}
 	.myIndex_box{
 		padding-bottom: 50px;
 	}

@@ -18,8 +18,14 @@ import writeMood from "./component/writeMood.vue"
 import myIndex from "./component/myIndex.vue"
 import friendIndex from "./component/friendIndex.vue"
 import PageTransition from "./component/PageTransition.vue"
-Vue.use(VueRouter)
-Vue.use(VueResource)
+import friendSet from "./component/friendSet.vue"
+import setName from "./component/setName.vue"
+import Edit from "./component/Edit.vue"
+import optionFrist from "./component/optionFrist.vue"
+import optionSecond from "./component/optionSecond.vue"
+import optionThird from "./component/optionThird.vue"
+    Vue.use(VueRouter)
+    Vue.use(VueResource)
 
 
 
@@ -49,15 +55,24 @@ var routers=
             {path:'/me',component:me},
             {path:'/myCenter',component:myCenter},
             {path:'/myCenter/myIndex',component:myIndex},
+            {path:'/myCenter/myIndex/Edit',component:Edit,children:[
+                {path:"/myCenter/myIndex/Edit/optionFrist",component:optionFrist},
+                {path:"/myCenter/myIndex/Edit/optionSecond",component:optionSecond},
+                {path:"/myCenter/myIndex/Edit/optionThird",component:optionThird}
+            ]},
             {path:'/myCenter/friendIndex',component:friendIndex},
             {path:'/me/personal',component:personal},
             {path:'/me/personal/validate',component:validate},
             {path:'/me/moodCount',component:moodCount},
             {path:'/me/friendsCount',component:friendsCount},
+            {path:'/me/friendsCount/friendSet',component:friendSet},
+            {path:'/me/friendsCount/friendSet/setName',component:setName},
             {path:'/me/remind',component:remind},
             {path:'/me/privacy',component:privacy},
             {path:'/me/problem',component:problem},
-            {path:'/me/proposal',component:proposal}]
+            {path:'/me/proposal',component:proposal}
+
+            ]
     }
     ]
 
