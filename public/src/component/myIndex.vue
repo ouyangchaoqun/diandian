@@ -19,6 +19,12 @@
 					<img class="moodImg" :src="item.moodValueUrl" alt="">
 					<div class="moodImg_right">
 						<div class="moodState">{{item.moodValueText}}</div>
+
+						<router-link to="/myCenter/myIndex/Edit" class="editMood">
+							20分钟内可以补充文字和图片
+							<img src="../images/bianji.png" alt="">
+						</router-link>
+
 						<div class="moodContext">{{item.content}}</div>
 						<div class="moodPhotoLists">
 							<div class="moodPhotoList"></div>
@@ -137,6 +143,24 @@
     }
 </script>
 <style>
+	.editMood{
+		height:34px;
+		line-height: 34px;
+		font-size: 14px;
+		color:#999999;
+		background: #dcdcdc;
+		display: block;
+		padding-left: 10px;
+		border-radius: 5px;
+		margin-bottom: 10px;
+		position: relative;
+	}
+	.editMood img{
+		position: absolute;
+		top:7px;
+		right:10px;
+		width:20px;
+	}
 	.myIndex_box{
 		padding-bottom: 50px;
 	}
