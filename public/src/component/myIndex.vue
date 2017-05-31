@@ -9,11 +9,7 @@
 		<!--banner end -->
 
 		<div class="chart_box">
-
-
 				<v-chart></v-chart>
-
-
 		</div>
 			<div class="myMood_list">
 				<img class="moodImg" src="../images/list_mood_02.png" alt="">
