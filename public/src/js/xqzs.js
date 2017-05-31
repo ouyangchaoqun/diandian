@@ -14,10 +14,11 @@ var xqzs = {
             $("body").append(html);
             setTimeout(function () {
                 $("#toast").animate({opacity:0},200,function () {
-                    $("#toast").remove()
+                    $("#toast").remove();
+                    fun();
                 });
-            },600);
-            fun();
+            },800);
+
         }
 
 
