@@ -1,0 +1,36 @@
+.heartUp {
+    -webkit-animation: heart 0.1s linear;
+    -moz-animation: heart 0.1s linear;
+    -ms-animation: heart 0.1s linear;
+    -o-animation: heart 0.1s linear;
+    animation: heart 0.1s linear;
+}
+
+@-webkit-keyframes heart {
+    from {
+        -webkit-transform: scale(1, 1);
+        -moz-transform: scale(1, 1);
+        -ms-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+    to {
+        -webkit-transform: scale(1.2,1.2);
+        -moz-transform: scale(1.2,1.2);
+        -ms-transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
+    }
+}
+@keyframes heart {
+    from {
+        -webkit-transform: scale(1, 1);
+        -moz-transform: scale(1, 1);
+        -ms-transform: scale(1, 1);
+        transform: scale(1, 1);
+    }
+    to {
+        -webkit-transform: scale(1.2,1.2);
+        -moz-transform: scale(1.2,1.2);
+        -ms-transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
+    }
+}

@@ -30,13 +30,23 @@ class ApiController extends Controller
     {
 
 
-        $userId = $this->getUserId($request,$response);
+        $userId = $this->getUserId($request);
+
+
+
 
         $method = $request->getMethod();
         $url = $request->getRequestUri();
+
+
         $url = substr($url, 4);
         $url=str_replace("{userId}",$userId,$url);
+        $url=str_replace("[userId]",$userId,$url);
+        $url=str_replace("[uid]",$userId,$url);
+        $url=str_replace("{uid}",$userId,$url);
+        $url=str_replace("[uid]",$userId,$url);
         $url = $this->API_URL . $url;
+
         $curl = new Curl();
         $header = $this->getTokenHeader();
 
@@ -49,6 +59,8 @@ class ApiController extends Controller
                 $item=$userId;
             }
         }
+
+
 
 
         if ($method == "GET") {
@@ -65,7 +77,7 @@ class ApiController extends Controller
     private function getUserId($request)
     {
 
-        return 1187;
+        return 1156;
         $openId = $request->cookie("openId");
         if ($openId == "") {
             return false;

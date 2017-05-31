@@ -63,7 +63,7 @@
                 let _this = this;
                 this.$http.put(web.API_PATH+'base/feedback/add',{"content":_this.$refs.content.value,"userId":null}).then(response => {
                     xqzs.weui.toast("success","提交成功",function () {
-                        
+                        window.location.href="/#me"
                     })
                 }, response => {
                     // error

@@ -4,20 +4,51 @@
 
 var xqzs = {
     weui: {
-        toast:function (type,msg,fun) {
-            var html  ="";
-            html+= '<div id="toast"><div class="weui-mask_transparent"></div><div class="weui-toast">';
-            if(type==="success"){
-                html+= '<i class="weui-icon-success-no-circle weui-icon_toast"></i>';
+        toast: function (type, msg, fun) {
+            var html = "";
+            html += '<div id="toast"><div class="weui-mask_transparent"></div><div class="weui-toast">';
+            if (type === "success") {
+                html += '<i class="weui-icon-success-no-circle weui-icon_toast"></i>';
             }
-            html+=  '<p class="weui-toast_content">'+msg+'</p></div></div>';
+            html += '<p class="weui-toast_content">' + msg + '</p></div></div>';
             $("body").append(html);
             setTimeout(function () {
-                $("#toast").animate({opacity:0},200,function () {
-                    $("#toast").remove()
+                $("#toast").animate({opacity: 0}, 200, function () {
+                    $("#toast").remove();
+                    fun();
                 });
-            },600);
-            fun();
+            }, 800);
+        }
+    },
+
+    dateTime: {
+        DATE_TIME: "date_time",
+        TIME: "time",
+        _format: function (type, time) {
+            time=time*1000;
+            var now = new Date(time);
+            var year = now.getYear();
+            var month = now.getMonth() + 1;
+            var date = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            if(month<10)month="0"+month;
+            if(date<10)date="0"+date;
+            if(hour<10)hour="0"+hour;
+            if(minute<10)minute="0"+minute;
+            if(second<10)second="0"+second;
+            if (type === this.DATE_TIME) {
+                return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+            } else if (type === this.TIME) {
+                return hour + ":" + minute;
+            }
+        },
+        formatTime: function (time) {
+            return this._format(this.TIME,time);
+        },
+        formatDateTime: function (time) {
+            return this._format(this.DATE_TIME,time);
         }
 
 
@@ -83,6 +114,14 @@ var xqzs = {
         img.css(imgcss);
     },
     mood: {
+        initMoodsData:function(data){
+            for(var i=0;i<data.length;i++){
+                data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
+                data[i].addTime = xqzs.dateTime.formatTime(data[i].addTime );
+                data[i].link="#/myCenter/friendIndex?friendId="+data[i].id;
+            }
+            return data;
+        },
         removeTempPicture: function (dom, $uploadpicinfo) {
             if (dom.length == 0) {
                 return;
