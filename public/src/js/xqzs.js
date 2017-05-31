@@ -114,11 +114,26 @@ var xqzs = {
         img.css(imgcss);
     },
     mood: {
+
+        moodValueText:[ "","超级不开心",//1
+            "很不开心",//2
+            "不开心",//2
+            "郁闷",//4
+            "一般",//5
+            "小开心",//6
+            "开心",//7
+            "很开心",//8
+            "超级开心",//9
+            "超级开心"//10
+
+            ],
+
         initMoodsData:function(data){
             for(var i=0;i<data.length;i++){
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
                 data[i].addTime = xqzs.dateTime.formatTime(data[i].addTime );
                 data[i].link="#/myCenter/friendIndex?friendId="+data[i].id;
+                data[i].moodValueText= this.moodValueText[data[i].moodValue];
             }
             return data;
         },

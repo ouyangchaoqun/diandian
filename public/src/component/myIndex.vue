@@ -1,80 +1,138 @@
 <template id="myIndex">
-	<div class="myIndex_box">
-		<div class="banner index_banner">
-			<img src="../images/banner.jpg"/>
-			<div class="userHeaderImg">
-				<img src="../images/13.jpg" alt="">
-			</div>
-		</div>
-		<!--banner end -->
 
-		<div class="chart_box">
-				<v-chart></v-chart>
-		</div>
-			<div class="myMood_list">
-				<img class="moodImg" src="../images/list_mood_02.png" alt="">
-				<div class="moodImg_right">
-					<div class="moodState">不开心</div>
-					<div class="moodContext">早上好，今天请继续加油！早上好，今天请继续加油！早上好，今天请继续加油！</div>
-					<div class="moodPhotoLists">
-						<div class="moodPhotoList"></div>
-						<div class="moodPhotoList"></div>
-						<div class="moodPhotoList"></div>
-
+	<div style="position: relative">
+		<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+			<div class="myIndex_box">
+				<div class="banner index_banner">
+					<img src="../images/banner.jpg"/>
+					<div class="userHeaderImg">
+						<img src="../images/13.jpg" alt="">
 					</div>
-					<div class="moodLoc">聚光中心</div>
-					<div class="moodTime">
-						<span >05月27日</span>
-						<span >10:20</span>
-						<div class="moodFollow">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/list_dianz_nor.png" alt="">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
+				</div>
+				<!--banner end -->
+
+				<div class="chart_box">
+					<v-chart></v-chart>
+				</div>
+
+				<div class="myMood_list" v-for="item in downdata" >
+					<img class="moodImg" :src="item.moodValueUrl" alt="">
+					<div class="moodImg_right">
+						<div class="moodState">{{item.moodValueText}}</div>
+						<div class="moodContext">{{item.content}}</div>
+						<div class="moodPhotoLists">
+							<div class="moodPhotoList"></div>
+							<div class="moodPhotoList"></div>
+							<div class="moodPhotoList"></div>
+
+						</div>
+						<div class="moodLoc">{{item.address}}</div>
+						<div class="moodTime">
+							<span >05月27日</span>
+							<span >10:20</span>
+							<div class="moodFollow">
+								<span class="followCount">0</span>
+								<img class="followtype" src="../images/list_dianz_nor.png" alt="">
+								<span class="followCount">0</span>
+								<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="myMood_list">
-				<img class="moodImg" src="../images/list_mood_02.png" alt="">
-				<div class="moodImg_right">
-					<div class="moodState">不开心</div>
-					<div class="moodContext">早上好，今天请继续加油！早上好，今天请继续加油！早上好，今天请继续加油！</div>
-					<div class="moodPhotoLists">
-						<div class="moodPhotoList"></div>
-						<div class="moodPhotoList"></div>
 
-					</div>
-					<div class="moodLoc">聚光中心</div>
-					<div class="moodTime">
-						<span >05月27日</span>
-						<span >10:20</span>
-						<div class="moodFollow">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/list_dianz_nor.png" alt="">
-							<span class="followCount">0</span>
-							<img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
-						</div>
-					</div>
-				</div>
+
 			</div>
 
+		</v-scroll>
 	</div>
+
+
+
+
 </template>
 
-<script type="text/javascript">
+<script type="es6">
 	import chart from "./chart.vue"
+    import scroll from './lib/scroll.vue';
 	var myIndex={
 		template:'#myIndex'
 	}
     export default {
         data() {
             return {
-
+                counter : 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
+                num : 10,  // 一次显示多少条
+                pageStart : 0, // 开始页数
+                pageEnd : 0, // 结束页数
+                listdata: [], // 下拉更新数据存放数组
+                downdata: []  // 上拉更多的数据存放数组
             }
         },
+        methods:{
+            getList(){
+                let vm = this;
+                vm.$http.get(web.API_PATH + 'mood/query/user/page/[userId]/'+1+"/"+vm.num).then((response) => {
+                    vm.downdata = response.data.data.rows;
+                    vm.downdata =xqzs.mood.initMoodsData(vm.downdata);
+            }, (response) => {
+                    console.log('error');
+                });
+            },
+            onRefresh(done) {
+                this.getList();
+                done() // call done
+            },
+            onInfinite(done) {
+                let vm = this;
+                vm.$http.get(web.API_PATH + 'mood/query/user/page/[userId]/'+(vm.counter+1)+"/"+vm.num).then((response) => {
+                    vm.counter++;
+                vm.pageEnd = vm.num * vm.counter;
+                vm.pageStart = vm.pageEnd - vm.num;
+                let arr = response.data.data.rows;
+                let i = 0;
+                let end = vm.pageEnd;
+                arr =xqzs.mood.initMoodsData(arr);
+                for(; i<arr.length; i++){
+                     vm.downdata.push( arr[i]);
+                }
+                console.log(arr)
+
+
+                if(arr.length===0){
+                    this.$el.querySelector('.load-more').style.display = 'none';
+                    this.$el.querySelector('.load-finish').style.display = 'block';
+                    return;
+				}
+                done() // call done
+            }, (response) => {
+                    console.log('error');
+                });
+            },
+
+			getPageMood:function (page) {
+                let _this = this;
+                this.$http({
+                    method: 'GET',
+                    url: web.API_PATH + ''+page+'/'+_this.pageSize,
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        console.log(data.data);
+                    }
+                }, function (error) {
+                    //error
+                });
+            }
+		},
+        mounted: function () {
+            let _this = this;
+             this.getList();
+
+        },
+
+
+
 		components:{
-            "v-chart"	:chart
+            'v-scroll': scroll ,"v-chart"	:chart
 		}
     }
 </script>
