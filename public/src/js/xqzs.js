@@ -10,6 +10,10 @@ var xqzs = {
             if (type === "success") {
                 html += '<i class="weui-icon-success-no-circle weui-icon_toast"></i>';
             }
+            if (type === "fail") {
+                html += '<i class="weui-icon-safe-warn weui-icon_toast" style="    font-size: 40px;"></i>';
+            }
+
             html += '<p class="weui-toast_content">' + msg + '</p></div></div>';
             $("body").append(html);
             setTimeout(function () {
@@ -18,6 +22,35 @@ var xqzs = {
                     fun();
                 });
             }, 800);
+        },
+        dialog:function (title,msg,cancelFun,submitFun) {
+
+            if(title==="")title="提示";
+            var html = "";
+            html += '<div class="js_dialog"  >';
+            html += '   <div class="weui-mask"></div>';
+            html += '   <div class="weui-dialog">';
+            html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">'+title+'</strong></div>';
+            html += '   <div class="weui-dialog__bd">'+msg+'</div>';
+            html += ' <div class="weui-dialog__ft">';
+            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">取消</a>';
+            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">确定</a>';
+            html += '   </div>';
+            html += '   </div>';
+            html += '   </div>';
+            $("body").append(html);
+            $(".js_dialog .cancel").click(function () {
+                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                    $(".js_dialog").remove();
+                    cancelFun();
+                });
+            });
+            $(".js_dialog .submit").click(function () {
+                submitFun();
+                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                    $(".js_dialog").remove();
+                });
+            })
         }
     },
 
@@ -124,75 +157,7 @@ var xqzs = {
         }
         img.css(imgcss);
     },
-    myResizePicture: function () {
-        var maxsize = 750;
-        var finishedclass = 'resize-finished';
-        $.each($('.myMood_list'), function (index, obj) {
 
-
-            if ($(this).hasClass(finishedclass)) {
-                return true;
-            }
-            $(this).addClass(finishedclass);
-            var imgList = $(obj).find('.moodPhotoLists')
-
-            var n = imgList.children().length;
-            if (n == 1) {
-                imgList.addClass('one');
-            } else if (n == 2) {
-                imgList.addClass('two');
-            }
-
-            if (n > 0) {
-                //
-                var container = imgList.find('div:eq(0)');
-                var images = imgList.find('img');
-                var containersize = {
-                    w: container.width(),
-                    h: container.height()
-                }
-
-                images.each(function () {
-                    //var spliter = 'x';
-                    //$p = $(this).parent('a').data('size').split(spliter);
-                    //var iw = parseInt($p[0],10), ih = parseInt($p[1],10);
-                    var iw = parseInt($(this).data('w'), 10), ih = parseInt($(this).data('h'), 10);
-                    if (iw > maxsize && ih > maxsize) {
-                        if (iw > ih) {
-                            iw = parseInt(iw * maxsize / ih, 10);
-                            ih = maxsize;
-                        }
-                        else {
-                            ih = parseInt(ih * maxsize / iw, 10);
-                            iw = maxsize;
-                        }
-                        //$(this).parent('a').data('size',iw+spliter+ih);
-                    }
-                    var imgstyle = {};
-                    if (iw * containersize.h > ih * containersize.w) {
-                        var $w = iw * containersize.h / ih;
-                        var marginleft = 0;
-                        if ($w > containersize.w) {
-                            marginleft = (containersize.w - $w) / 2;
-                        }
-                        imgstyle = {
-                            'height': containersize.h + 'px',
-                            'margin-left': marginleft + 'px',
-                            'width': 'auto'
-                        };
-                    } else {
-                        var $h = ih * containersize.w / iw;
-                        var margintop = 0;
-                        if ($h > containersize.h) {
-                            margintop = (containersize.h - $h) / 2;
-                        }
-                        imgstyle = {'width': containersize.w + 'px', 'margin-top': margintop + 'px', 'height': 'auto'};
-                    }
-                    $(this).css(imgstyle);
-                })
-            }
-        })
-    },
     mood: {
 
         moodValueText: ["", "超级不开心",//1
@@ -213,6 +178,7 @@ var xqzs = {
                 if (!timeType)
                     data[i].formatAddTime = xqzs.dateTime.formatTime(data[i].addTime);
                 data[i].link = "#/myCenter/friendIndex?friendId=" + data[i].id;
+                data[i].hide=false;
                 data[i].moodValueText = this.moodValueText[data[i].moodValue];
                 data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
                 if (data[i].haspicture) {
@@ -222,6 +188,33 @@ var xqzs = {
 
                     }
                 }
+
+                //心抱抱逻辑
+                if(data[i].isCare!==undefined){
+                    if(data[i].moodValue>=5&&  data[i].isCare===null){
+                        data[i].careImg =  web.IMG_PATH + "list_dianz_nor.png";
+                    }else if(data[i].moodValue<5&&  data[i].isCare===null){
+                        data[i].careImg =  web.IMG_PATH + "list_baob_nor.png";
+                    }else if(data[i].moodValue>=5&&  data[i].isCare!==null){
+                        data[i].careImg =  web.IMG_PATH + "list_dianz_pre.png";
+                    }else if(data[i].moodValue<5&&  data[i].isCare!==null){
+                        data[i].careImg =  web.IMG_PATH + "list_baob_pre.png";
+                    }
+                }else{
+                    if(data[i].moodValue>=5&&  data[i].careCount===0){
+                        data[i].careImg =  web.IMG_PATH + "list_dianz_nor.png";
+                    }else if(data[i].moodValue<5&&  data[i].careCount===0){
+                        data[i].careImg =  web.IMG_PATH + "list_baob_nor.png";
+                    }else if(data[i].moodValue>=5&&  data[i].careCount!==0){
+                        data[i].careImg =  web.IMG_PATH + "list_dianz_pre.png";
+                    }else if(data[i].moodValue<5&&  data[i].careCount!==0){
+                        data[i].careImg =  web.IMG_PATH + "list_baob_pre.png";
+                    }
+                }
+
+
+
+
             }
             return data;
         },
@@ -467,22 +460,8 @@ function myResizePicture () {
                     imgstyle = {"width" :  containersize.w + 'px',"margin-top": margintop + 'px','height':'auto'};
                 }
 
-
-                //
-                // for(var i=0;i<vm.downdata.length;i++){
-                //     if(vm.downdata[i].haspicture){
-                //         for(var j=0;j<vm.downdata[i].pics.length;j++){
-                //             if(vm.downdata[i].pics[j].smallUrl=== $(this).attr("src")){
-                //                 vm.downdata[i].pics[j].styleObject=imgstyle;
-                //                 console.log("set"+j)
-                //             }
-                //         }
-                //     }
-                // }
-
                 $(this).css(imgstyle)
-                console.log(1)
-                console.log(imgstyle)
+
              })
         }
     })

@@ -15,7 +15,8 @@
                     <v-chart></v-chart>
                 </div>
 
-                <div class="myMood_list" v-for="item in downdata">
+                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index"  v-show="!item.hide">
+
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                     <div class="moodImg_right" >
                         <div class="moodState" :class="{'unhappy_txt_color':item.moodValue<=4,'happy_txt_color':item.moodValue>4}">{{item.moodValueText}}</div>
@@ -28,9 +29,7 @@
                         </template>
                         <template v-if=" (item.content!=''&& item.content!=null)  ">
                             <div class="moodContext">{{item.content}}</div>
-
                             <div class="moodPhotoLists" v-if="item.haspicture">
-
                                 <div class="moodPhotoList" v-for="pic in item.pics">
                                     <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
                                          :data-h="pic.picheight" :style="pic.styleObject" @click="showBigImg(item.pics,pic)">
@@ -39,19 +38,23 @@
                             </div>
                         </template>
 
-
-                        <div class="moodLoc">{{item.address}}</div>
+                        <div class="moodLoc" v-if="item.content!=''&& item.content!=null">{{item.address}}</div>
                         <div class="moodTime">
                             <span>{{item.outTime}}</span>
+                            <span v-if="currTime-item.addTime<=180 &&(item.content=='' || item.content==null)" class="btn_del"@click="revoke(item.id,index)">撤回</span>
+                            <span v-if="item.content!='' && item.content!=null" class="btn_del" @click="empty(item.id,index)" >删除</span>
                             <div class="moodFollow">
-                                <span class="followCount">0</span>
-                                <img class="followtype" src="../images/list_dianz_nor.png" alt="">
-                                <span class="followCount">0</span>
+                                <span class="followCount">{{item.careCount}}</span>
+                                <img class="followtype" :src="item.careImg" alt="">
+                                <template v-if="item.content!==null&& item.content!==''">
+                                <span class="followCount">{{item.replycount}}</span>
                                 <img class="followtype" src="../images/comments.png"
                                      style="width: 18px;margin-top: 3px;" alt="">
+                                </template>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
 
@@ -85,6 +88,63 @@
             }
         },
         methods: {
+            empty:function (id,$index) {
+                let vm = this;
+                console.log(121)
+                xqzs.weui.dialog("","确定删除吗？",function () {
+
+                },function () {
+                    vm._empty(id,$index);
+                })
+            },
+            _empty:function (id,$index) {
+                let vm = this;
+                let url = web.API_PATH + "mood/clean/content/[userId]/"+id
+                vm.$http.delete(url)
+                    .then((data) => {
+                        if(data.data.status===1){
+                            vm.downdata[$index].content='';
+                            vm.$set(vm.downdata,$index,vm.downdata[$index])
+                        }else{
+                            xqzs.weui.toast("fail","删除失败",function () {
+                            });
+                        }
+                    })
+                    .catch((response) => {
+
+                    });
+
+            },
+            revoke:function (id,$index) {
+                let vm = this;
+                console.log(121)
+                xqzs.weui.dialog("","确定撤回吗？",function () {
+
+                },function () {
+                    vm._revoke(id,$index);
+                })
+            },
+            _revoke:function (id,$index) {
+                let vm = this;
+                let url = web.API_PATH + "mood/[userId]/"+id
+                vm.$http.delete(url, {emulateJSON: true})
+                    .then((data) => {
+                        if(data.data.status===1){
+                            vm.downdata[$index].hide=true;
+                            vm.$set(vm.downdata,$index,vm.downdata[$index]);
+                            xqzs.weui.toast("success","撤回成功",function () {
+                            });
+                        }else{
+                            xqzs.weui.toast("fail","撤回失败",function () {
+                            });
+                        }
+                        console.log(data);
+                    })
+                    .catch((data) => {
+
+                    });
+
+            },
             showBigImg:function (list,curr) {
 
                 var current = curr.bigUrl;
@@ -105,8 +165,9 @@
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/[userId]/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
+                    console.log(vm.downdata);
                     vm.$nextTick(function(){
-                        myResizePicture(vm);//渲染完成
+                        myResizePicture();//渲染完成
                     })
                 }, (response) => {
                     console.log('error');
@@ -165,6 +226,13 @@
 
 </script>
 <style>
+
+    .btn_del{
+        display: inline-block;
+        margin-left: 13px;
+        color: #5e61a2;
+        font-size: 12px;
+    }
     .editMood {
         height: 34px;
         line-height: 34px;
