@@ -8,11 +8,18 @@
             <span class="edit_num">140</span>
         </div>
         <div class="edit_option">
-            <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" src="../images/zp_nor.gif" alt=""></router-link>
-            <router-link to="/myCenter/myIndex/Edit/optionSecond"><img class="optionSecond" src="../images/bq_nor.gif" alt=""></router-link>
-            <router-link to="/myCenter/myIndex/Edit/optionThird"><img class="optionThird" src="../images/gxtp_nor.gif" alt=""></router-link>
+            <div>
+                <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" src="../images/zp_nor.gif" alt=""></router-link>
+            </div>
+            <div>
+                <router-link to="/myCenter/myIndex/Edit/optionSecond"><img class="optionSecond" src="../images/bq_nor.gif" alt=""></router-link>
+            </div>
+            <div>
+                <router-link to="/myCenter/myIndex/Edit/optionThird"><img class="optionThird" src="../images/gxtp_nor.gif" alt=""></router-link>
+            </div>
+
             <div><img class="optionFourth" src="../images/nmgk.gif" alt=""></div>
-            <div><button class="option_five weui-btn weui-btn_mini weui-btn_primary" >发布</button></div>
+            <div><button class="option_five weui-btn weui-btn_mini weui-btn_primary weui-btn_disabled" >发布</button></div>
 
         </div>
         <router-view></router-view>
@@ -35,15 +42,15 @@
 </script>
 <style>
 .edit_box{
-    height:210px;
+    height:17.5rem;
     background: #ffffff;
     width: 100%;
     position: relative;
-    padding:16px 0 10px 0;
+    padding:1.6rem 0 1rem 0;
     margin-bottom: 1px;
 }
 .edit_box textarea{
-    height:200px;
+    height:16.6rem;
     width: 90%;
     outline: none;
     border:0;
@@ -52,75 +59,67 @@
     margin: 0 auto;
     display: block;
     color: #999999;
-    font-size: 15px;
+    font-size: 1.5rem;
 }
     .edit_loc{
-        width: 110px;
-        height: 26px;
-        border:1px solid #dcdcdc;
+        width: 10rem;
+        height: 2.6rem;
+        border:0.1rem solid #dcdcdc;
         font-size: 12px;
         color: #949292;
-        line-height: 26px;
+        line-height: 2.6rem;
         position: absolute;
-        bottom:10px;
-        left:15px;
-        padding-left:30px;
-        border-radius: 15px;
+        bottom:1rem;
+        left:1.5rem;
+        padding-left:3rem;
+        border-radius: 1.5rem;
     }
     .edit_loc img{
         position: absolute;
         display: block;
-        width: 14px;
-        top: 4px;
-        left:10px;
+        width: 1.4rem;
+        top: .4rem;
+        left:1rem;
     }
     .edit_num{
         font-size: 12px;
         color: #999999;
         position: absolute;
-        right:15px;
-        bottom: 15px;
+        right:1.5rem;
+        bottom: 1.5rem;
     }
     .edit_option{
-        height:37px;
+        height:3.7rem;
         background: #ffffff;
-        padding-top: 15px;
-        padding-left: 20px;
-        padding-right: 15px;
-        position: relative;
+        padding-top: 1.5rem;
+        display: flex;
+        padding-left: 1rem;
+    }
+    .edit_option div{
+        flex-grow: 1;
     }
 
     .edit_option img{
         display: block;
-        float: left;
+        margin: 0 auto;
     }
     .optionFrist{
-        width:23px;
-        height:20px;
-        margin-right:36px;
+        width:1.9rem;
     }
     .optionSecond{
-        width:23px;
-        height:23px;
-        margin-right: 36px;
+        width:1.9rem;
     }
     .optionThird{
-        width: 23px;
-        height:21px;
-        margin-right: 36px;
+        width: 1.9rem;
     }
     .optionFourth{
-        width:67px;
-        height: 23px;
-        margin-right:46px;
+        width:5.58rem;
     }
     .option_five{
-        height: 30px;
-        width: 60px;
-        font-size: 13px;
-        display: block;
-        line-height: 30px;
-        margin-top: -5px;
+        margin-top: -0.3rem;
+        height:2.5rem;
+        width:6rem;
+        margin-left: 2rem;
     }
 
 
