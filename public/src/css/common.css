@@ -1,3 +1,16 @@
+@media only screen and (min-width: 414px)
+{
+    html {
+        font-size: 17.664px !important;
+    }
+}
+html {
+    font-size: 16px !important;
+}
+html {
+    font-family: -apple-system-font, Helvetica Neue, sans-serif;
+    font-size: 16px!important;
+}
 .heartUp {
     -webkit-animation: heart 0.1s linear;
     -moz-animation: heart 0.1s linear;
@@ -33,4 +46,11 @@
         -ms-transform: scale(1.2,1.2);
         transform: scale(1.2,1.2);
     }
+}
+
+.happy_txt_color {
+    color: #ff6f02;
+}
+.unhappy_txt_color {
+    color: #1AAD19;
 }

@@ -60,7 +60,7 @@
                             <div class="friend">
                                 <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName}}</p>
                                 <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName}}</p>
-                                <p class="time">{{friendMood.addTime}}</p>
+                                <p class="time">{{friendMood.formatAddTime}}</p>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
                             <div class="friend">
                                 <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName}}</p>
                                 <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName}}</p>
-                                <p class="time">{{friendMood.addTime}}</p>
+                                <p class="time">{{friendMood.formatAddTime}}</p>
                             </div>
                         </div>
 
@@ -124,8 +124,8 @@
     export default {
         data() {
             return {
-                myLastMood: null,
-                user: null,
+                myLastMood: {},
+                user: {},
                 friendMoodsSpe: null,
                 friendMoods: null
             }

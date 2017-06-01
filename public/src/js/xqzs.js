@@ -25,7 +25,7 @@ var xqzs = {
         DATE_TIME: "date_time",
         TIME: "time",
         _format: function (type, time) {
-            time=time*1000;
+            time = time * 1000;
             var now = new Date(time);
             var year = now.getYear();
             var month = now.getMonth() + 1;
@@ -33,11 +33,11 @@ var xqzs = {
             var hour = now.getHours();
             var minute = now.getMinutes();
             var second = now.getSeconds();
-            if(month<10)month="0"+month;
-            if(date<10)date="0"+date;
-            if(hour<10)hour="0"+hour;
-            if(minute<10)minute="0"+minute;
-            if(second<10)second="0"+second;
+            if (month < 10) month = "0" + month;
+            if (date < 10) date = "0" + date;
+            if (hour < 10) hour = "0" + hour;
+            if (minute < 10) minute = "0" + minute;
+            if (second < 10) second = "0" + second;
             if (type === this.DATE_TIME) {
                 return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
             } else if (type === this.TIME) {
@@ -45,14 +45,25 @@ var xqzs = {
             }
         },
         formatTime: function (time) {
-            return this._format(this.TIME,time);
+            return this._format(this.TIME, time);
         },
         formatDateTime: function (time) {
-            return this._format(this.DATE_TIME,time);
+            return this._format(this.DATE_TIME, time);
+        },
+        getTimeStamp: function (dateTime) {
+            var timestamp = Date.parse(new Date());
+            if (dateTime) {
+                timestamp = Date.parse(dateTime);
+            }
+            timestamp = timestamp / 1000;
+            return timestamp;
+
+
         }
 
 
     },
+
 
     /**
      * 是否可以将base64转成blob对象
@@ -113,9 +124,78 @@ var xqzs = {
         }
         img.css(imgcss);
     },
+    myResizePicture: function () {
+        var maxsize = 750;
+        var finishedclass = 'resize-finished';
+        $.each($('.myMood_list'), function (index, obj) {
+
+
+            if ($(this).hasClass(finishedclass)) {
+                return true;
+            }
+            $(this).addClass(finishedclass);
+            var imgList = $(obj).find('.moodPhotoLists')
+
+            var n = imgList.children().length;
+            if (n == 1) {
+                imgList.addClass('one');
+            } else if (n == 2) {
+                imgList.addClass('two');
+            }
+
+            if (n > 0) {
+                //
+                var container = imgList.find('div:eq(0)');
+                var images = imgList.find('img');
+                var containersize = {
+                    w: container.width(),
+                    h: container.height()
+                }
+
+                images.each(function () {
+                    //var spliter = 'x';
+                    //$p = $(this).parent('a').data('size').split(spliter);
+                    //var iw = parseInt($p[0],10), ih = parseInt($p[1],10);
+                    var iw = parseInt($(this).data('w'), 10), ih = parseInt($(this).data('h'), 10);
+                    if (iw > maxsize && ih > maxsize) {
+                        if (iw > ih) {
+                            iw = parseInt(iw * maxsize / ih, 10);
+                            ih = maxsize;
+                        }
+                        else {
+                            ih = parseInt(ih * maxsize / iw, 10);
+                            iw = maxsize;
+                        }
+                        //$(this).parent('a').data('size',iw+spliter+ih);
+                    }
+                    var imgstyle = {};
+                    if (iw * containersize.h > ih * containersize.w) {
+                        var $w = iw * containersize.h / ih;
+                        var marginleft = 0;
+                        if ($w > containersize.w) {
+                            marginleft = (containersize.w - $w) / 2;
+                        }
+                        imgstyle = {
+                            'height': containersize.h + 'px',
+                            'margin-left': marginleft + 'px',
+                            'width': 'auto'
+                        };
+                    } else {
+                        var $h = ih * containersize.w / iw;
+                        var margintop = 0;
+                        if ($h > containersize.h) {
+                            margintop = (containersize.h - $h) / 2;
+                        }
+                        imgstyle = {'width': containersize.w + 'px', 'margin-top': margintop + 'px', 'height': 'auto'};
+                    }
+                    $(this).css(imgstyle);
+                })
+            }
+        })
+    },
     mood: {
 
-        moodValueText:[ "","超级不开心",//1
+        moodValueText: ["", "超级不开心",//1
             "很不开心",//2
             "不开心",//2
             "郁闷",//4
@@ -125,15 +205,23 @@ var xqzs = {
             "很开心",//8
             "超级开心",//9
             "超级开心"//10
+        ],
 
-            ],
-
-        initMoodsData:function(data){
-            for(var i=0;i<data.length;i++){
+        initMoodsData: function (data, timeType) {
+            for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
-                data[i].addTime = xqzs.dateTime.formatTime(data[i].addTime );
-                data[i].link="#/myCenter/friendIndex?friendId="+data[i].id;
-                data[i].moodValueText= this.moodValueText[data[i].moodValue];
+                if (!timeType)
+                    data[i].formatAddTime = xqzs.dateTime.formatTime(data[i].addTime);
+                data[i].link = "#/myCenter/friendIndex?friendId=" + data[i].id;
+                data[i].moodValueText = this.moodValueText[data[i].moodValue];
+                data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
+                if (data[i].haspicture) {
+                    for (var j = 0; j < data[i].pics.length; j++) {
+                        data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
+                        data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
+
+                    }
+                }
             }
             return data;
         },
@@ -316,5 +404,87 @@ var xqzs = {
     }
 };
 
+function myResizePicture () {
+    var maxsize = 750;
+     $.each($('.myMood_list'), function (index, obj) {
 
+        var imgList = $(obj).find('.moodPhotoLists')
+
+        var n = imgList.children().length;
+        if (n == 1) {
+            imgList.addClass('one');
+        } else if (n == 2) {
+            imgList.addClass('two');
+        }
+
+        if (n > 0) {
+            //
+            var container = imgList.find('div:eq(0)');
+            var images = imgList.find('img');
+            var containersize = {
+                w: container.width(),
+                h: container.height()
+            }
+
+
+            images.each(function () {
+                //var spliter = 'x';
+                //$p = $(this).parent('a').data('size').split(spliter);
+                //var iw = parseInt($p[0],10), ih = parseInt($p[1],10);
+                var iw = parseInt($(this).data('w'), 10), ih = parseInt($(this).data('h'), 10);
+
+
+
+                if (iw > maxsize && ih > maxsize) {
+                    if (iw > ih) {
+                        iw = parseInt(iw * maxsize / ih, 10);
+                        ih = maxsize;
+                    }
+                    else {
+                        ih = parseInt(ih * maxsize / iw, 10);
+                        iw = maxsize;
+                    }
+                    //$(this).parent('a').data('size',iw+spliter+ih);
+                }
+                var imgstyle = {};
+                if (iw * containersize.h > ih * containersize.w) {
+                    var $w = iw * containersize.h / ih;
+                    var marginleft = 0;
+                    if ($w > containersize.w) {
+                        marginleft = (containersize.w - $w) / 2;
+                    }
+                    // imgstyle =
+                    //     'height:'+ containersize.h + 'px;margin-left:'+ marginleft + 'px;width:auto'
+                    // ;
+                    imgstyle = {"height" :  containersize.h+ 'px',"margin-left": marginleft + 'px','width':'auto'};
+                } else {
+                    var $h = ih * containersize.w / iw;
+                    var margintop = 0;
+                    if ($h > containersize.h) {
+                        margintop = (containersize.h - $h) / 2;
+                    }
+                    //imgstyle = 'width: '+ containersize.w + 'px;margin-top:'+ margintop + 'px;height:auto';
+                    imgstyle = {"width" :  containersize.w + 'px',"margin-top": margintop + 'px','height':'auto'};
+                }
+
+
+                //
+                // for(var i=0;i<vm.downdata.length;i++){
+                //     if(vm.downdata[i].haspicture){
+                //         for(var j=0;j<vm.downdata[i].pics.length;j++){
+                //             if(vm.downdata[i].pics[j].smallUrl=== $(this).attr("src")){
+                //                 vm.downdata[i].pics[j].styleObject=imgstyle;
+                //                 console.log("set"+j)
+                //             }
+                //         }
+                //     }
+                // }
+
+                $(this).css(imgstyle)
+                console.log(1)
+                console.log(imgstyle)
+             })
+        }
+    })
+}
 
