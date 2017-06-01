@@ -24,7 +24,7 @@
         position: relative;
     }
     .optionThird_box .optionjt{
-        left:130px;
+        left:10.6rem;
     }
 </style>
 
