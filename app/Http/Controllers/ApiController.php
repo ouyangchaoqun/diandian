@@ -40,12 +40,17 @@ class ApiController extends Controller
 
 
         $url = substr($url, 4);
+        $url=urldecode($url);
         $url=str_replace("{userId}",$userId,$url);
         $url=str_replace("[userId]",$userId,$url);
         $url=str_replace("[uid]",$userId,$url);
         $url=str_replace("{uid}",$userId,$url);
         $url=str_replace("[uid]",$userId,$url);
+
+
+
         $url = $this->API_URL . $url;
+
 
         $curl = new Curl();
         $header = $this->getTokenHeader();
