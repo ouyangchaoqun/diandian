@@ -182,11 +182,14 @@ var xqzs = {
                 data[i].moodValueText = this.moodValueText[data[i].moodValue];
                 data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
                 if (data[i].haspicture) {
-                    for (var j = 0; j < data[i].pics.length; j++) {
-                        data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
-                        data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
+                    if(data[i].pics!==undefined){
+                        for (var j = 0; j < data[i].pics.length; j++) {
+                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
+                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
 
+                        }
                     }
+
                 }
 
                 //心抱抱逻辑

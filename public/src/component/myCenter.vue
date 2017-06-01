@@ -136,7 +136,6 @@
 
                 this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
                     if (data.data.status === 1) {
-                        console.log(11232132)
                         for(var i = 0; i<_this.friendMoodsSpe.length;i++){
                             if(_this.friendMoodsSpe[i].id===id){
                                 _this.friendMoodsSpe[i].careCount =data.data.data;

@@ -15,11 +15,14 @@
                     <v-chart></v-chart>
                 </div>
 
-                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index"  v-show="!item.hide">
+                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide">
 
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
-                    <div class="moodImg_right" >
-                        <div class="moodState" :class="{'unhappy_txt_color':item.moodValue<=4,'happy_txt_color':item.moodValue>4}">{{item.moodValueText}}</div>
+                    <div class="moodImg_right">
+                        <div class="moodState"
+                             :class="{'unhappy_txt_color':item.moodValue<=4,'happy_txt_color':item.moodValue>4}">
+                            {{item.moodValueText}}
+                        </div>
 
                         <template v-if="currTime-item.addTime<=20*60 && (item.content=='' || item.content==null)  ">
                             <router-link :to="item.editLink" class="editMood">
@@ -32,7 +35,8 @@
                             <div class="moodPhotoLists" v-if="item.haspicture">
                                 <div class="moodPhotoList" v-for="pic in item.pics">
                                     <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
-                                         :data-h="pic.picheight" :style="pic.styleObject" @click="showBigImg(item.pics,pic)">
+                                         :data-h="pic.picheight" :style="pic.styleObject"
+                                         @click="showBigImg(item.pics,pic)">
                                 </div>
 
                             </div>
@@ -41,19 +45,51 @@
                         <div class="moodLoc" v-if="item.content!=''&& item.content!=null">{{item.address}}</div>
                         <div class="moodTime">
                             <span>{{item.outTime}}</span>
-                            <span v-if="currTime-item.addTime<=180 &&(item.content=='' || item.content==null)" class="btn_del"@click="revoke(item.id,index)">撤回</span>
-                            <span v-if="item.content!='' && item.content!=null" class="btn_del" @click="empty(item.id,index)" >删除</span>
-                            <div class="moodFollow">
+                            <span v-if="currTime-item.addTime<=180 &&(item.content=='' || item.content==null)"
+                                  class="btn_del" @click="revoke(item.id,index)">撤回</span>
+                            <span v-if="item.content!='' && item.content!=null" class="btn_del"
+                                  @click="empty(item.id,index)">删除</span>
+                            <div class="moodFollow" @click="showComment(item.id,index)">
                                 <span class="followCount">{{item.careCount}}</span>
                                 <img class="followtype" :src="item.careImg" alt="">
                                 <template v-if="item.content!==null&& item.content!==''">
-                                <span class="followCount">{{item.replycount}}</span>
-                                <img class="followtype" src="../images/comments.png"
-                                     style="width: 18px;margin-top: 3px;" alt="">
+                                    <span class="followCount">{{item.replycount}}</span>
+                                    <img class="followtype" src="../images/comments.png"
+                                         style="width: 18px;margin-top: 3px;" alt="">
                                 </template>
                             </div>
                         </div>
                     </div>
+                    <div class="show_box" v-if="item.hasComments && item.isShowComment">
+                        <div class="arraw"></div>
+                        <div class="show_top">
+                            <img class="show_img1" src="../images/list_dianz_pre.png"/>
+                            <img v-for="care in item.careList" :src="care.faceUrl"/>
+                        </div>
+                        <ul class="show_bottom">
+                            <img class="show_img2" src="../images/comments.png"/>
+
+                            <li v-for="comment in item.commentList" :data-replyid="comment.id" :data-moodid="item.id"
+                                data-userid="comment.fromuserid" data-ajaxresult="hasface">
+                                <img class="show_bottom_img" :src="comment.from_faceUrl">
+                                <div class="show_bottom_text">
+                                    <div class="reply_author">
+                                        <a class="pname other" href="javascript:;">{{comment.from_nickName}}</a>
+                                    </div>
+                                    <div class="reply_content">
+
+                                        <template v-if="comment.tomoodreplyid>0">
+                                            <span class="text_comment">回复</span><a class="pname other"
+                                                                                   href="javascript:;">{{comment.to_nickName}}：</a>
+                                        </template>
+                                        <span class="text_comment">{{comment.content}}</span>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+
 
                 </div>
 
@@ -66,7 +102,7 @@
 
 </template>
 
-<script  >
+<script>
 
 
     import chart from "./chart.vue"
@@ -88,25 +124,61 @@
             }
         },
         methods: {
-            empty:function (id,$index) {
+            showComment: function (id, $index) {
                 let vm = this;
-                console.log(121)
-                xqzs.weui.dialog("","确定删除吗？",function () {
+                if (vm.downdata[$index].isShowComment) {
+                    vm.downdata[$index].isShowComment = false;
+                    vm.$set(vm.downdata, $index, vm.downdata[$index]);
+                } else {
+                    if (vm.downdata[$index].isAsk !== true) {
 
-                },function () {
-                    vm._empty(id,$index);
+                        vm.$http.get(web.API_PATH + 'mood/care/query/comment/' + id).then((data) => {
+                            vm.downdata[$index].isAsk = true;
+
+                            if (data.data.status === 1) {
+
+                                if (data.data.data.care.length > 0 || data.data.data.reply.length > 0) {
+                                    vm.downdata[$index].hasComments = true;
+
+                                    vm.downdata[$index].careList = data.data.data.care;
+                                    vm.downdata[$index].commentList = data.data.data.reply;
+                                    vm.downdata[$index].isShowComment = true;
+
+
+                                }
+
+                            }
+                            console.log(data.data.data);
+                            vm.$set(vm.downdata, $index, vm.downdata[$index]);
+                        }, (response) => {
+                            console.log('error');
+                        });
+                    }
+                    vm.downdata[$index].isShowComment = true;
+                    vm.$set(vm.downdata, $index, vm.downdata[$index]);
+                }
+
+
+            },
+
+            empty: function (id, $index) {
+                let vm = this;
+                xqzs.weui.dialog("", "确定删除吗？", function () {
+
+                }, function () {
+                    vm._empty(id, $index);
                 })
             },
-            _empty:function (id,$index) {
+            _empty: function (id, $index) {
                 let vm = this;
-                let url = web.API_PATH + "mood/clean/content/[userId]/"+id
+                let url = web.API_PATH + "mood/clean/content/[userId]/" + id
                 vm.$http.delete(url)
                     .then((data) => {
-                        if(data.data.status===1){
-                            vm.downdata[$index].content='';
-                            vm.$set(vm.downdata,$index,vm.downdata[$index])
-                        }else{
-                            xqzs.weui.toast("fail","删除失败",function () {
+                        if (data.data.status === 1) {
+                            vm.downdata[$index].content = '';
+                            vm.$set(vm.downdata, $index, vm.downdata[$index])
+                        } else {
+                            xqzs.weui.toast("fail", "删除失败", function () {
                             });
                         }
                     })
@@ -115,27 +187,26 @@
                     });
 
             },
-            revoke:function (id,$index) {
+            revoke: function (id, $index) {
                 let vm = this;
-                console.log(121)
-                xqzs.weui.dialog("","确定撤回吗？",function () {
+                xqzs.weui.dialog("", "确定撤回吗？", function () {
 
-                },function () {
-                    vm._revoke(id,$index);
+                }, function () {
+                    vm._revoke(id, $index);
                 })
             },
-            _revoke:function (id,$index) {
+            _revoke: function (id, $index) {
                 let vm = this;
-                let url = web.API_PATH + "mood/[userId]/"+id
+                let url = web.API_PATH + "mood/[userId]/" + id
                 vm.$http.delete(url, {emulateJSON: true})
                     .then((data) => {
-                        if(data.data.status===1){
-                            vm.downdata[$index].hide=true;
-                            vm.$set(vm.downdata,$index,vm.downdata[$index]);
-                            xqzs.weui.toast("success","撤回成功",function () {
+                        if (data.data.status === 1) {
+                            vm.downdata[$index].hide = true;
+                            vm.$set(vm.downdata, $index, vm.downdata[$index]);
+                            xqzs.weui.toast("success", "撤回成功", function () {
                             });
-                        }else{
-                            xqzs.weui.toast("fail","撤回失败",function () {
+                        } else {
+                            xqzs.weui.toast("fail", "撤回失败", function () {
                             });
                         }
                         console.log(data);
@@ -145,11 +216,11 @@
                     });
 
             },
-            showBigImg:function (list,curr) {
+            showBigImg: function (list, curr) {
 
                 var current = curr.bigUrl;
                 var $data = [];
-                for(var i =0;i<list.length;i++){
+                for (var i = 0; i < list.length; i++) {
                     $data.push(list[i].bigUrl);
                 }
 
@@ -166,7 +237,7 @@
                     vm.downdata = response.data.data.rows;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
                     console.log(vm.downdata);
-                    vm.$nextTick(function(){
+                    vm.$nextTick(function () {
                         myResizePicture();//渲染完成
                     })
                 }, (response) => {
@@ -189,8 +260,8 @@
                     arr = xqzs.mood.initMoodsData(arr);
                     for (; i < arr.length; i++) {
                         vm.downdata.push(arr[i]);
-                     }
-                    vm.$nextTick(function(){
+                    }
+                    vm.$nextTick(function () {
                         myResizePicture();//渲染完成
                     });
                     if (arr.length === 0) {
@@ -215,24 +286,127 @@
         },
 
 
-
         components: {
             'v-scroll': scroll, "v-chart": chart
         }
     }
 
 
-
-
 </script>
 <style>
 
-    .btn_del{
+    /*mood item*/
+    .show_box {
+        width: 100%;
+        background: #F9F9F9;
+        border-radius: 5px;
+        margin-top: 15px;
+        position: relative
+    }
+
+    .show_box .arraw {
+        background: #f9f9f9;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        top: -4px;
+        left: 11px;
+        transform: rotate(45deg);
+    }
+
+    .show_top {
+        padding-left: 30px;
+        padding-top: 7px;
+        padding-bottom: 4px;
+        overflow: auto;
+        position: relative;
+    }
+
+    .show_top .show_img1 {
+        position: absolute;
+        top: 15px;
+        left: 9px;
+        width: 18px;
+        height: auto;
+        margin: 0;
+    }
+
+    .show_top img {
+        width: 33px;
+        height: 33px;
+        float: left;
+        margin-right: 5px;
+        margin-bottom: 6px;
+    }
+
+    .show_bottom {
+        position: relative;
+        padding-left: 30px;
+        padding-bottom: 4px;
+        overflow: auto;
+        padding-right: 12px;
+        border-top: 1px solid #eeeeee
+    }
+
+    .show_img2 {
+        width: 18px;
+        position: absolute;
+        top: 15px;
+        left: 9px;
+    }
+
+    .show_bottom li {
+        position: relative;
+        padding-top: 7px;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .show_bottom li:last-child {
+        border-bottom: none;
+    }
+
+    .show_bottom_img {
+        width: 33px;
+        height: 33px;
+        position: absolute;
+        top: 7px;
+        left: 0px;
+    }
+
+    .show_bottom_text {
+        margin-left: 45px;
+    }
+
+    .show_bottom_text span {
+        font-size: 13px;
+        color: #333;
+    }
+
+    .show_bottom_text div {
+        font-size: 13px;
+        color: #333333;
+        line-height: 20px;
+    }
+
+    .show_bottom_text .pname {
+        color: #5e61a2;
+        font-size: 13px;
+    }
+
+    .show_box .show_img1, .show_box .show_img2 {
+        width: 14px;
+    }
+
+    .btn_del {
         display: inline-block;
         margin-left: 13px;
         color: #5e61a2;
         font-size: 12px;
     }
+
     .editMood {
         height: 34px;
         line-height: 34px;
@@ -307,7 +481,7 @@
 
     .moodState {
         font-size: 14px;
-         margin-bottom: 6px;
+        margin-bottom: 6px;
     }
 
     .moodContext {
@@ -362,15 +536,15 @@
         float: left;
     }
 
-    .moodImg_right .moodPhotoLists.two>div {
+    .moodImg_right .moodPhotoLists.two > div {
         width: 7.5rem;
         height: 6rem;
     }
-    .moodImg_right .moodPhotoLists.one>div {
+
+    .moodImg_right .moodPhotoLists.one > div {
         width: 10.7rem;
         height: 8.1rem;
     }
-
 
 
 </style>
