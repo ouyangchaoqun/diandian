@@ -1,8 +1,8 @@
 <template id="Edit">
     <div>
         <div class="edit_box">
-            <textarea  placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
-            <div class="edit_loc">点击获取所在位置
+            <div id="edit_mood" contenteditable="true" tabindex='-1'></div>
+            <div class="edit_loc" @click = "getLoc()">点击获取所在位置
                 <img src="../images/dz_nor.gif" alt="">
             </div>
             <span class="edit_num">140</span>
@@ -23,10 +23,12 @@
 
         </div>
         <router-view></router-view>
+
     </div>
 </template>
 
 <script type="text/javascript">
+    import wx from 'weixin-js-sdk';
 
     var Edit={
         template:'#Edit'
@@ -34,32 +36,41 @@
     export default {
         data() {
             return {
-
+                edit: '这一刻的心情......（8个字以上）'
             }
+        },
+        methods: {
+
+        },
+        mounted: function () {
+
         }
     }
+
+
+
 
 </script>
 <style>
 .edit_box{
-    height:17.5rem;
+    height:19.5rem;
     background: #ffffff;
     width: 100%;
     position: relative;
     padding:1.6rem 0 1rem 0;
     margin-bottom: 1px;
 }
-.edit_box textarea{
+#edit_mood{
     height:16.6rem;
     width: 90%;
     outline: none;
-    border:0;
     width:90%;
     resize: none;
     margin: 0 auto;
     display: block;
     color: #999999;
     font-size: 1.5rem;
+    overflow: hidden;
 }
     .edit_loc{
         width: 10rem;

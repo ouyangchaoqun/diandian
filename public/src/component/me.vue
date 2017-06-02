@@ -1,5 +1,5 @@
 <template id="me">
-	<div>
+	<div class="me_box">
 		<div class="me_top">
 			<router-link to="/me/personal" class="me1">
 				<img class="me1_left" src="../images/13.jpg"/>
