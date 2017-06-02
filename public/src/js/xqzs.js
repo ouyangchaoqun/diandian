@@ -110,10 +110,11 @@ var xqzs = {
     dateTime: {
         DATE_TIME: "date_time",
         TIME: "time",
+        DATE_PATH:"date_path",
         _format: function (type, time) {
             time = time * 1000;
             var now = new Date(time);
-            var year = now.getYear();
+            var year = now.getFullYear();
             var month = now.getMonth() + 1;
             var date = now.getDate();
             var hour = now.getHours();
@@ -128,6 +129,8 @@ var xqzs = {
                 return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
             } else if (type === this.TIME) {
                 return hour + ":" + minute;
+            }else if (type === this.DATE_PATH) {
+                return  year + "/" + month + "/" + date
             }
         },
         formatTime: function (time) {
@@ -224,7 +227,9 @@ var xqzs = {
             "超级开心",//9
             "超级开心"//10
         ],
-
+        getTopImg:function () {
+           return   web.IMG_PATH +"top_img/"+ xqzs.dateTime._format(xqzs.dateTime.DATE_PATH,xqzs.dateTime.getTimeStamp()) +".jpg";
+        },
         initMoodsData: function (data, timeType) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";

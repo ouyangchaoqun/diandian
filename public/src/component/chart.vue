@@ -1,64 +1,59 @@
 <template id="chart">
-	<div>
-		<div class="bgs">
-			<div class="title">心情指数</div>
-			<div class="step">
-				<div class="swiper-container swiper-container-h">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div id="d0" class="odiv"></div>
-						</div>
-						<div class="swiper-slide">
-							<div id="d1" class="odiv"></div>
-						</div>
-						<div class="swiper-slide">
-							<div id="d2" class="odiv"></div>
-						</div>
-						<div class="swiper-slide">
-							<div id="d3" class="odiv"></div>
-						</div>
+    <div>
+        <div class="bgs">
+            <div class="title">心情指数</div>
+            <div class="step">
+                <div class="swiper-container swiper-container-h">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div id="d0" class="odiv"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div id="d1" class="odiv"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div id="d2" class="odiv"></div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div id="d3" class="odiv"></div>
+                        </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
-
 
 
 <script type="es6">
 
 
-    var chart={
-        template:'#chart'
+    var chart = {
+        template: '#chart'
     }
 
     export default {
-         data() {
-            return {
+        data() {
+            return {}
+        },
+        props: ['chartData'],
+        watch: {
+            chartData: function (data) {
+                var tagetwidth = window.innerWidth * 1.04;
+                var tagetHeight = window.innerHeight * 0.2848;
+                $('.odiv').width(tagetwidth);
+                $('.odiv').height(tagetHeight);
+                this.makeCharts(data, tagetwidth, tagetHeight);  //图标生成器
 
+                console.log("chartData:" + this.chartData);
             }
-        }
-        ,
-        mounted:function () {
-            var data = [
-                {"days": ["1月1", "2", "3", "4", "5", "6", "7"], "moods": [3, 5, 9, 6, 4, 3, 5]},
-                {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [1, 3, 7, 6, 4, 2, 6]},
-                {"days": ["1月15", "16", "17", "18", "19", "20", "21"], "moods": [7, 8, 9, 0, 4, 0, 5]},
-                {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
-
-            ];
-
-
-            var tagetwidth = window.innerWidth * 1.04;
-            var tagetHeight = window.innerHeight * 0.2848;
-            $('.odiv').width(tagetwidth);
-            $('.odiv').height(tagetHeight);
-            makeCharts(data, tagetwidth, tagetHeight);  //图标生成器
-            console.log($(".title").text());
-
-            function makeCharts(data, width, height) {
+        },
+        updated: function () {
+            console.log("chartDataupdate" + this.chartData);
+        },
+        methods: {
+            makeCharts: function (data, width, height) {
                 var mySwiper = new Swiper('.swiper-container', {
                     direction: 'horizontal',
                     loop: false,
@@ -124,76 +119,74 @@
 
             }
 
+        },
+        mounted: function () {
+
         }
     }
-
-
-
-
-
 
 
 </script>
 
 
 <style type="text/css">
-	html, body, div {
-		margin: 0;
-		padding: 0;
-	}
+    html, body, div {
+        margin: 0;
+        padding: 0;
+    }
 
-	.highcharts-series-group {
-		margin-right: 120px;
+    .highcharts-series-group {
+        margin-right: 120px;
 
-	}
+    }
 
-	.step {
-		width: 100%;
-		overflow: hidden;
-	}
+    .step {
+        width: 100%;
+        overflow: hidden;
+    }
 
-	.swiper-wrapper {
-		-webkit-perspective: 3000;
-		-webkit-backface-visibility: hidden;
-	}
+    .swiper-wrapper {
+        -webkit-perspective: 3000;
+        -webkit-backface-visibility: hidden;
+    }
 
-	.main-color .highcharts-graph {
-		stroke: #fff;
-	}
+    .main-color .highcharts-graph {
+        stroke: #fff;
+    }
 
-	.main-color, .main-color .highcharts-point {
-		fill: #ff6600;
-	}
+    .main-color, .main-color .highcharts-point {
+        fill: #ff6600;
+    }
 
-	.highcharts-graph.highcharts-negative {
-		stroke: #999;
-	}
+    .highcharts-graph.highcharts-negative {
+        stroke: #999;
+    }
 
-	.highcharts-area.highcharts-negative {
-		fill: #999;
-	}
+    .highcharts-area.highcharts-negative {
+        fill: #999;
+    }
 
-	.highcharts-point.highcharts-negative {
-		fill: #999; /*点的颜色*/
-	}
+    .highcharts-point.highcharts-negative {
+        fill: #999; /*点的颜色*/
+    }
 
-	.bgs {
-		background: url("../images/bj.png");
-		background-size: 100% 100%;
-		margin: 0 10px;
-		position: relative;
-		border-radius: 6px;
-		height:190px
-	}
+    .bgs {
+        background: url("../images/bj.png");
+        background-size: 100% 100%;
+        margin: 0 10px;
+        position: relative;
+        border-radius: 6px;
+        height: 190px
+    }
 
-	.bgs .title {
-		position: absolute;
-		top: 3px;
-		left: 50%;
-		margin-left: -24px;
-		font-size: 12px;
-		color: #5cd9d1
-	}
+    .bgs .title {
+        position: absolute;
+        top: 3px;
+        left: 50%;
+        margin-left: -24px;
+        font-size: 12px;
+        color: #5cd9d1
+    }
 
 </style>
 

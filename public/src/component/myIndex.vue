@@ -4,15 +4,15 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
             <div class="myIndex_box">
                 <div class="banner index_banner">
-                    <img src="../images/banner.jpg"/>
+                    <img :src="topImg"/>
                     <div class="userHeaderImg">
-                        <img src="../images/13.jpg" alt="">
+                        <img :src="user.faceUrl" alt="">
                     </div>
                 </div>
                 <!--banner end -->
 
                 <div class="chart_box">
-                    <v-chart></v-chart>
+                    <v-chart :chartData="chartData"></v-chart>
                 </div>
 
                 <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide">
@@ -119,7 +119,15 @@
                 pageEnd: 0, // 结束页数
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
-                currTime: xqzs.dateTime.getTimeStamp()
+                currTime: xqzs.dateTime.getTimeStamp(),
+                topImg:xqzs.mood.getTopImg(),
+                chartData:[
+                    {"days": ["1月1", "2", "3", "4", "5", "6", "7"], "moods": [3, 5, 9, 6, 4, 3, 5]},
+                {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [1, 3, 7, 6, 4, 2, 6]},
+                {"days": ["1月15", "16", "17", "18", "19", "20", "21"], "moods": [7, 8, 9, 0, 4, 0, 5]},
+                {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
+
+                ]
             }
         },
         methods: {
@@ -352,6 +360,35 @@
             }, function (error) {
                 //error
             });
+
+
+            _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/[userId]')
+                .then((data) => {
+                     if (data.data.status === 1) {
+                        for(let i =0;i<data.data.data.length;i++){
+                            let week = {days:[],moods:[]};
+                            for(let j=0;j<data.data.data[i].length;j++){
+                                week.days.push(data.data.data[i][j].day);
+                                week.moods.push(data.data.data[i][j].value);
+                            }
+
+                            _this.$set(_this.chartData, i, week)
+
+
+                        }
+
+
+
+                         console.log( _this.chartData)
+                    }
+                })
+                .catch((response) => {
+
+                });
+
+
+
+
 
 
         },
