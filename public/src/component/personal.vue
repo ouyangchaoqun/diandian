@@ -2,11 +2,11 @@
     <div class="personal_box">
         <div class="list0">
             <span>昵称</span>
-            <input type="text" onfocus="this.value=''"  v-bind:value="user.nickName" placeholder="填写昵称">
+            <input type="text" class="nickName" onfocus="this.value=''"  v-model:value="user.nickName" placeholder="填写昵称">
         </div>
-        <div class="list0 list02" @click="changeHeadpic()">
-            <span>更改头像</span>
-            <a href="">
+        <div class="list0 list02" @click="updateHeadpic()">
+            <span>更新头像</span>
+            <a>
                 <img src="../images/goto.jpg" alt="">
             </a>
         </div>
@@ -19,7 +19,7 @@
         </router-link>
         <div class="list0">
             <span>姓名</span>
-            <input type="text" v-bind:value="user.reaName" onfocus="this.value=''" placeholder="还未填写（如张三）">
+            <input type="text" class="realName" v-model:value="user.realName" onfocus="this.value=''" placeholder="还未填写（如张三）">
         </div>
         <div class="list0 list02" @click="showDate()">
             <span>生日</span>
@@ -45,16 +45,15 @@
         </div>
         <div class="list0">
             <span>详细地址</span>
-            <input type="text" value="流弊小区"  placeholder="还未填写">
+            <input type="text" class="address" v-model:value="user.address"  placeholder="还未填写">
         </div>
-        <div class="list03">
-            <a href="" class="weui-btn weui-btn_primary">提交</a>
+        <div class="list03" @click="msgSubmit()">
+            <a  class="weui-btn weui-btn_primary">提交</a>
         </div>
     </div>
 </template>
 <script type="text/javascript">
     import weui from "../js/weui"
-    import wx from 'weixin-js-sdk';
     var personal={
         template:'#personal'
     }
@@ -118,13 +117,13 @@
                     end: new Date().getFullYear(),
 
                     onChange: function (result) {
-                        console.log(result);
                     },
                     onConfirm: function (result) {
-                        console.log(result);
-                            _this.year=result[0].value,
-                            _this.month=result[1].value,
-                            _this.day=result[2].value
+                            _this.year=result[0].value;
+                            _this.month=result[1].value;
+                            _this.day=result[2].value;
+                            _this.birthday=result[0].value+','+result[1].value+','+result[2].value;
+
                     }
                 });
             },
@@ -151,22 +150,51 @@
                 });
 
             },
-            changeHeadpic:function () {
-                wx.chooseImage({
-                    count: 1, // 默认9
-                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                    success: function (res) {
-                        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            updateHeadpic:function () {
+                let _this = this;
+                _this.$http({
+                    method: 'POST',
+                    url: web.API_PATH + 'user/update/user/headpic/[userId]',
+                }).then(function (data) {//es5写法
+                    if (data.data.status !== null) {
+                            xqzs.weui.toast("success", "更新成功",function(){
+
+                            });
                     }
+                }, function (error) {
+                    //error
                 });
 
-
-
-
+            },
+            msgSubmit:function () {
+                let _this = this;
+                let nick=$('.nickName').val();
+                let realName=$('.realName').val();
+                let address=$('.address').val();
+                let msg={
+                        "id": _this.user.id,
+                        "realName": realName,
+                        "nickName": nick,
+                        "birthday": _this.birthday,
+                        "countryId": 0,
+                        "provinceId": _this.provinceId,
+                        "cityId": _this.cityId,
+                        "areaId": _this.areaId,
+                        "address":address
+                };
+                console.log(msg);
+                _this.$http.post(web.API_PATH + 'user/update',msg)
+                        .then(
+                                (response)=>{
+                    xqzs.weui.toast("success", "修改成功", function () {
+                    window.location.href = "#/"
+                })
+            }
+                );
 
 
             }
+
         }
     }
 </script>
