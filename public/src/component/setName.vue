@@ -1,9 +1,9 @@
 <template id="setName">
     <div class="setName_box">
         <div class="setName">设置备注名</div>
-        <input type="text" placeholder="添加备注名">
+        <input type="text" placeholder="添加备注名" ref="name">
         <div class="me_bottom">
-            <a href="" class="weui-btn weui-btn_primary"> 提交</a>
+            <div class="weui-btn weui-btn_primary" @click="setMemoName()"> 提交</div>
         </div>
     </div>
 </template>
@@ -16,9 +16,30 @@
     export default {
         data() {
             return {
+                friendId:this.$route.query.friendId
+            }
+        },
+        methods: {
+            setMemoName:function () {
+                let _this=this;
+                let v = _this.$refs.name.value;
+                console.log(v)
+
+                if(v!==""){
+                    _this.$http.post(web.API_PATH+'/user/save/memo/name/[userId]/'+_this.friendId,{memoName:v}).then(response => {
+                        if(response.data.status===1){
+                            _this.$router.back(-1)
+                        }
+                    }, response => {
+                        // error
+                    });
+                }
 
             }
         }
+
+
+
     }
 
 </script>
