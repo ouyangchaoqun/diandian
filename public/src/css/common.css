@@ -59,14 +59,14 @@ html {
 
 /*文本输入*/
 .comment_box{
-    height: 180px;
+    height: 186px;
 
     clear: both;
     overflow: hidden;
     width: 100%;
     background: #efeff4;
     position: absolute;
-    bottom: -180px;
+    bottom: -186px;
     left: 0;
     z-index: 10000;
 
@@ -95,6 +95,7 @@ html {
     border: 0;
     outline: none;
     resize: none;
+    padding:6px;font-size: 16px;
 }
 .comment_box.addactive{
     animation: addheight .2s linear;
@@ -105,48 +106,48 @@ html {
 }
 @keyframes addheight
 {
-    from {bottom: -180px;}
+    from {bottom: -186px;}
     to {bottom: 0;}
 }
 
 @-moz-keyframes addheight /* Firefox */
 {
-    from {bottom: -180px;}
+    from {bottom: -186px;}
     to {bottom: 0;}
 }
 
 @-webkit-keyframes addheight /* Safari 和 Chrome */
 {
-    from {bottom: -180px;}
+    from {bottom: -186px;}
     to {bottom: 0;}
 }
 
 @-o-keyframes addheight /* Opera */
 {
-    from {bottom: -180px;}
+    from {bottom: -186px;}
     to {bottom: 0;}
 }
 
 @keyframes subheight
 {
     from {bottom: 0;}
-    to {bottom: -180px;}
+    to {bottom: -186px;}
 }
 
 @-moz-keyframes subheight /* Firefox */
 {
     from {bottom: 0;}
-    to {bottom: -180px;}
+    to {bottom: -186px;}
 }
 
 @-webkit-keyframes subheight /* Safari 和 Chrome */
 {
     from {bottom: 0;}
-    to {bottom: -180px;}
+    to {bottom: -186px;}
 }
 
 @-o-keyframes subheight /* Opera */
 {
     from {bottom: 0;}
-    to {bottom: -180px;}
+    to {bottom: -186px;}
 }

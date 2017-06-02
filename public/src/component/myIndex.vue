@@ -128,7 +128,7 @@
                 if(userId===vm.user.id){
                     vm._delComment(id,index,commentIndex);
                 }else{
-                    vm.addComment(userId,id);
+                    vm.addComment(id,index,commentIndex);
                 }
             },
             _delComment(id,index,commentIndex){
@@ -155,15 +155,33 @@
                     //取消
                 })
             },
-            addComment(toUserId,id){
+            addComment(id,index,commentIndex){
+                let vm = this;
                 xqzs.mood.actionSheetEdit("取消","发送",function (v) {
-                    console.log('22222')
+                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":id,"content":v}).then(response => {
+                        if(response.data.status===1){
+                            xqzs.weui.toast("success","提交成功",function () {
+                            });
+                            vm.downdata[index].commentList.push(response.data.data.reply);
+                            vm.$set(vm.downdata, index, vm.downdata[index])
+                            console.log(response.data.data.reply)
+                        }
+
+
+
+
+
+
+
+                    }, response => {
+                        // error
+                    });
                     console.log(v)
 
                 },function (v) {
                     console.log(v)
                     //取消
-                })
+                },"回复 "+vm.downdata[index].commentList[commentIndex].from_nickName)
             },
             showComment: function (id, $index) {
                 let vm = this;

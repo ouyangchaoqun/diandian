@@ -274,7 +274,7 @@ var xqzs = {
             }
             return data;
         },
-        actionSheetEdit:function (cancelText,sendText,doFun,cancelFun) {
+        actionSheetEdit:function (cancelText,sendText,doFun,cancelFun,placeholder) {
              var html='<div class="action-sheet-edit">';
             html += '   <div class="weui-mask cancel active"   ></div>';
             html +=' <div class="comment_box">';
@@ -282,7 +282,7 @@ var xqzs = {
             html +='  <span class="cancel">'+cancelText+'</span>';
             html +='  <span class="release">'+sendText+'</span>';
             html +='  </div>';
-            html +='  <textarea class="comment_text"></textarea>';
+            html +='  <textarea placeholder="'+placeholder+'" class="comment_text"></textarea>';
             html +='  </div>';
             html +='  </div>';
 
