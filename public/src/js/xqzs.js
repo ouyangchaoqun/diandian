@@ -498,6 +498,14 @@ var xqzs = {
     },
     isIos: function () {
         return !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    },
+    toDecimal: function (x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return;
+        }
+        f = Math.round(x * 100) / 100;
+        return f;
     }
 
 };

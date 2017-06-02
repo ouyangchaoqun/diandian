@@ -9,52 +9,37 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                   <ul>
-                      <li class="countList">
-                          <p class="count1">2017年第21周</p>
-                          <p class="count2">本周你记录了2天，2天开心，0天不开心</p>
-                          <p class="count2">你比88%都开心哦~</p>
+                      <li class="countList" v-for="week in weeks">
+                          <p class="count1">{{week.year}}年第{{week.week}}周</p>
+                          <p class="count2">本周你记录了{{week.happyDay+week.unHappyDay}}天，{{week.happyDay}}天开心，{{week.unHappyDay}}天不开心</p>
+                          <p class="count2">你比{{week.comparison}}%都开心哦~</p>
                           <img src="../images/goto.jpg" alt="">
                       </li>
-                      <li class="countList">
-                          <p class="count1">2017年第21周</p>
-                          <p class="count2">本周你记录了2天，2天开心，0天不开心</p>
-                          <p class="count2">你比88%都开心哦~</p>
-                          <img src="../images/goto.jpg" alt="">
-                      </li>
+
                   </ul>
                 </div>
                 <div class="swiper-slide">
                     <ul>
-                        <li class="countList">
-                            <p class="count1">2017年第21周</p>
-                            <p class="count2">本周你记录了2天，2天开心，0天不开心</p>
-                            <p class="count2">你比88%都开心哦~</p>
+                        <li class="countList" v-for="month in months">
+                            <p class="count1">{{month.year}}年第{{month.month}}月</p>
+                            <p class="count2">本月你记录了{{month.happyDay+month.unHappyDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
+                            <p class="count2">你比{{month.comparison}}%都开心哦~</p>
                             <img src="../images/goto.jpg" alt="">
                         </li>
-                        <li class="countList">
-                            <p class="count1">2017年第21周</p>
-                            <p class="count2">本周你记录了2天，2天开心，0天不开心</p>
-                            <p class="count2">你比88%都开心哦~</p>
-                            <img src="../images/goto.jpg" alt="">
-                        </li>
+
                     </ul>
 
                 </div>
                 <div class="swiper-slide">
 
                     <ul>
-                        <li class="countList">
-                            <p class="count1">2017年第21周</p>
-                            <p class="count2">本周你记录了2天，2天开心，0天不开心</p>
-                            <p class="count2">你比88%都开心哦~</p>
+                        <li class="countList" v-for="year in years">
+                            <p class="count1">{{year.year}}年</p>
+                            <p class="count2">本年你记录了{{year.happyDay+year.unHappyDay}}天，{{year.happyDay}}天开心，{{year.unHappyDay}}天不开心</p>
+                            <p class="count2">你比{{year.comparison}}%都开心哦~</p>
                             <img src="../images/goto.jpg" alt="">
                         </li>
-                        <li class="countList">
-                            <p class="count1">2017年第21周</p>
-                            <p class="count2">本周你记录了2天，2天开心，0天不开心</p>
-                            <p class="count2">你比88%都开心哦~</p>
-                            <img src="../images/goto.jpg" alt="">
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -69,10 +54,62 @@
     export default {
         data() {
             return {
-
+                weeks:[],
+                months:[],
+                years:[]
             }
         },
         mounted:function () {
+            let _this=this;
+            _this.$http.get(web.API_PATH+'/mood/query/statistics/weeks/[userId]').then(response => {
+                if(response.data.status===1){
+                    _this.weeks=response.data.data;
+                    for(let i=0;i<_this.weeks.length;i++){
+                        _this.weeks[i].comparison = xqzs.toDecimal(_this.weeks[i].comparison*100);
+                        _this.$set(_this.weeks,i,_this.weeks[i]);
+                    }
+                }
+            }, response => {
+                // error
+            });
+
+
+            _this.$http.get(web.API_PATH+'/mood/query/statistics/months/[userId]').then(response => {
+                if(response.data.status===1){
+                    _this.months=response.data.data;
+                    for(let i=0;i<_this.months.length;i++){
+                        _this.months[i].comparison = xqzs.toDecimal(_this.months[i].comparison*100);
+                        _this.$set(_this.months,i,_this.months[i]);
+                    }
+                }
+            }, response => {
+                // error
+            });
+
+
+            _this.$http.get(web.API_PATH+'/mood/query/statistics/years/[userId]').then(response => {
+                if(response.data.status===1){
+                    _this.years=response.data.data;
+                    for(let i=0;i<_this.years.length;i++){
+                        _this.years[i].comparison = xqzs.toDecimal(_this.years[i].comparison*100);
+                        _this.$set(_this.years,i,_this.years[i]);
+                    }
+                }
+            }, response => {
+                // error
+            });
+
+
+
+
+
+
+
+
+
+
+
+
             var tabsSwiper = new Swiper('.swiper-container',{
                 speed:500,
                 onSlideChangeStart: function(){
