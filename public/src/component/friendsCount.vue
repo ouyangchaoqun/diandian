@@ -36,7 +36,7 @@
             </a>
 
         </div>
-        
+
     </div>
 </template>
 <style>
@@ -64,10 +64,54 @@
     }
 </style>
 <script type="text/javascript">
+    import weui from "../js/weui"
     var friendsCount={
         template:'#friendsCount'
     }
-    module.exports=friendsCount
+
+    export default {
+        data() {
+            return {
+                friend_s:null,
+                friend_g:null
+            }
+        },
+        mounted: function () {
+            let _this = this;
+
+            //用户信息
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + 'user/query/friend/by/user/id/[userId]',
+            }).then(function (data) {
+                if (data.data.data !== null) {
+                    _this.friend_g=eval(data.data.data.generalFriends);
+                    _this.friend_s=eval(data.data.data.specialFriends);
+                    console.log(_this.friend_g);
+                    console.log(_this.friend_s);
+                }
+
+            }, function (error) {
+            });
+
+        },
+
+        methods: {
+            createInviteCard:function(){
+                let _this = this;
+                    this.$http.post(web.API_PATH + 'user/save/user/remind',{remindTime:_this.hour+":"+_this.minute,userId:"",id:""},{emulateJSON: true})
+                            .then(
+                                    (response)=>{
+                                        xqzs.weui.toast("success", "修改成功", function () {
+                                            window.location.href = "#/"
+                                        })
+                                    }
+                            );
+
+            }
+        }
+    }
+    //module.exports=friendsCount
 </script>
 
 

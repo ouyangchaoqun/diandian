@@ -2,16 +2,17 @@
     <div class="top20_box">
         <div class="remind">
             <span>提醒功能</span>
-            <input type="checkbox" class="weui-switch switchFlag">
+            <input type="checkbox" v-model="remindMsg" class="weui-switch switchFlag">
         </div>
         <div class="remind" @click = "showTime()"> <!--TODO-->
             <span>时间设定</span>
-            <div>
-                <span>{{hour}}</span>:
-                <span>{{minute}}</span>
+            <div v-show="remindMsg">
+                <span class=" hours showPicker">{{hour}}</span>
+                <span>:</span>
+                <span class="minutes showPicker">{{minute}}</span>
             </div>
         </div>
-        <a href="" class="me_bottom weui-btn weui-btn_primary">提交</a>
+        <a class="me_bottom weui-btn weui-btn_primary" @click = "setRemindTime()">提交</a>
 
     </div>
 </template>
@@ -26,6 +27,8 @@
         margin-bottom: 1px;
         line-height: 50px;
     }
+
+
     .switchFlag{
         float: right;
     }
@@ -51,22 +54,109 @@
     export default {
         data() {
             return {
-                hour: '10',
-                minute:"20"
+                remindMsg: false,
+                hour:20,
+                minute:30
             }
         },
-        methods:{
-            showTime:function () {
-                weui.datePicker({
-                    start: 1990,
-                    end: new Date().getFullYear(),
-                    onChange: function (result) {
-                        console.log(result);
-                    },
-                    onConfirm: function (result) {
-                        console.log(result[1].value);
+        mounted: function () {
+            let _this = this;
+
+            //用户信息
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + 'user/find/user/remind/by/user/id/[userId]',
+            }).then(function (data) {
+                if (data.data.data !== null) {
+                    _this.remindMsg = eval(data.data.data);
+                    let time = _this.remindMsg.remindtime;
+                    time = time.split(":");
+                    _this.hour = time[0];
+                    _this.minute = time[1];
+                }
+            }, function (error) {
+            });
+
+        },
+
+        methods: {
+
+            showTime: function () {
+                let _this = this;
+                if(! _this.remindMsg) return;
+
+                var hours = [];
+                var obj;
+                for (var i = 0; i < 24; i++) {
+                    if (i < 10) {
+                        obj = {
+                            label: '0' + i,
+                            value: '0' + i
+                        }
+                    } else {
+                        obj = {
+                            label: '' + i,
+                            value: '' + i
+                        }
                     }
-                });
+                    hours.push(obj)
+                }
+
+                var minutes = [];
+                for (i = 0; i < 60; i++) {
+                    if (i < 10) {
+                        obj = {
+                            label: '0' + i,
+                            value: '0' + i
+                        }
+                    } else {
+                        obj = {
+                            label: '' + i,
+                            value: '' + i
+                        }
+                    }
+                    minutes.push(obj)
+                }
+
+                weui.picker(
+                        hours, minutes, {
+                            onConfirm: function (result) {
+                                _this.hour=result[0].value;
+                                _this.minute=result[1].value;
+
+                            }
+                        });
+
+
+            },
+            setRemindTime:function(){
+                let _this = this;
+                if(_this.remindMsg){
+
+                    this.$http.post(web.API_PATH + 'user/save/user/remind',{remindTime:_this.hour+":"+_this.minute,userId:"",id:""},{emulateJSON: true})
+                            .then(
+                                    (response)=>{
+                                        xqzs.weui.toast("success", "修改成功", function () {
+                                            window.location.href = "#/"
+                                        })
+                                    }
+                            );
+
+                }else{
+
+                    this.$http.delete(web.API_PATH + 'user/delete/user/remind/by/user/id/[userId]')
+                            .then(
+                                    (response) => {
+
+                                        xqzs.weui.toast("success", "修改成功", function () {
+                                            window.location.href = "#/"
+                                        })
+
+                                    }
+                            );
+
+                }
+
             }
         }
     }

@@ -2,9 +2,9 @@
     <div class="personal_box">
         <div class="list0">
             <span>昵称</span>
-            <input type="text" placeholder="填写昵称">
+            <input type="text" onfocus="this.value=''"  v-bind:value="user.nickName" placeholder="填写昵称">
         </div>
-        <div class="list0 list02">
+        <div class="list0 list02" @click="changeHeadpic()">
             <span>更改头像</span>
             <a href="">
                 <img src="../images/goto.jpg" alt="">
@@ -12,34 +12,40 @@
         </div>
         <router-link to="/me/personal/validate">
             <div class="list0 list02">
-                <span>绑定手机号</span>
                 <img src="../images/goto.jpg" alt="">
+                <span>绑定手机号</span><span class="mobile">{{user.mobile}}</span>
+
             </div>
         </router-link>
         <div class="list0">
             <span>姓名</span>
-            <input type="text" placeholder="还未填写（如张三）">
+            <input type="text" v-bind:value="user.reaName" onfocus="this.value=''" placeholder="还未填写（如张三）">
         </div>
         <div class="list0 list02" @click="showDate()">
             <span>生日</span>
-            <div class="showdL">
-                <span>{{year}}</span>
-                <span>{{month}}</span>
-                <span>{{day}}</span>
+            <div class="showdL" v-if="birthday">
+                <span>{{year}}年 </span>
+                <span>{{month}}月 </span>
+                <span>{{day}}日 </span>
             </div>
+            <div class="showdL" v-else>
+                请选择日期
+            </div>
+
         </div>
-        <div class="list0">
+        <div class="list0 box"  id="localCity" @click="areaPicker()">
             <span>所在地区</span>
             <div class="showdL">
                 <span>中国</span>
-                <span>浙江省</span>
-                <span>杭州市</span>
-                <span>滨江区</span>
+                <span>{{provinceName}}</span>
+                <span>{{cityName}}</span>
+                <span>{{areaName}}</span>
             </div>
+
         </div>
         <div class="list0">
             <span>详细地址</span>
-            <input type="text" placeholder="还未填写">
+            <input type="text" value="流弊小区"  placeholder="还未填写">
         </div>
         <div class="list03">
             <a href="" class="weui-btn weui-btn_primary">提交</a>
@@ -48,20 +54,65 @@
 </template>
 <script type="text/javascript">
     import weui from "../js/weui"
+    import wx from 'weixin-js-sdk';
     var personal={
         template:'#personal'
     }
     export default {
         data() {
             return {
+                birthday:'',
+                user:'',
                 year:'',
                 month:'',
-                day:''
+                day:'',
+                defaultCity:'[330000, 330100, 330102]',
+                provinceName:'',
+                cityName:'',
+                areaName:'',
+                provinceId:'',
+                cityId:'',
+                areaId:''
+
             }
+        },
+        mounted: function () {
+            let _this = this;
+
+            //用户信息
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+
+                    _this.user = eval(data.data.data);
+                    _this.birthday= _this.user.birthday;
+                    if(_this.birthday){
+                        let date=_this.birthday.split(',');
+                        _this.year=date[0];
+                        _this.month=date[1];
+                        _this.day=date[2];
+                    }
+                    _this.provinceName=_this.user.provinceName;
+                    _this.cityName=_this.user.cityName;
+                    _this.areaName=_this.user.areaName;
+                    _this.provinceId=_this.user.provinceId;
+                    _this.cityId=_this.user.cityId;
+                    _this.areaId=_this.user.areaId;
+                    _this.defaultCity=[_this.provinceId,_this.cityId,_this.areaId];
+                }
+            }, function (error) {
+                //error
+            });
+
+
+
         },
         methods:{
             showDate:function () {
-                var _this = this
+                let _this = this;
                 weui.datePicker({
                     start: 1990,
                     end: new Date().getFullYear(),
@@ -76,6 +127,45 @@
                             _this.day=result[2].value
                     }
                 });
+            },
+            areaPicker:function () {
+                let _this = this;
+                $.get('/src/js/city.json',function(data){
+                    weui.picker(data, {
+                        depth: 3,
+                        defaultValue:  _this.defaultCity,
+                        onChange: function onChange(result) {
+
+                        },
+                        onConfirm: function onConfirm(result) {
+                            _this.provinceId=result[0].value;
+                            _this.cityId=result[1].value;
+                            _this.areaId=result[2].value;
+                            _this.provinceName =result[0].label;
+                            _this.cityName = result[1].label;
+                            _this.areaName = result[2].label;
+
+                        },
+                        id: 'cascadePicker'
+                    });
+                });
+
+            },
+            changeHeadpic:function () {
+                wx.chooseImage({
+                    count: 1, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    }
+                });
+
+
+
+
+
+
             }
         }
     }
@@ -84,7 +174,6 @@
 .personal_box{
     height:100%;
     background: #eeeeee;
-    padding-top: 20px;
 }
 
 .list0{
@@ -105,6 +194,11 @@
     color:#333333;
     font-size: 15px;
 }
+.list0 .mobile{
+    float:right;
+    font-size: 15px;
+    color:#999;
+}
 .list0 input{
     float: right;
     font-size: 14px;
@@ -120,17 +214,20 @@
 }
 .showdL{
     float: right;
+    color:#999;
 }
 .showdL span{
     margin-left:5px;
+    color:#999;
 }
 .list03{
     border:0;
     margin-top:44px;
     background: #eeeeee;
-    height:100%;
     padding:0 10px;
 }
+
+
 
 
 </style>
