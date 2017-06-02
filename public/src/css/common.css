@@ -54,3 +54,99 @@ html {
 .unhappy_txt_color {
     color: #1AAD19;
 }
+
+
+
+/*文本输入*/
+.comment_box{
+    height: 180px;
+
+    clear: both;
+    overflow: hidden;
+    width: 100%;
+    background: #efeff4;
+    position: absolute;
+    bottom: -180px;
+    left: 0;
+    z-index: 10000;
+
+}
+.comment_header{
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+    padding:0 15px;
+}
+.comment_box .cancel{
+    margin-left: 3px;
+    color: #333333;
+    float: left;
+}
+.comment_box .release{
+    color: #999999;
+    float: right;
+}
+.comment_box .comment_text{
+    display: block;
+    height:130px;
+    background: #ffffff;
+    margin:0 auto;
+    width: 94%;
+    border: 0;
+    outline: none;
+    resize: none;
+}
+.comment_box.addactive{
+    animation: addheight .2s linear;
+    bottom: 0;
+}
+.comment_box.subactive{
+    animation: subheight .2s linear;
+}
+@keyframes addheight
+{
+    from {bottom: -180px;}
+    to {bottom: 0;}
+}
+
+@-moz-keyframes addheight /* Firefox */
+{
+    from {bottom: -180px;}
+    to {bottom: 0;}
+}
+
+@-webkit-keyframes addheight /* Safari 和 Chrome */
+{
+    from {bottom: -180px;}
+    to {bottom: 0;}
+}
+
+@-o-keyframes addheight /* Opera */
+{
+    from {bottom: -180px;}
+    to {bottom: 0;}
+}
+
+@keyframes subheight
+{
+    from {bottom: 0;}
+    to {bottom: -180px;}
+}
+
+@-moz-keyframes subheight /* Firefox */
+{
+    from {bottom: 0;}
+    to {bottom: -180px;}
+}
+
+@-webkit-keyframes subheight /* Safari 和 Chrome */
+{
+    from {bottom: 0;}
+    to {bottom: -180px;}
+}
+
+@-o-keyframes subheight /* Opera */
+{
+    from {bottom: 0;}
+    to {bottom: -180px;}
+}

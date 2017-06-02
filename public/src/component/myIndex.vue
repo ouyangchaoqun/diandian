@@ -68,16 +68,14 @@
                         </div>
                         <ul class="show_bottom">
                             <img class="show_img2" src="../images/comments.png"/>
-
-                            <li v-for="comment in item.commentList" :data-replyid="comment.id" :data-moodid="item.id"
-                                data-userid="comment.fromuserid" data-ajaxresult="hasface">
+                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex" :data-replyid="comment.id" :data-moodid="item.id"
+                                :data-userid="comment.fromuserid" data-ajaxresult="hasface" @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)" v-if="!comment.isDel">
                                 <img class="show_bottom_img" :src="comment.from_faceUrl">
                                 <div class="show_bottom_text">
                                     <div class="reply_author">
                                         <a class="pname other" href="javascript:;">{{comment.from_nickName}}</a>
                                     </div>
                                     <div class="reply_content">
-
                                         <template v-if="comment.tomoodreplyid>0">
                                             <span class="text_comment">回复</span><a class="pname other"
                                                                                    href="javascript:;">{{comment.to_nickName}}：</a>
@@ -114,6 +112,7 @@
     export default {
         data() {
             return {
+                user:{},
                 counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
                 num: 10,  // 一次显示多少条
                 pageStart: 0, // 开始页数
@@ -124,6 +123,48 @@
             }
         },
         methods: {
+            commentOrDel:function (userId,id,index,commentIndex) {
+                let vm = this;
+                if(userId===vm.user.id){
+                    vm._delComment(id,index,commentIndex);
+                }else{
+                    vm.addComment(userId,id);
+                }
+            },
+            _delComment(id,index,commentIndex){
+                let vm = this;
+                xqzs.weui.actionSheet("删除我的评论?","删除",function () {
+                    ///删除操作
+                    let url  = web.API_PATH+ "mood/reply/[userId]/"+id;
+                    vm.$http.delete(url)
+                        .then((data) => {
+                            if (data.data.status === 1) {
+                                vm.downdata[index].commentList[commentIndex].isDel = true;
+                                vm.$set(vm.downdata, index, vm.downdata[index])
+                            } else {
+                                xqzs.weui.toast("fail", "删除失败", function () {
+                                });
+                            }
+                        })
+                        .catch((response) => {
+
+                        });
+
+
+                },function () {
+                    //取消
+                })
+            },
+            addComment(toUserId,id){
+                xqzs.mood.actionSheetEdit("取消","发送",function (v) {
+                    console.log('22222')
+                    console.log(v)
+
+                },function (v) {
+                    console.log(v)
+                    //取消
+                })
+            },
             showComment: function (id, $index) {
                 let vm = this;
                 if (vm.downdata[$index].isShowComment) {
@@ -282,6 +323,18 @@
             let _this = this;
             this.getList();
 
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user = eval(data.data.data);
+                }
+            }, function (error) {
+                //error
+            });
+
 
         },
 
@@ -294,6 +347,17 @@
 
 </script>
 <style>
+
+    .actionSheet_wrap .doAction{
+        font-size: 16px;
+        color: red;
+    }
+    .actionSheet_wrap .weui-actionsheet__title-text{
+        color: #999;
+        font-size: 13px;
+        height: 40px;
+
+    }
 
     /*mood item*/
     .show_box {

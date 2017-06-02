@@ -183,7 +183,7 @@
 		margin: 0 10px;
 		position: relative;
 		border-radius: 6px;
-		height:100%;
+		height:190px
 	}
 
 	.bgs .title {

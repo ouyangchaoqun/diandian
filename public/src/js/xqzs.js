@@ -51,6 +51,59 @@ var xqzs = {
                     $(".js_dialog").remove();
                 });
             })
+        },
+        actionSheet:function (tip,actionName,doFun,cancelFun) {
+            var html = "";
+            html += '<div class="actionSheet_wrap">';
+            html += '   <div class="weui-mask cancel active"   ></div>';
+
+            if(xqzs.isIos()){
+                html += '    <div class="weui-actionsheet " id="weui-actionsheet" >';
+                html += '    <div class="weui-actionsheet__menu">';
+                html += '      <div class="weui-actionsheet__title weui-actionsheet__title-text">'+tip+'</div>';
+                html += '      <div class="weui-actionsheet__cell doAction">'+actionName+'</div>';
+                html += '    </div>';
+                html += '     <div class="weui-actionsheet__action">';
+                html += '       <div class="weui-actionsheet__cell  cancel">取消</div>';
+                html += '     </div>';
+                html += '   </div>';
+            }
+
+            if(xqzs.isAndroid()){
+                html += '   <div class="weui-skin_android"   >';
+                html += '   <div class="weui-mask cancel active" ></div>';
+                html += '   <div class="weui-actionsheet">';
+                html += '      <div class="weui-actionsheet__menu">';
+                html += '        <div class="weui-actionsheet__cell doAction">'+actionName+'</div>';
+                html += '      </div>';
+                html += '   </div>';
+                html += '   </div>';
+            }
+
+            html += '   </div>';
+            $("body").append(html);
+            setTimeout(function () {
+                $(".actionSheet_wrap .weui-actionsheet").addClass(" weui-actionsheet_toggle");
+            },10)
+
+
+            $(".actionSheet_wrap .cancel").click(function () {
+                $(".actionSheet_wrap .weui-actionsheet").removeClass(" weui-actionsheet_toggle");
+                $(".actionSheet_wrap").delay(100).animate({opacity: 0}, 200, function () {
+                    $(".actionSheet_wrap").remove();
+                    cancelFun();
+                });
+            });
+            $(".actionSheet_wrap .doAction").click(function () {
+                doFun();
+                $(".actionSheet_wrap .weui-actionsheet").removeClass(" weui-actionsheet_toggle");
+                $(".actionSheet_wrap").delay(100).animate({opacity: 0}, 200, function () {
+                    $(".actionSheet_wrap").remove();
+                 });
+
+            })
+
+            
         }
     },
 
@@ -220,6 +273,45 @@ var xqzs = {
 
             }
             return data;
+        },
+        actionSheetEdit:function (cancelText,sendText,doFun,cancelFun) {
+             var html='<div class="action-sheet-edit">';
+            html += '   <div class="weui-mask cancel active"   ></div>';
+            html +=' <div class="comment_box">';
+            html +='  <div class="comment_header">';
+            html +='  <span class="cancel">'+cancelText+'</span>';
+            html +='  <span class="release">'+sendText+'</span>';
+            html +='  </div>';
+            html +='  <textarea class="comment_text"></textarea>';
+            html +='  </div>';
+            html +='  </div>';
+
+            $("body").append(html);
+            setTimeout(function () {
+                $(".comment_box").removeClass('subactive').addClass("addactive");
+            },10);
+
+
+            $(".action-sheet-edit .cancel").click(function () {
+                $(".comment_box").removeClass('addactive').addClass("subactive");
+                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                    $(".action-sheet-edit").remove();
+                    cancelFun();
+                });
+            });
+            $(".comment_box .release").click(function () {
+                var v = $(".comment_text").val();
+                if(v!==""){
+                    doFun(v);
+                }
+                $(".comment_box").removeClass('addactive').addClass("subactive");
+                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                    $(".action-sheet-edit").remove();
+                });
+
+            })
+
+
         },
         removeTempPicture: function (dom, $uploadpicinfo) {
             if (dom.length == 0) {
@@ -397,6 +489,12 @@ var xqzs = {
         showed: function (type) {
             $.xqzs.localdb.set(this.key(type), 'yes');
         }
+    },
+    isAndroid:function () {
+        return  navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Adr') > -1; //android终端
+    },
+    isIos:function () {
+        return  !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     }
 };
 
