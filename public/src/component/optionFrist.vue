@@ -5,8 +5,8 @@
         <div :class="{'weui-mask':maskFlag}" @click = "hideAction()"></div>
         <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
-                <div class="weui-actionsheet__cell">拍照</div>
-                <div class="weui-actionsheet__cell">从手机相册选择</div>
+                <div class="weui-actionsheet__cell" @click = "getCam()">拍照</div>
+                <div class="weui-actionsheet__cell" @click = "getPho()">从手机相册选择</div>
             </div>
             <div class="weui-actionsheet__action">
                 <div class="weui-actionsheet__cell" @click = "hideAction()">取消</div>
@@ -18,7 +18,7 @@
 </template>
 
 <script type="text/javascript">
-
+    import wx from 'weixin-js-sdk';
     var optionFrist={
         template:'#optionFrist'
     };
@@ -37,6 +37,28 @@
             hideAction:function () {
                 this.activeFlag = false
                 this.maskFlag = false
+            },
+            getCam:function () {
+                wx.chooseImage({
+                    count: 3, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                        console.log(localIds )
+                    }
+                });
+            },
+            getPho:function () {
+                wx.chooseImage({
+                    count: 3, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                        console.log(localIds )
+                    }
+                });
             }
         }
 
@@ -55,7 +77,7 @@
 
     }
     .optionFrist_box .optionjt{
-        left:0.8rem;
+        left:1.4rem;
     }
     .optionAdd{
         height: 53px;

@@ -57,8 +57,8 @@
                             <div><a href=""></a></div>
                             <div><a href=""></a></div>
                             <div><a href=""></a></div>
-                            <div><a ></a></div>
-                            <div><a></a></div>
+                            <div><a href=""></a></div>
+                            <div><div class="delexp"> </div></div>
                         </div>
                     </div>
                 </div>
@@ -114,18 +114,19 @@
                             <div><a href=""></a></div>
                             <div><a href=""></a></div>
                             <div><a href=""></a></div>
-                            <div><a ></a></div>
-                            <div><a ></a></div>
-                            <div><a ></a></div>
-                            <div><a ></a></div>
-                            <div><a ></a></div>
+                            <div><a href=""></a></div>
+                            <div><a href=""></a></div>
+                            <div><a href=""></a></div>
+                            <div><a href=""></a></div>
+                            <div><div></div></div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
             <div class="swiper-pagination" id="pagination"></div>
         </div>
-       
     </div>
 </template>
 
@@ -140,16 +141,134 @@
 
             }
         },
+        methods:{
+            _insertimg:function(dom,str){
+                console.info('11')
+                dom.focus();
+
+                var selection= window.getSelection ? window.getSelection() : document.selection;
+                var range= selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+                if (!window.getSelection){
+                    dom.focus();
+                    this.po_Last_Div(dom);
+                    var selection= window.getSelection ? window.getSelection() : document.selection;
+                    var range= selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+                    range.pasteHTML(str);
+                    range.collapse(false);
+                    range.select();
+                }else{
+                    dom.focus();
+                    this.po_Last_Div(dom);
+                    range.collapse(false);
+                    var hasR = range.createContextualFragment(str);
+                    var hasR_lastChild = hasR.lastChild;
+                    while (hasR_lastChild && hasR_lastChild.nodeName.toLowerCase() == "br" && hasR_lastChild.previousSibling && hasR_lastChild.previousSibling.nodeName.toLowerCase() == "br") {
+                        var e = hasR_lastChild;
+                        hasR_lastChild = hasR_lastChild.previousSibling;
+                        hasR.removeChild(e)
+                    }
+                    range.insertNode(hasR);
+                    if (hasR_lastChild) {
+                        range.setEndAfter(hasR_lastChild);
+                        range.setStartAfter(hasR_lastChild)
+                    }
+                    selection.removeAllRanges();
+                    selection.addRange(range)
+                }
+            },
+            po_Last_Div:function (obj) {
+        if (window.getSelection) {//ie11 10 9 ff safari
+            obj.focus(); //解决ff不获取焦点无法定位问题
+            var range = window.getSelection();//创建range
+            range.selectAllChildren(obj);//range 选择obj下所有子内容
+            range.collapseToEnd();//光标移至最后
+        }
+        else if (document.selection) {//ie10 9 8 7 6 5
+            var range = document.selection.createRange();//创建选择对象
+            //var range = document.body.createTextRange();
+            range.moveToElementText(obj);//range定位到obj
+            range.collapse(false);//光标移至最后
+            range.select();
+        }
+    },
+            insertAtCursor: function (dom, html) {
+                console.info(document.activeElement);
+                if (dom != document.activeElement) { // 如果dom没有获取到焦点，追加
+                   dom.innerHTML = dom.innerHTML + html;
+                   return;
+                }
+
+                var sel, range;
+                if (window.getSelection) {
+                    // IE9 或 非IE浏览器
+                    sel = window.getSelection();
+                    console.info(sel);
+                    if (sel.getRangeAt && sel.rangeCount) {
+                        range = sel.getRangeAt(0);
+                        range.deleteContents();
+                        // Range.createContextualFragment() would be useful here but is
+                        // non-standard and not supported in all browsers (IE9, for one)
+                        var el = document.createElement("div");
+                        el.innerHTML = html;
+                        var frag = document.createDocumentFragment(),
+                            node, lastNode;
+                        while ((node = el.firstChild)) {
+                            lastNode = frag.appendChild(node);
+                        }
+                        range.insertNode(frag);
+                        // Preserve the selection
+                        if (lastNode) {
+                            range = range.cloneRange();
+                            range.setStartAfter(lastNode);
+                            range.collapse(true);
+                            sel.removeAllRanges();
+                            sel.addRange(range);
+                        }
+                    }
+                } else if (document.selection && document.selection.type != "Control") {
+                    // IE < 9
+                    document.selection.createRange().pasteHTML(html);
+                }
+            },
+            appendFace:function (html) {
+                this._insertimg(document.getElementById('edit_mood'), html);
+                //this.insertAtCursor(document.getElementById('edit_mood'), html);
+            }
+        },
         mounted(){
+            var that = this;
+
             var mySwiper = new Swiper ('.swiper-container', {
                 direction: 'horizontal',
                 pagination: '.swiper-pagination'
+            });
+            $('.expLists a').click(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var src = $(this).css('background-image')
+                var p = $(this).css('background-position');
+                console.log(src)
+                if(src=='none'){
+                    console.log("000")
+                }else{
+                    var _span = $('<span contenteditable="false" class="test">')
+                        .css({'background-image':src,'background-position':p});
+                    that.appendFace(_span.prop('outerHTML'));
+                }
+            });
+            $('.delexp').click(function () {
+                console.log(11)
             })
+
         }
     }
 
 </script>
 <style>
+    .test{
+        height: 2.6rem;width: 2.6rem;background-size: cover;display: inline-block;
+        vertical-align: middle;
+    }
     html {
         font-size: 10px;
     }
@@ -219,11 +338,11 @@
         margin: 0 auto;
     }
     .expage1 a{
-        background:url("../images/1.png");
+        background-image:url("../images/1.png");
         background-size: cover;
     }
     .expage2 a{
-        background: url("../images/2.png");
+        background-image: url("../images/2.png");
         background-size: cover;
     }
     .expLists1 div:nth-of-type(2) a{
@@ -354,17 +473,17 @@
         background-position: 0 -114.3rem;
     }
     .expLists5 div:nth-of-type(8) a{
-       background: #f5f5f5;
+        background: #f5f5f5;
     }
-    .expLists5 div:nth-of-type(9) a{
+    .expLists5 div:nth-of-type(9) div{
         width: 2.7rem;
         height:1.9rem;
-        background: url("../images/del.gif");
+        background-image: url("../images/del.gif");
         background-size: cover;
-        margin-top: 5px;
+        margin-top:0.5rem;
     }
     .expLists6 div:nth-of-type(1) a{
-        background:url("../images/1.png");
+        background-image:url("../images/1.png");
         background-position: 0 -117rem;
         background-size: cover;
     }
@@ -486,7 +605,7 @@
         background-position: 0 -101.7rem;
     }
     .expLists10 div:nth-of-type(5) a{
-        background: #f5f5f5;
+        background-image: #f5f5f5;
     }
     .expLists10 div:nth-of-type(6) a{
         background: #f5f5f5;
@@ -497,10 +616,10 @@
     .expLists10 div:nth-of-type(8) a{
         background: #f5f5f5;
     }
-    .expLists10 div:nth-of-type(9) a{
+    .expLists10 div:nth-of-type(9) div{
         width: 2.7rem;
         height:1.9rem;
-        background: url("../images/del.gif");
+        background-image: url("../images/del.gif");
         background-size: cover;
         margin-top: 5px;
     }
