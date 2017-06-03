@@ -1,51 +1,72 @@
 <template id="careMe">
-	<div>
-		<!--<ul class="notice-list">-->
-			<!--<?php foreach ($list as $care) {-->
-    <!--$cares_logo = $mood['moodValue'] < MAX_UN_HAPPY_VALUE ? 'mood_icon_baob_pre.png' : 'mood_icon_dianz_pre.png';-->
-    <!--?>-->
-			<!--<li class="notice-item" data-href="<?=BASE_PATH?>mood/mooddetail/<?=$care['moodId']?>">-->
-				<!--<div class="moodcontent">-->
-					<!--<?php if($mood_haspic){?><img class="moodpicture" data-w="<?=$moodpicture['width']?>" data-h="<?=$moodpicture['height']?>" src="<?=$moodpicture['path']?><?=PIC_MINI?>"><?php-->
-            <!--}elseif($mood_hascontent)-->
-            <!--{?><div class="content"><?=$moodcontent?></div><?php-->
-            <!--}else{-->
-                <!--?><div class="moodvaluepic" style="background-image:url('<?=IMG_PATH?>/list_mood_<?=$mood_valuepicname?>.png')"></div><?php-->
-            <!--}?>-->
-				<!--</div>-->
-				<!--<div class="left">-->
-					<!--<div class="face"><img src="<?=wx_small_face($care['faceUrl'])?>"></div>-->
-					<!--<div class="info">-->
-						<!--<div class="info-user"><?=$care['nickName']?></div>-->
-						<!--<div class="info-content">-->
-							<!--<img class="info-care-pic" src="<?=IMG_PATH?>/<?=$cares_logo?>">-->
-						<!--</div>-->
-						<!--<div class="info-time">-->
-							<!--<?=friend_date($care['addtime'])?>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</div>-->
-			<!--</li>-->
-			<!--<?php }?>-->
-		<!--</ul>-->
+	<div class="careMe_box">
+		<div class="careMe_list">
+			<img class="careMe_img" src="../images/13.jpg" alt="">
+			<div class="careMe_div">
+				<div>葫芦娃</div>
+				<img src="../images/list_dianz_pre.png" alt="">
+				<p>刚刚</p>
+			</div>
+			<div class="careMe_content">
+				<img src="../images/list_mood_04.png" alt="">
+			</div>
+		</div>
 
 	</div>
 </template>
 <style>
-	.notice-list{}
-	.notice-item{overflow: hidden;border-bottom: 1px solid#eee;padding:10px 15px;color: #000;}
-	.notice-item .moodcontent{width: 60px;height: 60px; float: right;overflow: hidden;background: #f9f9f9}
-	.notice-item .moodcontent .moodpicture{width: 100%;height: 100%;}
-	.notice-item .moodcontent .moodvaluepic{width: 100%;height: 100%;background-size: 30px 30px;background-position: center;background-repeat: no-repeat}
-	.notice-item .moodcontent .content{margin:2px;word-break:break-all;word-wrap:break-word;overflow:hidden;font-size: 12px;color: #666;}
-	.notice-item .left{}
-	.notice-item .face{float: left;}
-	.notice-item .face img{width: 44px;height: 44px;border-radius: 3px;}
-	.notice-item .info{font-size: 13px;padding:0px 70px 0px 55px;}
-	.notice-item .info .info-user{color: #5e61a2;font-size: 13px;line-height: 1em}
-	.notice-item .info .info-content{line-height:1.5em;padding: 8px 0 8px 2px;}
-	.notice-item .info .info-content .info-care-pic{width: 14px;vertical-align: middle;}
-	.notice-item .info .info-time{font-size: 12px;line-height: 1em;color: #999;}
+	.careMe_box{
+	height:100%;
+		background: #ffffff;
+}
+	.careMe_list{
+		height:66px;
+		border-bottom: 1px solid #f5f5f5;
+		padding:0 10px;
+	}
+	.careMe_img{
+		height:40px;
+		width: 40px;
+		display: block;
+		float: left;
+		border-radius:3px;
+		margin-top:13px;
+	}
+	.careMe_div{
+		float: left;
+		margin-left:10px;
+		margin-top:5px;
+	}
+	.careMe_div div{
+		font-size: 14px;
+		color: #516591;
+	}
+	.careMe_div img{
+		width: 18px;
+		display: block;
+	}
+	.careMe_div p{
+		color: #999999;
+		font-size: 12px;
+	}
+	.careMe_content{
+		height:50px;
+		width: 50px;
+		background: #f5f5f5;
+		float: right;
+		margin-top: 8px;
+		position: relative;
+	}
+	.careMe_content img{
+		height:32px;
+		width:32px;
+		display: block;
+		position: absolute;
+		top:50%;
+		left:50%;
+		margin-top:-16px;
+		margin-left:-16px;
+	}
 </style>
 <script type="text/javascript">
 	var careMe={

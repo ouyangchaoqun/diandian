@@ -1,11 +1,11 @@
 <template id="Edit">
     <div>
         <div class="edit_box">
-            <div id="edit_mood" contenteditable="true" tabindex='-1'></div>
+            <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140" @changge= "getL()"></textarea>
             <div class="edit_loc" @click = "getLoc()">点击获取所在位置
                 <img src="../images/dz_nor.gif" alt="">
             </div>
-            <span class="edit_num">140</span>
+            <span class="edit_num">{{overLength}}</span>
         </div>
         <div class="edit_option">
             <div>
@@ -36,14 +36,16 @@
     export default {
         data() {
             return {
-                edit: '这一刻的心情......（8个字以上）'
+                overLength:140
             }
         },
-        methods: {
-
-        },
-        mounted: function () {
-
+        methods:{
+            getL:function () {
+                var _this = this;
+                var editLenght = $('#edit_mood').val().length;
+                console.log(editLenght)
+                _this.overLenght = 150
+            }
         }
     }
 
@@ -66,6 +68,7 @@
     outline: none;
     width:90%;
     resize: none;
+    border:0;
     margin: 0 auto;
     display: block;
     color: #999999;

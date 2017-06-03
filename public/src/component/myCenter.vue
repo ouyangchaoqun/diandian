@@ -5,12 +5,15 @@
 
         </div>
         <!--banner end -->
-        <a class="hi btn_notices">
-           <img v-if="notice.count" v-bind:src="notice.lastuser.faceUrl" width=50 height="50" />
-            {{notice.count}}条新消息
-            <span class="icony icon-108"></span>
-        </a>
-        <div class="line"></div>
+        <div class="notice_box">
+            <div class="notice">
+                <img class="notice_friend" v-if="notice.count" v-bind:src="notice.lastuser.faceUrl" />
+                <div>{{notice.count}}条新消息</div>
+                <img class="goNotice" src="../images/goto.jpg" alt="">
+            </div>
+        </div>
+
+
 
         <div class="mycenter_list">
             <!--mycenter start-->
@@ -388,5 +391,42 @@
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
+    }
+    .notice_box{
+        padding:10px;
+        background: #ffffff;
+        margin-bottom: 1px;
+    }
+    .notice{
+        height: 40px;
+        width: 180px;
+        background: #393939;
+        border-radius: 5px;
+        margin: 0 auto;
+    }
+    .notice_friend{
+        height:32px;
+        width: 32px;
+        float: left;
+        margin-left:5px;
+        margin-top:3px;
+        display: block;
+        border-radius: 3px;
+    }
+    .notice div{
+        float: left;
+        height:40px;
+        line-height: 40px;
+        color: #f8f5f5;
+        margin-left:32px;
+        font-size: 14px;
+    }
+    .goNotice{
+        width:16px;
+        display: block;
+        float: right;
+        margin-right: 14px;
+        margin-top:12px;
+
     }
 </style>
