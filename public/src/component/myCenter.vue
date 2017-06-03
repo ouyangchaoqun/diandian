@@ -12,13 +12,13 @@
                 <router-link to="./myCenter/myIndex">
                     <div class="list_left">
                         <img class="headerimg" :src="user.faceUrl"/>
-                        <template v-if="myLastMood!=null">
+                        <template v-if="myLastMood">
                             <div class="friend">
                                 <p class="friendName">{{user.nickName}}</p>
                                 <p class="time">{{myLastMood.addTime}}</p>
                             </div>
                         </template>
-                        <template v-if="myLastMood==null">
+                        <template v-if="!myLastMood">
                             <span>{{ user.nickName }}</span>
                         </template>
 
@@ -124,7 +124,7 @@
     export default {
         data() {
             return {
-                myLastMood: {},
+                myLastMood:null,
                 user: {},
                 friendMoodsSpe: null,
                 friendMoods: null

@@ -3,3 +3,9 @@
 Homestead.json
 Homestead.yaml
 .env
+composer.bat
+phpunit.phar
+composer.phar
+artisan
+phpunit.xml
+.env.example

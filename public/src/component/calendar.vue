@@ -24,7 +24,7 @@
                         <div class="dateEmptyView" v-for="item in empytGrids">{{item.index}}</div>
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']"
-                             @click="showSwiper()">
+                             @click="showSwiper(item.index)">
                             <div class="datesView">{{item.index+1}}</div>
                             <img :src="item.smailUrl"/>
                         </div>
@@ -38,29 +38,17 @@
             <div id="bg_back">
                 <div class="swiper-container clickBox">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="../images/bg_mood_01.png" alt=""/>
+                        <div class="swiper-slide"  v-for="mood in dayMoods">
+                            <img :src="mood.bgUrl" alt="" />
                             <div class="clickBox_time">
-                                <span>4月13日</span><span>星期1</span><span>08:20:40</span>
-                                <div class="clickBox_bottom">今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴</div>
+                                <span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>
+                                <div class="clickBox_bottom">{{mood.content}}</div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <img src="../images/bg_mood_02.png" alt=""/>
-                            <div class="clickBox_time">
-                                <span>4月13日</span><span>星期2</span><span>08:20:40</span>
-                                <div class="clickBox_bottom">今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴天很高兴</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="../images/bg_mood_04.png" alt=""/>
-                            <div class="clickBox_time">
-                                <span>4月13日</span><span>星期</span><span>08:20:40</span>
-                                <div class="clickBox_bottom">今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴今天很高兴天很高兴</div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -81,20 +69,22 @@
                 weeks_ch: ['日', '一', '二', '三', '四', '五', '六'],
                 empytGrids: [],
                 days: [],
-                isa: true,
                 commonClass: 'dateView',
                 _month: '',
                 today: '',
                 index: '',
                 isa: false,
                 isb: true,
-                swiper_box: true
+                swiper_box: true,
+                dayMoods:[],
+                mySwiper:null
             }
         },
-        mounted(){                                            //轮播配置
-            var mySwiper = new Swiper('.swiper-container', {
-                direction: 'horizontal'
-            })
+
+         mounted:function(){                                            //轮播配置
+            let _this= this;
+            _this.mySwiper = new Swiper('.swiper-container', {
+            });
         },
         /*components:{
          "v-swiper_box":swiper_box
@@ -155,14 +145,17 @@
 
             },
             calculateDays(year, month) {
+                let defaultImgUrl= web.IMG_PATH + "list_mood_0" + 0 + ".png";
                 let _this = this;
-                var days = [];
-                var thisMonthDays = this.getThisMonthDays(year, month);
+                let days = [];
+                let thisMonthDays = this.getThisMonthDays(year, month);
                 let monthchange = month;
                 if (month < 10) monthchange = "0" + monthchange;
 
-                for (var i = 0; i < thisMonthDays; i++) {
-                    days.push({index: i, date: "", smailUrl:  web.IMG_PATH + "list_mood_0" + 0 + ".png"});
+
+
+                for (let i = 1; i <= thisMonthDays; i++) {
+                    days.push({index: i-1, date: "", smailUrl: defaultImgUrl,moods:[] });
                 }
 
                 this.days = days;
@@ -171,18 +164,20 @@
                     if (response.data.status === 1) {
 
                         if (thisMonthDays > 0) {
-                            for (var i = 0; i < thisMonthDays; i++) {
+                            for (let i = 1; i <= thisMonthDays; i++) {
                                 let dayChange = i;
                                 if (i < 10) dayChange = "0" + i;
                                 let dateStr = year + "-" + monthchange + "-" + dayChange;
                                 let faceIndex = 0;
+                                let moods =[];
                                 for (let j = 0; j < response.data.data.length; j++) {
                                     if (dateStr === response.data.data[j].dt) {
                                         faceIndex = response.data.data[j].moodValue;
+                                        moods.push(response.data.data[j]);
                                     }
                                 }
                                 let smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
-                                days.push({index: i, date: dateStr, smailUrl: smailUrl});
+                                days.push({index: i-1, date: dateStr, smailUrl: smailUrl,moods:moods});
                             }
 
 
@@ -191,13 +186,13 @@
                         this.days = days
 
                     }else{
-                        for (var i = 1; i <= thisMonthDays; i++) {
-                            days.push({index: i, date: "", smailUrl: ""});
+                        for (let i = 1; i <= thisMonthDays; i++) {
+                            days.push({index: i-1, date: "", smailUrl: defaultImgUrl,moods:[]});
                         }
                     }
                 }, response => {
-                    for (var i = 1; i <= thisMonthDays; i++) {
-                        days.push({index: i, date: "", smailUrl: ""});
+                    for (let i = 1; i <= thisMonthDays; i++) {
+                        days.push({index: i-1, date: "", smailUrl: defaultImgUrl,moods:[]});
                     }
                 });
 
@@ -231,11 +226,48 @@
                 this.cur_year = newYear,
                     this.cur_month = newMonth
             },
-            showSwiper: function () {                                 //日期点击事件
-                this.isa = true;
-                this.isb = false
+            showSwiper: function (index) {
+
+                let _this=this;
+                if(_this.days[index].moods.length>0){
+
+
+                    //植入当天数据
+                    _this.dayMoods=[];
+                    _this.dayMoods =_this.days[index].moods;
+                    for(let i =0 ;i<_this.dayMoods.length;i++){
+                        _this.dayMoods[i].bgUrl= web.IMG_PATH +"bg_mood_0"+_this.dayMoods[i].moodValue+".png";
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
+                        _this.dayMoods[i].dt=  _this.dayMoods[i].dt.replace("-","月");
+                        _this.dayMoods[i].weekCn =  _this.weeks_ch[_this.dayMoods[i].weekix];
+                    }
+
+
+                    console.log(_this.dayMoods);
+                    this.$nextTick(function(){
+
+                        if(_this.mySwiper!==null){
+                            _this.mySwiper.update()
+                        }
+
+                         _this. mySwiper.slideTo(_this.dayMoods.length-1, 0, false);//切换到第一个slide
+
+                    });
+
+
+
+                    //日期点击事件
+                    this.isa = true;
+                    this.isb = false
+
+
+                }
+
+
+
             },
             hideSwiper: function () {                                 //轮播隐藏事件
+
                 this.isa = false;
                 this.isb = true
             }
