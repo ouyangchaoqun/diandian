@@ -1,124 +1,133 @@
 <template id="optionSecond">
     <div class="optionSecond_box">
         <img class="optionjt" src="../images/jt.gif" alt="">
-        <div class="swiper-container">
+        <div class="swiper-container exp_box">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="expLists expage1">
-                        <div class="expLists1">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
+                        <div>
+                            <div><a class="exp1" data="[微笑]" href=""></a></div>
+                            <div><a class="exp2" data="[撇嘴]" href=""></a></div>
+                            <div><a class="exp3" data="[色]" href=""></a></div>
+                            <div><a class="exp4" data="[发呆]" href=""></a></div>
+                            <div><a class="exp5" data="[得意]" href=""></a></div>
+                            <div><a class="exp6" data="[流泪]" href=""></a></div>
+                            <div><a class="exp7" data="[害羞]" href=""></a></div>
+                            <div><a class="exp8" data="[闭嘴]" href=""></a></div>
                         </div>
-                        <div class="expLists2">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
+                        <div >
+                            <div><a class="exp9" data="[睡]" href=""></a></div>
+                            <div><a class="exp10" data="[大哭]" href=""></a></div>
+                            <div><a class="exp11" data="[尴尬]" href=""></a></div>
+                            <div><a class="exp12" data="[发怒]" href=""></a></div>
+                            <div><a class="exp13" data="[调皮]" href=""></a></div>
+                            <div><a class="exp14" data="[呲牙]" href=""></a></div>
+                            <div><a class="exp15" data="[惊讶]" href=""></a></div>
+                            <div><a class="exp16" data="[难过]" href=""></a></div>
                         </div>
-                        <div class="expLists3">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                        </div>
-                        <div class="expLists4">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                        </div>
-                        <div class="expLists5">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><div class="delexp"> </div></div>
+                        <div>
+                            <div><a class="exp17" data="[囧]" href=""></a></div>
+                            <div><a class="exp18" data="[抓狂]" href=""></a></div>
+                            <div><a class="exp19" data="[吐]" href=""></a></div>
+                            <div><a class="exp20" data="[偷笑]" href=""></a></div>
+                            <div><a class="exp21" data="[愉快]" href=""></a></div>
+                            <div><a class="exp22" data="[白眼]" href=""></a></div>
+                            <div><a class="exp23" data="[傲慢]" href=""></a></div>
+                            <div><div class="delexp"></div></div>
                         </div>
                     </div>
                 </div>
-
                 <div class="swiper-slide">
-                    <div class="expLists expage2">
-                        <div class="expLists6">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
+                    <div class="expLists">
+                        <div>
+                            <div><a class="exp24" data="[困]" href=""></a></div>
+                            <div><a class="exp25" data="[惊恐]" href=""></a></div>
+                            <div><a class="exp26" data="[流汗]" href=""></a></div>
+                            <div><a class="exp27" data="[憨笑]" href=""></a></div>
+                            <div><a class="exp28" data="[悠闲]" href=""></a></div>
+                            <div><a class="exp29" data="[奋斗]" href=""></a></div>
+                            <div><a class="exp30" data="[咒骂]" href=""></a></div>
+                            <div><a class="exp31" data="[疑问]" href=""></a></div>
                         </div>
-                        <div class="expLists7">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
+                        <div>
+                            <div><a class="exp32" data="[嘘]" href=""></a></div>
+                            <div><a class="exp33" data="[晕]" href=""></a></div>
+                            <div><a class="exp34" data="[衰]" href=""></a></div>
+                            <div><a class="exp35" data="[骷髅]" href=""></a></div>
+                            <div><a class="exp36" data="[敲打]" href=""></a></div>
+                            <div><a class="exp37" data="[再见]" href=""></a></div>
+                            <div><a class="exp38" data="[擦汗]" href=""></a></div>
+                            <div><a class="exp39" data="[抠鼻]" href=""></a></div>
                         </div>
-                        <div class="expLists8">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
+                        <div>
+
+                            <div><a class="exp40" data="[鼓掌]" href=""></a></div>
+                            <div><a class="exp41" data="[坏笑]" href=""></a></div>
+                            <div><a class="exp42" data="[左哼哼]" href=""></a></div>
+                            <div><a class="exp43" data="[右哼哼]" href=""></a></div>
+                            <div><a class="exp44" data="[哈欠]" href=""></a></div>
+                            <div><a class="exp45" data="[鄙视]" href=""></a></div>
+                            <div><a class="exp46" data="[委屈]" href=""></a></div>
+                            <div><div class="delexp"></div></div>
                         </div>
-                        <div class="expLists9">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="expLists">
+                        <div>
+                            <div><a class="exp47" data="[快哭了]" href=""></a></div>
+                            <div><a class="exp48" data="[阴险]" href=""></a></div>
+                            <div><a class="exp49" data="[亲亲]" href=""></a></div>
+                            <div><a class="exp50" data="[可怜]" href=""></a></div>
+                            <div><a class="exp51" data="[菜刀]" href=""></a></div>
+                            <div><a class="exp52" data="[西瓜]" href=""></a></div>
+                            <div><a class="exp53" data="[啤酒]" href=""></a></div>
+                            <div><a class="exp54" data="[咖啡]" href=""></a></div>
                         </div>
-                        <div class="expLists10">
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><a href=""></a></div>
-                            <div><div></div></div>
+                        <div>
+                            <div><a class="exp55" data="[猪头]" href=""></a></div>
+                            <div><a class="exp56" data="[玫瑰]" href=""></a></div>
+                            <div><a class="exp57" data="[凋谢]" href=""></a></div>
+                            <div><a class="exp58" data="[嘴唇]" href=""></a></div>
+                            <div><a class="exp59" data="[爱心]" href=""></a></div>
+                            <div><a class="exp60" data="[心碎]" href=""></a></div>
+                            <div><a class="exp61" data="[蛋糕]" href=""></a></div>
+                            <div><a class="exp62" data="[炸弹]" href=""></a></div>
+                        </div>
+                        <div>
+                            <div><a class="exp63" data="[便便]" href=""></a></div>
+                            <div><a class="exp64" data="[月亮]" href=""></a></div>
+                            <div><a class="exp65" data="[太阳]" href=""></a></div>
+                            <div><a class="exp66" data="[拥抱]" href=""></a></div>
+                            <div><a class="exp67" data="[强]" href=""></a></div>
+                            <div><a class="exp68" data="[弱]" href=""></a></div>
+                            <div><a class="exp69" data="[握手]" href=""></a></div>
+                            <div><div class="delexp"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="expLists">
+                        <div>
+                            <div><a class="exp70" data="[胜利]" href=""></a></div>
+                            <div><a class="exp71" data="[抱拳]" href=""></a></div>
+                            <div><a class="exp72" data="[勾引]" href=""></a></div>
+                            <div><a class="exp73" data="[拳头]" href=""></a></div>
+                            <div><a class="exp74" data="[OK]" href=""></a></div>
+                            <div><a class="exp75" data="[跳跳]" href=""></a></div>
+                            <div><a class="exp76" data="[发抖]" href=""></a></div>
+                            <div><a class="exp77" data="[怄火]" href=""></a></div>
+
+                        </div>
+                        <div>
+                            <div><a class="exp78" data="[转圈]" href=""></a></div>
+                            <div><a class="exp79" data="[嘿哈]" href=""></a></div>
+                            <div><a class="exp80" data="[捂脸]" href=""></a></div>
+                            <div><a class="exp81" data="[奸笑]" href=""></a></div>
+                            <div><a class="exp82" data="[机智]" href=""></a></div>
+                            <div><a class="exp83" data="[皱眉]" href=""></a></div>
+                            <div><a class="exp84" data="[耶]" href=""></a></div>
+                            <div><div class="delexp"></div></div>
                         </div>
                     </div>
                 </div>
@@ -131,7 +140,7 @@
 </template>
 
 <script type="text/javascript">
-
+import insert from "../js/insert"
     var optionSecond={
         template:'#optionSecond'
     };
@@ -142,120 +151,23 @@
             }
         },
         methods:{
-            _insertimg:function(dom,str){
-                console.info('11')
-                dom.focus();
 
-                var selection= window.getSelection ? window.getSelection() : document.selection;
-                var range= selection.createRange ? selection.createRange() : selection.getRangeAt(0);
-                if (!window.getSelection){
-                    dom.focus();
-                    this.po_Last_Div(dom);
-                    var selection= window.getSelection ? window.getSelection() : document.selection;
-                    var range= selection.createRange ? selection.createRange() : selection.getRangeAt(0);
-                    range.pasteHTML(str);
-                    range.collapse(false);
-                    range.select();
-                }else{
-                    dom.focus();
-                    this.po_Last_Div(dom);
-                    range.collapse(false);
-                    var hasR = range.createContextualFragment(str);
-                    var hasR_lastChild = hasR.lastChild;
-                    while (hasR_lastChild && hasR_lastChild.nodeName.toLowerCase() == "br" && hasR_lastChild.previousSibling && hasR_lastChild.previousSibling.nodeName.toLowerCase() == "br") {
-                        var e = hasR_lastChild;
-                        hasR_lastChild = hasR_lastChild.previousSibling;
-                        hasR.removeChild(e)
-                    }
-                    range.insertNode(hasR);
-                    if (hasR_lastChild) {
-                        range.setEndAfter(hasR_lastChild);
-                        range.setStartAfter(hasR_lastChild)
-                    }
-                    selection.removeAllRanges();
-                    selection.addRange(range)
-                }
-            },
-            po_Last_Div:function (obj) {
-        if (window.getSelection) {//ie11 10 9 ff safari
-            obj.focus(); //解决ff不获取焦点无法定位问题
-            var range = window.getSelection();//创建range
-            range.selectAllChildren(obj);//range 选择obj下所有子内容
-            range.collapseToEnd();//光标移至最后
-        }
-        else if (document.selection) {//ie10 9 8 7 6 5
-            var range = document.selection.createRange();//创建选择对象
-            //var range = document.body.createTextRange();
-            range.moveToElementText(obj);//range定位到obj
-            range.collapse(false);//光标移至最后
-            range.select();
-        }
-    },
-            insertAtCursor: function (dom, html) {
-                console.info(document.activeElement);
-                if (dom != document.activeElement) { // 如果dom没有获取到焦点，追加
-                   dom.innerHTML = dom.innerHTML + html;
-                   return;
-                }
-
-                var sel, range;
-                if (window.getSelection) {
-                    // IE9 或 非IE浏览器
-                    sel = window.getSelection();
-                    console.info(sel);
-                    if (sel.getRangeAt && sel.rangeCount) {
-                        range = sel.getRangeAt(0);
-                        range.deleteContents();
-                        // Range.createContextualFragment() would be useful here but is
-                        // non-standard and not supported in all browsers (IE9, for one)
-                        var el = document.createElement("div");
-                        el.innerHTML = html;
-                        var frag = document.createDocumentFragment(),
-                            node, lastNode;
-                        while ((node = el.firstChild)) {
-                            lastNode = frag.appendChild(node);
-                        }
-                        range.insertNode(frag);
-                        // Preserve the selection
-                        if (lastNode) {
-                            range = range.cloneRange();
-                            range.setStartAfter(lastNode);
-                            range.collapse(true);
-                            sel.removeAllRanges();
-                            sel.addRange(range);
-                        }
-                    }
-                } else if (document.selection && document.selection.type != "Control") {
-                    // IE < 9
-                    document.selection.createRange().pasteHTML(html);
-                }
-            },
-            appendFace:function (html) {
-                this._insertimg(document.getElementById('edit_mood'), html);
-                //this.insertAtCursor(document.getElementById('edit_mood'), html);
-            }
         },
         mounted(){
+            $(document).ready(function(){
+                $('.expLists a').click(function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    var exp = $(this).attr('data')
+                    $("#edit_mood").insertContent(exp);
+                });
+            });
             var that = this;
-
             var mySwiper = new Swiper ('.swiper-container', {
                 direction: 'horizontal',
                 pagination: '.swiper-pagination'
             });
-            $('.expLists a').click(function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                var src = $(this).css('background-image')
-                var p = $(this).css('background-position');
-                console.log(src)
-                if(src=='none'){
-                    console.log("000")
-                }else{
-                    var _span = $('<span contenteditable="false" class="test">')
-                        .css({'background-image':src,'background-position':p});
-                    that.appendFace(_span.prop('outerHTML'));
-                }
-            });
+
             $('.delexp').click(function () {
                 console.log(11)
             })
@@ -323,305 +235,283 @@
     .optionSecond_box .optionjt{
         left:5.8rem;
     }
-    .expLists1,.expLists2,.expLists3,.expLists4,.expLists5,.expLists6,.expLists7,.expLists8,.expLists9,.expLists10{
+    .expLists div{
+        display: flex;
+        flex-grow: 1;
+        margin-bottom: 0.5rem;
+    }
+   /* .expLists1,.expLists2,.expLists3,.expLists4,.expLists5,.expLists6,.expLists7,.expLists8,.expLists9,.expLists10{
         display: flex;
         margin-bottom: 1rem;
     }
     .expLists1 div,.expLists2 div, .expLists3 div,.expLists4 div,.expLists5 div,.expLists6 div,.expLists7 div,.expLists8 div,.expLists9 div,.expLists10 div{
         flex-grow: 1;
-    }
+    }*/
     .expLists a{
         height:2.6rem;
         width:2.6rem;
         display: block;
         background-position: 0 0;
         margin: 0 auto;
-    }
-    .expage1 a{
-        background-image:url("../images/1.png");
+        background-image:url("../images/exp.png");
         background-size: cover;
     }
-    .expage2 a{
-        background-image: url("../images/2.png");
-        background-size: cover;
-    }
-    .expLists1 div:nth-of-type(2) a{
+
+    .expLists .exp2{
         background-position: 0 -2.7rem;
     }
-    .expLists1 div:nth-of-type(3) a{
+    .expLists .exp3{
         background-position: 0 -5.4rem;
     }
-    .expLists1 div:nth-of-type(4) a{
+    .expLists .exp4{
         background-position: 0 -8.2rem;
     }
-    .expLists1 div:nth-of-type(5) a{
+    .expLists .exp5{
         background-position: 0 -10.9rem;
     }
-    .expLists1 div:nth-of-type(6) a{
+    .expLists .exp6{
         background-position: 0 -13.6rem;
     }
-    .expLists1 div:nth-of-type(7) a{
+    .expLists .exp7{
         background-position: 0 -16.4rem;
     }
-    .expLists1 div:nth-of-type(8) a{
+    .expLists .exp8{
         background-position: 0 -19rem;
     }
-    .expLists1 div:nth-of-type(9) a{
+    .expLists .exp9{
         background-position: 0 -21.8rem;
     }
 
-    .expLists2 div:nth-of-type(1) a{
+    .expLists .exp10{
         background-position: 0 -24.5rem;
     }
-    .expLists2 div:nth-of-type(2) a{
+    .expLists .exp11{
         background-position: 0 -27.2rem;
     }
-    .expLists2 div:nth-of-type(3) a{
+    .expLists .exp12{
         background-position: 0 -29.9rem;
     }
-    .expLists2 div:nth-of-type(4) a{
+    .expLists .exp13{
         background-position: 0 -32.6rem;
     }
-    .expLists2 div:nth-of-type(5) a{
+    .expLists .exp14{
         background-position: 0 -35.4rem;
     }
-    .expLists2 div:nth-of-type(6) a{
+    .expLists .exp15{
         background-position: 0 -38.2rem;
     }
-    .expLists2 div:nth-of-type(7) a{
+    .expLists .exp16{
         background-position: 0 -40.9rem;
     }
-    .expLists2 div:nth-of-type(8) a{
+    .expLists .exp17{
         background-position: 0 -43.6rem;
     }
-    .expLists2 div:nth-of-type(9) a{
+    .expLists .exp18{
         background-position: 0 -46.3rem;
     }
-    .expLists3 div:nth-of-type(1) a{
+    .expLists .exp19{
         background-position: 0 -48.9rem;
     }
-    .expLists3 div:nth-of-type(2) a{
+    .expLists .exp20{
         background-position: 0 -51.7rem;
     }
-    .expLists3 div:nth-of-type(3) a{
+    .expLists .exp21{
         background-position: 0 -54.4rem;
     }
-    .expLists3 div:nth-of-type(4) a{
+    .expLists .exp22{
         background-position: 0 -57.2rem;
     }
-    .expLists3 div:nth-of-type(5) a{
+    .expLists .exp23{
         background-position: 0 -59.9rem;
     }
-    .expLists3 div:nth-of-type(6) a{
+    .expLists .exp24{
         background-position: 0 -62.6rem;
     }
-    .expLists3 div:nth-of-type(7) a{
+    .expLists .exp25{
         background-position: 0 -65.4rem;
     }
-    .expLists3 div:nth-of-type(8) a{
+    .expLists .exp26{
         background-position: 0 -67.9rem;
     }
-    .expLists3 div:nth-of-type(9) a{
+    .expLists .exp27{
         background-position: 0 -70.7rem;
     }
-    .expLists4 div:nth-of-type(1) a{
+    .expLists .exp28{
         background-position: 0 -73.5rem;
     }
-    .expLists4 div:nth-of-type(2) a{
+    .expLists .exp29{
         background-position: 0 -76.3rem;
     }
-    .expLists4 div:nth-of-type(3) a{
+    .expLists .exp30{
         background-position: 0 -79rem;
     }
-    .expLists4 div:nth-of-type(4) a{
+    .expLists .exp31{
         background-position: 0 -81.7rem;
     }
-    .expLists4 div:nth-of-type(5) a{
+    .expLists .exp32{
         background-position: 0 -84.5rem;
     }
-    .expLists4 div:nth-of-type(6) a{
+    .expLists .exp33{
         background-position: 0 -87.2rem;
     }
-    .expLists4 div:nth-of-type(7) a{
+    .expLists .exp34{
         background-position: 0 -89.9rem;
     }
-    .expLists4 div:nth-of-type(8) a{
+    .expLists .exp35{
         background-position: 0 -92.7rem;
     }
-    .expLists4 div:nth-of-type(9) a{
+    .expLists .exp36{
         background-position: 0 -95.4rem;
     }
-    .expLists5 div:nth-of-type(1) a{
+    .expLists .exp37{
         background-position: 0 -98rem;
     }
-    .expLists5 div:nth-of-type(2) a{
+    .expLists .exp38{
         background-position: 0 -100.7rem;
     }
-    .expLists5 div:nth-of-type(3) a{
+    .expLists .exp39{
         background-position: 0 -103.5rem;
     }
-    .expLists5 div:nth-of-type(4) a{
+    .expLists .exp40{
         background-position: 0 -106.2rem;
     }
-    .expLists5 div:nth-of-type(5) a{
+    .expLists .exp41{
         background-position: 0 -108.9rem;
     }
-    .expLists5 div:nth-of-type(6) a{
+    .expLists .exp42{
         background-position: 0 -111.6rem;
     }
-    .expLists5 div:nth-of-type(7) a{
+    .expLists .exp43{
         background-position: 0 -114.3rem;
     }
-    .expLists5 div:nth-of-type(8) a{
-        background: #f5f5f5;
-    }
-    .expLists5 div:nth-of-type(9) div{
-        width: 2.7rem;
-        height:1.9rem;
-        background-image: url("../images/del.gif");
-        background-size: cover;
-        margin-top:0.5rem;
-    }
-    .expLists6 div:nth-of-type(1) a{
-        background-image:url("../images/1.png");
+    .expLists .exp44{
         background-position: 0 -117rem;
+    }
+    .expLists .exp45{
+        background-position: 0 -119.9rem;
+    }
+    .expLists .exp46{
+        background-position: 0 -122.5rem;
+    }
+    .expLists .exp47{
+        background-position: 0 -125rem;
+    }
+    .expLists .exp48{
+        background-position: 0 -127.6rem;
+    }
+    .expLists .exp49{
+        background-position: 0 -130.3rem;
+    }
+    .expLists .exp50{
+        background-position: 0 -132.9rem;
+    }
+    .expLists .exp51{
+        background-position: 0 -135.6rem;
+    }
+    .expLists .exp52{
+        background-position: 0 -138.2rem;
+    }
+    .expLists .exp53{
+        background-position: 0 -140.8rem;
+    }
+    .expLists .exp54{
+        background-position: 0 -143.3rem;
+    }
+    .expLists .exp55{
+        background-position: 0 -145.9rem;
+    }
+    .expLists .exp56{
+        background-position: 0 -148.6rem;
+    }
+    .expLists .exp57{
+        background-position: 0 -151.3rem;
+    }
+    .expLists .exp58{
+        background-position: 0 -153.8rem;
+    }
+    .expLists .exp59{
+        background-position: 0 -156.5rem;
+    }
+    .expLists .exp60{
+        background-position: 0 -159.2rem;
+    }
+    .expLists .exp61{
+        background-position: 0 -161.9rem;
+    }
+    .expLists .exp62{
+        background-position: 0 -164.3rem;
+    }
+    .expLists .exp63{
+        background-position: 0 -167rem;
+    }
+    .expLists .exp64{
+        background-position: 0 -169.4rem;
+    }
+    .expLists .exp65{
+        background-position: 0 -172rem;
+    }
+    .expLists .exp66{
+        background-position: 0 -174.6rem;
+    }
+    .expLists .exp67{
+        background-position: 0 -177.2rem;
+    }
+    .expLists .exp68{
+        background-position: 0 -179.7rem;
+    }
+    .expLists .exp69{
+        background-position: 0 -182.5rem;
+    }
+    .expLists .exp70{
+        background-position: 0 -185rem;
+    }
+    .expLists .exp71{
+        background-position: 0 -187.5rem;
+    }
+    .expLists .exp72{
+        background-position: 0 -190rem;
+    }
+    .expLists .exp73{
+        background-position: 0 -192.6rem;
+    }
+    .expLists .exp74{
+        background-position: 0 -195.4rem;
+    }
+    .expLists .exp75{
+        background-position: 0 -197.8rem;
+    }
+    .expLists .exp76{
+        background-position: 0 -200.4rem;
+    }
+    .expLists .exp77{
+        background-position: 0 -203rem;
+    }
+    .expLists .exp78{
+        background-position: 0 -205.6rem;
+    }
+    .expLists .exp79{
+        background-position: 0 -208.5rem;
+    }
+    .expLists .exp80{
+        background-position: 0 -211.1rem;
+    }
+    .expLists .exp81{
+        background-position: 0 -213.6rem;
+    }
+    .expLists .exp82{
+        background-position: 0 -216.3rem;
+    }
+    .expLists .exp83{
+        background-position: 0 -219rem;
+    }
+    .expLists .exp84{
+        background-position: 0 -221.6rem;
+    }
+    .delexp{
+        width: 2.6rem;
+        height:2.6rem;
+        background: url("../images/del.gif");
         background-size: cover;
-    }
-    .expLists6 div:nth-of-type(2) a{
-        background-position: 0 0rem;
-    }
-    .expLists6 div:nth-of-type(3) a{
-        background-position: 0 -5.2rem;
-    }
-    .expLists6 div:nth-of-type(4) a{
-        background-position: 0 -7.7rem;
-    }
-    .expLists6 div:nth-of-type(5) a{
-        background-position: 0 -10.3rem;
-    }
-    .expLists6 div:nth-of-type(6) a{
-        background-position: 0 -12.9rem;
-    }
-    .expLists6 div:nth-of-type(7) a{
-        background-position: 0 -15.6rem;
-    }
-    .expLists6 div:nth-of-type(8) a{
-        background-position: 0 -18.2rem;
-    }
-    .expLists6 div:nth-of-type(9) a{
-        background-position: 0 -20.8rem;
-    }
-    .expLists7 div:nth-of-type(1) a{
-        background-position: 0 -23.4rem;
-    }
-    .expLists7 div:nth-of-type(2) a{
-        background-position: 0 -26rem;
-    }
-    .expLists7 div:nth-of-type(3) a{
-        background-position: 0 -28.7rem;
-    }
-    .expLists7 div:nth-of-type(4) a{
-        background-position: 0 -31.2rem;
-    }
-    .expLists7 div:nth-of-type(5) a{
-        background-position: 0 -33.8rem;
-    }
-    .expLists7 div:nth-of-type(6) a{
-        background-position: 0 -36.5rem;
-    }
-    .expLists7 div:nth-of-type(7) a{
-        background-position: 0 -39.2rem;
-    }
-    .expLists7 div:nth-of-type(8) a{
-        background-position: 0 -41.9rem;
-    }
-    .expLists7 div:nth-of-type(9) a{
-        background-position: 0 -44.3rem;
-    }
-    .expLists8 div:nth-of-type(1) a{
-        background-position: 0 -47rem;
-    }
-    .expLists8 div:nth-of-type(2) a{
-        background-position: 0 -49.4rem;
-    }
-    .expLists8 div:nth-of-type(3) a{
-        background-position: 0 -52rem;
-    }
-    .expLists8 div:nth-of-type(4) a{
-        background-position: 0 -54.7rem;
-    }
-    .expLists8 div:nth-of-type(5) a{
-        background-position: 0 -57.3rem;
-    }
-    .expLists8 div:nth-of-type(6) a{
-        background-position: 0 -59.8rem;
-    }
-    .expLists8 div:nth-of-type(7) a{
-        background-position: 0 -62.6rem;
-    }
-    .expLists8 div:nth-of-type(8) a{
-        background-position: 0 -65.1rem;
-    }
-    .expLists8 div:nth-of-type(9) a{
-        background-position: 0 -67.6rem;
-    }
-    .expLists9 div:nth-of-type(1) a{
-        background-position: 0 -70.3rem;
-    }
-    .expLists9 div:nth-of-type(2) a{
-        background-position: 0 -72.9rem;
-    }
-    .expLists9 div:nth-of-type(3) a{
-        background-position: 0 -75.5rem;
-    }
-    .expLists9 div:nth-of-type(4) a{
-        background-position: 0 -78rem;
-    }
-    .expLists9 div:nth-of-type(5) a{
-        background-position: 0 -80.6rem;
-    }
-    .expLists9 div:nth-of-type(6) a{
-        background-position: 0 -83.2rem;
-    }
-    .expLists9 div:nth-of-type(7) a{
-        background-position: 0 -85.8rem;
-    }
-    .expLists9 div:nth-of-type(8) a{
-        background-position: 0 -88.6rem;
-    }
-    .expLists9 div:nth-of-type(9) a{
-        background-position: 0 -91.2rem;
-    }
-    .expLists10 div:nth-of-type(1) a{
-        background-position: 0 -93.7rem;
-    }
-    .expLists10 div:nth-of-type(2) a{
-        background-position: 0 -96.4rem;
-    }
-    .expLists10 div:nth-of-type(3) a{
-        background-position: 0 -99rem;
-    }
-    .expLists10 div:nth-of-type(4) a{
-        background-position: 0 -101.7rem;
-    }
-    .expLists10 div:nth-of-type(5) a{
-        background-image: #f5f5f5;
-    }
-    .expLists10 div:nth-of-type(6) a{
-        background: #f5f5f5;
-    }
-    .expLists10 div:nth-of-type(7) a{
-        background: #f5f5f5;
-    }
-    .expLists10 div:nth-of-type(8) a{
-        background: #f5f5f5;
-    }
-    .expLists10 div:nth-of-type(9) div{
-        width: 2.7rem;
-        height:1.9rem;
-        background-image: url("../images/del.gif");
-        background-size: cover;
-        margin-top: 5px;
     }
     .swiper-pagination-bullet{
         background: #d5d5d7;
@@ -629,12 +519,12 @@
     .swiper-pagination-bullet-active{
         background:#88888a;
     }
-    .swiper-container{
-        height:25rem;
+    .exp_box{
+        height:15rem;
     }
     #pagination{
         position: absolute;
-        bottom:3rem;
+        bottom:1rem;
     }
 
 </style>
