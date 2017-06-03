@@ -1,7 +1,7 @@
 <template id="calendar">
     <div class="calendar_box">
         <div class="banner">
-            <img src="../images/banner.jpg"/>
+            <v-banner></v-banner>
         </div>
 
 
@@ -56,11 +56,15 @@
     </div>
 </template>
 <script type="text/javascript">
+    import banner from "./banner.vue";
 
     var calendar = {
         template: '#calendar'
     }
     export default {
+        components: {
+            "v-banner": banner
+        },
         data() {
             return {
                 hasEmptyGrid: false,

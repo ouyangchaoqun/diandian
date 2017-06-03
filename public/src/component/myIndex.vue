@@ -4,7 +4,7 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
             <div class="myIndex_box">
                 <div class="banner index_banner">
-                    <img :src="topImg"/>
+                    <v-banner></v-banner>
                     <div class="userHeaderImg">
                         <img :src="user.faceUrl" alt="">
                     </div>
@@ -104,6 +104,7 @@
 
 
     import chart from "./chart.vue"
+    import banner from "./banner.vue"
     import scroll from './lib/scroll.vue';
     import wx from 'weixin-js-sdk';
     var myIndex = {
@@ -395,7 +396,7 @@
 
 
         components: {
-            'v-scroll': scroll, "v-chart": chart
+            'v-scroll': scroll, "v-chart": chart,"v-banner": banner
         }
     }
 
