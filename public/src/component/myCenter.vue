@@ -5,6 +5,15 @@
 
         </div>
         <!--banner end -->
+        <div class="notice_box">
+            <div class="notice">
+                <img class="notice_friend" v-if="notice.count" v-bind:src="notice.lastuser.faceUrl" />
+                <div>{{notice.count}}条新消息</div>
+                <img class="goNotice" src="../images/goto.jpg" alt="">
+            </div>
+        </div>
+
+
 
         <div class="mycenter_list">
             <!--mycenter start-->
@@ -127,7 +136,8 @@
                 myLastMood:null,
                 user: {},
                 friendMoodsSpe: null,
-                friendMoods: null
+                friendMoods: null,
+                notice:null
             }
         },
         methods: {
@@ -179,6 +189,18 @@
             }, function (error) {
                 //error
             });
+
+            this.$http({
+				method: 'GET',
+				type: "json",
+				url: web.API_PATH + 'notice/find/new/[userId]',
+			}).then(function (data) {
+				if (data.data.data !== null) {
+					_this.notice = eval(data.data.data);
+				}
+			}, function (error) {
+				//error
+			});
 
 
             //用户 朋友当天心情 特别关系
@@ -369,5 +391,42 @@
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
+    }
+    .notice_box{
+        padding:10px;
+        background: #ffffff;
+        margin-bottom: 1px;
+    }
+    .notice{
+        height: 40px;
+        width: 180px;
+        background: #393939;
+        border-radius: 5px;
+        margin: 0 auto;
+    }
+    .notice_friend{
+        height:32px;
+        width: 32px;
+        float: left;
+        margin-left:5px;
+        margin-top:3px;
+        display: block;
+        border-radius: 3px;
+    }
+    .notice div{
+        float: left;
+        height:40px;
+        line-height: 40px;
+        color: #f8f5f5;
+        margin-left:32px;
+        font-size: 14px;
+    }
+    .goNotice{
+        width:16px;
+        display: block;
+        float: right;
+        margin-right: 14px;
+        margin-top:12px;
+
     }
 </style>
