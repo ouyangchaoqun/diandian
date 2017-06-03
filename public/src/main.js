@@ -7,6 +7,7 @@ import calendar from './component/calendar.vue';
 import friends from './component/friends.vue';
 import me from './component/me.vue';
 import myCenter from './component/myCenter.vue';
+import careMe from './component/careMe.vue';
 import personal from "./component/personal.vue";
 import moodCount from "./component/moodCount.vue";
 import friendsCount from "./component/friendsCount.vue";
@@ -54,6 +55,7 @@ var routers=
             {path:'/friends',component:friends},
             {path:'/me',component:me},
             {path:'/myCenter',component:myCenter},
+            {path:'myCenter/careMe',component:careMe},
             {path:'/myCenter/myIndex',component:myIndex},
             {path:'/myCenter/myIndex/Edit',component:Edit,children:[
                 {path:"/myCenter/myIndex/Edit/optionFrist",component:optionFrist},

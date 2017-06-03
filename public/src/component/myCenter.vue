@@ -5,6 +5,12 @@
 
         </div>
         <!--banner end -->
+        <a class="hi btn_notices">
+           <img v-if="notice.count" v-bind:src="notice.lastuser.faceUrl" width=50 height="50" />
+            {{notice.count}}条新消息
+            <span class="icony icon-108"></span>
+        </a>
+        <div class="line"></div>
 
         <div class="mycenter_list">
             <!--mycenter start-->
@@ -127,7 +133,8 @@
                 myLastMood:null,
                 user: {},
                 friendMoodsSpe: null,
-                friendMoods: null
+                friendMoods: null,
+                notice:null
             }
         },
         methods: {
@@ -179,6 +186,18 @@
             }, function (error) {
                 //error
             });
+
+            this.$http({
+				method: 'GET',
+				type: "json",
+				url: web.API_PATH + 'notice/find/new/[userId]',
+			}).then(function (data) {
+				if (data.data.data !== null) {
+					_this.notice = eval(data.data.data);
+				}
+			}, function (error) {
+				//error
+			});
 
 
             //用户 朋友当天心情 特别关系
