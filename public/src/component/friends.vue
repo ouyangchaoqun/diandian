@@ -83,7 +83,7 @@
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
-                        myResizePicture($(".friends_mood"),"friendImgList");//渲染完成
+                        myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     })
                 }, (response) => {
                     console.log('error');
@@ -107,7 +107,7 @@
                         vm.downdata.push(arr[i]);
                     }
                     vm.$nextTick(function () {
-                        myResizePicture($(".friends_mood"),"friendImgList");//渲染完成
+                        myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     });
                     if (arr.length === 0) {
                         this.$el.querySelector('.load-more').style.display = 'none';
@@ -386,15 +386,28 @@
         margin-bottom: 15px;
     }
 
+    .friendImgList.two li{
+        width: 7.5rem;
+        height: 6rem;
+    }
+
+    .friendImgList.one li {
+        width: 10.7rem;
+        height: 8.1rem;
+    }
+
+
     .friendImgList li {
         float: left;
+        margin-right: 0.3125rem;
+        width: 4.8675rem;
+        height: 4.8675rem;
+        overflow: hidden;
+        position: relative;
     }
 
     .friendImgList img {
-        display: block;
-        margin-right: 5px;
-        height: 80px;
-        width: 80px;
+
     }
 
     .commont_box {

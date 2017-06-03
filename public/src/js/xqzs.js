@@ -522,12 +522,15 @@ var xqzs = {
 
 };
 
-function myResizePicture(listObj,imgListStr) {
+function myResizePicture(listObj,imgListStr,containerStr) {
     if(!listObj){
         listObj=   $('.myMood_list')
     }
     if(!imgListStr){
         imgListStr=  "moodPhotoLists";
+    }
+    if(!containerStr){
+        containerStr="div";
     }
 
     var maxsize = 750;
@@ -544,7 +547,8 @@ function myResizePicture(listObj,imgListStr) {
 
         if (n > 0) {
             //
-            var container = imgList.find('div:eq(0)');
+            var container = imgList.find(''+containerStr+':eq(0)');
+            console.log(container)
             var images = imgList.find('img');
             var containersize = {
                 w: container.width(),
