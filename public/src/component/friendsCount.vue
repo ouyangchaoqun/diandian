@@ -41,7 +41,7 @@
             <div class=" m-30 btn-gray"><a href="http://mp.weixin.qq.com/s/JMW1ZjzUNmP4ZIaH9ot6jw">朋友太少，怎样邀请好友？</a></div>
         </div>
         <div class="bottom-card">
-            <div class="plr15 m-30"><div class="weui-btn weui-btn_primary" id="mack_card_all">生成邀请卡</div></div>
+            <div class="plr15 m-30"><div class="weui-btn weui-btn_primary" id="mack_card_all" @click="createInviteCard()">生成邀请卡</div></div>
         </div>
         <div class="friendCount"></div>
     </div>
@@ -137,18 +137,24 @@
             });
 
         },
-
         methods: {
             createInviteCard:function(){
                 let _this = this;
-                    this.$http.post(web.API_PATH + 'user/save/user/remind',{remindTime:_this.hour+":"+_this.minute,userId:"",id:""},{emulateJSON: true})
+                    this.$http.get(web.API_PATH + 'wei/xin/create/invite/card/1186')
                             .then(
                                     (response)=>{
-                                        xqzs.weui.toast("success", "修改成功", function () {
-                                            window.location.href = "#/"
-                                        })
+                                        console.log("bbbbb")
+
                                     }
                             );
+
+                this.$http.get(web.API_PATH + 'wei/xin/create/invite/link/1186')
+                    .then(
+                        (response)=>{
+                            console.log("bbbbb")
+
+                        }
+                    );
 
             }
         }

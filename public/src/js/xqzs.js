@@ -548,7 +548,6 @@ function myResizePicture(listObj,imgListStr,containerStr) {
         if (n > 0) {
             //
             var container = imgList.find(''+containerStr+':eq(0)');
-            console.log(container)
             var images = imgList.find('img');
             var containersize = {
                 w: container.width(),
