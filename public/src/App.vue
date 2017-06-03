@@ -50,15 +50,10 @@
             this.$http.get(web.API_PATH+'wei/xin/config').then(response => {
                 _this.wxConfig = response.body;
                 wx.config( _this.wxConfig);
-                console.log(_this.wxConfig );
                 wx.ready(()=>{
                     console.log('wx.ready');
                 });
-
                 wx.error(function(res){
-
-                    console.log(_this.wxConfig);
-
                     //可以更新签名
                 });
             }, response => {

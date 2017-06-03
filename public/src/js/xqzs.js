@@ -250,8 +250,20 @@ var xqzs = {
 
                 }
 
+                //随机头像
+                if(data[i].faceIndex!==null)
+                data[i].randomFaceUrl= web.IMG_PATH+"anonymous_face/"+data[i].faceIndex +".jpg";
+
                 //心抱抱逻辑
-                if (data[i].isCare !== undefined) {
+                if(data[i].caremy!==undefined){
+                    data[i].isCare= null;
+                    if( data[i].caremy!==null  && data[i].caremy!==undefined&& data[i].caremy!=="" )
+                    {
+                        data[i].isCare=true;
+                    }
+                }
+
+                if (data[i].isCare!==undefined) {
                     if (data[i].moodValue >= 5 && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "list_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare === null) {
@@ -510,11 +522,18 @@ var xqzs = {
 
 };
 
-function myResizePicture() {
-    var maxsize = 750;
-    $.each($('.myMood_list'), function (index, obj) {
+function myResizePicture(listObj,imgListStr) {
+    if(!listObj){
+        listObj=   $('.myMood_list')
+    }
+    if(!imgListStr){
+        imgListStr=  "moodPhotoLists";
+    }
 
-        var imgList = $(obj).find('.moodPhotoLists')
+    var maxsize = 750;
+    $.each(listObj, function (index, obj) {
+
+        var imgList = $(obj).find('.'+imgListStr)
 
         var n = imgList.children().length;
         if (n == 1) {

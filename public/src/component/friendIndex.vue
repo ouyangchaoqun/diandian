@@ -34,9 +34,7 @@
     }
 </script>
 <style>
-	.myIndex_box{
-		padding-bottom: 50px;
-	}
+
 	.index_banner{
 		position: relative;
 	}

@@ -342,7 +342,7 @@
                 }, (response) => {
                     console.log('error');
                 });
-            },
+            }
 
 
         },
@@ -547,9 +547,7 @@
         width: 20px;
     }
 
-    .myIndex_box {
-        padding-bottom: 50px;
-    }
+
 
     .index_banner {
         position: relative;
