@@ -123,11 +123,11 @@
                     _this.friend_s=eval(data.data.data.specialFriends);
                     for(let i =0;i<_this.friend_s.length;i++){
                         _this.friend_s[i].firstCn= makePy(_this.friend_s[i].nickName);
-                        _this.friend_s[i].friendLink= "#/me/friendsCount/friendCenter/?friendId="+_this.friend_s[i].id;
+                        _this.friend_s[i].friendLink= "/#/me/friendsCount/friendCenter/?friendId="+_this.friend_s[i].id;
                     }
                     for(let i =0;i<_this.friend_g.length;i++){
                         _this.friend_g[i].firstCn= makePy(_this.friend_g[i].nickName);
-                        _this.friend_g[i].friendLink=   "#/me/friendsCount/friendCenter/?friendId="+_this.friend_g[i].id;
+                        _this.friend_g[i].friendLink=   "/#/me/friendsCount/friendCenter/?friendId="+_this.friend_g[i].id;
                     }
 
                     _this.friendCount=_this.friend_g.length+_this.friend_s.length;

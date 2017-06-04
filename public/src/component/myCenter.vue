@@ -1,5 +1,36 @@
 <template id="myCenter">
-    <div>
+    <div style="height: 100%">
+
+        <div class="weui-tabbar" id="tabs">
+            <router-link to='/writeMood' class="weui-tabbar__item  tab">
+				<span style="display: inline-block;">
+					<img src="../images/face1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">记录心情</p>
+            </router-link>
+
+            <router-link to='/calendar' class="weui-tabbar__item tab">
+				<span style="display: inline-block;">
+					<img src="../images/rl1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">心情日历</p>
+            </router-link>
+
+            <router-link to='/friends' class="weui-tabbar__item tab">
+				<span style="display: inline-block;">
+					<img src="../images/friend1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">朋友心情</p>
+            </router-link>
+
+            <router-link to='/me' class="weui-tabbar__item tab">
+				<span style="display: inline-block;">
+					<img src="../images/me1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">我的</p>
+            </router-link>
+
+        </div>
         <div class="banner">
             <img src="../images/banner.jpg"/>
 
@@ -120,6 +151,8 @@
             <a class="share" href="">点击生成邀请卡</a>
         </div>
         <!--friendcenter end-->
+
+
 
     </div>
 </template>
@@ -256,6 +289,11 @@
 
 </script>
 <style>
+
+    #tabs {
+        position: fixed;
+    }
+
     body, html {
         width: 100%;
         height: 100%;

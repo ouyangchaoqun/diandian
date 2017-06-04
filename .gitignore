@@ -10,3 +10,5 @@ artisan
 phpunit.xml
 .env.example
 /public/node_modules
+/composer.json
+/composer.zip
