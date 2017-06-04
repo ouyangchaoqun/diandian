@@ -26,6 +26,10 @@ import Edit from "./component/Edit.vue"
 import optionFrist from "./component/optionFrist.vue"
 import optionSecond from "./component/optionSecond.vue"
 import optionThird from "./component/optionThird.vue"
+import friendCenter from "./component/friendCenter.vue"
+
+
+
     Vue.use(VueRouter)
     Vue.use(VueResource)
 
@@ -69,6 +73,7 @@ var routers=
             {path:'/me/personal/validate',component:validate},
             {path:'/me/moodCount',component:moodCount},
             {path:'/me/friendsCount',component:friendsCount},
+            {path:'/me/friendsCount/friendCenter',component:friendCenter},
             {path:'/me/friendsCount/friendSet',component:friendSet},
             {path:'/me/friendsCount/friendSet/setName',component:setName},
             {path:'/me/remind',component:remind},

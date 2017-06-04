@@ -2,7 +2,10 @@
     <div >
         <div class="weui-cells friendsCount_box">
             <div class="friendsCount_cell">特别关系</div>
-            <a :href="user.friendLink" class="weui-cell weui-cell_access" v-for="user in  friend_s">
+
+
+
+            <router-link  :to="user.friendLink" class="weui-cell weui-cell_access" v-for="user in  friend_s">
                 <div class="weui-cell__hd">
                     <img class="img_frinedsCount" :src="user.faceUrl" alt="">
                 </div>
@@ -11,7 +14,7 @@
                     <template v-else-if="user.nickName!==''">{{user.nickName}}</template>
                 </div>
                 <div class="weui-cell__ft"></div>
-            </a>
+            </router-link >
 
 
         </div>
@@ -120,11 +123,11 @@
                     _this.friend_s=eval(data.data.data.specialFriends);
                     for(let i =0;i<_this.friend_s.length;i++){
                         _this.friend_s[i].firstCn= makePy(_this.friend_s[i].nickName);
-                        _this.friend_s[i].friendLink= web.BASE_PATH + "#/me/friendsCount/friendSet/?friendId="+_this.friend_s[i].id;
+                        _this.friend_s[i].friendLink= "#/me/friendsCount/friendCenter/?friendId="+_this.friend_s[i].id;
                     }
                     for(let i =0;i<_this.friend_g.length;i++){
                         _this.friend_g[i].firstCn= makePy(_this.friend_g[i].nickName);
-                        _this.friend_g[i].friendLink= web.BASE_PATH + "#/me/friendsCount/friendSet/?friendId="+_this.friend_g[i].id;
+                        _this.friend_g[i].friendLink=   "#/me/friendsCount/friendCenter/?friendId="+_this.friend_g[i].id;
                     }
 
                     _this.friendCount=_this.friend_g.length+_this.friend_s.length;

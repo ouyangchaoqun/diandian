@@ -81,9 +81,9 @@
             special:function () {
                 let _this = this;
                 let flag;
-                if(_this.user.isSpecial===true){flag=1};
-                if(_this.user.isSpecial===false){flag=0};
-                _this.$http.post(web.API_PATH+'/user/set/friend/special/[userId]/'+_this.user.userId+"/"+flag).then(response => {
+                if(_this.user.isSpecial==true){flag=1};
+                if(_this.user.isSpecial==false){flag=0};
+                _this.$http.post(web.API_PATH+'user/set/friend/special/[userId]/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
                     }
@@ -98,7 +98,7 @@
                 if(_this.isNotLookMe===true){flag=0}
                 if(_this.isNotLookMe===false){flag=1}
 
-                _this.$http.post(web.API_PATH+'/user/set/friend/look/me/[userId]/'+_this.user.userId+"/"+flag).then(response => {
+                _this.$http.post(web.API_PATH+'user/set/friend/look/me/[userId]/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
                     }
@@ -111,7 +111,7 @@
                 let flag;
                 if(_this.isNotLookFriend===true){flag=0}
                 if(_this.isNotLookFriend===false){flag=1}
-                _this.$http.post(web.API_PATH+'/user/set/friend/look/friend/[userId]/'+_this.user.userId+"/"+flag).then(response => {
+                _this.$http.post(web.API_PATH+'user/set/friend/look/friend/[userId]/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
                     }
