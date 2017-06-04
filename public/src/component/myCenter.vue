@@ -2,7 +2,7 @@
     <div style="height: 100%">
 
         <div class="weui-tabbar" id="tabs">
-            <router-link to='/writeMood' class="weui-tabbar__item  tab">
+            <router-link :to='linkTo' class="weui-tabbar__item  tab">
 				<span style="display: inline-block;">
 					<img src="../images/face1.png" class="weui-tabbar__icon"/>
 				</span>
@@ -38,7 +38,7 @@
         <!--banner end -->
         <div class="notice_box">
             <div class="notice">
-                <img class="notice_friend" v-if="notice.count" v-bind:src="notice.lastuser.faceUrl" />
+                <img class="notice_friend" v-if="notice.count" :src="notice.lastuser.faceUrl" />
                 <div>{{notice.count}}条新消息</div>
                 <img class="goNotice" src="../images/goto.jpg" alt="">
             </div>
@@ -170,7 +170,8 @@
                 user: {},
                 friendMoodsSpe: null,
                 friendMoods: null,
-                notice:null
+                notice:null,
+                linkTo:"/me/personal/validate"
             }
         },
         methods: {
@@ -217,7 +218,14 @@
                 url: web.API_PATH + 'user/find/by/user/Id/[userId]',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
+
                     _this.user = eval(data.data.data);
+                     if( _this.user.mobile==''|| _this.user.mobile==null|| _this.user.mobile==undefined){
+                        _this.linkTo ="/me/personal/validate";
+                    }else{
+                        _this.linkTo ="/writeMood";
+                    }
+
                 }
             }, function (error) {
                 //error

@@ -518,7 +518,20 @@ var xqzs = {
         }
         f = Math.round(x * 100) / 100;
         return f;
+    },
+    string:{
+        //封装验证手机号码
+        checkUserPhoneReg:function() {
+            var regExpP = /^1[34578]\d{9}$/; //手机号
+
+            if (regExpP.test($('.input_phone').val())) { //test检测$('#user_phone').val()是否符合regExp格式
+                //$('#err-lgU').html('√ 检测通过').css('color', 'green');
+                return true;
+            }
+            return false;
+        }
     }
+
 
 };
 
