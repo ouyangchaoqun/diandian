@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use AbsoluteSoftware\Curl\Curl;
 use Illuminate\Http\Request;
 
 class ApiService

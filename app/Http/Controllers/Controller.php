@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
