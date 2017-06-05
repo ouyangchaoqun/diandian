@@ -38,6 +38,7 @@ class ApiController extends Controller
         $method = $request->getMethod();
         $url = $request->getRequestUri();
 
+exit ($url);
 
         $url = substr($url, 4);
         $url=urldecode($url);
