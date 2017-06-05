@@ -15,3 +15,18 @@
 
 
 </script>
+
+<style>
+    .banner {
+        width: 100%;
+    }
+
+    .banner img {
+        display: block;
+        width: 100%;
+    }
+
+    .index_banner{
+        position: relative;
+    }
+</style>

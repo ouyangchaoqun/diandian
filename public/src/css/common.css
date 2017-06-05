@@ -151,3 +151,5 @@ html {
     from {bottom: 0;}
     to {bottom: -186px;}
 }
+input { border: 0}
+li{list-style: none}

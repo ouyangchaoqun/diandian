@@ -134,6 +134,13 @@
         margin: 0;
         padding: 0;
     }
+    .chart_box{
+        height:190px;
+        padding:40px 0 20px 0;
+        background: #ffffff;
+        margin-bottom: 5px;
+    }
+
 
     .highcharts-series-group {
         margin-right: 120px;

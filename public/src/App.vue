@@ -5,7 +5,6 @@
     </div>
 </template>
 <script type="es6">
-    import wx from 'weixin-js-sdk';
 
     export default {
         name: 'app',

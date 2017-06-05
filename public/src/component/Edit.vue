@@ -28,7 +28,6 @@
 </template>
 
 <script type="text/javascript">
-    import wx from 'weixin-js-sdk';
 
     var Edit={
         template:'#Edit'

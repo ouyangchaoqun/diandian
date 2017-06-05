@@ -47,8 +47,7 @@
     }
 </style>
 <script type="text/javascript">
-    import weui from "../js/weui"
-    var remind={
+     var remind={
         template:'#remind'
     };
     export default {

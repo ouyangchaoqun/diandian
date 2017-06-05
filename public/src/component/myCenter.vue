@@ -340,14 +340,6 @@
         list-style: none;
     }
 
-    .banner {
-        width: 100%;
-    }
-
-    .banner img {
-        display: block;
-        width: 100%;
-    }
 
     .mycenter {
         background: #ffffff;

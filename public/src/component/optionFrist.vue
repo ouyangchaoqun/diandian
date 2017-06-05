@@ -18,7 +18,7 @@
 </template>
 
 <script type="text/javascript">
-    import wx from 'weixin-js-sdk';
+
     var optionFrist={
         template:'#optionFrist'
     };
