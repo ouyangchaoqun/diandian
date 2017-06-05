@@ -221,8 +221,8 @@
             },
             createinvite:function () {
                 let that = this;
-                that._createinvite('card',function () {
-                    that._createinvite('link');
+                that._createinvite('link',function () {
+                    that._createinvite('card');
                 });
             }
         },
