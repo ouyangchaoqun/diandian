@@ -23,7 +23,6 @@ let routers =
                 require('./routes/careDetail'),
                 require('./routes/myIndex'),
                 require('./routes/edit'),
-                require('./routes/friendIndex'),
                 require('./routes/personal'),
                 require('./routes/validate'),
                 require('./routes/moodCount'),
