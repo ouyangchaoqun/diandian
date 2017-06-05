@@ -25,8 +25,8 @@
 <script>
     var web={};
 
-    web.BASE_PATH2="http://web.m.xqzs.cn/";
-    web.BASE_PATH="http://localhost:8080";
+    web.BASE_PATH2="http://js.mood.hh-idea.com/";
+    web.BASE_PATH="http://js.mood.hh-idea.com/";
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IMG_PATH="/dist/";
 
