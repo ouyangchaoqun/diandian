@@ -28,17 +28,10 @@ class ApiController extends Controller
 
     public function url(Request $request,Response $response)
     {
-
-
         $userId = $this->getUserId($request);
-
-
-
 
         $method = $request->getMethod();
         $url = $request->getRequestUri();
-
-exit ($url);
 
         $url = substr($url, 4);
         $url=urldecode($url);
@@ -48,11 +41,7 @@ exit ($url);
         $url=str_replace("{uid}",$userId,$url);
         $url=str_replace("[uid]",$userId,$url);
 
-
-
         $url = $this->API_URL . $url;
-
-echo $url;
 
         $curl = new Curl();
         $header = $this->getTokenHeader();
