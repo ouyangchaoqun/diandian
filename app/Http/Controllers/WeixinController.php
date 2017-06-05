@@ -41,7 +41,7 @@ class WeixinController extends Controller
 
         $apiurl = "/wei/xin/get/user?code={$code}";
         $data = $apiService->execFull($request, '', $apiurl, 'GET');
-
+var_dump($data);
         try {
             if (!empty($data)) {
                 $obj = json_decode($data, true);
@@ -52,7 +52,7 @@ class WeixinController extends Controller
                 }
             }
         } catch (\Exception $e) {
-
+            var_dump($e);
         }
         var_dump($gourl);
         redirect($gourl);
