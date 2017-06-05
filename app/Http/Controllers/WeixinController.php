@@ -41,20 +41,20 @@ class WeixinController extends Controller
 
         $apiurl = "/wei/xin/get/user?code={$code}";
         $data = $apiService->execFull($request, '', $apiurl, 'GET');
-var_dump($data);
         try {
             if (!empty($data)) {
-                $obj = json_decode($data, true);
+                $obj = json_decode($data);
                 if ($obj !== false) {
-                    if ($obj['status'] == 1) {
-                        $this->setUserInfo($obj['data']);
+                    if ($obj->status == 1) {
+                        $this->setUserInfo($obj->data);
+
+                        var_dump($obj->data);
                     }
                 }
             }
         } catch (\Exception $e) {
-            var_dump($e);
         }
-        var_dump($gourl);
+        exit;
         redirect($gourl);
     }
 }
