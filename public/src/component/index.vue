@@ -16,7 +16,7 @@
                 <p class="weui-tabbar__label">心情日历</p>
             </router-link>
 
-            <router-link to='/friends' class="weui-tabbar__item tab">
+            <router-link to='/friendsMoods' class="weui-tabbar__item tab">
 				<span style="display: inline-block;">
 					<img src="../images/friend1.png" class="weui-tabbar__icon"/>
 				</span>
@@ -171,7 +171,7 @@
                 user: {},
                 friendMoodsSpe: null,
                 friendMoods: null,
-                notice:null,
+                notice:{count:0},
                 linkTo:"/me/personal/validate"
             }
         },

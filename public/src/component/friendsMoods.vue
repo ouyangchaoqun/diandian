@@ -4,7 +4,7 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
             <div class="friends_box">
                 <div class="friend_header">
-                    <router-link to="/me/friendsCount">以下是我关注的朋友，猜猜TA是谁？</router-link>
+                    <router-link to="/friendList">以下是我关注的朋友，猜猜TA是谁？</router-link>
                 </div>
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">

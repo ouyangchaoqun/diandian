@@ -143,6 +143,7 @@
     }
 </script>
 <style>
+    html,body{ height: 100%}
     .yo-scroll {
         position: absolute;
         top: 0;
