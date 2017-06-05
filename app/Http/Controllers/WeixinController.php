@@ -30,7 +30,7 @@ class WeixinController extends Controller
     /**
      * 微信授权中转页
      */
-    public function jump(Request $request,Response $response, ApiService $apiService)
+    public function jump(Request $request, Response $response, ApiService $apiService)
     {
         $gourl = '/';
         $state = $request->input('state');
@@ -42,16 +42,16 @@ class WeixinController extends Controller
         $apiurl = "/wei/xin/get/user?code={$code}";
         $data = $apiService->execFull($request, '', $apiurl, 'GET');
 
-        try{
-            if(!empty($data)){
-                $obj = json_decode($data);
-                if($obj!==false){
-                    if($obj['status']==1){
+        try {
+            if (!empty($data)) {
+                $obj = json_decode($data, true);
+                if ($obj !== false) {
+                    if ($obj['status'] == 1) {
                         $this->setUserInfo($obj['data']);
                     }
                 }
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
 
         }
         redirect($gourl);
