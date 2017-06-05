@@ -38,8 +38,8 @@ class WeixinController extends Controller
             $gourl = urldecode($state);
         }
 
-        $apiurl = 'wei/xin/get/user/id';
-        $data = $apiService->execFull($request, '', $gourl, 'get');
+        $apiurl = "wei/xin/get/user/id?code={$code}";
+        $data = $apiService->execFull($request, '', $apiurl, 'get');
 
         print_r($data);
     }
