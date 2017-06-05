@@ -210,7 +210,7 @@
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/{userId}',
+                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/[userId]',
                 }).then(function (data) {
                     if (data && data.data) {
                         if (typeof callback == 'function') {
