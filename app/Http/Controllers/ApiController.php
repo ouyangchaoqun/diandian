@@ -51,6 +51,7 @@ class ApiController extends Controller
 
         $url = $this->API_URL . $url;
 
+echo $url;
 
         $curl = new Curl();
         $header = $this->getTokenHeader();
