@@ -106,7 +106,6 @@
     import chart from "./chart.vue"
     import banner from "./banner.vue"
     import scroll from './lib/scroll.vue';
-    import wx from 'weixin-js-sdk';
     var myIndex = {
         template: '#myIndex'
     };
@@ -548,11 +547,6 @@
     }
 
 
-
-    .index_banner {
-        position: relative;
-    }
-
     .userHeaderImg {
         height: 64px;
         width: 64px;
@@ -573,12 +567,7 @@
         display: block;
     }
 
-    .chart_box {
-        height: 190px;
-        padding: 40px 0 20px 0;
-        background: #ffffff;
-        margin-bottom: 5px;
-    }
+
 
     .myMood_list {
         background: #ffffff;

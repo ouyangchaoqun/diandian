@@ -53,7 +53,6 @@
     </div>
 </template>
 <script type="text/javascript">
-    import weui from "../js/weui"
     var personal={
         template:'#personal'
     }

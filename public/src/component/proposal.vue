@@ -47,7 +47,7 @@
     }
 </style>
 <script type="es6">
-    import weui from "../js/weui"
+
     var proposal={
         template:'#proposal'
     }

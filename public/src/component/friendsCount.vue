@@ -95,8 +95,7 @@
 
 
 <script type="text/javascript">
-    import weui from "../js/weui";
-    var friendsCount={
+     var friendsCount={
         template:'#friendsCount'
     }
 

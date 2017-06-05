@@ -32,8 +32,7 @@
 
         </div>
         <div class="banner">
-            <img src="../images/banner.jpg"/>
-
+            <v-banner></v-banner>
         </div>
         <!--banner end -->
         <div class="notice_box">
@@ -148,7 +147,7 @@
                     </a>
                 </div>
             </div>
-            <a class="share" href="">点击生成邀请卡</a>
+            <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
         <!--friendcenter end-->
 
@@ -159,9 +158,10 @@
 
 <script type="es6">
 
+    import banner from "./banner.vue"
     let myCenter = {
         template: '#myCenter'
-    }
+    };
 
     export default {
         data() {
@@ -205,6 +205,25 @@
             },
             link: function (url) {
                 location.href = url;
+            },
+            _createinvite:function (type,callback) {
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/[userId]',
+                }).then(function (data) {
+                    if (data && data.data) {
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
+                    }
+                })
+            },
+            createinvite:function () {
+                let that = this;
+                that._createinvite('link',function () {
+                    that._createinvite('card');
+                });
             }
         },
         mounted: function () {
@@ -290,7 +309,9 @@
                 //error
             });
         },
-
+        components: {
+           "v-banner": banner
+        }
 
     }
 
@@ -321,14 +342,6 @@
         list-style: none;
     }
 
-    .banner {
-        width: 100%;
-    }
-
-    .banner img {
-        display: block;
-        width: 100%;
-    }
 
     .mycenter {
         background: #ffffff;

@@ -5,7 +5,6 @@
     </div>
 </template>
 <script type="es6">
-    import wx from 'weixin-js-sdk';
 
     export default {
         name: 'app',
@@ -19,6 +18,7 @@
 
             this.$http.get(web.API_PATH+'wei/xin/config').then(response => {
                 _this.wxConfig = response.body;
+
                 wx.config( _this.wxConfig);
                 wx.ready(()=>{
                     console.log('wx.ready');

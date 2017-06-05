@@ -59,7 +59,7 @@
 <script type="text/javascript">
 
     import scroll from './lib/scroll.vue';
-    import wx from 'weixin-js-sdk';
+
     let friends = {
         template: '#friends'
     };

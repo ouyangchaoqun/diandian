@@ -224,7 +224,6 @@
     input {
         height: 20px;
         outline: none;
-        border: 0;
         line-height: 20px;
         margin-top: 12px;
     }

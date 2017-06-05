@@ -1,34 +1,37 @@
 <template id="Edit">
     <div>
         <div class="edit_box">
-            <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140" @changge= "getL()"></textarea>
+            <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140" ></textarea>
             <div class="edit_loc" @click = "getLoc()">点击获取所在位置
-                <img src="../images/dz_nor.gif" alt="">
+                <img src="../images/dz_nor.png" alt="">
+
             </div>
-            <span class="edit_num">{{overLength}}</span>
+            <span class="edit_num">140</span>
         </div>
         <div class="edit_option">
             <div>
-                <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" src="../images/zp_nor.gif" alt=""></router-link>
+                <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" src="../images/zp_nor.png" alt=""></router-link>
+                <img class="optionjt" src="../images/jt.gif" alt="" >
             </div>
             <div>
-                <router-link to="/myCenter/myIndex/Edit/optionSecond"><img class="optionSecond" src="../images/bq_nor.gif" alt=""></router-link>
+                <router-link to="/myCenter/myIndex/Edit/optionSecond"><img class="optionSecond" src="../images/bq_nor.png" alt="" style="margin-top: -0.3rem"></router-link>
+                <img class="optionjt" src="../images/jt.gif" alt="" >
             </div>
             <div>
-                <router-link to="/myCenter/myIndex/Edit/optionThird"><img class="optionThird" src="../images/gxtp_nor.gif" alt=""></router-link>
+                <router-link to="/myCenter/myIndex/Edit/optionThird"><img class="optionThird" src="../images/gxtp_nor.png" alt=""></router-link>
+                <img class="optionjt" src="../images/jt.gif" alt="" >
             </div>
 
-            <div><img class="optionFourth" src="../images/nmgk.gif" alt=""></div>
+            <div><div class="optionFourth">匿名公開</div></div>
             <div><button class="option_five weui-btn weui-btn_mini weui-btn_primary weui-btn_disabled" >发布</button></div>
 
         </div>
         <router-view></router-view>
-
     </div>
+
 </template>
 
 <script type="text/javascript">
-    import wx from 'weixin-js-sdk';
 
     var Edit={
         template:'#Edit'
@@ -36,16 +39,59 @@
     export default {
         data() {
             return {
-                overLength:140
+
             }
         },
         methods:{
-            getL:function () {
-                var _this = this;
-                var editLenght = $('#edit_mood').val().length;
-                console.log(editLenght)
-                _this.overLenght = 150
+
+            getLoc:function () {
+                wx.getLocation({
+                    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                    success: function (res) {
+                        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                        var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                        var speed = res.speed; // 速度，以米/每秒计
+                        var accuracy = res.accuracy; // 位置精度
+                        console.log(latitude,longitude)
+                    },
+                    cancel: function (res) {
+                        alert('用户拒绝授权获取地理位置');
+                    }
+                });
+               console.log('获取经纬度')
             }
+        },
+        mounted:function () {
+            $('.edit_option div').click(function () {
+
+
+
+
+                $('.optionjt').removeClass('optionjtFlag')
+                $(this).children('img').addClass('optionjtFlag')
+            });
+            $('.optionFrist').click(function () {
+                $('.optionFrist').attr('src','/dist/zp_pre.png')
+                $('.optionSecond').attr('src','/dist/bq_nor.png')
+                $('.optionThird').attr('src','/dist/gxtp_nor.png')
+            })
+            $('.optionSecond').click(function () {
+                $('.optionSecond').attr('src','/dist/bq_pre.png')
+                $('.optionFrist').attr('src','/dist/zp_nor.png')
+                $('.optionThird').attr('src','/dist/gxtp_nor.png')
+
+            })
+            $('.optionThird').click(function () {
+                $('.optionThird').attr('src','/dist/gxtp_pre.png')
+                $('.optionFrist').attr('src','/dist/zp_nor.png')
+                $('.optionSecond').attr('src','/dist/bq_nor.png')
+            })
+
+            $('.optionFourth').click(function () {
+                var fourthText =  $('.optionFourth').text()
+                if(fourthText == '匿名公開'){$('.optionFourth').text('不公開')}else{$('.optionFourth').text('匿名公開')}
+
+            });
         }
     }
 
@@ -111,6 +157,7 @@
     }
     .edit_option div{
         flex-grow: 1;
+        position: relative;
     }
 
     .edit_option img{
@@ -118,16 +165,24 @@
         margin: 0 auto;
     }
     .optionFrist{
-        width:1.9rem;
+        width:2rem;
     }
     .optionSecond{
-        width:1.9rem;
+        width:2.4rem;
     }
     .optionThird{
-        width: 1.9rem;
+        width: 2.3rem;
     }
     .optionFourth{
-        width:5.58rem;
+        width:6rem;
+        font-size: 12px;
+        color: #999999;
+        border:1px solid #dcdcdc;
+        margin: 0 auto;
+        text-align: center;
+        height:2rem;
+        line-height: 2rem;
+        border-radius: 8px;
     }
     .option_five{
         margin-top: -0.3rem;
@@ -135,6 +190,19 @@
         width:6rem;
         margin-left: 2rem;
     }
+     .edit_option .optionjt{
+         position: absolute;
+         left:50%;
+         margin-left:-1.2rem;
+         width:2.4rem;
+         bottom:-2px;
+        visibility: hidden;
+    }
+    .edit_option .optionjtFlag{
+        visibility: visible;
+    }
+
+
 
 
 

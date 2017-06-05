@@ -12,3 +12,4 @@ phpunit.xml
 /public/node_modules
 /composer.json
 /composer.zip
+*.map
