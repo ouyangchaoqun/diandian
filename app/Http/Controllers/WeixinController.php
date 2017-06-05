@@ -46,19 +46,13 @@ class WeixinController extends Controller
             if (!empty($data)) {
                 $obj = json_decode($data,true);
                 if ($obj !== false) {
-                    var_dump($obj);
                     if ($obj['status'] == 1) {
-                        var_dump($obj);
-                        $this->setUserInfo($obj['data']);
-
-                        var_dump($obj['data']);
+                        $this->setUserInfo($response,$obj['data']);
                     }
                 }
             }
         } catch (\Exception $e) {
-            var_dump($e);
         }
-        exit;
         redirect($gourl);
     }
 }
