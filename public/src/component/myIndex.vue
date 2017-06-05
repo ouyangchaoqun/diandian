@@ -477,7 +477,7 @@
 
     .show_bottom li {
         position: relative;
-        padding-top: 7px;
+        padding-top: 5px;
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 8px;
