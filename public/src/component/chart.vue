@@ -178,7 +178,7 @@
     }
 
     .bgs {
-        background: url("../images/bj.png");
+        background: url("../images/bj.jpg");
         background-size: 100% 100%;
         margin: 0 10px;
         position: relative;
