@@ -13,6 +13,10 @@
 $app->get('/', function () use ($app) {
      return view('index');
 });
+$app->group(['prefix'=>'wx'],function () use($app){
+    $app->get('/index','WeixinController@index');
+    $app->get('/jump','WeixinController@jump');
+});
 
 
 
