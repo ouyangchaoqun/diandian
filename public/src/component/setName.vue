@@ -26,7 +26,7 @@
                 console.log(v)
 
                 if(v!==""){
-                    _this.$http.post(web.API_PATH+'/user/save/memo/name/[userId]/'+_this.friendId,{memoName:v}).then(response => {
+                    _this.$http.post(web.API_PATH+'user/save/memo/name/[userId]/'+_this.friendId,{memoName:v}).then(response => {
                         if(response.data.status===1){
                             _this.$router.back(-1)
                         }

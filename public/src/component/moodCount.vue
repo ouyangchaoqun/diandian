@@ -61,7 +61,7 @@
         },
         mounted:function () {
             let _this=this;
-            _this.$http.get(web.API_PATH+'/mood/query/statistics/weeks/[userId]').then(response => {
+            _this.$http.get(web.API_PATH+'mood/query/statistics/weeks/[userId]').then(response => {
                 if(response.data.status===1){
                     _this.weeks=response.data.data;
                     for(let i=0;i<_this.weeks.length;i++){
@@ -74,7 +74,7 @@
             });
 
 
-            _this.$http.get(web.API_PATH+'/mood/query/statistics/months/[userId]').then(response => {
+            _this.$http.get(web.API_PATH+'mood/query/statistics/months/[userId]').then(response => {
                 if(response.data.status===1){
                     _this.months=response.data.data;
                     for(let i=0;i<_this.months.length;i++){
@@ -87,7 +87,7 @@
             });
 
 
-            _this.$http.get(web.API_PATH+'/mood/query/statistics/years/[userId]').then(response => {
+            _this.$http.get(web.API_PATH+'mood/query/statistics/years/[userId]').then(response => {
                 if(response.data.status===1){
                     _this.years=response.data.data;
                     for(let i=0;i<_this.years.length;i++){

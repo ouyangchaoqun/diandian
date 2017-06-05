@@ -2,9 +2,9 @@
 	<div class="me_box">
 		<div class="me_top">
 			<router-link to="/me/personal" class="me1">
-				<img class="me1_left" src="../images/13.jpg"/>
+				<img class="me1_left" :src="user.faceUrl"/>
 				<div class="me1_right">
-					<div class="perfec_top">欧阳</div>
+					<div class="perfec_top">{{user.nickName}}</div>
 					<div class="perfec">
 						<span>完善资料</span>
 						<img class="edit" src="../images/edit.png"/>
@@ -146,6 +146,28 @@
 <script type="text/javascript">
 	var me={
 		template:'#me'
-	}
-	module.exports=me
+	};
+    export default {
+        data() {
+            return {
+                user: {},
+            }
+        },
+        mounted: function () {
+            let _this = this;
+
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user = eval(data.data.data);
+                }
+            }, function (error) {
+                //error
+            });
+        }
+    }
+
 </script>

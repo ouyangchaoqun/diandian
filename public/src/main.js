@@ -8,6 +8,7 @@ import friends from './component/friends.vue';
 import me from './component/me.vue';
 import myCenter from './component/myCenter.vue';
 import careMe from './component/careMe.vue';
+import careDetail from './component/careDetail.vue';
 import personal from "./component/personal.vue";
 import moodCount from "./component/moodCount.vue";
 import friendsCount from "./component/friendsCount.vue";
@@ -25,6 +26,10 @@ import Edit from "./component/Edit.vue"
 import optionFrist from "./component/optionFrist.vue"
 import optionSecond from "./component/optionSecond.vue"
 import optionThird from "./component/optionThird.vue"
+import friendCenter from "./component/friendCenter.vue"
+
+
+
     Vue.use(VueRouter)
     Vue.use(VueResource)
 
@@ -56,6 +61,7 @@ var routers=
             {path:'/me',component:me},
             {path:'/myCenter',component:myCenter},
             {path:'myCenter/careMe',component:careMe},
+            {path:'/myCenter/careMe/careDetail',component:careDetail},
             {path:'/myCenter/myIndex',component:myIndex},
             {path:'/myCenter/myIndex/Edit',component:Edit,children:[
                 {path:"/myCenter/myIndex/Edit/optionFrist",component:optionFrist},
@@ -67,6 +73,7 @@ var routers=
             {path:'/me/personal/validate',component:validate},
             {path:'/me/moodCount',component:moodCount},
             {path:'/me/friendsCount',component:friendsCount},
+            {path:'/me/friendsCount/friendCenter',component:friendCenter},
             {path:'/me/friendsCount/friendSet',component:friendSet},
             {path:'/me/friendsCount/friendSet/setName',component:setName},
             {path:'/me/remind',component:remind},

@@ -1,280 +1,319 @@
 <template id="validate">
-	<div>
-		<div class="validate_box">
-			<div class="validate_top">
-				<h1>温馨提示</h1>
-				<p>首次记录心情，必须通过手机验证哦！</p>
-			</div>
-			<div class="validate_div">
-				<div class="validate_phone">
-					<input class="input_phone" type="tel" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入您的手机号" />
-					<p id="error">手机格式错误</p>
-				</div>
-				<button href="javascript:;" id="_phonebtn" class="weui-btn weui-btn_plain-primary weui-btn_plain-disabled">获取验证码</button>
-			</div>
-			
+    <div>
+        <div class="validate_box">
+            <div class="validate_top">
+                <h1>温馨提示</h1>
+                <p>首次记录心情，必须通过手机验证哦！</p>
+            </div>
+            <div class="validate_div">
+                <div class="validate_phone">
+                    <input class="input_phone" type="tel" oninput="if(value.length>11)value=value.slice(0,11)"
+                           placeholder="请输入您的手机号" v-model="mobile"/>
+                    <p id="errorMobile" v-if="!isMobileRight&&isShowErrorMobileMsg">手机格式错误</p>
+                </div>
+                <button href="javascript:;" id="_phonebtn" @click="getCode()"
+                        class="weui-btn weui-btn_plain-primary "
+                        :class="{'weui-btn_plain-disabled':!isMobileRight||isGetingCodeIn}">{{getCodeBtnText}}
+                </button>
+            </div>
 
-			<div class="validate_code">
-				<input class="input_code" type="tel" placeholder="请输入您收到的验证码" />
-				<p id="error">验证码错误</p>
-				<p id="message">验证码已发送，请注意查收短信</p>
-			</div>
-			<div>
-				<button id="sublim" href="javascript:;" class="weui-btn weui-btn_disabled weui-btn_primary">确定</button>
-			</div>
-		</div>
-		<div class="weui-toast _toast">
-	        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
-	        <p class="weui-toast_content">验证成功</p>
-	    </div>
-	</div>
+
+            <div class="validate_code">
+                <input class="input_code" type="tel" placeholder="请输入您收到的验证码" maxlength="4" v-model="code"/>
+                <p id="errorCode" v-if="isShowErrorCodeMsg">验证码错误</p>
+                <p id="message" v-if="isShowMessage">{{message}}</p>
+            </div>
+            <div>
+                <button id="sublim" href="javascript:;" class="weui-btn  weui-btn_primary"
+                        :class="{'weui-btn_disabled':!isAllInput}" @click="submit()">确定
+                </button>
+            </div>
+        </div>
+    </div>
 </template>
 
-<script type="text/javascript">
-	var validate={
-		template:'#validate'
-	}
+<script>
+    var validate = {
+        template: '#validate'
+    }
     export default {
         data() {
             return {
+                isGetingCodeIn: false,
+                interValObj: null,
+                time: 60,
+                getCodeBtnText: "获取验证码",
+                isShowMessage: false,
+                isMobileRight: false,
+                isErrorCode: false,
+                mobile: "",
+                code:"",
+                message: "验证码已发送，请注意查收短信",
+                isShowErrorMobileMsg: false,
+                isShowErrorCodeMsg: false,
+                isAllInput:false
 
             }
         },
-        mounted:function () {
-            $(function() {
-                $('.input_phone').keyup(function() {
-                    var length = $('.input_phone').val().length;
-                    if(length == 11) {
-                        if(checkUserPhoneReg()) {
-                            $('#error').hide();
-                            //手机号码验证成功后获取验证码btn变可点击
-                            $('#_phonebtn').removeClass('weui-btn_plain-disabled');
-                        } else {
-                            $('#error').show();
-                            $('#_phonebtn').addClass('weui-btn_plain-disabled');
+        mounted: function () {
+            let _this = this;
+
+            $('.input_phone').keyup(function () {
+
+                var length = _this.mobile.length;
+                if (length == 11) {
+                    if (xqzs.string.checkUserPhoneReg(_this.mobile)) {
+                        _this.isShowErrorMobileMsg =false;
+                        _this.isMobileRight = true;
+                    } else {
+                        _this.isMobileRight = false;
+                        _this.isShowErrorMobileMsg = true;
+                        _this.isAllInput =false;
+                    }
+                } else {
+                    _this.isMobileRight = false;
+                    _this.isShowErrorMobileMsg = false;
+                    _this.isAllInput =false;
+                 }
+                console.log(_this.isMobileRight)
+            });
+            $('.input_code').keyup(function () {
+
+                var len = $(".input_code").val().length;
+                if (len == 4) {
+                    _this.isErrorCode = false;
+                    if(_this.isMobileRight===true){
+                        _this.isAllInput =true;
+                    }
+
+                } else {
+                    _this.isAllInput =false;
+                    _this.isErrorCode = true
+                }
+            });
+
+            //获得焦点
+            $('.input_phone').focus(function () {
+                _this.isShowErrorMobileMsg = false;
+            });
+
+
+
+            $('#sublim').click(function () {
+                if ($('#sublim').hasClass('weui-btn_disabled')) {
+
+                } else {
+                    $.ajax({
+                        type: "get",
+                        dataType: "json",
+                        url: "mobile.json",
+                        //data:"mobile="+ $("#mobile").val() + "&code="+ $(".codeval").val(),
+                        success: function (data) {
+                            console.log(data)
+                            if (data.state == 1) {
+                                $("._toast").show()
+                                setTimeout(function () {
+                                    history.go(-1);
+                                    $("._toast").hide()
+                                }, 1000);
+                                console.log(data.state)
+                            } else {
+
+                            }
                         }
-                    } else {
-                        $('#_phonebtn').addClass('weui-btn_plain-disabled');
-                        $('#error').hide();
-                    }
-                });
-                $('.input_code').keyup(function() {
-					/*if(checkIdCodeReg()) {
-					 $('#sublim').removeClass('weui-btn_disabled');
-					 } else {
-					 $('#sublim').addClass('weui-btn_disabled');
-					 }*/
-                    var len = $(".input_code").val().length;
-                    console.log(len)
-                    if(len == 4) {
-                        $('#sublim').removeClass('weui-btn_disabled');
-                    } else {
-                        $('#sublim').addClass('weui-btn_disabled');
-                    }
-                });
-
-                //获得焦点
-                $('.input_phone').focus(function() {
-                    $('#error').hide();
-                });
-
-                //封装验证手机号码
-                function checkUserPhoneReg() {
-                    var regExpP = /^1[34578]\d{9}$/; //手机号
-
-                    if(regExpP.test($('.input_phone').val())) { //test检测$('#user_phone').val()是否符合regExp格式
-                        //$('#err-lgU').html('√ 检测通过').css('color', 'green');
-                        return true;
-                    }
-                    return false;
+                    });
                 }
-                //封装验证码
-                function checkIdCodeReg() {
-                    var regExpP = /^\d{4}$/; //验证码四位数
-                    if(regExpP.test($('.input_code').val())) { //test检测$('#user_phone').val()是否符合regExp格式
-                        //$('#err-lgU').html('√ 检测通过').css('color', 'green');
-                        return true;
-                    }
-                    $('#error').show();
-                    return false;
-                }
-
-                $('#sublim').click(function() {
-                    if($('#sublim').hasClass('weui-btn_disabled')) {
-
-                    } else {
-                        $.ajax({
-                            type: "get",
-                            dataType: "json",
-                            url: "mobile.json",
-                            //data:"mobile="+ $("#mobile").val() + "&code="+ $(".codeval").val(),
-                            success: function(data) {
-                                console.log(data)
-                                if(data.state == 1) {
-                                    $("._toast").show()
-                                    setTimeout(function() {
-                                        history.go(-1);
-                                        $("._toast").hide()
-                                    }, 1000);
-                                    console.log(data.state)
-                                } else {
-
-                                }
-                            }
-                        });
-                    }
-
-                });
-                var time = 60;
-                var interValObj;
-
-                function setRemainTime() {
-                    if(time == 0) {
-                        clearInterval(interValObj)
-                        $("#_phonebtn").html('获取验证码');
-                        $('#_phonebtn').removeClass('weui-btn_plain-disabled');
-                        $('#message').hide();
-                        time = 60;
-                    } else {
-                        time--;
-                        $("#_phonebtn").html('重获验证码' + '(' + time + ')');
-                        $('#_phonebtn').addClass('weui-btn_plain-disabled');
-                        $('#message').show();
-                    }
-
-                }
-
-                $("#_phonebtn").click(function() {
-
-                    if($('#_phonebtn').hasClass('weui-btn_plain-disabled')) {
-
-                    } else {
-                        $('#_phonebtn').addClass('weui-btn_plain-disabled')
-                        interValObj = setInterval(setRemainTime, 1000)
-                        $.ajax({
-                            type: "get",
-                            dataType: "json",
-                            url: "code.json",
-                            //data:"mobile="+ $("#mobile").val(),
-                            success: function(data) {
-                                if(data.state == 1) {
-                                    //layer.msg("验证码发送成功!")
-                                    console.log("验证码发送成功!")
-                                } else {
-                                    if(data.data == -1) {
-                                        //layer.msg("请勿频繁获取验证码!");
-                                        console.log("请勿频繁获取验证码!")
-                                    } else if(data.data == -2) {
-                                        //layer.msg("手机号码不能为空");
-                                        console.log("手机号码不能为空")
-                                    } else if(data.data == -3) {
-                                        //layer.msg("手机号码格式不正确");
-                                        console.log("手机号码格式不正确")
-                                    }
-                                }
-                            }
-                        });
-                    }
-
-                })
 
             });
+
+
+        },
+        methods: {
+            submit:function () {
+                let _this = this;
+
+                if(_this.isAllInput==true){
+                    _this.$http.post(web.API_PATH + 'base/verification/code/post/mobilecode', {mobile: _this.mobile,code:_this.code}).then(response => {
+                        if (response.data.status === 1) {
+                            xqzs.weui.toast("success","验证成功",function () {
+                                _this.$router.go(-1);
+                            })
+                        } else   {
+                            if(response.data.status === -2 || response.data.status === -3){
+                               _this.isShowErrorCodeMsg =true;
+                            }
+                            //-1 手机号码为空，-4 验证码为空 ，-5 手机格式错误，-2 验证码过期，-3 验证码不存在
+
+                        }
+
+                    }, response => {
+                        // error
+                    });
+                }
+
+            },
+
+            getCode: function () {
+                let _this = this;
+                if (_this.isMobileRight&&!_this.isGetingCodeIn) {
+                    _this.$http.post(web.API_PATH + 'base/verification/code/get/code', {mobile: _this.mobile}).then(response => {
+                        if (response.data.status === 1) {
+                            _this.interValObj = setInterval(function () {
+                                _this.setRemainTime();
+                            }, 1000);
+                            _this.isShowMessage = true;
+                            _this.message = "验证码已发送，请注意查收短信";
+                        } else if (response.data.status === -1) {
+                            _this.isShowMessage = true;
+                            _this.message = "请勿频繁获取验证码";
+                        } else if (response.data.status === -2) {
+                            _this.isShowMessage = true;
+                            _this.message = "手机号码不能为空";
+                        } else if (response.data.status === -3) {
+                            _this.isShowMessage = true;
+                            _this.message = "手机号码格式不正确";
+                        }
+
+                    }, response => {
+                        // error
+                    });
+                }
+            },
+            setRemainTime: function () {
+                let _this = this;
+                if (_this.time == 0) {
+                    clearInterval(_this.interValObj);
+                    _this.getCodeBtnText = "获取验证码";
+                    _this.isGetingCodeIn = false;
+                    _this.isShowMessage = false;
+                    _this.time = 60;
+                } else {
+                    _this.time--;
+                    _this.getCodeBtnText = '重获验证码' + '(' + _this.time + ')';
+                    _this.isGetingCodeIn = true;
+                    _this.isShowMessage = true;
+                }
+
+            }
         }
     }
 </script>
 <style type="text/css">
-	.validate_box{
-			padding:20px 15px;
-			background:#fff;
-			height: 100%;
-		}
-		.validate_top{
-			margin-bottom: 32px;
-		}
-		.validate_top h1{
-			font-size: 18px;
-			color:#ff9900;
-			margin-bottom: 18px;
-		}
-		.validate_top p{
-			font-size: 15px;
-			color:#878686;
-			text-align: center;
-		}
-		input{
-			height: 20px;
-			outline: none;
-			border: 0;
-			line-height: 20px;
-			margin-top: 12px;
-		}
-		#_phonebtn{
-			width: 110px;
-			height: 44px;
-			font-size: 12px;
-			float: right;
-			padding:0;
-			text-align: center;
-		}
-		.input_phone{
-			font-size: 15px;
-			color: #333333;
-			
-		}
-		.input_code{
-			font-size: 15px;
-			color: #333333;
-		}
-		.validate_div{
-			height:44px;	
-			margin-bottom: 26px;
-			position: relative;
-		}
-		.validate_phone{
-			border: 1px solid #D2D2D2;
-			height: 44px;
-			border-radius: 5px;
-			padding-left: 15px;
-			padding-right: 7px;
-			float: left;
-			width: 180px;
-			overflow: hidden;
-			
-		}
-		#_phonebtn{
-			float: right;
-			font-size: 14px;
-		}
-		
-		.validate_code{
-			height:44px;
-			border:1px solid #d2d2d2;
-			border-radius: 5px;
-			margin-bottom: 44px;
-			padding-left: 15px;
-			position: relative;
-		}
-		#error{
-			font-size: 11px;
-			color:#fc0303;
-			position: absolute;
-			left: 15px;
-			top: 50px;
-			display: none;
-		}
-		#message{
-			font-size: 11px;
-			color: #999999;
-			position: absolute;
-			top: 50px;
-			left: 15px;
-			display: none;
-		}
-		._toast{
-			display: none;
-		}
-		input:-ms-input-placeholder{color:rgba(0, 0, 0, 0.2);}
-		input::-webkit-input-placeholder{color:rgba(0, 0, 0, 0.2);}
-		input::-moz-placeholder{color:rgba(0, 0, 0, 0.2)}
-		input:-moz-placeholder{color:rgba(0, 0, 0, 0.2);}
+    .validate_box {
+        padding: 20px 15px;
+        background: #fff;
+        height: 100%;
+    }
+
+    .validate_top {
+        margin-bottom: 32px;
+    }
+
+    .validate_top h1 {
+        font-size: 18px;
+        color: #ff9900;
+        margin-bottom: 18px;
+    }
+
+    .validate_top p {
+        font-size: 15px;
+        color: #878686;
+        text-align: center;
+    }
+
+    input {
+        height: 20px;
+        outline: none;
+        border: 0;
+        line-height: 20px;
+        margin-top: 12px;
+    }
+
+    #_phonebtn {
+        width: 110px;
+        height: 44px;
+        font-size: 12px;
+        float: right;
+        padding: 0;
+        text-align: center;
+    }
+
+    .input_phone {
+        font-size: 15px;
+        color: #333333;
+
+    }
+
+    .input_code {
+        font-size: 15px;
+        width: 100%;
+        color: #333333;
+    }
+
+    .validate_div {
+        height: 44px;
+        margin-bottom: 26px;
+        position: relative;
+    }
+
+    .validate_phone {
+        border: 1px solid #D2D2D2;
+        height: 44px;
+        border-radius: 5px;
+        padding-left: 15px;
+        padding-right: 7px;
+        float: left;
+        width: 180px;
+        overflow: hidden;
+
+    }
+
+    #_phonebtn {
+        float: right;
+        font-size: 14px;
+    }
+
+    .validate_code {
+        height: 44px;
+        border: 1px solid #d2d2d2;
+        border-radius: 5px;
+        margin-bottom: 44px;
+        padding-left: 15px;
+        position: relative;
+    }
+
+    #errorMobile, #errorCode {
+        font-size: 11px;
+        color: #fc0303;
+        position: absolute;
+        left: 15px;
+        top: 50px;
+     }
+
+    #message {
+        font-size: 11px;
+        color: #999999;
+        position: absolute;
+        top: 50px;
+        left: 15px;
+
+    }
+
+
+
+    input:-ms-input-placeholder {
+        color: rgba(0, 0, 0, 0.2);
+    }
+
+    input::-webkit-input-placeholder {
+        color: rgba(0, 0, 0, 0.2);
+    }
+
+    input::-moz-placeholder {
+        color: rgba(0, 0, 0, 0.2)
+    }
+
+    input:-moz-placeholder {
+        color: rgba(0, 0, 0, 0.2);
+    }
 </style>

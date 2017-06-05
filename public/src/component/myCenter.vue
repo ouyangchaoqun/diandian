@@ -1,5 +1,36 @@
 <template id="myCenter">
-    <div>
+    <div style="height: 100%">
+
+        <div class="weui-tabbar" id="tabs">
+            <router-link :to='linkTo' class="weui-tabbar__item  tab">
+				<span style="display: inline-block;">
+					<img src="../images/face1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">记录心情</p>
+            </router-link>
+
+            <router-link to='/calendar' class="weui-tabbar__item tab">
+				<span style="display: inline-block;">
+					<img src="../images/rl1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">心情日历</p>
+            </router-link>
+
+            <router-link to='/friends' class="weui-tabbar__item tab">
+				<span style="display: inline-block;">
+					<img src="../images/friend1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">朋友心情</p>
+            </router-link>
+
+            <router-link to='/me' class="weui-tabbar__item tab">
+				<span style="display: inline-block;">
+					<img src="../images/me1.png" class="weui-tabbar__icon"/>
+				</span>
+                <p class="weui-tabbar__label">我的</p>
+            </router-link>
+
+        </div>
         <div class="banner">
             <img src="../images/banner.jpg"/>
 
@@ -7,7 +38,7 @@
         <!--banner end -->
         <div class="notice_box">
             <div class="notice">
-                <img class="notice_friend" v-if="notice.count" v-bind:src="notice.lastuser.faceUrl" />
+                <img class="notice_friend" v-if="notice.count" :src="notice.lastuser.faceUrl" />
                 <div>{{notice.count}}条新消息</div>
                 <img class="goNotice" src="../images/goto.jpg" alt="">
             </div>
@@ -121,6 +152,8 @@
         </div>
         <!--friendcenter end-->
 
+
+
     </div>
 </template>
 
@@ -137,7 +170,8 @@
                 user: {},
                 friendMoodsSpe: null,
                 friendMoods: null,
-                notice:null
+                notice:null,
+                linkTo:"/me/personal/validate"
             }
         },
         methods: {
@@ -184,7 +218,14 @@
                 url: web.API_PATH + 'user/find/by/user/Id/[userId]',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
+
                     _this.user = eval(data.data.data);
+                     if( _this.user.mobile==''|| _this.user.mobile==null|| _this.user.mobile==undefined){
+                        _this.linkTo ="/me/personal/validate";
+                    }else{
+                        _this.linkTo ="/writeMood";
+                    }
+
                 }
             }, function (error) {
                 //error
@@ -256,6 +297,11 @@
 
 </script>
 <style>
+
+    #tabs {
+        position: fixed;
+    }
+
     body, html {
         width: 100%;
         height: 100%;

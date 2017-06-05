@@ -1,6 +1,6 @@
 <template id="careMe">
 	<div class="careMe_box">
-		<!--<div class="careMe_list">
+		<router-link to="/myCenter/careMe/careDetail" class="careMe_list">
 			<img class="careMe_img" src="../images/13.jpg" alt="">
 			<div class="careMe_div">
 				<div>葫芦娃</div>
@@ -10,8 +10,8 @@
 			<div class="careMe_content">
 				<img src="../images/list_mood_04.png" alt="">
 			</div>
-		</div>-->
-        <div class="noCare_box">
+		</router-link>
+        <!--<div class="noCare_box">
             <img src="../images/nocare_pic_bj.png" alt="">
             <div class="noCare_content">
                 <h3>还没有关心我的好友</h3>
@@ -21,7 +21,7 @@
             <div class="noCare_btn">
                 <button class="weui-btn weui-btn_primary">生成邀请卡</button>
             </div>
-        </div>
+        </div>-->
 	</div>
 </template>
 <style>
@@ -33,6 +33,7 @@
 		height:66px;
 		border-bottom: 1px solid #f5f5f5;
 		padding:0 10px;
+        display: block;
 	}
 	.careMe_img{
 		height:40px;

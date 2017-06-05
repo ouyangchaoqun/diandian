@@ -67,7 +67,7 @@
             }
         },
         mounted:function () {
-            this.height="height:"+(document.body.clientHeight-49)+"px"
+            this.height="height:"+(document.body.clientHeight)+"px"
 
         },
         methods: {
