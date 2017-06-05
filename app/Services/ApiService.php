@@ -66,7 +66,6 @@ class ApiService
             $url = str_replace("[" . $key . "]", $userId, $url);
         }
         $url = $this->API_URL . $url;
-echo $url.'===';
         $curl = new Curl();
         $header = $this->getTokenHeader();
 
