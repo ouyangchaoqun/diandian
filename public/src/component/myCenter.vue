@@ -148,7 +148,7 @@
                     </a>
                 </div>
             </div>
-            <a class="share" href="">点击生成邀请卡</a>
+            <a class="share" href="javascript:;" @click="createinvite()">点击生成邀请卡</a>
         </div>
         <!--friendcenter end-->
 
@@ -205,6 +205,25 @@
             },
             link: function (url) {
                 location.href = url;
+            },
+            _createinvite:function (type,callback) {
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/{userId}',
+                }).then(function (data) {
+                    if (data && data.data) {
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
+                    }
+                })
+            },
+            createinvite:function () {
+                let that = this;
+                that._createinvite('card',function () {
+                    that._createinvite('link');
+                });
             }
         },
         mounted: function () {
