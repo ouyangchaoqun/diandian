@@ -44,7 +44,7 @@ class WeixinController extends Controller
         var_dump($data);
         try {
             if (!empty($data)) {
-                $obj = json_decode($data);
+                $obj = json_decode($data,true);
                 var_dump($obj);
                 if ($obj !== false) {
                     var_dump($obj);
