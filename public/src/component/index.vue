@@ -35,14 +35,15 @@
             <v-banner></v-banner>
         </div>
         <!--banner end -->
+        <router-link to='/me' class="weui-tabbar__item tab">
         <div class="notice_box">
-            <div class="notice">
-                <img class="notice_friend" v-if="notice.count" :src="notice.lastuser.faceUrl" />
+            <div class="notice" v-if="notice.count">
+                <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
                 <div>{{notice.count}}条新消息</div>
                 <img class="goNotice" src="../images/goto.jpg" alt="">
             </div>
         </div>
-
+        </router-link>
 
 
         <div class="mycenter_list">
@@ -69,7 +70,7 @@
                             <img class="moodimg" :src="myLastMood.moodValueUrl"/>
                             <div class="interaction">
                                 <div>{{ myLastMood.careCount }}</div>
-                                <router-link to="./myCenter/careMe">
+                                <router-link :to="myLastMood.careListUrl">
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.isCare==null"
                                          src="../images/list_dianz_nor.png" alt=""/>
                                     <img v-if="myLastMood.moodValue<5 &&  myLastMood.isCare==null"
@@ -257,6 +258,7 @@
 			}).then(function (data) {
 				if (data.data.data !== null) {
 					_this.notice = eval(data.data.data);
+					console.log(_this.notice);
 				}
 			}, function (error) {
 				//error
@@ -303,6 +305,7 @@
                 if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
                     _this.myLastMood = eval(data.data.data);
                     _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
+                     _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
                     _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
                 }
             }, function (error) {

@@ -1,4 +1,4 @@
-<template id="careMe">
+<template id="notice">
 	<div class="careMe_box" v-if="careFriends" >
 		<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
 			<img class="careMe_img" :src="careFriend.faceUrl" alt="">
@@ -129,7 +129,7 @@
 </style>
 <script type="text/javascript">
 	var careMe={
-		template:'#careMe'
+		template:'#notice'
 	}
 
 	export default {

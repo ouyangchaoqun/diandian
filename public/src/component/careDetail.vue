@@ -1,24 +1,25 @@
 <template id="careDetail">
     <div class="careDetail_box">
         <div class="myMood_list careborder">
-            <img class="moodImg" src="../images/list_mood_01.png" alt="">
+            <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
-                <div class="moodState">不开心</div>
-                <div class="moodContext">内容文本</div>
+                <div class="moodState">{{mood.moodValueText}}</div>
+                <div class="moodContext">{{mood.content}}</div>
                 <div class="moodPhotoLists">
                     <div class="moodPhotoList" >
                         <img src="../images/imglist1.jpg" alt="">
                     </div>
                 </div>
-                <div class="moodLoc">杭州市</div>
                 <div class="moodTime">
-                    <span>06-03</span>
-                    <span>08:10</span>
+                    <span>{{mood.time}}</span>
                     <span class="btn_del">删除</span>
                     <div class="moodFollow">
-                        <span class="followCount">1</span>
-                        <img class="followtype" src="../images/list_dianz_pre.png" alt="">
-                        <span class="followCount">0</span>
+                        <span class="followCount">{{mood.careCount}}</span>
+                        <img  class="followtype" v-if="mood.moodValue>=5"
+                             src="../images/list_dianz_pre.png" alt=""/>
+                        <img  class="followtype" v-if="mood.moodValue<5"
+                             src="../images/list_baob_pre.png" alt=""/>
+                        <span class="followCount">{{mood.replycount}}</span>
                         <img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
                     </div>
                 </div>
@@ -26,25 +27,31 @@
             <div class="show_box">
                 <div class="arraw"></div>
                 <div class="show_top">
-                    <img class="show_img1" src="../images/list_dianz_pre.png"/>
-                    <img src="../images/13.jpg" alt="">
-                    <img src="../images/13.jpg" alt="">
-                    <img src="../images/13.jpg" alt="">
+                    <img  class="show_img1" v-if="mood.moodValue>=5"
+                          src="../images/list_dianz_pre.png" alt=""/>
+                    <img  class="show_img1" v-if="mood.moodValue<5"
+                          src="../images/list_baob_pre.png" alt=""/>
+                    <div  v-for="headpic in cares">
+                        <img :src="headpic.faceUrl" alt="">
+                    </div>
+
                 </div>
-                <ul class="show_bottom">
+                <ul class="show_bottom" >
                     <img class="show_img2" src="../images/comments.png"/>
-                    <li>
-                        <img class="show_bottom_img " src="../images/13.jpg">
+                    <li v-for="(reply ,index) in replies" :key="index" @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
+                        <img class="show_bottom_img " :src="reply.from_faceUrl">
                         <div class="show_bottom_text">
                             <div class="reply_author">
-                                <a class="pname other" href="javascript:;">小洪</a>
+                                <a class="pname other" >{{reply.from_nickName}}</a>
                             </div>
                             <div class="reply_content">
-                                <span class="text_comment">回复</span><a class="pname other" href="javascript:;">小明</a>
-                                <span class="text_comment">666666666</span>
+                                <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName}}</a>
+                                <span class="text_comment" >{{reply.content}}</span>
                             </div>
                         </div>
                     </li>
+
+
                 </ul>
             </div>
         </div>
@@ -60,14 +67,131 @@
     }
 </style>
 <script type="text/javascript">
+    import wx from 'weixin-js-sdk';
     var careDetail={
         template:'#careDetail'
     };
     export default {
         data() {
             return {
+                data: null,
+                replies:[],
+                cares:[],
+                mood:{},
+                user:{}
 
             }
+        },
+        mounted: function () {
+            let _this = this;
+
+            ///消息回复
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'mood/care/query/comment/'+_this.$route.query.moodId,
+            }).then(function (data) {
+                if (data.data.status==1) {
+
+                    console.log(data.data.data);
+
+
+                    _this.data= data.data.data;
+                    _this.replies= _this.data.reply;
+                    _this.cares= _this.data.care;
+                    _this.mood= _this.data.mood;
+                    _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
+                    _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
+                    _this.mood.time=xqzs.dateTime.formatTime( _this.mood.addTime);
+
+                    for(let i=0;i<_this.replies.length;i++){
+
+                    }
+
+                }
+            }, function (error) {
+                //error
+            });
+
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user = eval(data.data.data);
+                }
+            }, function (error) {
+                //error
+            });
+
+        },
+        methods:{
+            replyOrDel:function (userId,id,index) {
+                let vm = this;
+                console.log(this.user);
+                if(userId===vm.user.id){
+                    vm._delComment(id,index);
+                }else{
+                    vm.addComment(id,index);
+                }
+            },
+
+
+
+            _delComment(id,index){
+                let vm = this;
+                xqzs.weui.actionSheet("删除我的评论?","删除",function () {
+                    ///删除操作
+                    let url  = web.API_PATH+ "mood/reply/[userId]/"+id;
+                    vm.$http.delete(url)
+                            .then((data) => {
+                                if (data.data.status === 1) {
+                                    vm.replies[index].isDel = true;
+                                    vm.mood.replycount=  vm.mood.replycount-1;
+                                   // vm.$set(vm.replies, index, vm.replies[index])
+                                } else {
+                                    xqzs.weui.toast("fail", "删除失败", function () {
+                                    });
+                                }
+                            })
+                            .catch((response) => {
+
+                            });
+
+
+                },function () {
+                    //取消
+                })
+            },
+            addComment(id,index){
+                let vm = this;
+
+                let edithoder="";
+                edithoder= vm.replies[index].from_nickName;
+
+                xqzs.mood.actionSheetEdit("取消","发送",function (v) {
+                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.mood.id,"userId":null,"replyId":id,"content":v}).then(response => {
+                        if(response.data.status===1){
+                            xqzs.weui.toast("success","提交成功",function () {
+                            });
+                            vm.mood.replycount = response.data.data.mood.replycount;
+                            vm.replies.push(response.data.data.reply);
+                        }
+
+
+                    }, response => {
+                        // error
+                    });
+                    console.log(v)
+
+                },function (v) {
+                    console.log(v)
+                    //取消
+                },"回复 " +edithoder)
+            }
+
+
         }
     }
 
