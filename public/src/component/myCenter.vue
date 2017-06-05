@@ -148,7 +148,7 @@
                     </a>
                 </div>
             </div>
-            <a class="share" href="javascript:;" @click="createinvite()">点击生成邀请卡</a>
+            <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
         <!--friendcenter end-->
 
