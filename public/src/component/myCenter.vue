@@ -32,8 +32,7 @@
 
         </div>
         <div class="banner">
-            <img src="../images/banner.jpg"/>
-
+            <v-banner></v-banner>
         </div>
         <!--banner end -->
         <div class="notice_box">
@@ -159,9 +158,10 @@
 
 <script type="es6">
 
+    import banner from "./banner.vue"
     let myCenter = {
         template: '#myCenter'
-    }
+    };
 
     export default {
         data() {
@@ -309,7 +309,9 @@
                 //error
             });
         },
-
+        components: {
+           "v-banner": banner
+        }
 
     }
 
