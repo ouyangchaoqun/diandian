@@ -1,7 +1,7 @@
 <template id="optionThird">
     <div class="optionThird_box">
         <img class="optionjt" src="../images/jt.gif" alt="">
-        搞笑图片
+        <div class="notOpen">此功能暂未开放</div>
     </div>
 </template>
 
@@ -25,6 +25,9 @@
     }
     .optionThird_box .optionjt{
         left:10rem;
+    }
+    .notOpen{
+
     }
 </style>
 
