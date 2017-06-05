@@ -2,65 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\WechatService;
+use App\Services\ApiService;
 use Illuminate\Http\Request;
 
 class WeixinController extends Controller
 {
-    private $service;
-
-    function __construct(WechatService $service)
+    function __construct()
     {
-        $this->service = $service;
 
-        $this->middleware('authToken', ['except' => [
-            'api',
-        ]]);
     }
 
-    public function api()
+    public function index(Request $request)
     {
-        return $this->service->run();
+        $appid = env('WECHAT_APPID');
+        $callback = env('WECHAT_CALL_BACK_URL');
+        $backurl = $request->input('reurl');
+        if (empty($backurl)) {
+            $backurl = 'index';
+        }
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri=" . urlencode($callback)
+            . "&response_type=code&scope=snsapi_base&state={$backurl}#wechat_redirect";
+
+        return redirect($url);
     }
 
     /**
-     * @SWG\Post(path="/weixin/jstoken",
-     *   tags={"weixin"},
-     *   summary="获取jstoken",
-     *   description="",
-     *   operationId="",
-     *   produces={"application/xml", "application/json"},
-     *   @SWG\Parameter(
-     *     name="url",
-     *     in="formData",
-     *     description="url ",
-     *     required=true,
-     *     type="string",
-     *     @SWG\Schema(ref="#/definitions/string"),
-     *   ),
-     *   @SWG\Parameter(
-     *     name="apilist",
-     *     in="formData",
-     *     description="url ",
-     *     required=true,
-     *     type="string",
-     *     @SWG\Schema(ref="#/definitions/string"),
-     *   ),
-     *   @SWG\Response(response=200, description="successful operation"),
-     * )
-     * @param $token
+     * 微信授权中转页
      */
-    public function jstoken(Request $request)
+    public function jump(Request $request, ApiService $apiService)
     {
-        $url = $request->input('url');
-        $debug = $request->input('debug') == 'true';
-        $apilist = $request->input('apilist');
-        $callback = $request->input('callback');
-        $apiArray = array();
-        if (!empty($apilist)) {
-            $apiArray = explode(',', $apilist);
+        $gourl = '/';
+        $state = $request->input('state');
+        $code = $request->input('code');
+        if (!empty($state) && $state != 'index') {
+            $gourl = urldecode($state);
         }
-        $config = $this->service->getJsSign($url, $apiArray, $debug);
-        return $config;
+
+        $apiurl = 'wei/xin/get/user/id';
+        $data = $apiService->execFull($request, '', $gourl, 'get');
+
+        print_r($data);
     }
 }
