@@ -54,6 +54,7 @@ class WeixinController extends Controller
         } catch (\Exception $e) {
 
         }
+        var_dump($gourl);
         redirect($gourl);
     }
 }
