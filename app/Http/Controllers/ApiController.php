@@ -82,7 +82,7 @@ class ApiController extends Controller
     private function getUserId($request)
     {
 
-        return 1181;
+        return 1193;
         $openId = $request->cookie("openId");
         if ($openId == "") {
             return false;
