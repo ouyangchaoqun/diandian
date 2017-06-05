@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 use Laravel\Lumen\Routing\Controller as BaseController;
@@ -13,7 +14,7 @@ class Controller extends BaseController
      */
     var $response;
 
-    protected function getUserId($request)
+    protected function getUserId(Request $request)
     {
 
         return 1193;
@@ -36,5 +37,12 @@ class Controller extends BaseController
             }
             return $userId;
         }
+    }
+
+    protected function setUserInfo(Response $response, $user)
+    {
+        $response->headers->setCookie(new Cookie("openId",$user["data"]['openId']));
+        $userId = $user["data"]['id'];
+        $_SESSION['userId'] = $userId;
     }
 }
