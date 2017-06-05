@@ -1,6 +1,6 @@
 <template id="optionThird">
     <div class="optionThird_box">
-        <img class="optionjt" src="../images/jt.gif" alt="">
+
         <div class="notOpen">此功能暂未开放</div>
     </div>
 </template>
@@ -27,7 +27,18 @@
         left:10rem;
     }
     .notOpen{
-
+        height:30px;
+        line-height: 30px;
+        width:300px;
+        background: #ffffff;
+        position: absolute;
+        top:150px;
+        left:50%;
+        margin-left:-150px;
+        font-size: 14px;
+        border-radius: 5px;
+        text-align: center;
+        color: #333333;
     }
 </style>
 

@@ -1,38 +1,38 @@
 <template id="optionSecond">
     <div class="optionSecond_box">
-        <img class="optionjt" src="../images/jt.gif" alt="">
+
         <div class="swiper-container exp_box">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="expLists expage1">
                         <div>
-                            <div><a class="exp1" data="[微笑]" href=""></a></div>
-                            <div><a class="exp2" data="[撇嘴]" href=""></a></div>
-                            <div><a class="exp3" data="[色]" href=""></a></div>
-                            <div><a class="exp4" data="[发呆]" href=""></a></div>
-                            <div><a class="exp5" data="[得意]" href=""></a></div>
-                            <div><a class="exp6" data="[流泪]" href=""></a></div>
-                            <div><a class="exp7" data="[害羞]" href=""></a></div>
-                            <div><a class="exp8" data="[闭嘴]" href=""></a></div>
+                            <div><a class="exp1" data="[微笑]"></a></div>
+                            <div><a class="exp2" data="[撇嘴]"></a></div>
+                            <div><a class="exp3" data="[色]"   ></a></div>
+                            <div><a class="exp4" data="[发呆]" ></a></div>
+                            <div><a class="exp5" data="[得意]" ></a></div>
+                            <div><a class="exp6" data="[流泪]" ></a></div>
+                            <div><a class="exp7" data="[害羞]" ></a></div>
+                            <div><a class="exp8" data="[闭嘴]" ></a></div>
                         </div>
                         <div >
-                            <div><a class="exp9" data="[睡]" href=""></a></div>
-                            <div><a class="exp10" data="[大哭]" href=""></a></div>
-                            <div><a class="exp11" data="[尴尬]" href=""></a></div>
-                            <div><a class="exp12" data="[发怒]" href=""></a></div>
-                            <div><a class="exp13" data="[调皮]" href=""></a></div>
-                            <div><a class="exp14" data="[呲牙]" href=""></a></div>
-                            <div><a class="exp15" data="[惊讶]" href=""></a></div>
-                            <div><a class="exp16" data="[难过]" href=""></a></div>
+                            <div><a class="exp9" data="[睡]" ></a></div>
+                            <div><a class="exp10" data="[大哭]"></a></div>
+                            <div><a class="exp11" data="[尴尬]"></a></div>
+                            <div><a class="exp12" data="[发怒]"></a></div>
+                            <div><a class="exp13" data="[调皮]" ></a></div>
+                            <div><a class="exp14" data="[呲牙]" ></a></div>
+                            <div><a class="exp15" data="[惊讶]" ></a></div>
+                            <div><a class="exp16" data="[难过]" ></a></div>
                         </div>
                         <div>
-                            <div><a class="exp17" data="[囧]" href=""></a></div>
-                            <div><a class="exp18" data="[抓狂]" href=""></a></div>
-                            <div><a class="exp19" data="[吐]" href=""></a></div>
-                            <div><a class="exp20" data="[偷笑]" href=""></a></div>
-                            <div><a class="exp21" data="[愉快]" href=""></a></div>
-                            <div><a class="exp22" data="[白眼]" href=""></a></div>
-                            <div><a class="exp23" data="[傲慢]" href=""></a></div>
+                            <div><a class="exp17" data="[囧]" ></a></div>
+                            <div><a class="exp18" data="[抓狂]" ></a></div>
+                            <div><a class="exp19" data="[吐]" ></a></div>
+                            <div><a class="exp20" data="[偷笑]" ></a></div>
+                            <div><a class="exp21" data="[愉快]" ></a></div>
+                            <div><a class="exp22" data="[白眼]" ></a></div>
+                            <div><a class="exp23" data="[傲慢]" ></a></div>
                             <div><div class="delexp"></div></div>
                         </div>
                     </div>
@@ -40,34 +40,34 @@
                 <div class="swiper-slide">
                     <div class="expLists">
                         <div>
-                            <div><a class="exp24" data="[困]" href=""></a></div>
-                            <div><a class="exp25" data="[惊恐]" href=""></a></div>
-                            <div><a class="exp26" data="[流汗]" href=""></a></div>
-                            <div><a class="exp27" data="[憨笑]" href=""></a></div>
-                            <div><a class="exp28" data="[悠闲]" href=""></a></div>
-                            <div><a class="exp29" data="[奋斗]" href=""></a></div>
-                            <div><a class="exp30" data="[咒骂]" href=""></a></div>
-                            <div><a class="exp31" data="[疑问]" href=""></a></div>
+                            <div><a class="exp24" data="[困]" ></a></div>
+                            <div><a class="exp25" data="[惊恐]" ></a></div>
+                            <div><a class="exp26" data="[流汗]" ></a></div>
+                            <div><a class="exp27" data="[憨笑]" ></a></div>
+                            <div><a class="exp28" data="[悠闲]" ></a></div>
+                            <div><a class="exp29" data="[奋斗]" ></a></div>
+                            <div><a class="exp30" data="[咒骂]" ></a></div>
+                            <div><a class="exp31" data="[疑问]" ></a></div>
                         </div>
                         <div>
-                            <div><a class="exp32" data="[嘘]" href=""></a></div>
-                            <div><a class="exp33" data="[晕]" href=""></a></div>
-                            <div><a class="exp34" data="[衰]" href=""></a></div>
-                            <div><a class="exp35" data="[骷髅]" href=""></a></div>
-                            <div><a class="exp36" data="[敲打]" href=""></a></div>
-                            <div><a class="exp37" data="[再见]" href=""></a></div>
-                            <div><a class="exp38" data="[擦汗]" href=""></a></div>
-                            <div><a class="exp39" data="[抠鼻]" href=""></a></div>
+                            <div><a class="exp32" data="[嘘]" ></a></div>
+                            <div><a class="exp33" data="[晕]" ></a></div>
+                            <div><a class="exp34" data="[衰]" ></a></div>
+                            <div><a class="exp35" data="[骷髅]" ></a></div>
+                            <div><a class="exp36" data="[敲打]" ></a></div>
+                            <div><a class="exp37" data="[再见]" ></a></div>
+                            <div><a class="exp38" data="[擦汗]" ></a></div>
+                            <div><a class="exp39" data="[抠鼻]" ></a></div>
                         </div>
                         <div>
 
-                            <div><a class="exp40" data="[鼓掌]" href=""></a></div>
-                            <div><a class="exp41" data="[坏笑]" href=""></a></div>
-                            <div><a class="exp42" data="[左哼哼]" href=""></a></div>
-                            <div><a class="exp43" data="[右哼哼]" href=""></a></div>
-                            <div><a class="exp44" data="[哈欠]" href=""></a></div>
-                            <div><a class="exp45" data="[鄙视]" href=""></a></div>
-                            <div><a class="exp46" data="[委屈]" href=""></a></div>
+                            <div><a class="exp40" data="[鼓掌]" ></a></div>
+                            <div><a class="exp41" data="[坏笑]" ></a></div>
+                            <div><a class="exp42" data="[左哼哼]" ></a></div>
+                            <div><a class="exp43" data="[右哼哼]" ></a></div>
+                            <div><a class="exp44" data="[哈欠]" ></a></div>
+                            <div><a class="exp45" data="[鄙视]" ></a></div>
+                            <div><a class="exp46" data="[委屈]" ></a></div>
                             <div><div class="delexp"></div></div>
                         </div>
                     </div>
@@ -75,33 +75,33 @@
                 <div class="swiper-slide">
                     <div class="expLists">
                         <div>
-                            <div><a class="exp47" data="[快哭了]" href=""></a></div>
-                            <div><a class="exp48" data="[阴险]" href=""></a></div>
-                            <div><a class="exp49" data="[亲亲]" href=""></a></div>
-                            <div><a class="exp50" data="[可怜]" href=""></a></div>
-                            <div><a class="exp51" data="[菜刀]" href=""></a></div>
-                            <div><a class="exp52" data="[西瓜]" href=""></a></div>
-                            <div><a class="exp53" data="[啤酒]" href=""></a></div>
-                            <div><a class="exp54" data="[咖啡]" href=""></a></div>
+                            <div><a class="exp47" data="[快哭了]" ></a></div>
+                            <div><a class="exp48" data="[阴险]" ></a></div>
+                            <div><a class="exp49" data="[亲亲]" ></a></div>
+                            <div><a class="exp50" data="[可怜]" ></a></div>
+                            <div><a class="exp51" data="[菜刀]" ></a></div>
+                            <div><a class="exp52" data="[西瓜]" ></a></div>
+                            <div><a class="exp53" data="[啤酒]" ></a></div>
+                            <div><a class="exp54" data="[咖啡]" ></a></div>
                         </div>
                         <div>
-                            <div><a class="exp55" data="[猪头]" href=""></a></div>
-                            <div><a class="exp56" data="[玫瑰]" href=""></a></div>
-                            <div><a class="exp57" data="[凋谢]" href=""></a></div>
-                            <div><a class="exp58" data="[嘴唇]" href=""></a></div>
-                            <div><a class="exp59" data="[爱心]" href=""></a></div>
-                            <div><a class="exp60" data="[心碎]" href=""></a></div>
-                            <div><a class="exp61" data="[蛋糕]" href=""></a></div>
-                            <div><a class="exp62" data="[炸弹]" href=""></a></div>
+                            <div><a class="exp55" data="[猪头]" ></a></div>
+                            <div><a class="exp56" data="[玫瑰]" ></a></div>
+                            <div><a class="exp57" data="[凋谢]" ></a></div>
+                            <div><a class="exp58" data="[嘴唇]" ></a></div>
+                            <div><a class="exp59" data="[爱心]" ></a></div>
+                            <div><a class="exp60" data="[心碎]" ></a></div>
+                            <div><a class="exp61" data="[蛋糕]" ></a></div>
+                            <div><a class="exp62" data="[炸弹]" ></a></div>
                         </div>
                         <div>
-                            <div><a class="exp63" data="[便便]" href=""></a></div>
-                            <div><a class="exp64" data="[月亮]" href=""></a></div>
-                            <div><a class="exp65" data="[太阳]" href=""></a></div>
-                            <div><a class="exp66" data="[拥抱]" href=""></a></div>
-                            <div><a class="exp67" data="[强]" href=""></a></div>
-                            <div><a class="exp68" data="[弱]" href=""></a></div>
-                            <div><a class="exp69" data="[握手]" href=""></a></div>
+                            <div><a class="exp63" data="[便便]" ></a></div>
+                            <div><a class="exp64" data="[月亮]" ></a></div>
+                            <div><a class="exp65" data="[太阳]" ></a></div>
+                            <div><a class="exp66" data="[拥抱]" ></a></div>
+                            <div><a class="exp67" data="[强]" ></a></div>
+                            <div><a class="exp68" data="[弱]" ></a></div>
+                            <div><a class="exp69" data="[握手]" ></a></div>
                             <div><div class="delexp"></div></div>
                         </div>
                     </div>
@@ -109,24 +109,24 @@
                 <div class="swiper-slide">
                     <div class="expLists">
                         <div>
-                            <div><a class="exp70" data="[胜利]" href=""></a></div>
-                            <div><a class="exp71" data="[抱拳]" href=""></a></div>
-                            <div><a class="exp72" data="[勾引]" href=""></a></div>
-                            <div><a class="exp73" data="[拳头]" href=""></a></div>
-                            <div><a class="exp74" data="[OK]" href=""></a></div>
-                            <div><a class="exp75" data="[跳跳]" href=""></a></div>
-                            <div><a class="exp76" data="[发抖]" href=""></a></div>
-                            <div><a class="exp77" data="[怄火]" href=""></a></div>
+                            <div><a class="exp70" data="[胜利]" ></a></div>
+                            <div><a class="exp71" data="[抱拳]" ></a></div>
+                            <div><a class="exp72" data="[勾引]" ></a></div>
+                            <div><a class="exp73" data="[拳头]" ></a></div>
+                            <div><a class="exp74" data="[OK]" ></a></div>
+                            <div><a class="exp75" data="[跳跳]" ></a></div>
+                            <div><a class="exp76" data="[发抖]" ></a></div>
+                            <div><a class="exp77" data="[怄火]" ></a></div>
 
                         </div>
                         <div>
-                            <div><a class="exp78" data="[转圈]" href=""></a></div>
-                            <div><a class="exp79" data="[嘿哈]" href=""></a></div>
-                            <div><a class="exp80" data="[捂脸]" href=""></a></div>
-                            <div><a class="exp81" data="[奸笑]" href=""></a></div>
-                            <div><a class="exp82" data="[机智]" href=""></a></div>
-                            <div><a class="exp83" data="[皱眉]" href=""></a></div>
-                            <div><a class="exp84" data="[耶]" href=""></a></div>
+                            <div><a class="exp78" data="[转圈]" ></a></div>
+                            <div><a class="exp79" data="[嘿哈]" ></a></div>
+                            <div><a class="exp80" data="[捂脸]" ></a></div>
+                            <div><a class="exp81" data="[奸笑]" ></a></div>
+                            <div><a class="exp82" data="[机智]" ></a></div>
+                            <div><a class="exp83" data="[皱眉]" ></a></div>
+                            <div><a class="exp84" data="[耶]" ></a></div>
                             <div><div class="delexp"></div></div>
                         </div>
                     </div>
@@ -154,22 +154,33 @@ import insert from "../js/insert"
 
         },
         mounted(){
+            let max = 140;
             $(document).ready(function(){
                 $('.expLists a').click(function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    var exp = $(this).attr('data')
-                    $("#edit_mood").insertContent(exp);
+                    if($('#edit_mood').val().length<140){
+                        event.preventDefault();
+                        event.stopPropagation();
+                        var exp = $(this).attr('data')
+                        $("#edit_mood").insertContent(exp);
+                        $('.edit_num').text(max-$('#edit_mood').val().length)
+                    }
                 });
             });
+            $('#edit_mood').on('input propertychange',function () {
+                //console.log($('#edit_mood').val().length)
+                $('.edit_num').text(   max -$('#edit_mood').val().length)
+            })
             var that = this;
             var mySwiper = new Swiper ('.swiper-container', {
                 direction: 'horizontal',
                 pagination: '.swiper-pagination'
             });
-
             $('.delexp').click(function () {
-                console.log(11)
+                var oldContent =  $('#edit_mood').val()
+                //console.log(oldContent)
+                var newContent = oldContent.substr(0,oldContent.length-1)
+                //console.log(newContent)
+                $('#edit_mood').val(newContent)
             })
 
         }
