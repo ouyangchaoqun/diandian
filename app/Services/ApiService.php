@@ -70,8 +70,6 @@ class ApiService
         $curl = new Curl();
         $header = $this->getTokenHeader();
 
-        exit($url);
-
         if ($method == "GET") {
             return $curl->get($url, $header);
         } elseif ($method == "POST") {
