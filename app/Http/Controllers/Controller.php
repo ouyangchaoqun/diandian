@@ -42,8 +42,8 @@ class Controller extends BaseController
     protected function setUserInfo(Response $response, $user)
     {
         var_dump($user);
-        $response->headers->setCookie(new Cookie("openId",$user["data"]['openId']));
-        $userId = $user["data"]['id'];
+        $response->headers->setCookie(new Cookie("openId",$user['openId']));
+        $userId = $user['id'];
         $_SESSION['userId'] = $userId;
     }
 }
