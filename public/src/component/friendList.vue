@@ -113,10 +113,7 @@
             let _this = this;
 
             //用户信息
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + 'user/query/friend/by/user/id/_userId_',
-            }).then(function (data) {
+            this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_' ).then(function (data) {
                 console.log(data)
                     if (data.data.data !== null) {
                     _this.friend_g=eval(data.data.data.generalFriends);
