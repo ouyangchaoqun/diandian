@@ -62,7 +62,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/friend/set/[userId]/'+friendId,
+                url: web.API_PATH + 'user/find/friend/set/_userId_/'+friendId,
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     //console.log(data);
@@ -83,7 +83,7 @@
                 let flag;
                 if(_this.user.isSpecial==true){flag=1};
                 if(_this.user.isSpecial==false){flag=0};
-                _this.$http.post(web.API_PATH+'user/set/friend/special/[userId]/'+_this.user.userId+"/"+flag).then(response => {
+                _this.$http.post(web.API_PATH+'user/set/friend/special/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
                     }
@@ -98,7 +98,7 @@
                 if(_this.isNotLookMe===true){flag=0}
                 if(_this.isNotLookMe===false){flag=1}
 
-                _this.$http.post(web.API_PATH+'user/set/friend/look/me/[userId]/'+_this.user.userId+"/"+flag).then(response => {
+                _this.$http.post(web.API_PATH+'user/set/friend/look/me/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
                     }
@@ -111,7 +111,7 @@
                 let flag;
                 if(_this.isNotLookFriend===true){flag=0}
                 if(_this.isNotLookFriend===false){flag=1}
-                _this.$http.post(web.API_PATH+'user/set/friend/look/friend/[userId]/'+_this.user.userId+"/"+flag).then(response => {
+                _this.$http.post(web.API_PATH+'user/set/friend/look/friend/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
                     }

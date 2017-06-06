@@ -124,7 +124,7 @@
                 var postdata = {
                     id: that.moodid,
                     isOpen: that.isopen,
-                    userId: '[userId]',
+                    userId: '_userId_',
                     address: that.address,
                     content: that.moodcontent,
                     pictures: that.pictures
@@ -172,27 +172,28 @@
 
 </script>
 <style>
-.edit_box{
-    height:19.5rem;
-    background: #ffffff;
-    width: 100%;
-    position: relative;
-    padding:1.6rem 0 1rem 0;
-    margin-bottom: 1px;
-}
-#edit_mood{
-    height:16.6rem;
-    width: 90%;
-    outline: none;
-    width:90%;
-    resize: none;
-    border:0;
-    margin: 0 auto;
-    display: block;
-    color: #999999;
-    font-size: 1.5rem;
-    overflow: hidden;
-}
+
+    .edit_box{
+        height:11.470588235294118rem;
+        background: #ffffff;
+        width: 100%;
+        position: relative;
+        padding:1.6rem 0 1rem 0;
+        margin-bottom: 1px;
+    }
+    #edit_mood{
+        height:9.764705882352942rem;
+        width: 90%;
+        outline: none;
+        width:90%;
+        resize: none;
+        border:0;
+        margin: 0 auto;
+        display: block;
+        color: #999999;
+        font-size: 0.8823529411764706rem;
+        overflow: hidden;
+    }
     .edit_loc{
         width: 131px;
         height: 26px;
@@ -201,8 +202,8 @@
         color: #949292;
         line-height: 26px;
         position: absolute;
-        bottom:1rem;
-        left:1.5rem;
+        bottom:0.5882352941176471rem;
+        left:0.8823529411764706rem;
         padding-right:10px;
         border-radius: 15px;
         display: block;
@@ -219,15 +220,15 @@
         font-size: 12px;
         color: #999999;
         position: absolute;
-        right:1.5rem;
-        bottom: 1.5rem;
+        right:0.8823529411764706rem;
+        bottom: 0.8823529411764706rem;
     }
     .edit_option{
-        height:3.7rem;
+        height:2.1764705882352944rem;
         background: #ffffff;
-        padding-top: 1.5rem;
+        padding-top: 0.8823529411764706rem;
         display: flex;
-        padding-left: 1rem;
+        padding-left: 0.5882352941176471rem;
     }
     .edit_option div{
         flex-grow: 1;
@@ -239,43 +240,42 @@
         margin: 0 auto;
     }
     .optionFrist{
-        width:2rem;
+        width:1.1764705882352942rem;
     }
     .optionSecond{
-        width:2.4rem;
+        width:1.411764705882353rem;
     }
     .optionThird{
-        width: 2.3rem;
+        width: 1.352941176470588rem;
     }
     .optionFourth{
-        width:7rem;
+        width:4.11764705882353rem;
         font-size: 12px;
         color: #999999;
         border:1px solid #dcdcdc;
         margin: 0 auto;
         text-align: center;
-        height:2rem;
-        line-height: 2rem;
+        height:1.1764705882352942rem;
+        line-height: 1.1764705882352942rem;
         border-radius: 8px;
     }
     .option_five{
-        margin-top: -0.3rem;
-        height:2.5rem;
-        width:6rem;
-        margin-left: 2rem;
+        margin-top: -0.17647058823529413rem;
+        height:1.4705882352941178rem;
+        width:3.5294117647058822rem;
+        margin-left: 1.1764705882352942rem;
     }
-     .edit_option .optionjt{
-         position: absolute;
-         left:50%;
-         margin-left:-1.2rem;
-         width:2.4rem;
-         bottom:-2px;
+    .edit_option .optionjt{
+        position: absolute;
+        left:50%;
+        margin-left:-0.7058823529411765rem;
+        width:1.411764705882353rem;
+        bottom:-2px;
         visibility: hidden;
     }
     .edit_option .optionjtFlag{
         visibility: visible;
     }
-
 
 
 

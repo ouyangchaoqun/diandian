@@ -210,7 +210,7 @@
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/[userId]',
+                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/_userId_',
                 }).then(function (data) {
                     if (data && data.data) {
                         if (typeof callback == 'function') {
@@ -232,7 +232,7 @@
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'mood/get/user/count/[userId]'
+                    url: web.API_PATH + 'mood/get/user/count/_userId_'
                 }).then(function (bt) {
                     if(bt.data && bt.data.status == 1){
                         if(typeof callback == 'function'){
@@ -249,7 +249,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
 
@@ -276,7 +276,7 @@
             this.$http({
 				method: 'GET',
 				type: "json",
-				url: web.API_PATH + 'notice/find/new/[userId]',
+				url: web.API_PATH + 'notice/find/new/_userId_',
 			}).then(function (data) {
 				if (data.data.data !== null) {
 					_this.notice = eval(data.data.data);
@@ -291,7 +291,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'mood/query/friend/today/[userId]/1',
+                url: web.API_PATH + 'mood/query/friend/today/_userId_/1',
             }).then(function (data) {//es5写法
                 if (data.data.status === 1 && data.data.data !== null) {
                     _this.friendMoodsSpe = eval(data.data.data);
@@ -306,7 +306,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'mood/query/friend/today/[userId]/0',
+                url: web.API_PATH + 'mood/query/friend/today/_userId_/0',
             }).then(function (data) {//es5写法
                 if (data.data.status === 1 && data.data.data !== null) {
                     _this.friendMoods = eval(data.data.data);
@@ -322,7 +322,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'mood/find/userlast/[userId]',
+                url: web.API_PATH + 'mood/find/userlast/_userId_',
             }).then(function (data) {//es5写法
                 if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
                     _this.myLastMood = eval(data.data.data);

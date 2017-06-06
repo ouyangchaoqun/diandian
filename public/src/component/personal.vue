@@ -81,7 +81,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
 
@@ -153,7 +153,7 @@
                 let _this = this;
                 _this.$http({
                     method: 'POST',
-                    url: web.API_PATH + 'user/update/user/headpic/[userId]',
+                    url: web.API_PATH + 'user/update/user/headpic/_userId_',
                 }).then(function (data) {//es5写法
                     if (data.data.status !== null) {
                             xqzs.weui.toast("success", "更新成功",function(){

@@ -20,11 +20,11 @@ $app->group(['prefix'=>'wx'],function () use($app){
 
 
 
-$app->options('/api/{url:[a-zA-Z/\d\{\}\%\[\]]+}','ApiController@url');;
-$app->get('/api/{url:[a-zA-Z/\d\{\}\%[\]]+}','ApiController@url');;
-$app->post('/api/{url:[a-zA-Z/\d\{\}\%[\]]+}','ApiController@url');
-$app->delete('/api/{url:[a-zA-Z/\d\{\}\%[\]]+}','ApiController@url');
-$app->put('/api/{url:[a-zA-Z/\d\{\}\%[\]]+}','ApiController@url');
+$app->options('/api/{url:[a-zA-Z/\d\{\}\%\[\]\_]+}','ApiController@url');;
+$app->get('/api/{url:[a-zA-Z/\d\{\}\%[\]\_]+}','ApiController@url');;
+$app->post('/api/{url:[a-zA-Z/\d\{\}\%[\]\_]+}','ApiController@url');
+$app->delete('/api/{url:[a-zA-Z/\d\{\}\%[\]\_]+}','ApiController@url');
+$app->put('/api/{url:[a-zA-Z/\d\{\}\%[\]\_]+}','ApiController@url');
 
 
 

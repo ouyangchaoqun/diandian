@@ -164,7 +164,7 @@
 
                 this.days = days;
                     days = [];
-                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/[userId]?date=' + year + '-' + monthchange + '-01').then(response => {
+                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/_userId_?date=' + year + '-' + monthchange + '-01').then(response => {
                     if (response.data.status === 1) {
 
                         if (thisMonthDays > 0) {

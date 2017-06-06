@@ -147,7 +147,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/[userId]',
+                url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/_userId_',
             }).then(function (data) {
                 if (data.data.data !== null&&data.data.data.length>0) {
                     _this.careFriends = eval(data.data.data);

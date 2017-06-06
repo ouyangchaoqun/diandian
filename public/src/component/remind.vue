@@ -66,7 +66,7 @@
             //用户信息
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + 'user/find/user/remind/by/user/id/[userId]',
+                url: web.API_PATH + 'user/find/user/remind/by/user/id/_userId_',
             }).then(function (data) {
                 if (data.data.data !== null) {
                     _this.remindMsg = eval(data.data.data);
@@ -145,7 +145,7 @@
 
                 }else{
 
-                    this.$http.delete(web.API_PATH + 'user/delete/user/remind/by/user/id/[userId]')
+                    this.$http.delete(web.API_PATH + 'user/delete/user/remind/by/user/id/_userId_')
                             .then(
                                     (response) => {
 

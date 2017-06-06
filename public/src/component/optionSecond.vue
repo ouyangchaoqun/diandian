@@ -198,79 +198,36 @@
 </script>
 <style>
     .test{
-        height: 2.6rem;width: 2.6rem;background-size: cover;display: inline-block;
+        height: 1.5294117647058825rem;width: 1.5294117647058825rem;background-size: cover;display: inline-block;
         vertical-align: middle;
     }
-    html {
-        font-size: 10px;
-    }
 
-    body ,html{
-        font-size: 12px;
-    }
-
-
-    @media only screen and (min-width: 320px) {
-        html {
-            font-size:10.24px !important;
-        }
-    }
-
-    @media only screen and (min-width: 481px) {
-        html {
-            font-size:94%!important
-        }
-    }
-
-    @media only screen and (min-width: 561px) {
-        html {
-            font-size:109%!important
-        }
-    }
-
-    @media only screen and (min-width: 640px) {
-        html {
-            font-size: 125% !important;
-        }
-    }
-
-    @media only screen and (min-width: 750px) {
-        html {
-            font-size: 150% !important;
-        }
-    }
-
-    @media only screen and (min-width: 1242px) {
-        html {
-            font-size: 187.5% !important;
-        }
-    }
 
     .optionSecond_box{
         position: relative;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        padding-top: 2rem;
+        padding-left: 0.5882352941176471rem;
+        padding-right: 0.5882352941176471rem;
+        padding-top: 1.1764705882352942rem;
         background: #f5f5f5;
     }
     .optionSecond_box .optionjt{
-        left:5.8rem;
+        left:3.411764705882353rem;
     }
     .expLists div{
         display: flex;
         flex-grow: 1;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.29411764705882354rem;
     }
-   /* .expLists1,.expLists2,.expLists3,.expLists4,.expLists5,.expLists6,.expLists7,.expLists8,.expLists9,.expLists10{
-        display: flex;
-        margin-bottom: 1rem;
-    }
-    .expLists1 div,.expLists2 div, .expLists3 div,.expLists4 div,.expLists5 div,.expLists6 div,.expLists7 div,.expLists8 div,.expLists9 div,.expLists10 div{
-        flex-grow: 1;
-    }*/
+    /* .expLists1,.expLists2,.expLists3,.expLists4,.expLists5,.expLists6,.expLists7,.expLists8,.expLists9,.expLists10{
+         display: flex;
+         margin-bottom: 0.5882352941176471rem;
+     }
+     .expLists1 div,.expLists2 div, .expLists3 div,.expLists4 div,.expLists5 div,.expLists6 div,.expLists7 div,.expLists8 div,.expLists9 div,.expLists10 div{
+         flex-grow: 1;
+     }*/
     .expLists a{
-        height:2.6rem;
-        width:2.6rem;
+        height:1.5294117647058825rem;
+        width:1.5294117647058825rem;
         display: block;
         background-position: 0 0;
         margin: 0 auto;
@@ -279,259 +236,259 @@
     }
 
     .expLists .exp2{
-        background-position: 0 -2.7rem;
+        background-position: 0 -1.5882352941176472rem;
     }
     .expLists .exp3{
-        background-position: 0 -5.4rem;
+        background-position: 0 -3.1764705882352944rem;
     }
     .expLists .exp4{
-        background-position: 0 -8.2rem;
+        background-position: 0 -4.823529411764706rem;
     }
     .expLists .exp5{
-        background-position: 0 -10.9rem;
+        background-position: 0 -6.411764705882353rem;
     }
     .expLists .exp6{
-        background-position: 0 -13.6rem;
+        background-position: 0 -8rem;
     }
     .expLists .exp7{
-        background-position: 0 -16.4rem;
+        background-position: 0 -9.647058823529411rem;
     }
     .expLists .exp8{
-        background-position: 0 -19rem;
+        background-position: 0 -11.176470588235295rem;
     }
     .expLists .exp9{
-        background-position: 0 -21.8rem;
+        background-position: 0 -12.823529411764707rem;
     }
 
     .expLists .exp10{
-        background-position: 0 -24.5rem;
+        background-position: 0 -14.411764705882353rem;
     }
     .expLists .exp11{
-        background-position: 0 -27.2rem;
+        background-position: 0 -16rem;
     }
     .expLists .exp12{
-        background-position: 0 -29.9rem;
+        background-position: 0 -17.588235294117645rem;
     }
     .expLists .exp13{
-        background-position: 0 -32.6rem;
+        background-position: 0 -19.176470588235297rem;
     }
     .expLists .exp14{
-        background-position: 0 -35.4rem;
+        background-position: 0 -20.823529411764707rem;
     }
     .expLists .exp15{
-        background-position: 0 -38.2rem;
+        background-position: 0 -22.47058823529412rem;
     }
     .expLists .exp16{
-        background-position: 0 -40.9rem;
+        background-position: 0 -24.058823529411764rem;
     }
     .expLists .exp17{
-        background-position: 0 -43.6rem;
+        background-position: 0 -25.647058823529413rem;
     }
     .expLists .exp18{
-        background-position: 0 -46.3rem;
+        background-position: 0 -27.235294117647058rem;
     }
     .expLists .exp19{
-        background-position: 0 -48.9rem;
+        background-position: 0 -28.764705882352942rem;
     }
     .expLists .exp20{
-        background-position: 0 -51.7rem;
+        background-position: 0 -30.411764705882355rem;
     }
     .expLists .exp21{
-        background-position: 0 -54.4rem;
+        background-position: 0 -32rem;
     }
     .expLists .exp22{
-        background-position: 0 -57.2rem;
+        background-position: 0 -33.64705882352941rem;
     }
     .expLists .exp23{
-        background-position: 0 -59.9rem;
+        background-position: 0 -35.23529411764706rem;
     }
     .expLists .exp24{
-        background-position: 0 -62.6rem;
+        background-position: 0 -36.82352941176471rem;
     }
     .expLists .exp25{
-        background-position: 0 -65.4rem;
+        background-position: 0 -38.47058823529412rem;
     }
     .expLists .exp26{
-        background-position: 0 -67.9rem;
+        background-position: 0 -39.94117647058824rem;
     }
     .expLists .exp27{
-        background-position: 0 -70.7rem;
+        background-position: 0 -41.58823529411765rem;
     }
     .expLists .exp28{
-        background-position: 0 -73.5rem;
+        background-position: 0 -43.23529411764706rem;
     }
     .expLists .exp29{
-        background-position: 0 -76.3rem;
+        background-position: 0 -44.88235294117647rem;
     }
     .expLists .exp30{
-        background-position: 0 -79rem;
+        background-position: 0 -46.470588235294116rem;
     }
     .expLists .exp31{
-        background-position: 0 -81.7rem;
+        background-position: 0 -48.05882352941177rem;
     }
     .expLists .exp32{
-        background-position: 0 -84.5rem;
+        background-position: 0 -49.70588235294118rem;
     }
     .expLists .exp33{
-        background-position: 0 -87.2rem;
+        background-position: 0 -51.294117647058826rem;
     }
     .expLists .exp34{
-        background-position: 0 -89.9rem;
+        background-position: 0 -52.88235294117648rem;
     }
     .expLists .exp35{
-        background-position: 0 -92.7rem;
+        background-position: 0 -54.529411764705884rem;
     }
     .expLists .exp36{
-        background-position: 0 -95.4rem;
+        background-position: 0 -56.117647058823536rem;
     }
     .expLists .exp37{
-        background-position: 0 -98rem;
+        background-position: 0 -57.64705882352941rem;
     }
     .expLists .exp38{
-        background-position: 0 -100.7rem;
+        background-position: 0 -59.235294117647065rem;
     }
     .expLists .exp39{
-        background-position: 0 -103.5rem;
+        background-position: 0 -60.88235294117647rem;
     }
     .expLists .exp40{
-        background-position: 0 -106.2rem;
+        background-position: 0 -62.47058823529412rem;
     }
     .expLists .exp41{
-        background-position: 0 -108.9rem;
+        background-position: 0 -64.05882352941177rem;
     }
     .expLists .exp42{
-        background-position: 0 -111.6rem;
+        background-position: 0 -65.6470588235294rem;
     }
     .expLists .exp43{
-        background-position: 0 -114.3rem;
+        background-position: 0 -67.23529411764706rem;
     }
     .expLists .exp44{
-        background-position: 0 -117rem;
+        background-position: 0 -68.82352941176471rem;
     }
     .expLists .exp45{
-        background-position: 0 -119.9rem;
+        background-position: 0 -70.52941176470588rem;
     }
     .expLists .exp46{
-        background-position: 0 -122.5rem;
+        background-position: 0 -72.05882352941177rem;
     }
     .expLists .exp47{
-        background-position: 0 -125rem;
+        background-position: 0 -73.52941176470588rem;
     }
     .expLists .exp48{
-        background-position: 0 -127.6rem;
+        background-position: 0 -75.05882352941177rem;
     }
     .expLists .exp49{
-        background-position: 0 -130.3rem;
+        background-position: 0 -76.64705882352942rem;
     }
     .expLists .exp50{
-        background-position: 0 -132.9rem;
+        background-position: 0 -78.1764705882353rem;
     }
     .expLists .exp51{
-        background-position: 0 -135.6rem;
+        background-position: 0 -79.76470588235294rem;
     }
     .expLists .exp52{
-        background-position: 0 -138.2rem;
+        background-position: 0 -81.29411764705883rem;
     }
     .expLists .exp53{
-        background-position: 0 -140.8rem;
+        background-position: 0 -82.82352941176471rem;
     }
     .expLists .exp54{
-        background-position: 0 -143.3rem;
+        background-position: 0 -84.29411764705883rem;
     }
     .expLists .exp55{
-        background-position: 0 -145.9rem;
+        background-position: 0 -85.82352941176471rem;
     }
     .expLists .exp56{
-        background-position: 0 -148.6rem;
+        background-position: 0 -87.41176470588235rem;
     }
     .expLists .exp57{
-        background-position: 0 -151.3rem;
+        background-position: 0 -89.00000000000001rem;
     }
     .expLists .exp58{
-        background-position: 0 -153.8rem;
+        background-position: 0 -90.47058823529413rem;
     }
     .expLists .exp59{
-        background-position: 0 -156.5rem;
+        background-position: 0 -92.05882352941177rem;
     }
     .expLists .exp60{
-        background-position: 0 -159.2rem;
+        background-position: 0 -93.6470588235294rem;
     }
     .expLists .exp61{
-        background-position: 0 -161.9rem;
+        background-position: 0 -95.23529411764706rem;
     }
     .expLists .exp62{
-        background-position: 0 -164.3rem;
+        background-position: 0 -96.64705882352942rem;
     }
     .expLists .exp63{
-        background-position: 0 -167rem;
+        background-position: 0 -98.23529411764706rem;
     }
     .expLists .exp64{
-        background-position: 0 -169.4rem;
+        background-position: 0 -99.64705882352942rem;
     }
     .expLists .exp65{
-        background-position: 0 -172rem;
+        background-position: 0 -101.17647058823529rem;
     }
     .expLists .exp66{
-        background-position: 0 -174.6rem;
+        background-position: 0 -102.70588235294117rem;
     }
     .expLists .exp67{
-        background-position: 0 -177.2rem;
+        background-position: 0 -104.23529411764706rem;
     }
     .expLists .exp68{
-        background-position: 0 -179.7rem;
+        background-position: 0 -105.70588235294117rem;
     }
     .expLists .exp69{
-        background-position: 0 -182.5rem;
+        background-position: 0 -107.3529411764706rem;
     }
     .expLists .exp70{
-        background-position: 0 -185rem;
+        background-position: 0 -108.82352941176471rem;
     }
     .expLists .exp71{
-        background-position: 0 -187.5rem;
+        background-position: 0 -110.29411764705883rem;
     }
     .expLists .exp72{
-        background-position: 0 -190rem;
+        background-position: 0 -111.76470588235294rem;
     }
     .expLists .exp73{
-        background-position: 0 -192.6rem;
+        background-position: 0 -113.29411764705883rem;
     }
     .expLists .exp74{
-        background-position: 0 -195.4rem;
+        background-position: 0 -114.94117647058825rem;
     }
     .expLists .exp75{
-        background-position: 0 -197.8rem;
+        background-position: 0 -116.3529411764706rem;
     }
     .expLists .exp76{
-        background-position: 0 -200.4rem;
+        background-position: 0 -117.88235294117648rem;
     }
     .expLists .exp77{
-        background-position: 0 -203rem;
+        background-position: 0 -119.41176470588236rem;
     }
     .expLists .exp78{
-        background-position: 0 -205.6rem;
+        background-position: 0 -120.94117647058823rem;
     }
     .expLists .exp79{
-        background-position: 0 -208.5rem;
+        background-position: 0 -122.64705882352942rem;
     }
     .expLists .exp80{
-        background-position: 0 -211.1rem;
+        background-position: 0 -124.17647058823529rem;
     }
     .expLists .exp81{
-        background-position: 0 -213.6rem;
+        background-position: 0 -125.6470588235294rem;
     }
     .expLists .exp82{
-        background-position: 0 -216.3rem;
+        background-position: 0 -127.23529411764707rem;
     }
     .expLists .exp83{
-        background-position: 0 -219rem;
+        background-position: 0 -128.8235294117647rem;
     }
     .expLists .exp84{
-        background-position: 0 -221.6rem;
+        background-position: 0 -130.35294117647058rem;
     }
     .delexp{
-        height:1.9rem;
+        height:1.1176470588235294rem;
         margin: 0 auto;
-        padding-top: 0.3rem;
+        padding-top: 0.17647058823529413rem;
     }
     .swiper-pagination-bullet{
         background: #d5d5d7;
@@ -540,13 +497,12 @@
         background:#88888a;
     }
     .exp_box{
-        height:15rem;
+        height:8.823529411764707rem;
     }
     #pagination{
         position: absolute;
-        bottom:1rem;
+        bottom:0.5882352941176471rem;
     }
-
 </style>
 
 

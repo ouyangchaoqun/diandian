@@ -116,7 +116,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
@@ -143,7 +143,7 @@
                 let vm = this;
                 xqzs.weui.actionSheet("删除我的评论?","删除",function () {
                     ///删除操作
-                    let url  = web.API_PATH+ "mood/reply/[userId]/"+id;
+                    let url  = web.API_PATH+ "mood/reply/_userId_/"+id;
                     vm.$http.delete(url)
                             .then((data) => {
                                 if (data.data.status === 1) {

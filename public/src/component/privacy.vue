@@ -43,7 +43,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     //console.log(data);
@@ -64,7 +64,7 @@
                 //
                 this.$http({
                     method: 'POST',
-                    url: web.API_PATH + 'user/update/my/set/look/me/[userId]/'+_this.user.isLookMe,
+                    url: web.API_PATH + 'user/update/my/set/look/me/_userId_/'+_this.user.isLookMe,
                 }).then(function (data) {//es5写法
                     if (data.data.status !== null) {
 
@@ -79,7 +79,7 @@
                 //
                 this.$http({
                     method: 'POST',
-                    url: web.API_PATH + 'user/update/my/set/look/friend/[userId]/'+_this.user.isLookFriend,
+                    url: web.API_PATH + 'user/update/my/set/look/friend/_userId_/'+_this.user.isLookFriend,
                 }).then(function (data) {//es5写法
                     if (data.data.status !== null) {
 

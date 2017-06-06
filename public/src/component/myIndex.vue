@@ -143,7 +143,7 @@
                 let vm = this;
                 xqzs.weui.actionSheet("删除我的评论?","删除",function () {
                     ///删除操作
-                    let url  = web.API_PATH+ "mood/reply/[userId]/"+id;
+                    let url  = web.API_PATH+ "mood/reply/_userId_/"+id;
                     vm.$http.delete(url)
                         .then((data) => {
                             if (data.data.status === 1) {
@@ -238,7 +238,7 @@
             },
             _empty: function (id, $index) {
                 let vm = this;
-                let url = web.API_PATH + "mood/clean/content/[userId]/" + id
+                let url = web.API_PATH + "mood/clean/content/_userId_/" + id
                 vm.$http.delete(url)
                     .then((data) => {
                         if (data.data.status === 1) {
@@ -264,7 +264,7 @@
             },
             _revoke: function (id, $index) {
                 let vm = this;
-                let url = web.API_PATH + "mood/[userId]/" + id
+                let url = web.API_PATH + "mood/_userId_/" + id
                 vm.$http.delete(url, {emulateJSON: true})
                     .then((data) => {
                         if (data.data.status === 1) {
@@ -300,7 +300,7 @@
 
             getList(){
                 let vm = this;
-                vm.$http.get(web.API_PATH + 'mood/query/user/page/[userId]/' + 1 + "/" + vm.num).then((response) => {
+                vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
                     console.log(vm.downdata);
@@ -317,7 +317,7 @@
             },
             onInfinite(done) {
                 let vm = this;
-                vm.$http.get(web.API_PATH + 'mood/query/user/page/[userId]/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
+                vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
                     vm.counter++;
                     vm.pageEnd = vm.num * vm.counter;
                     vm.pageStart = vm.pageEnd - vm.num;
@@ -352,7 +352,7 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/[userId]',
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
@@ -362,7 +362,7 @@
             });
 
 
-            _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/[userId]')
+            _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
                      if (data.data.status === 1) {
                         for(let i =0;i<data.data.data.length;i++){

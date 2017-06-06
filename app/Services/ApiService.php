@@ -28,8 +28,10 @@ class ApiService
         foreach ($useridkeys as $key) {
             $url = str_replace("{" . $key . "}", $userId, $url);
             $url = str_replace("[" . $key . "]", $userId, $url);
+            $url = str_replace("_userId_", $userId, $url);
         }
         $url = $this->API_URL . $url;
+
 
         $curl = new Curl();
         $header = $this->getTokenHeader();
