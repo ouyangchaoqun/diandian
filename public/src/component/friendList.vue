@@ -114,10 +114,10 @@
 
             //用户信息
             this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_' ).then(function (data) {
-                console.log(data)
-                    if (data.data.data !== null) {
-                    _this.friend_g=(data.data.data.generalFriends);
-                    _this.friend_s=(data.data.data.specialFriends);
+
+                    if (data.body.data !== null) {
+                    _this.friend_g=(data.body.data.generalFriends);
+                    _this.friend_s=(data.body.data.specialFriends);
                     for(let i =0;i<_this.friend_s.length;i++){
                         _this.friend_s[i].firstCn= makePy(_this.friend_s[i].nickName);
                         _this.friend_s[i].friendLink= "/#/friendCenter/?friendId="+_this.friend_s[i].id;
