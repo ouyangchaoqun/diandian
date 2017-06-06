@@ -44,7 +44,7 @@ class WeixinController extends Controller
 
         try {
             if (!empty($data)) {
-                $obj = json_decode($data,true);
+                $obj = json_decode($data, true);
                 if ($obj !== false) {
                     if ($obj['status'] == 1) {
                         $this->setUserInfo($obj['data']);
@@ -52,7 +52,9 @@ class WeixinController extends Controller
                 }
             }
         } catch (\Exception $e) {
+
+        } finally {
+            return redirect($gourl);
         }
-        redirect($gourl);
     }
 }
