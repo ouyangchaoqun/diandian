@@ -24,7 +24,9 @@ var xqzs = {
             }, 800);
         },
         dialog: function (title, msg, cancelFun, submitFun) {
-
+            if(arguments.length == 1 && typeof arguments[0] == 'object'){
+                this._dialog(arguments[0]);
+            }
             if (title === "") title = "提示";
             var html = "";
             html += '<div class="js_dialog"  >';
@@ -47,6 +49,42 @@ var xqzs = {
             });
             $(".js_dialog .submit").click(function () {
                 submitFun();
+                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                    $(".js_dialog").remove();
+                });
+            })
+        },
+        _dialog: function (config) {
+            var defaultsize = {
+                title: '提示',
+                msg:'',
+                submitText:'确定',
+                submitFun:function () {},
+                cancelText:'取消',
+                cancelFun:function () {}
+            };
+            $.extend(defaultsize, config);
+            var html = "";
+            html += '<div class="js_dialog"  >';
+            html += '   <div class="weui-mask"></div>';
+            html += '   <div class="weui-dialog">';
+            html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
+            html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
+            html += ' <div class="weui-dialog__ft">';
+            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">'+config.cancelText+'</a>';
+            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">'+config.submitText+'</a>';
+            html += '   </div>';
+            html += '   </div>';
+            html += '   </div>';
+            $("body").append(html);
+            $(".js_dialog .cancel").click(function () {
+                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                    $(".js_dialog").remove();
+                    config.cancelFun();
+                });
+            });
+            $(".js_dialog .submit").click(function () {
+                config.submitFun();
                 $(".js_dialog").animate({opacity: 0}, 200, function () {
                     $(".js_dialog").remove();
                 });
