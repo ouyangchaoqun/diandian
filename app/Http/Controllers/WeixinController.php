@@ -54,6 +54,6 @@ class WeixinController extends Controller
             }
         } catch (\Exception $e) {
         }
-        redirect($gourl);
+        redirect($gourl)->withCookie();
     }
 }

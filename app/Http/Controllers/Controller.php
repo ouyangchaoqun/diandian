@@ -39,11 +39,10 @@ class Controller extends BaseController
         }
     }
 
-    protected function setUserInfo(Response $response, $user)
+    protected function setUserInfo($user)
     {
-        var_dump($user);
-        var_dump($user['openId']);
-        $response->withCookie(new Cookie("openId",$user['openId']));
+        setcookie('openId',$user['openId']);
+        //$response->withCookie(new Cookie("openId",$user['openId']));
         $userId = $user['id'];
         $_SESSION['userId'] = $userId;
     }
