@@ -36,21 +36,21 @@
 		</router-link>
 		<router-link to="/me/privacy" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1" src="../images/listimg4.png"/>
+				<img class="listimg1 privacyImg" src="../images/listimg4.png"/>
 				<div class="listtext">隐私设置</div>
 				<img class="listimg2" src="../images/back.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/problem" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1" src="../images/listimg5.png"/>
-				<div class="listtext">常见问题Q&A</div>
+				<img class="listimg1 problemImg" src="../images/listimg5.png"/>
+				<div class="listtext ">常见问题Q&A</div>
 				<img class="listimg2" src="../images/back.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/proposal" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1" src="../images/listimg6.png"/>
+				<img class="listimg1 proposalImg" src="../images/listimg6.png"/>
 				<div class="listtext">意见反馈</div>
 				<img class="listimg2" src="../images/back.png"/>
 			</div>
@@ -111,18 +111,21 @@
 		background:#fff;
 		padding:0 15px;
 		display: block;
+		position: relative;
 	}
 	.me_list{
 		height:60px;
 		border-bottom:1px solid #e5e5e5;
 		line-height: 60px;
+		padding-left: 50px;
 	}
 	.listimg1{
-		width:30px;
-		height:30px;
+		width:22px;
 		display: block;
-		float: left;
-		margin-top: 16px;
+		position: absolute;
+		top:50%;
+		margin-top:-12px;
+		left:20px;
 	}
 	.listimg2{
 		display: block;
@@ -136,11 +139,20 @@
 		font-size:15px;
 		color: #333333;
 		float: left;
-		margin-left:15px;
 	}
 	.me_bottom{
 		width:90%;
 		margin:30px auto;
+	}
+	.privacyImg{
+		width:16px;
+		margin-top:-12px;
+	}
+	.proposalImg{
+		margin-top: -8px;
+	}
+	.problemImg{
+		margin-top:-16px;
 	}
 </style>
 <script type="text/javascript">

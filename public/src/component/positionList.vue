@@ -16,17 +16,6 @@
                 </div>
                 <i class="weui-icon-success-no-circle"></i>
             </li>
-            <li class="locList">
-                <div>
-                    <p class="address">聚光中心</p>
-                    <p class="addressDetails">浙江省杭州市滨江区阡陌路</p>
-                </div>
-                <i class="weui-icon-success-no-circle"></i>
-            </li>
-
-
-
-
         </ul>
     </div>
 </template>

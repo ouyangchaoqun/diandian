@@ -2,7 +2,8 @@
     <div>
         <div class="edit_box">
             <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
-            <router-link to="/positionList" class="edit_loc" @click = "getLoc()">点击获取所在位置
+            <router-link to="/positionList" class="edit_loc" @click = "getLoc()">
+                <span>点击获取所在位置</span>
                 <img src="../images/dz_nor.png" alt="">
 
             </router-link>
@@ -125,7 +126,7 @@
     overflow: hidden;
 }
     .edit_loc{
-        width: 131px;
+        width: 140px;
         height: 26px;
         border:1px solid #dcdcdc;
         font-size: 12px;
@@ -134,9 +135,9 @@
         position: absolute;
         bottom:1rem;
         left:1.5rem;
-        padding-right:10px;
         border-radius: 15px;
         display: block;
+
     }
     .edit_loc img{
         float: left;
@@ -145,6 +146,13 @@
         margin-top: 4px;
         margin-left:10px;
         margin-right:5px;
+    }
+    .edit_loc span{
+        display: inline-block;
+        width: 106px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .edit_num{
         font-size: 12px;
