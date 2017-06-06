@@ -403,16 +403,7 @@
 </script>
 <style>
 
-    .actionSheet_wrap .doAction{
-        font-size: 16px;
-        color: red;
-    }
-    .actionSheet_wrap .weui-actionsheet__title-text{
-        color: #999;
-        font-size: 13px;
-        height: 40px;
 
-    }
 
     /*mood item*/
     .show_box {
@@ -547,111 +538,6 @@
     }
 
 
-    .userHeaderImg {
-        height: 64px;
-        width: 64px;
-        position: absolute;
-        left: 50%;
-        bottom: -32px;
-        margin-left: -32px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        padding: 2px;
-    }
-
-    .userHeaderImg img {
-        height: 64px;
-        width: 64px;
-        border-radius: 50%;
-        margin: auto;
-        display: block;
-    }
-
-
-
-    .myMood_list {
-        background: #ffffff;
-        padding: 16px 10px;
-        margin-bottom: 1px;
-    }
-
-    .moodImg {
-        width: 40px;
-        height: 40px;
-        display: block;
-        float: left;
-    }
-
-    .moodImg_right {
-        margin-left: 50px;
-    }
-
-    .moodState {
-        font-size: 14px;
-        margin-bottom: 6px;
-    }
-
-    .moodContext {
-        font-size: 14px;
-        color: #333333;
-        line-height: 20px;
-        margin-bottom: 10px;
-    }
-
-    .moodPhotoLists {
-        display: flex;
-        height: auto;
-        margin-right: 20px;
-        margin-bottom: 15px;
-    }
-
-    .moodPhotoList {
-        float: left;
-        margin-right: 0.3125rem;
-        width: 4.8675rem;
-        height: 4.8675rem;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .moodLoc {
-        font-size: 12px;
-        color: #516591;
-        margin-bottom: 5px;
-    }
-
-    .moodTime {
-        font-size: 12px;
-        color: #787878;
-        height: 20px;
-        line-height: 20px;
-    }
-
-    .moodFollow {
-        float: right;
-    }
-
-    .followCount {
-        float: left;
-        margin-left: 5px;
-    }
-
-    .followtype {
-        width: 24px;
-        margin-top: -2px;
-        margin-left: 5px;
-        float: left;
-    }
-
-    .moodImg_right .moodPhotoLists.two > div {
-        width: 7.5rem;
-        height: 6rem;
-    }
-
-    .moodImg_right .moodPhotoLists.one > div {
-        width: 10.7rem;
-        height: 8.1rem;
-    }
 
 
 </style>
