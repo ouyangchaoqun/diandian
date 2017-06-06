@@ -167,12 +167,11 @@
 			}, function (error) {
 				//error
 			});
-
-			///设置已读
+ 			///设置已读
 			this.$http({
 				method: 'post',
 				type: "json",
-				url: web.API_PATH + 'mood/care/update/read/1156/{updatetime}'
+				url: web.API_PATH + 'notice/update/read/_userId_/'+ xqzs.dateTime.getTimeStamp()
 			}).then(function (data) {//es5写法
 //				console.log(data);
 			}, function (error) {
