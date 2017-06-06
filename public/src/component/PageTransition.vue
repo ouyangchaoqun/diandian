@@ -1,6 +1,6 @@
 <template>
     <div>
-        <transition :name="transitionName">
+        <transition :name="transitionName" style="height: 100% !important; width: 100% !important;">
             <router-view class="child-view"></router-view>
         </transition>
     </div>
@@ -47,11 +47,11 @@
     }
 </script>
 
-<style scoped>
+<style>
     .child-view {
         position: absolute;
-        width:100%;
-        height: 100%;
+        width:100% !important;
+        height: 100% !important;
         background: #ffffff
     }
 
