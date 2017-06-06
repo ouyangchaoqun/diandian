@@ -31,6 +31,8 @@ class ApiService
         }
         $url = $this->API_URL . $url;
 
+        exit($url);
+
         $curl = new Curl();
         $header = $this->getTokenHeader();
 

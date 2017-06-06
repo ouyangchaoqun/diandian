@@ -129,8 +129,6 @@
                     content: that.moodcontent,
                     pictures: that.pictures
                 };
-                console.info(postdata);
-                return;
                 that.$http({
                     method: 'PUT',
                     type: "json",
