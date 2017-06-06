@@ -17,7 +17,6 @@ let routers =
                 require('./routes/writeMood'),
                 require('./routes/index'),
                 require('./routes/calendar'),
-                require('./routes/friends'),
                 require('./routes/me'),
                 require('./routes/careMe'),
                 require('./routes/careDetail'),
@@ -26,7 +25,8 @@ let routers =
                 require('./routes/personal'),
                 require('./routes/validate'),
                 require('./routes/moodCount'),
-                require('./routes/friendsCount'),
+                require('./routes/friendList'),
+                require('./routes/friendsMoods'),
                 require('./routes/friendCenter'),
                 require('./routes/friendSet'),
                 require('./routes/setName'),
@@ -48,3 +48,13 @@ new Vue({
     router: router,
     render: h => h(App)
 });
+
+ VueRouter.prototype.go = function () {
+     console.log("bac")
+    this.isBack = true
+    window.history.go(-1)
+}
+
+console.log=function () {
+    return false;
+}

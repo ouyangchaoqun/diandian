@@ -1,17 +1,25 @@
 <template id="careMe">
-	<div class="careMe_box">
-		<router-link to="/myCenter/careMe/careDetail" class="careMe_list">
-			<img class="careMe_img" src="../images/13.jpg" alt="">
+	<div class="careMe_box" v-if="careFriends" >
+		<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
+			<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 			<div class="careMe_div">
-				<div>葫芦娃</div>
-				<img src="../images/list_dianz_pre.png" alt="">
-				<p>刚刚</p>
+				<div>{{careFriend.nickName}}</div>
+				<img v-if="myLastMood.moodValue>=5"
+					 src="../images/list_dianz_pre.png" alt=""/>
+				<img v-if="myLastMood.moodValue<5"
+					 src="../images/list_baob_pre.png" alt=""/>
+				<p>{{careFriend.addTime}}</p>
 			</div>
 			<div class="careMe_content">
-				<img src="../images/list_mood_04.png" alt="">
+				<img v-if="myLastMood.haspicture" :src="myLastMood.pics[0].path">
+				<div v-else-if="myLastMood.content">
+					{{myLastMood.content}}
+				</div>
+				<img v-else  :src="myLastMood.moodValueUrl"  />
 			</div>
 		</router-link>
-        <!--<div class="noCare_box">
+	</div>
+	<div class="noCare_box"  v-else>
             <img src="../images/nocare_pic_bj.png" alt="">
             <div class="noCare_content">
                 <h3>还没有关心我的好友</h3>
@@ -21,8 +29,8 @@
             <div class="noCare_btn">
                 <button class="weui-btn weui-btn_primary">生成邀请卡</button>
             </div>
-        </div>-->
 	</div>
+
 </template>
 <style>
 	.careMe_box{
@@ -127,46 +135,62 @@
 	export default {
 		data() {
 			return {
-				lastMood: null,
-				careFrinds:null
+				myLastMood: null,
+				careFriends:null,
+                detailUrl:null
+
 			}
 		},
 		mounted: function () {
 			let _this = this;
+            //关心的朋友列表
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/[userId]',
+            }).then(function (data) {
+                if (data.data.data !== null&&data.data.data.length>0) {
+                    _this.careFriends = eval(data.data.data);
+                    console.log(_this.careFriends);
+                }
+            }, function (error) {
+                //error
+            });
 
-			//lastmood
-			this.$http({
-				method: 'GET',
-				type: "json",
-				url: web.API_PATH + 'mood/find/userlast/[userId]',
-			}).then(function (data) {
-				if (data.data.data !== null) {
-					_this.lastMood = eval(data.data.data);
-					//careFrinds
-					this.$http({
-						method: 'GET',
-						type: "json",
-						url: web.API_PATH + 'mood/care/query/'+_this.lastMood.id+'/[userId]',
-					}).then(function (data) {
-						if (data.data.data !== null) {
-							_this.careFrinds = eval(data.data.data);
-							console.log(_this.careFrinds);
-						}
-					}, function (error) {
-						//error
-					});
-				}
-			}, function (error) {
-				//error
-			});
+            ///用户心情
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
+            }).then(function (data) {//es5写法
+                if (data.data.status) {
+                    _this.myLastMood = eval(data.data.data);
+                    _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
+                    _this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
+                    console.log(_this.myLastMood);
+                }
+            }, function (error) {
+                //error
+            });
+
+
+            ///设置已读
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'mood/care/update/read/'+_this.$route.query.moodId,
+            }).then(function (data) {//es5写法
+                if (data.data.status) {
+
+                }
+            }, function (error) {
+                //error
+            });
 
 
 
-		},
-		methods:{
+
 
 		}
-
-
 	}
 </script>

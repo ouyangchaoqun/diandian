@@ -20,7 +20,7 @@
 				<img class="listimg2" src="../images/back.png" />
 			</div>
 		</router-link>
-		<router-link to="/me/friendsCount" class="me_lists">
+		<router-link to="/friendList" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1" src="../images/listimg2.png"/>
 				<div class="listtext">我的好友</div>
