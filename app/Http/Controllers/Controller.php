@@ -17,7 +17,7 @@ class Controller extends BaseController
     protected function getUserId(Request $request)
     {
 
-        return 1193;
+
         $openId = $request->cookie("openId");
         if ($openId == "") {
             return false;
