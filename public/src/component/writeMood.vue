@@ -95,8 +95,6 @@
 <style>
     .writeMood_box {
         height: 100%;
-
-        position: relative;
     }
 
 
