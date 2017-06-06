@@ -30,7 +30,8 @@ let routers =
                 require('./routes/privacy'),
                 require('./routes/problem'),
                 require('./routes/proposal'),
-                require('./routes/positionList')
+                require('./routes/positionList'),
+                require('./routes/befriend')
 
             ]
         }
