@@ -18,7 +18,7 @@
         beforeRouteUpdate (to, from, next) {
 //            let isBack = parseInt( Math.random()*10)%2;
 
-            console.log({to:to.fullPath,from:from.fullPath});
+//            console.log({to:to.fullPath,from:from.fullPath});
             let isBack=false;
             for(let i = 0;i<this.pagesIn.length;i++){
                 console.log(this.pagesIn[i]);
@@ -32,9 +32,9 @@
             this.pagesIn.push({to:to.fullPath,from:from.fullPath})
 
 
-            console.log(1);
-            console.log(this.pagesIn);
-            console.log(2);
+//            console.log(1);
+//            console.log(this.pagesIn);
+//            console.log(2);
 
             if (isBack) {
                 this.transitionName = 'page-xqzs-right'
