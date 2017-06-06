@@ -16,7 +16,6 @@ $app->get('/', function () use ($app) {
 $app->group(['prefix'=>'wx'],function () use($app){
     $app->get('/index','WeixinController@index');
     $app->get('/jump','WeixinController@jump');
-    $app->get('/demo','WeixinController@demo');
 });
 
 

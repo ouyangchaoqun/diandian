@@ -13,14 +13,6 @@ class WeixinController extends Controller
 
     }
 
-    public function demo(Request $request){
-$openid = $request->cookie('openId');
-$userid = $_SESSION["userId"];
-
-var_dump($openid);
-var_dump($userid);
-    }
-
     public function index(Request $request)
     {
         $appid = env('WECHAT_APPID');
@@ -61,6 +53,9 @@ var_dump($userid);
             }
         } catch (\Exception $e) {
         }
-        redirect($gourl);
+        finally{
+            var_dump($gourl);
+            redirect($gourl);
+        }
     }
 }
