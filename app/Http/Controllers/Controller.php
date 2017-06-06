@@ -46,5 +46,6 @@ class Controller extends BaseController
         //$response->withCookie(new Cookie("openId",$user['openId']));
         $userId = $user['id'];
         $_SESSION['userId'] = $userId;
+        exit;
     }
 }
