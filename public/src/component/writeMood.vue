@@ -68,7 +68,7 @@
                                 _this.valMood9 = true;
                             }
                             setTimeout(function () {
-                                location.href=  web.BASE_PATH +'#/myCenter/myIndex/Edit';
+                                location.href =  web.BASE_PATH +'#/myCenter/myIndex/Edit?id='+data.data.data.id;
                             },350)
 
                         }

@@ -138,7 +138,7 @@
     </div>
 </template>
 
-<script type="text/javascript">
+<script type="es6">
 import insert from "../js/insert"
     var optionSecond={
         template:'#optionSecond'

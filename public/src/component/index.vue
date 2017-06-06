@@ -158,7 +158,6 @@
 </template>
 
 <script type="es6">
-
     import banner from "./banner.vue"
     let myCenter = {
         template: '#myCenter'
@@ -172,7 +171,7 @@
                 friendMoodsSpe: null,
                 friendMoods: null,
                 notice:{count:0},
-                linkTo:"/me/personal/validate"
+                linkTo:"#"
             }
         },
         methods: {
@@ -225,11 +224,26 @@
                 that._createinvite('link',function () {
                     that._createinvite('card');
                 });
+            },
+            canWriteMood:function () {
+                
+            },
+            getMoodCount(callback){
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'mood/get/user/count/[userId]'
+                }).then(function (bt) {
+                    if(bt.data && bt.data.status == 1){
+                        if(typeof callback == 'function'){
+                            callback(bt.data.data);
+                        }
+                    }
+                })
             }
         },
         mounted: function () {
             let _this = this;
-
 
             //用户信息
             this.$http({
@@ -240,11 +254,19 @@
                 if (data.data.data !== null) {
 
                     _this.user = eval(data.data.data);
-                     if( _this.user.mobile==''|| _this.user.mobile==null|| _this.user.mobile==undefined){
-                        _this.linkTo ="/me/personal/validate";
-                    }else{
-                        _this.linkTo ="/writeMood";
-                    }
+
+                    //
+                    _this.getMoodCount(function (moodcount) {
+                        if (moodcount < 10) {
+                            _this.linkTo = "/writeMood";
+                        } else {
+                            if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                                _this.linkTo = "/me/personal/validate";
+                            } else {
+                                _this.linkTo = "/writeMood";
+                            }
+                        }
+                    });
 
                 }
             }, function (error) {

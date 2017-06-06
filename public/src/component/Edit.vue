@@ -1,30 +1,32 @@
 <template id="Edit">
     <div>
         <div class="edit_box">
-            <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
-            <router-link to="/positionList" class="edit_loc" @click = "getLoc()">
-                <span>点击获取所在位置</span>
-                <img src="../images/dz_nor.png" alt="">
+            <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
 
-            </router-link>
-            <span class="edit_num">140</span>
+            <div class="edit_loc" @click = "getLoc()">点击获取所在位置
+                <img src="../images/dz_nor.png" alt="">
+            </div>
+
+            <span class="edit_num">{{levelchars}}</span>
         </div>
         <div class="edit_option">
             <div>
-                <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" src="../images/zp_nor.png" alt=""></router-link>
-                <img class="optionjt" src="../images/jt.gif" alt="" >
+                <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></router-link>
+                <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
             </div>
             <div>
-                <router-link to="/myCenter/myIndex/Edit/optionSecond"><img class="optionSecond" src="../images/bq_nor.png" alt="" style="margin-top: -0.3rem"></router-link>
-                <img class="optionjt" src="../images/jt.gif" alt="" >
+                <router-link to="/myCenter/myIndex/Edit/optionSecond"><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt="" style="margin-top: -0.3rem"></router-link>
+                <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
             </div>
             <div>
-                <router-link to="/myCenter/myIndex/Edit/optionThird"><img class="optionThird" src="../images/gxtp_nor.png" alt=""></router-link>
-                <img class="optionjt" src="../images/jt.gif" alt="" >
+                <router-link to="/myCenter/myIndex/Edit/optionThird"><img class="optionThird" @click="clickoptions('third')" v-bind:src="buttons.third.curr" alt=""></router-link>
+                <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.third.on}" src="../images/jt.gif" alt="" >
             </div>
 
-            <div><div class="optionFourth">匿名公開</div></div>
-            <div><button class="option_five weui-btn weui-btn_mini weui-btn_primary weui-btn_disabled" id= "publishBtn">发布</button></div>
+            <div><div class="optionFourth" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
+            <div><button @click="submitMood()"
+                    v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true,'weui-btn_disabled':!cansubmit}"
+                    v-bind:disabled="!cansubmit" id="publishBtn">发布</button></div>
 
         </div>
         <router-view></router-view>
@@ -32,19 +34,52 @@
 
 </template>
 
-<script type="text/javascript">
-
+<script type="es6">
     var Edit={
         template:'#Edit'
     };
     export default {
         data() {
             return {
-
+                moodcontent: '',
+                contminlength: 8,
+                maxchars:140,
+                levelchars:140,
+                cansubmit: false,
+                moodid: 0,
+                isopen: 1,
+                address: '',
+                pictures: [],
+                buttons:{
+                    'first':{
+                        'curr':web.IMG_PATH+'zp_nor.png',
+                        'nor':web.IMG_PATH+'zp_nor.png',
+                        'pre':web.IMG_PATH+'zp_pre.png',
+                        'on':false,
+                    },
+                    'second':{
+                        'curr':web.IMG_PATH+'bq_nor.png',
+                        'nor':web.IMG_PATH+'bq_nor.png',
+                        'pre':web.IMG_PATH+'bq_pre.png',
+                        'on':false,
+                    },
+                    'third':{
+                        'curr':web.IMG_PATH+'gxtp_nor.png',
+                        'nor':web.IMG_PATH+'gxtp_nor.png',
+                        'pre':web.IMG_PATH+'gxtp_pre.png',
+                        'on':false,
+                    }
+                }
             }
         },
-        methods:{
-            getLoc:function () {
+        methods: {
+            getLoc: function () {
+                let that = this;
+                var longitude = 120.15507;
+                var latitude = 30.274085;
+                that.$router.push({path:'/positionList?latitude='+latitude+'&longitude='+longitude});
+                return;
+
                 wx.getLocation({
                     type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                     success: function (res) {
@@ -52,50 +87,64 @@
                         var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                         var speed = res.speed; // 速度，以米/每秒计
                         var accuracy = res.accuracy; // 位置精度
-                        console.log(latitude,longitude)
+
+                        that.$router.push({path:'/positionList',params:{latitude:latitude,longitude:longitude}});
+                        console.log(latitude, longitude)
                     },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
                     }
                 });
-               console.log('获取经纬度')
+                console.log('获取经纬度')
+            },
+            listenContent: function () {
+                var length = this.moodcontent.length;
+                this.cansubmit = this.moodcontent.length >= this.contminlength;
+                if(length > this.maxchars){
+                    this.moodcontent = this.moodcontent.substring(0,this.maxchars);
+                    this.levelchars = 0;
+                }else{
+                    this.levelchars = this.maxchars - length;
+                }
+            },
+            clickoptions:function(indexcode){
+                var that = this;
+                for(var o in this.buttons) {
+                    var ison = indexcode == o;
+                    that.buttons[o].on = ison;
+                    that.buttons[o].curr = ison ? that.buttons[o].pre : that.buttons[o].nor;
+                }
+            },
+            changeisopen:function () {
+                let that = this;
+                that.isopen = 1 - that.isopen;
+            },
+            submitMood:function () {
+                let that = this;
+                var postdata = {
+                    id: that.moodid,
+                    isOpen: that.isopen,
+                    userId: '[userId]',
+                    address: that.address,
+                    content: that.moodcontent,
+                    pictures: that.pictures
+                };
+                console.info(postdata);
+                return;
+                that.$http({
+                    method: 'PUT',
+                    type: "json",
+                    url: web.API_PATH + 'mood/append',
+                    data: postdata
+                }).then(function (bt) {
+                    if (bt.data && bt.data.status == 1) {
+                    }
+                });
             }
         },
-        mounted:function () {
-            $('.edit_option div').click(function () {
-                $('.optionjt').removeClass('optionjtFlag')
-                $(this).children('img').addClass('optionjtFlag')
-            });
-            $('.optionFrist').click(function () {
-                $('.optionFrist').attr('src','../images/zp_pre.png')
-                $('.optionSecond').attr('src','/dist/bq_nor.png')
-                $('.optionThird').attr('src','/dist/gxtp_nor.png')
-            })
-            $('.optionSecond').click(function () {
-                $('.optionSecond').attr('src','/dist/bq_pre.png')
-                $('.optionFrist').attr('src','/dist/zp_nor.png')
-                $('.optionThird').attr('src','/dist/gxtp_nor.png')
-
-            })
-            $('.optionThird').click(function () {
-                $('.optionThird').attr('src','/dist/gxtp_pre.png')
-                $('.optionFrist').attr('src','/dist/zp_nor.png')
-                $('.optionSecond').attr('src','/dist/bq_nor.png')
-            })
-
-            $('.optionFourth').click(function () {
-                var fourthText =  $('.optionFourth').text()
-                if(fourthText == '匿名公開'){$('.optionFourth').text('不公開')}else{$('.optionFourth').text('匿名公開')}
-                console.log($('#edit_mood').val().length)
-            });
-            var publishLen = $('#edit_mood').val().length
-            console.log(publishLen)
-
-            $('#publishBtn').click(function () {
-                var Edit_mood = $('#edit_mood').val()
-                console.log(111)
-            })
-
+        mounted: function () {
+            let that = this;
+            that.moodid = that.$route.query.id;
         }
     }
 
@@ -126,7 +175,7 @@
     overflow: hidden;
 }
     .edit_loc{
-        width: 140px;
+        width: 131px;
         height: 26px;
         border:1px solid #dcdcdc;
         font-size: 12px;
@@ -135,9 +184,9 @@
         position: absolute;
         bottom:1rem;
         left:1.5rem;
+        padding-right:10px;
         border-radius: 15px;
         display: block;
-
     }
     .edit_loc img{
         float: left;
@@ -146,13 +195,6 @@
         margin-top: 4px;
         margin-left:10px;
         margin-right:5px;
-    }
-    .edit_loc span{
-        display: inline-block;
-        width: 106px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     .edit_num{
         font-size: 12px;
