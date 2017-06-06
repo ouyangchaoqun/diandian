@@ -72,20 +72,20 @@
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: 20.4s;
+        animation-duration: .4s;
     }
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: 20.8s;
+        animation-duration: .8s;
     }
 
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
-        animation-duration: 20.4s;
+        animation-duration: .4s;
     }
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
-        animation-duration: 20.8s;
+        animation-duration: .8s;
     }
     @keyframes fold-right-in {
         0% {
