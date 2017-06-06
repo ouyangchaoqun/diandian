@@ -17,8 +17,8 @@
 </template>
 <style>
     .problem_box{
-        background: #ffffff;
         height:100%;
+        background: #ffffff !important;
     }
     .problem{
         padding:20px 15px 0 15px;

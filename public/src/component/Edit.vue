@@ -125,24 +125,25 @@
     overflow: hidden;
 }
     .edit_loc{
-        width: 10rem;
-        height: 2.6rem;
-        border:0.1rem solid #dcdcdc;
+        width: 131px;
+        height: 26px;
+        border:1px solid #dcdcdc;
         font-size: 12px;
         color: #949292;
-        line-height: 2.6rem;
+        line-height: 26px;
         position: absolute;
         bottom:1rem;
         left:1.5rem;
-        padding-left:3rem;
-        border-radius: 1.5rem;
+        padding-right:10px;
+        border-radius: 15px;
     }
     .edit_loc img{
-        position: absolute;
+        float: left;
         display: block;
-        width: 1.4rem;
-        top: .4rem;
-        left:1rem;
+        width: 14px;
+        margin-top: 4px;
+        margin-left:10px;
+        margin-right:5px;
     }
     .edit_num{
         font-size: 12px;

@@ -351,9 +351,9 @@
         padding: 0 20px;
     }
 
-    .mycenter_list {
+    /*.mycenter_list {
         height: 100%;
-    }
+    }*/
 
     .mycenter a {
         height: 72px;

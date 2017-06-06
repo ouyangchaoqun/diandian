@@ -33,7 +33,7 @@
                             <div><a class="exp21" data="[愉快]" ></a></div>
                             <div><a class="exp22" data="[白眼]" ></a></div>
                             <div><a class="exp23" data="[傲慢]" ></a></div>
-                            <div><div class="delexp"></div></div>
+                            <div><img src="../images/del.png" class="delexp"/></div>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                             <div><a class="exp44" data="[哈欠]" ></a></div>
                             <div><a class="exp45" data="[鄙视]" ></a></div>
                             <div><a class="exp46" data="[委屈]" ></a></div>
-                            <div><div class="delexp"></div></div>
+                            <div><img src="../images/del.png" class="delexp"/></div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                             <div><a class="exp67" data="[强]" ></a></div>
                             <div><a class="exp68" data="[弱]" ></a></div>
                             <div><a class="exp69" data="[握手]" ></a></div>
-                            <div><div class="delexp"></div></div>
+                            <div><img src="../images/del.png" class="delexp"/></div>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                             <div><a class="exp82" data="[机智]" ></a></div>
                             <div><a class="exp83" data="[皱眉]" ></a></div>
                             <div><a class="exp84" data="[耶]" ></a></div>
-                            <div><div class="delexp"></div></div>
+                            <div><img src="../images/del.png" class="delexp"/></div>
                         </div>
                     </div>
                 </div>
@@ -254,6 +254,7 @@ import insert from "../js/insert"
         padding-left: 1rem;
         padding-right: 1rem;
         padding-top: 2rem;
+        background: #f5f5f5;
     }
     .optionSecond_box .optionjt{
         left:5.8rem;
@@ -531,10 +532,9 @@ import insert from "../js/insert"
         background-position: 0 -221.6rem;
     }
     .delexp{
-        width: 2.6rem;
-        height:2.6rem;
-        background: url("../images/del.gif");
-        background-size: cover;
+        height:1.9rem;
+        margin: 0 auto;
+        padding-top: 0.3rem;
     }
     .swiper-pagination-bullet{
         background: #d5d5d7;

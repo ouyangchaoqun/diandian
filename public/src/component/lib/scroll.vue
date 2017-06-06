@@ -152,7 +152,7 @@
         left: 0;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
-        background: #ffffff;
+        background: #f5f5f5;
 
     }
     .yo-scroll .inner {

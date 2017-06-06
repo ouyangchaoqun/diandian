@@ -19,6 +19,7 @@
 <style>
     .top20_box{
         padding-top:20px;
+        background: #f5f5f5;
     }
     .remind{
         height:50px;
@@ -31,6 +32,7 @@
 
     .switchFlag{
         float: right;
+        margin-top:10px;
     }
     .remind span{
         font-size: 15px;

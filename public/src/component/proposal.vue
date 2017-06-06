@@ -1,5 +1,5 @@
 <template id="proposal">
-    <div >
+    <div class="proposal_box">
         <div class="feedback">
             <textarea placeholder="你好，我是产品经理小珺，欢迎给我们提出产品的使用感受和建议！"  ref="content" />
             <span>不少于8字!</span>
@@ -16,7 +16,9 @@
 </template>
 
 <style>
-
+    .proposal_box{
+        background: #f5f5f5;
+    }
 
     .feedback{
         padding:20px;

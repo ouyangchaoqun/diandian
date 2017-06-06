@@ -292,7 +292,6 @@
     .calendar_box {
         height: 100%;
         background: #ffffff;
-        padding-bottom: 100px;
     }
 
     .banner {
@@ -341,6 +340,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        background: #ffffff;
     }
 
     .canlendarView {
@@ -402,7 +402,7 @@
     }
 
     .dateBgView {
-        height: 250px;
+        height: auto;
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -421,8 +421,8 @@
 
     .dateView {
         width: 14%;
-        color: #fff;
         display: flex;
+        background: #ffffff;
         flex-direction: column;
         justify-content: center;
         border-right: 1px solid #eeeeee;

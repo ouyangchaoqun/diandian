@@ -200,7 +200,7 @@
 <style>
 .personal_box{
     height:100%;
-    background: #eeeeee;
+    background: #f5f5f5;
 }
 
 .list0{
