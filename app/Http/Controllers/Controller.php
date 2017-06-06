@@ -41,11 +41,16 @@ class Controller extends BaseController
 
     protected function setUserInfo($user)
     {
+        var_dump($user);
+        var_dump($user['openId']);
+        var_dump($user['id']);
+
         $openId = $user['openId'].'';
+        var_dump($openId);
         setcookie('openId',$openId);
         //$response->withCookie(new Cookie("openId",$user['openId']));
         $userId = $user['id'];
+        var_dump($userId);
         $_SESSION['userId'] = $userId;
-        exit;
     }
 }
