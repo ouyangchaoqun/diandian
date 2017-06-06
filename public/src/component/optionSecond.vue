@@ -139,10 +139,12 @@
 </template>
 
 <script type="es6">
-import insert from "../js/insert"
+    import insert from "../js/insert"
+    import Bus from './bus.js';
     var optionSecond={
         template:'#optionSecond'
     };
+
     export default {
         data() {
             return {
@@ -155,14 +157,21 @@ import insert from "../js/insert"
         mounted(){
             let max = 140;
 
+            var that = this;
+
             $(document).ready(function(){
                 $('.expLists a').click(function (event) {
+
                     if($('#edit_mood').val().length<140){
                         event.preventDefault();
                         event.stopPropagation();
                         var exp = $(this).attr('data')
                         $("#edit_mood").insertContent(exp);
-                        $('.edit_num').text(max-$('#edit_mood').val().length)
+
+                        $('.edit_num').text(max-$('#edit_mood').val().length);
+
+                        Bus.$emit('moodContentChange',$('#edit_mood').val());
+
                         if($('#edit_mood').val().length>=8){
                             $('#publishBtn').removeClass('weui-btn_disabled')
                         }else{
@@ -171,17 +180,6 @@ import insert from "../js/insert"
                     }
                 });
             });
-            $('#edit_mood').on('input propertychange',function () {
-                //console.log($('#edit_mood').val().length)
-                $('.edit_num').text(max -$('#edit_mood').val().length)
-                if($('#edit_mood').val().length>=8){
-                    $('#publishBtn').removeClass('weui-btn_disabled')
-                }else{
-                    $('#publishBtn').addClass('weui-btn_disabled')
-                }
-
-            })
-            var that = this;
             var mySwiper = new Swiper ('.swiper-container', {
                 direction: 'horizontal',
                 pagination: '.swiper-pagination'
@@ -193,7 +191,7 @@ import insert from "../js/insert"
                 //console.log(newContent)
                 $('#edit_mood').val(newContent)
             })
-
+//alert(this.message);
         }
     }
 

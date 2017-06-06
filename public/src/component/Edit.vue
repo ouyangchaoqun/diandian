@@ -1,15 +1,11 @@
 <template id="Edit">
     <div>
-        <div class="edit_box">
+        <div class="edit_box" v-if="!hide">
             <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
-
-            <div class="edit_loc" @click = "getLoc()">点击获取所在位置
-                <img src="../images/dz_nor.png" alt="">
-            </div>
-
+            <div class="edit_loc" @click = "getLoc()">{{address}}<img src="../images/dz_nor.png" alt=""></div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
-        <div class="edit_option">
+        <div class="edit_option" v-if="!hide">
             <div>
                 <router-link to="/myCenter/myIndex/Edit/optionFrist"><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></router-link>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
@@ -29,12 +25,14 @@
                     v-bind:disabled="!cansubmit" id="publishBtn">发布</button></div>
 
         </div>
-        <router-view></router-view>
-    </div>
 
+        <router-view style="overflow: scroll"></router-view>
+
+    </div>
 </template>
 
 <script type="es6">
+    import Bus from './bus.js';
     var Edit={
         template:'#Edit'
     };
@@ -50,6 +48,7 @@
                 isopen: 1,
                 address: '',
                 pictures: [],
+                hide:false,
                 buttons:{
                     'first':{
                         'curr':web.IMG_PATH+'zp_nor.png',
@@ -78,6 +77,7 @@
                 var longitude = 120.15507;
                 var latitude = 30.274085;
                 that.$router.push({path:'/positionList?latitude='+latitude+'&longitude='+longitude});
+                that.hide = true;
                 return;
 
                 wx.getLocation({
@@ -145,6 +145,27 @@
         mounted: function () {
             let that = this;
             that.moodid = that.$route.query.id;
+//            if(typeof that.moodid == 'undefined' || !/\d+/.test(that.moodid)){
+//                that.$router.push({path:'/positionList'});
+//                return;
+//            }
+
+            Bus.$on('selectaddress', address => {
+                that.address = address;
+                that.hide = false;
+                $('.edit_loc').html(that.showAddress);
+            });
+
+            Bus.$on('moodContentChange',newcontent=>{
+                that.moodcontent = newcontent;
+                that.listenContent();
+            });
+        },
+        computed:{
+            showAddress:function () {
+                return this.address+'  asdasdsa';
+                return this.address==''?'点击获取所在位置':this.address;
+            }
         }
     }
 
