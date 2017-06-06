@@ -90,7 +90,7 @@ $(function() {
 //getChart('d0');
 
 
-function getChart(o){
+  function getChart(o){
     Highcharts.chart(o.id,{
 
         navigation:{menuItemHoverStyle:{'color':'red'}},

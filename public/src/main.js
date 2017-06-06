@@ -43,8 +43,6 @@ let router = new VueRouter({
     routes: routers
 });
 
-Vue.http.options.emulateJSON = true;
-
 new Vue({
     el: '#app',
     router: router,
