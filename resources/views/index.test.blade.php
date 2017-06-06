@@ -38,6 +38,7 @@
 <script src="/src/js/cookie.js"></script>
 <script src="/src/js/xqzs.js?v=22"></script>
 <script src="/src/js/vconsole.min.js"></script>
+<script src="/src/js/chineses.js"></script>
 <script src="/dist/build.js"></script>
 </body>
 </html>

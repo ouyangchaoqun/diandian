@@ -116,8 +116,8 @@
             this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_' ).then(function (data) {
 
                     if (data.body.data !== null) {
-                    _this.friend_g=(data.body.data.generalFriends);
-                    _this.friend_s=(data.body.data.specialFriends);
+                    _this.friend_g=data.body.data.generalFriends;
+                    _this.friend_s=data.body.data.specialFriends;
                     for(let i =0;i<_this.friend_s.length;i++){
                         _this.friend_s[i].firstCn= makePy(_this.friend_s[i].nickName);
                         _this.friend_s[i].friendLink= "/#/friendCenter/?friendId="+_this.friend_s[i].id;
