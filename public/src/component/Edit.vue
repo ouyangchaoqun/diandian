@@ -1,7 +1,7 @@
 <template id="Edit">
     <div>
         <div class="edit_box">
-            <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140" ></textarea>
+            <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
             <div class="edit_loc" @click = "getLoc()">点击获取所在位置
                 <img src="../images/dz_nor.png" alt="">
 
@@ -23,7 +23,7 @@
             </div>
 
             <div><div class="optionFourth">匿名公開</div></div>
-            <div><button class="option_five weui-btn weui-btn_mini weui-btn_primary weui-btn_disabled" >发布</button></div>
+            <div><button class="option_five weui-btn weui-btn_mini weui-btn_primary weui-btn_disabled" id= "publishBtn">发布</button></div>
 
         </div>
         <router-view></router-view>
@@ -43,7 +43,6 @@
             }
         },
         methods:{
-
             getLoc:function () {
                 wx.getLocation({
                     type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -63,15 +62,11 @@
         },
         mounted:function () {
             $('.edit_option div').click(function () {
-
-
-
-
                 $('.optionjt').removeClass('optionjtFlag')
                 $(this).children('img').addClass('optionjtFlag')
             });
             $('.optionFrist').click(function () {
-                $('.optionFrist').attr('src','/dist/zp_pre.png')
+                $('.optionFrist').attr('src','../images/zp_pre.png')
                 $('.optionSecond').attr('src','/dist/bq_nor.png')
                 $('.optionThird').attr('src','/dist/gxtp_nor.png')
             })
@@ -90,8 +85,16 @@
             $('.optionFourth').click(function () {
                 var fourthText =  $('.optionFourth').text()
                 if(fourthText == '匿名公開'){$('.optionFourth').text('不公開')}else{$('.optionFourth').text('匿名公開')}
-
+                console.log($('#edit_mood').val().length)
             });
+            var publishLen = $('#edit_mood').val().length
+            console.log(publishLen)
+
+            $('#publishBtn').click(function () {
+                var Edit_mood = $('#edit_mood').val()
+                console.log(111)
+            })
+
         }
     }
 
@@ -174,7 +177,7 @@
         width: 2.3rem;
     }
     .optionFourth{
-        width:6rem;
+        width:7rem;
         font-size: 12px;
         color: #999999;
         border:1px solid #dcdcdc;
