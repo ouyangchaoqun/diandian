@@ -2,10 +2,10 @@
     <div>
         <div class="edit_box">
             <textarea id="edit_mood" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
-            <div class="edit_loc" @click = "getLoc()">点击获取所在位置
+            <router-link to="/positionList" class="edit_loc" @click = "getLoc()">点击获取所在位置
                 <img src="../images/dz_nor.png" alt="">
 
-            </div>
+            </router-link>
             <span class="edit_num">140</span>
         </div>
         <div class="edit_option">
@@ -136,6 +136,7 @@
         left:1.5rem;
         padding-right:10px;
         border-radius: 15px;
+        display: block;
     }
     .edit_loc img{
         float: left;
