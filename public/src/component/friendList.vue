@@ -117,7 +117,8 @@
                 method: 'GET',
                 url: web.API_PATH + 'user/query/friend/by/user/id/_userId_',
             }).then(function (data) {
-                if (data.data.data !== null) {
+                console.log(data)
+                    if (data.data.data !== null) {
                     _this.friend_g=eval(data.data.data.generalFriends);
                     _this.friend_s=eval(data.data.data.specialFriends);
                     for(let i =0;i<_this.friend_s.length;i++){
