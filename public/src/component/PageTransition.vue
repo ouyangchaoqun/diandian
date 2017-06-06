@@ -89,23 +89,23 @@
     }
     @keyframes fold-right-in {
         0% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(-100%, 0, 0);
         }
 
         100% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(0, 0, 0);
         }
     }
     @keyframes fold-right-out {
         0% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(0%, 0, 0);
         }
 
         100% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(100%,0 , 0);
         }
     }
@@ -114,23 +114,23 @@
 
     @keyframes fold-in {
         0% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(100%, 0, 0);
         }
 
         100% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(0, 0, 0);
         }
     }
     @keyframes fold-out {
         0% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(0%, 0, 0);
         }
 
         100% {
-            height: 100%;width: 100%;
+            height: 100% !important;width: 100%!important;;
             transform: translate3d(-100%,0 , 0);
         }
     }
