@@ -277,3 +277,135 @@ li{list-style: none}
     height: 40px;
 
 }
+
+/*mood item*/
+.show_box {
+    width: 100%;
+    background: #F9F9F9;
+    border-radius: 5px;
+    margin-top: 15px;
+    position: relative
+}
+
+.show_box .arraw {
+    background: #f9f9f9;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: -4px;
+    left: 11px;
+    transform: rotate(45deg);
+}
+
+.show_top {
+    padding-left: 30px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    overflow: auto;
+    position: relative;
+}
+
+.show_top .show_img1 {
+    position: absolute;
+    top: 15px;
+    left: 9px;
+    width: 18px;
+    height: auto;
+    margin: 0;
+}
+
+.show_top img {
+    width: 33px;
+    height: 33px;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 6px;
+}
+
+.show_bottom {
+    position: relative;
+    padding-left: 30px;
+    padding-bottom: 4px;
+    overflow: auto;
+    padding-right: 12px;
+    border-top: 1px solid #eeeeee
+}
+
+.show_img2 {
+    width: 18px;
+    position: absolute;
+    top: 15px;
+    left: 9px;
+}
+
+.show_bottom li {
+    position: relative;
+    padding-top: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.show_bottom li:last-child {
+    border-bottom: none;
+}
+
+.show_bottom_img {
+    width: 33px;
+    height: 33px;
+    position: absolute;
+    top: 7px;
+    left: 0px;
+}
+
+.show_bottom_text {
+    margin-left: 45px;
+}
+
+.show_bottom_text span {
+    font-size: 13px;
+    color: #333;
+}
+
+.show_bottom_text div {
+    font-size: 13px;
+    color: #333333;
+    line-height: 20px;
+}
+
+.show_bottom_text .pname {
+    color: #5e61a2;
+    font-size: 13px;
+}
+
+.show_box .show_img1, .show_box .show_img2 {
+    width: 14px;
+}
+
+.btn_del {
+    display: inline-block;
+    margin-left: 13px;
+    color: #5e61a2;
+    font-size: 12px;
+}
+
+.editMood {
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    color: #999999;
+    background: #dcdcdc;
+    display: block;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.editMood img {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    width: 20px;
+}
