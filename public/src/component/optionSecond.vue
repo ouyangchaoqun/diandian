@@ -1,6 +1,5 @@
 <template id="optionSecond">
     <div class="optionSecond_box">
-
         <div class="swiper-container exp_box">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
