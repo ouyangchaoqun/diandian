@@ -155,6 +155,7 @@ import insert from "../js/insert"
         },
         mounted(){
             let max = 140;
+
             $(document).ready(function(){
                 $('.expLists a').click(function (event) {
                     if($('#edit_mood').val().length<140){
@@ -163,12 +164,23 @@ import insert from "../js/insert"
                         var exp = $(this).attr('data')
                         $("#edit_mood").insertContent(exp);
                         $('.edit_num').text(max-$('#edit_mood').val().length)
+                        if($('#edit_mood').val().length>=8){
+                            $('#publishBtn').removeClass('weui-btn_disabled')
+                        }else{
+                            $('#publishBtn').addClass('weui-btn_disabled')
+                        }
                     }
                 });
             });
             $('#edit_mood').on('input propertychange',function () {
                 //console.log($('#edit_mood').val().length)
-                $('.edit_num').text(   max -$('#edit_mood').val().length)
+                $('.edit_num').text(max -$('#edit_mood').val().length)
+                if($('#edit_mood').val().length>=8){
+                    $('#publishBtn').removeClass('weui-btn_disabled')
+                }else{
+                    $('#publishBtn').addClass('weui-btn_disabled')
+                }
+
             })
             var that = this;
             var mySwiper = new Swiper ('.swiper-container', {

@@ -54,7 +54,3 @@ new Vue({
     this.isBack = true
     window.history.go(-1)
 }
-
-console.log=function () {
-    return false;
-}
