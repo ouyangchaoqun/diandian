@@ -129,6 +129,7 @@
                     content: that.moodcontent,
                     pictures: that.pictures
                 };
+                that.cansubmit = false;
                 that.$http({
                     method: 'PUT',
                     type: "json",
@@ -136,6 +137,8 @@
                     data: postdata
                 }).then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
+                        ///myCenter/myIndex
+                        that.$router.push({path:'/myCenter/myIndex'});
                     }
                 });
             }
@@ -166,10 +169,6 @@
             }
         }
     }
-
-
-
-
 </script>
 <style>
 
