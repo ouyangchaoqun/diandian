@@ -2,11 +2,7 @@ import App from './App.vue';
 import PageTransition from "./component/PageTransition.vue"
 Vue.use(VueRouter);
 Vue.use(VueResource);
-VueRouter.prototype.go = function () {
-    this.isBack = true;
-    console.log(this.isBack);
-    window.history.go(-1)
-};
+
 let routers =
     [
         {
@@ -48,9 +44,3 @@ new Vue({
     router: router,
     render: h => h(App)
 });
-
- VueRouter.prototype.go = function () {
-     console.log("bac")
-    this.isBack = true
-    window.history.go(-1)
-}

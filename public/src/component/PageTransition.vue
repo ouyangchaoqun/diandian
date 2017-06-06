@@ -10,7 +10,7 @@
     export default {
         data () {
             return {
-                transitionName: 'slide-left',
+                transitionName: 'page-xqzs-left',
                 pagesIn:[],
 
             }
@@ -37,9 +37,9 @@
             console.log(2);
 
             if (isBack) {
-                this.transitionName = 'slide-right'
+                this.transitionName = 'page-xqzs-right'
             } else {
-                this.transitionName = 'slide-left'
+                this.transitionName = 'page-xqz-left'
             }
              next()
         }
@@ -70,20 +70,20 @@
         /*transform: translate(-150px, 0);*/
     /*}*/
 
-    .slide-left-enter-active {
+    .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .4s;
     }
-    .slide-left-leave-active {
+    .page-xqzs-left-leave-active {
         animation-name: fold-out;
         animation-duration: .8s;
     }
 
-    .slide-right-enter-active {
+    .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
         animation-duration: .4s;
     }
-    .slide-right-leave-active {
+    .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
         animation-duration: .8s;
     }
