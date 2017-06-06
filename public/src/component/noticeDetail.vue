@@ -1,4 +1,4 @@
-<template id="careDetail">
+<template id="noticeDetail">
     <div class="careDetail_box">
         <div class="myMood_list careborder">
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
@@ -67,8 +67,9 @@
     }
 </style>
 <script type="text/javascript">
-    var careDetail={
-        template:'#careDetail'
+//    import wx from 'weixin-js-sdk';
+    var noticeDetail={
+        template:'#noticeDetail'
     };
     export default {
         data() {
@@ -99,7 +100,7 @@
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
                     _this.mood.time=xqzs.dateTime.formatTime( _this.mood.addTime);
-                    console.log(_this.replyies);
+                    console.log(_this.replies);
 
                 }
                 _this.$nextTick(function () {
@@ -116,6 +117,7 @@
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
+                    console.log(_this.user);
                 }
             }, function (error) {
                 //error
@@ -199,7 +201,7 @@
                     urls: $data // 需要预览的图片http链接列表
                 });
 
-            }
+            },
 
 
         }

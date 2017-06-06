@@ -14,6 +14,8 @@ let routers =
                 require('./routes/index'),
                 require('./routes/calendar'),
                 require('./routes/me'),
+                require('./routes/notice'),
+                require('./routes/noticeDetail'),
                 require('./routes/careMe'),
                 require('./routes/careDetail'),
                 require('./routes/myIndex'),
@@ -46,3 +48,9 @@ new Vue({
     router: router,
     render: h => h(App)
 });
+
+ VueRouter.prototype.go = function () {
+     console.log("bac")
+    this.isBack = true
+    window.history.go(-1)
+}
