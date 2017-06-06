@@ -39,7 +39,7 @@
             if (isBack) {
                 this.transitionName = 'page-xqzs-right'
             } else {
-                this.transitionName = 'page-xqz-left'
+                this.transitionName = 'page-xqzs-left'
             }
              next()
         }
