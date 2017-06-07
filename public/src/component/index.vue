@@ -91,7 +91,7 @@
             <!--mycenter end-->
             <div class="mycenterFill"></div>
             <!--friendcenter start-->
-            <div class="mycenter friendCenter">
+            <div class="mycenter friendCenter" v-if="user.isLookFriend!=null&&user.isLookFriend!==0">
 
                 <div v-for="friendMood in friendMoodsSpe">
                     <a @click="link(friendMood.link)">
@@ -299,35 +299,39 @@
 			});
 
 
-            //用户 朋友当天心情 特别关系
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'mood/query/friend/today/_userId_/1',
-            }).then(function (data) {//es5写法
-                if (data.data.status === 1 && data.data.data !== null) {
-                    _this.friendMoodsSpe = eval(data.data.data);
-                    _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
+            if(_this.user.isLookFriend!==0){
+                //用户 朋友当天心情 特别关系
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/1/1',
+                }).then(function (data) {//es5写法
+                    if (data.data.status === 1 && data.data.data !== null) {
+                        _this.friendMoodsSpe = eval(data.data.data);
+                        _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
 
-                }
-            }, function (error) {
-                //error
-            });
+                    }
+                }, function (error) {
+                    //error
+                });
 
-            //用户 朋友当天心情 普通
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'mood/query/friend/today/_userId_/0',
-            }).then(function (data) {//es5写法
-                if (data.data.status === 1 && data.data.data !== null) {
-                    _this.friendMoods = eval(data.data.data);
-                    _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
+                //用户 朋友当天心情 普通
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/0/1',
+                }).then(function (data) {//es5写法
+                    if (data.data.status === 1 && data.data.data !== null) {
+                        _this.friendMoods = eval(data.data.data);
+                        _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
 
-                }
-            }, function (error) {
-                //error
-            });
+                    }
+                }, function (error) {
+                    //error
+                });
+            }
+
+
 
 
             ///用户心情
