@@ -2,7 +2,7 @@
     <div>
         <div class="edit_box" v-if="!hide">
             <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......（8个字以上）" maxlength="140"></textarea>
-            <div class="edit_loc" @click = "getLoc()">{{address}}<img src="../images/dz_nor.png" alt=""></div>
+            <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img src="../images/dz_nor.png" alt=""></div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div class="edit_option" v-if="!hide">
@@ -47,6 +47,7 @@
                 moodid: 0,
                 isopen: 1,
                 address: '',
+                showAddress:'点击获取所在位置',
                 pictures: [],
                 hide:false,
                 buttons:{
@@ -141,6 +142,13 @@
                         that.$router.push({path:'/myCenter/myIndex'});
                     }
                 });
+            },
+            setShowAddress:function () {
+                if (this.address == '') {
+                    this.showAddress = '不显示地址';
+                } else {
+                    this.showAddress = this.address;
+                }
             }
         },
         mounted: function () {
@@ -153,20 +161,14 @@
 
             Bus.$on('selectaddress', address => {
                 that.address = address;
+                that.setShowAddress();
                 that.hide = false;
-                $('.edit_loc').html(that.showAddress);
             });
 
             Bus.$on('moodContentChange',newcontent=>{
                 that.moodcontent = newcontent;
                 that.listenContent();
             });
-        },
-        computed:{
-            showAddress:function () {
-                return this.address+'  asdasdsa';
-                return this.address==''?'点击获取所在位置':this.address;
-            }
         }
     }
 </script>
@@ -194,7 +196,8 @@
         overflow: hidden;
     }
     .edit_loc{
-        width: 131px;
+        min-width: 131px;
+        max-width: 181px;
         height: 26px;
         border:1px solid #dcdcdc;
         font-size: 12px;
@@ -206,6 +209,7 @@
         padding-right:10px;
         border-radius: 15px;
         display: block;
+        overflow: hidden;
     }
     .edit_loc img{
         float: left;
