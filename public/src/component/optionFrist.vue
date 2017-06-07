@@ -65,6 +65,7 @@
                 }
             },
 
+            //删掉
             _picUpRemoveLoading:function (isshow,containersize,content,id) {
                 var classname = 'up-loading';
                 id = 'up_loading_'+id;
@@ -137,7 +138,10 @@
                     w: $('.imglist').data('width'),
                     h: $('.imglist').data('height')
                 };
-                xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,function (filecount) {
+                //
+                console.info(that.uploadpicinfo);
+                console.info(that.alioss);
+                xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,that.alioss,function (filecount) {
                     for(var i=0;i<filecount;i++){
                         that._showloadingpic(containersize,id+i);
                     }
