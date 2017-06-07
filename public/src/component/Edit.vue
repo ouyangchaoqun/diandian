@@ -131,12 +131,8 @@
                     pictures: that.pictures
                 };
                 that.cansubmit = false;
-                that.$http({
-                    method: 'POST',
-                    type: "json",
-                    url: web.API_PATH + 'mood/append',
-                    data: postdata
-                }).then(function (bt) {
+                that.$http.post(web.API_PATH + 'mood/append',postdata)
+                    .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
                         ///myCenter/myIndex
                         that.$router.push({path:'/myCenter/myIndex'});
