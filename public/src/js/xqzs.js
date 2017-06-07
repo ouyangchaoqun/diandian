@@ -31,7 +31,7 @@ var xqzs = {
         },
         dialog: function (title, msg, cancelFun, submitFun) {
             if(arguments.length == 1 && typeof arguments[0] == 'object'){
-                this._dialog(arguments[0]);
+                return this._dialog(arguments[0]);
             }
             if (title === "") title = "提示";
             var html = "";
@@ -69,7 +69,7 @@ var xqzs = {
                 cancelText:'取消',
                 cancelFun:function () {}
             };
-            $.extend(defaultsize, config);
+            config = $.extend(defaultsize,config);
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask"></div>';
