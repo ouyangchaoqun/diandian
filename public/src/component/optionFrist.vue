@@ -84,6 +84,7 @@
                         this.pictures[i].image = data;
                     }
                 }
+                this.updatePics();
             },
             uploadImage:function (sourceType) {
                 let that = this;
