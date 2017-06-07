@@ -57,6 +57,7 @@
                 user: null,
                 isNotLookFriend:false,
                 isNotLookMe:false
+
             }
         },
         mounted: function () {

@@ -7,6 +7,7 @@
 						<div>{{newNotice.nickName}}</div>
 						<div>{{newNotice.content}}</div>
 						<p>{{newNotice.addtime}}</p>
+
 					</div>
 					<div class="careMe_content">
 						<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
