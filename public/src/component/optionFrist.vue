@@ -1,6 +1,6 @@
 <template id="optionFrist">
     <div class="optionFrist_box">
-        <div v-for="pic in pictures"><div id="{{pic.id}}" class="{{pic.class}}">{{pic.text}}</div></div>
+        <div v-for="pic in pictures"><div v-bind:id="pic.id" v-bind:class="pic.class">{{pic.content}}</div></div>
         <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
         <div :class="{'weui-mask':maskFlag}" @click = "hideAction()"></div>
         <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
@@ -38,7 +38,6 @@
                 },
                 alioss: null,
                 pictures:[
-
                 ]
             }
         },
@@ -52,7 +51,7 @@
                 this.maskFlag = false
             },
             //图片占位
-            _showloadingpic:function (containersize,id) {
+            _showloadingpic:function (id) {
                 id = 'up_loading_'+id;
                 this.pictures.push({content:'loading',class:'loading',id:id});
             },
@@ -69,14 +68,10 @@
             uploadImage:function (sourceType) {
                 let that = this;
                 var id = 'uf_'+new Date().getTime();
-                var containersize = {
-                    w: $('.imglist').data('width'),
-                    h: $('.imglist').data('height')
-                };
                 //
                 xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,that.alioss,function (filecount) {
                     for(var i=0;i<filecount;i++){
-                        that._showloadingpic(containersize,id+i);
+                        that._showloadingpic(id+i);
                     }
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
