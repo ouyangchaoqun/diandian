@@ -124,18 +124,18 @@ class ApiService
             $url = str_replace("[" . $key . "]", $userId, $url);
         }
         $url = $this->API_URL . $url;
-        $curl = new Curl();
-        $header = $this->getTokenHeader();
+         $header = $this->getTokenHeader();
 
         if ($method == "GET") {
-            return $curl->get($url, $header);
+            return $this->geturl($url, $header);
         } elseif ($method == "POST") {
-            return $curl->post($url, $data, $header);
+            return $this->posturl($url, $data, $header);
         } elseif ($method == "PUT") {
-            return $curl->put($url, $data, $header);
+            return $this->puturl($url, $data, $header);
         } elseif ($method == "DELETE") {
-            return $curl->delete($url, $header);
+            return $this->delurl($url,$data,  $header);
         }
+        return $this->geturl($url, $header);
     }
 
     public function getTokenHeader()
