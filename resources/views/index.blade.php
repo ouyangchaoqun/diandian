@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="src/css/weui.css"/>
   <link rel="stylesheet" type="text/css" href="src/css/common.css"/>
   <link rel="stylesheet" href="src/css/swiper-3.4.2.min.css">
-  <script src="src/js/jquery-3.0.0.min.js"></script>
+  <script src="http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
   <script src="src/js/axios.min.js"></script>
   <script src="src/js/vue/vue.min.js"></script>
   <script src="src/js/vue/vue-resource.js"></script>
