@@ -35,7 +35,7 @@
             <v-banner></v-banner>
         </div>
         <!--banner end -->
-        <router-link to='/me' class="weui-tabbar__item tab">
+        <router-link to='/notice' class="weui-tabbar__item tab">
         <div class="notice_box">
             <div class="notice" v-if="notice.count">
                 <img class="notice_friend"  :src="notice.lastuser.faceUrl" />

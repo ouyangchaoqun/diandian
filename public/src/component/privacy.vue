@@ -55,8 +55,9 @@
         data() {
             return {
                 user: null,
-                isNotLookFriend:null,
-                isNotLookMe:null
+                isNotLookFriend:false,
+                isNotLookMe:false
+
             }
         },
         mounted: function () {
@@ -73,6 +74,7 @@
                     _this.user = eval(data.data.data);
                     _this.isNotLookFriend=! _this.user.isLookFriend;
                     _this.isNotLookMe=! _this.user.isLookMe;
+
                 }
             }, function (error) {
                 //error

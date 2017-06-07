@@ -1,6 +1,13 @@
 <template id="optionFrist">
     <div class="optionFrist_box">
-        <div v-for="pic in pictures"><div id="{{pic.id}}" class="{{pic.class}}">{{pic.text}}</div></div>
+        <div v-for="pic in pictures" class="upload-images">
+            <div v-if="pic.isloading" class="item">
+                <div class="weui-loading"></div>
+            </div>
+            <div class="item item-image" v-else>
+                <img v-bind:src="smallPic(pic.image.path)"/>
+            </div>
+        </div>
         <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
         <div :class="{'weui-mask':maskFlag}" @click = "hideAction()"></div>
         <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
@@ -12,8 +19,6 @@
                 <div class="weui-actionsheet__cell" @click = "hideAction()">取消</div>
             </div>
         </div>
-
-
     </div>
 </template>
 
@@ -49,108 +54,35 @@
                 this.activeFlag = false
                 this.maskFlag = false
             },
+            smallPic:function (src) {
+                return src+xqzs.constant.PIC_SMALL;
+            },
             //图片占位
-            _showloadingpic:function (containersize,id) {
+            _showloadingpic:function (id) {
                 id = 'up_loading_'+id;
-                this.pictures.push({content:'loading',class:'loading',id:id});
+                this.pictures.push({isloading:true,id:id});
             },
             //
-            _fillloadingpic:function (id,content) {
+            _fillloadingpic:function (id,data) {
                 id = 'up_loading_'+id;
-                for(var i =0,l=this.pictures.length;i<l;i++){
-                    if( id == this.pictures[i].id ){
-                        this.pictures[i].class = '';
-                        this.pictures[i].content = '放置图片';
+                for(var i =0,l=this.pictures.length;i<l;i++) {
+                    if (id == this.pictures[i].id) {
+                        this.pictures[i].isloading = false;
+                        this.pictures[i].image = data;
+                        console.info(data);
                     }
                 }
-            },
-
-            //删掉
-            _picUpRemoveLoading:function (isshow,containersize,content,id) {
-                var classname = 'up-loading';
-                id = 'up_loading_'+id;
-
-
-
-                if(isshow){
-                    var loadingpics = $('.imglist li.up-loading').length;
-                    var loadedpics = $('.imglist input[name=moodpicture]').length;
-                    var currentpics = loadingpics + loadedpics;
-                    //style="height:'+containersize.h+'px;width:'+containersize.w+'px;"
-                    var loadsize = 50;
-                    var loadingdiv = '<li class="'+classname+'" id="'+id+'"><div class="weui-loading" style="height:'+loadsize+'px;width:'
-                        +loadsize+'px;margin-top:'+(containersize.h-loadsize)/2+'px;margin-left:'+(containersize.w-loadsize)/2+'px"></div></li>';
-                    $('.imglist li.upfile').before(loadingdiv);
-                    currentpics++;
-                    if (currentpics < maxfilecount) {
-                    } else {
-                        $('.imglist li.upfile').hide();
-                    }
-                }else{
-                    if(typeof content !='undefined'){
-                        $('.imglist li#'+id).removeClass(classname).html(content);
-                        $('.imglist li#'+id).find('.del-img').unbind('click').bind('click',function () {
-                            $.xqzs.mood.removeTempPicture($(this).parent().parent(),uploadpicinfo);
-                            //
-                            var count =  getallowuploadcount();
-                            if(count>0) {
-                                $('.imglist li.upfile').show();
-                            }
-                        })
-                    }else{
-                        $('.imglist li#'+id).remove();
-                    }
-                }
-            },
-            format_show_upload_pic:function(containersize,data) {
-                var imgstyle = '';
-                if (data.width > data.height) {
-                    $w = data.width * containersize.h / data.height;
-                    imgstyle = 'height:' + containersize.h + 'px;margin-left:' + ((containersize.w - $w) / 2) + 'px;width:auto';
-                } else if (data.width < data.height) {
-                    $h = data.height * containersize.w / data.width;
-                    imgstyle = 'width:' + containersize.w + 'px;margin-top:' + ((containersize.h - $h) / 2) + 'px;height:auto';
-                } else {
-                    imgstyle = 'width:' + containersize.w + 'px;height:' + containersize.h + 'px';
-                }
-                var size = (data.width > data.height) ? ' height="100%" ' : ' width="100%" ';
-
-                var appendhtml = '<div style="height:' + containersize.h + 'px" class="img-priview"><div class="del-img"></div><img class="upload-view" style="'
-                    + imgstyle + '" src="' + data.path + uploadpicinfo.smallpic + '" data-bigsrc="' + data.path + uploadpicinfo.middlepic
-                    + '" /><input type="hidden" name="moodpicture" value="' + data.id + '" /></div>';
-                return appendhtml;
-            },
-            bind_image_slides_priview:function () {
-                $('.imglist img').unbind('click').bind('click',function () {
-                    var current = $(this).data('bigsrc');
-                    var $data = [];
-                    $('img',$('.imglist')).each(function () {
-                        $data.push($(this).data('bigsrc'));
-                    });
-                    xqzs.wx.previewImage(current,$data);
-                    // weui.galleryslide.init($data,{autoSwipe:false,index:index});
-                });
             },
             uploadImage:function (sourceType) {
                 let that = this;
                 var id = 'uf_'+new Date().getTime();
-                var containersize = {
-                    w: $('.imglist').data('width'),
-                    h: $('.imglist').data('height')
-                };
                 //
-                console.info(that.uploadpicinfo);
-                console.info(that.alioss);
                 xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,that.alioss,function (filecount) {
                     for(var i=0;i<filecount;i++){
-                        that._showloadingpic(containersize,id+i);
+                        that._showloadingpic(id+i);
                     }
                 },function (json,ix) {
-                    var appendhtml = that.format_show_upload_pic(containersize,json.data);
-                    that._fillloadingpic(id+ix,appendhtml);
-                    //
-                    that.bind_image_slides_priview();
-
+                    that._fillloadingpic(id+ix,json.data);
                 },function (e) {
                     console.info(e);
                 })
@@ -160,6 +92,15 @@
             },
             getPho:function () {
                 this.uploadImage('album');
+            },
+            updatePics:function () {
+                var pics = [];
+                for (var i = 0, l = this.pictures.length; i < l; i++) {
+                    if (this.pictures[i].image) {
+                        pics.push(this.pictures[i].image.id)
+                    }
+                }
+                Bus.$emit('picturesChange', pics)
             }
         },
         mounted:function () {
@@ -208,6 +149,10 @@
     .weui-mask{
         background: rgba(0,0,0,0.4);
     }
+    .upload-images{}
+    .upload-images .item{float: left;width: 80px;height: 80px;margin: 2px}
+    .upload-images .item-image{}
+    .upload-images .item-image image{width: 80px;height: 80px;}
 </style>
 
 

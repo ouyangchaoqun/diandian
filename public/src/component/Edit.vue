@@ -165,6 +165,11 @@
                 that.moodcontent = newcontent;
                 that.listenContent();
             });
+
+            Bus.$on('picturesChange',pictures=>{
+                alert('picids:'+pictures.join(','));
+                that.pictures = pictures;
+            })
         }
     }
 </script>

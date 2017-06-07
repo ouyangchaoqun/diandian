@@ -7,6 +7,7 @@
 						<div>{{newNotice.nickName}}</div>
 						<div>{{newNotice.content}}</div>
 						<p>{{newNotice.addtime}}</p>
+
 					</div>
 					<div class="careMe_content">
 						<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
@@ -17,6 +18,7 @@
 					</div>
 			</router-link>
 		</v-scroll>
+
 		<div class="bottom">
 
 				<a id="btnViewMore" v-if="isNew==1">查看更早的消息...</a>
@@ -167,7 +169,8 @@
 			}, function (error) {
 				//error
 			});
- 			///设置已读
+
+			///设置已读
 			this.$http({
 				method: 'post',
 				type: "json",
@@ -184,7 +187,7 @@
 			},
 			onInfinite(done) {
 				let vm = this;
-				vm.$http.get(web.API_PATH + 'notice/query/page/[userId]/' + (vm.pageNo + 1) + "/" + vm.num).then((response) => {
+				vm.$http.get(web.API_PATH + 'notice/query/page/_userId_/' + (vm.pageNo + 1) + "/" + vm.num).then((response) => {
 					vm.counter++;
 					vm.pageEnd = vm.num * vm.counter;
 
