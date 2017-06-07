@@ -3,7 +3,7 @@
  */
 const positionList = resolve => require(['../component/positionList.vue'], resolve)
 module.exports = {
-    path: '/positionList',
+    path: '/myCenter/myIndex/Edit/positionList',
     component: positionList,
 
 }

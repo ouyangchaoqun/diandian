@@ -1,10 +1,11 @@
 <template id="remind">
-    <div class="top20_box">
-        <div class="remind">
+    <div class="remind_box">
+        <div class="remind remind1">
             <span>提醒功能</span>
-            <input type="checkbox" v-model="remindMsg" class="weui-switch switchFlag">
+            <input type="checkbox" v-model="remindMsg"  class="weui-switch switchFlag">
+            <div></div>
         </div>
-        <div class="remind" @click = "showTime()"> <!--TODO-->
+        <div class="remind remind2" @click = "showTime()">
             <span>时间设定</span>
             <div v-show="remindMsg">
                 <span class=" hours showPicker">{{hour}}</span>
@@ -12,27 +13,42 @@
                 <span class="minutes showPicker">{{minute}}</span>
             </div>
         </div>
-        <a class="me_bottom weui-btn weui-btn_primary" @click = "setRemindTime()">提交</a>
+        <a v-if="!remindMsg" class="me_bottom weui-btn weui-btn_primary weui-btn_disabled" @click = "setRemindTime()">提交</a>
+        <a v-if="remindMsg" class="me_bottom weui-btn weui-btn_primary" @click = "setRemindTime()">提交</a>
 
     </div>
 </template>
 <style>
-    .top20_box{
-        padding-top:20px;
-        background: #f5f5f5;
+    .remind_box{
+        padding-top:10px;
+        background: #f4f4f4;
     }
     .remind{
         height:50px;
-        padding:0 15px;
+        padding-left: 15px;
         background:#fff;
-        margin-bottom: 1px;
         line-height: 50px;
     }
-
+    .remind1{
+        border-top: 1px solid #e5e5e5;
+        position: relative;
+    }
+    .remind1 div{
+        width:100%;
+        height:1px;
+        background: #e5e5e5;
+        position: absolute;
+        bottom: 0;
+    }
+    .remind2{
+    border-bottom: 1px solid #e5e5e5;
+        padding-right: 12px;
+    }
 
     .switchFlag{
         float: right;
         margin-top:10px;
+        margin-right: 12px;
     }
     .remind span{
         font-size: 15px;
@@ -46,6 +62,10 @@
     }
     .remind div span{
         margin-right: 4px;
+    }
+    .me_bottom{
+        width:90%;
+        margin-top:34px;
     }
 </style>
 <script type="text/javascript">
@@ -74,9 +94,11 @@
                     time = time.split(":");
                     _this.hour = time[0];
                     _this.minute = time[1];
+
                 }
             }, function (error) {
             });
+
 
         },
 

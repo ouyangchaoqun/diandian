@@ -1,27 +1,50 @@
 <template id="privacy">
-    <div class="top20_box">
-        <div class="privacy">
-            <span>不看好友的心情记录</span>
-            <input type="checkbox" class="weui-switch switchFlag" v-model="isNotLookFriend"  @click="lookFriend()" >
+    <div class="privacy_box">
+        <div class="privacy privacyTop">
+                <span>不看好友的心情记录</span>
+                <input type="checkbox" class="weui-switch privacyInput" v-model="isNotLookFriend"  @click="lookFriend()" >
+            <div></div>
         </div>
-        <div class="privacy">
+        <div class="privacy privacyBottom">
             <span>不让好友看我的心情记录</span>
-            <input type="checkbox" class="weui-switch switchFlag"  v-model="isNotLookMe"  @click="lookMe()">
+            <input type="checkbox" class="weui-switch privacyInput"  v-model="isNotLookMe"  @click="lookMe()">
         </div>
     </div>
 </template>
 <style>
+    .privacy_box{
+        padding-top: 10px;
+        background: #f4f4f4;
+    }
     .privacy {
         height: 50px;
         background: #fff;
-        margin-bottom: 1px;
-        padding: 0 15px;
+        padding-left:15px;
         line-height: 50px;
+        position: relative;
+    }
+    .privacy div{
+        position: absolute;
+        height:1px;
+        background: #e5e5e5;
+        bottom:0;
+        width: 100%;
     }
 
     .privacy span {
         font-size: 15px;
         color: #333333;
+    }
+    .privacyInput{
+        float: right;
+        margin-top:10px;
+        margin-right: 12px;
+    }
+    .privacyTop{
+        border-top: 1px solid #e5e5e5;
+    }
+    .privacyBottom{
+        border-bottom: 1px solid #e5e5e5;
     }
 </style>
 <script  >
