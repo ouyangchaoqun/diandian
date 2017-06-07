@@ -55,7 +55,7 @@
 				<img class="listimg2" src="../images/back.png"/>
 			</div>
 		</router-link>
-		<a class="me_bottom weui-btn weui-btn_primary" url="">生成邀请卡</a>
+		<a class="me_bottom weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
 	</div>
 </template>
 <style>
@@ -179,7 +179,40 @@
             }, function (error) {
                 //error
             });
-        }
+        },
+		methods:{
+			_createinvite:function (type,callback) {
+				this.$http({
+					method: 'GET',
+					type: "json",
+					url: web.API_PATH + 'wei/xin/create/invite/' + type + '/_userId_',
+				}).then(function (data) {
+					if (data && data.data.status == 1) {
+						if (typeof callback == 'function') {
+							callback();
+						}
+					}
+				})
+			},
+			createinvite:function () {
+				let that = this;
+				that._createinvite('link',function () {
+					that._createinvite('card',function () {});
+					xqzs.weui.dialog({
+						title:'邀请卡已经发送',
+						msg:'前往公众号查看，分享好友互为关注',
+						submitText:'查看',
+						submitFun:function () {
+							try {
+								WeixinJSBridge.call('closeWindow');
+							}catch (e){
+							}
+						}
+					})
+				});
+			},
+
+		}
     }
 
 </script>

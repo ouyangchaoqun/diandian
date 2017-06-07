@@ -160,7 +160,7 @@
                             .then(
                                     (response)=>{
                                         xqzs.weui.toast("success", "修改成功", function () {
-                                            window.location.href = "#/"
+                                            window.location.href = "/center"
                                         })
                                     }
                             );
@@ -172,7 +172,7 @@
                                     (response) => {
 
                                         xqzs.weui.toast("success", "修改成功", function () {
-                                            window.location.href = "#/"
+                                            window.location.href = "/center"
                                         })
 
                                     }

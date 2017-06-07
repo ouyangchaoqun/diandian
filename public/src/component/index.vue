@@ -71,14 +71,16 @@
                             <div class="interaction">
                                 <div>{{ myLastMood.careCount }}</div>
                                 <router-link :to="myLastMood.careListUrl">
-                                    <img v-if="myLastMood.moodValue>=5 &&  myLastMood.isCare==null"
+                                    <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount<=0"
                                          src="../images/list_dianz_nor.png" alt=""/>
-                                    <img v-if="myLastMood.moodValue<5 &&  myLastMood.isCare==null"
+                                    <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount>0"
+                                         src="../images/list_dianz_pre.png" alt=""/>
+                                    <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount>0"
+                                         src="../images/list_baob_pre.png" alt=""/>
+                                    <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount<=0"
                                          src="../images/list_baob_nor.png" alt=""/>
-                                    <img v-if="myLastMood.moodValue>=5 &&  myLastMood.isCare!=null"
-                                         src="../images/list_dianz_pre.png" alt=""/>
-                                    <img v-if="myLastMood.moodValue<5 &&  myLastMood.isCare!=null"
-                                         src="../images/list_dianz_pre.png" alt=""/>
+
+
                                 </router-link>
                             </div>
                         </template>
@@ -345,6 +347,7 @@
                     _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
                      _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
                     _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
+                    console.log(_this.myLastMood);
                 }
             }, function (error) {
                 //error

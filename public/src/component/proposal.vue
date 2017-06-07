@@ -5,7 +5,7 @@
             <span>不少于8字!</span>
         </div>
         <div class="feedback_btn">
-            <a :class="{'weui-btn':true,'weui-btn_primary':true,'weui-btn_disabled':feedbackFlag}" @click="onSubmit()">提交</a>
+            <a :class="{'weui-btn':true,'weui-btn_primary':true,'weui-btn_disabled':feedbackFlag}"  @click="onSubmit()">提交</a>
         </div>
 
 
@@ -48,7 +48,7 @@
         margin-top:34px;
     }
 </style>
-<script type="es6">
+<script type="text/javascript">
 
     var proposal={
         template:'#proposal'
@@ -63,13 +63,16 @@
         methods:{
             onSubmit:function () {
                 let _this = this;
-                this.$http.put(web.API_PATH+'base/feedback/add',{"content":_this.$refs.content.value,"userId":null}).then(response => {
-                    xqzs.weui.toast("success","提交成功",function () {
-                        window.location.href="/#me"
-                    })
-                }, response => {
-                    // error
-                });
+                if(_this.feedbackFlag==false){
+                    this.$http.put(web.API_PATH+'base/feedback/add',{"content":_this.$refs.content.value,"userId":null}).then(response => {
+                        xqzs.weui.toast("success","提交成功",function () {
+                            window.location.href="/#me"
+                        })
+                    }, response => {
+                        // error
+                    });
+
+                }
             },
             listenProposal:function () {
 

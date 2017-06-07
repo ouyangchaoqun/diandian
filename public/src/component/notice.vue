@@ -11,9 +11,7 @@
 					</div>
 					<div class="careMe_content">
 						<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
-						<div v-else-if="newNotice.content">
-							{{newNotice.moodcontent}}
-						</div>
+
 						<img v-else  :src="newNotice.moodValuePic"  />
 					</div>
 			</router-link>
@@ -200,9 +198,7 @@
 						vm.newNotices.push(arr[i]);
 					};
 					vm.isNew=0;
-//					vm.$nextTick(function () {
-//						myResizePicture($(".careMe_list"),"careMe_content","li");//渲染完成
-//					});
+
 					if (arr.length === 0) {
 						this.$el.querySelector('.load-more').style.display = 'none';
 						this.$el.querySelector('.load-finish').style.display = 'block';

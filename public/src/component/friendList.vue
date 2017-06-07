@@ -33,9 +33,7 @@
                 <div class="weui-cell__ft"></div>
             </a>
 
-
             </div>
-
 
         </div>
 
@@ -44,7 +42,7 @@
             <div class=" m-30 btn-gray"><a href="http://mp.weixin.qq.com/s/JMW1ZjzUNmP4ZIaH9ot6jw">朋友太少，怎样邀请好友？</a></div>
         </div>
         <div class="bottom-card">
-            <div class="plr15 m-30"><div class="weui-btn weui-btn_primary" id="mack_card_all" @click="createInviteCard()">生成邀请卡</div></div>
+            <div class="plr15 m-30"><div class="weui-btn weui-btn_primary" id="mack_card_all" @click="createinvite()">生成邀请卡</div></div>
         </div>
         <div class="friendCount"></div>
     </div>
@@ -138,25 +136,37 @@
 
         },
         methods: {
-            createInviteCard:function(){
-                let _this = this;
-                    this.$http.get(web.API_PATH + 'wei/xin/create/invite/card/1186')
-                            .then(
-                                    (response)=>{
-                                        console.log("bbbbb")
 
-                                    }
-                            );
-
-                this.$http.get(web.API_PATH + 'wei/xin/create/invite/link/1186')
-                    .then(
-                        (response)=>{
-                            console.log("bbbbb")
-
+            _createinvite:function (type,callback) {
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/_userId_',
+                }).then(function (data) {
+                    if (data && data.data.status == 1) {
+                        if (typeof callback == 'function') {
+                            callback();
                         }
-                    );
-
-            }
+                    }
+                })
+            },
+            createinvite:function () {
+                let that = this;
+                that._createinvite('link',function () {
+                    that._createinvite('card',function () {});
+                    xqzs.weui.dialog({
+                        title:'邀请卡已经发送',
+                        msg:'前往公众号查看，分享好友互为关注',
+                        submitText:'查看',
+                        submitFun:function () {
+                            try {
+                                WeixinJSBridge.call('closeWindow');
+                            }catch (e){
+                            }
+                        }
+                    })
+                });
+            },
         }
     }
 
