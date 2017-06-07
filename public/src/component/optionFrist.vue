@@ -169,7 +169,7 @@
                 middlepic: xqzs.constant.PIC_MIDDLE,
                 removepicurl: web.BASE_PATH + 'api/removepicture',
                 uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
-                aliossgeturl: web.BASE_PATH + 'aliyunapi/oss_getsetting'
+                aliossgeturl: web.BASE_PATH + 'api/aliyunapi/oss_getsetting'
             };
             this.alioss = new aliyunoss({
                 url:this.uploadpicinfo.aliossgeturl,
