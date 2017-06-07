@@ -30,7 +30,7 @@
         template:'#optionFrist'
     };
     export default {
-        props:[frmparentpictures],
+        props:['fromparentpictures'],
         data() {
             return {
                 maskFlag: false,
@@ -132,7 +132,7 @@
                 token:this.uploadpicinfo.token
             });
 
-            this.pictures = this.frmparentpictures||[];
+            this.pictures = this.frmparentpictures || [];
         },
         computed:{
             canupload:function () {

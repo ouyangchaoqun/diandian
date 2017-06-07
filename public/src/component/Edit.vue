@@ -26,7 +26,7 @@
 
         </div>
 
-        <router-view style="overflow: scroll" v-bind:pics="pictureListForUpload"></router-view>
+        <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>
 
     </div>
 </template>
