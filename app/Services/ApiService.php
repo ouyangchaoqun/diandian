@@ -67,7 +67,7 @@ class ApiService
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
         $output = curl_exec($ch);
         curl_close($ch);
-        $output = json_decode($output, true);
+//        $output = json_decode($output, true);
         return $output;
     }
 
@@ -85,7 +85,7 @@ class ApiService
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($curl);
         curl_close($curl);
-        return json_decode($output,true);
+        return $output;// json_decode($output,true);
     }
   function puturl($url,$data,$headerArray){
         $data = json_encode($data);
@@ -97,7 +97,8 @@ class ApiService
      curl_setopt($ch, CURLOPT_POSTFIELDS, $data);//设置提交的字符串
      $output = curl_exec($ch);
      curl_close($ch);
-     return json_decode($output,true);
+     return $output;
+//     return json_decode($output,true);
   }
 
     function delurl($url, $data,$headerArray)
@@ -111,7 +112,8 @@ class ApiService
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $output = curl_exec($ch);
         curl_close($ch);
-        return json_decode($output, true);
+        return $output;
+       // return json_decode($output, true);
     }
 
     public function execFull(Request $request, $userId, $url, $method, $data = null)
