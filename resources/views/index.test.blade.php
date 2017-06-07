@@ -7,7 +7,7 @@
   <link rel="stylesheet" type="text/css" href="src/css/weui.css"/>
   <link rel="stylesheet" type="text/css" href="src/css/common.css"/>
   <link rel="stylesheet" href="src/css/swiper-3.4.2.min.css">
-  <script src="src/js/jquery-3.0.0.min.js"></script>
+  <script src="http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
   <script src="src/js/axios.min.js"></script>
   <script src="src/js/vue/vue.min.js"></script>
   <script src="src/js/vue/vue-resource.js"></script>
@@ -16,6 +16,7 @@
    <script src="src/js/swiper-3.4.2.min.js"></script>
   <script src="src/js/weui.js"></script>
   <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
+  <script src="http://map.qq.com/api/js?v=2" charset="utf-8"></script>
 </head>
 <body>
 <div id="app">

@@ -75,11 +75,10 @@
         methods: {
             getLoc: function () {
                 let that = this;
-                var longitude = 120.15507;
-                var latitude = 30.274085;
-                that.$router.push({path:'/positionList?latitude='+latitude+'&longitude='+longitude});
-                that.hide = true;
-                return;
+//                var longitude = 120.15507;
+//                var latitude = 30.274085;
+//
+//                return;
 
                 wx.getLocation({
                     type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -89,7 +88,8 @@
                         var speed = res.speed; // 速度，以米/每秒计
                         var accuracy = res.accuracy; // 位置精度
 
-                        that.$router.push({path:'/positionList',params:{latitude:latitude,longitude:longitude}});
+                        that.$router.push({path:'/positionList?latitude='+latitude+'&longitude='+longitude});
+                        that.hide = true;
                         console.log(latitude, longitude)
                     },
                     cancel: function (res) {
@@ -131,12 +131,8 @@
                     pictures: that.pictures
                 };
                 that.cansubmit = false;
-                that.$http({
-                    method: 'PUT',
-                    type: "json",
-                    url: web.API_PATH + 'mood/append',
-                    data: postdata
-                }).then(function (bt) {
+                that.$http.post(web.API_PATH + 'mood/append',postdata)
+                    .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
                         ///myCenter/myIndex
                         that.$router.push({path:'/myCenter/myIndex'});
