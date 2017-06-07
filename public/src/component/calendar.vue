@@ -81,7 +81,10 @@
                 isb: true,
                 swiper_box: true,
                 dayMoods:[],
-                mySwiper:null
+                mySwiper:null,
+                maxMonthNum:3,
+                nowMonth:null,
+                nowYear:null
             }
         },
 
@@ -98,25 +101,25 @@
         },
         methods: {
             setNowDate: function () {
-                var date = new Date();
-                var cur_year = date.getFullYear();
+                let date = new Date();
+                let cur_year = date.getFullYear();
                 /**年份 */
-                    //console.log(cur_year)
-                var cur_month = date.getMonth() + 1;
+                let cur_month = date.getMonth() + 1;
                 /**月 */
-                    //console.log(cur_month)
-                var todayIndex = date.getDay() - 1;
-                var today = date.getDate();
+                this.nowYear = cur_year;
+                this.nowMonth = cur_month;
+                let todayIndex = date.getDay() - 1;
+                let today = date.getDate();
                 /**日 */
                 //console.log(today)
                 this.calculateEmptyGrids(cur_year, cur_month);
                 /**调用计算空格子*/
                 this.calculateDays(cur_year, cur_month);
-                var date2 = new Date();
-                var _month = date2.getMonth() + 1
-                this.cur_year = cur_year,
-                    this.cur_month = cur_month
-                this._month = _month
+                let date2 = new Date();
+                let _month = date2.getMonth() + 1;
+                this.cur_year = cur_year;
+                this.cur_month = cur_month;
+                this._month = _month;
                 this.today = today
                 //console.log(today)
                 //console.log(cur_month)
@@ -203,10 +206,24 @@
                //
             },
             oldMonth: function () {                             //上个月
-                var cur_year = this.cur_year;
-                var cur_month = this.cur_month;
-                var newMonth = cur_month - 1;
-                var newYear = cur_year;
+                let cur_year = this.cur_year;
+                let cur_month = this.cur_month;
+
+                //阻止前面的的月份
+                let firstYear = this.nowYear;
+                let firstMonth= this.nowMonth;
+                firstMonth= firstMonth - this.maxMonthNum;
+                if(firstMonth<=0){
+                    firstYear = firstYear-1;
+                    firstMonth = 12 +firstMonth;
+                }
+                if(firstYear  ===cur_year &&  firstMonth===cur_month ) {
+                    return ;
+                }
+
+
+                let newMonth = cur_month - 1;
+                let newYear = cur_year;
                 if (newMonth < 1) {
                     newYear = cur_year - 1;
                     newMonth = 12;
@@ -217,18 +234,25 @@
                     this.cur_month = newMonth
             },
             nextMonth: function () {                             //下个月
-                var cur_year = this.cur_year;
-                var cur_month = this.cur_month;
-                var newMonth = cur_month + 1;
-                var newYear = cur_year;
+                let cur_year = this.cur_year;
+                let cur_month = this.cur_month;
+
+                //阻止后面的月份
+                if(this.nowYear  ===cur_year &&  this.nowMonth ===cur_month ) {
+                    return ;
+                }
+
+                let newMonth = cur_month + 1;
+                let newYear = cur_year;
                 if (newMonth > 12) {
                     newYear = cur_year + 1;
                     newMonth = 1;
                 }
+
                 this.calculateDays(newYear, newMonth);
                 this.calculateEmptyGrids(newYear, newMonth);
-                this.cur_year = newYear,
-                    this.cur_month = newMonth
+                this.cur_year = newYear;
+                this.cur_month = newMonth;
             },
             showSwiper: function (index) {
 
