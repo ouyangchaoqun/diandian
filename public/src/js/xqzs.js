@@ -435,7 +435,7 @@ var xqzs = {
                                     } else {
                                         localData = "data:image/jpeg;base64," + localData;
                                     }
-                                    $.xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: localData}, finishUploadFun, errorFun, ix);
+                                    xqzs.oss.uploadPicture($uploadpicinfo, $alioss, {base64: localData}, finishUploadFun, errorFun, ix);
                                 }
                             });
                         }(i, localIds))

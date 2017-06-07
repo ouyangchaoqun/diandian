@@ -1,6 +1,7 @@
 <template id="optionFrist">
     <div class="optionFrist_box">
-        <img class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
+        <div v-for="pic in pictures"><div id="{{pic.id}}" class="{{pic.class}}">{{pic.text}}</div></div>
+        <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
         <div :class="{'weui-mask':maskFlag}" @click = "hideAction()"></div>
         <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
@@ -35,7 +36,8 @@
                     uploadbase64url:web.BASE_PATH + 'api/upfilebase64',
                     aliossgeturl:web.BASE_PATH+'aliyunapi/oss_getsetting'
                 },
-                alioss: null
+                alioss: null,
+                pictures:[]
             }
         },
         methods:{
@@ -48,9 +50,27 @@
                 this.maskFlag = false
             },
             //图片占位
+            _showloadingpic:function (containersize,id) {
+                id = 'up_loading_'+id;
+                this.pictures.push({content:'loading',class:'loading',id:id});
+            },
+            //
+            _fillloadingpic:function (id,content) {
+                id = 'up_loading_'+id;
+                for(var i =0,l=this.pictures.length;i<l;i++){
+                    if( id == this.pictures[i].id ){
+                        this.pictures[i].class = '';
+                        this.pictures[i].content = '放置图片';
+                    }
+                }
+            },
+
             _picUpRemoveLoading:function (isshow,containersize,content,id) {
                 var classname = 'up-loading';
                 id = 'up_loading_'+id;
+
+
+
                 if(isshow){
                     var loadingpics = $('.imglist li.up-loading').length;
                     var loadedpics = $('.imglist input[name=moodpicture]').length;
@@ -119,11 +139,11 @@
                 };
                 xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,function (filecount) {
                     for(var i=0;i<filecount;i++){
-                        that._picUpRemoveLoading(true,containersize,undefined,id+i);
+                        that._showloadingpic(containersize,id+i);
                     }
                 },function (json,ix) {
                     var appendhtml = that.format_show_upload_pic(containersize,json.data);
-                    that._picUpRemoveLoading(false,undefined,appendhtml,id+ix);
+                    that._fillloadingpic(id+ix,appendhtml);
                     //
                     that.bind_image_slides_priview();
 
@@ -151,6 +171,11 @@
                 url:this.uploadpicinfo.aliossgeturl,
                 token:this.uploadpicinfo.token
             });
+        },
+        computed:{
+            canupload:function () {
+                return this.pictures.length < this.maxPhotoCount;
+            }
         }
     }
 
