@@ -5,10 +5,12 @@
                 <div class="weui-loading"></div>
             </div>
             <div class="item item-image" v-else>
-                <img v-bind:src="smallPic(pic.image.path)"/>
+                <img v-bind:src="smallPic(pic.image.path)" @click="viewBigPics(pic.image.path)"/>
             </div>
         </div>
-        <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
+        <div v-if="canupload" class="item item-up-btn">
+            <img class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
+        </div>
         <div :class="{'weui-mask':maskFlag}" @click = "hideAction()"></div>
         <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
@@ -23,26 +25,28 @@
 </template>
 
 <script type="text/javascript">
-
+    import Bus from './bus.js';
     var optionFrist={
         template:'#optionFrist'
     };
     export default {
         data() {
             return {
-                maskFlag:false,
-                activeFlag:false,
-                maxPhotoCount:3,
+                maskFlag: false,
+                activeFlag: false,
+                maxPhotoCount: 3,
                 uploadpicinfo: {
-                    token:'',
-                    smallpic:'',
-                    middlepic:'',
-                    removepicurl:web.BASE_PATH + 'api/removepicture',
-                    uploadbase64url:web.BASE_PATH + 'api/upfilebase64',
-                    aliossgeturl:web.BASE_PATH+'aliyunapi/oss_getsetting'
+                    token: '',
+                    smallpic: '',
+                    middlepic: '',
+                    removepicurl: web.BASE_PATH + 'api/removepicture',
+                    uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                    aliossgeturl: web.BASE_PATH + 'aliyunapi/oss_getsetting'
                 },
                 alioss: null,
-                pictures:[]
+                pictures: []
+                //{isloading:true,id:123},
+                //{isloading:false,image:{height: 640,id: "462",path: "http://oss.hh-idea.com/2017-06/07/4oci5wrblgnucfg9kpyct24pfhnzvo7l.jpg"}}
             }
         },
         methods:{
@@ -55,7 +59,16 @@
                 this.maskFlag = false
             },
             smallPic:function (src) {
-                return src+xqzs.constant.PIC_SMALL;
+                return src + xqzs.oss.Size.fill(78,78);
+            },
+            viewBigPics:function (src) {
+                var pics = [];
+                for (var i = 0, l = this.pictures.length; i < l; i++) {
+                    if (this.pictures[i].image) {
+                        pics.push(this.pictures[i].image.path+ xqzs.oss.Size.resize(750,750))
+                    }
+                }
+                xqzs.wx.previewImage(src,pics)
             },
             //图片占位
             _showloadingpic:function (id) {
@@ -69,9 +82,9 @@
                     if (id == this.pictures[i].id) {
                         this.pictures[i].isloading = false;
                         this.pictures[i].image = data;
-                        console.info(data);
                     }
                 }
+                this.updatePics();
             },
             uploadImage:function (sourceType) {
                 let that = this;
@@ -137,7 +150,6 @@
     .optionAdd{
         height: 53px;
         width:53px;
-
     }
     .weui-actionsheet__cell{
         font-size: 16px;
@@ -150,9 +162,12 @@
         background: rgba(0,0,0,0.4);
     }
     .upload-images{}
-    .upload-images .item{float: left;width: 80px;height: 80px;margin: 2px}
+    .upload-images .item,.item-up-btn{float: left;width: 78px;height: 78px;margin-right:10px;}
+    .upload-images .item{border: solid 1px #ccc;}
+    .item-up-btn{text-align: center;padding-top: 13px;height: 67px}
+    .weui-loading{width: 40px;height: 40px;margin: 19px 0 0 19px;}
     .upload-images .item-image{}
-    .upload-images .item-image image{width: 80px;height: 80px;}
+    .upload-images .item-image image{width: 78px;height: 78px;}
 </style>
 
 
