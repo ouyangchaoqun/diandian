@@ -3,6 +3,12 @@
  */
 
 var xqzs = {
+    constant:{
+        PIC_SMALL:'?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',
+        PIC_MIDDLE:'?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0'
+
+    },
+
     weui: {
         toast: function (type, msg, fun) {
             var html = "";
@@ -567,10 +573,19 @@ var xqzs = {
                 return true;
             }
             return false;
+        },
+        guid:function (glue) {
+            glue = glue||''
+            var guid = "";
+            for (var i = 1; i <= 32; i++){
+                var n = Math.floor(Math.random()*16.0).toString(16);
+                guid +=   n;
+                if((i==8)||(i==12)||(i==16)||(i==20))
+                    guid += glue;
+            }
+            return guid;
         }
-    }
-
-
+    },
 };
 
 function myResizePicture(listObj,imgListStr,containerStr) {
@@ -652,3 +667,102 @@ function myResizePicture(listObj,imgListStr,containerStr) {
     })
 }
 
+
+;(function () {
+    var aliyunoss = function (config) {
+        this.accessid = '';
+        this.accesskey = '';
+        this.host = '';
+        this.policyBase64 = '';
+        this.signature = '';
+        this.callbackbody = '';
+        this.filename = '';
+        this.key = '';
+        this.expire = 0;
+        this.g_object_name = '';
+        this.g_object_name_type = '';
+        this.now = 0;
+        this.issynctime = false;
+        this.serverurl = config.url;
+        this.token = config.token || this.randomid();
+    }
+    aliyunoss.prototype = {
+        send_request: function (callback, config) {
+            var that = this;
+            $.ajax({
+                url: that.serverurl,
+                type: config.type || 'POST',
+                data: {token: that.token},
+                dataType: config.dataType || '',
+                success: function (data) {
+                    callback(data);
+                }
+            });
+        },
+        get_signature: function (callback) {
+            //可以判断当前expire是否超过了当前时间,如果超过了当前时间,就重新取一下.3s 做为缓冲
+            if (this.expire < this.now + 3) {
+                var that = this;
+                that.cleartimer();
+                that.send_request(function (data) {
+                    //var body = this.send_request();
+                    if (data && data.state == 1) {
+                        var obj = data.data;
+                        that.host = obj['host'];
+                        that.policyBase64 = obj['policy'];
+                        that.accessid = obj['accessid'];
+                        that.signature = obj['signature'];
+                        that.now = parseInt(obj['now']);
+                        that.expire = parseInt(obj['expire']);
+                        that.callbackbody = obj['callback'];
+                        that.key = obj['dir'];
+                        that.synctime();
+                    }
+                    callback();
+                }, {
+                    type: 'post',
+                    dataType: 'JSON'
+                });
+            } else {
+                callback();
+            }
+        },
+        cleartimer: function () {
+            var that = this;
+            if (typeof that.intervaler != 'undefined') {
+                clearInterval(that.intervaler);
+            }
+        },
+        synctime: function () {
+            var that = this;
+            that.intervaler = setInterval(function () {
+                that.now += 1;
+            }, 1000);
+        },
+        randomid: function () {
+            var len = 32;
+            var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            var maxPos = chars.length;
+            var randomid = '';
+            for (i = 0; i < len; i++) {
+                randomid += chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return randomid;
+        },
+        //附加参数
+        formdataappend: function (postdata, callback) {
+            var that = this;
+            that.get_signature(function () {
+                postdata.append('key', that.key + that.randomid() + '.jpg');
+                postdata.append('policy', that.policyBase64);
+                postdata.append('OSSAccessKeyId', that.accessid);
+                postdata.append('callback', that.callbackbody);
+                postdata.append('signature', that.signature);
+                postdata.append('token', that.token);
+
+                callback();
+            });
+        }
+    }
+    window['aliyunoss'] = aliyunoss;
+}());
