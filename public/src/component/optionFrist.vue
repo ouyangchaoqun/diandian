@@ -4,7 +4,7 @@
             <div v-if="pic.isloading" class="item">
                 <div class="weui-loading"></div>
             </div>
-            <div v-else class="item">
+            <div class="item" v-else>
                 <img src="{{pic.image.path}}"/>
             </div>
         </div>
@@ -65,8 +65,8 @@
                 for(var i =0,l=this.pictures.length;i<l;i++) {
                     if (id == this.pictures[i].id) {
                         this.pictures[i].isloading = false;
-                        this.pictures[i].content = '放置图片';
                         this.pictures[i].image = data;
+                        console.info(data);
                     }
                 }
             },
