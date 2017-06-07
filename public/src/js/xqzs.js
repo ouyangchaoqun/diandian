@@ -706,7 +706,7 @@ function myResizePicture(listObj,imgListStr,containerStr) {
                 that.cleartimer();
                 that.send_request(function (data) {
                     //var body = this.send_request();
-                    if (data && data.state == 1) {
+                    if (data && data.status == 1) {
                         var obj = data.data;
                         that.host = obj['host'];
                         that.policyBase64 = obj['policy'];
