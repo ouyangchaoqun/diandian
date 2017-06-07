@@ -393,7 +393,7 @@ var xqzs = {
     friendmood: {
         lastkey: 'friendlastmoodid',
         getlast: function () {
-            return $.xqzs.localdb.get(this.lastkey) || '';
+            return xqzs.localdb.get(this.lastkey) || '';
         },
         setlast: function (moodid) {
             var last = this.getlast();
@@ -405,7 +405,7 @@ var xqzs = {
                 }
             }
             if (tosave) {
-                $.xqzs.localdb.set(this.lastkey, moodid);
+                xqzs.localdb.set(this.lastkey, moodid);
             }
         }
 
@@ -469,7 +469,7 @@ var xqzs = {
                 ix = 0;
             }
             var that = this;
-            var blob = $.xqzs.dataURLtoBlob(rst.base64);
+            var blob = xqzs.dataURLtoBlob(rst.base64);
 
             if (blob == false) {
                 that._uploadBase64($uploadpicinfo, rst, callback, error, ix);
@@ -542,11 +542,11 @@ var xqzs = {
             return '__v_show' + '_' + tp;
         },
         isshow: function (type) {
-            var _ = $.xqzs.localdb.get(this.key(type)) || '';
+            var _ = xqzs.localdb.get(this.key(type)) || '';
             return _ == '';
         },
         showed: function (type) {
-            $.xqzs.localdb.set(this.key(type), 'yes');
+            xqzs.localdb.set(this.key(type), 'yes');
         }
     },
     isAndroid: function () {
