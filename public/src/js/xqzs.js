@@ -6,7 +6,6 @@ var xqzs = {
     constant:{
         PIC_SMALL:'?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',
         PIC_MIDDLE:'?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0'
-
     },
 
     weui: {
@@ -456,6 +455,14 @@ var xqzs = {
         }
     },
     oss: {
+        Size: {
+            fill: function (width, height) {
+                return '?x-oss-process=image/resize,m_fill,h_' + width + ',w_' + height + '/quality,q_100/auto-orient,0';
+            },
+            resize:function (width, height) {
+                return '?x-oss-process=image/resize,h_' + width + ',w_' + height + '/quality,q_100/auto-orient,0';
+            }
+        },
         /**
          *
          * @param $uploadpicinfo
