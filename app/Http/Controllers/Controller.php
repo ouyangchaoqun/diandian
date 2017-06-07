@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ApiService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -13,6 +14,14 @@ class Controller extends BaseController
      * @var Response
      */
     var $response;
+    private $API_URL;
+
+    protected $apiService;
+    public function __construct(ApiService $apiService)
+    {
+        $this->apiService = $apiService;
+        $this->API_URL = env("API_URL_HOST") . "/" . env("API_VERSION");
+    }
 
     protected function getUserId(Request $request)
     {
@@ -24,9 +33,8 @@ class Controller extends BaseController
             if (isset($_SESSION['userId'])) {
                 $userId = $_SESSION['userId'];
             } else {
-                $curl = new Curl();
-                $header = $this->getTokenHeader();
-                $user = $curl->get($this->API_URL . "/user/find/by/open/Id/" . $openId, $header);
+               $header = $this->apiService->getTokenHeader();
+                $user =  $this->apiService->geturl($this->API_URL . "/user/find/by/open/Id/" . $openId, $header);
                 $user = json_decode($user, true);
                 $userId = null;
                 if (is_array($user)) {

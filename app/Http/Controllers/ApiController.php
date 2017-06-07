@@ -9,21 +9,12 @@
 namespace App\Http\Controllers;
 
 
-use AbsoluteSoftware\Curl\Curl;
-use App\Services\ApiService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Cookie;
 
 
 class ApiController extends Controller
 {
-    private $apiService;
-
-    public function __construct(ApiService $apiService)
-    {
-        $this->apiService = $apiService;
-    }
 
     public function url(Request $request, Response $response)
     {

@@ -138,7 +138,7 @@ class ApiService
         }
     }
 
-    private function getTokenHeader()
+    public function getTokenHeader()
     {
         $timestamp = time();
         $nonceStr = $this->randCode(3, 10);
