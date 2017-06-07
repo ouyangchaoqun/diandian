@@ -1,5 +1,5 @@
 <template id="careMe">
-	<div class="careMe_box" v-if="careFriends" >
+	<div class="careMe_box" v-if="careFriends.length" >
 		<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
 			<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 			<div class="careMe_div">
@@ -136,8 +136,8 @@
 	export default {
 		data() {
 			return {
-				myLastMood: null,
-				careFriends:null,
+				myLastMood: [],
+				careFriends:[],
                 detailUrl:null
 
 			}

@@ -55,8 +55,8 @@
         data() {
             return {
                 user: null,
-                isNotLookFriend:null,
-                isNotLookMe:null
+                isNotLookFriend:false,
+                isNotLookMe:false
             }
         },
         mounted: function () {

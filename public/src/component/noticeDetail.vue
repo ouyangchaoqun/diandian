@@ -5,6 +5,12 @@
             <div class="moodImg_right">
                 <div class="moodState">{{mood.moodValueText}}</div>
                 <div class="moodContext">{{mood.content}}</div>
+                <template v-if="Date.parse(new Date()) / 1000-mood.addTime<=20*60 && (mood.content=='' || mood.content==null)  ">
+                    <router-link :to=editurl+mood.id class="editMood">
+                        20分钟内可以补充文字和图片
+                        <img src="../images/bianji.png" alt="">
+                    </router-link>
+                </template>
                 <div class="moodPhotoLists">
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)">
@@ -12,13 +18,17 @@
                 </div>
                 <div class="moodTime">
                     <span>{{mood.time}}</span>
-                    <span class="btn_del">删除</span>
+                    <span class="btn_del" @click="delMoodContent(mood.id)" v-if="mood.content!==''">删除</span>
                     <div class="moodFollow">
                         <span class="followCount">{{mood.careCount}}</span>
-                        <img  class="followtype" v-if="mood.moodValue>=5"
+                        <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount>0 "
                              src="../images/list_dianz_pre.png" alt=""/>
-                        <img  class="followtype" v-if="mood.moodValue<5"
+                        <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount<=0 "
+                              src="../images/list_dianz_nor.png" alt=""/>
+                        <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount>0"
                              src="../images/list_baob_pre.png" alt=""/>
+                        <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount<=0"
+                              src="../images/list_baob_nor.png" alt=""/>
                         <span class="followCount">{{mood.replycount}}</span>
                         <img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
                     </div>
@@ -26,7 +36,7 @@
             </div>
             <div class="show_box">
                 <div class="arraw"></div>
-                <div class="show_top">
+                <div class="show_top" v-if="cares.length">
                     <img  class="show_img1" v-if="mood.moodValue>=5"
                           src="../images/list_dianz_pre.png" alt=""/>
                     <img  class="show_img1" v-if="mood.moodValue<5"
@@ -78,7 +88,8 @@
                 replies:[],
                 cares:[],
                 mood:{},
-                user:{}
+                user:{},
+                editurl:'/myCenter/myIndex/Edit?id='
 
             }
         },
@@ -100,11 +111,9 @@
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
                     _this.mood.time=xqzs.dateTime.formatTime( _this.mood.addTime);
-                    console.log(_this.replies);
-
                 }
                 _this.$nextTick(function () {
-                    myResizePicture($(".myMood_list"),"moodPhotoLists","img");//渲染完成
+                    myResizePicture();//渲染完成
                 });
             }, function (error) {
                 //error
@@ -202,9 +211,32 @@
                 });
 
             },
+        delMoodContent:function(id){
+            let _this=this;
+            let url  = web.API_PATH+ "mood/clean/content/_userId_/"+id;
+            xqzs.weui.dialog("", "确定删除吗？", function () {
+
+            }, function () {
+                _this.$http.delete(url).then(
+                        (data) => {
+                            if (data.data.status === 1) {
+                                _this.mood.content='';
+
+                            } else {
+                                xqzs.weui.toast("fail", "删除失败", function () {
+                                });
+                            }
+                        }
+                );
+
+            });
 
 
         }
+
+
+
+    }
     }
 
 
