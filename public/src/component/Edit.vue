@@ -132,7 +132,7 @@
                 };
                 that.cansubmit = false;
                 that.$http({
-                    method: 'PUT',
+                    method: 'POST',
                     type: "json",
                     url: web.API_PATH + 'mood/append',
                     data: postdata
