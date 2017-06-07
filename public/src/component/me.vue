@@ -60,7 +60,7 @@
 </template>
 <style>
 	.me_top{
-		background:#e5e5e5;
+		background:#f4f4f4;
 		padding: 15px 0;
 	}
 	.me1_left{

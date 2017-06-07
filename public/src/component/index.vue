@@ -268,16 +268,17 @@
                 if (data.data.data !== null) {
 
                     _this.user = eval(data.data.data);
+                    console.log(_this.user);
 
                     //
                     _this.getMoodCount(function (moodcount) {
                         if (moodcount < 10) {
-                            _this.linkTo = "/writeMood";
+                            _this.linkTo = "/addMood";
                         } else {
                             if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
                                 _this.linkTo = "/me/personal/validate";
                             } else {
-                                _this.linkTo = "/writeMood";
+                                _this.linkTo = "/addMood";
                             }
                         }
                     });

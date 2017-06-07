@@ -35,7 +35,6 @@
 <style>
 	.careMe_box{
 	    height:100%;
-		background: #ffffff;
 		position: relative;
     }
 	.careMe_list{
@@ -90,18 +89,19 @@
     .noCare_box{
         position: relative;
         height:100%;
+		background: #ffffff !important;
     }
     .noCare_box img{
-        width:180px;
+        width:260px;
         position: absolute;
-        top:15%;
+        top:90px;
         left:50%;
-        margin-left: -90px;
+        margin-left: -130px;
     }
     .noCare_content{
         width: 100%;
         position: absolute;
-        top:35%;
+        top:300px;
         z-index: 1;
         left:50%;
         margin-left: -50%;
@@ -117,12 +117,12 @@
         font-size: 12px;
         color: #999999;
         text-align: center;
-        margin-bottom: 10px;
+       height: 30px;
     }
     .noCare_btn{
         width:90%;
         position: absolute;
-        bottom:20%;
+        bottom:50px;
         left:50%;
         margin-left:-45%;
     }
