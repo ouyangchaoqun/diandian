@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
   <title>pro1</title>
-  <link rel="stylesheet" type="text/css" href="https://weui.io/weui.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/weui/1.1.1/style/weui.min.css"/>
   <link rel="stylesheet" type="text/css" href="src/css/common.css"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/Swiper/3.4.2/css/swiper.min.css">
   <script  src="https://cdn.staticfile.org/jquery/3.0.0/jquery.min.js"></script>
