@@ -115,7 +115,7 @@
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
                                      src="../images/list_dianz_pre.png" alt=""/>
                                 <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                      src="../images/list_dianz_pre.png" alt=""/>
+                                      src="../images/list_baob_pre.png" alt=""/>
                             </div>
                         </div>
                     </a>
@@ -142,7 +142,7 @@
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
                                      src="../images/list_dianz_pre.png" alt=""/>
                                 <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                     src="../images/list_dianz_pre.png" alt=""/>
+                                     src="../images/list_baob_pre.png" alt=""/>
                             </div>
                         </div>
                     </a>
@@ -254,6 +254,7 @@
             }
         },
         mounted: function () {
+
             let _this = this;
 
             //用户信息
