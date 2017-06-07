@@ -4,7 +4,6 @@
 namespace App\Services;
 
 
-use AbsoluteSoftware\Curl\Curl;
 use Illuminate\Http\Request;
 
 class ApiService
@@ -33,7 +32,7 @@ class ApiService
         $url = $this->API_URL . $url;
 
 
-        $curl = new Curl();
+      //  $curl = new Curl();
         $header = $this->getTokenHeader();
 
         //处理参数
@@ -45,20 +44,77 @@ class ApiService
                 $item = $userId;
             }
         }
-
-
         if ($method == "GET") {
-            return $curl->get($url, $header);
+            return $this->geturl($url, $header);
         } elseif ($method == "POST") {
-            return $curl->post($url, $data, $header);
+            return $this->posturl($url, $data, $header);
         } elseif ($method == "PUT") {
-            return $curl->put($url, $data, $header);
+            return $this->puturl($url, $data, $header);
         } elseif ($method == "DELETE") {
-            return $curl->delete($url, $header);
+            return $this->delurl($url,$data,  $header);
         }
+        return $this->geturl($url, $header);
     }
 
-    public function execFull(Request $request,$userId, $url,$method,$data=null)
+
+    function geturl($url,$headerArray)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        $output = json_decode($output, true);
+        return $output;
+    }
+
+
+    function posturl($url, $data,$headerArray)
+    {
+        $data = json_encode($data);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headerArray);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($output,true);
+    }
+  function puturl($url,$data,$headerArray){
+        $data = json_encode($data);
+      $ch = curl_init(); //初始化CURL句柄
+     curl_setopt($ch, CURLOPT_URL, $url); //设置请求的URL
+      curl_setopt ($ch, CURLOPT_HTTPHEADER, $headerArray);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1); //设为TRUE把curl_exec()结果转化为字串，而不是直接输出
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST,"PUT"); //设置请求方式
+     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);//设置提交的字符串
+     $output = curl_exec($ch);
+     curl_close($ch);
+     return json_decode($output,true);
+  }
+
+    function delurl($url, $data,$headerArray)
+    {
+        $data = json_encode($data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return json_decode($output, true);
+    }
+
+    public function execFull(Request $request, $userId, $url, $method, $data = null)
     {
         $url = urldecode($url);
         //
@@ -87,7 +143,7 @@ class ApiService
         $timestamp = time();
         $nonceStr = $this->randCode(3, 10);
         $token = md5(env("APP_KEY") . $nonceStr . $timestamp . env("APP_KEY"));
-        return array("timestamp" => $timestamp, "noncestr" => $nonceStr, "token" => $token);
+        return array("Content-type:application/json","timestamp" => $timestamp, "noncestr" => $nonceStr, "token" => $token);
     }
 
     private function randCode($what, $number)
