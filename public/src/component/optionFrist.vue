@@ -25,32 +25,28 @@
 </template>
 
 <script type="text/javascript">
-
+    import Bus from './bus.js';
     var optionFrist={
         template:'#optionFrist'
     };
     export default {
         data() {
             return {
-                maskFlag:false,
-                activeFlag:false,
-                maxPhotoCount:3,
+                maskFlag: false,
+                activeFlag: false,
+                maxPhotoCount: 3,
                 uploadpicinfo: {
-                    token:'',
-                    smallpic:'',
-                    middlepic:'',
-                    removepicurl:web.BASE_PATH + 'api/removepicture',
-                    uploadbase64url:web.BASE_PATH + 'api/upfilebase64',
-                    aliossgeturl:web.BASE_PATH+'aliyunapi/oss_getsetting'
+                    token: '',
+                    smallpic: '',
+                    middlepic: '',
+                    removepicurl: web.BASE_PATH + 'api/removepicture',
+                    uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
+                    aliossgeturl: web.BASE_PATH + 'aliyunapi/oss_getsetting'
                 },
                 alioss: null,
-                pictures:[
-                    {isloading:true,id:123},
-                    {isloading:false,image:{height: 640,id: "462",path: "http://oss.hh-idea.com/2017-06/07/4oci5wrblgnucfg9kpyct24pfhnzvo7l.jpg"}}
-                ]
-                //height: 640
-                //id: "462"
-                //path: "http://oss.hh-idea.com/2017-06/07/8f7il5lo7qevfj4bmvoo8ks9p0b27hdi.jpg"
+                pictures: []
+                //{isloading:true,id:123},
+                //{isloading:false,image:{height: 640,id: "462",path: "http://oss.hh-idea.com/2017-06/07/4oci5wrblgnucfg9kpyct24pfhnzvo7l.jpg"}}
             }
         },
         methods:{
