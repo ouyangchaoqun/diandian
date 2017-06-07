@@ -26,7 +26,7 @@
 
         </div>
 
-        <router-view style="overflow: scroll"></router-view>
+        <router-view style="overflow: scroll" v-bind:pics="pictureListForUpload"></router-view>
 
     </div>
 </template>
@@ -69,7 +69,8 @@
                         'pre':web.IMG_PATH+'gxtp_pre.png',
                         'on':false,
                     }
-                }
+                },
+                pictureListForUpload:[]
             }
         },
         methods: {
@@ -161,9 +162,9 @@
                 that.listenContent();
             });
 
-            Bus.$on('picturesChange',pictures=>{
-                alert('picids:'+pictures.join(','));
-                that.pictures = pictures;
+            Bus.$on('picturesChange',obj=>{
+                that.pictureListForUpload = obj.pictures;
+                that.pictures = obj.ids;
             })
         }
     }

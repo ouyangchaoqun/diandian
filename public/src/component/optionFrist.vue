@@ -30,6 +30,7 @@
         template:'#optionFrist'
     };
     export default {
+        props:[frmparentpictures],
         data() {
             return {
                 maskFlag: false,
@@ -107,13 +108,14 @@
                 this.uploadImage('album');
             },
             updatePics:function () {
+                var that = this;
                 var pics = [];
-                for (var i = 0, l = this.pictures.length; i < l; i++) {
-                    if (this.pictures[i].image) {
-                        pics.push(this.pictures[i].image.id)
+                for (var i = 0, l = that.pictures.length; i < l; i++) {
+                    if (that.pictures[i].image) {
+                        pics.push(that.pictures[i].image.id)
                     }
                 }
-                Bus.$emit('picturesChange', pics)
+                Bus.$emit('picturesChange', {ids:pics,pictures:that.pictures})
             }
         },
         mounted:function () {
@@ -129,6 +131,8 @@
                 url:this.uploadpicinfo.aliossgeturl,
                 token:this.uploadpicinfo.token
             });
+
+            this.pictures = this.frmparentpictures||[];
         },
         computed:{
             canupload:function () {
