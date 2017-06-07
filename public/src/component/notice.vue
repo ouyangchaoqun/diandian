@@ -11,7 +11,9 @@
 					</div>
 					<div class="careMe_content">
 						<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
-
+						<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
+							{{newNotice.moodcontent}}
+						</div>
 						<img v-else  :src="newNotice.moodValuePic"  />
 					</div>
 			</router-link>

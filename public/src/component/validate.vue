@@ -3,7 +3,7 @@
         <div class="validate_box">
             <div class="validate_top">
                 <h1>温馨提示</h1>
-                <p>首次记录心情，必须通过手机验证哦！</p>
+                <p>为确保您的数据安全，请先验证手机号！</p>
             </div>
             <div class="validate_div">
                 <div class="validate_phone">
