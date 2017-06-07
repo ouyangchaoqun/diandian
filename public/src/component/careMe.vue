@@ -36,6 +36,7 @@
 	.careMe_box{
 	    height:100%;
 		background: #ffffff;
+		position: relative;
     }
 	.careMe_list{
 		height:66px;

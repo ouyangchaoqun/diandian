@@ -1,11 +1,11 @@
 <template id="proposal">
     <div class="proposal_box">
         <div class="feedback">
-            <textarea placeholder="你好，我是产品经理小珺，欢迎给我们提出产品的使用感受和建议！"  ref="content" />
+            <textarea placeholder="你好，我是产品经理小珺，欢迎给我们提出产品的使用感受和建议！" v-model="proposalCon"  ref="content" @input="listenProposal"/>
             <span>不少于8字!</span>
         </div>
         <div class="feedback_btn">
-            <a class="weui-btn weui-btn_primary" @click="onSubmit()">提交</a>
+            <a :class="{'weui-btn':true,'weui-btn_primary':true,'weui-btn_disabled':feedbackFlag}" @click="onSubmit()">提交</a>
         </div>
 
 
@@ -21,7 +21,7 @@
     }
 
     .feedback{
-        padding:20px;
+        padding:15px;
         font-size:15px;
         color:#999999;
         position: relative;
@@ -36,7 +36,7 @@
         border:0;
         resize: none;
         font-size:15px;
-        color:#999999;
+        color:#333333;
     }
     .feedback span{
         position:absolute;
@@ -57,7 +57,7 @@
     export default {
         data() {
             return {
-
+                feedbackFlag:true
             }
         },
         methods:{
@@ -70,9 +70,16 @@
                 }, response => {
                     // error
                 });
+            },
+            listenProposal:function () {
 
-
-
+                var length = this.proposalCon.length;
+                console.log(length)
+                if(length>=8){
+                    this.feedbackFlag = false
+                }else{
+                    this.feedbackFlag = true
+                }
             }
         }
     }
