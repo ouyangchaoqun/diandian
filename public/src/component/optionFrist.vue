@@ -1,6 +1,13 @@
 <template id="optionFrist">
     <div class="optionFrist_box">
-        <div v-for="pic in pictures"><div v-bind:id="pic.id" v-bind:class="pic.class">{{pic.content}}</div></div>
+        <div v-for="pic in pictures" class="upload-images">
+            <div v-if="pic.isloading" class="item">
+                <div class="weui-loading"></div>
+            </div>
+            <div v-else class="item">
+                <img src="{{pic.image.path}}"/>
+            </div>
+        </div>
         <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
         <div :class="{'weui-mask':maskFlag}" @click = "hideAction()"></div>
         <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
@@ -12,8 +19,6 @@
                 <div class="weui-actionsheet__cell" @click = "hideAction()">取消</div>
             </div>
         </div>
-
-
     </div>
 </template>
 
@@ -37,8 +42,7 @@
                     aliossgeturl:web.BASE_PATH+'aliyunapi/oss_getsetting'
                 },
                 alioss: null,
-                pictures:[
-                ]
+                pictures:[]
             }
         },
         methods:{
@@ -53,15 +57,16 @@
             //图片占位
             _showloadingpic:function (id) {
                 id = 'up_loading_'+id;
-                this.pictures.push({content:'loading',class:'loading',id:id});
+                this.pictures.push({isloading:true,id:id});
             },
             //
-            _fillloadingpic:function (id,content) {
+            _fillloadingpic:function (id,data) {
                 id = 'up_loading_'+id;
-                for(var i =0,l=this.pictures.length;i<l;i++){
-                    if( id == this.pictures[i].id ){
-                        this.pictures[i].class = '';
+                for(var i =0,l=this.pictures.length;i<l;i++) {
+                    if (id == this.pictures[i].id) {
+                        this.pictures[i].isloading = false;
                         this.pictures[i].content = '放置图片';
+                        this.pictures[i].image = data;
                     }
                 }
             },
@@ -84,6 +89,15 @@
             },
             getPho:function () {
                 this.uploadImage('album');
+            },
+            updatePics:function () {
+                var pics = [];
+                for (var i = 0, l = this.pictures.length; i < l; i++) {
+                    if (this.pictures[i].image) {
+                        pics.push(this.pictures[i].image.id)
+                    }
+                }
+                Bus.$emit('picturesChange', pics)
             }
         },
         mounted:function () {
@@ -132,6 +146,8 @@
     .weui-mask{
         background: rgba(0,0,0,0.4);
     }
+    .upload-images{}
+    .upload-images .item{float: left;width: 80px;height: 80px;}
 </style>
 
 
