@@ -139,7 +139,6 @@
 				myLastMood: [],
 				careFriends:[],
                 detailUrl:null
-
 			}
 		},
 		mounted: function () {

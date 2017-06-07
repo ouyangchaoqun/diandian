@@ -17,6 +17,7 @@
 					</div>
 			</router-link>
 		</v-scroll>
+
 		<div class="bottom">
 
 				<a id="btnViewMore" v-if="isNew==1">查看更早的消息...</a>

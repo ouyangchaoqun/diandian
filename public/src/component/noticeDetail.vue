@@ -218,6 +218,7 @@
 
             }, function () {
                 _this.$http.delete(url).then(
+
                         (data) => {
                             if (data.data.status === 1) {
                                 _this.mood.content='';

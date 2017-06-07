@@ -1,6 +1,7 @@
 <template id="myCenter">
     <div style="height: 100%">
 
+
         <div class="weui-tabbar" id="tabs">
             <router-link :to='linkTo' class="weui-tabbar__item  tab">
 				<span style="display: inline-block;">
