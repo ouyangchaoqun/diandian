@@ -5,7 +5,7 @@
                 <div class="weui-loading"></div>
             </div>
             <div class="item" v-else>
-                <img src="{{pic.image.path}}"/>
+                <img v-bind:src="pic.image.path"/>
             </div>
         </div>
         <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
