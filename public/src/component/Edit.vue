@@ -162,9 +162,8 @@
                 that.listenContent();
             });
 
-            Bus.$on('picturesChange',obj=>{
-                that.pictureListForUpload = obj.pictures;
-                that.pictures = obj.ids;
+            Bus.$on('picturesChange',pictures=>{
+                that.pictures = pictures;
             })
         }
     }

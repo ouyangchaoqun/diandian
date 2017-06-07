@@ -1,10 +1,11 @@
 <template id="optionFrist">
     <div class="optionFrist_box">
-        <div v-for="pic in pictures" class="upload-images">
+        <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
             <div v-if="pic.isloading" class="item">
                 <div class="weui-loading"></div>
             </div>
             <div class="item item-image" v-else>
+                <div class="del-img" @click="deletePic(index)"></div>
                 <img v-bind:src="smallPic(pic.image.path)" @click="viewBigPics(pic.image.path)"/>
             </div>
         </div>
@@ -46,8 +47,6 @@
                 },
                 alioss: null,
                 pictures: []
-                //{isloading:true,id:123},
-                //{isloading:false,image:{height: 640,id: "462",path: "http://oss.hh-idea.com/2017-06/07/4oci5wrblgnucfg9kpyct24pfhnzvo7l.jpg"}}
             }
         },
         methods:{
@@ -58,6 +57,10 @@
             hideAction:function () {
                 this.activeFlag = false
                 this.maskFlag = false
+            },
+            deletePic:function (i) {
+                this.pictures.shift(i);
+                this.updatePics();
             },
             smallPic:function (src) {
                 return src + xqzs.oss.Size.fill(78,78);
@@ -115,7 +118,7 @@
                         pics.push(that.pictures[i].image.id)
                     }
                 }
-                Bus.$emit('picturesChange', {ids:pics,pictures:that.pictures})
+                Bus.$emit('picturesChange', pics);
             }
         },
         mounted:function () {
@@ -170,7 +173,14 @@
     .upload-images .item{border: solid 1px #ccc;}
     .item-up-btn{text-align: center;padding-top: 13px;height: 67px}
     .weui-loading{width: 40px;height: 40px;margin: 19px 0 0 19px;}
-    .upload-images .item-image{}
+    .upload-images .item-image{position: relative}
+    .upload-images .item-image .del-img{position: absolute;
+        right: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background-image: url(../images/writer_icon_fork.png);
+        background-size: 20px;}
     .upload-images .item-image image{width: 78px;height: 78px;}
 </style>
 
