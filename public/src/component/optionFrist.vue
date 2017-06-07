@@ -51,7 +51,7 @@
                 this.maskFlag = false
             },
             //图片占位
-            _showloadingpic:function (containersize,id) {
+            _showloadingpic:function (id) {
                 id = 'up_loading_'+id;
                 this.pictures.push({content:'loading',class:'loading',id:id});
             },
@@ -71,7 +71,7 @@
                 //
                 xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,that.alioss,function (filecount) {
                     for(var i=0;i<filecount;i++){
-                        that._showloadingpic(containersize,id+i);
+                        that._showloadingpic(id+i);
                     }
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
