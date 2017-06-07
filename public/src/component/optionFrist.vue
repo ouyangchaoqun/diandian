@@ -4,8 +4,8 @@
             <div v-if="pic.isloading" class="item">
                 <div class="weui-loading"></div>
             </div>
-            <div class="item" v-else>
-                <img v-bind:src="pic.image.path"/>
+            <div class="item item-image" v-else>
+                <img v-bind:src="smallPic(pic.image.path)"/>
             </div>
         </div>
         <img v-if="canupload" class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
@@ -53,6 +53,9 @@
             hideAction:function () {
                 this.activeFlag = false
                 this.maskFlag = false
+            },
+            smallPic:function (src) {
+                return src+xqzs.constant.PIC_SMALL;
             },
             //图片占位
             _showloadingpic:function (id) {
@@ -147,7 +150,9 @@
         background: rgba(0,0,0,0.4);
     }
     .upload-images{}
-    .upload-images .item{float: left;width: 80px;height: 80px;}
+    .upload-images .item{float: left;width: 80px;height: 80px;margin: 2px}
+    .upload-images .item-image{}
+    .upload-images .item-image image{width: 80px;height: 80px;}
 </style>
 
 
