@@ -15,6 +15,7 @@ class Controller extends BaseController
      */
     var $response;
     private $API_URL;
+    private  $COOKIE_OPEN_ID= "xqzs_openId";
 
     protected $apiService;
     public function __construct(ApiService $apiService)
@@ -25,8 +26,7 @@ class Controller extends BaseController
 
     protected function getUserId(Request $request)
     {
-
-        $openId = $request->cookie("openId");
+        $openId = $request->cookie($this->COOKIE_OPEN_ID);
         if ($openId == "") {
             return false;
         } else {
@@ -49,7 +49,7 @@ class Controller extends BaseController
     protected function setUserInfo($user)
     {
         $openId = $user['openId'].'';
-        setcookie('openId',$openId,null,'/');
+        setcookie($this->COOKIE_OPEN_ID,$openId,null,'/');
         //$response->withCookie(new Cookie("openId",$user['openId']));
         $userId = $user['id'];
         $_SESSION['userId'] = $userId;
