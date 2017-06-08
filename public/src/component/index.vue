@@ -495,6 +495,10 @@
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
+        margin-bottom: 100px;
+    }
+    .share:active{
+        background: #eeeeee;
     }
     .notice_box{
         padding:10px;
