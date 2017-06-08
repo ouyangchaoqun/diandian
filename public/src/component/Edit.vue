@@ -1,7 +1,7 @@
 <template id="Edit">
     <div>
         <div v-if="!showPositionList" class="edit_box">
-            <div class="addEdit">
+            <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
                     <div class="addEdit_status">{{moodText}}</div>
@@ -14,13 +14,12 @@
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div v-if="!showPositionList" class="edit_option">
-            <div style="display: none"></div>
             <div>
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
             </div>
             <div>
-                <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt="" style="margin-top: -0.1rem"></div>
+                <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
             </div>
             <div>
@@ -28,7 +27,7 @@
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.third.on}" src="../images/jt.gif" alt="" >
             </div>
 
-            <div><div class="optionFourth" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
+            <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
             <div><button @click="submitMood()"
                     v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
 
@@ -46,10 +45,7 @@
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
         <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide swiper-no-swiping">
-                    &nbsp;
-                </div>
-                <div class="swiper-slide swiper-no-swiping"><!--optionFrist-->
+                <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
                     <div class="optionFrist_box">
                         <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
@@ -65,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide"><!--optionSecond-->
+                <div class="swiper-slide" v-show="buttons.second.on"><!--optionSecond-->
                     <div class="optionSecond_box">
                         <div class="swiper-container exp_box">
                             <div class="swiper-wrapper">
@@ -149,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping">
+                <div class="swiper-slide" v-show="buttons.third.on">
                     搞笑图片
                 </div>
             </div>
@@ -204,19 +200,19 @@
                         'curr':web.IMG_PATH+'zp_nor.png',
                         'nor':web.IMG_PATH+'zp_nor.png',
                         'pre':web.IMG_PATH+'zp_pre.png',
-                        'on':false,
+                        'on':false
                     },
                     'second':{
                         'curr':web.IMG_PATH+'bq_nor.png',
                         'nor':web.IMG_PATH+'bq_nor.png',
                         'pre':web.IMG_PATH+'bq_pre.png',
-                        'on':false,
+                        'on':false
                     },
                     'third':{
                         'curr':web.IMG_PATH+'gxtp_nor.png',
                         'nor':web.IMG_PATH+'gxtp_nor.png',
                         'pre':web.IMG_PATH+'gxtp_pre.png',
-                        'on':false,
+                        'on':false
                     }
                 },
                 pictureListForUpload:[],
@@ -277,6 +273,10 @@
                     var ison = indexcode == o;
                     that.buttons[o].on = ison;
                     that.buttons[o].curr = ison ? that.buttons[o].pre : that.buttons[o].nor;
+                }
+                //
+                if(indexcode == 'first'){
+                    that. showAction();
                 }
             },
             changeisopen:function () {
@@ -436,16 +436,6 @@
                 that.$router.push({path:'/'});
                 return;
             }
-            //
-
-            var tabsSwiper = new Swiper('.edit_lists',{
-                speed:500,
-                noSwiping:true
-            });
-            $(".edit_option div").on('mousedown',function(){
-                tabsSwiper.slideTo($(this).index());
-            });
-
             //optionFrist
             this.uploadpicinfo = {
                 token: xqzs.string.guid(),
@@ -482,7 +472,9 @@
             });
             var mySwiper = new Swiper ('.swiper-container', {
                 direction: 'horizontal',
-                pagination: '.swiper-pagination'
+                pagination: '.swiper-pagination',
+                observer:true,
+                observeParents:true
             });
             $('.delexp').click(function () {
                 var oldContent =  $('#edit_mood').val()
@@ -516,6 +508,12 @@
             },
             canupload:function () {
                 return this.pictures.length < this.maxPhotoCount;
+            },
+            moodcolorstyle:function () {
+                return (this.moodValue >= 7 ? 'addEdit1' : (this.moodValue <= 3 ? 'addEdit2' : 'addEdit3'));
+            },
+            openstyle:function () {
+                return this.isopen==1?'':'green';
             }
         }
     }
@@ -523,9 +521,13 @@
 <style>
     .addEdit{
         height:65px;
-        background: pink;
         margin-bottom:15px;
     }
+    .addEdit1{background: #fff5eb;color:#fc6103}
+    .addEdit2{background: #f1f1f1;color:#1aac19}
+    .addEdit3{background: #e8f7e8;color:#747474}
+    .green{color:#008000 !important;border-color:#008000!important}
+    #publishBtn{height:30px !important;vertical-align: bottom;}
     .addEdit img{
         width:40px;
         height:40px;
@@ -539,7 +541,6 @@
         margin-top:6px;
     }
     .addEdit_status{
-        color: #fc6130;
         font-size: 18px;
         margin-bottom: 2px;
     }
@@ -570,10 +571,10 @@
         background: rgba(0,0,0,0.4);
     }
     .upload-images{}
-    .upload-images .item,.item-up-btn{float: left;width: 78px;height: 78px;margin-right:10px;}
-    .upload-images .item{border: solid 1px #ccc;}
-    .item-up-btn{text-align: center;padding-top: 13px;height: 67px}
-    .weui-loading{width: 40px;height: 40px;margin: 19px 0 0 19px;}
+    .upload-images .item,.item-up-btn{float: left;width: 53px;height: 53px;}
+    .upload-images .item{border: solid 1px #ccc;margin-top: 20px;margin-right:20px;}
+    /*.item-up-btn{text-align: center;padding-top: 13px;height: 67px}*/
+    .weui-loading{width: 30px;height: 30px;margin: 12px 0 0 12px;}
     .upload-images .item-image{position: relative}
     .upload-images .item-image .del-img{position: absolute;
         right: 0;
@@ -653,13 +654,13 @@
         margin: 0 auto;
     }
     .optionFrist{
-        width:1.1764705882352942rem;
+        width:1.35294118rem;
     }
     .optionSecond{
-        width:1.411764705882353rem;
+        width:1.55294118rem;margin-top: -0.2rem !important;
     }
     .optionThird{
-        width: 1.352941176470588rem;
+        width: 1.35294118rem;
     }
     .optionFourth{
         width:4.11764705882353rem;
@@ -674,7 +675,7 @@
     }
     .option_five{
         margin-top: -0.17647058823529413rem;
-        height:1.76470588235rem;
+        height:1.4705882352941178rem;
         width:3.5294117647058822rem;
         margin-left: 1.1764705882352942rem;
     }
