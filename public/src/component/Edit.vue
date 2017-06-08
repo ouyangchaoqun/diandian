@@ -329,12 +329,13 @@
             },
             viewBigPics:function (src) {
                 var pics = [];
+                src = src + xqzs.oss.Size.resize(750, 750)
                 for (var i = 0, l = this.pictures.length; i < l; i++) {
                     if (this.pictures[i].image) {
-                        pics.push(this.pictures[i].image.path+ xqzs.oss.Size.resize(750,750))
+                        pics.push(this.pictures[i].image.path + xqzs.oss.Size.resize(750, 750));
                     }
                 }
-                xqzs.wx.previewImage(src,pics)
+                xqzs.wx.previewImage(src, pics)
             },
             //图片占位
             _showloadingpic:function (id) {
