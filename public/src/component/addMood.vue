@@ -6,161 +6,164 @@
 
         <div class="moodBox_bg">
             <div class="mood_box">
-                <div class="moodBox_header">此刻心情</div>
-                <div class="weui-grids grids_box">
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_09.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row1">超级开心</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_08.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row1">很开心</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_07.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row1">开心</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_06.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row2">小开心</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_05.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row2">一般</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_04.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row2">郁闷</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_03.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row3">不开心</p>
-                    </a>
+                <div class="mood_left">
+                    <div class="moodBox_header">此刻心情</div>
+                    <div class="weui-grids grids_box">
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_09.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row1">超级开心</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_08.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row1">很开心</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_07.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row1">开心</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_06.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row2">小开心</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_05.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row2">一般</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_04.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row2">郁闷</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_03.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row3">不开心</p>
+                        </a>
 
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_02.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row3">很不开心</p>
-                    </a>
-                    <a href="" class="weui-grid">
-                        <div class="grid_top">
-                            <img src="../images/list_mood_01.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom grid_row3">超级不开心</p>
-                    </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_02.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row3">很不开心</p>
+                        </a>
+                        <a href="" class="weui-grid">
+                            <div class="grid_top">
+                                <img src="../images/list_mood_01.png" alt="">
+                            </div>
+                            <p class="weui-grid__label grid_bottom grid_row3">超级不开心</p>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="scene_box">
-                <div class="moodBox_header">心情场景</div>
-                <div class="weui-grids grids_box">
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/study.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">学习教育</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/work.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">工作事业</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/healthy.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">健康</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/home.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">家庭</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/love.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">恋爱婚姻</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/arder.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">休闲娱乐</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/interpersonal.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">人际关系</p>
-                    </a>
+                <div class="scene_box">
+                    <div>
+                        <div class="moodBox_header">心情场景</div>
+                        <div class="weui-grids grids_box">
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/study.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">学习教育</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/work.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">工作事业</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/healthy.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">健康</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/home.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">家庭</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/love.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">恋爱婚姻</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/arder.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">休闲娱乐</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/interpersonal.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">人际关系</p>
+                            </a>
 
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/weather.png" alt="">
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/weather.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">天气</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/life.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">生活</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/sport.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">运动</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img src="../images/other.png" alt="">
+                                </div>
+                                <p class="weui-grid__label grid_bottom scene_col">其他</p>
+                            </a>
+                            <a href="" class="weui-grid grid_25">
+                                <div class="scene_top">
+                                    <img>
+                                </div>
+                                <p class="weui-grid__label grid_bottom ">...</p>
+                            </a>
                         </div>
-                        <p class="weui-grid__label grid_bottom scene_col">天气</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/life.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">生活</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/sport.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">运动</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img src="../images/other.png" alt="">
-                        </div>
-                        <p class="weui-grid__label grid_bottom scene_col">其他</p>
-                    </a>
-                    <a href="" class="weui-grid grid_25">
-                        <div class="scene_top">
-                            <img>
-                        </div>
-                        <p class="weui-grid__label grid_bottom ">...</p>
-                    </a>
+
+                    </div>
+
                 </div>
+
+
             </div>
         </div>
     </div>
 </template>
 <style>
-    @keyframes mymove
-    {
-        from {right:-100%;}
-        to {right:0}
-    }
-    .move{
-        animation:mymove 1s infinite;
-    }
     .grids_box{
         margin:0 15px;
     }
     .grids_box a{
-        height:100px;
+       padding-top: 10px;
+    }
+    .weui-grid{
+        padding:0;
     }
     .moodBox_bg{
         position: absolute;
@@ -182,8 +185,10 @@
         height:100%;
         background: #FFFFFF;
     }
-    .grid_25{
+    .scene_box .grid_25{
         width:25%;
+        padding-top: 22px;
+        padding-bottom: 5px;
     }
     .banner {
         width: 100%;
@@ -204,19 +209,11 @@
         width:100%;
         padding-top:30px;
         padding-bottom: 36px;
+        overflow: hidden;
     }
     .scene_box{
-        /*padding:30px 15px 36px 15px;*/
-        background: url("../images/moodBg.png") no-repeat;
-        background-size: cover;
-        border-top-left-radius:15px;
-        border-top-right-radius:15px;
-        position: absolute;
-        bottom:0;
-        right:-100%;
         width:100%;
-        padding-top:30px;
-        padding-bottom: 36px;
+        display: none;
     }
     .moodBox_header{
         font-size: 18px;
@@ -235,6 +232,7 @@
     }
     .grid_bottom{
         font-size: 12px;
+        margin-bottom: 16px;
     }
     .scene_col{
         color: #333333;
@@ -326,7 +324,8 @@
            $('.grids_box a').click(function (event) {
                event.preventDefault();
                event.stopPropagation();
-               $('.scene_box').addClass('move');
+               $('.mood_left').css('display','none');
+               $('.scene_box').css({'display':'block'});
            })
         },
 
