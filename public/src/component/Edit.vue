@@ -20,7 +20,7 @@
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
             </div>
             <div>
-                <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt="" style="margin-top: -0.3rem"></div>
+                <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt="" style="margin-top: -0.1rem"></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
             </div>
             <div>
@@ -674,7 +674,7 @@
     }
     .option_five{
         margin-top: -0.17647058823529413rem;
-        height:1.4705882352941178rem;
+        height:1.76470588235rem;
         width:3.5294117647058822rem;
         margin-left: 1.1764705882352942rem;
     }

@@ -202,23 +202,19 @@ li{list-style: none}
 
 /*心情详列表*/
 .userHeaderImg {
-    height: 64px;
-    width: 64px;
+    height: 76px;
+    width: 76px;
     position: absolute;
     left: 50%;
-    bottom: -32px;
-    margin-left: -32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    padding: 2px;
+    bottom: -33px;
+    margin-left: -38px;
 }
 
-.userHeaderImg img {
-    height: 64px;
-    width: 64px;
+.banner .userHeaderImg img {
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
-    margin: auto;
-    display: block;
+    border: rgba(255,255,255,0.6) 3px solid;
 }
 
 
@@ -277,8 +273,7 @@ li{list-style: none}
 .moodTime {
     font-size: 12px;
     color: #787878;
-    height: 20px;
-    line-height: 20px;
+    line-height: 16px;
 }
 
 .moodFollow {
@@ -286,15 +281,16 @@ li{list-style: none}
 }
 
 .followCount {
-    float: left;
+    font-size: 12px;
+    color: #999;
     margin-left: 5px;
 }
 
 .followtype {
-    width: 24px;
-    margin-top: -2px;
-    margin-left: 5px;
-    float: left;
+    width: 14px;
+    margin-top: 3px;
+    vertical-align: middle;
+    margin-bottom: 4px;
 }
 
 .moodImg_right .moodPhotoLists.two > div {
@@ -434,21 +430,21 @@ li{list-style: none}
 }
 
 .editMood {
-    height: 34px;
-    line-height: 34px;
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 22px;
     color: #999999;
-    background: #dcdcdc;
+    background: #dfdfdf;
     display: block;
-    padding-left: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    padding:8px;
+    margin-bottom: 8px;
     position: relative;
+    border-radius: 4px;
 }
 
 .editMood img {
+    width:25px;
+    height:25px;
     position: absolute;
     top: 7px;
     right: 10px;
-    width: 20px;
 }

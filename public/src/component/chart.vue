@@ -319,7 +319,7 @@
 
     .chart_box {
         height: 190px;
-        padding: 40px 0 20px 0;
+        padding: 44px 0 20px 0;
         background: #ffffff;
         margin-bottom: 5px;
     }

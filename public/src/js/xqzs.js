@@ -336,7 +336,10 @@ var xqzs = {
             return data;
         },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder) {
-            var html = '<div class="action-sheet-edit">';
+            if($("#action_sheet_edit")&& $("#action_sheet_edit").hasClass("action-sheet-edit") ){
+               return ;
+            } ;
+            var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel active"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <div class="comment_header">';
