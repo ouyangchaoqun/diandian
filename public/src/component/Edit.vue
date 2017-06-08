@@ -198,7 +198,7 @@
                 address: '',
                 showAddress:'点击获取所在位置',
                 pictures: [],
-                pictureids: [] ,
+                pictureids: [514,515,516] ,
                 buttons:{
                     'first':{
                         'curr':web.IMG_PATH+'zp_nor.png',
