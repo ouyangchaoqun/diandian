@@ -42,6 +42,7 @@
     }
     .privacyTop{
         border-top: 1px solid #e5e5e5;
+        overflow: hidden;
     }
     .privacyBottom{
         border-bottom: 1px solid #e5e5e5;
