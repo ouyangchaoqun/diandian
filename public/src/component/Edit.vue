@@ -45,7 +45,7 @@
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
         <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><!--optionFrist-->
+                <div class="swiper-slide swiper-no-swiping"><!--optionFrist-->
                     <div class="optionFrist_box">
                         <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide"><!--optionSecond-->
+                <div class="swiper-slide swiper-no-swiping"><!--optionSecond-->
                     <div class="optionSecond_box">
                         <div class="swiper-container exp_box">
                             <div class="swiper-wrapper">
@@ -201,7 +201,7 @@
                     </div>
 
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide swiper-no-swiping">
                     搞笑图片
                 </div>
             </div>
@@ -481,7 +481,8 @@
             //
 
             var tabsSwiper = new Swiper('.edit_lists',{
-                speed:500
+                speed:500,
+                noSwiping:true
             });
             $(".edit_option div").on('mousedown',function(){
                 tabsSwiper.slideTo($(this).index());
