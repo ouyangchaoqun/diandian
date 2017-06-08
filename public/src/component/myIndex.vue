@@ -5,9 +5,13 @@
             <div class="myIndex_box">
                 <div class="banner index_banner">
                     <v-banner></v-banner>
-                    <div class="userHeaderImg">
-                        <img :src="user.faceUrl" alt="">
-                    </div>
+                    <router-link to="/me">
+                        <div class="userHeaderImg">
+                            <img :src="user.faceUrl" alt="">
+                        </div>
+
+                    </router-link>
+
                 </div>
                 <!--banner end -->
 
