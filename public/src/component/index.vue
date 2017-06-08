@@ -35,9 +35,9 @@
             <v-banner></v-banner>
         </div>
         <!--banner end -->
-        <router-link to='/notice' class="weui-tabbar__item tab">
+        <router-link to='/notice' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
         <div class="notice_box">
-            <div class="notice" v-if="notice.count">
+            <div class="notice" >
                 <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
                 <div>{{notice.count}}条新消息</div>
                 <img class="goNotice" src="../images/goto.jpg" alt="">
@@ -454,24 +454,28 @@
     }
 
     .moodimg {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
         float: left;
-        margin-top: 16px;
-        margin-right: 30px;
+        margin-top: 17px;
+        margin-right: 20px;
     }
 
     .interaction {
         float: left;
         text-align: center;
-        padding-top: 13px;
+        padding-top: 15px;
         font-size: 13px;
         color: #aeaeae;
+        overflow: hidden;
     }
 
     .interaction img {
-        width: 26px;
-        height: 26px;
+        width: 20px;
+        height: 20px;
+    }
+    .interaction a{
+        height:20px;
     }
 
     .mycenterFill {

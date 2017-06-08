@@ -21,11 +21,17 @@
                         <div class="weekView" v-for="item in weeks_ch">{{item}}</div>
                     </div>
                     <div class="dateBgView">
-                        <div class="dateEmptyView" v-for="item in empytGrids">{{item.index}}</div>
+                        <div class="dateEmptyView" v-for="item in empytGrids">{{item.index}}
+                            <div class="dateEmptyView_right"></div>
+                            <div class="dateEmptyView_bottom"></div>
+                        </div>
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']"
                              @click="showSwiper(item.index)">
-                            <div class="datesView">{{item.index+1}}</div>
+                            <div class="datesView">{{item.index+1}}
+                                <div class="dateEmptyView_right"></div>
+                                <div class="dateEmptyView_bottom"></div>
+                            </div>
                             <img :src="item.smailUrl"/>
                         </div>
                     </div>
@@ -414,6 +420,7 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin-bottom: 1px;
     }
 
     .weekView {
@@ -434,23 +441,37 @@
     }
 
     .dateEmptyView {
-        width: 14%;
+        width: 14.28571%;
         color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-right: 1px solid #eeeeee;
-        border-bottom: 1px solid #eeeeee
+        position: relative;
+    }
+    .dateEmptyView_right{
+        width:1px;
+        height:100%;
+        background: #eeeeee;
+        position: absolute;
+        right:0;
+        top:0;
+    }
+    .dateEmptyView_bottom{
+        height:1px;
+        width: 100%;
+        background: #eeeeee;
+        position: absolute;
+        bottom:0;
+        left:0;
     }
 
     .dateView {
-        width: 14%;
+        width: 14.28571%;
         display: flex;
         background: #ffffff;
         flex-direction: column;
         justify-content: center;
-        border-right: 1px solid #eeeeee;
-        border-bottom: 1px solid #eeeeee
+        position: relative;
     }
 
     .dateView img {
