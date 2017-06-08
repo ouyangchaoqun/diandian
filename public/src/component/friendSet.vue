@@ -46,8 +46,8 @@
                 hour: '10',
                 minute: "20",
                 user: {},
-                isNotLookFriend:null,
-                isNotLookMe:null,
+                isNotLookFriend:false,
+                isNotLookMe:false,
                 memoNameLink:null
 
             }
