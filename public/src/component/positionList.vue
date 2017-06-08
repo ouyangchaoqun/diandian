@@ -1,4 +1,5 @@
 <template id="positionList">
+    <!--positionList-->
     <div class="positionList_box">
         <div>{{address}}</div>
         <ul>
@@ -19,8 +20,10 @@
             </li>
         </ul>
     </div>
+    <!--positionList end-->
 </template>
 <style>
+    /*positionList*/
     .positionList_box{
         overflow-y: auto;
     }
@@ -60,6 +63,7 @@
         color: #999999;
         line-height: 5px;
     }
+    /*positionList end*/
 </style>
 <script type="es6">
     import Bus from './bus.js';
@@ -78,6 +82,7 @@
             };
         },
         methods: {
+            //positionList
             getUrlLoc: function () {
                 return {
                     latitude: this.$route.query.latitude,
@@ -93,30 +98,6 @@
 
                 that.location.city = {name:city};
                 that.location.nearpois = nearPois;
-
-                //$('.positionList_box ul').html(data.join(''));
-                //选择默认
-//                var selectaddress = $('.loc em').html();
-//                if (selectaddress == '') {
-//                    selectaddress = emptyaddress;
-//                }
-//                $('.loclist li', locpage).each(function () {
-//                    var showaddress = $(this).data('showaddress');
-//                    if (selectaddress == showaddress) {
-//                        var dom = $(this);
-//                        if ($(this).hasClass('locother')) {
-//                            dom = $('.locother1', dom);
-//                        }
-//                        dom.append('<span class="weui-icon-success-no-circle" style="font-size: 18px;"></span>');
-//                        return false;
-//                    }
-//                })
-//                locpage.css('display', 'block');
-//                //
-//                $('.locList').click(function () {
-//                    $('.locList i').removeClass('loc_checked')
-//                    $(this).children('i').addClass('loc_checked')
-//                })
             },
             selectloc:function (i) {
                 this.location.selecindex = i;
@@ -134,8 +115,10 @@
                     return this.location.nearpois[ix].name;
                 }
             }
+            //positionList
         },
         mounted: function () {
+            //positionList
             let that = this;
             window['geocoder'] = new qq.maps.Geocoder({
                 complete : function(result){
@@ -149,6 +132,7 @@
             window['geocoder'].getAddress(latLng);
 
             $('.positionList_box').height($('body').height());
+            //positionList  end
         }
     }
 </script>
