@@ -252,7 +252,15 @@
     background: #eeeeee;
     padding:0 10px;
 }
-
+.weui-picker__indicator {
+    width: 100%;
+    height: 34px;
+    position: absolute;
+    left: 0;
+    top: 102px;
+    z-index: 3;
+    line-height: 34px;
+}
 
 
 
