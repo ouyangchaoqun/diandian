@@ -334,6 +334,7 @@
                         var accuracy = res.accuracy; // 位置精度
 
                         that.showPositionList=true;
+                        var latLng = new qq.maps.LatLng(latitude, longitude);
                         window['geocoder'].getAddress(latLng);
                     },
                     cancel: function (res) {
