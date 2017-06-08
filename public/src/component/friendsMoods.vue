@@ -10,7 +10,7 @@
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
                         <span class="mood_state" :class="{'unhappy_txt_color':item.moodValue<=4,'happy_txt_color':item.moodValue>4}">{{item.moodValueText}}</span>
-                        <p class="mood_text">{{item.content}}</p>
+                        <p class="mood_text" v-html="formatContent(item.content)"></p>
                         <ul class="friendImgList" v-if="item.haspicture">
                                  <li   v-for="pic in item.pics">
                                     <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
@@ -57,7 +57,6 @@
 </template>
 
 <script type="text/javascript">
-
     import scroll from './lib/scroll.vue';
 
     let friends = {
@@ -256,6 +255,9 @@
                 }
 
 
+            },
+            formatContent:function (c) {
+                return xqzs.face.parse(c);
             }
 
         },

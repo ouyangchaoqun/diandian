@@ -10,7 +10,7 @@ let routers =
             name: 'PageTransition',
             component: PageTransition, // 引入页面切换组件
             children: [
-                require('./routes/writeMood'),
+                require('./routes/addMood'),
                 require('./routes/index'),
                 require('./routes/calendar'),
                 require('./routes/me'),

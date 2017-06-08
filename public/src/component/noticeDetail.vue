@@ -4,7 +4,7 @@
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
                 <div class="moodState">{{mood.moodValueText}}</div>
-                <div class="moodContext">{{mood.content}}</div>
+                <div class="moodContext" v-html="formatContent(mood.content)"></div>
                 <template v-if="Date.parse(new Date()) / 1000-mood.addTime<=20*60 && (mood.content=='' || mood.content==null)  ">
                     <router-link :to=editurl+mood.id class="editMood">
                         20分钟内可以补充文字和图片
@@ -85,11 +85,11 @@
         data() {
             return {
                 data: null,
-                replies:[],
-                cares:[],
-                mood:{},
-                user:{},
-                editurl:'/myCenter/myIndex/Edit?id='
+                replies: [],
+                cares: [],
+                mood: {},
+                user: {},
+                editurl: '/myCenter/myIndex/Edit?id='
 
             }
         },
@@ -100,17 +100,17 @@
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'mood/care/query/comment/'+_this.$route.query.moodId,
+                url: web.API_PATH + 'mood/care/query/comment/' + _this.$route.query.moodId,
             }).then(function (data) {
-                if (data.data.status==1) {
+                if (data.data.status == 1) {
 
-                    _this.data= data.data.data;
-                    _this.replies= _this.data.reply;
-                    _this.cares= _this.data.care;
-                    _this.mood= _this.data.mood;
+                    _this.data = data.data.data;
+                    _this.replies = _this.data.reply;
+                    _this.cares = _this.data.care;
+                    _this.mood = _this.data.mood;
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
-                    _this.mood.time=xqzs.dateTime.formatTime( _this.mood.addTime);
+                    _this.mood.time = xqzs.dateTime.formatTime(_this.mood.addTime);
                 }
                 _this.$nextTick(function () {
                     myResizePicture();//渲染完成
@@ -133,54 +133,58 @@
             });
 
         },
-        methods:{
-            replyOrDel:function (userId,id,index) {
+        methods: {
+            replyOrDel: function (userId, id, index) {
                 let vm = this;
                 console.log(this.user);
-                if(userId===vm.user.id){
-                    vm._delComment(id,index);
-                }else{
-                    vm.addComment(id,index);
+                if (userId === vm.user.id) {
+                    vm._delComment(id, index);
+                } else {
+                    vm.addComment(id, index);
                 }
             },
 
 
-
-            _delComment(id,index){
+            _delComment(id, index){
                 let vm = this;
-                xqzs.weui.actionSheet("删除我的评论?","删除",function () {
+                xqzs.weui.actionSheet("删除我的评论?", "删除", function () {
                     ///删除操作
-                    let url  = web.API_PATH+ "mood/reply/_userId_/"+id;
+                    let url = web.API_PATH + "mood/reply/_userId_/" + id;
                     vm.$http.delete(url)
-                            .then((data) => {
-                                if (data.data.status === 1) {
-                                    vm.replies[index].isDel = true;
-                                    vm.mood.replycount=  vm.mood.replycount-1;
-                                   // vm.$set(vm.replies, index, vm.replies[index])
-                                } else {
-                                    xqzs.weui.toast("fail", "删除失败", function () {
-                                    });
-                                }
-                            })
-                            .catch((response) => {
+                        .then((data) => {
+                            if (data.data.status === 1) {
+                                vm.replies[index].isDel = true;
+                                vm.mood.replycount = vm.mood.replycount - 1;
+                                // vm.$set(vm.replies, index, vm.replies[index])
+                            } else {
+                                xqzs.weui.toast("fail", "删除失败", function () {
+                                });
+                            }
+                        })
+                        .catch((response) => {
 
-                            });
+                        });
 
 
-                },function () {
+                }, function () {
                     //取消
                 })
             },
-            addComment(id,index){
+            addComment(id, index){
                 let vm = this;
 
-                let edithoder="";
-                edithoder= vm.replies[index].from_nickName;
+                let edithoder = "";
+                edithoder = vm.replies[index].from_nickName;
 
-                xqzs.mood.actionSheetEdit("取消","发送",function (v) {
-                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.mood.id,"userId":null,"replyId":id,"content":v}).then(response => {
-                        if(response.data.status===1){
-                            xqzs.weui.toast("success","提交成功",function () {
+                xqzs.mood.actionSheetEdit("取消", "发送", function (v) {
+                    vm.$http.put(web.API_PATH + 'mood/reply/add', {
+                        "moodId": vm.mood.id,
+                        "userId": null,
+                        "replyId": id,
+                        "content": v
+                    }).then(response => {
+                        if (response.data.status === 1) {
+                            xqzs.weui.toast("success", "提交成功", function () {
                             });
                             vm.mood.replycount = response.data.data.mood.replycount;
                             vm.replies.push(response.data.data.reply);
@@ -192,10 +196,10 @@
                     });
                     console.log(v)
 
-                },function (v) {
+                }, function (v) {
                     console.log(v)
                     //取消
-                },"回复 " +edithoder)
+                }, "回复 " + edithoder)
             },
             showBigImg: function (list, curr) {
 
@@ -212,37 +216,33 @@
                 });
 
             },
-        delMoodContent:function(id){
-            let _this=this;
-            let url  = web.API_PATH+ "mood/clean/content/_userId_/"+id;
-            xqzs.weui.dialog("", "确定删除吗？", function () {
+            delMoodContent: function (id) {
+                let _this = this;
+                let url = web.API_PATH + "mood/clean/content/_userId_/" + id;
+                xqzs.weui.dialog("", "确定删除吗？", function () {
 
-            }, function () {
-                _this.$http.delete(url).then(
-
+                }, function () {
+                    _this.$http.delete(url).then(
                         (data) => {
                             if (data.data.status === 1) {
-                                _this.mood.content='';
+                                _this.mood.content = '';
 
                             } else {
                                 xqzs.weui.toast("fail", "删除失败", function () {
                                 });
                             }
                         }
-                );
+                    );
 
-            });
+                });
 
 
+            },
+            formatContent: function (c) {
+                return xqzs.face.parse(c);
+            }
         }
-
-
-
     }
-    }
-
-
-
 
 </script>
 

@@ -31,7 +31,7 @@
                             </router-link>
                         </template>
                         <template v-if=" (item.content!=''&& item.content!=null)  ">
-                            <div class="moodContext">{{item.content}}</div>
+                            <div class="moodContext" v-html="formatContent(item.content)"></div>
                             <div class="moodPhotoLists" v-if="item.haspicture">
                                 <div class="moodPhotoList" v-for="pic in item.pics">
                                     <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
@@ -341,8 +341,10 @@
                 }, (response) => {
                     console.log('error');
                 });
+            },
+            formatContent:function (c) {
+                return xqzs.face.parse(c);
             }
-
 
         },
         mounted: function () {
@@ -357,6 +359,7 @@
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
                 }
+                console.log(_this.user);
             }, function (error) {
                 //error
             });
