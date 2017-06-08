@@ -14,7 +14,7 @@
 						<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
 							{{newNotice.moodcontent}}
 						</div>
-						<img v-else  :src="newNotice.moodValuePic"  />
+						<img v-else  :src="newNotice.moodValuePic" class="img" />
 					</div>
 			</router-link>
 		</v-scroll>
@@ -75,19 +75,39 @@
 		font-size: 12px;
 	}
 	.careMe_content{
-		height:50px;
-		width: 50px;
-		background: #f5f5f5;
+		height:60px;
+		width: 60px;
+		overflow: hidden;
+		background: #f9f9f9;
 		float: right;
 		margin-top: 8px;
 		position: relative;
+		font-size: 12px;
+	}
+
+	.careMe_content div{
+		margin:2px;
+		font-size: 12px;
+		word-break: break-all;
+		word-wrap: break-word;
+		overflow: hidden;
+		color: #666;
 	}
 	.careMe_content img{
-		height:50px;
-		width:50px;
+		width: 60px;
 		display: block;
 
 	}
+
+	.careMe_content img.img{
+		width: 30px;
+		height: 30px;
+		margin-top: 15px;
+		margin-left: 15px;
+		display: block;
+
+	}
+
 	.noCare_box{
 		position: relative;
 		height:100%;
