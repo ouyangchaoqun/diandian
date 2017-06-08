@@ -29,12 +29,12 @@
 
 <template id="Edit">
     <div>
-        <div class="edit_box" v-if="!hide">
+        <div v-if="!showPositionList" class="edit_box">
             <div class="addEdit">
-                <img src="../images/list_mood_09.png" alt="">
+                <img v-bind:src="moodImage">
                 <div class="addEdit_right">
-                    <div class="addEdit_status">超级开心</div>
-                    <div class="addEdit_scene">工作</div>
+                    <div class="addEdit_status">{{moodText}}</div>
+                    <div class="addEdit_scene">{{scenesText}}</div>
                 </div>
             </div>
 
@@ -42,7 +42,7 @@
             <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img src="../images/dz_nor.png" alt=""></div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
-        <div class="edit_option" v-if="!hide">
+        <div v-if="!showPositionList" class="edit_option">
             <div>
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
@@ -61,8 +61,8 @@
                     v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
 
         </div>
-        <div :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 1"></div>
-        <div :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
+        <div v-if="!showPositionList" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 1"></div>
+        <div v-if="!showPositionList" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
                 <div class="weui-actionsheet__cell" @click = "getCam()" id="btn">拍照</div>
                 <div class="weui-actionsheet__cell" @click = "getPho()">从手机相册选择</div>
@@ -72,7 +72,7 @@
             </div>
         </div>
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
-        <div class="swiper-container edit_lists" style="height:280px;">
+        <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slide"><!--optionFrist-->
                     <div class="optionFrist_box">
@@ -236,7 +236,7 @@
             </div>
         </div>
         <!--positionList-->
-        <div class="positionList_box">
+        <div class="positionList_box" v-if="showPositionList">
             <div>{{address}}</div>
             <ul>
                 <li class="locList" @click="selectloc(-2)">
@@ -257,30 +257,30 @@
             </ul>
         </div>
         <!--positionList end-->
-
     </div>
 </template>
 
 <script type="es6">
     import insert from "../js/insert"
-    import Bus from './bus.js';
     var Edit={
         template:'#Edit'
     };
     export default {
         data() {
             return {
+                showPositionList:false,
                 moodcontent: '',
                 contminlength: 8,
                 maxchars:140,
                 levelchars:140,
                 cansubmit: false,
-                moodid: 0,
+                moodValue:0,
+                scenesId:0,
                 isopen: 1,
                 address: '',
                 showAddress:'点击获取所在位置',
                 pictures: [],
-                hide:false,
+                pictureids: [] ,
                 buttons:{
                     'first':{
                         'curr':web.IMG_PATH+'zp_nor.png',
@@ -313,8 +313,7 @@
                     uploadbase64url: web.BASE_PATH + 'api/upfilebase64',
                     aliossgeturl: web.BASE_PATH + 'aliyunapi/oss_getsetting'
                 },
-                alioss: null,
-                pictures: [] ,               //optionFrist end
+                alioss: null,//optionFrist end
                 location:{
                     selecindex:-2,
                     city:{},
@@ -325,17 +324,17 @@
         methods: {
             getLoc: function () {
                 let that = this;
+
                 wx.getLocation({
-                    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                    type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                     success: function (res) {
                         var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                         var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                         var speed = res.speed; // 速度，以米/每秒计
                         var accuracy = res.accuracy; // 位置精度
 
-                        that.$router.push({path:'/positionList?latitude='+latitude+'&longitude='+longitude});
-                        that.hide = true;
-                        console.log(latitude, longitude)
+                        that.showPositionList=true;
+                        window['geocoder'].getAddress(latLng);
                     },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
@@ -368,15 +367,18 @@
             submitMood:function () {
                 let that = this;
                 var postdata = {
-                    id: that.moodid,
+                    moodValue:that.moodValue,
+                    scenesId:that.scenesId,
                     isOpen: that.isopen,
                     userId: '_userId_',
                     address: that.address,
                     content: that.moodcontent,
-                    pictures: that.pictures
+                    pictures: that.pictureids
                 };
+                console.info(postdata);
+                return false;
                 that.cansubmit = false;
-                that.$http.post(web.API_PATH + 'mood/append',postdata)
+                that.$http.post(web.API_PATH + 'mood/add',postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
                         ///myCenter/myIndex
@@ -391,7 +393,7 @@
                     this.showAddress = this.address;
                 }
             },
-                //optionFrist
+            //optionFrist
             showAction:function () {
                 this.maskFlag = true
                 this.activeFlag = true
@@ -454,13 +456,13 @@
             },
             updatePics:function () {
                 var that = this;
-                var pics = [];
+                var picids = [];
                 for (var i = 0, l = that.pictures.length; i < l; i++) {
                     if (that.pictures[i].image) {
-                        pics.push(that.pictures[i].image.id)
+                        picids.push(that.pictures[i].image.id)
                     }
                 }
-                Bus.$emit('picturesChange', pics);
+                that.pictureids = picids;
             },
             //positionList
             getUrlLoc: function () {
@@ -481,10 +483,11 @@
             },
             selectloc:function (i) {
                 this.location.selecindex = i;
-                //$('#txt_address').val(this.getaddress(i));
-                Bus.$emit('selectaddress', this.getaddress(i));
-                this.$router.back();
-                //this.$router.push({path:'/positionList?latitude='+latitude+'&longitude='+longitude});
+
+                that.address = this.getaddress(i);
+                that.setShowAddress();
+
+                that.showPositionList = false;
             },
             getaddress:function (ix) {
                 if(ix < -1)
@@ -494,31 +497,27 @@
                 }else{
                     return this.location.nearpois[ix].name;
                 }
-            }
+            },
             //positionList
+            checkInit:function () {
+                let that = this;
+                that.moodValue = that.$route.query.moodValue;
+                that.scenesId = that.$route.query.scenesId;
+                if (typeof that.moodValue == 'undefined' || !/\d+/.test(that.moodValue)
+                    || typeof that.scenesId == 'undefined' || !/\d+/.test(that.scenesId)) {
+                    return false;
+                }
+                return true;
+            }
         },
         mounted: function () {
             let that = this;
-            that.moodid = that.$route.query.id;
-//            if(typeof that.moodid == 'undefined' || !/\d+/.test(that.moodid)){
-//                that.$router.push({path:'/positionList'});
-//                return;
-//            }
+            if(!that.checkInit()){
+                that.$router.push({path:'/'});
+                return;
+            }
+            //
 
-            Bus.$on('selectaddress', address => {
-                that.address = address;
-                that.setShowAddress();
-                that.hide = false;
-            });
-
-            Bus.$on('moodContentChange',newcontent=>{
-                that.moodcontent = newcontent;
-                that.listenContent();
-            });
-
-            Bus.$on('picturesChange',pictures=>{
-                that.pictures = pictures;
-            });
             var tabsSwiper = new Swiper('.edit_lists',{
                 speed:500
             });
@@ -556,7 +555,8 @@
 
                         $('.edit_num').text(max-$('#edit_mood').val().length);
 
-                        Bus.$emit('moodContentChange',$('#edit_mood').val());
+                        //that.moodcontent = $('#edit_mood').val();
+                        that.listenContent();
                     }
                 });
             });
@@ -575,17 +575,25 @@
             //positionList
             window['geocoder'] = new qq.maps.Geocoder({
                 complete : function(result){
-
                     that.getaddresscallback(result);
                 }
             });
-
-            var loc = that.getUrlLoc();
-            var latLng = new qq.maps.LatLng(loc.latitude, loc.longitude);
-            window['geocoder'].getAddress(latLng);
-
-            $('.positionList_box').height($('body').height());
             //positionList  end
+        },
+        computed:{
+            moodImage:function () {
+                var v = this.moodValue;
+                if (v < 10) {
+                    v = '0' + v;
+                }
+                return web.IMG_PATH + 'list_mood_' + v + '.png';
+            },
+            moodText:function () {
+                return xqzs.mood.moodValueText[this.moodValue];
+            },
+            scenesText:function () {
+                return xqzs.mood.moodScenes[this.scenesId];
+            }
         }
     }
 </script>
