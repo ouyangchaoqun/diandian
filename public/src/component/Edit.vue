@@ -376,7 +376,8 @@
             deletePic:function (i) {
                 console.info('delete:'+i);
                 console.info(this.pictures);
-                this.pictures.shift(i);
+                this.pictures = this.pictures.slice(0, i).concat(this.pictures.slice(i + 1, this.pictures.length));
+                console.info(this.pictures);
                 this.updatePics();
             },
             smallPic:function (src) {
