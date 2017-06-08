@@ -1,32 +1,3 @@
-<style>
-    .addEdit{
-        height:65px;
-        background: pink;
-        margin-bottom:15px;
-    }
-    .addEdit img{
-        width:40px;
-        height:40px;
-        margin-left: 15px;
-        float: left;
-        margin-top:12px;
-    }
-    .addEdit_right{
-        float: left;
-        margin-left:13px;
-        margin-top:6px;
-    }
-    .addEdit_status{
-        color: #fc6130;
-        font-size: 18px;
-        margin-bottom: 2px;
-    }
-    .addEdit_scene{
-        color: #333333;
-        font-size: 13px;
-    }
-</style>
-
 <template id="Edit">
     <div>
         <div v-if="!showPositionList" class="edit_box">
@@ -76,7 +47,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide"><!--optionFrist-->
                     <div class="optionFrist_box">
-                        <!--<div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
+                        <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
                                 <div class="weui-loading"></div>
                             </div>
@@ -85,9 +56,9 @@
                                 <img v-bind:src="smallPic(pic.image.path)" @click="viewBigPics(pic.image.path)"/>
                             </div>
                         </div>
-                        <div v-if="canupload" class="item item-up-btn">-->
+                        <div v-if="canupload" class="item item-up-btn">
                             <img class="optionAdd" src="../images/tjzp.gif" alt="" @click="showAction()">
-                        <!--</div>-->
+                        </div>
                     </div>
                 </div>
                 <div class="swiper-slide"><!--optionSecond-->
@@ -237,7 +208,6 @@
         </div>
         <!--positionList-->
         <div class="positionList_box" v-if="showPositionList">
-            <div>{{address}}</div>
             <ul>
                 <li class="locList" @click="selectloc(-2)">
                     <div class="noShow">不显示位置</div>
@@ -404,7 +374,10 @@
                 this.maskFlag = false
             },
             deletePic:function (i) {
-                this.pictures.shift(i);
+                console.info('delete:'+i);
+                console.info(this.pictures);
+                this.pictures = this.pictures.slice(0, i).concat(this.pictures.slice(i + 1, this.pictures.length));
+                console.info(this.pictures);
                 this.updatePics();
             },
             smallPic:function (src) {
@@ -443,6 +416,7 @@
                     for(var i=0;i<filecount;i++){
                         that._showloadingpic(id+i);
                     }
+                    that.hideAction();
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
                 },function (e) {
@@ -466,12 +440,6 @@
                 that.pictureids = picids;
             },
             //positionList
-            getUrlLoc: function () {
-                return {
-                    latitude: this.$route.query.latitude,
-                    longitude: this.$route.query.longitude
-                };
-            },
             getaddresscallback: function (result) {
                 var that = this;
                 var emptyaddress = '所在位置';
@@ -484,11 +452,9 @@
             },
             selectloc:function (i) {
                 this.location.selecindex = i;
-
-                that.address = this.getaddress(i);
-                that.setShowAddress();
-
-                that.showPositionList = false;
+                this.address = this.getaddress(i);
+                this.setShowAddress();
+                this.showPositionList = false;
             },
             getaddress:function (ix) {
                 if(ix < -1)
@@ -594,6 +560,9 @@
             },
             scenesText:function () {
                 return xqzs.mood.moodScenes[this.scenesId];
+            },
+            canupload:function () {
+                return this.pictures.length < this.maxPhotoCount;
             }
         }
     }
@@ -1053,7 +1022,6 @@
     /*positionList*/
     .positionList_box{
         overflow-y: auto;
-        display: none;
     }
     .locList{
         height:50px;
