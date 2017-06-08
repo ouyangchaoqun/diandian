@@ -14,6 +14,7 @@
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div v-if="!showPositionList" class="edit_option">
+            <div style="display: none"></div>
             <div>
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
@@ -45,7 +46,10 @@
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
         <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><!--optionFrist-->
+                <div class="swiper-slide swiper-no-swiping">
+                    &nbsp;
+                </div>
+                <div class="swiper-slide swiper-no-swiping"><!--optionFrist-->
                     <div class="optionFrist_box">
                         <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
@@ -201,7 +205,7 @@
                     </div>
 
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide swiper-no-swiping">
                     搞笑图片
                 </div>
             </div>
@@ -481,7 +485,8 @@
             //
 
             var tabsSwiper = new Swiper('.edit_lists',{
-                speed:500
+                speed:500,
+                noSwiping:true
             });
             $(".edit_option div").on('mousedown',function(){
                 tabsSwiper.slideTo($(this).index());
@@ -562,6 +567,34 @@
         }
     }
 </script>
+<style>
+    .addEdit{
+        height:65px;
+        background: pink;
+        margin-bottom:15px;
+    }
+    .addEdit img{
+        width:40px;
+        height:40px;
+        margin-left: 15px;
+        float: left;
+        margin-top:12px;
+    }
+    .addEdit_right{
+        float: left;
+        margin-left:13px;
+        margin-top:6px;
+    }
+    .addEdit_status{
+        color: #fc6130;
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+    .addEdit_scene{
+        color: #333333;
+        font-size: 13px;
+    }
+</style>
 <style>
     .optionFrist_box{
         position: relative;
