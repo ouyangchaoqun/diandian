@@ -77,6 +77,17 @@ xqzs.face = {
     getAll: function () {
         return this.__all__;
     },
+    getFaceData:function (start,len) {
+        if( this._allexpount > start) {
+            var end = Math.min(start + len, this._allexpount);
+            var result = [];
+            for (var i = start; i < end; i++) {
+                result.push(this.__all__[i]);
+            }
+            return result;
+        }
+        return [];
+    },
     parse: function (content) {
         if (content && content != '') {
             return this._toParse(content);
