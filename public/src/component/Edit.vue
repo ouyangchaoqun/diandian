@@ -347,7 +347,7 @@
                     pictures: that.pictureids
                 };
                 that.cansubmit = false;
-                that.$http.post(web.API_PATH + 'mood/add',postdata)
+                that.$http.put(web.API_PATH + 'mood/add',postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
                         ///myCenter/myIndex
