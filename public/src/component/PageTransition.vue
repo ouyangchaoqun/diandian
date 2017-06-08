@@ -55,7 +55,9 @@
         background: #f5f5f5
     }
 
-
+    * {
+        -webkit-backface-visibility: hidden;
+    }
 
     /*.slide-left-enter, .slide-right-leave-active {*/
         /*!*opacity: 0;*!*/
@@ -70,42 +72,38 @@
         /*transform: translate(-150px, 0);*/
     /*}*/
 
-    /*.page-xqzs-left-enter-active {*/
-        /*animation-name: fold-in;*/
-        /*animation-duration: .4s;*/
-    /*}*/
-    /*.page-xqzs-left-leave-active {*/
-        /*animation-name: fold-out;*/
-        /*animation-duration: .8s;*/
-    /*}*/
+    .page-xqzs-left-enter-active {
+        animation-name: fold-in;
+        animation-duration: .4s;
+    }
+    .page-xqzs-left-leave-active {
+        animation-name: fold-out;
+        animation-duration: .8s;
+    }
 
-    /*.page-xqzs-right-enter-active {*/
-        /*animation-name: fold-right-in;*/
-        /*animation-duration: .4s;*/
-    /*}*/
-    /*.page-xqzs-right-leave-active {*/
-        /*animation-name: fold-right-out;*/
-        /*animation-duration: .8s;*/
-    /*}*/
+    .page-xqzs-right-enter-active {
+        animation-name: fold-right-in;
+        animation-duration: .4s;
+    }
+    .page-xqzs-right-leave-active {
+        animation-name: fold-right-out;
+        animation-duration: .8s;
+    }
     @keyframes fold-right-in {
         0% {
-            height: 100% !important;width: 100%!important;;
-            transform: translate3d(-100%, 0, 0);
+             transform: translate3d(-100%, 0, 0);
         }
 
         100% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(0, 0, 0);
         }
     }
     @keyframes fold-right-out {
         0% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(0%, 0, 0);
         }
 
         100% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(100%,0 , 0);
         }
     }
@@ -114,23 +112,19 @@
 
     @keyframes fold-in {
         0% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(100%, 0, 0);
         }
 
         100% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(0, 0, 0);
         }
     }
     @keyframes fold-out {
         0% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(0%, 0, 0);
         }
 
         100% {
-            height: 100% !important;width: 100%!important;;
             transform: translate3d(-100%,0 , 0);
         }
     }
