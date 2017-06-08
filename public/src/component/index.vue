@@ -35,14 +35,14 @@
             <v-banner></v-banner>
         </div>
         <!--banner end -->
-        <router-link :to='noticeUrl' class="weui-tabbar__item tab">
-            <div class="notice_box" v-if="notice.count">
-                <div class="notice" >
-                    <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
-                    <div>{{notice.count}}条新消息</div>
-                    <img class="goNotice" src="../images/goto.jpg" alt="">
-                </div>
+        <router-link to='/notice' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
+        <div class="notice_box">
+            <div class="notice" >
+                <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
+                <div>{{notice.count}}条新消息</div>
+                <img class="goNotice" src="../images/goto.jpg" alt="">
             </div>
+        </div>
         </router-link>
 
 
@@ -159,7 +159,7 @@
     </div>
 </template>
 
-<script type="text/javascript">
+<script type="es6">
     import banner from "./banner.vue"
     let myCenter = {
         template: '#myCenter'
@@ -173,8 +173,7 @@
                 friendMoodsSpe: null,
                 friendMoods: null,
                 notice:{count:0},
-                linkTo:"#",
-                noticeUrl:'/notice?time='+xqzs.dateTime.getTimeStamp(),
+                linkTo:"#"
             }
         },
         methods: {
@@ -290,17 +289,17 @@
             });
 
             this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'notice/find/new/_userId_',
-            }).then(function (data) {
-                if (data.data.data !== null) {
-                    _this.notice = eval(data.data.data);
-                    console.log(_this.notice);
-                }
-            }, function (error) {
-                //error
-            });
+				method: 'GET',
+				type: "json",
+				url: web.API_PATH + 'notice/find/new/_userId_',
+			}).then(function (data) {
+				if (data.data.data !== null) {
+					_this.notice = eval(data.data.data);
+					console.log(_this.notice);
+				}
+			}, function (error) {
+				//error
+			});
 
 
             if(_this.user.isLookFriend!==0){
@@ -347,7 +346,7 @@
                 if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
                     _this.myLastMood = eval(data.data.data);
                     _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-                    _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
+                     _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
                     _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
                     console.log(_this.myLastMood);
                 }
@@ -356,7 +355,7 @@
             });
         },
         components: {
-            "v-banner": banner
+           "v-banner": banner
         }
 
     }
@@ -455,24 +454,28 @@
     }
 
     .moodimg {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
         float: left;
-        margin-top: 16px;
-        margin-right: 30px;
+        margin-top: 17px;
+        margin-right: 20px;
     }
 
     .interaction {
         float: left;
         text-align: center;
-        padding-top: 13px;
+        padding-top: 15px;
         font-size: 13px;
         color: #aeaeae;
+        overflow: hidden;
     }
 
     .interaction img {
-        width: 26px;
-        height: 26px;
+        width: 20px;
+        height: 20px;
+    }
+    .interaction a{
+        height:20px;
     }
 
     .mycenterFill {
@@ -496,6 +499,10 @@
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
+        margin-bottom: 100px;
+    }
+    .share:active{
+        background: #eeeeee;
     }
     .notice_box{
         padding:10px;
