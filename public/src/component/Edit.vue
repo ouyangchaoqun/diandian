@@ -295,7 +295,6 @@
                     pictures: that.pictureids
                 };
                 console.info(postdata);
-                return false;
                 that.cansubmit = false;
                 that.$http.put(web.API_PATH + 'mood/add',postdata)
                     .then(function (bt) {
