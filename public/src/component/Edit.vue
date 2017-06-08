@@ -187,13 +187,13 @@
                 contminlength: 8,
                 maxchars:140,
                 levelchars:140,
-                cansubmit: false,
+                cansubmit: true,
                 moodValue:0,
                 scenesId:0,
                 isopen: 1,
                 address: '',
                 showAddress:'点击获取所在位置',
-                pictures: [{isloading:false,image:{path:'http://116.62.51.218:8092/data/upload/1/201706/081641330498hoh.png'}}],
+                pictures: [],
                 pictureids: [] ,
                 buttons:{
                     'first':{
@@ -259,7 +259,6 @@
             },
             listenContent: function () {
                 var length = this.moodcontent.length;
-                this.cansubmit = this.moodcontent.length >= this.contminlength;
                 if(length > this.maxchars){
                     this.moodcontent = this.moodcontent.substring(0,this.maxchars);
                     this.levelchars = 0;
@@ -276,7 +275,9 @@
                 }
                 //
                 if(indexcode == 'first'){
-                    that. showAction();
+                    if(that.pictures.length == 0){
+                        that. showAction();
+                    }
                 }
             },
             changeisopen:function () {
@@ -285,6 +286,9 @@
             },
             submitMood:function () {
                 let that = this;
+                if(!that.cansubmit){
+                    return;
+                }
                 var postdata = {
                     moodValue:that.moodValue,
                     scenesId:that.scenesId,
