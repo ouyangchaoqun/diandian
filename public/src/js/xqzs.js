@@ -271,7 +271,7 @@ var xqzs = {
             "超级开心"//10
         ],
         moodScenes:[
-'','学习教育','工作事业','健康','经济','家庭','恋爱婚姻','休闲娱乐','人际关系','天气','生活','运动','其他'
+'','学习教育','工作事业','经济','健康','家庭','恋爱婚姻','休闲娱乐','人际关系','天气','生活','运动','其他'
         ],
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
