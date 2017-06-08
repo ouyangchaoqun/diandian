@@ -325,7 +325,7 @@
                 this.updatePics();
             },
             smallPic:function (src) {
-                return src + xqzs.oss.Size.fill(78,78);
+                return src + xqzs.oss.Size.fill(53,53);
             },
             viewBigPics:function (src) {
                 var pics = [];
@@ -449,8 +449,6 @@
                 url:this.uploadpicinfo.aliossgeturl,
                 token:this.uploadpicinfo.token
             });
-
-            this.pictures = this.frmparentpictures || [];
             //optionFrist end
 
             //optionSecond
@@ -570,9 +568,9 @@
     .weui-mask{
         background: rgba(0,0,0,0.4);
     }
-    .upload-images{}
+    .upload-images{float: left}
     .upload-images .item,.item-up-btn{float: left;width: 53px;height: 53px;}
-    .upload-images .item{border: solid 1px #ccc;margin-top: 20px;margin-right:20px;}
+    .upload-images .item{margin-top: 0px;margin-right:20px;}
     /*.item-up-btn{text-align: center;padding-top: 13px;height: 67px}*/
     .weui-loading{width: 30px;height: 30px;margin: 12px 0 0 12px;}
     .upload-images .item-image{position: relative}
@@ -583,7 +581,7 @@
         height: 20px;
         background-image: url(../images/writer_icon_fork.png);
         background-size: 20px;}
-    .upload-images .item-image image{width: 78px;height: 78px;}
+    .upload-images .item-image image{width: 53px;height: 53px;}
 
     .edit_box{
         height:13.470588235294118rem;
