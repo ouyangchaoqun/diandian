@@ -466,12 +466,6 @@
                 that.pictureids = picids;
             },
             //positionList
-            getUrlLoc: function () {
-                return {
-                    latitude: this.$route.query.latitude,
-                    longitude: this.$route.query.longitude
-                };
-            },
             getaddresscallback: function (result) {
                 var that = this;
                 var emptyaddress = '所在位置';
@@ -484,11 +478,9 @@
             },
             selectloc:function (i) {
                 this.location.selecindex = i;
-
-                that.address = this.getaddress(i);
-                that.setShowAddress();
-
-                that.showPositionList = false;
+                this.address = this.getaddress(i);
+                this.setShowAddress();
+                this.showPositionList = false;
             },
             getaddress:function (ix) {
                 if(ix < -1)
@@ -1053,7 +1045,6 @@
     /*positionList*/
     .positionList_box{
         overflow-y: auto;
-        display: none;
     }
     .locList{
         height:50px;
