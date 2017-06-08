@@ -413,6 +413,7 @@
                     for(var i=0;i<filecount;i++){
                         that._showloadingpic(id+i);
                     }
+                    hideAction();
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
                 },function (e) {
@@ -563,34 +564,6 @@
         }
     }
 </script>
-<style>
-    .addEdit{
-        height:65px;
-        background: pink;
-        margin-bottom:15px;
-    }
-    .addEdit img{
-        width:40px;
-        height:40px;
-        margin-left: 15px;
-        float: left;
-        margin-top:12px;
-    }
-    .addEdit_right{
-        float: left;
-        margin-left:13px;
-        margin-top:6px;
-    }
-    .addEdit_status{
-        color: #fc6130;
-        font-size: 18px;
-        margin-bottom: 2px;
-    }
-    .addEdit_scene{
-        color: #333333;
-        font-size: 13px;
-    }
-</style>
 <style>
     .optionFrist_box{
         position: relative;
