@@ -155,10 +155,9 @@
 
         },
         mounted(){
+            //optionSecond
             let max = 140;
-
             var that = this;
-
             $(document).ready(function(){
                 $('.expLists a').click(function (event) {
 
@@ -191,7 +190,7 @@
                 //console.log(newContent)
                 $('#edit_mood').val(newContent)
             })
-//alert(this.message);
+            //optionSecond   end
         }
     }
 

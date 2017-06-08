@@ -98,18 +98,6 @@
             }, response => {
                 // error
             });
-
-
-
-
-
-
-
-
-
-
-
-
             var tabsSwiper = new Swiper('.swiper-container',{
                 speed:500,
                 onSlideChangeStart: function(){

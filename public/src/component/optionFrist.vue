@@ -122,6 +122,7 @@
             }
         },
         mounted:function () {
+            //optionFrist
             this.uploadpicinfo = {
                 token: xqzs.string.guid(),
                 smallpic: xqzs.constant.PIC_SMALL,
@@ -136,6 +137,7 @@
             });
 
             this.pictures = this.frmparentpictures || [];
+            //optionFrist end
         },
         computed:{
             canupload:function () {
