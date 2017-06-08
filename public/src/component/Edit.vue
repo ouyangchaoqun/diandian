@@ -193,7 +193,7 @@
                 isopen: 1,
                 address: '',
                 showAddress:'点击获取所在位置',
-                pictures: [],
+                pictures: [{isloading:false,image:{path:'http://116.62.51.218:8092/data/upload/1/201706/081641330498hoh.png'}}],
                 pictureids: [] ,
                 buttons:{
                     'first':{
@@ -325,7 +325,7 @@
                 this.updatePics();
             },
             smallPic:function (src) {
-                return src + xqzs.oss.Size.fill(53,53);
+                return src + xqzs.oss.Size.fill(65,65);
             },
             viewBigPics:function (src) {
                 var pics = [];
@@ -555,8 +555,8 @@
         left:1.4rem;
     }
     .optionAdd{
-        height: 53px;
-        width:53px;
+        height: 65px;
+        width:65px;
     }
     .weui-actionsheet__cell{
         font-size: 16px;
@@ -569,19 +569,13 @@
         background: rgba(0,0,0,0.4);
     }
     .upload-images{float: left}
-    .upload-images .item,.item-up-btn{float: left;width: 53px;height: 53px;}
+    .upload-images .item-image img,.upload-images .item,.item-up-btn{width: 65px;height: 65px;}
+    .upload-images .item,.item-up-btn{float: left}
     .upload-images .item{margin-top: 0px;margin-right:20px;}
     /*.item-up-btn{text-align: center;padding-top: 13px;height: 67px}*/
     .weui-loading{width: 30px;height: 30px;margin: 12px 0 0 12px;}
     .upload-images .item-image{position: relative}
-    .upload-images .item-image .del-img{position: absolute;
-        right: 0;
-        top: 0;
-        width: 20px;
-        height: 20px;
-        background-image: url(../images/writer_icon_fork.png);
-        background-size: 20px;}
-    .upload-images .item-image image{width: 53px;height: 53px;}
+    .upload-images .item-image .del-img{position: absolute;right: -10px;top: -10px;width: 20px;height: 20px;background-image: url(../images/close.png);background-size: 20px;}
 
     .edit_box{
         height:13.470588235294118rem;
