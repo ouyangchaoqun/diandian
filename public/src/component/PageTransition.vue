@@ -56,7 +56,11 @@
     }
 
     * {
-        -webkit-backface-visibility: hidden;
+        backface-visibility:hidden;
+        -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
+        -moz-backface-visibility:hidden; 	/* Firefox */
+        -ms-backface-visibility:hidden; 	/* Internet Explorer */
+        -webkit-transform-style: preserve-3d;
     }
 
     /*.slide-left-enter, .slide-right-leave-active {*/
