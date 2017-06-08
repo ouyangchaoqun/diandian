@@ -261,7 +261,7 @@ var xqzs = {
 
         moodValueText: ["", "超级不开心",//1
             "很不开心",//2
-            "不开心",//2
+            "不开心",//3
             "郁闷",//4
             "一般",//5
             "小开心",//6
@@ -269,6 +269,9 @@ var xqzs = {
             "很开心",//8
             "超级开心",//9
             "超级开心"//10
+        ],
+        moodScenes:[
+'','学习教育','工作事业','健康','家庭','恋爱婚姻','休闲娱乐','人际关系','天气','生活','运动','其他','...'
         ],
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
