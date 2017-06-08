@@ -9,143 +9,29 @@
                 <div class="mood_left">
                     <div class="moodBox_header">此刻心情</div>
                     <div class="weui-grids grids_box">
-                        <a href="" class="weui-grid">
+                        <a class="weui-grid" v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
                             <div class="grid_top">
-                                <img src="../images/list_mood_09.png" alt="">
+                                <img :src="moodSrc(mood.src)" alt="">
                             </div>
-                            <p class="weui-grid__label grid_bottom grid_row1">超级开心</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_08.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row1">很开心</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_07.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row1">开心</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_06.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row2">小开心</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_05.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row2">一般</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_04.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row2">郁闷</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_03.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row3">不开心</p>
-                        </a>
-
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_02.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row3">很不开心</p>
-                        </a>
-                        <a href="" class="weui-grid">
-                            <div class="grid_top">
-                                <img src="../images/list_mood_01.png" alt="">
-                            </div>
-                            <p class="weui-grid__label grid_bottom grid_row3">超级不开心</p>
+                            <p :class="{'weui-grid__label grid_bottom':true,'grid_row1':mood.class=='grid_row1','grid_row2':mood.class=='grid_row2','grid_row3':mood.class=='grid_row3'}" >
+                                {{mood.text}}</p>
                         </a>
                     </div>
                 </div>
-
                 <div class="scene_box">
                     <div>
                         <div class="moodBox_header">心情场景</div>
                         <div class="weui-grids grids_box">
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/study.png" alt="">
+                            <a v-for="scenes in scenesList" class="weui-grid grid_25" @click="chooseData('scenesId',scenes.value)">
+                                <div class="scene_top" v-if="scenes.haspic">
+                                    <img :src="moodSrc(scenes.src)">
                                 </div>
-                                <p class="weui-grid__label grid_bottom scene_col">学习教育</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/work.png" alt="">
+                                <div class="scene_top" v-if="!scenes.haspic">
+                                    <img/>
                                 </div>
-                                <p class="weui-grid__label grid_bottom scene_col">工作事业</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/healthy.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">健康</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/home.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">家庭</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/love.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">恋爱婚姻</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/arder.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">休闲娱乐</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/interpersonal.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">人际关系</p>
-                            </a>
-
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/weather.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">天气</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/life.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">生活</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/sport.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">运动</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img src="../images/other.png" alt="">
-                                </div>
-                                <p class="weui-grid__label grid_bottom scene_col">其他</p>
-                            </a>
-                            <a href="" class="weui-grid grid_25">
-                                <div class="scene_top">
-                                    <img>
-                                </div>
-                                <p class="weui-grid__label grid_bottom ">...</p>
+                                <p :class="{'weui-grid__label grid_bottom':true,'scene_col':scenes.haspic}">{{scenes.text}}</p>
                             </a>
                         </div>
-
                     </div>
 
                 </div>
@@ -259,68 +145,53 @@
         },
         data() {
             return {
-                valMood1: null,
-                valMood2: null,
-                valMood3: null,
-                valMood4: null,
-                valMood5: null,
-                valMood6: null,
-                valMood7: null,
-                valMood8: null,
-                valMood9: null,
-                isClick:false
-
+                moodValues:[
+                    {value:9,src:'list_mood_09.png',class:'grid_row1',text:'超级开心'},
+                    {value:8,src:'list_mood_08.png',class:'grid_row1',text:'很开心'},
+                    {value:7,src:'list_mood_07.png',class:'grid_row1',text:'开心'},
+                    {value:6,src:'list_mood_06.png',class:'grid_row2',text:'小开心'},
+                    {value:5,src:'list_mood_05.png',class:'grid_row2',text:'一般'},
+                    {value:4,src:'list_mood_04.png',class:'grid_row2',text:'郁闷'},
+                    {value:3,src:'list_mood_03.png',class:'grid_row3',text:'不开心'},
+                    {value:2,src:'list_mood_02.png',class:'grid_row3',text:'很不开心'},
+                    {value:1,src:'list_mood_01.png',class:'grid_row3',text:'超级不开心'}
+                ],
+                scenesList:[
+                    {value:1,src:'study.png',haspic:true,text:'学习教育'},
+                    {value:2,src:'work.png',haspic:true,text:'工作事业'},
+                    {value:3,src:'healthy.png',haspic:true,text:'健康'},
+                    {value:4,src:'home.png',haspic:true,text:'家庭'},
+                    {value:5,src:'love.png',haspic:true,text:'恋爱婚姻'},
+                    {value:6,src:'arder.png',haspic:true,text:'休闲娱乐'},
+                    {value:7,src:'interpersonal.png',haspic:true,text:'人际关系'},
+                    {value:8,src:'weather.png',haspic:true,text:'天气'},
+                    {value:9,src:'life.png',haspic:true,text:'生活'},
+                    {value:10,src:'sport.png',haspic:true,text:'运动'},
+                    {value:11,src:'other.png',haspic:true,text:'其他'},
+                    {value:12,src:'about:blank',haspic:false,text:'...'}
+                ],
+                choosedData:{}
             }
         },
         methods: {
-            add: function (val) {
-                let _this = this;
-                if(!_this.isClick){
-                    this.$http.put(web.API_PATH + 'mood/add', {"moodValue": val, "userId": "omg"}).then(function (data) {//es5写法
-                        if (data.data.status === 1) {
-
-                            if (val === 1) {
-                                _this.valMood1 = true;
-                            }
-                            if (val === 2) {
-                                _this.valMood2 = true;
-                            }
-                            if (val === 3) {
-                                _this.valMood3 = true;
-                            }
-                            if (val === 4) {
-                                _this.valMood4 = true;
-                            }
-                            if (val === 5) {
-                                _this.valMood5 = true;
-                            }
-                            if (val === 6) {
-                                _this.valMood6 = true;
-                            }
-                            if (val === 7) {
-                                _this.valMood7 = true;
-                            }
-                            if (val === 8) {
-                                _this.valMood8 = true;
-                            }
-                            if (val === 9) {
-                                _this.valMood9 = true;
-                            }
-                            setTimeout(function () {
-                                location.href =  web.BASE_PATH +'#/myCenter/myIndex/Edit?id='+data.data.data.id;
-                            },350)
-
-                        }
-                    }, function (error) {
-                        //error
-                    });
+            moodSrc:function (src) {
+                return web.IMG_PATH+src;
+            },
+            chooseData:function (key,v) {
+                this.choosedData[key] = v;
+                //
+                var keys = ['moodValue','scenesId'];
+                var params = [];
+                for(var o in keys){
+                    if(typeof this.choosedData[keys[o]] == 'undefined'){
+                        return true;
+                    }
+                    params.push(keys[o]+'='+this.choosedData[keys[o]]);
                 }
-                _this.isClick=true;
-
+                location.href =  web.BASE_PATH +'#/myCenter/myIndex/Edit?'+params.join('&');
             }
         },
         mounted: function () {
-
            $('.grids_box a').click(function (event) {
                event.preventDefault();
                event.stopPropagation();
