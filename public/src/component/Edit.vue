@@ -374,6 +374,8 @@
                 this.maskFlag = false
             },
             deletePic:function (i) {
+                console.info('delete:'+i);
+                console.info(this.pictures);
                 this.pictures.shift(i);
                 this.updatePics();
             },
