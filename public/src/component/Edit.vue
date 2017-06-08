@@ -198,7 +198,7 @@
                 address: '',
                 showAddress:'点击获取所在位置',
                 pictures: [],
-                pictureids: [514,515,516] ,
+                pictureids: [] ,
                 buttons:{
                     'first':{
                         'curr':web.IMG_PATH+'zp_nor.png',
@@ -466,14 +466,17 @@
             //optionSecond
             $(document).ready(function(){
                 $('.expLists a').click(function (event) {
-                    if($('#edit_mood').val().length<that.maxchars){
-                        event.preventDefault();
-                        event.stopPropagation();
-                        var exp = $(this).attr('data')
-                        $("#edit_mood").insertContent(exp);
-                        //$('.edit_num').text(that.maxchars-$('#edit_mood').val().length);
-                        that.moodcontent = $('#edit_mood').val();
-                        that.listenContent();
+                    //
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if(that.moodcontent.length < that.maxchars){
+                        var _newvalue_ = that.moodcontent;
+                        var exp = $(this).attr('data');
+                        _newvalue_ +=exp;
+                        if(_newvalue_.length <= that.maxchars){
+                            that.moodcontent = _newvalue_;
+                            that.listenContent();
+                        }
                     }
                 });
             });
