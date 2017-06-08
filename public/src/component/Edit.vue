@@ -413,7 +413,7 @@
                     for(var i=0;i<filecount;i++){
                         that._showloadingpic(id+i);
                     }
-                    hideAction();
+                    that.hideAction();
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
                 },function (e) {
