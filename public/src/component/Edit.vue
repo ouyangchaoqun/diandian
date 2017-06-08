@@ -29,8 +29,7 @@
 
             <div><div class="optionFourth" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
             <div><button @click="submitMood()"
-                    v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true,'weui-btn_disabled':!cansubmit}"
-                    v-bind:disabled="!cansubmit" id="publishBtn">发布</button></div>
+                    v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
 
         </div>
         <div v-if="!showPositionList" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 1"></div>
