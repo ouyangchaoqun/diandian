@@ -13,7 +13,7 @@
   <script src="https://cdn.staticfile.org/vue-router/2.4.0/vue-router.min.js"></script>
    <script src="https://cdn.staticfile.org/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
    <script src="https://cdn.staticfile.org/Swiper/3.4.2/js/swiper.min.js"></script>
-  <script src="https://res.wx.qq.com/open/libs/weuijs/1.1.1/weui.min.js"></script>
+  <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
   <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
   <script src="http://map.qq.com/api/js?v=2" charset="utf-8"></script>
 </head>

@@ -13,10 +13,10 @@
 </template>
 <style>
     .privacy_box{
-        padding-top: 10px;
         background: #f4f4f4;
     }
     .privacy {
+        margin-top: 10px;
         height: 50px;
         background: #fff;
         padding-left:15px;
