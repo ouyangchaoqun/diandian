@@ -50,10 +50,11 @@
 <style>
     .child-view {
         position: absolute !important;
-        width:100%;
-        height: 100%;
+        width:100% !important;
+        height: 100% !important;
         background: #f5f5f5;
-        top:0;
+        top:0 !important;
+        left:0 !important
     }
 
 
