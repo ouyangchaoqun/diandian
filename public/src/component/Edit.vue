@@ -14,6 +14,7 @@
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div v-if="!showPositionList" class="edit_option">
+            <div style="display: none"></div>
             <div>
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
@@ -45,6 +46,9 @@
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
         <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
+                <div class="swiper-slide swiper-no-swiping">
+                    &nbsp;
+                </div>
                 <div class="swiper-slide swiper-no-swiping"><!--optionFrist-->
                     <div class="optionFrist_box">
                         <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
@@ -61,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide swiper-no-swiping"><!--optionSecond-->
+                <div class="swiper-slide"><!--optionSecond-->
                     <div class="optionSecond_box">
                         <div class="swiper-container exp_box">
                             <div class="swiper-wrapper">
