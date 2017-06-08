@@ -346,10 +346,8 @@
                     content: that.moodcontent,
                     pictures: that.pictureids
                 };
-                console.info(postdata);
-                return false;
                 that.cansubmit = false;
-                that.$http.post(web.API_PATH + 'mood/add',postdata)
+                that.$http.put(web.API_PATH + 'mood/add',postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
                         ///myCenter/myIndex
@@ -374,10 +372,7 @@
                 this.maskFlag = false
             },
             deletePic:function (i) {
-                console.info('delete:'+i);
-                console.info(this.pictures);
                 this.pictures = this.pictures.slice(0, i).concat(this.pictures.slice(i + 1, this.pictures.length));
-                console.info(this.pictures);
                 this.updatePics();
             },
             smallPic:function (src) {
@@ -522,7 +517,7 @@
 
                         $('.edit_num').text(max-$('#edit_mood').val().length);
 
-                        //that.moodcontent = $('#edit_mood').val();
+                        that.moodcontent = $('#edit_mood').val();
                         that.listenContent();
                     }
                 });
