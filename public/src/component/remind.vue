@@ -20,7 +20,7 @@
 </template>
 <style>
     .remind_box{
-        padding-top:10px;
+
         background: #f4f4f4;
     }
     .remind{
@@ -30,6 +30,7 @@
         line-height: 50px;
     }
     .remind1{
+        margin-top:10px;
         border-top: 1px solid #e5e5e5;
         position: relative;
         overflow: hidden;
