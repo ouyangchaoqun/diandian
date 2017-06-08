@@ -2,28 +2,29 @@
 	<div class="careMe_box"  >
 		<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
 			<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
-					<img class="careMe_img" :src="newNotice.faceUrl" alt="">
-					<div class="careMe_div">
-						<div>{{newNotice.nickName}}</div>
-						<div>{{newNotice.content}}</div>
-						<p>{{newNotice.addtime}}</p>
+				<img class="careMe_img" :src="newNotice.faceUrl" alt="">
+				<div class="careMe_div">
+					<div>{{newNotice.nickName}}</div>
+					<div>{{newNotice.content}}</div>
+					<p>{{newNotice.addtime}}</p>
 
+				</div>
+				<div class="careMe_content">
+					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
+					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
+						{{newNotice.moodcontent}}
 					</div>
-					<div class="careMe_content">
-						<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
-						<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
-							{{newNotice.moodcontent}}
-						</div>
-						<img v-else  :src="newNotice.moodValuePic" class="img" />
-					</div>
+					<img v-else  :src="newNotice.moodValueUrl"  />
+				</div>
 			</router-link>
+
 		</v-scroll>
 
 		<div class="bottom">
 
-				<a id="btnViewMore" v-if="isNew==1">查看更早的消息...</a>
-				<a v-else-if="isNew==0">加载更多</a>
-				<a v-else="isNew==2">没有更多数据</a>
+			<a id="btnViewMore" v-if="isNew==1" @click="checkMore()">查看更早的消息...</a>
+			<a v-else-if="isNew==0">加载更多</a>
+			<a v-else="isNew==2">没有更多数据</a>
 
 
 		</div>
@@ -75,39 +76,19 @@
 		font-size: 12px;
 	}
 	.careMe_content{
-		height:60px;
-		width: 60px;
-		overflow: hidden;
-		background: #f9f9f9;
+		height:50px;
+		width: 50px;
+		background: #f5f5f5;
 		float: right;
 		margin-top: 8px;
 		position: relative;
-		font-size: 12px;
-	}
-
-	.careMe_content div{
-		margin:2px;
-		font-size: 12px;
-		word-break: break-all;
-		word-wrap: break-word;
-		overflow: hidden;
-		color: #666;
 	}
 	.careMe_content img{
-		width: 60px;
+		height:50px;
+		width:50px;
 		display: block;
 
 	}
-
-	.careMe_content img.img{
-		width: 30px;
-		height: 30px;
-		margin-top: 15px;
-		margin-left: 15px;
-		display: block;
-
-	}
-
 	.noCare_box{
 		position: relative;
 		height:100%;
@@ -160,7 +141,7 @@
 			return {
 				pageNo: 1,
 				num:20,
-				newNotices:null,
+				newNotices:[],
 				pageStart: 0, // 开始页数
 				pageEnd: 0, // 结束页数
 				isNew:1,
@@ -177,14 +158,32 @@
 				url: web.API_PATH + 'notice/find/newNotices/_userId_'
 			}).then(function (data) {
 
-				if (data.data.status==1) {
-					_this.newNotices=data.data.data.rows;
+				_this.newNotices=data.data.data.rows;
+				if (_this.newNotices.length>0) {
 					_this.newNotices = xqzs.mood.initMoodsData(_this.newNotices);
 					for(let i=0;i<_this.newNotices.length;i++){
-						_this.newNotices[i].moodValuePic=web.IMG_PATH + "list_mood_0" + _this.newNotices[i].moodValue + ".png";
 						_this.newNotices[i].addtime=xqzs.dateTime.formatTime( _this.newNotices[i].addtime);
-                    }
+					}
 					console.log(_this.newNotices);
+				}else{
+					console.log(_this.$route.query.time);
+					_this.$http({
+						method: 'GET',
+						type: "json",
+						url: web.API_PATH + 'notice/find/notices/_userId_/'+_this.$route.query.time,
+					}).then(function (data) {
+						console.log(data.data.data.rows);
+						_this.newNotices=data.data.data.rows;
+						if (_this.newNotices.length>0) {
+							_this.newNotices = xqzs.mood.initMoodsData(_this.newNotices);
+							for(let i=0;i<_this.newNotices.length;i++){
+								_this.newNotices[i].addtime=xqzs.dateTime.formatTime( _this.newNotices[i].addtime);
+							}
+							console.log(_this.newNotices);
+						}
+					}, function (error) {
+						//error
+					});
 				}
 			}, function (error) {
 				//error
@@ -194,7 +193,7 @@
 			this.$http({
 				method: 'post',
 				type: "json",
-				url: web.API_PATH + 'notice/update/read/_userId_/'+ xqzs.dateTime.getTimeStamp()
+				url: web.API_PATH + 'notice/update/read/_userId_/'+ _this.$route.query.time
 			}).then(function (data) {//es5写法
 //				console.log(data);
 			}, function (error) {
@@ -208,8 +207,8 @@
 			onInfinite(done) {
 				let vm = this;
 				vm.$http.get(web.API_PATH + 'notice/query/page/_userId_/' + (vm.pageNo + 1) + "/" + vm.num).then((response) => {
-					vm.counter++;
-					vm.pageEnd = vm.num * vm.counter;
+					vm.pageNo++;
+					vm.pageEnd = vm.num * vm.pageNo;
 
 					vm.pageStart = vm.pageEnd - vm.num;
 					let arr = response.data.data.rows;
@@ -219,13 +218,13 @@
 					for (let i = 0; i < arr.length; i++) {
 						vm.newNotices.push(arr[i]);
 					};
-					vm.isNew=0;
+
 
 					if (arr.length === 0) {
-						this.$el.querySelector('.load-more').style.display = 'none';
-						this.$el.querySelector('.load-finish').style.display = 'block';
 						vm.isNew=2;
-						return;
+
+					}else{
+						vm.isNew=0;
 					}
 
 					done() // call done
@@ -233,6 +232,29 @@
 					console.log('error');
 				});
 			},
+			checkMore:function(){
+				let vm = this;
+				vm.$http.get(web.API_PATH + 'notice/query/page/_userId_/' + (vm.pageNo) + "/" + vm.num).then((response) => {
+					let arr = response.data.data.rows;
+					arr = xqzs.mood.initMoodsData(arr);
+					vm.newNotices = arr;
+					for(let i=0;i<vm.newNotices.length;i++){
+						vm.newNotices[i].addtime=xqzs.dateTime.formatTime( vm.newNotices[i].addtime);
+					}
+					if (arr.length === 0) {
+						vm.isNew=2;
+					}else{
+						vm.isNew=0;
+					}
+				}, (response) => {
+					console.log('error');
+				});
+
+
+
+
+
+			}
 
 
 

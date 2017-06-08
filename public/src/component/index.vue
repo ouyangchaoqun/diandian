@@ -35,14 +35,14 @@
             <v-banner></v-banner>
         </div>
         <!--banner end -->
-        <router-link to='/notice' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
-        <div class="notice_box">
-            <div class="notice" >
-                <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
-                <div>{{notice.count}}条新消息</div>
-                <img class="goNotice" src="../images/goto.jpg" alt="">
+        <router-link :to='noticeUrl' class="weui-tabbar__item tab">
+            <div class="notice_box" v-if="notice.count">
+                <div class="notice" >
+                    <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
+                    <div>{{notice.count}}条新消息</div>
+                    <img class="goNotice" src="../images/goto.jpg" alt="">
+                </div>
             </div>
-        </div>
         </router-link>
 
 
@@ -144,7 +144,7 @@
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
                                      src="../images/list_dianz_pre.png" alt=""/>
                                 <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                     src="../images/list_baob_pre.png" alt=""/>
+                                      src="../images/list_baob_pre.png" alt=""/>
                             </div>
                         </div>
                     </a>
@@ -159,7 +159,7 @@
     </div>
 </template>
 
-<script type="es6">
+<script type="text/javascript">
     import banner from "./banner.vue"
     let myCenter = {
         template: '#myCenter'
@@ -173,7 +173,8 @@
                 friendMoodsSpe: null,
                 friendMoods: null,
                 notice:{count:0},
-                linkTo:"#"
+                linkTo:"#",
+                noticeUrl:'/notice?time='+xqzs.dateTime.getTimeStamp(),
             }
         },
         methods: {
@@ -239,7 +240,7 @@
                 });
             },
             canWriteMood:function () {
-                
+
             },
             getMoodCount(callback){
                 this.$http({
@@ -289,17 +290,17 @@
             });
 
             this.$http({
-				method: 'GET',
-				type: "json",
-				url: web.API_PATH + 'notice/find/new/_userId_',
-			}).then(function (data) {
-				if (data.data.data !== null) {
-					_this.notice = eval(data.data.data);
-					console.log(_this.notice);
-				}
-			}, function (error) {
-				//error
-			});
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'notice/find/new/_userId_',
+            }).then(function (data) {
+                if (data.data.data !== null) {
+                    _this.notice = eval(data.data.data);
+                    console.log(_this.notice);
+                }
+            }, function (error) {
+                //error
+            });
 
 
             if(_this.user.isLookFriend!==0){
@@ -346,7 +347,7 @@
                 if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
                     _this.myLastMood = eval(data.data.data);
                     _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-                     _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
+                    _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
                     _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
                     console.log(_this.myLastMood);
                 }
@@ -355,7 +356,7 @@
             });
         },
         components: {
-           "v-banner": banner
+            "v-banner": banner
         }
 
     }
@@ -454,28 +455,24 @@
     }
 
     .moodimg {
-        width: 34px;
-        height: 34px;
+        width: 40px;
+        height: 40px;
         float: left;
-        margin-top: 17px;
-        margin-right: 20px;
+        margin-top: 16px;
+        margin-right: 30px;
     }
 
     .interaction {
         float: left;
         text-align: center;
-        padding-top: 15px;
+        padding-top: 13px;
         font-size: 13px;
         color: #aeaeae;
-        overflow: hidden;
     }
 
     .interaction img {
-        width: 20px;
-        height: 20px;
-    }
-    .interaction a{
-        height:20px;
+        width: 26px;
+        height: 26px;
     }
 
     .mycenterFill {
@@ -499,10 +496,6 @@
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
-        margin-bottom: 100px;
-    }
-    .share:active{
-        background: #eeeeee;
     }
     .notice_box{
         padding:10px;
