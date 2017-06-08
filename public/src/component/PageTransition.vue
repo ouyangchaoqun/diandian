@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%">
-        <transition :name="transitionName" style="height: 100% !important; width: 100% !important;">
+        <transition :name="transitionName">
             <router-view class="child-view"></router-view>
         </transition>
     </div>
@@ -49,19 +49,16 @@
 
 <style>
     .child-view {
-        position: absolute;
+        position: absolute !important;
         width:100%;
         height: 100%;
-        background: #f5f5f5
+        background: #f5f5f5;
+        top:0;
     }
 
-    * {
-        backface-visibility:hidden;
-        -webkit-backface-visibility:hidden;	/* Chrome 和 Safari */
-        -moz-backface-visibility:hidden; 	/* Firefox */
-        -ms-backface-visibility:hidden; 	/* Internet Explorer */
-        -webkit-transform-style: preserve-3d;
-    }
+
+
+
 
     /*.slide-left-enter, .slide-right-leave-active {*/
         /*!*opacity: 0;*!*/
@@ -79,37 +76,46 @@
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .4s;
+
     }
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: .8s;
+        animation-duration: .9s;
+
     }
 
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
         animation-duration: .4s;
+
     }
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
-        animation-duration: .8s;
+        animation-duration: .9s;
+
     }
     @keyframes fold-right-in {
         0% {
-             transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+            -webkit-transform: translate3d(-100%, 0, 0);
+
         }
 
         100% {
             transform: translate3d(0, 0, 0);
-        }
+            -webkit-transform: translate3d(0, 0, 0);
+         }
     }
     @keyframes fold-right-out {
         0% {
             transform: translate3d(0%, 0, 0);
-        }
+            -webkit-transform: translate3d(0%, 0, 0);
+         }
 
         100% {
             transform: translate3d(100%,0 , 0);
-        }
+            -webkit-transform: translate3d(100%,0 , 0);
+         }
     }
 
 
@@ -117,20 +123,24 @@
     @keyframes fold-in {
         0% {
             transform: translate3d(100%, 0, 0);
-        }
+            -webkit-transform: translate3d(100%, 0, 0);
+         }
 
         100% {
             transform: translate3d(0, 0, 0);
-        }
+            -webkit-transform: translate3d(0, 0, 0);
+         }
     }
     @keyframes fold-out {
         0% {
             transform: translate3d(0%, 0, 0);
-        }
+            -webkit-transform: translate3d(0%, 0, 0);
+         }
 
         100% {
             transform: translate3d(-100%,0 , 0);
-        }
+            -webkit-transform: translate3d(-100%,0 , 0);
+         }
     }
 
 
