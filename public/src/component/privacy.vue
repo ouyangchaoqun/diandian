@@ -2,12 +2,12 @@
     <div class="privacy_box">
         <div class="privacy privacyTop">
                 <span>不看好友的心情记录</span>
-                <input type="checkbox" class="weui-switch privacyInput" v-model="isNotLookFriend"  @click="lookFriend()" >
+                <input type="checkbox" class="weui-switch privacyInput"  :checked="isNotLookFriend" @change="isNotLookFriend = $event.target.checked"    @click="lookFriend()" >
             <div></div>
         </div>
         <div class="privacy privacyBottom">
             <span>不让好友看我的心情记录</span>
-            <input type="checkbox" class="weui-switch privacyInput"  v-model="isNotLookMe"  @click="lookMe()">
+            <input type="checkbox" class="weui-switch privacyInput"   :checked="isNotLookMe" @change="isNotLookMe = $event.target.checked"   @click="lookMe()">
         </div>
     </div>
 </template>
@@ -86,10 +86,13 @@
         methods:{
             lookMe:function () {
                 let _this = this;
+                let flag;
+                if(_this.isNotLookMe===true){flag=0}
+                if(_this.isNotLookMe===false){flag=1}
                 //
                 this.$http({
                     method: 'POST',
-                    url: web.API_PATH + 'user/update/my/set/look/me/_userId_/'+_this.user.isLookMe,
+                    url: web.API_PATH + 'user/update/my/set/look/me/_userId_/'+flag,
                 }).then(function (data) {//es5写法
                     if (data.data.status !== null) {
 
@@ -101,10 +104,13 @@
 
             lookFriend:function () {
                 let _this = this;
+                let flag;
+                if(_this.isNotLookFriend===true){flag=0}
+                if(_this.isNotLookFriend===false){flag=1}
                 //
                 this.$http({
                     method: 'POST',
-                    url: web.API_PATH + 'user/update/my/set/look/friend/_userId_/'+_this.user.isLookFriend,
+                    url: web.API_PATH + 'user/update/my/set/look/friend/_userId_/'+flag,
                 }).then(function (data) {//es5写法
                     if (data.data.status !== null) {
 

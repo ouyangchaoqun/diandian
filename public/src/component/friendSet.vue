@@ -22,15 +22,15 @@
 
         <div class="setList">
             <div>特别关心</div>
-            <input type="checkbox" class="weui-switch setFlag" v-model="user.isSpecial"  @click="special()" >
+            <input type="checkbox" class="weui-switch setFlag" :checked="user.isSpecial" @change="user.isSpecial = $event.target.checked"  @click="special()" >
         </div>
         <div class="setList">
             <div>不看他的心情记录</div>
-            <input type="checkbox" class="weui-switch setFlag" v-model="isNotLookFriend"  @click="lookFriend()"  >
+            <input type="checkbox" class="weui-switch setFlag"  :checked="isNotLookFriend" @change="isNotLookFriend = $event.target.checked"   @click="lookFriend()"  >
         </div>
         <div class="setList setListLast">
             <div>不让TA看我的心情记录</div>
-            <input type="checkbox" class="weui-switch setFlag"  v-model="isNotLookMe"  @click="lookMe()">
+            <input type="checkbox" class="weui-switch setFlag"  :checked="isNotLookMe" @change="isNotLookMe = $event.target.checked"   @click="lookMe()">
         </div>
     </div>
 </template>
