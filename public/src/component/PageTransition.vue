@@ -54,7 +54,8 @@
         height: 100% !important;
         background: #f5f5f5;
         top:0 !important;
-        left:0 !important
+        left:0 !important;
+        overflow-y: scroll !important;
     }
 
 
