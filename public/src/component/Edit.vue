@@ -1,7 +1,7 @@
 <template id="Edit">
     <div>
-        <v-funny v-bind:moodvalue="moodValue"></v-funny>
-        <div v-if="!showPositionList" class="edit_box">
+        <v-funny v-bind:moodvalue="moodValue" v-if="showPositionList('funny')"></v-funny>
+        <div v-if="showPositionList('')" class="edit_box">
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
@@ -14,7 +14,7 @@
             <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img src="../images/dz_nor.png" alt=""></div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
-        <div v-if="!showPositionList" class="edit_option">
+        <div v-if="showPositionList('')" class="edit_option">
             <div>
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
@@ -33,8 +33,8 @@
                     v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
 
         </div>
-        <div v-if="!showPositionList" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 1"></div>
-        <div v-if="!showPositionList" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
+        <div v-if="showPositionList('')" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 1"></div>
+        <div v-if="showPositionList('')" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
                 <div class="weui-actionsheet__cell" @click = "getCam()" id="btn">拍照</div>
                 <div class="weui-actionsheet__cell" @click = "getPho()">从手机相册选择</div>
@@ -44,7 +44,7 @@
             </div>
         </div>
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
-        <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
+        <div v-if="showPositionList('')" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
                     <div class="optionFrist_box">
@@ -151,7 +151,7 @@
             </div>
         </div>
         <!--positionList-->
-        <div class="positionList_box" v-if="showPositionList">
+        <div class="positionList_box" v-if="showPositionList('position')">
             <ul>
                 <li class="locList" @click="selectloc(-2)">
                     <div class="noShow">不显示位置</div>
@@ -183,7 +183,7 @@
     export default {
         data() {
             return {
-                showPositionList:false,
+                showModule:'',
                 moodid:0,
                 moodcontent: '',
                 contminlength: 8,
@@ -249,7 +249,7 @@
                         var speed = res.speed; // 速度，以米/每秒计
                         var accuracy = res.accuracy; // 位置精度
 
-                        that.showPositionList=true;
+                        that.showModule = 'position';
                         var latLng = new qq.maps.LatLng(latitude, longitude);
                         window['geocoder'].getAddress(latLng);
                     },
@@ -280,6 +280,9 @@
                     if(that.pictures.length == 0){
                         that. showAction();
                     }
+                }
+                if(indexcode == 'third'){
+                    this.showModule = 'funny';
                 }
             },
             changeisopen:function () {
@@ -409,7 +412,7 @@
                 this.location.selecindex = i;
                 this.address = this.getaddress(i);
                 this.setShowAddress();
-                this.showPositionList = false;
+                this.showModule = '';
             },
             getaddress:function (ix) {
                 if(ix < -1)
@@ -476,6 +479,9 @@
             },
             getFaceText:function (text) {
                 return '['+text+']';
+            },
+            showPositionList:function(t){
+                return this.showModule == t;
             }
         },
         mounted: function () {
