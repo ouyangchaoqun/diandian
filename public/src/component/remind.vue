@@ -90,6 +90,7 @@
                 method: 'GET',
                 url: web.API_PATH + 'user/find/user/remind/by/user/id/_userId_',
             }).then(function (data) {
+                console.log(data.data);
                 if (data.data.data !== null) {
                     _this.remindMsg = eval(data.data.data);
                     let time = _this.remindMsg.remindtime;
@@ -146,9 +147,9 @@
                 weui.picker(
                         hours, minutes, {
                             onConfirm: function (result) {
-                                _this.hour=result[0].value;
-                                _this.minute=result[1].value;
-
+                                console.log(result);
+                                _this.hour=result[0];
+                                _this.minute=result[1];
                             }
                         });
 
