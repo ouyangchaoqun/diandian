@@ -48,7 +48,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
                     <div class="optionFrist_box">
-                        <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
+                        <div v-for="(pic,index) in bindpictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
                                 <div class="weui-loading"></div>
                             </div>
@@ -177,6 +177,7 @@
 <script type="es6">
     import insert from "../js/insert";
     import funny from './funny.vue';
+    import Bus from './bus.js';
     var Edit={
         template:'#Edit'
     };
@@ -196,7 +197,7 @@
                 address: '',
                 showAddress:'点击获取所在位置',
                 pictures: [],
-                pictureids: [] ,
+                funnypicture:[],
                 buttons:{
                     'first':{
                         'curr':web.IMG_PATH+'zp_nor.png',
@@ -301,7 +302,8 @@
                     userId: '_userId_',
                     address: that.address,
                     content: that.moodcontent,
-                    pictures: that.pictureids
+                    pictures: that.getUploadPictureIds(),
+                    gifs:that.getFunnyPictureIds()
                 };
                 that.cansubmit = false;
                 var apiurl = 'mood/add';
@@ -309,6 +311,7 @@
                     apiurl = 'mood/append';
                     postdata['id'] = that.moodid;
                 }
+                console.info(postdata);
                 that.$http.put(web.API_PATH + apiurl,postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
@@ -335,7 +338,6 @@
             },
             deletePic:function (i) {
                 this.pictures = this.pictures.slice(0, i).concat(this.pictures.slice(i + 1, this.pictures.length));
-                this.updatePics();
             },
             smallPic:function (src) {
                 return src + xqzs.oss.Size.fill(65,65);
@@ -364,7 +366,6 @@
                         this.pictures[i].image = data;
                     }
                 }
-                this.updatePics();
             },
             uploadImage:function (sourceType) {
                 let that = this;
@@ -387,7 +388,7 @@
             getPho:function () {
                 this.uploadImage('album');
             },
-            updatePics:function () {
+            getUploadPictureIds:function () {
                 var that = this;
                 var picids = [];
                 for (var i = 0, l = that.pictures.length; i < l; i++) {
@@ -395,7 +396,17 @@
                         picids.push(that.pictures[i].image.id)
                     }
                 }
-                that.pictureids = picids;
+                return picids;
+            },
+            getFunnyPictureIds:function () {
+                var that = this;
+                var picids = [];
+                for (var i = 0, l = that.funnypicture.length; i < l; i++) {
+                    if (that.funnypicture[i].image) {
+                        picids.push(that.funnypicture[i].image.id)
+                    }
+                }
+                return picids;
             },
             //positionList
             getaddresscallback: function (result) {
@@ -490,6 +501,25 @@
                 that.$router.push({path:'/'});
                 return;
             }
+            Bus.$on('funnyPictureChange',data=>{
+                that.showModule = '';
+                //that.buttons.first.on = true;
+                that.clickoptions('first');
+                if(!that.canupload){
+                    xqzs.weui.toast('fail','最多三张',function () {})
+                    return;
+                }
+                that.funnypicture.push({
+                    isloading:false,
+                    image:{
+                        path:data.path,
+                        id:data.id
+                    }
+                })
+
+                console.info(data)
+                //that.funnypicture.push(data);
+            });
             //optionFrist
             this.uploadpicinfo = {
                 token: xqzs.string.guid(),
@@ -544,28 +574,31 @@
             });
             //positionList  end
         },
-        computed:{
-            moodImage:function () {
+        computed: {
+            moodImage: function () {
                 var v = this.moodValue;
                 if (v < 10) {
                     v = '0' + v;
                 }
                 return web.IMG_PATH + 'list_mood_' + v + '.png';
             },
-            moodText:function () {
+            moodText: function () {
                 return xqzs.mood.moodValueText[this.moodValue];
             },
-            scenesText:function () {
+            scenesText: function () {
                 return xqzs.mood.moodScenes[this.scenesId];
             },
-            canupload:function () {
-                return this.pictures.length < this.maxPhotoCount;
+            canupload: function () {
+                return this.bindpictures.length < this.maxPhotoCount;
             },
-            moodcolorstyle:function () {
+            moodcolorstyle: function () {
                 return (this.moodValue >= 7 ? 'addEdit1' : (this.moodValue <= 3 ? 'addEdit2' : 'addEdit3'));
             },
-            openstyle:function () {
-                return this.isopen==1?'':'green';
+            openstyle: function () {
+                return this.isopen == 1 ? '' : 'green';
+            },
+            bindpictures: function () {
+                return this.pictures.concat(this.funnypicture);
             }
         },
         components: {

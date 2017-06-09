@@ -7,7 +7,7 @@
         </ul>
         <div class="funny_exp">
             <div v-for="(item,index) in funnytypes" v-bind:key="index" :class="{'exp_active':index==activedIndex}">
-                <figure v-for="pic in item.pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)">
+                <figure @click="selectGif(pic)" v-for="pic in item.pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)">
                 </figure>
             </div>
         </div>
@@ -69,7 +69,7 @@
     }
 </style>
 <script type="es6">
-
+    import Bus from './bus.js';
     let funny = {
         template: '#funny'
     };
@@ -112,13 +112,6 @@
                 this.activedIndex = ix;
                 this.getFunnyPictures(ix);
             },
-            setpicsize:function (w,h) {
-                //
-                if(w>h){
-                    return 'height:100%'
-                }
-                return 'width:100%';
-            },
             setFigureStyle:function(w,h,src){
                 let that = this;
                 var style = 'width:'+that.funnyExpWidth+'px;height:'+that.funnyExpWidth+'px;background:url('+src+') no-repeat center;';
@@ -128,6 +121,9 @@
                     style += 'backgroundSize:auto 100%'
                 }
                 return style;
+            },
+            selectGif:function(gif){
+                Bus.$emit('funnyPictureChange',gif);
             }
         },
         mounted: function () {
