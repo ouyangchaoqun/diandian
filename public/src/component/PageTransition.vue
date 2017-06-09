@@ -51,6 +51,11 @@
             }
         },
         beforeRouteUpdate (to, from, next) {
+
+
+            xqzs.weui.removeWhenPageChange();
+
+
 //            let isBack = parseInt( Math.random()*10)%2;
 
 //            console.log({to:to.fullPath,from:from.fullPath});

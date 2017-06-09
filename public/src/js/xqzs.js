@@ -9,6 +9,13 @@ var xqzs = {
     },
 
     weui: {
+        removeWhenPageChange:function () {
+            $(".weui-mask").remove();
+            $("#toast").remove();
+            $(".js_dialog").remove();
+            $(".actionSheet_wrap").remove();
+
+        },
         toast: function (type, msg, fun) {
             var html = "";
             html += '<div id="toast"><div class="weui-mask_transparent"></div><div class="weui-toast">';
