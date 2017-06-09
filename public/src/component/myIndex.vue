@@ -391,15 +391,7 @@
                 .catch((response) => {
 
                 });
-
-
-
-
-
-
         },
-
-
         components: {
             'v-scroll': scroll, "v-chart": chart,"v-banner": banner
         }

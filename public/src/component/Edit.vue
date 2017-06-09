@@ -1,5 +1,6 @@
 <template id="Edit">
     <div>
+        <v-funny></v-funny>
         <div v-if="!showPositionList" class="edit_box">
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
@@ -146,7 +147,6 @@
                     </div>
                 </div>
                 <div class="swiper-slide" v-show="buttons.third.on">
-                    搞笑图片
                 </div>
             </div>
         </div>
@@ -175,7 +175,8 @@
 </template>
 
 <script type="es6">
-    import insert from "../js/insert"
+    import insert from "../js/insert";
+    import funny from './funny.vue';
     var Edit={
         template:'#Edit'
     };
@@ -560,6 +561,9 @@
             openstyle:function () {
                 return this.isopen==1?'':'green';
             }
+        },
+        components: {
+            "v-funny": funny
         }
     }
 </script>
