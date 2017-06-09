@@ -1,87 +1,16 @@
 <template id="funny">
     <div class="funny_box">
         <ul class="funny_ul">
-            <li class="funny_active">开心高兴</li>
-            <li>伤心委屈</li>
-            <li>哭泣泪崩</li>
-            <li>流汗无语</li>
-            <li>生气愤怒</li>
-            <li>害怕恐惧</li>
-            <li>无聊发呆</li>
-            <li>心烦纠结</li>
-            <li>感动表情</li>
-            <li>调皮可爱</li>
-            <li>惊讶震惊</li>
-            <li>希望期待</li>
-            
+            <li  v-for="(item,index) in funnytypes" v-bind:key="index" @click="changeTypes(index)":class="{'funny_active':index==activedIndex}">
+                {{item.name}}
+            </li>
         </ul>
         <div class="funny_exp">
-            <div class="exp_active">
-                <h3>开心高兴</h3>
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-            </div>
-            <div>
-                <h3>伤心委屈</h3>
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-                <img src="../images/funny1.png" alt="">
-            </div>
-            <div>
-                <h3>哭泣泪崩</h3>
-
-            </div>
-            <div>
-                <h3>流汗无语</h3>
-
-            </div>
-            <div>
-                <h3>生气愤怒</h3>
-
-            </div>
-            <div>
-                <h3>害怕恐惧</h3>
-
-            </div>
-            <div>
-                <h3>无聊发呆</h3>
-
-            </div>
-            <div>
-                <h3>心烦纠结</h3>
-
-            </div>
-            <div>
-                <h3>感动表情</h3>
-
-            </div>
-            <div>
-                <h3>调皮可爱</h3>
-
-            </div>
-            <div>
-                <h3>惊讶震惊</h3>
-
-            </div>
-            <div>
-                <h3>希望期待</h3>
-
+            <div v-for="(item,index) in funnytypes" v-bind:key="index" :class="{'exp_active':index==activedIndex}">
+                <figure v-for="pic in item.pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)">
+                </figure>
             </div>
         </div>
-
     </div>
 </template>
 <style>
@@ -91,13 +20,17 @@
         width:23.4666%;
         background: #eeeeee;
     }
-    .funny_exp img{
-        display: block;
+    .exp_active figure{
+        float: left;
+        display: block !important;
         width:27.8745644%;
         height:27.8745644%;
-        float: left;
+        overflow: hidden;
         margin-right:4.181184%;
         margin-bottom: 10px;
+        border:solid 1px #ccc;
+    }
+    .funny_exp img{
     }
     .funny_exp div{
         margin-left:4.181184%;
@@ -144,30 +77,67 @@
     export default {
         props: ['moodvalue'],
         data() {
-            return {}
+            return {
+                funnytypes: [],
+                activedIndex:0,
+                funnyExpWidth:0
+            }
         },
-        mothods: {
-            getTypes: function () {
-                this.$http.get(web.API_PATH + 'funny/query/types').then(function (bt) {
-                    console.info(bt);
-                })
+        methods: {
+            getFunnyTypes: function (callback) {
+                let that = this;
+                that.$http.get(web.API_PATH + 'funny/query/types')
+                    .then(function (bt) {
+                        if(bt.data && bt.data.status == 1){
+                            that.funnytypes = bt.data.data;
+                            if(typeof callback == 'function'){
+                                callback();
+                            }
+                        }
+                    });
+            },
+            getFunnyPictures:function (ix) {
+                let that = this;
+                var type = that.funnytypes[ix];
+                that.$http.get(web.API_PATH+'funny/query/page/by/type/'+type.id+'/1/100')
+                    .then(function (bt) {
+                        if(bt.data && bt.data.status == 1){
+                            that.funnytypes[ix].pictures = bt.data.data.rows;
+                            //that.$set(that)
+                            that.$set(that.funnytypes, ix, that.funnytypes[ix]);
+                        }
+                    })
+            },
+            changeTypes:function (ix) {
+                this.activedIndex = ix;
+                this.getFunnyPictures(ix);
+            },
+            setpicsize:function (w,h) {
+                //
+                if(w>h){
+                    return 'height:100%'
+                }
+                return 'width:100%';
+            },
+            setFigureStyle:function(w,h,src){
+                let that = this;
+                var style = 'width:'+that.funnyExpWidth+'px;height:'+that.funnyExpWidth+'px;background:url('+src+') no-repeat center;';
+                if(w>h){
+                    style += 'backgroundSize:100% auto'
+                }else{
+                    style += 'backgroundSize:auto 100%'
+                }
+                return style;
             }
         },
         mounted: function () {
-            $('.funny_ul li').click(function () {
-                $('.funny_ul li').removeClass('funny_active')
-                $(this).addClass('funny_active')
-                console.log($(this).index())
-                var active_index = $(this).index();
-                $('.funny_exp div').removeClass('exp_active')
-                $('.funny_exp div').eq(active_index).addClass('exp_active')
+            let that = this;
+            that.getFunnyTypes(function () {
+                if(that.funnytypes.length>0){
+                    that.getFunnyPictures(0);
+                }
             });
-        },
-        watch: {
-            moodvalue: function (v) {
-                console.info(this)
-                //this.getTypes();
-            }
+            that.funnyExpWidth = $('.funny_exp').width()*27.8745644/100 - 2;
         }
     }
 </script>
