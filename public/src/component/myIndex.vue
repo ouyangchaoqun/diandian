@@ -58,8 +58,7 @@
                                 <img class="followtype" :src="item.careImg" alt="">
                                 <template v-if="item.content!==null&& item.content!==''">
                                     <span class="followCount">{{item.replycount}}</span>
-                                    <img class="followtype" src="../images/comments.png"
-                                         style="width: 18px;margin-top: 3px;" alt="">
+                                    <img class="followtype" src="../images/comments.png" alt="">
                                 </template>
                             </div>
                         </div>

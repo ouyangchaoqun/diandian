@@ -30,7 +30,7 @@
                         <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount<=0"
                               src="../images/list_baob_nor.png" alt=""/>
                         <span class="followCount">{{mood.replycount}}</span>
-                        <img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
+                        <img class="followtype" src="../images/comments.png" alt="">
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                     </div>
 
                 </div>
-                <ul class="show_bottom" >
+                <ul class="show_bottom" v-if="replies.length">
                     <img class="show_img2" src="../images/comments.png"/>
                     <li v-for="(reply ,index) in replies" :key="index" @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
                         <img class="show_bottom_img " :src="reply.from_faceUrl">

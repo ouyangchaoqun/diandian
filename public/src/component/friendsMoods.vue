@@ -24,11 +24,16 @@
                         <div class="stateBottom">
                             <div class="time">{{item.outTime}}</div>
                             <div class="time_right">
-                                <span class="frined_zan">{{item.careCount}}</span>
-                                <img class="time_rightimg1" :src="item.careImg" alt=""
-                                     style="width: 26px" @click="addCare(item,index)">
-                                <span class="frined_com">{{item.replycount}}</span>
-                                <img class="time_rightimg2" src="../images/comments.png" alt="" @click="addComment(item.id,index)" style="width: 20px">
+                                <div style="float: left">
+                                    <span class="frined_zan">{{item.careCount}}</span>
+                                    <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)">
+                                </div>
+
+                                <div style="float: left;margin-left: 6px;">
+                                    <span class="frined_com">{{item.replycount}}</span>
+                                    <img class="time_rightimg2" src="../images/comments.png" alt="" @click="addComment(item.id,index)">
+                                </div>
+
                             </div>
                         </div>
 
@@ -287,22 +292,22 @@
 
 
     .friend_header {
-        border-bottom: 1px solid #eeeeee;
+        border-bottom: 1px solid #eee;
+        padding: 15px;
         background: #fff;
-        padding: 10px 0;
     }
 
     .friend_header a {
-        width: 90%;
-        height: 24px;
-        line-height: 24px;
+        height: 30px;
+        line-height: 30px;
         text-align: center;
-        background: #eeeeee;
+        background: #ebeceb;
         margin: 0 auto;
-        font-size: 12px;
-        border: 1px solid #eeeeee;
+        font-size: 14px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-color: #ebeceb;
         border-radius: 5px;
-        color: #999999;
+        color: #666666;
         display: block;
     }
 
@@ -325,15 +330,21 @@
     }
 
     .mood_state {
-        font-size: 15px;
-        margin-bottom: 10px;
+        font-size: 14px;
+        margin-bottom: 6px;
         display: block;
+        line-height: 24px;
     }
 
     .mood_text {
-        font-size: 15px;
+        border-radius: 4px;
+        word-wrap: break-word;
+        word-break: break-all;
+        overflow: hidden;
+        font-size: 14px;
+        line-height: 15px;
         color: #333333;
-        margin-bottom: 10px;
+        padding: 4px 16px 8px 0px;
     }
 
     .stateBottom {
@@ -358,31 +369,15 @@
         color: #516591;
     }
 
+    .time_right{
+        margin-top:3px;
+    }
     .time_right img {
-        float: left;
+        width:14px;
+        vertical-align: middle;
+        margin-top: 3px !important;
+        margin-bottom: 4px;
     }
-
-    .frined_zan {
-        float: left;
-        margin-right: 3px;
-    }
-
-    .frined_com {
-        float: left;
-        margin-right: 5px;
-    }
-
-    .time_rightimg1 {
-        width: 22px;
-        margin-top: -3px;
-        margin-right: 10px;
-    }
-
-    .time_rightimg2 {
-        margin-top: 2px;
-        width: 18px;
-    }
-
     .friendImgList {
         overflow: hidden;
         margin-bottom: 15px;
@@ -412,13 +407,12 @@
     }
 
     .commont_box {
-        padding-top: 10px;
+        padding: 5px 10px 5px 10px;
         background: #f9f9f9;
-        border-radius: 5px;
+        border-radius: 2.5px;
         position: relative;
-        margin-top: 10px;
-        padding-bottom: 15px;
-        padding-left: 10px;
+        margin-top: 15px !important;
+        clear: both;
     }
 
     .arrow {
@@ -432,12 +426,15 @@
     }
 
     .friend_commont {
-        margin-bottom: 6px;
+        margin-bottom: 5px;
         font-size: 13px;
+        color: #333;
+        line-height: 19px;
     }
     .name {
-        font-size: 14px;
-        color: #666699;
+        color: #5e61a2;
+        font-size: 13px;
+        font-weight: bold;
 
     }
     .commont {

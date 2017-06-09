@@ -221,38 +221,45 @@ li{list-style: none}
 
 .myMood_list {
     background: #ffffff;
-    padding: 16px 10px;
+    padding: 10px 12px 12px 12px;
     margin-bottom: 1px;
+    position: relative;
 }
 
 .moodImg {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+   border-radius: 50%;
+    border:1px solid #eeeeee;
     display: block;
-    float: left;
+    position: absolute;
+    left: 12px;
+    top: 10px;
 }
 
 .moodImg_right {
-    margin-left: 50px;
+    margin-left: 60px;
 }
 
 .moodState {
     font-size: 14px;
     margin-bottom: 6px;
+    margin-top:4px;
 }
 
 .moodContext {
     font-size: 14px;
     color: #333333;
-    line-height: 20px;
-    margin-bottom: 10px;
+    line-height: 15px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+    padding: 4px 8px 8px 0px;
 }
 
 .moodPhotoLists {
     display: flex;
     height: auto;
-    margin-right: 20px;
-    margin-bottom: 15px;
+    margin: 5px 0 10px 0;
 }
 
 .moodPhotoList {
@@ -272,7 +279,7 @@ li{list-style: none}
 
 .moodTime {
     font-size: 12px;
-    color: #787878;
+    color: #999;
     line-height: 16px;
 }
 

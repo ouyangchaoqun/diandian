@@ -4,8 +4,8 @@
 			<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 			<div class="careMe_div">
 				<div>{{careFriend.nickName}}</div>
-				<img v-if="myLastMood.moodValue>=5"
-					 src="../images/list_dianz_pre.png" alt=""/>
+				<img class="careimg1" v-if="myLastMood.moodValue>=5"
+					 src="../images/mood_icon_dianz_pre.png" alt=""/>
 				<img v-if="myLastMood.moodValue<5"
 					 src="../images/list_baob_pre.png" alt=""/>
 				<p>{{careFriend.addTime}}</p>
@@ -36,11 +36,12 @@
 	.careMe_box{
 	    height:100%;
 		position: relative;
+		background: #ffffff;
     }
 	.careMe_list{
-		height:66px;
+		height:80px;
 		border-bottom: 1px solid #f5f5f5;
-		padding:0 10px;
+		padding:10px 15px;
         display: block;
 	}
 	.careMe_img{
@@ -49,32 +50,36 @@
 		display: block;
 		float: left;
 		border-radius:3px;
-		margin-top:13px;
 	}
 	.careMe_div{
 		float: left;
 		margin-left:10px;
-		margin-top:5px;
+		margin-top:-5px;
 	}
 	.careMe_div div{
-		font-size: 14px;
-		color: #516591;
+		color: #5e61a2;
+		font-size: 13px;
 	}
 	.careMe_div img{
-		width: 18px;
+		width: 14px;
 		display: block;
+		margin-top: 8px;
+		margin-bottom:8px;
 	}
 	.careMe_div p{
 		color: #999999;
 		font-size: 12px;
 	}
 	.careMe_content{
-		height:50px;
-		width: 50px;
-		background: #f5f5f5;
+		width: 60px;
+		height: 60px;
 		float: right;
+		overflow: hidden;
+		background: #f9f9f9;
 		margin-top: 8px;
 		position: relative;
+		font-size: 13px;
+		color: #333;
 	}
 	.careMe_content img{
 		height:32px;

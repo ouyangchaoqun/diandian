@@ -380,12 +380,13 @@
     }
 
     .canlendarTopView {
-        height: 40px;
-        font-size: 14px;
+        height: 36px;
+        font-size: 16px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        margin-bottom: 15px;
     }
 
     .leftBgView {
@@ -420,7 +421,8 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin-bottom: 1px;
+        border-bottom: 1px solid #eeeeee;
+        padding-bottom: 10px;
     }
 
     .weekView {
@@ -428,7 +430,7 @@
         text-align: center;
         font-size: 14px;
         color: #333;
-        border-bottom: 1px solid #eeeeee;
+
 
     }
 
@@ -478,16 +480,15 @@
         height: 30px;
         width: 30px;
         display: block;
-        margin: 5px auto;
+        margin: 6px auto;
     }
 
     .datesView {
-
-        height: 30px;
+        height: 28px;
         color: #828080;
         font-size: 13px;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         justify-content: center;
 
     }

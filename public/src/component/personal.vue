@@ -3,16 +3,18 @@
         <div class="list0">
             <span>昵称</span>
             <input type="text" class="nickName" onfocus="this.value=''"  v-model:value="user.nickName" placeholder="填写昵称">
+            <div class="line"></div>
         </div>
+
         <div class="list0 list02" @click="updateHeadpic()">
             <span>更新头像</span>
             <a>
-                <img src="../images/goto.jpg" alt="">
+                <img src="../images/me_jt.png" alt="">
             </a>
         </div>
         <router-link to="/me/personal/validate">
             <div class="list0 list02">
-                <img src="../images/goto.jpg" alt="">
+                <img src="../images/me_jt.png" alt="">
                 <span>绑定手机号</span><span class="mobile">{{user.mobile}}</span>
 
             </div>
@@ -20,6 +22,7 @@
         <div class="list0">
             <span>姓名</span>
             <input type="text" class="realName" v-model:value="user.realName" onfocus="this.value=''" placeholder="还未填写（如张三）">
+            <div class="line"></div>
         </div>
         <div class="list0 list02" @click="showDate()">
             <span>生日</span>
@@ -41,7 +44,7 @@
                 <span>{{cityName}}</span>
                 <span>{{areaName}}</span>
             </div>
-
+            <div class="line"></div>
         </div>
         <div class="list0">
             <span>详细地址</span>
@@ -198,22 +201,30 @@
 </script>
 <style>
 .personal_box{
-    height:100%;
-    background: #f5f5f5;
+    background: #f4f4f4;
+    padding-top: 15px;
 }
+.line{
+    height: 1px;
+    background: #eee;
+    position: absolute;
+    left:15px;
+    bottom:0;
+    width:92%;
 
+}
 .list0{
     background:#fff;
     height:60px;
-    margin-bottom: 1px;
     line-height:60px;
-    padding:0 10px;
+    padding:0 15px;
+    position: relative;
 }
 .list0 input{
     margin: 0;
 }
 .list02{
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .list0 span{
     float: left;
@@ -233,10 +244,9 @@
     text-align: right;
 }
 .list0 img{
-    width:20PX;
-    height:20px;
+    width:16PX;
     float: right;
-    margin-top:20px;
+    margin-top:23px;
 }
 .showdL{
     float: right;
@@ -248,9 +258,8 @@
 }
 .list03{
     border:0;
-    margin-top:44px;
-    background: #eeeeee;
-    padding:0 10px;
+    margin-top:30px;
+    padding:0 15px;
 }
 .weui-picker__indicator {
     width: 100%;

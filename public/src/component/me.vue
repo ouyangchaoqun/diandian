@@ -10,52 +10,55 @@
 						<img class="edit" src="../images/edit.png"/>
 					</div>
 				</div>
-				<img class="me1_back" src="../images/back.png"/>
+				<img class="me1_back" src="../images/me_jt.png"/>
 			</router-link>
 		</div>
 		<router-link to = "/me/moodCount" class="me_lists ">
 			<div class="me_list">
 				<img class="listimg1" src="../images/listimg1.png"/>
 				<div class="listtext">我的心情指数</div>
-				<img class="listimg2" src="../images/back.png" />
+				<img class="listimg2" src="../images/me_jt.png" />
 			</div>
 		</router-link>
 		<router-link to="/friendList" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1" src="../images/listimg2.png"/>
 				<div class="listtext">我的好友</div>
-				<img class="listimg2" src="../images/back.png"/>
+				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/remind" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1" src="../images/listimg3.png"/>
 				<div class="listtext">心情记录提醒设置</div>
-				<img class="listimg2" src="../images/back.png"/>
+				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/privacy" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 privacyImg" src="../images/listimg4.png"/>
 				<div class="listtext">隐私设置</div>
-				<img class="listimg2" src="../images/back.png"/>
+				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/problem" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 problemImg" src="../images/listimg5.png"/>
 				<div class="listtext ">常见问题Q&A</div>
-				<img class="listimg2" src="../images/back.png"/>
+				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/proposal" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 proposalImg" src="../images/listimg6.png"/>
 				<div class="listtext">意见反馈</div>
-				<img class="listimg2" src="../images/back.png"/>
+				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
-		<a class="me_bottom weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
+		<div class="me_bottom">
+			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
+		</div>
+
 	</div>
 </template>
 <style>
@@ -102,9 +105,7 @@
 	.me1_back{
 		display: block;
 		float: right;
-		width:20px;
-		height:20px;
-		transform: rotate(180deg);
+		width:16px;
 		margin-top:20px;
 	}
 	.me_lists{
@@ -130,9 +131,7 @@
 	.listimg2{
 		display: block;
 		float: right;
-		width:20px;
-		height:20px;
-		transform: rotate(180deg);
+		width:16px;
 		margin-top:20px;
 	}
 	.listtext{
@@ -141,8 +140,8 @@
 		float: left;
 	}
 	.me_bottom{
-		width:90%;
-		margin:30px auto;
+		padding: 0 15px;
+		margin-top:30px;
 	}
 	.privacyImg{
 		width:16px;

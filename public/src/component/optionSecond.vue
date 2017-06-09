@@ -231,7 +231,7 @@
         background-position: 0 0;
         margin: 0 auto;
         background-image:url("../images/exp.png");
-        background-size: cover;
+        background-size: 1.595rem;
     }
 
     .expLists .exp2{
@@ -296,7 +296,7 @@
         background-position: 0 -32rem;
     }
     .expLists .exp22{
-        background-position: 0 -33.64705882352941rem;
+        background-position: 0 -33.54705882352941rem;
     }
     .expLists .exp23{
         background-position: 0 -35.23529411764706rem;
