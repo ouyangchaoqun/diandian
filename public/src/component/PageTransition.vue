@@ -12,7 +12,7 @@
         var preventToPaths = [{
             path: '/myCenter/myIndex/Edit',
             allowFroms: ['/addMood'],
-            gourl: '/'
+            go: -2
         }];
         for (var i = 0, l = preventToPaths.length; i < l; i++) {
             if (preventToPaths[i].path == to.path) {
@@ -25,7 +25,7 @@
                     }
                 }
                 if(stop){
-                    result = {stop: stop, gourl: preventToPaths[i].gourl}
+                    result = {stop: stop, go: preventToPaths[i].go}
                 }
                 break;
             }
@@ -46,7 +46,7 @@
 //            console.log({to:to.fullPath,from:from.fullPath});
             var result = urlCheck(to, from);
             if(result.stop){
-                this.$router.go(-2);
+                this.$router.go(result.go);
                 next(false);
                 return;
             }
