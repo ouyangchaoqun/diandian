@@ -1,6 +1,7 @@
 <template id="Edit">
     <div>
-        <div v-if="!showPositionList" class="edit_box">
+        <v-funny v-bind:moodvalue="moodValue"></v-funny>
+        <!--<div v-if="!showPositionList" class="edit_box">
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
@@ -42,10 +43,10 @@
                 <div class="weui-actionsheet__cell" @click = "hideAction()">取消</div>
             </div>
         </div>
-       <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
+       &lt;!&ndash; <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>&ndash;&gt;
         <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
+                <div class="swiper-slidetrue" v-show="buttons.first.on">&lt;!&ndash;optionFrist&ndash;&gt;
                     <div class="optionFrist_box">
                         <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
@@ -61,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide" v-show="buttons.second.on"><!--optionSecond-->
+                <div class="swiper-slide" v-show="buttons.second.on">&lt;!&ndash;optionSecond&ndash;&gt;
                     <div class="optionSecond_box">
                         <div class="swiper-container exp_box">
                             <div class="swiper-wrapper">
@@ -146,11 +147,10 @@
                     </div>
                 </div>
                 <div class="swiper-slide" v-show="buttons.third.on">
-                    搞笑图片
                 </div>
             </div>
         </div>
-        <!--positionList-->
+        &lt;!&ndash;positionList&ndash;&gt;
         <div class="positionList_box" v-if="showPositionList">
             <ul>
                 <li class="locList" @click="selectloc(-2)">
@@ -170,12 +170,13 @@
                 </li>
             </ul>
         </div>
-        <!--positionList end-->
+        &lt;!&ndash;positionList end&ndash;&gt;-->
     </div>
 </template>
 
 <script type="es6">
-    import insert from "../js/insert"
+    import insert from "../js/insert";
+    import funny from './funny.vue';
     var Edit={
         template:'#Edit'
     };
@@ -560,6 +561,9 @@
             openstyle:function () {
                 return this.isopen==1?'':'green';
             }
+        },
+        components: {
+            "v-funny": funny
         }
     }
 </script>

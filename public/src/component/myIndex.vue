@@ -28,7 +28,7 @@
                             {{item.moodValueText}}
                         </div>
 
-                        <template v-if="currTime-item.addTime<=20*60 && (item.content=='' || item.content==null)  ">
+                        <template v-if="canEdit(item)">
                             <router-link :to="item.editLink" class="editMood">
                                 20分钟内可以补充文字和图片
                                 <img src="../images/bianji.png" alt="">
@@ -36,7 +36,9 @@
                         </template>
                         <template v-if=" (item.content!=''&& item.content!=null)  ">
                             <div class="moodContext" v-html="formatContent(item.content)"></div>
-                            <div class="moodPhotoLists" v-if="item.haspicture">
+                        </template>
+                        <template v-if="item.haspicture">
+                            <div class="moodPhotoLists">
                                 <div class="moodPhotoList" v-for="pic in item.pics">
                                     <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
                                          :data-h="pic.picheight" :style="pic.styleObject"
@@ -45,7 +47,6 @@
 
                             </div>
                         </template>
-
                         <div class="moodLoc" v-if="item.content!=''&& item.content!=null">{{item.address}}</div>
                         <div class="moodTime">
                             <span>{{item.outTime}}</span>
@@ -134,6 +135,9 @@
             }
         },
         methods: {
+            canEdit:function (mood) {
+                return xqzs.mood.canEdit(mood);
+            },
             commentOrDel:function (userId,id,index,commentIndex) {
                 let vm = this;
                 if(userId===vm.user.id){
@@ -391,15 +395,7 @@
                 .catch((response) => {
 
                 });
-
-
-
-
-
-
         },
-
-
         components: {
             'v-scroll': scroll, "v-chart": chart,"v-banner": banner
         }

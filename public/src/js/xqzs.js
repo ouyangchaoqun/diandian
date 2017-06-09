@@ -264,7 +264,7 @@ var xqzs = {
     },
 
     mood: {
-
+        canEditTime:20*60,//可以编辑的时间限制
         moodValueText: ["", "超级不开心",//1
             "很不开心",//2
             "不开心",//3
@@ -279,6 +279,16 @@ var xqzs = {
         moodScenes:[
 '','学习教育','工作事业','经济','健康','家庭','恋爱婚姻','休闲娱乐','人际关系','天气','生活','运动','其他'
         ],
+        /**
+         * 是否可以编辑
+         * @param mood
+         * @returns {boolean}
+         */
+        canEdit:function (mood) {
+            console.info(mood);
+            var currTime = xqzs.dateTime.getTimeStamp();
+            return currTime - mood.addTime <= this.canEditTime && (mood.content=='' || mood.content==null) && mood.haspicture!=1;
+        },
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
         },
