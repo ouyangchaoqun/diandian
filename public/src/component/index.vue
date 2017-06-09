@@ -35,7 +35,7 @@
             <v-banner></v-banner>
         </div>
         <!--banner end -->
-        <router-link to='/notice' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
+        <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
         <div class="notice_box">
             <div class="notice" >
                 <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
@@ -173,7 +173,8 @@
                 friendMoodsSpe: null,
                 friendMoods: null,
                 notice:{count:0},
-                linkTo:"#"
+                linkTo:"#",
+                noticeLink:'/notice'
             }
         },
         methods: {
@@ -257,8 +258,11 @@
         },
         mounted: function () {
 
+
+
             let _this = this;
 
+            _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
             //用户信息
             this.$http({
                 method: 'GET',
