@@ -206,7 +206,7 @@
             },
             change:function(){
                 console.log(this.isRemind);
-                if(this.isRemind===true){
+                if(this.isRemind===false){
                     this.$http.delete(web.API_PATH + 'user/delete/user/remind/by/user/id/_userId_')
                         .then(
                             (response) => {
