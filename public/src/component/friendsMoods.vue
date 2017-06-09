@@ -188,10 +188,10 @@
             },
             addComment(id,index,replyIndex){
                 let vm = this;
-
+                let replyorcomment='评论';
                 let edithoder="";
                  if(replyIndex!==undefined&&replyIndex) {
-
+                     replyorcomment='回复';
 
                      if(vm.downdata[index].replies[replyIndex].fromuserid ===vm.downdata[index].userId ){
                         edithoder="作者";
@@ -223,7 +223,7 @@
                 },function (v) {
                     console.log(v)
                     //取消
-                },"评论 " +edithoder)
+                },replyorcomment+' '  + edithoder)
             },
             showComment: function (id, $index) {
                 let vm = this;
