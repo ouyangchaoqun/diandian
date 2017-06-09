@@ -7,11 +7,36 @@
 </template>
 
 <script>
+    var urlCheck = function (to, from) {
+        var result = {stop: false};
+        var preventToPaths = [{
+            path: '/myCenter/myIndex/Edit',
+            allowFroms: ['/addMood'],
+            go: -2
+        }];
+        for (var i = 0, l = preventToPaths.length; i < l; i++) {
+            if (preventToPaths[i].path == to.path) {
+                var stop = true;
+                for (var j = 0, jl = preventToPaths[i].allowFroms.length; j < jl; j++) {
+                    if (preventToPaths[i].allowFroms[j] == from.path) {
+                        //result = {stop: true, gourl: preventToPaths[i].gourl}
+                        stop = false;
+                        break;
+                    }
+                }
+                if(stop){
+                    result = {stop: stop, go: preventToPaths[i].go}
+                }
+                break;
+            }
+        }
+        return result;
+    }
     export default {
         data () {
             return {
                 transitionName: 'page-xqzs-left',
-                pagesIn:[],
+                pagesIn: [],
 
             }
         },
@@ -19,17 +44,24 @@
 //            let isBack = parseInt( Math.random()*10)%2;
 
 //            console.log({to:to.fullPath,from:from.fullPath});
-            let isBack=false;
-            for(let i = 0;i<this.pagesIn.length;i++){
+            var result = urlCheck(to, from);
+            if(result.stop){
+                this.$router.go(result.go);
+                next(false);
+                return;
+            }
+
+            let isBack = false;
+            for (let i = 0; i < this.pagesIn.length; i++) {
                 console.log(this.pagesIn[i]);
-                if(this.pagesIn[i].to==from.fullPath&&this.pagesIn[i].from==to.fullPath){
-                    isBack=true;
-                    this.pagesIn.splice(i,1);
+                if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
+                    isBack = true;
+                    this.pagesIn.splice(i, 1);
                     break;
                 }
             }
-            if(!isBack)
-            this.pagesIn.push({to:to.fullPath,from:from.fullPath})
+            if (!isBack)
+                this.pagesIn.push({to: to.fullPath, from: from.fullPath})
 
 
 //            console.log(1);
@@ -41,9 +73,8 @@
             } else {
                 this.transitionName = 'page-xqzs-left'
             }
-             next()
+            next()
         }
-
     }
 </script>
 

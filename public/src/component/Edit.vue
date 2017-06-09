@@ -187,7 +187,7 @@
                 contminlength: 8,
                 maxchars:140,
                 levelchars:140,
-                cansubmit: false,
+                cansubmit: true,
                 moodValue:0,
                 scenesId:0,
                 isopen: 1,
@@ -259,7 +259,6 @@
             },
             listenContent: function () {
                 var length = this.moodcontent.length;
-                this.cansubmit = this.moodcontent.length >= this.contminlength;
                 if(length > this.maxchars){
                     this.moodcontent = this.moodcontent.substring(0,this.maxchars);
                     this.levelchars = 0;
@@ -276,7 +275,9 @@
                 }
                 //
                 if(indexcode == 'first'){
-                    that. showAction();
+                    if(that.pictures.length == 0){
+                        that. showAction();
+                    }
                 }
             },
             changeisopen:function () {
@@ -285,6 +286,9 @@
             },
             submitMood:function () {
                 let that = this;
+                if(!that.cansubmit){
+                    return;
+                }
                 var postdata = {
                     moodValue:that.moodValue,
                     scenesId:that.scenesId,
@@ -325,16 +329,17 @@
                 this.updatePics();
             },
             smallPic:function (src) {
-                return src + xqzs.oss.Size.fill(53,53);
+                return src + xqzs.oss.Size.fill(65,65);
             },
             viewBigPics:function (src) {
                 var pics = [];
+                src = src + xqzs.oss.Size.resize(750, 750)
                 for (var i = 0, l = this.pictures.length; i < l; i++) {
                     if (this.pictures[i].image) {
-                        pics.push(this.pictures[i].image.path+ xqzs.oss.Size.resize(750,750))
+                        pics.push(this.pictures[i].image.path + xqzs.oss.Size.resize(750, 750));
                     }
                 }
-                xqzs.wx.previewImage(src,pics)
+                xqzs.wx.previewImage(src, pics)
             },
             //图片占位
             _showloadingpic:function (id) {
@@ -555,8 +560,8 @@
         left:1.4rem;
     }
     .optionAdd{
-        height: 53px;
-        width:53px;
+        height: 65px;
+        width:65px;
     }
     .weui-actionsheet__cell{
         font-size: 16px;
@@ -569,19 +574,13 @@
         background: rgba(0,0,0,0.4);
     }
     .upload-images{float: left}
-    .upload-images .item,.item-up-btn{float: left;width: 53px;height: 53px;}
+    .upload-images .item-image img,.upload-images .item,.item-up-btn{width: 65px;height: 65px;}
+    .upload-images .item,.item-up-btn{float: left}
     .upload-images .item{margin-top: 0px;margin-right:20px;}
     /*.item-up-btn{text-align: center;padding-top: 13px;height: 67px}*/
     .weui-loading{width: 30px;height: 30px;margin: 12px 0 0 12px;}
     .upload-images .item-image{position: relative}
-    .upload-images .item-image .del-img{position: absolute;
-        right: 0;
-        top: 0;
-        width: 20px;
-        height: 20px;
-        background-image: url(../images/writer_icon_fork.png);
-        background-size: 20px;}
-    .upload-images .item-image image{width: 53px;height: 53px;}
+    .upload-images .item-image .del-img{position: absolute;right: -10px;top: -10px;width: 20px;height: 20px;background-image: url(../images/close.png);background-size: 20px;}
 
     .edit_box{
         height:13.470588235294118rem;

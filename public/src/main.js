@@ -48,9 +48,3 @@ new Vue({
     router: router,
     render: h => h(App)
 });
-
- VueRouter.prototype.go = function () {
-     console.log("bac")
-    this.isBack = true
-    window.history.go(-1)
-}

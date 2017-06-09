@@ -351,6 +351,15 @@ var xqzs = {
             html += '  </div>';
 
             $("body").append(html);
+            
+            $(".comment_text").keyup(function () {
+                let val = $(this).val();
+                if(val.length>0){
+                    $(".action-sheet-edit .release").attr("style","color:#1AAD19")
+                }else{
+                    $(".action-sheet-edit .release").attr("style","color:#999999")
+                }
+            })
             setTimeout(function () {
                 $(".comment_box").removeClass('subactive').addClass("addactive");
             }, 10);

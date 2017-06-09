@@ -27,7 +27,7 @@
 				<span style="display: inline-block;">
 					<img src="../images/me1.png" class="weui-tabbar__icon"/>
 				</span>
-                <p class="weui-tabbar__label">我的</p>
+                <p class="weui-tabbar__label">我的1</p>
             </router-link>
 
         </div>

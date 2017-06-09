@@ -164,11 +164,11 @@
                 type: "json",
                 url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
             }).then(function (data) {//es5写法
-                if (data.data.status) {
+                if (data.data.data) {
                     _this.myLastMood = eval(data.data.data);
                     _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
                     _this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
-                    console.log(_this.myLastMood);
+                    console.log(data.data);
                 }
             }, function (error) {
                 //error

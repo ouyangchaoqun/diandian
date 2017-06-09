@@ -155,7 +155,7 @@
                     method: 'POST',
                     url: web.API_PATH + 'user/update/user/headpic/_userId_',
                 }).then(function (data) {//es5写法
-                    if (data.data.status !== null) {
+                    if (data.data== 1) {
                             xqzs.weui.toast("success", "更新成功",function(){
 
                             });

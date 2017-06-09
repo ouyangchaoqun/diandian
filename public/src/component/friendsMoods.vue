@@ -218,7 +218,7 @@
                 },function (v) {
                     console.log(v)
                     //取消
-                },"回复 " +edithoder)
+                },"评论 " +edithoder)
             },
             showComment: function (id, $index) {
                 let vm = this;
