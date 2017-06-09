@@ -183,6 +183,7 @@
         data() {
             return {
                 showPositionList:false,
+                moodid:0,
                 moodcontent: '',
                 contminlength: 8,
                 maxchars:140,
@@ -298,9 +299,13 @@
                     content: that.moodcontent,
                     pictures: that.pictureids
                 };
-                console.info(postdata);
                 that.cansubmit = false;
-                that.$http.put(web.API_PATH + 'mood/add',postdata)
+                var apiurl = 'mood/add';
+                if(that.moodid > 0 ){
+                    apiurl = 'mood/append';
+                    postdata['id'] = that.moodid;
+                }
+                that.$http.put(web.API_PATH + apiurl,postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
                         ///myCenter/myIndex
@@ -417,13 +422,50 @@
             //positionList
             checkInit:function () {
                 let that = this;
-                that.moodValue = that.$route.query.moodValue;
-                that.scenesId = that.$route.query.scenesId;
-                if (typeof that.moodValue == 'undefined' || !/\d+/.test(that.moodValue)
-                    || typeof that.scenesId == 'undefined' || !/\d+/.test(that.scenesId)) {
-                    return false;
+                var id = that.$route.query.id;
+                if(typeof id != 'undefined' && /^\d+$/.test(id)){
+                    that.loadMood(id);
+                }else{
+                    that.moodValue = that.$route.query.moodValue;
+                    that.scenesId = that.$route.query.scenesId;
+                    if (typeof that.moodValue == 'undefined' || !/^\d+$/.test(that.moodValue)
+                        || typeof that.scenesId == 'undefined' || !/^\d+$/.test(that.scenesId)) {
+                        return false;
+                    }
                 }
                 return true;
+            },
+            canedit:function (mood) {
+                if ((mood.content == null || mood.content == '')
+                    &&(mood.haspicture!=1)) {
+                    return true;
+                }
+                return false;
+            },
+            loadMood:function (id) {
+                var that = this;
+                var loading = xqzs.weui.loading();
+                //mood/query/detail/{id}
+                this.$http.get(web.API_PATH +'mood/query/detail/'+id).then(function (bt) {
+                    loading.remove();
+                    var flag = false;
+                    if( bt.data && bt.data.status == 1 && bt.data.data) {
+                        var _mood = bt.data.data;
+                        flag=true;
+                        if(that.canedit(_mood)){
+                            that.moodid = _mood.id;
+                            that.moodValue = _mood.moodValue;
+                            that.scenesId = _mood.scenesId;
+                            if(_mood.address!=null && _mood.address!=''){
+                                that.address = _mood.address;
+                                that.setShowAddress();
+                            }
+                        }
+                    }
+                    if(!flag){
+                        //that.$router.push({path:'/'});
+                    }
+                });
             },
             getFaceHtml:function(start,len) {
                 return xqzs.face.getFaceData(start,len);

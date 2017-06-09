@@ -28,6 +28,12 @@ var xqzs = {
                 });
             }, 800);
         },
+        loading:function () {
+            var id = '_weui_loading_'+new Date().getTime();
+            var html = '<div id="'+id+'"><div class="weui-mask"><div style="text-align: center;padding-top:100px;"><div class="weui-loading"></div></div></div></div>';
+            $("body").append(html);
+            return $('#'+id);
+        },
         dialog: function (title, msg, cancelFun, submitFun) {
             if(arguments.length == 1 && typeof arguments[0] == 'object'){
                 return this._dialog(arguments[0]);

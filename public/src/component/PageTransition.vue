@@ -11,17 +11,27 @@
         var result = {stop: false};
         var preventToPaths = [{
             path: '/myCenter/myIndex/Edit',
+            allowQuery:['id'],
             allowFroms: ['/addMood'],
             go: -2
         }];
         for (var i = 0, l = preventToPaths.length; i < l; i++) {
             if (preventToPaths[i].path == to.path) {
                 var stop = true;
-                for (var j = 0, jl = preventToPaths[i].allowFroms.length; j < jl; j++) {
-                    if (preventToPaths[i].allowFroms[j] == from.path) {
-                        //result = {stop: true, gourl: preventToPaths[i].gourl}
+                for(var j=0,jl=preventToPaths[i].allowQuery.length;j<jl;j++){
+                    var _k_ =preventToPaths[i].allowQuery[j];
+                    if(typeof to.query[_k_]!='undefined'){
                         stop = false;
                         break;
+                    }
+                }
+                if(stop) {
+                    for (var j = 0, jl = preventToPaths[i].allowFroms.length; j < jl; j++) {
+                        if (preventToPaths[i].allowFroms[j] == from.path) {
+                            //result = {stop: true, gourl: preventToPaths[i].gourl}
+                            stop = false;
+                            break;
+                        }
                     }
                 }
                 if(stop){
