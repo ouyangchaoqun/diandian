@@ -1,7 +1,7 @@
 <template id="Edit">
     <div>
         <v-funny v-bind:moodvalue="moodValue"></v-funny>
-        <div v-if="!showPositionList" class="edit_box">
+        <!--<div v-if="!showPositionList" class="edit_box">
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
@@ -43,10 +43,10 @@
                 <div class="weui-actionsheet__cell" @click = "hideAction()">取消</div>
             </div>
         </div>
-       <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
+       &lt;!&ndash; <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>&ndash;&gt;
         <div v-if="!showPositionList" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
-                <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
+                <div class="swiper-slidetrue" v-show="buttons.first.on">&lt;!&ndash;optionFrist&ndash;&gt;
                     <div class="optionFrist_box">
                         <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-slide" v-show="buttons.second.on"><!--optionSecond-->
+                <div class="swiper-slide" v-show="buttons.second.on">&lt;!&ndash;optionSecond&ndash;&gt;
                     <div class="optionSecond_box">
                         <div class="swiper-container exp_box">
                             <div class="swiper-wrapper">
@@ -150,7 +150,7 @@
                 </div>
             </div>
         </div>
-        <!--positionList-->
+        &lt;!&ndash;positionList&ndash;&gt;
         <div class="positionList_box" v-if="showPositionList">
             <ul>
                 <li class="locList" @click="selectloc(-2)">
@@ -170,7 +170,7 @@
                 </li>
             </ul>
         </div>
-        <!--positionList end-->
+        &lt;!&ndash;positionList end&ndash;&gt;-->
     </div>
 </template>
 

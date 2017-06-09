@@ -13,6 +13,7 @@
             <li>调皮可爱</li>
             <li>惊讶震惊</li>
             <li>希望期待</li>
+            
         </ul>
         <div class="funny_exp">
             <div class="exp_active">
@@ -84,6 +85,12 @@
     </div>
 </template>
 <style>
+    .funny_ul{
+        height:100%;
+        overflow-y: scroll;
+        width:23.4666%;
+        background: #eeeeee;
+    }
     .funny_exp img{
         display: block;
         width:27.8745644%;
@@ -106,7 +113,6 @@
         height:44px;
         line-height: 44px;
         background: #eeeeee;
-        width:23.4666%;
         text-align: center;
         border-left:3px solid #eeeeee;
         position: relative;
