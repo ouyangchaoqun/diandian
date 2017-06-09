@@ -1,5 +1,6 @@
 <template id="proposal">
     <div class="proposal_box">
+        <div v-title>意见反馈</div>
         <div class="feedback">
             <textarea placeholder="你好，我是产品经理小珺，欢迎给我们提出产品的使用感受和建议！" v-model="proposalCon"  ref="content" @input="listenProposal"/>
             <span>不少于8字!</span>

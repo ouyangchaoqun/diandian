@@ -1,6 +1,6 @@
 <template id="problem">
     <div class="problem_box">
-
+        <div v-title>常见问题</div>
         <div class="problem">
             <span class="protit">1.为何要用心情指数?</span>
             <p class="protex">日子有大有小，心情冷暖自知!心情指数为你随时随地记录每一刻的心情，通过心情指数的变化趋势和其背后的故事,让你更了解自己的内心世界</p>

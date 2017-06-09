@@ -1,5 +1,5 @@
 <template id="banner">
-
+    <div v-title>成为朋友</div>
 </template>
 <script>
     var banner = {

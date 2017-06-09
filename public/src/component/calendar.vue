@@ -1,5 +1,6 @@
 <template id="calendar">
     <div class="calendar_box">
+        <div v-title>心情日历</div>
         <div class="banner">
             <v-banner></v-banner>
         </div>

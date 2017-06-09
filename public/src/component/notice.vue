@@ -1,5 +1,6 @@
 <template id="notice">
 	<div class="careMe_box"  >
+		<div v-title>消息</div>
 		<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
 			<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
 				<img class="careMe_img" :src="newNotice.faceUrl" alt="">

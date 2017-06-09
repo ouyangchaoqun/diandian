@@ -1,5 +1,6 @@
 <template id="privacy">
     <div class="privacy_box">
+        <div v-title>隐私设置</div>
         <div class="privacy privacyTop">
                 <span>不看好友的心情记录</span>
                 <input type="checkbox" class="weui-switch privacyInput"  :checked="isNotLookFriend" @change="isNotLookFriend = $event.target.checked"    @click="lookFriend()" >

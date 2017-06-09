@@ -1,5 +1,6 @@
 <template id="friendIndex">
     <div class="myIndex_box">
+        <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <v-banner></v-banner>
             <div class="userHeaderImg">
@@ -39,50 +40,59 @@
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [0, 0, 0, 0, 0, 0, 0]}
 
                 ],
-                friendSetLink: null
+                friendSetLink: null,
+                nickName: ''
 
             }
         },
-        methods: {},
-        mounted: function () {
+        beforeCreate:function () {
             let _this = this;
-
 
             this.$http({
                 method: 'GET',
                 type: "json",
                 url: web.API_PATH + 'user/find/by/user/Id/' + _this.$route.query.friendId,
             }).then(function (data) {//es5写法
-                if (data.data.data !== null) {
-                    _this.friend = eval(data.data.data);
-                    _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" +  _this.$route.query.friendId;
+
+                if (data.body.data) {
+                    console.log(data.body.data)
+                    _this.friend = (data.body.data);
+                    _this.nickName = _this.friend.nickName
+                    _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + _this.$route.query.friendId;
                 }
             }, function (error) {
                 //error
             });
+        },
+        methods: {},
+        mounted: function () {
+            let _this = this;
+
+
+
 
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + _this.$route.query.friendId)
-                .then((data) => {
-                    if (data.data.status === 1) {
-                        for (let i = 0; i < data.data.data.length; i++) {
-                            let week = {days: [], moods: []};
-                            for (let j = 0; j < data.data.data[i].length; j++) {
-                                week.days.push(data.data.data[i][j].day);
-                                week.moods.push(data.data.data[i][j].value);
+                .then(function (data) {
+                        if (data.data.status === 1) {
+                            for (let i = 0; i < data.data.data.length; i++) {
+                                let week = {days: [], moods: []};
+                                for (let j = 0; j < data.data.data[i].length; j++) {
+                                    week.days.push(data.data.data[i][j].day);
+                                    week.moods.push(data.data.data[i][j].value);
+                                }
+
+                                _this.$set(_this.chartData, i, week)
+
+
                             }
 
-                            _this.$set(_this.chartData, i, week)
 
-
+                            console.log(_this.chartData)
                         }
-
-
-                        console.log(_this.chartData)
                     }
-                })
-                .catch((response) => {
-
-                });
+                    , function (error) {
+                        //error
+                    });
 
 
         },
@@ -96,20 +106,21 @@
 
 </script>
 <style>
-    .userHeaderImg{
-        height:64px;
+    .userHeaderImg {
+        height: 64px;
         width: 64px;
         position: absolute;
         left: 50%;
         bottom: -32px;
         margin-left: -32px;
         border-radius: 50%;
-        background: rgba(255,255,255,0.6);
+        background: rgba(255, 255, 255, 0.6);
         padding: 2px;
     }
-    .userHeaderImg img{
+
+    .userHeaderImg img {
         height: 64px;
-        width:64px;
+        width: 64px;
         border-radius: 50%;
         margin: auto;
         display: block;

@@ -1,5 +1,6 @@
 <template id="moodCount">
     <div class="moodCount_bgbox">
+        <div v-title>我的心情指数</div>
         <div class="tabs">
             <a href="#" hidefocus="true" class="active">每周心情指数</a>
             <a href="#" hidefocus="true">每月心情指数</a>

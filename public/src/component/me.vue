@@ -1,5 +1,6 @@
 <template id="me">
 	<div class="me_box">
+		<div v-title>个人中心</div>
 		<div class="me_top">
 			<router-link to="/me/personal" class="me1">
 				<img class="me1_left" :src="user.faceUrl"/>

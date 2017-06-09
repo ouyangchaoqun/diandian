@@ -1,5 +1,6 @@
 <template id="personal">
     <div class="personal_box">
+        <div v-title>完善资料</div>
         <div class="list0">
             <span>昵称</span>
             <input type="text" class="nickName" onfocus="this.value=''"  v-model:value="user.nickName" placeholder="填写昵称">

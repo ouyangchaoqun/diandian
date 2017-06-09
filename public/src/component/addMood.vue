@@ -1,5 +1,6 @@
 <template id="addMood">
     <div class="addMood">
+        <div v-title>此刻心情</div>
         <div class="banner">
             <v-banner></v-banner>
         </div>

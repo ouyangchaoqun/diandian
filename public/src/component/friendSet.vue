@@ -1,5 +1,6 @@
 <template id="friendSet">
     <div>
+        <div v-title>好友设置</div>
         <div class="friendSetList1">
             <img class="friendSetImg" :src="user.faceUrl" alt="">
             <div class="friendnickname">

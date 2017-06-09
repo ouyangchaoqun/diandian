@@ -1,5 +1,6 @@
 <template id="validate">
     <div>
+        <div v-title>绑定手机</div>
         <div class="validate_box">
             <div class="validate_top">
                 <h1>温馨提示</h1>

@@ -1,5 +1,6 @@
 <template id="friendsCount">
     <div class="friendList_box">
+        <div v-title>我的好友</div>
         <div v-if="hasFriend!=null&& hasFriend==true">
             <div class="weui-cells friendsCount_box specialCare_box" v-if="friend_s.length">
                 <div class="friendsCount_cell specialCare"><img src="../images/mafriend_icom_special.png" alt="">特别关心

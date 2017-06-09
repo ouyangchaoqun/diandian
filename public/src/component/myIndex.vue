@@ -1,6 +1,7 @@
 <template id="myIndex">
 
     <div style="position: relative">
+        <div v-title>我的主页</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
             <div class="myIndex_box">
                 <div class="banner index_banner">

@@ -1,6 +1,7 @@
 <template id="friends">
 
     <div style="position: relative">
+        <div v-title>匿名心情</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
             <div class="friends_box">
                 <div class="friend_header">
