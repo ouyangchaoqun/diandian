@@ -1,6 +1,6 @@
 <template id="Edit">
     <div>
-        <v-funny></v-funny>
+        <v-funny v-bind:moodvalue="moodValue"></v-funny>
         <div v-if="!showPositionList" class="edit_box">
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">

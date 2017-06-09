@@ -136,23 +136,32 @@
     };
 
     export default {
+        props: ['moodvalue'],
         data() {
-            return {
-
+            return {}
+        },
+        mothods: {
+            getTypes: function () {
+                this.$http.get(web.API_PATH + 'funny/query/types').then(function (bt) {
+                    console.info(bt);
+                })
             }
         },
-        mounted:function () {
-          $('.funny_ul li').click(function () {
-              $('.funny_ul li').removeClass('funny_active')
-              $(this).addClass('funny_active')
-             console.log($(this).index())
-              var active_index = $(this).index();
-              $('.funny_exp div').removeClass('exp_active')
-              $('.funny_exp div').eq(active_index).addClass('exp_active')
-          })
+        mounted: function () {
+            $('.funny_ul li').click(function () {
+                $('.funny_ul li').removeClass('funny_active')
+                $(this).addClass('funny_active')
+                console.log($(this).index())
+                var active_index = $(this).index();
+                $('.funny_exp div').removeClass('exp_active')
+                $('.funny_exp div').eq(active_index).addClass('exp_active')
+            });
+        },
+        watch: {
+            moodvalue: function (v) {
+                console.info(this)
+                //this.getTypes();
+            }
         }
-
     }
-
-
 </script>
