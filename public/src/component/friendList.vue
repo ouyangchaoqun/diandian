@@ -223,7 +223,8 @@
             //用户信息
             this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_').then(function (data) {
 
-                if (data.body.data !== null) {
+                if (data.body.data !== null&&data.body.data !== undefined) {
+                    console.log(data.body.data)
                     let generalFriends = data.body.data.generalFriends;
                     _this.friend_s = data.body.data.specialFriends;
                     for (let i = 0; i < _this.friend_s.length; i++) {
@@ -231,6 +232,8 @@
                         _this.friend_s[i].friendLink = "/#/friendCenter/?friendId=" + _this.friend_s[i].id;
                     }
 
+
+                    console.log(generalFriends)
 
                     let arrayGeneal = [];
                     for (let key in generalFriends) {
