@@ -22,6 +22,7 @@
 
 </div>
 <script>
+
     var web={};
 
     web.BASE_PATH2="<?=env("BASE_PATH")?>";
