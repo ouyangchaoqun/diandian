@@ -147,8 +147,8 @@
                 weui.picker(
                         hours, minutes, {
                             onConfirm: function (result) {
-                                _this.hour=result[0];
-                                _this.minute=result[1];
+                                _this.hour=result[0].value;
+                                _this.minute=result[1].value;
                             }
                         });
 
