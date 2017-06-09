@@ -192,7 +192,6 @@
                 let edithoder="";
                  if(replyIndex!==undefined&&replyIndex) {
                      replyorcomment='回复';
-
                      if(vm.downdata[index].replies[replyIndex].fromuserid ===vm.downdata[index].userId ){
                         edithoder="作者";
                     }else{
