@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
-  <title>pro1</title>
+  <title>心情指数</title>
   <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/weui/1.1.1/style/weui.min.css"/>
   <link rel="stylesheet" type="text/css" href="src/css/common.css"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/Swiper/3.4.2/css/swiper.min.css">
@@ -24,20 +24,16 @@
 <script>
     var web={};
 
-    web.BASE_PATH2="http://js.mood.hh-idea.com/";
-    web.BASE_PATH="http://js.mood.hh-idea.com/";
+    web.BASE_PATH2="<?=env("BASE_PATH")?>";
+    web.BASE_PATH="<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IMG_PATH="/dist/";
-
-
-
 
 </script>
 <script src="/src/js/cookie.js"></script>
 <script src="/src/js/xqzs.js?v=22"></script>
 <script src="/src/js/xqzs.face.js"></script>
 <script src="/src/js/vconsole.min.js"></script>
-<script src="/src/js/chineses.js"></script>
 <script src="/dist/build.js"></script>
 </body>
 </html>

@@ -1,8 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Methods:PUT,DELETE,POST,GET');
-header('Access-Control-Allow-Headers:Content-Type');
-
 
 
 session_start();
@@ -109,5 +105,13 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 foreach (['DateHelper','StringHelper'] as $path){
     require __DIR__."/../app/Helpers/{$path}.php";
 }
+
+if(env("APP_ENV")!=="production")
+{
+    header('Access-Control-Allow-Origin:*');
+    header('Access-Control-Allow-Methods:PUT,DELETE,POST,GET');
+    header('Access-Control-Allow-Headers:Content-Type');
+}
+
 
 return $app;
