@@ -46,7 +46,7 @@
         margin:0 15px;
     }
     .grids_box a{
-       padding-top: 10px;
+       padding-top: 0.588235rem;
     }
     .weui-grid{
         padding:0;
@@ -93,8 +93,8 @@
         position: absolute;
         bottom:0;
         width:100%;
-        padding-top:30px;
-        padding-bottom: 36px;
+        padding-top:1.76470rem;
+        padding-bottom: 2.1176470rem;
         overflow: hidden;
     }
     .scene_box{
@@ -112,8 +112,8 @@
     }
     .grid_top img{
         display: block;
-        width:50px;
-        height:50px;
+        width:2.941176rem;
+        height:2.941176rem;
         margin: auto;
     }
     .grid_bottom{
