@@ -34,6 +34,7 @@ class ApiService
 
       //  $curl = new Curl();
         $header = $this->getTokenHeader();
+//        print_r($header);
 
         //处理参数
         $data = $request->input();
@@ -145,7 +146,7 @@ class ApiService
         $timestamp = time();
         $nonceStr = $this->randCode(3, 10);
         $token = md5(env("APP_KEY") . $nonceStr . $timestamp . env("APP_KEY"));
-        return array("Content-type:application/json","timestamp" => $timestamp, "noncestr" => $nonceStr, "token" => $token);
+        return array("Content-type:application/json","timestamp:" . $timestamp, "noncestr:".$nonceStr, "token:".$token);
     }
 
     private function randCode($what, $number)
