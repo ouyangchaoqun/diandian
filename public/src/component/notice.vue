@@ -9,7 +9,7 @@
 					<p>{{newNotice.addtime}}</p>
 
 				</div>
-				<div class="careMe_content">
+				<div class="careMe_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
 					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
 					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
 						{{newNotice.moodcontent}}
@@ -23,7 +23,7 @@
 		<div class="bottom">
 
 			<a id="btnViewMore" v-if="isNew==1" @click="checkMore()">查看更早的消息...</a>
-			<a v-else-if="isNew==0">加载更多</a>
+			<a v-else-if="isNew==0" @click="checkMore()">加载更多</a>
 			<a v-else="isNew==2">没有更多数据</a>
 
 
@@ -32,6 +32,7 @@
 
 </template>
 <style>
+	.nobg{ background: none !important}
 	.bottom{width:100%;
 		padding-bottom: 20px;
 		padding-top: 20px;
@@ -76,18 +77,25 @@
 		font-size: 12px;
 	}
 	.careMe_content{
-		height:50px;
-		width: 50px;
-		background: #f5f5f5;
+		width: 60px;
+		height: 60px;
 		float: right;
+		overflow: hidden;
+		background: #f9f9f9;
 		margin-top: 8px;
 		position: relative;
+		font-size: 13px;
+		color: #333;
 	}
 	.careMe_content img{
-		height:50px;
-		width:50px;
+		height:32px;
+		width:32px;
 		display: block;
-
+		position: absolute;
+		top:50%;
+		left:50%;
+		margin-top:-16px;
+		margin-left:-16px;
 	}
 	.noCare_box{
 		position: relative;
@@ -201,45 +209,17 @@
 			});
 		},
 		methods:{
-			onRefresh(done) {
-				done() // call done
-			},
-			onInfinite(done) {
-				let vm = this;
-				vm.$http.get(web.API_PATH + 'notice/query/page/_userId_/' + (vm.pageNo + 1) + "/" + vm.num).then((response) => {
-					vm.pageNo++;
-					vm.pageEnd = vm.num * vm.pageNo;
-
-					vm.pageStart = vm.pageEnd - vm.num;
-					let arr = response.data.data.rows;
-
-					let end = vm.pageEnd;
-					arr = xqzs.mood.initMoodsData(arr);
-					for (let i = 0; i < arr.length; i++) {
-						vm.newNotices.push(arr[i]);
-					};
 
 
-					if (arr.length === 0) {
-						vm.isNew=2;
-
-					}else{
-						vm.isNew=0;
-					}
-
-					done() // call done
-				}, (response) => {
-					console.log('error');
-				});
-			},
 			checkMore:function(){
 				let vm = this;
 				vm.$http.get(web.API_PATH + 'notice/query/page/_userId_/' + (vm.pageNo) + "/" + vm.num).then((response) => {
 					let arr = response.data.data.rows;
 					arr = xqzs.mood.initMoodsData(arr);
-					vm.newNotices = arr;
-					for(let i=0;i<vm.newNotices.length;i++){
-						vm.newNotices[i].addtime=xqzs.dateTime.formatTime( vm.newNotices[i].addtime);
+
+					for(let i=0;i<arr.length;i++){
+                        arr[i].addtime=xqzs.dateTime.formatTime( arr[i].addtime);
+                        vm.newNotices.push( arr[i]);
 					}
 					if (arr.length === 0) {
 						vm.isNew=2;
@@ -249,17 +229,8 @@
 				}, (response) => {
 					console.log('error');
 				});
-
-
-
-
-
+                vm.pageNo=vm.pageNo+1;
 			}
-
-
-
-
-
 		}
 	}
 </script>

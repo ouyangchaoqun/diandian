@@ -19,6 +19,7 @@ class ApiController extends Controller
     public function url(Request $request, Response $response)
     {
         $userId = $this->getUserId($request);
+        if($userId==0) return "";
         return $this->apiService->exec($request,$userId);
     }
 }
