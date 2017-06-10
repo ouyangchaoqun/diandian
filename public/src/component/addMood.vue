@@ -5,7 +5,7 @@
             <v-banner></v-banner>
         </div>
 
-        <div class="moodBox_bg">
+        <div class="moodBox_bg" @click="goIndex()">
             <div class="mood_box">
                 <div class="mood_left">
                     <div class="moodBox_header">此刻心情</div>
@@ -175,6 +175,9 @@
             }
         },
         methods: {
+            goIndex:function () {
+                this.$router.go(-1)
+            },
             moodSrc:function (src) {
                 return web.IMG_PATH+src;
             },

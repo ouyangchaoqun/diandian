@@ -66,9 +66,15 @@
                 return;
             }
 
+
+
+
+
+
+
             let isBack = false;
             for (let i = 0; i < this.pagesIn.length; i++) {
-                console.log(this.pagesIn[i]);
+//                console.log(this.pagesIn[i]);
                 if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
                     isBack = true;
                     this.pagesIn.splice(i, 1);
@@ -79,11 +85,14 @@
                 this.pagesIn.push({to: to.fullPath, from: from.fullPath})
 
 
-//            console.log(1);
-//            console.log(this.pagesIn);
-//            console.log(2);
+//
+            //是否为点开心情页面；
+            if(from.fullPath==="/"&&to.fullPath==="/addMood"){
+                this.transitionName = 'page-xqzs-up'
+            }else if(from.fullPath==="/addMood"&&to.fullPath==="/"){
+                this.transitionName = 'page-xqzs-down'
 
-            if (isBack) {
+            }else if (isBack) {
                 this.transitionName = 'page-xqzs-right'
             } else {
                 this.transitionName = 'page-xqzs-left'
@@ -189,6 +198,99 @@
             transform: translate3d(-100%,0 , 0);
             -webkit-transform: translate3d(-100%,0 , 0);
          }
+    }
+
+
+
+
+
+    .page-xqzs-up-enter-active  .moodBox_bg , .page-xqzs-down-leave-active  .moodBox_bg {
+        background: none !important;
+    }
+    .page-xqzs-up-leave-active  .addMoodBg , .page-xqzs-down-enter-active  .addMoodBg {
+       display: block;
+    }
+
+    .page-xqzs-down-leave-active  .banner,.page-xqzs-up-enter-active   .banner{
+        display: none !important;
+    }
+
+
+
+
+    .page-xqzs-up-enter-active {
+        animation-name: fold-up-in;
+        animation-duration: .4s;
+        background: none !important;
+
+    }
+
+    .page-xqzs-up-leave-active {
+        animation-name: fold-up-out;
+        animation-duration: .9s;
+
+    }
+
+    .page-xqzs-down-enter-active {
+
+        animation-name: fold-down-in;
+        animation-duration:.4s;
+
+    }
+    .page-xqzs-down-leave-active {
+        z-index: 10003;
+        animation-name: fold-down-out;
+        animation-duration: .9s;
+        background: none !important;
+
+    }
+    @keyframes fold-down-in {
+        0% {
+            transform: translate3d(0, 0%, 0);
+            -webkit-transform: translate3d(0, 0%, 0);
+
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+    }
+    @keyframes fold-down-out {
+        0% {
+            transform: translate3d(0%, 0, 0);
+            -webkit-transform: translate3d(0%, 0, 0);
+        }
+
+        100% {
+            transform: translate3d(0,100% , 0);
+            -webkit-transform: translate3d(0,100%, 0);
+        }
+    }
+
+
+
+    @keyframes fold-up-in {
+        0% {
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
+
+        100% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+    }
+    @keyframes fold-up-out {
+        0% {
+            transform: translate3d(0%, 0, 0);
+            -webkit-transform: translate3d(0%, 0, 0);
+        }
+
+        100% {
+            transform: translate3d(0,0% , 0);
+            -webkit-transform: translate3d(0,0% , 0);
+        }
     }
 
 

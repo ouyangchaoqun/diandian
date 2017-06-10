@@ -1,5 +1,6 @@
 <template id="myCenter">
     <div style="height: 100%">
+        <div class="addMoodBg"></div>
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <router-link :to='linkTo' class="weui-tabbar__item  tab">
@@ -391,6 +392,9 @@
     li {
         list-style: none;
     }
+
+
+    .addMoodBg{ background: rgba(0,0,0,0.4); height: 100%; width: 100%; z-index: 10001; position: fixed; display: none}
 
 
     .mycenter {
