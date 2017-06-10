@@ -23,15 +23,15 @@
 
         <div class="setList">
             <div>特别关心</div>
-            <input type="checkbox" class="weui-switch setFlag" :checked="user.isSpecial" @change="user.isSpecial = $event.target.checked"  @click="special()" >
+            <input type="checkbox" class="weui-switch setFlag" :checked="user.isSpecial" @change="special($event)"   >
         </div>
         <div class="setList">
             <div>不看他的心情记录</div>
-            <input type="checkbox" class="weui-switch setFlag"  :checked="isNotLookFriend" @change="isNotLookFriend = $event.target.checked"   @click="lookFriend()"  >
+            <input type="checkbox" class="weui-switch setFlag"  :checked="isNotLookFriend" @change="lookFriend($event)"  >
         </div>
         <div class="setList setListLast">
             <div>不让TA看我的心情记录</div>
-            <input type="checkbox" class="weui-switch setFlag"  :checked="isNotLookMe" @change="isNotLookMe = $event.target.checked"   @click="lookMe()">
+            <input type="checkbox" class="weui-switch setFlag"  :checked="isNotLookMe"   @change="lookMe($event)">
         </div>
     </div>
 </template>
@@ -79,11 +79,13 @@
         },
         methods: {
 
-            special:function () {
+            special:function ($event) {
                 let _this = this;
+//                console.log($event.target.checked);
+                _this.user.isSpecial = $event.target.checked;
                 let flag;
-                if(_this.user.isSpecial==true){flag=1};
-                if(_this.user.isSpecial==false){flag=0};
+                if(_this.user.isSpecial==true){flag=0};
+                if(_this.user.isSpecial==false){flag=1};
                 _this.$http.post(web.API_PATH+'user/set/friend/special/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
@@ -93,11 +95,12 @@
                 });
             },
 
-            lookMe: function () {
+            lookMe: function ($event) {
                 let _this = this;
+                _this.isNotLookMe = $event.target.checked;
                 let flag;
-                if(_this.isNotLookMe===true){flag=0}
-                if(_this.isNotLookMe===false){flag=1}
+                if(_this.isNotLookMe===true){flag=1}
+                if(_this.isNotLookMe===false){flag=0}
 
                 _this.$http.post(web.API_PATH+'user/set/friend/look/me/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
@@ -107,11 +110,12 @@
                     // error
                 });
             },
-            lookFriend: function () {
+            lookFriend: function ($event) {
                 let _this = this;
+                _this.isNotLookFriend = $event.target.checked;
                 let flag;
-                if(_this.isNotLookFriend===true){flag=0}
-                if(_this.isNotLookFriend===false){flag=1}
+                if(_this.isNotLookFriend===true){flag=1}
+                if(_this.isNotLookFriend===false){flag=0}
                 _this.$http.post(web.API_PATH+'user/set/friend/look/friend/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 

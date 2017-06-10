@@ -3,12 +3,12 @@
         <div v-title>隐私设置</div>
         <div class="privacy privacyTop">
                 <span>不看好友的心情记录</span>
-                <input type="checkbox" class="weui-switch privacyInput"  :checked="isNotLookFriend" @change="isNotLookFriend = $event.target.checked"    @click="lookFriend()" >
+                <input type="checkbox" class="weui-switch privacyInput"  :checked="isNotLookFriend"    @change="lookFriend($event)" >
             <div></div>
         </div>
         <div class="privacy privacyBottom">
             <span>不让好友看我的心情记录</span>
-            <input type="checkbox" class="weui-switch privacyInput"   :checked="isNotLookMe" @change="isNotLookMe = $event.target.checked"   @click="lookMe()">
+            <input type="checkbox" class="weui-switch privacyInput"   :checked="isNotLookMe"     @change="lookMe($event)">
         </div>
     </div>
 </template>
@@ -86,13 +86,13 @@
 
         },
         methods:{
-            lookMe:function () {
+            lookMe:function ($event) {
                 let _this = this;
 
-
+                _this.isNotLookMe =  $event.target.checked
                 let flag;
-                if(_this.isNotLookMe===true){flag=0}
-                if(_this.isNotLookMe===false){flag=1}
+                if(_this.isNotLookMe===true){flag=1}
+                if(_this.isNotLookMe===false){flag=0}
                 //
                 this.$http({
                     method: 'POST',
@@ -106,11 +106,12 @@
                 });
             },
 
-            lookFriend:function () {
+            lookFriend:function ($event) {
                 let _this = this;
+                _this.isNotLookFriend =  $event.target.checked
                 let flag;
-                if(_this.isNotLookFriend===true){flag=0}
-                if(_this.isNotLookFriend===false){flag=1}
+                if(_this.isNotLookFriend===true){flag=1}
+                if(_this.isNotLookFriend===false){flag=0}
                 //
                 this.$http({
                     method: 'POST',
