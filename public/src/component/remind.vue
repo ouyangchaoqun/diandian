@@ -177,8 +177,8 @@
                     hours, minutes, {
                         onConfirm: function (result) {
                             console.log(result)
-                            _this.hour = result[0]!=''?result[0]:result[0].value;
-                            _this.minute = result[1]!=''?result[1]:result[1].value;
+                            _this.hour = result[0] != '' ? result[0] : result[0].value;
+                            _this.minute = result[1] != '' ? result[1] : result[1].value;
                         }
                     });
 
@@ -193,24 +193,20 @@
                         userId: "",
                         id: ""
                     }, {emulateJSON: true})
-                        .then(
-                            (response) => {
-                                xqzs.weui.toast("success", "修改成功", function () {
+                        .then(function (response) {
+                                xqzs.weui.toast("success", "设置成功", function () {
                                     _this.$router.go(-1);
                                 })
-                            }
-                        );
+                            });
 
                 }
 
             },
-            change:function(){
+            change: function () {
                 console.log(this.isRemind);
-                if(this.isRemind===false){
+                if (this.isRemind === false) {
                     this.$http.delete(web.API_PATH + 'user/delete/user/remind/by/user/id/_userId_')
-                        .then(
-                            (response) => {
-
+                        .then(function (response) {
                                 console.log("del");
                             }
                         );

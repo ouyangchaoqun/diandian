@@ -88,6 +88,8 @@
         methods:{
             lookMe:function () {
                 let _this = this;
+
+
                 let flag;
                 if(_this.isNotLookMe===true){flag=0}
                 if(_this.isNotLookMe===false){flag=1}
