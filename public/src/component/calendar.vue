@@ -41,12 +41,12 @@
         </div>
         <!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
-        <div :class="[{show_box:isa,hidden_box:isb}]" @click="hideSwiper()">
+        <div :class="[{show_box_cal:isa,hidden_box:isb}]" @click="hideSwiper()">
             <div id="bg_back">
                 <div class="swiper-container clickBox">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"  v-for="mood in dayMoods">
-                            <img :src="mood.bgUrl" alt="" />
+                        <div class="swiper-slide" v-for="mood in dayMoods">
+                            <img :src="mood.bgUrl" alt=""/>
                             <div class="clickBox_time">
                                 <span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>
                                 <div class="clickBox_bottom">{{mood.content}}</div>
@@ -87,18 +87,17 @@
                 isa: false,
                 isb: true,
                 swiper_box: true,
-                dayMoods:[],
-                mySwiper:null,
-                maxMonthNum:3,
-                nowMonth:null,
-                nowYear:null
+                dayMoods: [],
+                mySwiper: null,
+                maxMonthNum: 3,
+                nowMonth: null,
+                nowYear: null
             }
         },
 
-         mounted:function(){                                            //轮播配置
-            let _this= this;
-            _this.mySwiper = new Swiper('.swiper-container', {
-            });
+        mounted: function () {                                            //轮播配置
+            let _this = this;
+            _this.mySwiper = new Swiper('.swiper-container', {});
         },
         /*components:{
          "v-swiper_box":swiper_box
@@ -146,7 +145,7 @@
                 var empytGrids = []
                 if (firstDayOfWeek > 0) {
                     for (var i = 0; i < firstDayOfWeek; i++) {
-                         empytGrids.push({index: i, date: "", smailUrl: ""});
+                        empytGrids.push({index: i, date: "", smailUrl: ""});
                     }
                     _this.hasEmptyGrid = true;
                     _this.empytGrids = empytGrids;
@@ -159,7 +158,7 @@
 
             },
             calculateDays(year, month) {
-                let defaultImgUrl= web.IMG_PATH + "list_mood_0" + 0 + ".png";
+                let defaultImgUrl = web.IMG_PATH + "list_mood_0" + 0 + ".png";
                 let _this = this;
                 let days = [];
                 let thisMonthDays = this.getThisMonthDays(year, month);
@@ -167,13 +166,12 @@
                 if (month < 10) monthchange = "0" + monthchange;
 
 
-
                 for (let i = 1; i <= thisMonthDays; i++) {
-                    days.push({index: i-1, date: "", smailUrl: defaultImgUrl,moods:[] });
+                    days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
                 }
 
                 this.days = days;
-                    days = [];
+                days = [];
                 _this.$http.get(web.API_PATH + 'mood/query/calendar/list/_userId_?date=' + year + '-' + monthchange + '-01').then(response => {
                     if (response.data.status === 1) {
 
@@ -183,7 +181,7 @@
                                 if (i < 10) dayChange = "0" + i;
                                 let dateStr = year + "-" + monthchange + "-" + dayChange;
                                 let faceIndex = 0;
-                                let moods =[];
+                                let moods = [];
                                 for (let j = 0; j < response.data.data.length; j++) {
                                     if (dateStr === response.data.data[j].dt) {
                                         faceIndex = response.data.data[j].moodValue;
@@ -191,7 +189,7 @@
                                     }
                                 }
                                 let smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
-                                days.push({index: i-1, date: dateStr, smailUrl: smailUrl,moods:moods});
+                                days.push({index: i - 1, date: dateStr, smailUrl: smailUrl, moods: moods});
                             }
 
 
@@ -199,18 +197,18 @@
 
                         this.days = days
 
-                    }else{
+                    } else {
                         for (let i = 1; i <= thisMonthDays; i++) {
-                            days.push({index: i-1, date: "", smailUrl: defaultImgUrl,moods:[]});
+                            days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
                         }
                     }
                 }, response => {
                     for (let i = 1; i <= thisMonthDays; i++) {
-                        days.push({index: i-1, date: "", smailUrl: defaultImgUrl,moods:[]});
+                        days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
                     }
                 });
 
-               //
+                //
             },
             oldMonth: function () {                             //上个月
                 let cur_year = this.cur_year;
@@ -218,14 +216,14 @@
 
                 //阻止前面的的月份
                 let firstYear = this.nowYear;
-                let firstMonth= this.nowMonth;
-                firstMonth= firstMonth - this.maxMonthNum;
-                if(firstMonth<=0){
-                    firstYear = firstYear-1;
-                    firstMonth = 12 +firstMonth;
+                let firstMonth = this.nowMonth;
+                firstMonth = firstMonth - this.maxMonthNum;
+                if (firstMonth <= 0) {
+                    firstYear = firstYear - 1;
+                    firstMonth = 12 + firstMonth;
                 }
-                if(firstYear  ===cur_year &&  firstMonth===cur_month ) {
-                    return ;
+                if (firstYear === cur_year && firstMonth === cur_month) {
+                    return;
                 }
 
 
@@ -245,8 +243,8 @@
                 let cur_month = this.cur_month;
 
                 //阻止后面的月份
-                if(this.nowYear  ===cur_year &&  this.nowMonth ===cur_month ) {
-                    return ;
+                if (this.nowYear === cur_year && this.nowMonth === cur_month) {
+                    return;
                 }
 
                 let newMonth = cur_month + 1;
@@ -263,41 +261,40 @@
             },
             showSwiper: function (index) {
 
-                let _this=this;
-                if(_this.days[index].moods.length>0){
+                let _this = this;
+                if (_this.days[index].moods.length > 0) {
 
 
                     //植入当天数据
-                    _this.dayMoods=[];
-                    _this.dayMoods =_this.days[index].moods;
-                    for(let i =0 ;i<_this.dayMoods.length;i++){
-                        _this.dayMoods[i].bgUrl= web.IMG_PATH +"bg_mood_0"+_this.dayMoods[i].moodValue+".png";
+                    _this.dayMoods = [];
+                    _this.dayMoods = _this.days[index].moods;
+                    for (let i = 0; i < _this.dayMoods.length; i++) {
+                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "bg_mood_0" + _this.dayMoods[i].moodValue + ".png";
                         _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
-                        _this.dayMoods[i].dt=  _this.dayMoods[i].dt.replace("-","月");
-                        _this.dayMoods[i].weekCn =  _this.weeks_ch[_this.dayMoods[i].weekix];
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "月");
+                        _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
                     }
 
 
                     console.log(_this.dayMoods);
-                    this.$nextTick(function(){
+                    this.$nextTick(function () {
 
-                        if(_this.mySwiper!==null){
+                        if (_this.mySwiper !== null) {
                             _this.mySwiper.update()
                         }
 
-                         _this. mySwiper.slideTo(_this.dayMoods.length-1, 0, false);//切换到第一个slide
+                        _this.mySwiper.slideTo(_this.dayMoods.length - 1, 0, false);//切换到第一个slide
 
                     });
-
 
 
                     //日期点击事件
                     this.isa = true;
                     this.isb = false
+                    $('body').on('touchmove', this.prevent);
 
 
                 }
-
 
 
             },
@@ -305,6 +302,10 @@
 
                 this.isa = false;
                 this.isb = true
+                $('body').off('touchmove', this.prevent);
+            },
+            prevent: function (e) {
+                e.preventDefault();
             }
         }
 
@@ -312,8 +313,12 @@
 </script>
 
 <style>
-    .show_box {
+    .show_box_cal {
         visibility: inherit;
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 100%;
     }
 
     .hidden_box {
@@ -432,7 +437,6 @@
         font-size: 14px;
         color: #333;
 
-
     }
 
     .dateBgView {
@@ -451,21 +455,23 @@
         justify-content: center;
         position: relative;
     }
-    .dateEmptyView_right{
-        width:1px;
-        height:100%;
+
+    .dateEmptyView_right {
+        width: 1px;
+        height: 100%;
         background: #eeeeee;
         position: absolute;
-        right:0;
-        top:0;
+        right: 0;
+        top: 0;
     }
-    .dateEmptyView_bottom{
-        height:1px;
+
+    .dateEmptyView_bottom {
+        height: 1px;
         width: 100%;
         background: #eeeeee;
         position: absolute;
-        bottom:0;
-        left:0;
+        bottom: 0;
+        left: 0;
     }
 
     .dateView {
