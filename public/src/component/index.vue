@@ -103,7 +103,7 @@
                             <div class="friend">
                                 <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName}}</p>
                                 <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName}}</p>
-                                <p class="time">{{friendMood.formatAddTime}}</p>
+                                <p class="time">{{friendMood.outTime}}</p>
                             </div>
                         </div>
 
