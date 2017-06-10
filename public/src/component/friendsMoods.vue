@@ -170,7 +170,10 @@
                     vm.$http.delete(url)
                         .then((data) => {
                             if (data.data.status === 1) {
-                                vm.downdata[index].replies[replyIndex].isDel = true;
+
+                               vm.downdata[index].replies.splice(replyIndex,1);
+
+
                                 vm.downdata[index].replycount=  vm.downdata[index].replycount-1;
                                 vm.$set(vm.downdata, index, vm.downdata[index])
                             } else {
@@ -203,8 +206,7 @@
                 xqzs.mood.actionSheetEdit("取消","发送",function (v) {
                     vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":id,"content":v}).then(response => {
                         if(response.data.status===1){
-                            xqzs.weui.toast("success","提交成功",function () {
-                            });
+
 
                             if(response.data.data.reply.touserid===vm.downdata[index].userId){
                                 response.data.data.reply.to_nickName= "作者";
