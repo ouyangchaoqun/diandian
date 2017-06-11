@@ -203,7 +203,6 @@
 <style>
 .personal_box{
     background: #f4f4f4;
-    padding-top: 15px;
 }
 .line{
     height: 1px;
@@ -214,6 +213,7 @@
     width:92%;
 
 }
+.list0:first-child{margin-top: 15px;}
 .list0{
     background:#fff;
     height:60px;
