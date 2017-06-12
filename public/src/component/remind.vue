@@ -177,8 +177,8 @@
                     hours, minutes, {
                         onConfirm: function (result) {
                             console.log(result)
-                            _this.hour = result[0] != '' ? result[0] : result[0].value;
-                            _this.minute = result[1] != '' ? result[1] : result[1].value;
+                            _this.hour = result[0].value !== '' ? result[0].value : result[0];
+                            _this.minute = result[1].value !== '' ? result[1].value : result[1];
                         }
                     });
 
