@@ -370,7 +370,7 @@
                 for(var i =0,l=this.pictures.length;i<l;i++) {
                     if (id == this.pictures[i].id) {
                         this.pictures[i].isloading = false;
-                        data['pictype'] = '';
+                        this.pictures[i]['pictype'] = '';
                         this.pictures[i].image = data;
                     }
                 }
@@ -513,20 +513,19 @@
                 that.showModule = '';
                 //that.buttons.first.on = true;
                 if(!that.canupload){
-                    xqzs.weui.toast('fail','最多三张',function () {})
-                    return;
+                    that.clickoptions('first');
+                    xqzs.weui.toast('fail','最多三张',function () {});
+                }else{
+                    that.funnypictures.push({
+                        isloading:false,
+                        pictype:'funny',
+                        image:{
+                            path:data.path,
+                            id:data.id
+                        }
+                    });
+                    that.clickoptions('first');
                 }
-                that.funnypictures.push({
-                    isloading:false,
-                    image:{
-                        path:data.path,
-                        id:data.id,
-                        pictype:'funny'
-                    }
-                });
-                that.clickoptions('first');
-                console.info(data)
-                //that.funnypictures.push(data);
             });
             //optionFrist
             this.uploadpicinfo = {
