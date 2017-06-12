@@ -98,46 +98,16 @@
                 _this.isShowErrorMobileMsg = false;
             });
 
-
-
-            $('#sublim').click(function () {
-                if ($('#sublim').hasClass('weui-btn_disabled')) {
-
-                } else {
-                    $.ajax({
-                        type: "get",
-                        dataType: "json",
-                        url: "mobile.json",
-                        //data:"mobile="+ $("#mobile").val() + "&code="+ $(".codeval").val(),
-                        success: function (data) {
-                            console.log(data)
-                            if (data.state == 1) {
-                                $("._toast").show()
-                                setTimeout(function () {
-                                    history.go(-1);
-                                    $("._toast").hide()
-                                }, 1000);
-                                console.log(data.state)
-                            } else {
-
-                            }
-                        }
-                    });
-                }
-
-            });
-
-
         },
         methods: {
             submit:function () {
                 let _this = this;
 
                 if(_this.isAllInput==true){
-                    _this.$http.post(web.API_PATH + 'base/verification/code/post/mobilecode', {mobile: _this.mobile,code:_this.code}).then(response => {
+                    _this.$http.post(web.API_PATH + 'user/update/mobile/by/code/mobile/_userId_', {mobile: _this.mobile,code:_this.code}).then(response => {
                         if (response.data.status === 1) {
                             xqzs.weui.toast("success","验证成功",function () {
-                                _this.$router.go(-1);
+                                 _this.$router.go(-1);
                             })
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){
