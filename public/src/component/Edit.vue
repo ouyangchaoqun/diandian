@@ -2,7 +2,7 @@
     <div>
         <div v-title>此刻心情</div>
         <v-funny v-bind:moodvalue="moodValue" v-if="showPositionList('funny')"></v-funny>
-        <div v-if="showPositionList('')" class="edit_box">
+        <div v-show="showPositionList('')" class="edit_box">
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
@@ -15,7 +15,7 @@
             <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img src="../images/dz_nor.png" alt=""></div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
-        <div v-if="showPositionList('')" class="edit_option">
+        <div v-show="showPositionList('')" class="edit_option">
             <div>
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
@@ -45,7 +45,7 @@
             </div>
         </div>
        <!-- <router-view style="overflow: scroll" v-bind:frmparentpictures="pictureListForUpload"></router-view>-->
-        <div v-if="showPositionList('')" class="swiper-container edit_lists" style="height:280px;">
+        <div v-show="showPositionList('')" class="swiper-container edit_lists" style="height:280px;">
             <div class="swiper-wrapper">
                 <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
                     <div class="optionFrist_box">
@@ -370,7 +370,7 @@
                 for(var i =0,l=this.pictures.length;i<l;i++) {
                     if (id == this.pictures[i].id) {
                         this.pictures[i].isloading = false;
-                        data['pictype'] = '';
+                        this.pictures[i]['pictype'] = '';
                         this.pictures[i].image = data;
                     }
                 }
@@ -513,20 +513,19 @@
                 that.showModule = '';
                 //that.buttons.first.on = true;
                 if(!that.canupload){
-                    xqzs.weui.toast('fail','最多三张',function () {})
-                    return;
+                    that.clickoptions('first');
+                    xqzs.weui.toast('fail','最多三张',function () {});
+                }else{
+                    that.funnypictures.push({
+                        isloading:false,
+                        pictype:'funny',
+                        image:{
+                            path:data.path,
+                            id:data.id
+                        }
+                    });
+                    that.clickoptions('first');
                 }
-                that.funnypictures.push({
-                    isloading:false,
-                    image:{
-                        path:data.path,
-                        id:data.id,
-                        pictype:'funny'
-                    }
-                });
-                that.clickoptions('first');
-                console.info(data)
-                //that.funnypictures.push(data);
             });
             //optionFrist
             this.uploadpicinfo = {
@@ -802,13 +801,6 @@
         flex-grow: 1;
         margin-bottom: 0.29411764705882354rem;
     }
-    /* .expLists1,.expLists2,.expLists3,.expLists4,.expLists5,.expLists6,.expLists7,.expLists8,.expLists9,.expLists10{
-         display: flex;
-         margin-bottom: 0.5882352941176471rem;
-     }
-     .expLists1 div,.expLists2 div, .expLists3 div,.expLists4 div,.expLists5 div,.expLists6 div,.expLists7 div,.expLists8 div,.expLists9 div,.expLists10 div{
-         flex-grow: 1;
-     }*/
     .delexp{
         height:1.1176470588235294rem;
         margin: 0 auto;
