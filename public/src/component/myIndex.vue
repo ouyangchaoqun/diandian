@@ -57,7 +57,7 @@
                             <span>{{item.outTime}}</span>
                             <span v-if="currTime-item.addTime<=180 &&(item.content=='' || item.content==null)"
                                   class="btn_del" @click="revoke(item.id,index)">撤回</span>
-                            <span v-if="item.content!='' && item.content!=null" class="btn_del"
+                            <span v-if="canClear(item)" class="btn_del"
                                   @click="empty(item.id,index)">删除</span>
                             <div class="moodFollow" @click="showComment(item.id,index)">
                                 <span class="followCount">{{item.careCount}}</span>
@@ -142,6 +142,9 @@
         methods: {
             canEdit:function (mood) {
                 return xqzs.mood.canEdit(mood);
+            },
+            canClear:function (mood) {
+                return xqzs.mood.canClear(mood);
             },
             commentOrDel:function (userId,id,index,commentIndex) {
                 let vm = this;

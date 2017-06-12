@@ -18,7 +18,7 @@
                 </div>
                 <div class="moodTime">
                     <span>{{mood.time}}</span>
-                    <span class="btn_del" @click="delMoodContent(mood.id)" v-if="mood.content!==''">删除</span>
+                    <span class="btn_del" @click="delMoodContent(mood.id)" v-if="canClear(mood)">删除</span>
                     <div class="moodFollow">
                         <span class="followCount">{{mood.careCount}}</span>
                         <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount>0 "
@@ -137,6 +137,9 @@
             canEdit:function (mood) {
                 return xqzs.mood.canEdit(mood);
             },
+            canClear:function (mood) {
+                return xqzs.mood.canClear(mood);
+            },
             replyOrDel: function (userId, id, index) {
                 let vm = this;
                 console.log(this.user);
@@ -229,6 +232,9 @@
                         (data) => {
                             if (data.data.status === 1) {
                                 _this.mood.content = '';
+                                _this.mood.haspicture = 0;
+                                _this.mood.pics = [];
+                                _this.mood.funnypics = [];
 
                             } else {
                                 xqzs.weui.toast("fail", "删除失败", function () {

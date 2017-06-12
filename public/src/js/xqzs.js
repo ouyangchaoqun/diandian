@@ -292,9 +292,11 @@ var xqzs = {
          * @returns {boolean}
          */
         canEdit:function (mood) {
-            console.info(mood);
             var currTime = xqzs.dateTime.getTimeStamp();
             return currTime - mood.addTime <= this.canEditTime && (mood.content=='' || mood.content==null) && mood.haspicture!=1;
+        },
+        canClear:function (mood) {
+            return (mood.content!='' && mood.content!=null) || mood.haspicture==1;
         },
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";

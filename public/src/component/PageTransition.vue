@@ -7,13 +7,20 @@
 </template>
 
 <script>
+    var isiOS = function () {
+        var u = navigator.userAgent;
+        //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
+        return isiOS;
+    }
     var urlCheck = function (to, from) {
         var result = {stop: false};
         var preventToPaths = [{
             path: '/myCenter/myIndex/Edit',
             allowQuery:['id'],
             allowFroms: ['/addMood'],
-            go: -2
+            go: isiOS()?-3:-2
         }];
         for (var i = 0, l = preventToPaths.length; i < l; i++) {
             if (preventToPaths[i].path == to.path) {
