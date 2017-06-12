@@ -43,7 +43,7 @@ xqzs.face = {
         document.getElementsByTagName("head")[0].appendChild($style);
     },
     _getAllExp: function (content) {
-        return content.match(/(\[([\u4e00-\u9fa5]{1,3}]))/i, 'g');
+        return content.match(/(\[([\u4e00-\u9fa5]{1,3}]))/ig);
     },
     _replaceByKey:function (content,key) {
         content = content.replace(new RegExp('\\['+key.t+'\\]', 'gm'), '<a class="exp exp'+key.id+'"></a>');
