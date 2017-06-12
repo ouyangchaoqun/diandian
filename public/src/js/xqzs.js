@@ -200,7 +200,7 @@ var xqzs = {
             if (dateTime) {
                 timestamp = Date.parse(dateTime);
             }
-            timestamp = timestamp / 1000;
+            timestamp = parseInt(timestamp / 1000) ;
             return timestamp;
 
 
