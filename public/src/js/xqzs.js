@@ -196,13 +196,7 @@ var xqzs = {
             return this._format(this.DATE_TIME, time);
         },
         getTimeStamp: function (dateTime) {
-            let timestamp=new Date().getTime();
-            if (dateTime) {
-                timestamp = Date.parse(dateTime);
-            }
-            timestamp = parseInt(timestamp / 1000) ;
-            return timestamp;
-
+            return 1497235318;
 
         }
 
