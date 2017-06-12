@@ -667,7 +667,6 @@ function myResizePicture(listObj,imgListStr,containerStr) {
 
 
             images.each(function () {
-                console.info($(this).data('type'));
                 if($(this).data('type') && $(this).data('type')=='notresize' ){
                     return false;
                 }
