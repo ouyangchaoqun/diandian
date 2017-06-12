@@ -54,7 +54,7 @@
                                 <div class="weui-loading"></div>
                             </div>
                             <div class="item item-image" v-else>
-                                <div class="del-img" @click="deletePic(index)"></div>
+                                <div class="del-img" @click="deletePic(index,pic.pictype)"></div>
                                 <img v-bind:src="smallPic(pic.image.path)" @click="viewBigPics(pic.image.path)"/>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                 address: '',
                 showAddress:'点击获取所在位置',
                 pictures: [],
-                funnypicture:[],
+                funnypictures:[],
                 buttons:{
                     'first':{
                         'curr':web.IMG_PATH+'zp_nor.png',
@@ -337,8 +337,14 @@
                 this.activeFlag = false
                 this.maskFlag = false
             },
-            deletePic:function (i) {
-                this.pictures = this.pictures.slice(0, i).concat(this.pictures.slice(i + 1, this.pictures.length));
+            deletePic:function (i,tp) {
+                if(tp == 'funny'){
+                    this.funnypictures = this.funnypictures.slice(0, i).concat(this.funnypictures.slice(i + 1, this.funnypictures.length));
+                }else{
+                    this.pictures = this.pictures.slice(0, i).concat(this.pictures.slice(i + 1, this.pictures.length));
+                    //
+                    console.info('删除图片');
+                }
             },
             smallPic:function (src) {
                 return src + xqzs.oss.Size.fill(65,65);
@@ -364,6 +370,7 @@
                 for(var i =0,l=this.pictures.length;i<l;i++) {
                     if (id == this.pictures[i].id) {
                         this.pictures[i].isloading = false;
+                        data['pictype'] = '';
                         this.pictures[i].image = data;
                     }
                 }
@@ -402,9 +409,9 @@
             getFunnyPictureIds:function () {
                 var that = this;
                 var picids = [];
-                for (var i = 0, l = that.funnypicture.length; i < l; i++) {
-                    if (that.funnypicture[i].image) {
-                        picids.push(that.funnypicture[i].image.id)
+                for (var i = 0, l = that.funnypictures.length; i < l; i++) {
+                    if (that.funnypictures[i].image) {
+                        picids.push(that.funnypictures[i].image.id)
                     }
                 }
                 return picids;
@@ -509,16 +516,17 @@
                     xqzs.weui.toast('fail','最多三张',function () {})
                     return;
                 }
-                that.funnypicture.push({
+                that.funnypictures.push({
                     isloading:false,
                     image:{
                         path:data.path,
-                        id:data.id
+                        id:data.id,
+                        pictype:'funny'
                     }
                 });
                 that.clickoptions('first');
                 console.info(data)
-                //that.funnypicture.push(data);
+                //that.funnypictures.push(data);
             });
             //optionFrist
             this.uploadpicinfo = {
@@ -598,7 +606,7 @@
                 return this.isopen == 1 ? '' : 'green';
             },
             bindpictures: function () {
-                return this.pictures.concat(this.funnypicture);
+                return this.pictures.concat(this.funnypictures);
             }
         },
         components: {
