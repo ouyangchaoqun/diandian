@@ -2,7 +2,6 @@ import App from './App.vue';
 import PageTransition from "./component/PageTransition.vue"
 Vue.use(VueRouter);
 Vue.use(VueResource);
-
 let routers =
     [
         {

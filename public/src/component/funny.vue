@@ -59,7 +59,7 @@
         position: absolute;
         width:75.53333%;
         top:0;
-        right:-5px;
+        right:0px;
         overflow-y: scroll;
         padding-top: 10px;
         height:600px;

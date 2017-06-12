@@ -16,7 +16,7 @@
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div v-show="showPositionList('')" class="edit_option">
-            <div>
+            <div v-show="canupload">
                 <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
             </div>
@@ -24,11 +24,13 @@
                 <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
             </div>
-            <div>
+            <div v-show="canuploadfunny">
                 <div><img class="optionThird" @click="clickoptions('third')" v-bind:src="buttons.third.curr" alt=""></div>
                 <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.third.on}" src="../images/jt.gif" alt="" >
             </div>
-
+            <div v-show="!canupload || !canuploadfunny">
+                <div style="visibility: hidden"><img class="optionThird" alt=""></div>
+            </div>
             <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
             <div><button @click="submitMood()"
                     v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
@@ -49,7 +51,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slidetrue" v-show="buttons.first.on"><!--optionFrist-->
                     <div class="optionFrist_box">
-                        <div v-for="(pic,index) in bindpictures" v-bind:key="index" class="upload-images">
+                        <div v-for="(pic,index) in pictures" v-bind:key="index" class="upload-images">
                             <div v-if="pic.isloading" class="item">
                                 <div class="weui-loading"></div>
                             </div>
@@ -148,6 +150,14 @@
                     </div>
                 </div>
                 <div class="swiper-slide" v-show="buttons.third.on">
+                    <div class="optionFrist_box funnyPictures">
+                        <div v-for="(pic,index) in funnypictures" v-bind:key="index" class="upload-images">
+                            <div class="item item-image">
+                                <div class="del-img" @click="deletePic(index,pic.pictype)"></div>
+                                <img v-bind:src="gifPic(pic.image.path)"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -272,19 +282,25 @@
             },
             clickoptions:function(indexcode){
                 var that = this;
+                //
+                if(indexcode == 'first'){
+                    if(!that.canupload){
+                        return;
+                    }
+                    if(that.pictures.length == 0){
+                        that. showAction();
+                    }
+                }
+                else if(indexcode == 'third'){
+                    if(!that.canuploadfunny){
+                        return;
+                    }
+                    that.showModule = (that.funnypictures.length == 0 || that.buttons[indexcode].on)?'funny':'';
+                }
                 for(var o in this.buttons) {
                     var ison = indexcode == o;
                     that.buttons[o].on = ison;
                     that.buttons[o].curr = ison ? that.buttons[o].pre : that.buttons[o].nor;
-                }
-                //
-                if(indexcode == 'first'){
-                    if(that.bindpictures.length == 0){
-                        that. showAction();
-                    }
-                }
-                if(indexcode == 'third'){
-                    this.showModule = 'funny';
                 }
             },
             changeisopen:function () {
@@ -345,6 +361,9 @@
                     //
                     console.info('删除图片');
                 }
+            },
+            gifPic:function (src) {
+                return src;
             },
             smallPic:function (src) {
                 return src + xqzs.oss.Size.fill(65,65);
@@ -459,6 +478,7 @@
                 return true;
             },
             canedit:function (mood) {
+                console.info(mood);
                 if ((mood.content == null || mood.content == '')
                     &&(mood.haspicture!=1)) {
                     return true;
@@ -512,20 +532,15 @@
             Bus.$on('funnyPictureChange',data=>{
                 that.showModule = '';
                 //that.buttons.first.on = true;
-                if(!that.canupload){
-                    that.clickoptions('first');
-                    xqzs.weui.toast('fail','最多三张',function () {});
-                }else{
-                    that.funnypictures.push({
-                        isloading:false,
-                        pictype:'funny',
-                        image:{
-                            path:data.path,
-                            id:data.id
-                        }
-                    });
-                    that.clickoptions('first');
-                }
+                that.funnypictures =[{
+                    isloading:false,
+                    pictype:'funny',
+                    image:{
+                        path:data.path,
+                        id:data.id
+                    }
+                }];
+                //that.clickoptions('first');
             });
             //optionFrist
             this.uploadpicinfo = {
@@ -596,16 +611,16 @@
                 return xqzs.mood.moodScenes[this.scenesId];
             },
             canupload: function () {
-                return this.bindpictures.length < this.maxPhotoCount;
+                return this.funnypictures.length == 0 && this.pictures.length < this.maxPhotoCount;
+            },
+            canuploadfunny: function () {
+                return this.pictures.length == 0;
             },
             moodcolorstyle: function () {
                 return (this.moodValue >= 7 ? 'addEdit1' : (this.moodValue <= 3 ? 'addEdit2' : 'addEdit3'));
             },
             openstyle: function () {
                 return this.isopen == 1 ? '' : 'green';
-            },
-            bindpictures: function () {
-                return this.pictures.concat(this.funnypictures);
             }
         },
         components: {
@@ -673,6 +688,8 @@
     .weui-loading{width: 30px;height: 30px;margin: 12px 0 0 12px;}
     .upload-images .item-image{position: relative}
     .upload-images .item-image .del-img{position: absolute;right: -10px;top: -10px;width: 20px;height: 20px;background-image: url(../images/close.png);background-size: 20px;}
+    .funnyPictures .upload-images,.funnyPictures .item-image{width: auto;height: auto;}
+    .funnyPictures .item-image img{max-width: 200px;height: auto !important;width: auto !important;}
 
     .edit_box{
         height:13.470588235294118rem;
