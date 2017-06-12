@@ -45,7 +45,11 @@
                                          :data-h="pic.picheight" :style="pic.styleObject"
                                          @click="showBigImg(item.pics,pic)">
                                 </div>
-
+                                <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
+                                    <div class="moodFunnyPic" v-for="gif in item.funnypics">
+                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth" :data-h="gif.picheight"/>
+                                    </div>
+                                </div>
                             </div>
                         </template>
                         <div class="moodLoc" v-if="item.content!=''&& item.content!=null">{{item.address}}</div>

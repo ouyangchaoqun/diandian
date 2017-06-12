@@ -19,6 +19,11 @@
                                          @click="showBigImg(item.pics,pic)">
                                 </li>
 
+                            <li v-if="item.funnypics.length > 0" class="moodFunnPicList">
+                                <div class="moodFunnyPic" v-for="gif in item.funnypics">
+                                    <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth" :data-h="gif.picheight"/>
+                                </div>
+                            </li>
 
                         </ul>
                         <div class="friendsLoc">{{item.address}}</div>
