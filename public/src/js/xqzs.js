@@ -196,7 +196,7 @@ var xqzs = {
             return this._format(this.DATE_TIME, time);
         },
         getTimeStamp: function (dateTime) {
-            var timestamp = Date.parse(new Date());
+            let timestamp=new Date().getTime();
             if (dateTime) {
                 timestamp = Date.parse(dateTime);
             }
