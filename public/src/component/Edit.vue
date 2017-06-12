@@ -279,7 +279,7 @@
                 }
                 //
                 if(indexcode == 'first'){
-                    if(that.pictures.length == 0){
+                    if(that.bindpictures.length == 0){
                         that. showAction();
                     }
                 }
@@ -505,7 +505,6 @@
             Bus.$on('funnyPictureChange',data=>{
                 that.showModule = '';
                 //that.buttons.first.on = true;
-                that.clickoptions('first');
                 if(!that.canupload){
                     xqzs.weui.toast('fail','最多三张',function () {})
                     return;
@@ -516,8 +515,8 @@
                         path:data.path,
                         id:data.id
                     }
-                })
-
+                });
+                that.clickoptions('first');
                 console.info(data)
                 //that.funnypicture.push(data);
             });
