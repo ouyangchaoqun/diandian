@@ -107,8 +107,6 @@
 </script>
 <style>
     .userHeaderImg {
-        height: 64px;
-        width: 64px;
         position: absolute;
         left: 50%;
         bottom: -32px;
