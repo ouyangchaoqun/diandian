@@ -47,7 +47,8 @@
         margin:0 15px;
     }
     .grids_box a{
-       padding-top: 0.588235rem;
+       padding-top: 0.76470rem;
+        padding-bottom: 0.76470rem;
     }
     .weui-grid{
         padding:0;
@@ -60,11 +61,11 @@
         background: rgba(0,0,0,0.4);
     }
     .scene_top{
-        margin-bottom: 14px;
+        margin-bottom: 0.76rem;
     }
     .scene_top img{
-        width:31px;
-        height:31px;
+        width:1.8235294rem;
+        height:1.8235294rem;
         display: block;
         margin:0 auto;
     }
@@ -74,8 +75,8 @@
     }
     .scene_box .grid_25{
         width:25%;
-        padding-top: 22px;
-        padding-bottom: 5px;
+        padding-top: 1.294117rem;
+        padding-bottom: 1.29412rem;
     }
     .banner {
         width: 100%;
@@ -87,7 +88,7 @@
     }
     .mood_box{
         /*padding:30px 15px 36px 15px;*/
-        background: url("../images/moodBg.png") no-repeat;
+        background: url("../images/moodBg.jpg") no-repeat;
         background-size: cover;
         border-top-left-radius:15px;
         border-top-right-radius:15px;
@@ -95,7 +96,7 @@
         bottom:0;
         width:100%;
         padding-top:1.76470rem;
-        padding-bottom: 2.1176470rem;
+        padding-bottom: 1.70588rem;
         overflow: hidden;
     }
     .scene_box{
@@ -106,10 +107,10 @@
         font-size: 18px;
         color: #666666;
         text-align: center;
-        margin-bottom: 18px;
+        margin-bottom: 1.0588235rem;
     }
     .grid_top{
-        margin-bottom: 12px;
+        margin-bottom: 0.70588rem;
     }
     .grid_top img{
         display: block;
@@ -119,7 +120,6 @@
     }
     .grid_bottom{
         font-size: 12px;
-        margin-bottom: 16px;
     }
     .scene_col{
         color: #333333;
