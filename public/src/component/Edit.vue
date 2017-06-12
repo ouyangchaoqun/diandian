@@ -195,6 +195,7 @@
     export default {
         data() {
             return {
+                locImage:'',
                 showModule:'',
                 moodid:0,
                 moodcontent: '',
@@ -340,6 +341,7 @@
             setShowAddress:function () {
                 if (this.address == '') {
                     this.showAddress = '不显示地址';
+                   /* this.locImage = '../images/dz_nor.png'*/
                 } else {
                     this.showAddress = this.address;
                 }
@@ -708,7 +710,7 @@
         border:0;
         margin: 0 auto;
         display: block;
-        color: #999999;
+        color: #333333;
         font-size: 0.8823529411764706rem;
         overflow: hidden;
     }

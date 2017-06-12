@@ -5,8 +5,30 @@
 			<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
 				<img class="careMe_img" :src="newNotice.faceUrl" alt="">
 				<div class="careMe_div">
-					<div>{{newNotice.nickName}}</div>
-					<div>{{newNotice.content}}</div>
+					<div class="careMeName">{{newNotice.nickName}}</div>
+					<div class="careMeText">{{newNotice.content}}</div>
+					<div class="careStatus" v-if="newNotice.tp=='care'">
+						<img v-bind:src="newNotice.careImg" alt="">
+					</div>
+					<p>{{newNotice.addtime}}</p>
+				</div>
+				<div class="careMe_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
+					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
+					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
+						{{newNotice.moodcontent}}
+					</div>
+					<img v-else  :src="newNotice.moodValueUrl"  />
+				</div>
+			</router-link>
+			<!--<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
+				<img class="careMe_img" :src="newNotice.faceUrl" alt="">
+				<div class="careMe_div">
+					<div class="careMeName">{{newNotice.nickName}}</div>
+					&lt;!&ndash;<div class="careMeText">{{newNotice.content}}</div>&ndash;&gt;
+					<div class="careStatus">
+						<img v-bind:src="newNotice.careImg" alt="">
+					</div>
+
 					<p>{{newNotice.addtime}}</p>
 
 				</div>
@@ -17,7 +39,7 @@
 					</div>
 					<img v-else  :src="newNotice.moodValueUrl"  />
 				</div>
-			</router-link>
+			</router-link>-->
 
 		</v-scroll>
 
@@ -33,6 +55,15 @@
 
 </template>
 <style>
+	.careStatus{
+		padding:8px 0;
+	}
+	.careMe_div .careStatus img{
+		width:14px;
+	}
+	.careMe_div .careMeName{
+		color: #5e61a2;
+	}
 	.nobg{ background: none !important}
 	.bottom{width:100%;
 		padding-bottom: 20px;
@@ -53,8 +84,8 @@
 		display: block;
 	}
 	.careMe_img{
-		height:40px;
-		width: 40px;
+		height:44px;
+		width: 44px;
 		display: block;
 		float: left;
 		border-radius:3px;
@@ -63,11 +94,16 @@
 	.careMe_div{
 		float: left;
 		margin-left:10px;
-		margin-top:5px;
+		margin-top:7px;
+		width: 12rem;
+
 	}
 	.careMe_div div{
-		font-size: 14px;
-		color: #516591;
+		font-size: 13px;
+		color: #000;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 	.careMe_div img{
 		width: 18px;
@@ -86,7 +122,7 @@
 		margin-top: 8px;
 		position: relative;
 		font-size: 13px;
-		color: #333;
+		color: #666;
 	}
 	.careMe_content img{
 		height:32px;

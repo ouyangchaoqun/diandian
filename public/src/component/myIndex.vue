@@ -72,7 +72,7 @@
                     <div class="show_box" v-if="item.hasComments && item.isShowComment">
                         <div class="arraw"></div>
                         <div class="show_top">
-                            <img class="show_img1" src="../images/list_dianz_pre.png"/>
+                            <img class="show_img1" src="../images/mood_icon_dianz_pre.png"/>
                             <img v-for="care in item.careList" :src="care.faceUrl"/>
                         </div>
                         <ul class="show_bottom">

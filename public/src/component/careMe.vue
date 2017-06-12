@@ -77,7 +77,7 @@
 		overflow: hidden;
 		margin-top: 8px;
 		position: relative;
-		font-size: 13px;
+		font-size: 12px;
 		color: #333;
 	}
 	.careMe_content img{

@@ -40,8 +40,8 @@
         <div class="notice_box">
             <div class="notice" >
                 <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
-                <div>{{notice.count}}条新消息</div>
-                <img class="goNotice" src="../images/goto.jpg" alt="">
+                <div>{{notice.count}} 条新消息</div>
+                <img  class="goNotice" src="../images/iconjt.png" alt="">
             </div>
         </div>
         </router-link>
@@ -73,9 +73,9 @@
                                 <div>{{ myLastMood.careCount }}</div>
                                 <router-link :to="myLastMood.careListUrl">
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount<=0"
-                                         src="../images/list_dianz_nor.png" alt=""/>
+                                         src="../images/list_icon_dianz_nor.png" alt=""/>
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount>0"
-                                         src="../images/list_dianz_pre.png" alt=""/>
+                                         src="../images/list_icon_dianz_pre.png" alt=""/>
                                     <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount>0"
                                          src="../images/list_baob_pre.png" alt=""/>
                                     <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount<=0"
@@ -95,8 +95,7 @@
             <div class="mycenterFill"></div>
             <!--friendcenter start-->
             <div class="mycenter friendCenter" v-if="user.isLookFriend!=null&&user.isLookFriend!==0">
-
-                <div v-for="friendMood in friendMoodsSpe">
+                <div class="addBorder" v-for="friendMood in friendMoodsSpe">
                     <a @click="link(friendMood.link)">
                         <div class="list_left">
                             <img class="headerimg" :src="friendMood.faceUrl"/>
@@ -112,18 +111,19 @@
                             <div class="interaction" @click.stop="care(friendMood.id)">
                                 <div>{{ friendMood.careCount }}</div>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
-                                     src="../images/list_dianz_nor.png" alt=""/>
+                                     src="../images/list_icon_dianz_nor.png" alt=""/>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
                                      src="../images/list_baob_nor.png" alt=""/>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
-                                     src="../images/list_dianz_pre.png" alt=""/>
+                                     src="../images/list_icon_dianz_pre.png" alt=""/>
                                 <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
                                       src="../images/list_baob_pre.png" alt=""/>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div v-for="friendMood in friendMoods">
+                <div class="mycenterFill" v-if="hasLine"></div><!--todo-->
+                <div class="addBorder" v-for="friendMood in friendMoods">
                     <a @click="link(friendMood.link)">
                         <div class="list_left">
                             <img class="headerimg" :src="friendMood.faceUrl"/>
@@ -139,17 +139,17 @@
                             <div class="interaction" @click.stop="care(friendMood.id)">
                                 <div>{{ friendMood.careCount }}</div>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
-                                     src="../images/list_dianz_nor.png" alt=""/>
+                                     src="../images/list_icon_dianz_nor.png" alt=""/>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
                                      src="../images/list_baob_nor.png" alt=""/>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
-                                     src="../images/list_dianz_pre.png" alt=""/>
+                                     src="../images/list_icon_dianz_pre.png" alt=""/>
                                 <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
                                       src="../images/list_baob_pre.png" alt=""/>
                             </div>
                         </div>
                     </a>
-                </div>
+                </div  class="addBorder">
             </div>
             <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
@@ -175,7 +175,8 @@
                 friendMoods: null,
                 notice:{count:0},
                 linkTo:"#",
-                noticeLink:'/notice'
+                noticeLink:'/notice',
+                fillFlag:false
             }
         },
         methods: {
@@ -190,6 +191,8 @@
                                 _this.friendMoodsSpe[i].hit=true;
                                 _this.friendMoodsSpe[i].isCare=true;
                             }
+
+
                         }
                         for( i = 0; i<_this.friendMoods.length;i++){
                             if(_this.friendMoods[i].id===id){
@@ -199,6 +202,7 @@
 
                             }
                         }
+
                         console.log(_this.friendMoods)
 
                     }
@@ -255,6 +259,12 @@
                         }
                     }
                 })
+            }
+        },
+        computed:{
+            hasLine:function () {
+                return this.friendMoodsSpe!=null && this.friendMoodsSpe.length > 0
+                    && this.friendMoods!=null && this.friendMoods.length > 0 ;
             }
         },
         mounted: function () {
@@ -368,6 +378,14 @@
 
 </script>
 <style>
+    .tab img{
+        height: 24px;
+        width:24px;
+    }
+    .friendCenter .addBorder{
+        padding:0 15px;
+        border-bottom: 1px solid #eeeeee;
+    }
 
     #tabs {
         position: fixed;
@@ -399,7 +417,7 @@
 
     .mycenter {
         background: #ffffff;
-        padding: 0 20px;
+        padding: 0 15px;
     }
 
     /*.mycenter_list {
@@ -418,13 +436,13 @@
 
     .friendName {
         font-size: 16px;
-        color: #000000;
-        line-height: 0;
+        color: #333;
+        line-height: 0px;
         margin-bottom: 11px;
     }
 
     .time {
-        font-size: 12px;
+        font-size: 14px;
         color: #999999;
     }
 
@@ -435,10 +453,10 @@
     }
 
     .headerimg {
-        height: 40px;
-        width: 40px;
+        height: 44px;
+        width: 44px;
         display: inline-block;
-        border-radius: 5px;
+        border-radius: 3px;
         position: absolute;
         top: 50%;
         margin-top: -20px;
@@ -473,10 +491,13 @@
     .interaction {
         float: left;
         text-align: center;
-        padding-top: 15px;
+        padding-top: 17px;
         font-size: 13px;
         color: #aeaeae;
         overflow: hidden;
+    }
+    .interaction div{
+        line-height: 14px;
     }
 
     .interaction img {
@@ -490,11 +511,11 @@
     .mycenterFill {
         width: 100%;
         height: 10px;
-        background: #f5f5f5;
+        background: #eee;
     }
 
     .friendCenter {
-        border-bottom: 1px solid #f5f5f5;
+        padding:0;
     }
 
     .share {
@@ -508,15 +529,15 @@
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
-        margin-bottom: 100px;
+        margin-bottom: 78px;
     }
     .share:active{
         background: #eeeeee;
     }
     .notice_box{
-        padding:10px;
+        padding:15px;
         background: #ffffff;
-        margin-bottom: 1px;
+        border-bottom: 1px solid #eee;
     }
     .notice{
         height: 40px;
@@ -530,24 +551,24 @@
         width: 32px;
         float: left;
         margin-left:5px;
-        margin-top:3px;
+        margin-top:5px;
         display: block;
-        border-radius: 3px;
     }
     .notice div{
         float: left;
         height:40px;
         line-height: 40px;
-        color: #f8f5f5;
+        color: #fff;
         margin-left:32px;
-        font-size: 14px;
+        font-size: 13px;
     }
-    .goNotice{
+    .notice .goNotice{
         width:16px;
+        height:16px;
         display: block;
         float: right;
         margin-right: 14px;
         margin-top:12px;
-
     }
+
 </style>
