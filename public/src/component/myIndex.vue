@@ -186,13 +186,6 @@
                             vm.$set(vm.downdata, index, vm.downdata[index])
                             console.log(response.data.data.reply)
                         }
-
-
-
-
-
-
-
                     }, response => {
                         // error
                     });
