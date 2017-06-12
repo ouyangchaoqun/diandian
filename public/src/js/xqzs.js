@@ -667,6 +667,10 @@ function myResizePicture(listObj,imgListStr,containerStr) {
 
 
             images.each(function () {
+                console.info($(this).data('type'));
+                if($(this).data('type') && $(this).data('type')=='notresize' ){
+                    return false;
+                }
                 //var spliter = 'x';
                 //$p = $(this).parent('a').data('size').split(spliter);
                 //var iw = parseInt($p[0],10), ih = parseInt($p[1],10);
