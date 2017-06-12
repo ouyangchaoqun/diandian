@@ -7,7 +7,7 @@
         </ul>
         <div class="funny_exp">
             <div v-for="(item,index) in funnytypes" v-bind:key="index" :class="{'exp_active':index==activedIndex}">
-                <figure v-view="pic" @click="selectGif(pic)" v-for="pic in item.pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)">
+                <figure @click="selectGif(pic)" v-for="pic in item.pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)">
                 </figure>
             </div>
         </div>
