@@ -490,11 +490,11 @@
     .mycenterFill {
         width: 100%;
         height: 10px;
-        background: #eeeeee;
+        background: #f5f5f5;
     }
 
     .friendCenter {
-        margin-bottom: 1px;
+        border-bottom: 1px solid #f5f5f5;
     }
 
     .share {
