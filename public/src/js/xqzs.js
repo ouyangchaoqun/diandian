@@ -196,7 +196,13 @@ var xqzs = {
             return this._format(this.DATE_TIME, time);
         },
         getTimeStamp: function (dateTime) {
-            return 1497235318;
+            let timestamp=new Date().getTime();
+            if (dateTime) {
+                timestamp = Date.parse(dateTime);
+            }
+            timestamp = parseInt(timestamp / 1000) ;
+            return timestamp;
+
 
         }
 
@@ -805,3 +811,5 @@ function myResizePicture(listObj,imgListStr,containerStr) {
     }
     window['aliyunoss'] = aliyunoss;
 }());
+
+console.log("loadedxqzs")
