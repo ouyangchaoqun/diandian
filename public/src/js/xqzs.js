@@ -196,12 +196,12 @@ var xqzs = {
             return this._format(this.DATE_TIME, time);
         },
         getTimeStamp: function (dateTime) {
-            let timestamp=new Date().getTime();
+            var _timestamp=new Date().getTime();
             if (dateTime) {
-                timestamp = Date.parse(dateTime);
+                _timestamp = Date.parse(dateTime);
             }
-            timestamp = parseInt(timestamp / 1000) ;
-            return timestamp;
+            _timestamp = parseInt(_timestamp / 1000) ;
+            return _timestamp;
 
 
         }
@@ -376,7 +376,7 @@ var xqzs = {
             $("body").append(html);
             
             $(".comment_text").keyup(function () {
-                let val = $(this).val();
+                var val = $(this).val();
                 if(val.length>0){
                     $(".action-sheet-edit .release").attr("style","color:#1AAD19")
                 }else{
@@ -811,5 +811,3 @@ function myResizePicture(listObj,imgListStr,containerStr) {
     }
     window['aliyunoss'] = aliyunoss;
 }());
-
-console.log("loadedxqzs")

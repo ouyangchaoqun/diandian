@@ -30,7 +30,7 @@ xqzs.face = {
         }, {id: 76, t: "发抖"}, {id: 77, t: "怄火"}, {id: 78, t: "转圈"}, {id: 79, t: "嘿哈"}
         , {id: 80, t: "捂脸"}, {id: 81, t: "奸笑"}, {id: 82, t: "机智"}, {id: 83, t: "皱眉"}, {id: 84, t: "耶"}
     ],
-    _reg: new RegExp(/(\[([\u4e00-\u9fa5]{1,3}\]))/i, 'g'),
+    //_reg: new RegExp(/(\[([\u4e00-\u9fa5]{1,3}]))/i, 'g'),
     _allexpount:0,
     _appendStyle: function (content) {
         var $style = document.createElement("style");
@@ -43,7 +43,7 @@ xqzs.face = {
         document.getElementsByTagName("head")[0].appendChild($style);
     },
     _getAllExp: function (content) {
-        return content.match(this._reg, 'g');
+        return content.match(/(\[([\u4e00-\u9fa5]{1,3}]))/i, 'g');
     },
     _replaceByKey:function (content,key) {
         content = content.replace(new RegExp('\\['+key.t+'\\]', 'gm'), '<a class="exp exp'+key.id+'"></a>');
