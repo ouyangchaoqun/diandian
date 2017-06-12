@@ -3,7 +3,7 @@
         <div v-title>定时提醒</div>
         <div class="remind remind1">
             <span>提醒功能</span>
-            <input type="checkbox" :checked="isRemind" @change="isRemind = $event.target.checked" @click="change()"
+            <input type="checkbox"  :checked="isRemind"    @change="change($event)"
                    class="weui-switch switchFlag">
 
             <div></div>
@@ -202,7 +202,8 @@
                 }
 
             },
-            change: function () {
+            change: function ($event) {
+                this.isRemind=$event.target.checked;
                 console.log(this.isRemind);
                 if (this.isRemind === false) {
                     this.$http.delete(web.API_PATH + 'user/delete/user/remind/by/user/id/_userId_')
