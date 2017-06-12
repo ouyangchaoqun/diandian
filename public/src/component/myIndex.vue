@@ -248,6 +248,9 @@
                     .then((data) => {
                         if (data.data.status === 1) {
                             vm.downdata[$index].content = '';
+                            vm.downdata[$index].haspicture = 0;
+                            vm.downdata[$index].pics = [];
+                            vm.downdata[$index].funnypics = [];
                             vm.$set(vm.downdata, $index, vm.downdata[$index])
                         } else {
                             xqzs.weui.toast("fail", "删除失败", function () {

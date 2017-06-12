@@ -377,6 +377,7 @@
         flex-direction: column;
         align-items: center;
         background: #ffffff;
+        margin-bottom: 10px;
     }
 
     .canlendarView {

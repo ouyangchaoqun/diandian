@@ -35,7 +35,7 @@
                                     <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)">
                                 </div>
 
-                                <div style="float: left;margin-left: 6px;">
+                                <div style="float: left;margin-left: 10px;">
                                     <span class="frined_com">{{item.replycount}}</span>
                                     <img class="time_rightimg2" src="../images/comments.png" alt="" @click="addComment(item.id,index)">
                                 </div>
@@ -349,7 +349,7 @@
         word-break: break-all;
         overflow: hidden;
         font-size: 14px;
-        line-height: 15px;
+        line-height: 20px;
         color: #333333;
         padding: 4px 16px 8px 0px;
     }

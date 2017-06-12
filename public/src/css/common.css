@@ -20,7 +20,7 @@ html { /*375*/
 
 @media only screen and (min-width:414px) and ( max-width: 481px) {
     html {
-        font-size: 21.80533333333333px !important
+        font-size: 21px !important
     }
 }
 @media only screen and (min-width:481px) and ( max-width: 561px) {
