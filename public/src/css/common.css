@@ -310,7 +310,12 @@ li{list-style: none}
     height: 8.1rem;
 }
 
-
+.moodFunnPicList {
+    height: auto !important;
+}
+.moodFunnPicList img{
+    max-width: 10.7rem;
+}
 
 
 .actionSheet_wrap .doAction{
