@@ -90,8 +90,8 @@
         /*padding:30px 15px 36px 15px;*/
         background: url("../images/moodBg.jpg") no-repeat;
         background-size: cover;
-        border-top-left-radius:15px;
-        border-top-right-radius:15px;
+        border-top-left-radius:10px;
+        border-top-right-radius:10px;
         position: absolute;
         bottom:0;
         width:100%;
@@ -128,7 +128,7 @@
         color: #fe6103;
     }
     .grid_row2{
-        color: #330000;
+        color: #747474;
     }
     .grid_row3{
         color: #0eb80e;

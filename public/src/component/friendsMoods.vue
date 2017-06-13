@@ -10,7 +10,8 @@
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
-                        <span class="mood_state" :class="{'unhappy_txt_color':item.moodValue<=4,'happy_txt_color':item.moodValue>4}">{{item.moodValueText}}</span>
+                        <span class="mood_state" :class="item.moodValueStyle">{{item.moodValueText}} <img class="addCj" src="../images/work01.png" alt="">  <i>情景</i></span>
+
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
                         <ul class="friendImgList" v-if="item.haspicture">
                                  <li   v-for="pic in item.pics">
@@ -465,5 +466,18 @@
         font-size: 14px;
         color: #333333;
     }
+    .addCj{
+        height: 16px;
+        vertical-align: middle;
+        margin-top: -3px;
+        margin-left: 5px;
+        display: inline-block;
+    }
+    .mood_state i{
+        font-size: 12px;
+        color: #999;
+        font-style: normal;
+    }
+
 
 </style>

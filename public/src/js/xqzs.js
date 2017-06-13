@@ -306,6 +306,12 @@ var xqzs = {
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
         },
+        getCjImg:function () {
+
+        },
+        setMoodValueStyle:function (mood) {
+            mood.moodValueStyle = mood.moodValue <=3 ?'unhappy_txt_color' : (mood.moodValue <=6 ?'modle_txt_color':'happy_txt_color');
+        },
         initMoodsData: function (data, timeType) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
@@ -314,7 +320,7 @@ var xqzs = {
                 data[i].link = "#/friendCenter?friendId=" + data[i].userId;
                 data[i].hide = false;
                 data[i].moodValueText = this.moodValueText[data[i].moodValue];
-                data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
+                this.setMoodValueStyle(data[i]);
                 if (data[i].haspicture) {
                     if (data[i].pics !== undefined) {
                         for (var j = 0; j < data[i].pics.length; j++) {

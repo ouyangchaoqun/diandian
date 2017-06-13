@@ -25,7 +25,7 @@
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                     <div class="moodImg_right">
                         <div class="moodState"
-                             :class="{'unhappy_txt_color':item.moodValue<=4,'happy_txt_color':item.moodValue>4}">
+                             :class="item.moodValueStyle">
                             {{item.moodValueText}}
                         </div>
 

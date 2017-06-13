@@ -3,7 +3,7 @@
         <div class="myMood_list careborder">
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
-                <div class="moodState">{{mood.moodValueText}}</div>
+                <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}</div>
                 <div class="moodContext" v-html="formatContent(mood.content)"></div>
                 <template v-if="canEdit(mood)">
                     <router-link :to=editurl+mood.id class="editMood">
@@ -111,6 +111,9 @@
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
                     _this.mood.time = xqzs.dateTime.formatTime(_this.mood.addTime);
+
+                    xqzs.mood.setMoodValueStyle(_this.mood);
+                    console.info(_this.mood)
                 }
                 _this.$nextTick(function () {
                     myResizePicture();//渲染完成

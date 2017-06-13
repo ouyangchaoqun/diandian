@@ -536,8 +536,8 @@
         width: 34px;
         height: 34px;
         float: left;
-        margin-top: 17px;
-        margin-right: 20px;
+        margin-top: 19px;
+        margin-right: 19px;
     }
 
     .interaction {
@@ -558,6 +558,7 @@
     }
     .interaction a{
         height:20px;
+        padding:0;
     }
 
     .mycenterFill {
