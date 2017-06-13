@@ -39,12 +39,14 @@
         </div>
         <div class="list0 box"  id="localCity" @click="areaPicker()">
             <span>所在地区</span>
-            <div class="showdL">
+            <div class="showdL area">
                 <span>中国</span>
-                <span>{{provinceName}}</span>
-                <span>{{cityName}}</span>
-                <span>{{areaName}}</span>
+                <span v-if="provinceName">{{provinceName}}</span>
+                <span v-if="cityName">{{cityName}}</span>
+                <span v-if="areaName">{{areaName}}</span>
+
             </div>
+            <div style="clear: both"></div>
             <div class="line"></div>
         </div>
         <div class="list0">
@@ -290,6 +292,25 @@
     z-index: 3;
     line-height: 34px;
 }
+#localCity{
+    line-height:inherit;
+    height: auto;
+    padding-top:18px;
+    padding-bottom: 11px;
+}
+
+#localCity span{
+    float:none;
+
+}
+.area{
+    width:65%;
+    text-align: right;
+}
+
+
+
+
 
 
 

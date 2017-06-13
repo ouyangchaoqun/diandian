@@ -329,12 +329,14 @@
     .friends_mood {
         margin-top: 1px;
         background: #ffffff;
-        padding: 10px 20px 5px 10px;
+        padding: 10px 12px;
+
     }
 
+
     .friendHeaderImg {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         display: block;
         border-radius: 3px;
         float: left;
