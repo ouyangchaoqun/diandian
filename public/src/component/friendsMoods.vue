@@ -369,16 +369,15 @@
     .time_right {
         color: #999999;
         float: right;
+        margin-top:14px;
     }
 
     .friendsLoc {
         font-size: 12px;
         color: #516591;
+        line-height:20px;
     }
 
-    .time_right{
-        margin-top:3px;
-    }
     .time_right img {
         width:14px;
         vertical-align: middle;
@@ -387,12 +386,12 @@
     }
     .friendImgList {
         overflow: hidden;
-        margin-bottom: 15px;
+        margin-bottom: 11px;
     }
 
     .friendImgList.two li{
-        width: 7.5rem;
-        height: 6rem;
+        width: 6.3rem;
+        height: 4.8rem;
     }
 
     .friendImgList.one li {
@@ -404,8 +403,8 @@
     .friendImgList li {
         float: left;
         margin-right: 0.3125rem;
-        width: 4.8675rem;
-        height: 4.8675rem;
+        width: 4.1rem;
+        height: 4.1rem;
         overflow: hidden;
         position: relative;
     } 
