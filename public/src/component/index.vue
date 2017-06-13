@@ -270,7 +270,6 @@
                 var that = this;
                 //好友是否有新心情
                 var lastfriendmoodid = xqzs.friendmood.getlast();
-                lastfriendmoodid = 10;
                 if(lastfriendmoodid!=''){
                     that.$http.get(web.API_PATH + "mood/find/friendlast/_userId_")
                         .then(function (bt) {
@@ -278,6 +277,7 @@
                                 var data = bt.data.data;
                                 //
                                 var newId = data.id;
+                                console.info(newId+'   '+lastfriendmoodid)
                                 if(newId > parseFloat(lastfriendmoodid)){
                                     that.hasNewFirendMood=true;
                                     var container = $('#tabs .tab:eq(0)');
