@@ -305,23 +305,15 @@
                 this.moveMove();
             },
 
-
-            //实现滚动条无法滚动
-            mo: function (e) {
-                e.preventDefault();
-            },
-
             /***禁止滑动***/
             moveStop: function () {
                 document.body.style.overflow = 'hidden';
-                document.addEventListener("touchmove", this.mo(event), false);//禁止页面滑动
-            },
+             },
 
             /***取消滑动限制***/
             moveMove: function () {
                 document.body.style.overflow = '';//出现滚动条
-                document.removeEventListener("touchmove",this.mo(event), false);
-            }
+             }
         }
 
     }
