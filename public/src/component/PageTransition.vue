@@ -7,15 +7,31 @@
 </template>
 
 <script>
+
+    import Bus from './bus.js';
+
     export default {
         data () {
             return {
                 transitionName: 'page-xqzs-left',
                 pagesIn: [],
+                isFunny:false
 
             }
         },
         beforeRouteUpdate (to, from, next) {
+            var _this=this;
+
+            Bus.$on("setFunny",function () {
+                _this.isFunny=true;
+
+            });
+            if(_this.isFunny===true){
+                _this.isFunny=false;
+                Bus.$emit("closeFunnyWindow");
+                next(false);
+                return false;
+            }
 
 
             xqzs.weui.removeWhenPageChange();
