@@ -14,13 +14,21 @@
 
         return isiOS;
     }
+    var getGoNumber = function () {
+        var go = isiOS()?-3:-2;
+        var historyLength = window.history.length;
+        if(Math.abs(go) < historyLength){
+            go = 0 - historyLength;
+        }
+        return go;
+    }
     var urlCheck = function (to, from) {
         var result = {stop: false};
         var preventToPaths = [{
             path: '/myCenter/myIndex/Edit',
             allowQuery:['id'],
             allowFroms: ['/addMood'],
-            go: isiOS()?-3:-2
+            go: getGoNumber()
         }];
         for (var i = 0, l = preventToPaths.length; i < l; i++) {
             if (preventToPaths[i].path == to.path) {
