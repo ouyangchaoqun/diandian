@@ -21,9 +21,10 @@
 
                 wx.config( _this.wxConfig);
                 wx.ready(()=>{
+                    wx.hideAllNonBaseMenuItem();
                     console.log('wx.ready');
                 });
-                wx.hideAllNonBaseMenuItem();
+
                 wx.error(function(res){
                     //可以更新签名
                 });

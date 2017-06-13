@@ -7,7 +7,7 @@
                 </div>
                 <a :href="user.friendLink" class="weui-cell weui-cell_access" v-for="user in  friend_s">
                     <div class="weui-cell__hd">
-                        <img class="img_frinedsCount" :src="user.faceUrl" alt="">
+                        <img class="img_frinedsCount" :src="wxFaceUrl(user.faceUrl)" alt="">
                     </div>
                     <div class="weui-cell__bd name_friendsCount">
                         <template v-if="user.memoName&&user.memoName!==''">{{user.memoName}}</template>
@@ -25,7 +25,7 @@
                     </div>
                     <a :href="user.friendLink" class="weui-cell weui-cell_access">
                         <div class="weui-cell__hd">
-                            <img class="img_frinedsCount" :src="user.faceUrl" alt="">
+                            <img class="img_frinedsCount" :src="wxFaceUrl(user.faceUrl)" alt="">
                         </div>
                         <div class="weui-cell__bd name_friendsCount">
                             <template v-if="user.memoName&&user.memoName!==''">{{user.memoName}}</template>
@@ -293,6 +293,9 @@
                         }
                     })
                 });
+            },
+            wxFaceUrl:function (faceUrl) {
+                return xqzs.mood.wxface(faceUrl);
             }
         }
     }

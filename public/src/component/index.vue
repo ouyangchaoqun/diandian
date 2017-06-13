@@ -41,7 +41,7 @@
         <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
         <div class="notice_box">
             <div class="notice" >
-                <img class="notice_friend"  :src="notice.lastuser.faceUrl" />
+                <img class="notice_friend"  :src="wxFaceUrl(notice.lastuser.faceUrl)" />
                 <div>{{notice.count}} 条新消息</div>
                 <img  class="goNotice" src="../images/iconjt.png" alt="">
             </div>
@@ -54,7 +54,7 @@
             <div class="mycenter">
                 <router-link to="./myCenter/myIndex">
                     <div class="list_left">
-                        <img class="headerimg" :src="user.faceUrl"/>
+                        <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                         <template v-if="myLastMood">
                             <div class="friend">
                                 <p class="friendName">{{user.nickName}}</p>
@@ -100,7 +100,7 @@
                 <div class="addBorder" v-for="friendMood in friendMoodsSpe">
                     <a @click="link(friendMood.link)">
                         <div class="list_left">
-                            <img class="headerimg" :src="friendMood.faceUrl"/>
+                            <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                             <div class="friend">
                                 <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName}}</p>
                                 <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName}}</p>
@@ -128,7 +128,7 @@
                 <div class="addBorder" v-for="friendMood in friendMoods">
                     <a @click="link(friendMood.link)">
                         <div class="list_left">
-                            <img class="headerimg" :src="friendMood.faceUrl"/>
+                            <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                             <div class="friend">
                                 <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName}}</p>
                                 <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName}}</p>
@@ -305,6 +305,9 @@
                     this.hasNewPerfect = false;
                 }
                 this.$router.push(url);
+            },
+            wxFaceUrl:function (faceUrl) {
+                return xqzs.mood.wxface(faceUrl);
             }
         },
         computed:{

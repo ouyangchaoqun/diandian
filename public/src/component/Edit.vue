@@ -36,8 +36,8 @@
                     v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
 
         </div>
-        <div v-if="showPositionList('')" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 999"></div>
-        <div v-if="showPositionList('')" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
+        <div v-show="showPositionList('')" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 999"></div>
+        <div v-show="showPositionList('')" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
                 <div class="weui-actionsheet__cell" @click = "getCam()" id="btn">拍照</div>
                 <div class="weui-actionsheet__cell" @click = "getPho()">从手机相册选择</div>
@@ -162,7 +162,7 @@
             </div>
         </div>
         <!--positionList-->
-        <div class="positionList_box" v-if="showPositionList('position')">
+        <div class="positionList_box" v-show="showPositionList('position')">
             <ul>
                 <li class="locList" @click="selectloc(-2)">
                     <div class="noShow">不显示位置</div>
@@ -309,6 +309,7 @@
                     if(!that.canuploadfunny){
                         return;
                     }
+                    Bus.$emit("setFunny");
                     that.showModule = (that.funnypictures.length == 0 || that.buttons[indexcode].on)?'funny':'';
                 }
                 for(var o in this.buttons) {
@@ -525,7 +526,7 @@
                         }
                     }
                     if(!flag){
-                        that.$router.go(-2);
+                        that.$router.push({path:'/'});
                     }
                 });
             },
@@ -544,6 +545,11 @@
         },
         mounted: function () {
             let that = this;
+            Bus.$on("closeFunnyWindow",function () {
+                that.showModule = '';
+            });
+
+
             if(!that.checkInit()){
                 that.$router.push({path:'/'});
                 return;
