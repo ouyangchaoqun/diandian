@@ -15,7 +15,7 @@
 				<img class="me1_back" src="../images/me_jt.png"/>
 			</router-link>
 		</div>
-		<router-link to = "/me/moodCount" class="me_lists ">
+		<router-link to = "/me/moodCount" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1" src="../images/listimg1.png"/>
 				<div class="listtext">我的心情指数</div>
@@ -85,6 +85,7 @@
 		height:60px;
 		display: block;
 		position: relative;
+		-webkit-tap-highlight-color: rgba(0,0,0,.2);
 	}
 	.me1_right{
 		float: left;
@@ -124,6 +125,7 @@
 		padding:0 15px;
 		display: block;
 		position: relative;
+		-webkit-tap-highlight-color: rgba(0,0,0,.2);
 	}
 	.me_list{
 		height:60px;

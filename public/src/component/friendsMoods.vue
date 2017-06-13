@@ -46,13 +46,15 @@
                         <div class="commont_box" v-if="item.replies.length>0">
                             <div class="arrow"></div>
                             <div class="friend_commont" v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel">
-                                <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
-                                    <template v-if="reply.fromuserid==item.userId">作者</template>
-                                    <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>
-                                    :</span>
-                                <template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template>
-                                    <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span> 回复 <span class="name">{{reply.to_nickName}}:</span></template>
-                                <span class="commont">{{reply.content}}</span>
+                                <a href="javascript:;">
+                                    <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
+                                        <template v-if="reply.fromuserid==item.userId">作者</template>
+                                        <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>
+                                        :</span>
+                                    <template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template>
+                                        <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span> 回复 <span class="name">{{reply.to_nickName}}:</span></template>
+                                    <span class="commont">{{reply.content}}</span>
+                                </a>
                             </div>
 
                         </div>
@@ -443,6 +445,13 @@
         font-size: 13px;
         color: #333;
         line-height: 19px;
+
+    }
+    .friend_commont a{
+        -webkit-tap-highlight-color: rgba(0,0,0,.2);
+        width:100%;
+        color: #333;
+        display: block;
     }
     .name {
         color: #5e61a2;

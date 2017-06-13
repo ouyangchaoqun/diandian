@@ -29,11 +29,14 @@
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']"
                              @click="showSwiper(item.index)">
-                            <div class="datesView">{{item.index+1}}
-                                <div class="dateEmptyView_right"></div>
-                                <div class="dateEmptyView_bottom"></div>
-                            </div>
-                            <img :src="item.smailUrl"/>
+                            <a href="javascript:;">
+                                <div class="datesView">{{item.index+1}}
+                                    <div class="dateEmptyView_right"></div>
+                                    <div class="dateEmptyView_bottom"></div>
+                                </div>
+                                <img :src="item.smailUrl"/>
+                            </a>
+
                         </div>
                     </div>
                 </div>
@@ -494,6 +497,9 @@
         flex-direction: column;
         justify-content: center;
         position: relative;
+    }
+    .dateView a{
+        -webkit-tap-highlight-color: rgba(0,0,0,.2);
     }
 
     .dateView img {

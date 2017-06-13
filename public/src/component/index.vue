@@ -467,7 +467,7 @@
 
     .mycenter {
         background: #ffffff;
-        padding: 0 15px;
+
     }
 
     /*.mycenter_list {
@@ -477,6 +477,8 @@
     .mycenter a {
         height: 72px;
         display: block;
+        padding: 0 15px;
+        -webkit-tap-highlight-color: rgba(0,0,0,.2);
     }
 
     .friend {
