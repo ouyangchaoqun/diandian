@@ -377,7 +377,7 @@ var xqzs = {
 
             $("body").append(html);
             
-            $(".comment_text").keyup(function () {
+            $(".comment_text").focus().keyup(function () {
                 var val = $(this).val();
                 if(val.length>0){
                     $(".action-sheet-edit .release").attr("style","color:#1AAD19")

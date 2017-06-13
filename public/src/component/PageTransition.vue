@@ -15,19 +15,23 @@
             return {
                 transitionName: 'page-xqzs-left',
                 pagesIn: [],
-                isFunny:false
+                isFunny: false
 
             }
         },
-        beforeRouteUpdate (to, from, next) {
-            var _this=this;
-
-            Bus.$on("setFunny",function () {
-                _this.isFunny=true;
+        mounted: function () {
+            var _this = this;
+            Bus.$on("setFunny", function (v) {
+                _this.isFunny = v;
 
             });
-            if(_this.isFunny===true){
-                _this.isFunny=false;
+        },
+        beforeRouteUpdate (to, from, next) {
+            var _this = this;
+
+
+            if (_this.isFunny === true) {
+                _this.isFunny = false;
                 Bus.$emit("closeFunnyWindow");
                 next(false);
                 return false;
@@ -58,12 +62,12 @@
 //
             console.log(from.fullPath);
             //是否为点开心情页面；
-            if((from.fullPath==="/"||from.fullPath==="/#")&&to.fullPath==="/addMood"){
+            if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/addMood") {
                 this.transitionName = 'page-xqzs-up'
-            }else if(from.fullPath==="/addMood"&&(to.fullPath==="/"||to.fullPath==="/#")){
+            } else if (from.fullPath === "/addMood" && (to.fullPath === "/" || to.fullPath === "/#")) {
                 this.transitionName = 'page-xqzs-down'
 
-            }else if (isBack) {
+            } else if (isBack) {
                 this.transitionName = 'page-xqzs-right'
             } else {
                 this.transitionName = 'page-xqzs-left'
@@ -76,29 +80,25 @@
 <style>
     .child-view {
         position: absolute !important;
-        width:100% !important;
+        width: 100% !important;
         height: 100% !important;
         background: #f5f5f5;
-        top:0 !important;
-        left:0 !important;
+        top: 0 !important;
+        left: 0 !important;
         overflow-y: scroll !important;
     }
 
-
-
-
-
     /*.slide-left-enter, .slide-right-leave-active {*/
-        /*!*opacity: 0;*!*/
-         /*background: #ffffff;*/
-        /*-webkit-transform: translate(100px, 0);*/
-        /*transform: translate(100px, 0);*/
+    /*!*opacity: 0;*!*/
+    /*background: #ffffff;*/
+    /*-webkit-transform: translate(100px, 0);*/
+    /*transform: translate(100px, 0);*/
     /*}*/
     /*.slide-left-leave-active, .slide-right-enter {*/
-         /*!*opacity: 0;*!*/
-        /*background: rgba(0,0,0,0.5);*/
-        /*-webkit-transform: translate(-150px, 0);*/
-        /*transform: translate(-150px, 0);*/
+    /*!*opacity: 0;*!*/
+    /*background: rgba(0,0,0,0.5);*/
+    /*-webkit-transform: translate(-150px, 0);*/
+    /*transform: translate(-150px, 0);*/
     /*}*/
 
     .page-xqzs-left-enter-active {
@@ -106,6 +106,7 @@
         animation-duration: .4s;
 
     }
+
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
         animation-duration: .9s;
@@ -117,11 +118,13 @@
         animation-duration: .4s;
 
     }
+
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
         animation-duration: .9s;
 
     }
+
     @keyframes fold-right-in {
         0% {
             transform: translate3d(-100%, 0, 0);
@@ -132,62 +135,56 @@
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
-         }
+        }
     }
+
     @keyframes fold-right-out {
         0% {
             transform: translate3d(0%, 0, 0);
             -webkit-transform: translate3d(0%, 0, 0);
-         }
+        }
 
         100% {
-            transform: translate3d(100%,0 , 0);
-            -webkit-transform: translate3d(100%,0 , 0);
-         }
+            transform: translate3d(100%, 0, 0);
+            -webkit-transform: translate3d(100%, 0, 0);
+        }
     }
-
-
 
     @keyframes fold-in {
         0% {
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
-         }
+        }
 
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
-         }
+        }
     }
+
     @keyframes fold-out {
         0% {
             transform: translate3d(0%, 0, 0);
             -webkit-transform: translate3d(0%, 0, 0);
-         }
+        }
 
         100% {
-            transform: translate3d(-100%,0 , 0);
-            -webkit-transform: translate3d(-100%,0 , 0);
-         }
+            transform: translate3d(-100%, 0, 0);
+            -webkit-transform: translate3d(-100%, 0, 0);
+        }
     }
 
-
-
-
-
-    .page-xqzs-up-enter-active  .moodBox_bg , .page-xqzs-down-leave-active  .moodBox_bg {
+    .page-xqzs-up-enter-active .moodBox_bg, .page-xqzs-down-leave-active .moodBox_bg {
         background: none !important;
     }
-    .page-xqzs-up-leave-active  .addMoodBg , .page-xqzs-down-enter-active  .addMoodBg {
-       display: block;
+
+    .page-xqzs-up-leave-active .addMoodBg, .page-xqzs-down-enter-active .addMoodBg {
+        display: block;
     }
 
-    .page-xqzs-down-leave-active  .banner,.page-xqzs-up-enter-active   .banner{
+    .page-xqzs-down-leave-active .banner, .page-xqzs-up-enter-active .banner {
         display: none !important;
     }
-
-
-
 
     .page-xqzs-up-enter-active {
         animation-name: fold-up-in;
@@ -205,9 +202,10 @@
     .page-xqzs-down-enter-active {
 
         animation-name: fold-down-in;
-        animation-duration:.4s;
+        animation-duration: .4s;
 
     }
+
     .page-xqzs-down-leave-active {
         z-index: 10003;
         animation-name: fold-down-out;
@@ -215,6 +213,7 @@
         background: none !important;
 
     }
+
     @keyframes fold-down-in {
         0% {
             transform: translate3d(0, 0%, 0);
@@ -227,6 +226,7 @@
             -webkit-transform: translate3d(0, 0, 0);
         }
     }
+
     @keyframes fold-down-out {
         0% {
             transform: translate3d(0%, 0, 0);
@@ -234,12 +234,10 @@
         }
 
         100% {
-            transform: translate3d(0,100% , 0);
-            -webkit-transform: translate3d(0,100%, 0);
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
         }
     }
-
-
 
     @keyframes fold-up-in {
         0% {
@@ -252,6 +250,7 @@
             -webkit-transform: translate3d(0, 0, 0);
         }
     }
+
     @keyframes fold-up-out {
         0% {
             transform: translate3d(0%, 0, 0);
@@ -259,11 +258,10 @@
         }
 
         100% {
-            transform: translate3d(0,0% , 0);
-            -webkit-transform: translate3d(0,0% , 0);
+            transform: translate3d(0, 0%, 0);
+            -webkit-transform: translate3d(0, 0%, 0);
         }
     }
-
 
 
 </style>

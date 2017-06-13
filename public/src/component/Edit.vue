@@ -309,7 +309,7 @@
                     if(!that.canuploadfunny){
                         return;
                     }
-                    Bus.$emit("setFunny");
+                    Bus.$emit("setFunny",true);
                     that.showModule = (that.funnypictures.length == 0 || that.buttons[indexcode].on)?'funny':'';
                 }
                 for(var o in this.buttons) {
@@ -551,6 +551,8 @@
             let that = this;
             Bus.$on("closeFunnyWindow",function () {
                 that.showModule = '';
+
+
             });
 
 
@@ -560,6 +562,7 @@
             }
             Bus.$on('funnyPictureChange',data=>{
                 that.showModule = '';
+                Bus.$emit("setFunny",false);
                 //that.buttons.first.on = true;
                 that.funnypictures =[{
                     isloading:false,
