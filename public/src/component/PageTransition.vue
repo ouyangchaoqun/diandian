@@ -55,6 +55,8 @@
                     break;
                 }
             }
+            if(to.fullPath==='/')isBack=true;
+
             if (!isBack)
                 this.pagesIn.push({to: to.fullPath, from: from.fullPath})
 
