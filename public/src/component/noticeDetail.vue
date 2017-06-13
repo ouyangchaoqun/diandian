@@ -78,6 +78,7 @@
         background: #ffffff;
         height:100%;
     }
+
     .addCj{
         height: 16px;
         vertical-align: middle;
