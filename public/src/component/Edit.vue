@@ -652,7 +652,7 @@
                 return (this.moodValue >= 7 ? 'addEdit1' : (this.moodValue <= 3 ? 'addEdit2' : 'addEdit3'));
             },
             openstyle: function () {
-                return this.isopen == 1 ? '' : 'green';
+                return this.isopen == 1 ? '' : 'redisopen';
             }
         },
         components: {
@@ -669,6 +669,7 @@
     .addEdit2{background: #f1f1f1;color:#1aac19}
     .addEdit3{background: #e8f7e8;color:#747474}
     .green{color:#008000 !important;border-color:#008000!important}
+    .redisopen{color:#fff !important;border-color:#ff0000!important;background: #ff0000}
     #publishBtn{height:30px !important;vertical-align: bottom;}
     .addEdit img{
         width:40px;
