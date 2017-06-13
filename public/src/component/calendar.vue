@@ -307,9 +307,9 @@
 
             /***禁止滑动***/
             moveStop: function () {
-                $('body') .on('touchmove', function(e) {
+                $('body').css('overflow', 'hidden') .on('touchmove', function(e) {
                     e.preventDefault();
-                }).css('overflow', 'hidden')
+                })
             },
 
             /***取消滑动限制***/
