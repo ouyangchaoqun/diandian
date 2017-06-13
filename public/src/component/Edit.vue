@@ -12,7 +12,7 @@
             </div>
 
             <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......" maxlength="140"></textarea>
-            <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img v-bind:src=locImage alt=""></div>
+            <div class="edit_loc" @click = "getLoc()"><img v-bind:src=locImage alt="">{{showAddress}}</div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div v-show="showPositionList('')" class="edit_option">
@@ -356,7 +356,11 @@
                     this.showAddress = '不显示地址';
                     this.locImage = web.IMG_PATH+'dz_nor.png'
                 } else {
-                    this.showAddress = this.address;
+                    var _address_ = this.address;
+                    if(_address_.length>10){
+                        _address_ = _address_.substring(0,15)+'..';
+                    }
+                    this.showAddress = _address_;
                     this.locImage = web.IMG_PATH+'dz_pre.png'
                 }
             },
@@ -739,7 +743,7 @@
     }
     .edit_loc{
         min-width: 131px;
-        max-width: 181px;
+        max-width: 241px;
         height: 26px;
         border:1px solid #dcdcdc;
         font-size: 12px;
