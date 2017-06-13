@@ -358,7 +358,7 @@
     }
 
     .old {
-        left: 30px;
+        left: 15px;
         height: 24px;
         width: 24px;
         position: absolute;
@@ -367,7 +367,7 @@
     }
 
     .next {
-        right: 30px;
+        right: 15px;
         transform: rotate(180deg);
         height: 24px;
         width: 24px;
@@ -447,8 +447,8 @@
     .weekView {
         flex-grow: 1;
         text-align: center;
-        font-size: 14px;
-        color: #333;
+        font-size: 12px;
+        color: #828080;
 
     }
 
@@ -504,13 +504,13 @@
     }
 
     .datesView {
-        height: 28px;
+        height: 30px;
         color: #828080;
         font-size: 13px;
         display: flex;
         align-items: flex-end;
         justify-content: center;
-
+        margin-bottom: 2px;
     }
 
     .dateSelectView {
