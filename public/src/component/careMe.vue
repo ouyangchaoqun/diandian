@@ -11,7 +11,7 @@
 				<p>{{careFriend.addTime}}</p>
 			</div>
 			<div class="careMe_content">
-				<img v-if="myLastMood.haspicture" :src="myLastMood.pics[0].path">
+				<img class="moodpic" v-if="myLastMood.haspicture" :src="myLastMood.pics[0].path">
 				<div v-else-if="myLastMood.content">
 					{{myLastMood.content}}
 				</div>
@@ -39,14 +39,14 @@
 		background: #ffffff;
     }
 	.careMe_list{
-		height:80px;
+		height:60px;
 		border-bottom: 1px solid #f5f5f5;
 		padding:10px 15px;
         display: block;
 	}
 	.careMe_img{
-		height:40px;
-		width: 40px;
+		height:44px;
+		width: 44px;
 		display: block;
 		float: left;
 		border-radius:3px;
@@ -75,10 +75,19 @@
 		height: 60px;
 		float: right;
 		overflow: hidden;
-		margin-top: 8px;
 		position: relative;
 		font-size: 12px;
 		color: #333;
+	}
+	.careMe_content .moodpic{
+		height:60px;
+		width:60px;
+		display: block;
+		position: absolute;
+		top:50%;
+		left:50%;
+		margin-top:-30px;
+		margin-left:-30px;
 	}
 	.careMe_content img{
 		height:32px;
