@@ -112,6 +112,8 @@
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){
                                _this.isShowErrorCodeMsg =true;
+                               _this.isShowMessage = false;
+
                             }
                             //-1 手机号码为空，-4 验证码为空 ，-5 手机格式错误，-2 验证码过期，-3 验证码不存在
 

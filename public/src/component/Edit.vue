@@ -12,7 +12,7 @@
             </div>
 
             <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......" maxlength="140"></textarea>
-            <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img src="../images/dz_nor.png" alt=""></div>
+            <div class="edit_loc" @click = "getLoc()">{{showAddress}}<img v-bind:src=locImage alt=""></div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
         <div v-show="showPositionList('')" class="edit_option">
@@ -200,7 +200,7 @@
     export default {
         data() {
             return {
-                locImage:'',
+                locImage:web.IMG_PATH+'dz_nor.png',
                 showModule:'',
                 moodid:0,
                 moodcontent: '',
@@ -353,9 +353,10 @@
             setShowAddress:function () {
                 if (this.address == '') {
                     this.showAddress = '不显示地址';
-                   /* this.locImage = '../images/dz_nor.png'*/
+                    this.locImage = web.IMG_PATH+'dz_nor.png'
                 } else {
                     this.showAddress = this.address;
+                    this.locImage = web.IMG_PATH+'dz_pre.png'
                 }
             },
             //optionFrist

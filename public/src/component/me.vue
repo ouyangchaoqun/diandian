@@ -45,8 +45,8 @@
 		</router-link>
 		<router-link to="/me/problem" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1 listimgPro" src="../images/listimg5.png"/>
-				<div class="listtext ">常见问题Q&A</div>
+				<img class="listimg1 listimgPro" src="../images/aboutMe.jpg"/>
+				<div class="listtext ">关于我们</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
@@ -179,7 +179,7 @@
 	}
 	.listimgPro{
 		width:22px;
-		margin-top: -15px;
+		margin-top: -13px;
 	}
 </style>
 <script type="text/javascript">
