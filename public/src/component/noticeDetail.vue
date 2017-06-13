@@ -4,8 +4,8 @@
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
                 <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}
-                    <img class="addCj" src="../images/work01.png" alt="">
-                    <i>场景</i>
+                    <img class="addCj" :src="mood.scense.src" alt="">  <i>{{mood.scense.text}}</i>
+
                 </div>
                 <div class="moodContext" v-html="formatContent(mood.content)"></div>
                 <template v-if="canEdit(mood)">
@@ -128,6 +128,9 @@
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
                     _this.mood.time = xqzs.dateTime.formatTime(_this.mood.addTime);
+
+
+                    _this.mood.scense = xqzs.mood.getCjImg(_this.mood.scenesId);
 
                     xqzs.mood.setMoodValueStyle(_this.mood);
                     console.info(_this.mood)

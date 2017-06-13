@@ -25,8 +25,9 @@
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                     <div class="moodImg_right">
                         <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
-                            <img class="addCj" src="../images/work01.png" alt="">
-                            <i>场景</i>
+
+                            <img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>
+
                         </div>
 
                         <template v-if="canEdit(item)">

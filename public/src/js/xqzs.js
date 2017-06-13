@@ -324,7 +324,7 @@ var xqzs = {
             for(var i=0,l=this.moodScenesList.length;i<l;i++) {
                 if (this.moodScenesList[i].value == scenesid) {
                     return {
-                        src:this.moodScenesList[i].src,
+                        src:web.IMG_PATH+ this.moodScenesList[i].src,
                         text:this.moodScenesList[i].text
                     };
                 }
@@ -356,6 +356,11 @@ var xqzs = {
                     }
 
                 }
+
+
+                data[i].hide = false;
+
+                data[i].scense = xqzs.mood.getCjImg(data[i].scenesId);
 
                 //随机头像
                 if(data[i].faceIndex!==null)

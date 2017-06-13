@@ -10,7 +10,7 @@
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
-                        <span class="mood_state" :class="item.moodValueStyle">{{item.moodValueText}} <img class="addCj" src="../images/work01.png" alt="">  <i>情景</i></span>
+                        <span class="mood_state" :class="item.moodValueStyle">{{item.moodValueText}} <img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i></span>
 
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
                         <ul class="friendImgList" v-if="item.haspicture">
