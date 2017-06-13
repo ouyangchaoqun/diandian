@@ -307,13 +307,15 @@
 
             /***禁止滑动***/
             moveStop: function () {
-                document.body.style.overflow = 'hidden';
-             },
+                $('body') .on('touchmove', function(e) {
+                    e.preventDefault();
+                }).css('overflow', 'hidden')
+            },
 
             /***取消滑动限制***/
             moveMove: function () {
-                document.body.style.overflow = '';//出现滚动条
-             }
+                $('body').off().css('overflow', 'auto');
+            }
         }
 
     }
