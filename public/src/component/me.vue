@@ -3,6 +3,7 @@
 		<div v-title>个人中心</div>
 		<div class="me_top">
 			<router-link to="/me/personal" class="me1">
+				<span v-show="hasNewPerfect" class="hasnew"></span>
 				<img class="me1_left" :src="user.faceUrl"/>
 				<div class="me1_right">
 					<div class="perfec_top">{{user.nickName}}</div>
@@ -76,17 +77,22 @@
 		display: block;
 		border-radius: 5px;
 		float: left;
+		position: relative;
 	}
 	.me1{
 		background:#fff;
 		padding:15px;
 		height:60px;
 		display: block;
+		position: relative;
 	}
 	.me1_right{
 		float: left;
 		margin-left: 14px;
 		margin-top: 4px;
+	}
+	.me1 .hasnew{
+		position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:12px;left:70px;height: 8px;width: 8px;z-index: 999;
 	}
 	.perfec_top{
 		color: #333333;
@@ -184,10 +190,12 @@
         data() {
             return {
                 user: {},
+                hasNewPerfect:false
             }
         },
         mounted: function () {
             let _this = this;
+			_this.getNewPerfect();
 
             this.$http({
                 method: 'GET',
@@ -232,7 +240,12 @@
 					})
 				});
 			},
-
+            getNewPerfect:function () {
+                var infokey = 'perfectinfo';
+                if(xqzs.version.isshow(infokey)){
+                    this.hasNewPerfect=true;
+                }
+            }
 		}
     }
 

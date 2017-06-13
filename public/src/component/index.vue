@@ -17,19 +17,21 @@
                 <p class="weui-tabbar__label">心情日历</p>
             </router-link>
 
-            <router-link to='/friendsMoods' class="weui-tabbar__item tab">
+            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
 				<span style="display: inline-block;">
 					<img src="../images/friend1.png" class="weui-tabbar__icon"/>
 				</span>
                 <p class="weui-tabbar__label">朋友心情</p>
-            </router-link>
+                <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
+            </a>
 
-            <router-link to='/me' class="weui-tabbar__item tab">
+            <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
 				<span style="display: inline-block;">
 					<img src="../images/me1.png" class="weui-tabbar__icon"/>
 				</span>
                 <p class="weui-tabbar__label">我的</p>
-            </router-link>
+                <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
+            </a>
 
         </div>
         <div class="banner">
@@ -149,7 +151,7 @@
                             </div>
                         </div>
                     </a>
-                </div  class="addBorder">
+                </div>
             </div>
             <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
@@ -176,7 +178,11 @@
                 notice:{count:0},
                 linkTo:"#",
                 noticeLink:'/notice',
-                fillFlag:false
+                fillFlag:false,
+                hasNewFirendMood:false,
+                newFirendMoodStyle:'',
+                hasNewPerfect:false,
+                newPerfectStyle:''
             }
         },
         methods: {
@@ -259,6 +265,46 @@
                         }
                     }
                 })
+            },
+            getFriendLastMood:function () {
+                var that = this;
+                //好友是否有新心情
+                var lastfriendmoodid = xqzs.friendmood.getlast();
+                lastfriendmoodid = 10;
+                if(lastfriendmoodid!=''){
+                    that.$http.get(web.API_PATH + "mood/find/friendlast/_userId_")
+                        .then(function (bt) {
+                            if(bt && bt.data.status == 1){
+                                var data = bt.data.data;
+                                //
+                                var newId = data.id;
+                                if(newId > parseFloat(lastfriendmoodid)){
+                                    that.hasNewFirendMood=true;
+                                    var container = $('#tabs .tab:eq(0)');
+                                    var right = (container.width() - 32) / 2;
+                                    that.newFirendMoodStyle = 'right:'+right+'px';
+                                }
+                            }
+                        })
+                }
+            },
+            getNewPerfect:function () {
+                var infokey = 'perfectinfo';
+                if(xqzs.version.isshow(infokey)){
+                    this.hasNewPerfect=true;
+                    var container = $('#tabs .tab:eq(0)');
+                    var right = (container.width() - 32) / 2;
+                    this.newPerfectStyle = 'right:'+right+'px';
+                }
+            },
+            hideNewCircle:function (key,url) {
+                if(key == 'mood'){
+                    this.hasNewFirendMood = false;
+                }
+                if(key == 'perfect'){
+                    this.hasNewPerfect = false;
+                }
+                this.$router.push(url);
             }
         },
         computed:{
@@ -268,10 +314,9 @@
             }
         },
         mounted: function () {
-
-
-
             let _this = this;
+            _this.getFriendLastMood();
+            _this.getNewPerfect();
 
             _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
             //用户信息
@@ -378,6 +423,8 @@
 
 </script>
 <style>
+    .tab{position: relative}
+    .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px;width: 8px;}
     .tab img{
         height: 24px;
         width:24px;

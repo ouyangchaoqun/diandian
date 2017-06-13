@@ -81,6 +81,8 @@
         mounted: function () {
             let _this = this;
 
+            var infokey = 'perfectinfo';
+            xqzs.version.showed(infokey);
             //用户信息
             this.$http({
                 method: 'GET',

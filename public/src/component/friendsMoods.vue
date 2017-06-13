@@ -90,6 +90,12 @@
                 let vm = this;
                 vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
+                    var maxid = 0;
+                    for(var i=0,l=response.data.data.rows.length;i<l;i++){
+                        maxid = Math.max(maxid,response.data.data.rows[i].id)
+                    }
+                    xqzs.friendmood.setlast(maxid);
+
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
