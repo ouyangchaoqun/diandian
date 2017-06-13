@@ -19,21 +19,16 @@
         var preventToPaths = [{
             path: '/myCenter/myIndex/Edit',
             allowQuery:['id'],
-            allowFroms: ['/addMood']
+            allowFroms: ['/addMood'],
+            go: isiOS()?-3:-2
         }];
-        console.info(to);
-        console.info('to--from')
-        console.info(from)
-        var stop = false;
         for (var i = 0, l = preventToPaths.length; i < l; i++) {
-            if (to.path == preventToPaths[i].path) {
-                stop = true;
-                console.info('1111'+stop)
+            if (preventToPaths[i].path == to.path) {
+                var stop = true;
                 for(var j=0,jl=preventToPaths[i].allowQuery.length;j<jl;j++){
                     var _k_ =preventToPaths[i].allowQuery[j];
                     if(typeof to.query[_k_]!='undefined'){
                         stop = false;
-                        console.info('2222'+stop)
                         break;
                     }
                 }
@@ -42,15 +37,16 @@
                         if (preventToPaths[i].allowFroms[j] == from.path) {
                             //result = {stop: true, gourl: preventToPaths[i].gourl}
                             stop = false;
-                            console.info('3333'+stop)
                             break;
                         }
                     }
                 }
+                if(stop){
+                    result = {stop: stop, go: preventToPaths[i].go}
+                }
                 break;
             }
         }
-        result.stop = stop;
         return result;
     }
     export default {
@@ -58,35 +54,11 @@
             return {
                 transitionName: 'page-xqzs-left',
                 pagesIn: [],
-                isBackToIndex:false
+
             }
         },
         beforeRouteUpdate (to, from, next) {
 
-            var result = urlCheck(to, from);
-            console.info(result);
-            if (result.stop) {
-                //this.$router.go(result.go);
-                //next(false);
-                //return;
-                this.isBackToIndex = true;
-                this.$router.go(-1);
-                next(false);
-                return;
-            }
-
-
-            console.info('beforeRouteUpdate:');
-            console.info('this.isBackToIndex:'+this.isBackToIndex);
-            if(this.isBackToIndex){
-                if(to.path != '/'){
-                    this.$router.go(-1);
-                    next(false);
-                    return;
-                }else{
-                    this.isBackToIndex = false;
-                }
-            }
 
             xqzs.weui.removeWhenPageChange();
 
@@ -94,7 +66,12 @@
 //            let isBack = parseInt( Math.random()*10)%2;
 
 //            console.log({to:to.fullPath,from:from.fullPath});
-
+            var result = urlCheck(to, from);
+            if(result.stop){
+                this.$router.go(result.go);
+                next(false);
+                return;
+            }
 
 
 
