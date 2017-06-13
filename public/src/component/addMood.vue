@@ -157,20 +157,7 @@
                     {value:2,src:'list_mood_02.png',class:'grid_row3',text:'很不开心'},
                     {value:1,src:'list_mood_01.png',class:'grid_row3',text:'超级不开心'}
                 ],
-                scenesList:[
-                    {value:1,src:'study.png',haspic:true,text:'学习教育'},
-                    {value:2,src:'work.png',haspic:true,text:'工作事业'},
-                    {value:3,src:'economics.png',haspic:true,text:'经济'},
-                    {value:4,src:'healthy.png',haspic:true,text:'健康'},
-                    {value:5,src:'home.png',haspic:true,text:'家庭'},
-                    {value:6,src:'love.png',haspic:true,text:'恋爱婚姻'},
-                    {value:7,src:'arder.png',haspic:true,text:'娱乐休闲'},
-                    {value:8,src:'interpersonal.png',haspic:true,text:'人际关系'},
-                    {value:9,src:'weather.png',haspic:true,text:'天气'},
-                    {value:10,src:'life.png',haspic:true,text:'生活'},
-                    {value:11,src:'sport.png',haspic:true,text:'运动'},
-                    {value:12,src:'other.png',haspic:true,text:'其他'}
-                ],
+                scenesList:xqzs.mood.moodScenesList,
                 choosedData:{}
             }
         },

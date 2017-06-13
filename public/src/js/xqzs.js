@@ -287,6 +287,20 @@ var xqzs = {
         moodScenes:[
 '','学习教育','工作事业','经济','健康','家庭','恋爱婚姻','休闲娱乐','人际关系','天气','生活','运动','其他'
         ],
+        moodScenesList:[
+            {value:1,src:'study.png',haspic:true,text:'学习教育'},
+            {value:2,src:'work.png',haspic:true,text:'工作事业'},
+            {value:3,src:'economics.png',haspic:true,text:'经济'},
+            {value:4,src:'healthy.png',haspic:true,text:'健康'},
+            {value:5,src:'home.png',haspic:true,text:'家庭'},
+            {value:6,src:'love.png',haspic:true,text:'恋爱婚姻'},
+            {value:7,src:'arder.png',haspic:true,text:'娱乐休闲'},
+            {value:8,src:'interpersonal.png',haspic:true,text:'人际关系'},
+            {value:9,src:'weather.png',haspic:true,text:'天气'},
+            {value:10,src:'life.png',haspic:true,text:'生活'},
+            {value:11,src:'sport.png',haspic:true,text:'运动'},
+            {value:12,src:'other.png',haspic:true,text:'其他'}
+        ],
         /**
          * 是否可以编辑
          * @param mood
@@ -306,8 +320,19 @@ var xqzs = {
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
         },
-        getCjImg:function () {
-
+        getCjImg:function (scenesid) {
+            for(var i=0,l=this.moodScenesList.length;i<l;i++) {
+                if (this.moodScenesList[i].value == scenesid) {
+                    return {
+                        src:this.moodScenesList[i].src,
+                        text:this.moodScenesList[i].text
+                    };
+                }
+            }
+            return {
+                src:'',
+                text:''
+            }
         },
         setMoodValueStyle:function (mood) {
             mood.moodValueStyle = mood.moodValue <=3 ?'unhappy_txt_color' : (mood.moodValue <=6 ?'modle_txt_color':'happy_txt_color');
