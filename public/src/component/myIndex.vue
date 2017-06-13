@@ -55,7 +55,7 @@
                         <div class="moodLoc" v-if="item.content!=''&& item.content!=null">{{item.address}}</div>
                         <div class="moodTime">
                             <span>{{item.outTime}}</span>
-                            <span v-if="currTime-item.addTime<=180 &&(item.content=='' || item.content==null)"
+                            <span v-if="canRevoke(item)"
                                   class="btn_del" @click="revoke(item.id,index)">撤回</span>
                             <span v-if="canClear(item)" class="btn_del"
                                   @click="empty(item.id,index)">删除</span>
@@ -145,6 +145,9 @@
             },
             canClear:function (mood) {
                 return xqzs.mood.canClear(mood);
+            },
+            canRevoke:function (mood) {
+                return xqzs.mood.canRevoke(mood);
             },
             commentOrDel:function (userId,id,index,commentIndex) {
                 let vm = this;

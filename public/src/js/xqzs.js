@@ -272,6 +272,7 @@ var xqzs = {
 
     mood: {
         canEditTime:20*60,//可以编辑的时间限制
+        canRevokeTime:3*60,//可以撤回时间
         moodValueText: ["", "超级不开心",//1
             "很不开心",//2
             "不开心",//3
@@ -297,6 +298,10 @@ var xqzs = {
         },
         canClear:function (mood) {
             return (mood.content!='' && mood.content!=null) || mood.haspicture==1;
+        },
+        canRevoke:function (mood) {
+            var currTime = xqzs.dateTime.getTimeStamp();
+            return currTime - mood.addTime <= this.canRevokeTime && !this.canClear(mood);
         },
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
