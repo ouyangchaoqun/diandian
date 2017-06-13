@@ -24,9 +24,9 @@
 
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                     <div class="moodImg_right">
-                        <div class="moodState"
-                             :class="item.moodValueStyle">
-                            {{item.moodValueText}}
+                        <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
+                            <img class="addCj" src="../images/work01.png" alt="">
+                            <i>场景</i>
                         </div>
 
                         <template v-if="canEdit(item)">
@@ -411,7 +411,11 @@
 
 </script>
 <style>
-
+    .moodState i{
+        font-size: 12px;
+        color: #999;
+        font-style: normal;
+    }
 
 
 

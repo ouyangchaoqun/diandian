@@ -3,7 +3,10 @@
         <div class="myMood_list careborder">
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
-                <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}</div>
+                <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}
+                    <img class="addCj" src="../images/work01.png" alt="">
+                    <i>场景</i>
+                </div>
                 <div class="moodContext" v-html="formatContent(mood.content)"></div>
                 <template v-if="canEdit(mood)">
                     <router-link :to=editurl+mood.id class="editMood">
@@ -75,6 +78,19 @@
         background: #ffffff;
         height:100%;
     }
+    .addCj{
+        height: 16px;
+        vertical-align: middle;
+        margin-top: -3px;
+        margin-left: 5px;
+        display: inline-block;
+    }
+    .moodState i{
+        font-size: 12px;
+        color: #999;
+        font-style: normal;
+    }
+
 </style>
 <script type="text/javascript">
 //    import wx from 'weixin-js-sdk';

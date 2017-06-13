@@ -433,7 +433,6 @@
         width:24px;
     }
     .friendCenter .addBorder{
-        padding:0 15px;
         border-bottom: 1px solid #eeeeee;
     }
 
