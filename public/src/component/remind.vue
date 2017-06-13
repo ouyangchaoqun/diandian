@@ -36,7 +36,7 @@
     }
 
     .remind1 {
-        margin-top: 10px;
+        margin-top: 15px;
         border-top: 1px solid #e5e5e5;
         position: relative;
         overflow: hidden;

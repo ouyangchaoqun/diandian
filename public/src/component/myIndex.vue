@@ -78,7 +78,7 @@
                         <ul class="show_bottom">
                             <img class="show_img2" src="../images/comments.png"/>
                             <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex" :data-replyid="comment.id" :data-moodid="item.id"
-                                :data-userid="comment.fromuserid" data-ajaxresult="hasface" @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)" v-if="!comment.isDel">
+                                :data-userid="comment.fromuserid" data-ajaxresult="hasface" @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)" >
                                 <img class="show_bottom_img" :src="comment.from_faceUrl">
                                 <div class="show_bottom_text">
                                     <div class="reply_author">

@@ -14,7 +14,7 @@
                           <p class="count1">{{week.year}}年第{{week.week}}周</p>
                           <p class="count2">本周你记录了{{week.happyDay+week.unHappyDay}}天，{{week.happyDay}}天开心，{{week.unHappyDay}}天不开心</p>
                           <p class="count2">你比{{week.comparison}}%都开心哦~</p>
-                          <img src="../images/goto.jpg" alt="">
+                          <img src="../images/me_jt.png" alt="">
                       </li>
 
                   </ul>
@@ -25,7 +25,7 @@
                             <p class="count1">{{month.year}}年第{{month.month}}月</p>
                             <p class="count2">本月你记录了{{month.happyDay+month.unHappyDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
                             <p class="count2">你比{{month.comparison}}%都开心哦~</p>
-                            <img src="../images/goto.jpg" alt="">
+                            <img src="../images/me_jt.png" alt="">
                         </li>
 
                     </ul>
@@ -38,7 +38,7 @@
                             <p class="count1">{{year.year}}年</p>
                             <p class="count2">本年你记录了{{year.happyDay+year.unHappyDay}}天，{{year.happyDay}}天开心，{{year.unHappyDay}}天不开心</p>
                             <p class="count2">你比{{year.comparison}}%都开心哦~</p>
-                            <img src="../images/goto.jpg" alt="">
+                            <img src="../images/me_jt.png" alt="">
                         </li>
 
                     </ul>
@@ -129,7 +129,7 @@
     .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
     .count1{color:#333333;font-size: 16px;margin-bottom:10px;}
     .count2{color:#a9a9a9;font-size: 12px}
-    .countList img{position:absolute;height:20px;width:20px;display:block;right:20px;top:50%; margin-top:-10px;
+    .countList img{position:absolute;height:20px;width:20px;display:block;right:10px;top:50%; margin-top:-10px;
     }
 </style>
 

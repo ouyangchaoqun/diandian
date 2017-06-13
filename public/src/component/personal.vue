@@ -237,6 +237,7 @@
     float:right;
     font-size: 15px;
     color:#999;
+    margin-right:5px;
 }
 .list0 input{
     float: right;
@@ -244,6 +245,20 @@
     color:#999999;
     height: 60px;
     text-align: right;
+    border:0;
+    outline: none;
+}
+.list0 input::-webkit-input-placeholder{
+    color: #999;
+}
+.list0 input:-moz-placeholder{
+    color: #999;
+}
+.list0 input::-moz-placeholder,{
+    color: #999;
+}
+.list0 input:-ms-input-placeholder{
+    color: #999;
 }
 .list0 img{
     width:16PX;
@@ -253,6 +268,7 @@
 .showdL{
     float: right;
     color:#999;
+    font-size: 15px;
 }
 .showdL span{
     margin-left:5px;

@@ -8,7 +8,7 @@
 					<div class="perfec_top">{{user.nickName}}</div>
 					<div class="perfec">
 						<span>完善资料</span>
-						<img class="edit" src="../images/edit.png"/>
+						<img class="edit" src="../images/info_icon_por.png"/>
 					</div>
 				</div>
 				<img class="me1_back" src="../images/me_jt.png"/>
@@ -30,7 +30,7 @@
 		</router-link>
 		<router-link to="/me/remind" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1" src="../images/listimg3.png"/>
+				<img class="listimg20" src="../images/listimg3.png"/>
 				<div class="listtext">心情记录提醒设置</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
@@ -44,14 +44,14 @@
 		</router-link>
 		<router-link to="/me/problem" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1 problemImg" src="../images/listimg5.png"/>
+				<img class="listimg1 listimgPro" src="../images/listimg5.png"/>
 				<div class="listtext ">常见问题Q&A</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
 		<router-link to="/me/proposal" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1 proposalImg" src="../images/listimg6.png"/>
+				<img class="listimg1 listimgSal" src="../images/listimg6.png"/>
 				<div class="listtext">意见反馈</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
@@ -63,6 +63,9 @@
 	</div>
 </template>
 <style>
+	.me_box{
+		background: #fff;
+	}
 	.me_top{
 		background:#f4f4f4;
 		padding: 15px 0;
@@ -83,25 +86,26 @@
 	.me1_right{
 		float: left;
 		margin-left: 14px;
+		margin-top: 4px;
 	}
 	.perfec_top{
 		color: #333333;
-		font-size:14px;
-		margin-bottom:12px;
+		font-size:16px;
+		margin-bottom:6px;
 	}
 	.perfec{
-		font-size:12px;
-		color: #666666;
+		font-size:14px;
+		color: #999;
 		position: relative;
 	}
 	.perfec img{
 		position: absolute;
 		top:-1px;
-		left: 55px;
+		left: 66px;
 	}
 	.edit{
-		height:20px;
-		width:20px;
+		height:22px;
+		width:22px;
 	}
 	.me1_back{
 		display: block;
@@ -122,11 +126,19 @@
 		padding-left: 50px;
 	}
 	.listimg1{
-		width:22px;
+		width:21px;
 		display: block;
 		position: absolute;
 		top:50%;
-		margin-top:-12px;
+		margin-top:-10px;
+		left:20px;
+	}
+	.listimg20{
+		width:20px;
+		display: block;
+		position: absolute;
+		top:50%;
+		margin-top:-10px;
 		left:20px;
 	}
 	.listimg2{
@@ -145,14 +157,23 @@
 		margin-top:30px;
 	}
 	.privacyImg{
-		width:16px;
+		width:18px;
 		margin-top:-12px;
+		height:21px;
 	}
 	.proposalImg{
 		margin-top: -8px;
 	}
 	.problemImg{
 		margin-top:-16px;
+	}
+	.listimgSal{
+		width: 20px;
+		margin-top:-8px;
+	}
+	.listimgPro{
+		width:22px;
+		margin-top: -15px;
 	}
 </style>
 <script type="text/javascript">

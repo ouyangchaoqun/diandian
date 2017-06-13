@@ -15,9 +15,9 @@
 <style>
     .privacy_box{
         background: #f4f4f4;
+        padding-top: 15px;
     }
     .privacy {
-        margin-top: 10px;
         height: 50px;
         background: #fff;
         padding-left:15px;

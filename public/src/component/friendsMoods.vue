@@ -321,7 +321,7 @@
     .friends_mood {
         margin-top: 1px;
         background: #ffffff;
-        padding: 10px 20px 10px 10px;
+        padding: 10px 20px 5px 10px;
     }
 
     .friendHeaderImg {
@@ -363,19 +363,20 @@
         font-size: 12px;
         color: #999999;
         float: left;
-        line-height: 30px;
+        line-height: 12px;
     }
 
     .time_right {
         color: #999999;
         float: right;
-        margin-top:14px;
+        margin-top:5px;
     }
 
     .friendsLoc {
         font-size: 12px;
         color: #516591;
-        line-height:20px;
+        line-height:12px;
+        margin-bottom: 12px;
     }
 
     .time_right img {
@@ -386,7 +387,7 @@
     }
     .friendImgList {
         overflow: hidden;
-        margin-bottom: 11px;
+        margin-bottom: 15px;
     }
 
     .friendImgList.two li{
@@ -409,7 +410,7 @@
         position: relative;
     } 
     .friendImgList img {
-
+        display: block;
     }
 
     .commont_box {
@@ -417,17 +418,17 @@
         background: #f9f9f9;
         border-radius: 2.5px;
         position: relative;
-        margin-top: 15px !important;
+        margin-top: 4px !important;
         clear: both;
     }
 
     .arrow {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
         background: #f9f9f9;
         position: absolute;
         left: 20px;
-        top: -6px;
+        top: -4px;
         transform: rotate(45deg);
     }
 

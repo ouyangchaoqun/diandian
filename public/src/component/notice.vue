@@ -118,7 +118,7 @@
 		height: 60px;
 		float: right;
 		overflow: hidden;
-		background: #f9f9f9;
+		/*background: #f9f9f9;*/
 		margin-top: 8px;
 		position: relative;
 		font-size: 13px;

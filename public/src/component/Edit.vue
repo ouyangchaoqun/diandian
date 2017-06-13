@@ -36,7 +36,7 @@
                     v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
 
         </div>
-        <div v-if="showPositionList('')" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 1"></div>
+        <div v-if="showPositionList('')" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 999"></div>
         <div v-if="showPositionList('')" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
             <div class="weui-actionsheet__menu">
                 <div class="weui-actionsheet__cell" @click = "getCam()" id="btn">拍照</div>

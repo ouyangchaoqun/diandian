@@ -42,7 +42,8 @@
     .feedback span{
         position:absolute;
         right:20px;
-        bottom:20px;
+        bottom:10px;
+        font-size: 13px;
     }
     .feedback_btn{
         padding:0 20px;
