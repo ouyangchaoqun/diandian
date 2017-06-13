@@ -357,7 +357,7 @@
                     this.locImage = web.IMG_PATH+'dz_nor.png'
                 } else {
                     var _address_ = this.address;
-                    if(_address_.length>10){
+                    if(_address_.length>15){
                         _address_ = _address_.substring(0,15)+'..';
                     }
                     this.showAddress = _address_;
