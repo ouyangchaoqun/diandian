@@ -291,7 +291,7 @@
                     //日期点击事件
                     this.isa = true;
                     this.isb = false
-                    $('body').on('touchmove', this.prevent);
+                    $('body').on('touchmove', this.prevent(event));
 
 
                 }
@@ -301,8 +301,8 @@
             hideSwiper: function () {                                 //轮播隐藏事件
 
                 this.isa = false;
-                this.isb = true
-                $('body').off('touchmove', this.prevent);
+                this.isb = true;
+                $('body').off('touchmove', this.prevent(event));
             },
             prevent: function (e) {
                 e.preventDefault();
