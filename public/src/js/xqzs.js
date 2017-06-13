@@ -427,6 +427,12 @@ var xqzs = {
                     }
                 });
             }
+        },
+        wxface:function (faceurl) {
+            if(faceurl && faceurl!=null && faceurl!=''){
+                return faceurl.replace(/\/0$/i, '/132');
+            }
+            return faceurl;
         }
     },
     friendmood: {
