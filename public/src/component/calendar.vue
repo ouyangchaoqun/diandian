@@ -49,7 +49,7 @@
                             <img :src="mood.bgUrl" alt=""/>
                             <div class="clickBox_time">
                                 <span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>
-                                <div class="clickBox_bottom">{{mood.content}}</div>
+                                <div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>
                             </div>
                         </div>
 
@@ -315,6 +315,9 @@
             /***取消滑动限制***/
             moveMove: function () {
                 $('body').off().css('overflow', 'auto');
+            },
+            formatContent:function (c) {
+                return xqzs.face.parse(c);
             }
         }
 
