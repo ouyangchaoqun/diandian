@@ -1,9 +1,16 @@
 var xqzs = xqzs ||{};
 xqzs.face = {
     __all__: [
-        {id: 1, t: "微笑"}, {id: 2, t: "撇嘴"}, {id: 3, t: "色"}, {id: 4, t: "发呆"}, {id: 5, t: "得意"}, {id: 6,t: "流泪"}, {id: 7, t: "害羞"}, {id: 8, t: "闭嘴"}
-        , {id: 9, t: "睡"}, {id: 10, t: "大哭"}, {id: 11, t: "尴尬"}, {id: 12, t: "发怒"}, {id: 13, t: "调皮"}, {id: 14, t: "呲牙"}, {id: 15, t: "惊讶"}, {
-            id: 16,t: "难过"}, {id: 17, t: "囧"}, {id: 18, t: "抓狂"}, {id: 19, t: "吐"}, {id: 20, t: "偷笑"}
+        {id: 1, t: "微笑"}, {id: 2, t: "撇嘴"}, {id: 3, t: "色"}, {id: 4, t: "发呆"}, {id: 5, t: "得意"}, {
+            id: 6,
+            t: "流泪"
+        }, {id: 7, t: "害羞"}, {id: 8, t: "闭嘴"}
+        , {id: 9, t: "睡"}, {id: 10, t: "大哭"}, {id: 11, t: "尴尬"}, {id: 12, t: "发怒"}, {id: 13, t: "调皮"}, {
+            id: 14,
+            t: "呲牙"
+        }, {id: 15, t: "惊讶"}, {
+            id: 16, t: "难过"
+        }, {id: 17, t: "囧"}, {id: 18, t: "抓狂"}, {id: 19, t: "吐"}, {id: 20, t: "偷笑"}
         , {id: 21, t: "愉快"}, {id: 22, t: "白眼"}, {id: 23, t: "傲慢"}, {id: 24, t: "困"}, {id: 25, t: "惊恐"}, {
             id: 26,
             t: "流汗"
@@ -31,7 +38,7 @@ xqzs.face = {
         , {id: 80, t: "捂脸"}, {id: 81, t: "奸笑"}, {id: 82, t: "机智"}, {id: 83, t: "皱眉"}, {id: 84, t: "耶"}
     ],
     //_reg: new RegExp(/(\[([\u4e00-\u9fa5]{1,3}]))/i, 'g'),
-    _allexpount:0,
+    _allexpount: 0,
     _appendStyle: function (content) {
         var $style = document.createElement("style");
         $style.type = "text/css";
@@ -45,15 +52,15 @@ xqzs.face = {
     _getAllExp: function (content) {
         return content.match(/(\[([\u4e00-\u9fa5]{1,3}]))/ig);
     },
-    _replaceByKey:function (content,key) {
-        content = content.replace(new RegExp('\\['+key.t+'\\]', 'gm'), '<a class="exp exp'+key.id+'"></a>');
+    _replaceByKey: function (content, key) {
+        content = content.replace(new RegExp('\\[' + key.t + '\\]', 'gm'), '<a class="exp exp' + key.id + '"></a>');
         return content;
     },
-    _replace:function (content,keys) {
+    _replace: function (content, keys) {
         var that = this;
         for (var i = 0, l = keys.length; i < l; i++) {
             for (var j = 0; j < that._allexpount; j++) {
-                if ('['+that.__all__[j].t+']' == keys[i]) {
+                if ('[' + that.__all__[j].t + ']' == keys[i]) {
                     content = that._replaceByKey(content, that.__all__[j]);
                     break;
                 }
@@ -61,7 +68,7 @@ xqzs.face = {
         }
         return content;
     },
-    _toParse:function (content) {
+    _toParse: function (content) {
         var keys = this._getAllExp(content);
         if (keys && keys.length > 0) {
             return this._replace(content, keys);
@@ -71,20 +78,20 @@ xqzs.face = {
     init: function () {
         this._allexpount = this.__all__.length;
         var _fh_ = 1.5294117647058825;
-        var style = 'a.exp{display:inline-block;vertical-align:middle;height:'+_fh_+'rem;width:'+_fh_+'rem;margin: 0 auto;background-image:url("'+web.IMG_PATH+'exp.png");background-size:'+_fh_+'rem;}';
+        var style = 'a.exp{display:inline-block;vertical-align:middle;height:' + _fh_ + 'rem;width:' + _fh_ + 'rem;margin: 0 auto;background-image:url("' + web.IMG_PATH + 'exp.png");background-size:' + _fh_ + 'rem;}';
         $_i = 0;
         var sarr = [];
-        while($_i<this._allexpount) {
+        while ($_i < this._allexpount) {
             sarr.push('.exp' + ($_i + 1) + '{background-position:0 -' + (($_i) * _fh_) + 'rem;}')
             $_i++;
         }
-        this._appendStyle(style+sarr.join(''));
+        this._appendStyle(style + sarr.join(''));
     },
     getAll: function () {
         return this.__all__;
     },
-    getFaceData:function (start,len) {
-        if( this._allexpount > start) {
+    getFaceData: function (start, len) {
+        if (this._allexpount > start) {
             var end = Math.min(start + len, this._allexpount);
             var result = [];
             for (var i = start; i < end; i++) {
@@ -94,11 +101,24 @@ xqzs.face = {
         }
         return [];
     },
+    htmlEncode: function (str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&/g, "&gt;");
+        s = s.replace(/</g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        s = s.replace(/ /g, "&nbsp;");
+        s = s.replace(/\'/g, "&#39;");
+        s = s.replace(/\"/g, "&quot;");
+        s = s.replace(/\n/g, "<br>");
+        return s;
+    },
     parse: function (content) {
-        if (content && content != '') {
+        if (content && content != null && content != '') {
+            content = this.htmlEncode(content);
             return this._toParse(content);
         }
-        return content;
+        return '';
     }
 };
 xqzs.face.init();
