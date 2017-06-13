@@ -192,6 +192,11 @@
     var Edit={
         template:'#Edit'
     };
+    /**
+     * 是否判断来源
+     * @type {boolean}
+     */
+    var isCheckFromRoute = false;
     export default {
         data() {
             return {
@@ -249,6 +254,14 @@
                     nearpois:[]
                 }
             }
+        },
+        beforeRouteEnter(to, from, next){
+            isCheckFromRoute = false;
+            if(from.path!='/addMood') {
+                //来源不是addMood
+                isCheckFromRoute = true;
+            }
+            next();
         },
         methods: {
             getLoc: function () {
@@ -329,7 +342,6 @@
                     apiurl = 'mood/append';
                     postdata['id'] = that.moodid;
                 }
-                console.info(postdata);
                 that.$http.put(web.API_PATH + apiurl,postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
@@ -470,6 +482,10 @@
                 if(typeof id != 'undefined' && /^\d+$/.test(id)){
                     that.loadMood(id);
                 }else{
+                    console.info('isCheckFromRoute:'+isCheckFromRoute)
+                    if(isCheckFromRoute){
+                        return false;
+                    }
                     that.moodValue = that.$route.query.moodValue;
                     that.scenesId = that.$route.query.scenesId;
                     if (typeof that.moodValue == 'undefined' || !/^\d+$/.test(that.moodValue)
@@ -496,19 +512,19 @@
                     var flag = false;
                     if( bt.data && bt.data.status == 1 && bt.data.data) {
                         var _mood = bt.data.data;
-                        flag=true;
-                        if(that.canedit(_mood)){
+                        if(that.canedit(_mood)) {
+                            flag = true;
                             that.moodid = _mood.id;
                             that.moodValue = _mood.moodValue;
                             that.scenesId = _mood.scenesId;
-                            if(_mood.address!=null && _mood.address!=''){
+                            if (_mood.address != null && _mood.address != '') {
                                 that.address = _mood.address;
                                 that.setShowAddress();
                             }
                         }
                     }
                     if(!flag){
-                        //that.$router.push({path:'/'});
+                        that.$router.go(-2);
                     }
                 });
             },

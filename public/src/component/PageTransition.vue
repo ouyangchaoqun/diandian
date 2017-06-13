@@ -7,56 +7,6 @@
 </template>
 
 <script>
-    var isiOS = function () {
-        var u = navigator.userAgent;
-        //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
-        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-
-        return isiOS;
-    }
-    var getGoNumber = function () {
-        var go = isiOS()?-3:-2;
-        var historyLength = window.history.length;
-        if(Math.abs(go) < historyLength){
-            go = 0 - historyLength;
-        }
-        return go;
-    }
-    var urlCheck = function (to, from) {
-        var result = {stop: false};
-        var preventToPaths = [{
-            path: '/myCenter/myIndex/Edit',
-            allowQuery:['id'],
-            allowFroms: ['/addMood'],
-            go: getGoNumber()
-        }];
-        for (var i = 0, l = preventToPaths.length; i < l; i++) {
-            if (preventToPaths[i].path == to.path) {
-                var stop = true;
-                for(var j=0,jl=preventToPaths[i].allowQuery.length;j<jl;j++){
-                    var _k_ =preventToPaths[i].allowQuery[j];
-                    if(typeof to.query[_k_]!='undefined'){
-                        stop = false;
-                        break;
-                    }
-                }
-                if(stop) {
-                    for (var j = 0, jl = preventToPaths[i].allowFroms.length; j < jl; j++) {
-                        if (preventToPaths[i].allowFroms[j] == from.path) {
-                            //result = {stop: true, gourl: preventToPaths[i].gourl}
-                            stop = false;
-                            break;
-                        }
-                    }
-                }
-                if(stop){
-                    result = {stop: stop, go: preventToPaths[i].go}
-                }
-                break;
-            }
-        }
-        return result;
-    }
     export default {
         data () {
             return {
@@ -74,17 +24,6 @@
 //            let isBack = parseInt( Math.random()*10)%2;
 
 //            console.log({to:to.fullPath,from:from.fullPath});
-            var result = urlCheck(to, from);
-            if(result.stop){
-                this.$router.go(result.go);
-                next(false);
-                return;
-            }
-
-
-
-
-
 
 
             let isBack = false;
