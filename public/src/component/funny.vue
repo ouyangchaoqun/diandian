@@ -170,6 +170,7 @@
             },
             setFigureStyle:function(w,h,src){
                 let that = this;
+                src = src + xqzs.oss.Size.resize(100,100);
                 var style = 'width:'+that.funnyExpWidth+'px;height:'+that.funnyExpWidth+'px;background:url('+src+') no-repeat center;';
                 if(w>h){
                     style += 'backgroundSize:100% auto'
