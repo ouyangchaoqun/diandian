@@ -398,6 +398,12 @@ var xqzs = {
                     }
                 }
 
+                //评论emoji
+                if(data[i].replies && data[i].replies.length>0){
+                    for(var ri=0,rl=data[i].replies.length;ri<rl;ri++){
+                        data[i].replies[0].content = xqzs.face.parseEmoji(data[i].replies[0].content);
+                    }
+                }
 
             }
             return data;
