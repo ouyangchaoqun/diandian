@@ -5,7 +5,6 @@
             <div class="moodImg_right">
                 <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}
                     <img class="addCj" :src="mood.scense.src" alt="">  <i>{{mood.scense.text}}</i>
-
                 </div>
                 <div class="moodContext" v-if="mood.content" v-html="formatContent(mood.content)"></div>
                 <template v-if="canEdit(mood)">
@@ -14,7 +13,11 @@
                         <img src="../images/bianji.png" alt="">
                     </router-link>
                 </template>
+<<<<<<< Updated upstream
                 <div class="moodPhotoLists" v-if="mood.pics.length">
+=======
+                <div class="moodPhotoLists" v-if="mood.pics">
+>>>>>>> Stashed changes
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)">
                     </div>
