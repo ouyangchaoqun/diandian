@@ -29,9 +29,9 @@ class Controller extends BaseController
     {
 
         $userId = $this->getUserId($request);
-        if ($userId == 0) {
-            return redirect("/wx/index");
-        }
+//        if ($userId == 0) {
+//            return redirect("/wx/index");
+//        }
         if (env("APP_ENV") == "production") {
             return view('index_production');
         }
