@@ -366,6 +366,8 @@
             },
             //optionFrist
             showAction:function () {
+                this.uploadImage(['camera','album']);
+                return;
                 this.maskFlag = true
                 this.activeFlag = true
             },
