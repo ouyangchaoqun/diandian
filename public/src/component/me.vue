@@ -43,13 +43,6 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
-		<router-link to="/me/problem" class="me_lists">
-			<div class="me_list">
-				<img class="listimg1 listimgPro" src="../images/aboutMe.jpg"/>
-				<div class="listtext ">关于我们</div>
-				<img class="listimg2" src="../images/me_jt.png"/>
-			</div>
-		</router-link>
 		<router-link to="/me/proposal" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 listimgSal" src="../images/listimg6.png"/>
@@ -57,6 +50,14 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
+		<router-link to="/me/problem" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1 listimgPro" src="../images/aboutMe.jpg"/>
+				<div class="listtext ">关于我们</div>
+				<img class="listimg2" src="../images/me_jt.png"/>
+			</div>
+		</router-link>
+
 		<div class="me_bottom">
 			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
 		</div>
