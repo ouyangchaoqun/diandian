@@ -1,18 +1,18 @@
 <template id="notice">
-	<div class="careMe_box"  >
+	<div class="notice_box"  >
 		<div v-title>消息</div>
 		<v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
-			<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
-				<img class="careMe_img" :src="newNotice.faceUrl" alt="">
-				<div class="careMe_div">
-					<div class="careMeName">{{newNotice.nickName}}</div>
-					<div class="careMeText">{{newNotice.content}}</div>
+			<router-link :to=detailUrl+newNotice.moodid  class ="notice_list"  v-for="newNotice in newNotices">
+				<img class="notice_img" :src="newNotice.faceUrl" alt="">
+				<div class="notice_div">
+					<div class="noticeName">{{newNotice.nickName}}</div>
+					<div class="noticeText">{{newNotice.content}}</div>
 					<div class="careStatus" v-if="newNotice.tp=='care'">
 						<img v-bind:src="newNotice.careImg" alt="">
 					</div>
 					<p>{{newNotice.addtime}}</p>
 				</div>
-				<div class="careMe_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
+				<div class="notice_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
 					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture" class="picContent">
 					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
 						{{newNotice.moodcontent}}
@@ -58,10 +58,10 @@
 	.careStatus{
 		padding:8px 0;
 	}
-	.careMe_div .careStatus img{
+	.notice_div .careStatus img{
 		width:14px;
 	}
-	.careMe_div .careMeName{
+	.notice_div .noticeName{
 		color: #5e61a2;
 	}
 	.nobg{ background: none !important}
@@ -72,18 +72,18 @@
 		text-align: center;
 		font-size: 14px;
 	}
-	.careMe_box{
+	.notice_box{
 		height:100%;
 		background: #ffffff;
 	}
-	.careMe_list{
+	.notice_list{
 		overflow: hidden;
 		border-bottom: 1px solid#eee;
 		padding:10px 15px;
 		color: #000;
 		display: block;
 	}
-	.careMe_img{
+	.notice_img{
 		height:44px;
 		width: 44px;
 		display: block;
@@ -91,29 +91,29 @@
 		border-radius:3px;
 		margin-top:13px;
 	}
-	.careMe_div{
+	.notice_div{
 		float: left;
 		margin-left:10px;
 		margin-top:7px;
 		width: 12rem;
 
 	}
-	.careMe_div div{
+	.notice_div div{
 		font-size: 13px;
 		color: #000;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	.careMe_div img{
+	.notice_div img{
 		width: 18px;
 		display: block;
 	}
-	.careMe_div p{
+	.notice_div p{
 		color: #999999;
 		font-size: 12px;
 	}
-	.careMe_content{
+	.notice_content{
 		width: 60px;
 		height: 60px;
 		float: right;

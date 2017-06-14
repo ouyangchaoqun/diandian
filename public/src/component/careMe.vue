@@ -163,6 +163,7 @@
                 type: "json",
                 url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/_userId_',
             }).then(function (data) {
+            	console.log(data);
                 if (data.data.data !== null&&data.data.data.length>0) {
                     _this.careFriends = eval(data.data.data);
                     console.log(_this.careFriends);
@@ -177,6 +178,7 @@
                 type: "json",
                 url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
             }).then(function (data) {//es5写法
+				console.log(data);
                 if (data.data.data) {
                     _this.myLastMood = eval(data.data.data);
                     _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
@@ -194,6 +196,7 @@
                 type: "json",
                 url: web.API_PATH + 'mood/care/update/read/'+_this.$route.query.moodId,
             }).then(function (data) {//es5写法
+				console.log(data);
                 if (data.data.status) {
 
                 }

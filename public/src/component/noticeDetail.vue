@@ -1,6 +1,6 @@
 <template id="noticeDetail">
-    <div class="careDetail_box">
-        <div class="myMood_list careborder">
+    <div class="noticeDetail_box">
+        <div class="myMood_list noticeborder">
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
                 <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}
@@ -70,10 +70,10 @@
     </div>
 </template>
 <style>
-    .careborder{
+    .noticeborder{
              border-bottom: 1px solid #f5f5f5;
          }
-    .careDetail_box{
+    .noticeDetail_box{
         background: #ffffff;
         height:100%;
     }
