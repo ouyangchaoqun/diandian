@@ -492,6 +492,7 @@
         flex-direction: column;
         justify-content: center;
         position: relative;
+    }
 
     .dateView a{
         -webkit-tap-highlight-color: rgba(0,0,0,.2);
