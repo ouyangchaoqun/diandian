@@ -151,19 +151,19 @@
 			return {
 				myLastMood: [],
 				careFriends:[],
-                detailUrl:null
+                detailUrl:''
 
 			}
 		},
 		mounted: function () {
 			let _this = this;
             //关心的朋友列表
-            this.$http({
+			_this.$http({
                 method: 'GET',
                 type: "json",
                 url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/_userId_',
             }).then(function (data) {
-            	console.log(data);
+                                    console.log(data);
                 if (data.data.data !== null&&data.data.data.length>0) {
                     _this.careFriends = eval(data.data.data);
                     console.log(_this.careFriends);
@@ -173,7 +173,7 @@
             });
 
             ///用户心情
-            this.$http({
+			_this.$http({
                 method: 'GET',
                 type: "json",
                 url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
@@ -190,19 +190,19 @@
             });
 
 
-            ///设置已读
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'mood/care/update/read/'+_this.$route.query.moodId,
-            }).then(function (data) {//es5写法
-				console.log(data);
-                if (data.data.status) {
-
-                }
-            }, function (error) {
-                //error
-            });
+//            ///设置已读
+//            this.$http({
+//                method: 'GET',
+//                type: "json",
+//                url: web.API_PATH + 'mood/care/update/read/'+_this.$route.query.moodId,
+//            }).then(function (data) {//es5写法
+//				console.log(data);
+//                if (data.data.status) {
+//
+//                }
+//            }, function (error) {
+//                //error
+//            });
 
 
 
