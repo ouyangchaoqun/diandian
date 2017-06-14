@@ -110,14 +110,26 @@ xqzs.face = {
         //s = s.replace(/ /g, "&nbsp;");
         //s = s.replace(/\'/g, "&#39;");
         //s = s.replace(/\"/g, "&quot;");
+        s = s.replace(/\n/g, "<br>");
         return s;
     },
     parse: function (content) {
         if (content && content != null && content != '') {
-            content = this.htmlEncode(content);
+            content = this.parseEmoji(content);
             return this._toParse(content);
         }
         return '';
+    },
+    parseEmoji:function (content) {
+        try{
+            content = content.replace('"','');
+            var __ = '{"v":"'+content+'"}';
+            var obj = JSON.parse(__);
+            content = obj.v;
+        }catch(e){
+            console.info(e);
+        }
+        return content;
     }
 };
 xqzs.face.init();
