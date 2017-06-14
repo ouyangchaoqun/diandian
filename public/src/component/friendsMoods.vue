@@ -175,6 +175,8 @@
                 }
             },
             commentOrDel:function (userId,id,index,replyIndex) {
+
+
                 let vm = this;
                 if(userId===vm.user.id){
                     vm._delComment(id,index,replyIndex);
@@ -214,7 +216,8 @@
                 let vm = this;
                 let replyorcomment='评论';
                 let edithoder="";
-                 if(replyIndex!==undefined&&replyIndex) {
+                console.log(replyIndex)
+                 if(replyIndex!==undefined&&replyIndex>=0) {
                      replyorcomment='回复';
                      if(vm.downdata[index].replies[replyIndex].fromuserid ===vm.downdata[index].userId ){
                         edithoder="作者";
