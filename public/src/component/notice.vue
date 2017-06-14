@@ -7,7 +7,7 @@
 				<div class="notice_div">
 					<div class="noticeName">{{newNotice.nickName}}</div>
 					<div class="noticeText">{{newNotice.content}}</div>
-					<div class="careStatus" v-if="newNotice.tp=='care'">
+					<div class="noticeStatus" v-if="newNotice.tp=='care'">
 						<img v-bind:src="newNotice.careImg" alt="">
 					</div>
 					<p>{{newNotice.addtime}}</p>
@@ -55,7 +55,7 @@
 
 </template>
 <style>
-	.careStatus{
+	.noticeStatus{
 		padding:8px 0;
 	}
 	.notice_div .careStatus img{
@@ -137,50 +137,6 @@
 	.picContent {
 		height:60px;
 		width:60px;
-	}
-	.noCare_box{
-		position: relative;
-		height:100%;
-	}
-	.noCare_box img{
-		width:180px;
-		position: absolute;
-		top:15%;
-		left:50%;
-		margin-left: -90px;
-	}
-	.noCare_content{
-		width: 100%;
-		position: absolute;
-		top:35%;
-		z-index: 1;
-		left:50%;
-		margin-left: -50%;
-	}
-	.noCare_content h3{
-		font-size: 16px;
-		color: #66cc33;
-		font-weight: 100;
-		text-align: center;
-		margin-bottom: 10px;
-	}
-	.noCare_content p{
-		font-size: 12px;
-		color: #999999;
-		text-align: center;
-		margin-bottom: 10px;
-	}
-	.noCare_btn{
-		width:90%;
-		position: absolute;
-		bottom:20%;
-		left:50%;
-		margin-left:-45%;
-	}
-	.picContent{
-		width:60px;
-		height:60px;
-
 	}
 
 </style>

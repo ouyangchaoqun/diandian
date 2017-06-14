@@ -4,9 +4,9 @@
 			<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 			<div class="careMe_div">
 				<div>{{careFriend.nickName}}</div>
-				<img class="careimg1" v-if="myLastMood.moodValue>=5"
+				<img class="careimg1" v-show="myLastMood.moodValue>=5"
 					 src="../images/mood_icon_dianz_pre.png" alt=""/>
-				<img v-if="myLastMood.moodValue<5"
+				<img v-show="myLastMood.moodValue<5"
 					 src="../images/list_baob_pre.png" alt=""/>
 				<p>{{careFriend.addTime}}</p>
 			</div>
