@@ -49,7 +49,8 @@
                 user: {},
                 isNotLookFriend:false,
                 isNotLookMe:false,
-                memoNameLink:null
+                memoNameLink:null,
+                isSpecial:false
 
             }
         },
@@ -68,6 +69,11 @@
                 if (data.data.data !== null) {
                     //console.log(data);
                     _this.user = eval(data.data.data);
+                    if(_this.user.isSpecial==1){
+                        _this.isSpecial=true;
+                    }else{
+                        _this.isSpecial=false;
+                    }
                     _this.isNotLookFriend = !_this.user.isLookFriend;
                     _this.isNotLookMe = !_this.user.isLookMe;
                     _this.memoNameLink= "/me/friendsCount/friendSet/setName/?friendId="+_this.user.userId;
