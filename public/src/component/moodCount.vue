@@ -12,7 +12,7 @@
                   <ul>
                       <li class="countList" v-for="week in weeks">
                           <p class="count1">{{week.year}}年第{{week.week}}周</p>
-                          <p class="count2">本周你记录了{{week.happyDay+week.unHappyDay}}天，{{week.happyDay}}天开心，{{week.unHappyDay}}天不开心</p>
+                          <p class="count2">本周你记录了{{week.allDay}}天，{{week.happyDay}}天开心，{{week.unHappyDay}}天不开心</p>
                           <p class="count2">你比{{week.comparison}}%都开心哦~</p>
                           <img src="../images/me_jt.png" alt="">
                       </li>
@@ -23,7 +23,7 @@
                     <ul>
                         <li class="countList" v-for="month in months">
                             <p class="count1">{{month.year}}年第{{month.month}}月</p>
-                            <p class="count2">本月你记录了{{month.happyDay+month.unHappyDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
+                            <p class="count2">本月你记录了{{month.allDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
                             <p class="count2">你比{{month.comparison}}%都开心哦~</p>
                             <img src="../images/me_jt.png" alt="">
                         </li>
@@ -36,7 +36,7 @@
                     <ul>
                         <li class="countList" v-for="year in years">
                             <p class="count1">{{year.year}}年</p>
-                            <p class="count2">本年你记录了{{year.happyDay+year.unHappyDay}}天，{{year.happyDay}}天开心，{{year.unHappyDay}}天不开心</p>
+                            <p class="count2">本年你记录了{{year.allDay}}天，{{year.happyDay}}天开心，{{year.unHappyDay}}天不开心</p>
                             <p class="count2">你比{{year.comparison}}%都开心哦~</p>
                             <img src="../images/me_jt.png" alt="">
                         </li>
@@ -67,6 +67,7 @@
                     _this.weeks=response.data.data;
                     for(let i=0;i<_this.weeks.length;i++){
                         _this.weeks[i].comparison = xqzs.toDecimal(_this.weeks[i].comparison*100);
+                        _this.weeks[i].allDay = parseInt(_this.weeks[i].happyDay ) + parseInt(_this.weeks[i].unHappyDay ) ;
                         _this.$set(_this.weeks,i,_this.weeks[i]);
                     }
                 }
@@ -80,6 +81,7 @@
                     _this.months=response.data.data;
                     for(let i=0;i<_this.months.length;i++){
                         _this.months[i].comparison = xqzs.toDecimal(_this.months[i].comparison*100);
+                        _this.months[i].allDay = parseInt(_this.months[i].happyDay ) + parseInt(_this.months[i].unHappyDay ) ;
                         _this.$set(_this.months,i,_this.months[i]);
                     }
                 }
@@ -93,6 +95,7 @@
                     _this.years=response.data.data;
                     for(let i=0;i<_this.years.length;i++){
                         _this.years[i].comparison = xqzs.toDecimal(_this.years[i].comparison*100);
+                        _this.years[i].allDay = parseInt(_this.years[i].happyDay ) + parseInt(_this.years[i].unHappyDay ) ;
                         _this.$set(_this.years,i,_this.years[i]);
                     }
                 }
