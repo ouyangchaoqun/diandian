@@ -116,6 +116,7 @@ xqzs.face = {
     parse: function (content) {
         if (content && content != null && content != '') {
             content = this.parseEmoji(content);
+            content = this.htmlEncode(content);
             return this._toParse(content);
         }
         return '';
