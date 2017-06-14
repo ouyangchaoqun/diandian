@@ -360,20 +360,20 @@
 
     .old {
         left: 15px;
-        height: 24px;
-        width: 24px;
+        height: 20px;
+        width: 20px;
         position: absolute;
-        top: 10px;
+        top: 8px;
         display: block;
     }
 
     .next {
         right: 15px;
         transform: rotate(180deg);
-        height: 24px;
-        width: 24px;
+        height: 20px;
+        width: 20px;
         position: absolute;
-        top: 10px;
+        top: 8px;
         display: block;
     }
 
@@ -393,7 +393,6 @@
     }
 
     .canlendarView {
-        color: #17b7b2;
         display: flex;
         flex-direction: column;
     }
@@ -417,13 +416,14 @@
 
     .centerView {
         width: 50%;
-        height: 40px;
+        height: 36px;
         text-align: center;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         color: #666666;
+        line-height: 36px;
     }
 
     .rightBgView {
@@ -448,9 +448,7 @@
         flex-grow: 1;
         text-align: center;
         font-size: 12px;
-        color: #828080;
-
-    }
+        color:#000}
 
     .dateBgView {
         height: auto;

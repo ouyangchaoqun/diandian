@@ -105,11 +105,11 @@
 		background: #ffffff !important;
     }
     .noCare_box img{
-        width:260px;
+        width:15rem;
         position: absolute;
-        top:90px;
+        top:3rem;
         left:50%;
-        margin-left: -130px;
+        margin-left: -7.5rem;
     }
     .noCare_content{
         width: 100%;
@@ -120,22 +120,22 @@
         margin-left: -50%;
     }
     .noCare_content h3{
-        font-size: 16px;
+        font-size: 18px;
         color: #66cc33;
         font-weight: 100;
         text-align: center;
         margin-bottom: 10px;
     }
     .noCare_content p{
-        font-size: 12px;
+        font-size: 14px;
         color: #999999;
         text-align: center;
-       height: 30px;
+       height: 24px;
     }
     .noCare_btn{
         width:90%;
         position: absolute;
-        bottom:50px;
+        bottom:3rem;
         left:50%;
         margin-left:-45%;
     }

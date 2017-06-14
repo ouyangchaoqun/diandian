@@ -370,7 +370,7 @@
         font-size: 12px;
     }
 
-    .time {
+    .stateBottom .time {
         font-size: 12px;
         color: #999999;
         float: left;

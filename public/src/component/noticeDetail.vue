@@ -13,11 +13,8 @@
                         <img src="../images/bianji.png" alt="">
                     </router-link>
                 </template>
-<<<<<<< Updated upstream
-                <div class="moodPhotoLists" v-if="mood.pics.length">
-=======
                 <div class="moodPhotoLists" v-if="mood.pics">
->>>>>>> Stashed changes
+
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)">
                     </div>
