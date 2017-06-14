@@ -54,11 +54,11 @@
 	.careMe_div{
 		float: left;
 		margin-left:10px;
-		margin-top:-5px;
 	}
 	.careMe_div div{
 		color: #5e61a2;
 		font-size: 13px;
+		line-height: 10px;
 	}
 	.careMe_div img{
 		width: 14px;
