@@ -90,7 +90,7 @@
                                             <span class="text_comment">回复</span><a class="pname other"
                                                                                    href="javascript:;">{{comment.to_nickName}}：</a>
                                         </template>
-                                        <span class="text_comment">{{comment.content}}</span>
+                                        <span class="text_comment">{{emojiContent(comment.content)}}</span>
                                     </div>
                                 </div>
                             </li>
@@ -149,6 +149,9 @@
             },
             canRevoke:function (mood) {
                 return xqzs.mood.canRevoke(mood);
+            },
+            emojiContent:function (c) {
+               return xqzs.face.parseEmoji(c);
             },
             commentOrDel:function (userId,id,index,commentIndex) {
                 let vm = this;
