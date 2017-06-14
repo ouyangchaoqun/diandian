@@ -174,6 +174,7 @@
 
             ///用户心情
 			_this.$http({
+
                 method: 'GET',
                 type: "json",
                 url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
