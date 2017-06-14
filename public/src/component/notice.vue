@@ -13,11 +13,11 @@
 					<p>{{newNotice.addtime}}</p>
 				</div>
 				<div class="careMe_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
-					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
+					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture" class="picContent">
 					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
 						{{newNotice.moodcontent}}
 					</div>
-					<img v-else  :src="newNotice.moodValueUrl"  />
+					<img v-else  :src="newNotice.moodValueUrl" class="picMood" />
 				</div>
 			</router-link>
 			<!--<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
@@ -124,7 +124,7 @@
 		font-size: 13px;
 		color: #666;
 	}
-	.careMe_content img{
+	.picMood {
 		height:32px;
 		width:32px;
 		display: block;
@@ -133,6 +133,10 @@
 		left:50%;
 		margin-top:-16px;
 		margin-left:-16px;
+	}
+	.picContent {
+		height:60px;
+		width:60px;
 	}
 	.noCare_box{
 		position: relative;
@@ -172,6 +176,11 @@
 		bottom:20%;
 		left:50%;
 		margin-left:-45%;
+	}
+	.picContent{
+		width:60px;
+		height:60px;
+
 	}
 
 </style>
