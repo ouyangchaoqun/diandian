@@ -4,14 +4,14 @@
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
                 <div class="moodState">{{mood.moodValueText}}</div>
-                <div class="moodContext">{{mood.content}}</div>
+                <div class="moodContext" v-if="mood.content">{{mood.content}}</div>
                 <template v-if="canEdit(mood)">
                     <router-link :to=editurl+mood.id class="editMood">
                         20分钟内可以补充文字和图片
                         <img src="../images/bianji.png" alt="">
                     </router-link>
                 </template>
-                <div class="moodPhotoLists" v-if="mood.pics.length>0">
+                <div class="moodPhotoLists" v-if="mood.pics">
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)" />
                     </div>
@@ -106,6 +106,7 @@
                     _this.replies= _this.data.reply;
                     _this.cares= _this.data.care;
                     _this.mood= _this.data.mood;
+                    console.log(_this.mood);
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
                     _this.mood.time=xqzs.dateTime.formatTime( _this.mood.addTime);
