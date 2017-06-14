@@ -1,5 +1,5 @@
 <template id="friendIndex">
-    <div class="myIndex_box">
+    <div class="myIndex_box friendIndex_box">
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <v-banner></v-banner>
@@ -106,6 +106,9 @@
 
 </script>
 <style>
+    .friendIndex_box{
+        background: #ffffff !important;
+    }
     .userHeaderImg {
         position: absolute;
         left: 50%;
@@ -113,7 +116,6 @@
         margin-left: -32px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.6);
-        padding: 2px;
     }
 
     .userHeaderImg img {

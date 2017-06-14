@@ -482,14 +482,12 @@
 
     .friend {
         margin-left: 55px;
-        padding-top: 28px;
+        padding-top: 15px;
     }
 
     .friendName {
         font-size: 16px;
         color: #333;
-        line-height: 0px;
-        margin-bottom: 11px;
     }
 
     .time {

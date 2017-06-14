@@ -127,8 +127,8 @@
     .tabs a.active{color:#339900;border-bottom: 3px solid #339900}
     .moodCount_box{width:100%;height:100%;}
     .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
-    .count1{color:#333333;font-size: 16px;margin-bottom:10px;}
-    .count2{color:#a9a9a9;font-size: 12px}
+    .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
+    .count2{color:#a9a9a9;font-size: 15px}
     .countList img{position:absolute;height:20px;width:20px;display:block;right:10px;top:50%; margin-top:-10px;
     }
 </style>
