@@ -5,13 +5,13 @@
             <div class="moodImg_right">
                 <div class="moodState">{{mood.moodValueText}}</div>
                 <div class="moodContext">{{mood.content}}</div>
-                <template v-if="Date.parse(new Date()) / 1000-mood.addTime<=20*60 && (mood.content=='' || mood.content==null)  ">
+                <template v-if="canEdit(mood)">
                     <router-link :to=editurl+mood.id class="editMood">
                         20分钟内可以补充文字和图片
                         <img src="../images/bianji.png" alt="">
                     </router-link>
                 </template>
-                <div class="moodPhotoLists">
+                <div class="moodPhotoLists" v-if="mood.pics.length>0">
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)" />
                     </div>
@@ -131,6 +131,9 @@
 
         },
         methods:{
+            canEdit:function (mood) {
+                return xqzs.mood.canEdit(mood);
+            },
             replyOrDel:function (userId,id,index) {
                 let vm = this;
                 console.log(this.user);

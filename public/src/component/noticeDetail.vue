@@ -14,7 +14,7 @@
                         <img src="../images/bianji.png" alt="">
                     </router-link>
                 </template>
-                <div class="moodPhotoLists">
+                <div class="moodPhotoLists" v-if="mood.pics.length>0">
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)">
                     </div>

@@ -144,12 +144,21 @@
 
                         },
                         onConfirm: function onConfirm(result) {
-                            _this.provinceId=result[0].value;
-                            _this.cityId=result[1].value;
-                            _this.areaId=result[2].value;
-                            _this.provinceName =result[0].label;
-                            _this.cityName = result[1].label;
-                            _this.areaName = result[2].label;
+                            if(result[0]){
+                                _this.provinceId=result[0].value;
+                                _this.provinceName =result[0].label;
+                            }
+                            if(result[1]){
+                                _this.cityId=result[1].value;
+                                _this.cityName = result[1].label;
+                            }
+                            if(result[2]){
+                                _this.areaId=result[2].value;
+                                _this.areaName = result[2].label;
+                            }else{
+                                _this.areaId='';
+                                _this.areaName ='';
+                            }
 
                         },
                         id: 'cascadePicker'
