@@ -23,7 +23,7 @@
 
         <div class="setList">
             <div>特别关心</div>
-            <input type="checkbox" class="weui-switch setFlag" :checked="user.isSpecial" @change="special($event)"   >
+            <input type="checkbox" class="weui-switch setFlag" :checked="isSpecial" @change="special($event)"   >
         </div>
         <div class="setList">
             <div>不看他的心情记录</div>
@@ -88,10 +88,10 @@
             special:function ($event) {
                 let _this = this;
 //                console.log($event.target.checked);
-                _this.user.isSpecial = $event.target.checked;
+                _this.isSpecial = $event.target.checked;
                 let flag;
-                if(_this.user.isSpecial==true){flag=0};
-                if(_this.user.isSpecial==false){flag=1};
+                if(_this.isSpecial==true){flag=0};
+                if(_this.isSpecial==false){flag=1};
                 _this.$http.post(web.API_PATH+'user/set/friend/special/_userId_/'+_this.user.userId+"/"+flag).then(response => {
                     if(response.data.status===1){
 
