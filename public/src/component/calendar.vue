@@ -4,8 +4,6 @@
         <div class="banner">
             <v-banner></v-banner>
         </div>
-
-
         <div class="rl_header">
             <div class="canlendarBgView">
                 <div class="canlendarView">
@@ -36,11 +34,11 @@
                                 </div>
                                 <img :src="item.smailUrl"/>
                             </a>
-
                         </div>
                     </div>
                 </div>
             </div>
+            <div style="height: 10px;"></div>
         </div>
         <!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
@@ -392,7 +390,6 @@
         flex-direction: column;
         align-items: center;
         background: #ffffff;
-        margin-bottom: 10px;
     }
 
     .canlendarView {

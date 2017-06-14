@@ -463,3 +463,10 @@ li{list-style: none}
     top: 7px;
     right: 10px;
 }
+.addCj{
+    height: 16px;
+    vertical-align: middle;
+    margin-top: -3px;
+    margin-left: 5px;
+    display: inline-block;
+}

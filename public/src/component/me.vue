@@ -163,6 +163,7 @@
 	.me_bottom{
 		padding: 0 15px;
 		margin-top:30px;
+		margin-bottom: 50px;
 	}
 	.privacyImg{
 		width:18px;
