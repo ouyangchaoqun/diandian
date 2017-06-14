@@ -114,24 +114,10 @@ xqzs.face = {
     },
     parse: function (content) {
         if (content && content != null && content != '') {
-            content = this._parseEmoji(content);
             content = this.htmlEncode(content);
             return this._toParse(content);
         }
         return '';
-    },
-    _parseEmoji:function (content) {
-        if(content.indexOf('\\u')>-1){
-            try{
-                content = content.replace('"','');
-                var __ = '{"v":"'+content+'"}';
-                var obj = JSON.parse(__);
-                content = obj.v;
-            }catch(e){
-                console.info(e);
-            }
-        }
-        return content;
     }
 };
 xqzs.face.init();
