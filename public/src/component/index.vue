@@ -429,8 +429,8 @@
     .tab{position: relative}
     .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px;width: 8px;}
     .tab img{
-        height: 24px;
-        width:24px;
+        height: 30px;
+        width:30px;
     }
     .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
