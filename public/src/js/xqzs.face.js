@@ -129,7 +129,7 @@ xqzs.face = {
                 var obj = JSON.parse(__);
                 content = obj.v;
             }catch(e){
-console.info(e);
+                console.info(e);
             }
         }
         return content;
