@@ -33,7 +33,7 @@
                             <div class="time_right">
                                 <div style="float: left">
                                     <span class="frined_zan">{{item.careCount}}</span>
-                                    <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)">
+                                    <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)" :class="{heartUp:item.hit}">
                                 </div>
 
                                 <div style="float: left;margin-left: 10px;">
@@ -99,7 +99,7 @@
                     }
                     xqzs.friendmood.setlast(maxid);
 
-                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
+                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata,false,vm.user.id);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
@@ -121,7 +121,7 @@
                     let arr = response.data.data.rows;
                     let i = 0;
                     let end = vm.pageEnd;
-                    arr = xqzs.mood.initMoodsData(arr);
+                    arr = xqzs.mood.initMoodsData(arr,false,vm.user.id);
                     for (; i < arr.length; i++) {
                         vm.downdata.push(arr[i]);
                     }
@@ -160,8 +160,14 @@
                         if(response.data.status===1){
 
                             _this.downdata[index].caremy=_this.user.id;
+                            _this.downdata[index].hit=true;
+                            _this.downdata[index].careCount= response.data.data;
+
                            _this.$set(_this.downdata, index, _this.downdata[index]);
-                            _this.downdata =  xqzs.mood.initMoodsData(_this.downdata);
+
+
+
+                            _this.downdata =  xqzs.mood.initMoodsData(_this.downdata,false,_this.user.id);
                             console.log( _this.downdata)
 
                         }

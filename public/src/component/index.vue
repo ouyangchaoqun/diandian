@@ -478,6 +478,7 @@
         display: block;
         padding: 0 15px;
         -webkit-tap-highlight-color: rgba(0,0,0,.2);
+        padding-right: 0;
     }
 
     .friend {
@@ -534,12 +535,13 @@
         height: 34px;
         float: left;
         margin-top: 19px;
-        margin-right: 19px;
+        margin-right: 4px;
     }
 
     .interaction {
         float: left;
         text-align: center;
+        padding: 15px;
         padding-top: 17px;
         font-size: 13px;
         color: #aeaeae;

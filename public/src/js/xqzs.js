@@ -337,7 +337,7 @@ var xqzs = {
         setMoodValueStyle:function (mood) {
             mood.moodValueStyle = mood.moodValue <=3 ?'unhappy_txt_color' : (mood.moodValue <=6 ?'modle_txt_color':'happy_txt_color');
         },
-        initMoodsData: function (data, timeType) {
+        initMoodsData: function (data, timeType,userId) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
                 if (!timeType)
@@ -375,7 +375,8 @@ var xqzs = {
                     }
                 }
 
-                if (data[i].isCare!==undefined) {
+
+                if (data[i].isCare!==undefined && userId!==data[i].userId) {
                     if (data[i].moodValue >= 5 && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare === null) {
