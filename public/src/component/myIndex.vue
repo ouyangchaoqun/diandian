@@ -63,7 +63,7 @@
                             <div class="moodFollow" @click="showComment(item.id,index)">
                                 <span class="followCount">{{item.careCount}}</span>
                                 <img class="followtype" :src="item.careImg" alt="">
-                                <template v-if="item.content!==null&& item.content!==''">
+                                <template v-if="(item.content!==null&& item.content!=='')||item.haspicture">
                                     <span class="followCount">{{item.replycount}}</span>
                                     <img class="followtype" src="../images/comments.png" alt="">
                                 </template>
