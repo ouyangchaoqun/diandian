@@ -88,6 +88,7 @@
         top: 0 !important;
         left: 0 !important;
         overflow-y: scroll !important;
+        -webkit-overflow-scrolling: touch
     }
 
     /*.slide-left-enter, .slide-right-leave-active {*/
