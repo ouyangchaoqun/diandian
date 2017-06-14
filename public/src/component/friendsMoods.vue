@@ -178,6 +178,8 @@
 
 
                 let vm = this;
+                console.log(userId);
+                console.log(vm.user.id);
                 if(userId===vm.user.id){
                     vm._delComment(id,index,replyIndex);
                 }else{
@@ -302,7 +304,7 @@
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
                 }
-                this.getList();
+                _this.getList();
             }, function (error) {
                 //error
             });

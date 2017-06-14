@@ -28,9 +28,9 @@
     web.BASE_PATH="<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IMG_PATH="/dist/";
-    console.log=function () {
-        return false;
-    }
+//    console.log=function () {
+//        return false;
+//    }
 
 </script>
 <script src="/src/js/cookie.js"></script>
