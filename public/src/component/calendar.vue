@@ -492,14 +492,14 @@
         flex-direction: column;
         justify-content: center;
         position: relative;
-    }
+
     .dateView a{
         -webkit-tap-highlight-color: rgba(0,0,0,.2);
     }
 
     .dateView img {
-        height: 30px;
-        width: 30px;
+        height: 26px;
+        width: 26px;
         display: block;
         margin: 6px auto;
     }

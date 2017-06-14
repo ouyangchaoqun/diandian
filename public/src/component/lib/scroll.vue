@@ -8,20 +8,20 @@
         <section class="inner" :style="{ transform: 'translate3d(0, ' + top + 'px, 0)' }">
             <header class="pull-refresh">
                 <slot name="pull-refresh">
-                    <span class="down-tip">下拉更新</span>
-                    <span class="up-tip">松开更新</span>
-                    <span class="refresh-tip">更新中</span>
+                    <span class="down-tip loadFont">下拉更新</span>
+                    <span class="up-tip loadFont">松开更新</span>
+                    <span class="refresh-tip loadFont">更新中</span>
                 </slot>
             </header>
             <slot></slot>
             <footer class="load-more">
                 <slot name="load-more">
-                    <span>下拉加载更多</span>
+                    <span class="loadFont">下拉加载更多</span>
                 </slot>
             </footer>
             <footer class="load-finish" style="display: none">
                 <slot name="load-finish">
-                    <span>已经加载完成</span>
+                    <span class="loadFont">已经加载完成</span>
                 </slot>
             </footer>
 
@@ -197,5 +197,9 @@
     .yo-scroll .load-finish {
         height: 2rem;
       text-align: center;
+    }
+    .loadFont{
+        font-size: 12px;
+        color: #999;
     }
 </style>
