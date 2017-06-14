@@ -58,7 +58,7 @@
                             </div>
                             <div class="reply_content">
                                 <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName}}</a>
-                                <span class="text_comment" >{{reply.content}}</span>
+                                <span class="text_comment" >{{emojiContent(reply.content)}}</span>
                             </div>
                         </div>
                     </li>
@@ -172,7 +172,9 @@
                     vm.addComment(id, index);
                 }
             },
-
+            emojiContent:function (c) {
+                return xqzs.face.parseEmoji(c);
+            },
 
             _delComment(id, index){
                 let vm = this;
