@@ -109,9 +109,8 @@ foreach (['DateHelper','StringHelper'] as $path){
 if(env("APP_ENV")!=="production")
 {
     header('Access-Control-Allow-Origin:*');
-    header('Access-Control-Allow-Methods:PUT,DELETE,POST,GET');
     header('Access-Control-Allow-Headers:Content-Type');
 }
-
+header('Access-Control-Allow-Methods:PUT,DELETE,POST,GET');
 
 return $app;
