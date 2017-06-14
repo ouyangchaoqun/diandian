@@ -14,7 +14,6 @@
                     </router-link>
                 </template>
                 <div class="moodPhotoLists" v-if="mood.pics">
-
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
                         <img :src="pic.path"     @click="showBigImg(mood.pics,pic)">
                     </div>

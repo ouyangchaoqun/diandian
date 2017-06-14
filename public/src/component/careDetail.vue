@@ -18,7 +18,7 @@
                 </div>
                 <div class="moodTime">
                     <span>{{mood.time}}</span>
-                    <span class="btn_del" @click="delMoodContent(mood.id)" >删除</span>
+                    <span class="btn_del" @click="delMoodContent(mood.id)"  v-if="canClear(mood)">删除</span>
                     <div class="moodFollow">
                         <span class="followCount">{{mood.careCount}}</span>
                         <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount>0 "
@@ -134,6 +134,9 @@
         methods:{
             canEdit:function (mood) {
                 return xqzs.mood.canEdit(mood);
+            },
+            canClear:function (mood) {
+                return xqzs.mood.canClear(mood);
             },
             replyOrDel:function (userId,id,index) {
                 let vm = this;
