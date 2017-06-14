@@ -88,7 +88,7 @@
                             </div>
                         </template>
                         <template v-if="myLastMood==null">
-                            <span>还未记录</span>
+                            <span class="noRecord">还未记录</span>
                         </template>
                     </div>
                 </router-link>
@@ -528,6 +528,9 @@
         color: #666666;
         font-size: 15px;
         line-height: 72px;
+    }
+    .list_right span.noRecord{
+        margin-right: 15px;
     }
 
     .moodimg {
