@@ -24,15 +24,15 @@
                     <div class="moodFollow">
                         <span class="followCount">{{mood.careCount}}</span>
                         <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount>0 "
-                             src="../images/list_dianz_pre.png" alt=""/>
+                             src="../images/mood_icon_dianz_pre.png" alt=""/>
                         <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount<=0 "
-                              src="../images/list_dianz_nor.png" alt=""/>
+                              src="../images/mood_icon_dianz_nor.png" alt=""/>
                         <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount>0"
                              src="../images/list_baob_pre.png" alt=""/>
                         <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount<=0"
                               src="../images/list_baob_nor.png" alt=""/>
                         <span class="followCount">{{mood.replycount}}</span>
-                        <img class="followtype" src="../images/comments.png" style="width: 18px;margin-top: 3px;" alt="">
+                        <img class="followtype" src="../images/comments.png" style="width: 15px;margin-top: 3px;" alt="">
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div class="arraw"></div>
                 <div class="show_top" v-if="cares.length">
                     <img  class="show_img1" v-if="mood.moodValue>=5"
-                          src="../images/list_dianz_pre.png" alt=""/>
+                          src="../images/mood_icon_dianz_pre.png" alt=""/>
                     <img  class="show_img1" v-if="mood.moodValue<5"
                           src="../images/list_baob_pre.png" alt=""/>
                     <div  v-for="headpic in cares">

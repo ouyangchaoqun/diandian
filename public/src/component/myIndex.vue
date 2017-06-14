@@ -73,7 +73,7 @@
                     <div class="show_box" v-if="item.hasComments && item.isShowComment">
                         <div class="arraw"></div>
                         <div class="show_top">
-                            <img class="show_img1" :src="item.careImg"/>
+                            <img class="show_img1" :src="item.careImg" />
                             <img v-for="care in item.careList" :src="care.faceUrl"/>
                         </div>
                         <ul class="show_bottom">
@@ -397,7 +397,7 @@
 
 
 
-                         console.log( _this.chartData)
+                         /*console.log( _this.chartData)*/
                     }
                 })
                 .catch((response) => {
