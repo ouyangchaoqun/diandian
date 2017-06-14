@@ -622,5 +622,9 @@
         margin-right: 14px;
         margin-top:12px;
     }
+    .notice img{
+        height: 30px;
+        width:30px;
+    }
 
 </style>
