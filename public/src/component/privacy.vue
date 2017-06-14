@@ -15,7 +15,6 @@
 <style>
     .privacy_box{
         background: #f4f4f4;
-        padding-top: 15px;
     }
     .privacy {
         height: 50px;
@@ -31,7 +30,6 @@
         bottom:0;
         width: 100%;
     }
-
     .privacy span {
         font-size: 15px;
         color: #333333;
@@ -44,6 +42,7 @@
     .privacyTop{
         border-top: 1px solid #e5e5e5;
         overflow: hidden;
+        margin-top: 15px;
     }
     .privacyBottom{
         border-bottom: 1px solid #e5e5e5;
