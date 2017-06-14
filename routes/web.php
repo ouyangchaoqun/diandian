@@ -10,19 +10,7 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-
-    if(env("APP_ENV")=="production")
-    {
-        return view('index_production');
-    }
-    if(env("APP_ENV")=="testing")
-    {
-        return view('index_testing');
-    }
-
-    return view('index');
-});
+$app->get('/','Controller@index');
 $app->group(['prefix'=>'wx'],function () use($app){
     $app->get('/index','WeixinController@index');
     $app->get('/jump','WeixinController@jump');

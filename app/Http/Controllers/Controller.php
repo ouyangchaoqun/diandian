@@ -15,18 +15,35 @@ class Controller extends BaseController
      */
     var $response;
     private $API_URL;
-    private  $COOKIE_OPEN_ID= "xqzs_openId";
+    private $COOKIE_OPEN_ID = "xqzs_openId";
 
     protected $apiService;
+
     public function __construct(ApiService $apiService)
     {
         $this->apiService = $apiService;
         $this->API_URL = env("API_URL_HOST") . "/" . env("API_VERSION");
     }
 
-    protected function getUserId(Request $request)
+    public function index(Request $request)
     {
 
+        $userId = $this->getUserId($request);
+        if ($userId == 0) {
+            return redirect("/wx/index");
+        }
+        if (env("APP_ENV") == "production") {
+            return view('index_production');
+        }
+        if (env("APP_ENV") == "testing") {
+            return view('index_testing');
+        }
+        return view('index');
+    }
+
+
+    protected function getUserId(Request $request)
+    {
 
         $openId = $request->cookie($this->COOKIE_OPEN_ID);
         if ($openId == "") {
@@ -35,8 +52,8 @@ class Controller extends BaseController
             if (isset($_SESSION['userId'])) {
                 $userId = $_SESSION['userId'];
             } else {
-               $header = $this->apiService->getTokenHeader();
-                $user =  $this->apiService->geturl($this->API_URL . "/user/find/by/open/Id/" . $openId, $header);
+                $header = $this->apiService->getTokenHeader();
+                $user = $this->apiService->geturl($this->API_URL . "/user/find/by/open/Id/" . $openId, $header);
                 $user = json_decode($user, true);
                 $userId = null;
                 if (is_array($user)) {
@@ -50,8 +67,8 @@ class Controller extends BaseController
 
     protected function setUserInfo($user)
     {
-        $openId = $user['openId'].'';
-        setcookie($this->COOKIE_OPEN_ID,$openId,null,'/');
+        $openId = $user['openId'] . '';
+        setcookie($this->COOKIE_OPEN_ID, $openId, null, '/');
         //$response->withCookie(new Cookie("openId",$user['openId']));
         $userId = $user['id'];
         $_SESSION['userId'] = $userId;
