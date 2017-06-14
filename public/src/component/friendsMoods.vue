@@ -155,7 +155,7 @@
             },
             addCare:function (mood,index) {
                 let _this = this;
-                if(mood.userId !==_this.user.id){
+                if(mood.userId !=_this.user.id){
                     _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":mood.id,"userId":null}).then(response => {
                         if(response.data.status===1){
 
@@ -180,7 +180,7 @@
                 let vm = this;
                 console.log(userId);
                 console.log(vm.user.id);
-                if(userId===vm.user.id){
+                if(userId==vm.user.id){
                     vm._delComment(id,index,replyIndex);
                 }else{
                     vm.addComment(id,index,replyIndex);
