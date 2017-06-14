@@ -13,8 +13,9 @@
 $app->get('/','Controller@index');
 $app->group(['prefix'=>'wx'],function () use($app){
     $app->get('/index','WeixinController@index');
-    $app->get('/jump','WeixinController@jump');
+
 });
+$app->get('/wxjump','WeixinController@jump');
 
 
 
