@@ -288,9 +288,9 @@
             }
 
         },
-        mounted: function () {
+        created: function () {
             let _this = this;
-            this.getList();
+
             this.$http({
                 method: 'GET',
                 type: "json",
@@ -299,9 +299,11 @@
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
                 }
+                this.getList();
             }, function (error) {
                 //error
             });
+
         },
         components: {
             'v-scroll': scroll
