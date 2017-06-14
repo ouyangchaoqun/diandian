@@ -90,13 +90,13 @@
         /*padding:30px 15px 36px 15px;*/
         background: url("../images/moodBg.jpg") no-repeat;
         background-size: cover;
-        border-top-left-radius:10px;
-        border-top-right-radius:10px;
+        border-top-left-radius:5px;
+        border-top-right-radius:5px;
         position: absolute;
         bottom:0;
         width:100%;
-        padding-top:1.76470rem;
-        padding-bottom: 1.70588rem;
+        padding-top:1rem;
+        padding-bottom: 1.470588rem;
         overflow: hidden;
     }
     .scene_box{
