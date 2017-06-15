@@ -504,6 +504,8 @@
         width: 26px;
         display: block;
         margin: 6px auto;
+        margin-top: 4px;
+        margin-bottom: 8px;
     }
 
     .datesView {
