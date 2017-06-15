@@ -10,7 +10,7 @@
                 <div class="mood_left">
                     <div class="moodBox_header">此刻心情</div>
                     <div class="weui-grids grids_box">
-                        <a class="weui-grid" v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
+                        <a class="weui-grid grid_33 " v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
                             <div class="grid_top">
                                 <img :src="moodSrc(mood.src)" alt="">
                             </div>
@@ -46,22 +46,22 @@
     .grids_box{
         margin:0 15px;
     }
-    .grids_box a{
-       padding-top: 0.76470rem;
-        padding-bottom: 0.76470rem;
-    }
+    .weui-grids{ overflow: inherit}
+
     .weui-grid{
         padding:0;
+        position: relative;
     }
     .moodBox_bg{
         position: absolute;
         top:0;
         height:100%;
         width:100%;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0,0,0,0.7);
     }
     .scene_top{
-        margin-bottom: 0.76rem;
+        margin-top: 0.92rem;
+        margin-bottom: 0.3rem;
     }
     .scene_top img{
         width:1.8235294rem;
@@ -75,8 +75,7 @@
     }
     .scene_box .grid_25{
         width:25%;
-        padding-top: 1.294117rem;
-        padding-bottom: 1.29412rem;
+
     }
     .banner {
         width: 100%;
@@ -95,8 +94,8 @@
         position: absolute;
         bottom:0;
         width:100%;
-        padding-top:1rem;
-        padding-bottom: 1.470588rem;
+        padding-top: 17px;
+        padding-bottom: 25px;
         overflow: hidden;
     }
     .scene_box{
@@ -110,13 +109,14 @@
         margin-bottom: 1.0588235rem;
     }
     .grid_top{
-        margin-bottom: 0.70588rem;
+        margin-bottom:5px;
     }
     .grid_top img{
         display: block;
-        width:2.941176rem;
-        height:2.941176rem;
+        width:2.5rem;
+        height:2.5rem;
         margin: auto;
+        margin-top: 10px;
     }
     .grid_bottom{
         font-size: 12px;
@@ -183,6 +183,25 @@
             }
         },
         mounted: function () {
+            var w =$(window).width() ;
+
+            var w1= ( w -31 )/4;
+            $('.grid_25').width(w1).height(w1);
+
+
+            var w2= ( w -31 )/3;
+            var h2 = ( w -31 )/4
+            $('.grid_33').width(w2).height(h2);
+            $(".weui-grids").height( ( w -31 )*3/4);
+
+
+
+            // $(".mood_box").height( h-(500*w/750)-42);
+
+
+
+
+
            $('.grids_box a').click(function (event) {
                event.preventDefault();
                event.stopPropagation();
