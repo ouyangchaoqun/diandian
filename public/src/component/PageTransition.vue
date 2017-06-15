@@ -183,6 +183,7 @@
 
     .page-xqzs-up-leave-active .addMoodBg, .page-xqzs-down-enter-active .addMoodBg {
         display: block;
+        z-index: 10001;
     }
 
     .page-xqzs-down-leave-active .banner, .page-xqzs-up-enter-active .banner {
