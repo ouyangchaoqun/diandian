@@ -1,6 +1,8 @@
 /**
  * Created by pc on 2017/5/27.
  */
+document.body.addEventListener('touchstart', function () { //...空函数即可ios active问题
+});
 
 var xqzs = {
     constant:{
