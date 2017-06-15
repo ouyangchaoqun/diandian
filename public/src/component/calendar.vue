@@ -436,20 +436,20 @@
     .weekBgView {
         height: 25px;
         line-height: 25px;
-        opacity: 0.5;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        border-bottom: 1px solid #eeeeee;
-        padding-bottom: 7px
+        border-bottom: 1px solid rgba(238,238,238,0.7);
+        padding-bottom: 7px;
+        color:#828080
     }
 
     .weekView {
         flex-grow: 1;
         text-align: center;
         font-size: 12px;
-        color:#000}
+     }
 
     .dateBgView {
         height: auto;
@@ -475,6 +475,7 @@
         position: absolute;
         right: 0;
         top: 0;
+        opacity: 0.7;
     }
 
     .dateEmptyView_bottom {
@@ -484,6 +485,7 @@
         position: absolute;
         bottom: 0;
         left: 0;
+        opacity: 0.7;
     }
 
     .dateView {
