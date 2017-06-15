@@ -536,7 +536,7 @@
         /*-webkit-tap-highlight-color: rgba(0,0,0,.2);*/
         padding-right: 0;
     }
-    .mycenter a:active{ background: #eee}
+    .mycenter a:active{ background: #ECECEC}
 
     .friend {
         margin-left: 59px;
@@ -631,7 +631,7 @@
     .mycenterFill {
         width: 100%;
         height: 10px;
-        background: #eee;
+        background: #f5f5f5;
     }
 
     .friendCenter {
@@ -650,10 +650,10 @@
         border-radius: 5px;
         text-align: center;
         margin-bottom: 78px;
-        -webkit-tap-highlight-color: rgba(0,0,0,.2);
+
     }
     .share:active{
-        background: #eeeeee;
+        background: #ECECEC;
     }
     .notice_box{
         background: #ffffff;
