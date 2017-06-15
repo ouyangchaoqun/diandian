@@ -303,7 +303,7 @@
 
                     }
                     if(that.pictures.length == 0){
-                        that. showAction();
+
                     }
                 }
                 else if(indexcode == 'third'){
@@ -431,12 +431,6 @@
                 },function (e) {
                     console.info(e);
                 })
-            },
-            getCam:function () {
-                this.uploadImage('camera');
-            },
-            getPho:function () {
-                this.uploadImage('album');
             },
             getUploadPictureIds:function () {
                 var that = this;
