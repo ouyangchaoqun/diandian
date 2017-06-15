@@ -60,8 +60,8 @@
         background: rgba(0,0,0,0.8);
     }
     .scene_top{
-        margin-top: 0.92rem;
-        margin-bottom: 0.3rem;
+        margin-top: 1.082rem;
+        margin-bottom: 0.5rem;
     }
     .scene_top img{
         width:1.8235294rem;
@@ -94,7 +94,7 @@
         position: absolute;
         bottom:0;
         width:100%;
-        padding-top: 27px;
+        padding-top: 23px;
         padding-bottom: 25px;
         overflow: hidden;
     }
@@ -106,17 +106,17 @@
         font-size: 18px;
         color: #666666;
         text-align: center;
-        margin-bottom: 1.647055294117647rem;
+        margin-bottom: 1.411761176470588rem;
     }
     .grid_top{
-        margin-bottom:5px;
+        margin-bottom:8px;
     }
     .grid_top img{
         display: block;
         width:2.5rem;
         height:2.5rem;
         margin: auto;
-        margin-top: 10px;
+        margin-top: 12px;
     }
     .grid_bottom{
         font-size: 12px;
@@ -183,16 +183,18 @@
             }
         },
         mounted: function () {
+
+
+
             var w =$(window).width() ;
 
             var w1= ( w -31 )/4;
-            $('.grid_25').width(w1).height(w1 * 1.046511627);
-
+            $('.grid_25').width(w1).height(w1 * 1.06976744186);
 
             var w2= ( w -31 )/3;
-            var h2 = ( w -31 ) * 1.046511627/4;
+            var h2 = ( w -31 ) * 1.06976744186/4;
             $('.grid_33').width(w2).height(h2);
-            $(".weui-grids").height( ( w -31 )*3 * 1.046511627/4);
+            $(".weui-grids").height( ( w -31 )*3 * 1.06976744186/4);
 
 
 
