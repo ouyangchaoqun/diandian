@@ -209,9 +209,16 @@ li{list-style: none}
     width: 76px;
     position: absolute;
     left: 50%;
-    bottom: -33px;
+    top: 50%;
+    margin-top: -36px;
     margin-left: -38px;
 }
+.headBox{ display: block; position: relative}
+
+
+
+
+
 
 .banner .userHeaderImg img {
     height: 70px;

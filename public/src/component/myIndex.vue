@@ -6,7 +6,7 @@
             <div class="myIndex_box">
                 <div class="banner index_banner">
                     <v-banner></v-banner>
-                    <router-link to="/me">
+                    <router-link to="/me" class="headBox">
                         <div class="userHeaderImg">
                             <img :src="user.faceUrl" alt="">
                         </div>
@@ -421,7 +421,6 @@
         color: #999;
         font-style: normal;
     }
-
 
 
 

@@ -7,21 +7,21 @@
 				<span style="display: inline-block;">
 					<img :src="recordImg" class="weui-tabbar__icon"/>
 				</span>
-                <p class="weui-tabbar__label">记录心情</p>
+                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录心情</p>
             </a>
 
             <a  @click="calendar()" class="weui-tabbar__item tab">
 				<span style="display: inline-block;">
 					<img :src="calendarImg" class="weui-tabbar__icon"/>
 				</span>
-                <p class="weui-tabbar__label">心情日历</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">心情日历</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
 				<span style="display: inline-block;">
 					<img :src="friendsImg" class="weui-tabbar__icon"/>
 				</span>
-                <p class="weui-tabbar__label">朋友心情</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">朋友心情</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
             </a>
 
@@ -29,7 +29,7 @@
 				<span style="display: inline-block;">
 					<img :src="meImg" class="weui-tabbar__icon"/>
 				</span>
-                <p class="weui-tabbar__label">我的</p>
+                <p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>
                 <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
             </a>
 
@@ -39,7 +39,7 @@
         </div>
         <!--banner end -->
         <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
-        <div class="notice_box">
+        <div class="notice_box notice_box_p">
             <div class="notice" >
                 <img class="notice_friend"  :src="wxFaceUrl(notice.lastuser.faceUrl)" />
                 <div>{{notice.count}} 条新消息</div>
@@ -187,21 +187,30 @@
                 calendarImg:web.IMG_PATH+"rl1.png",
                 friendsImg:web.IMG_PATH+"friend1.png",
                 meImg:web.IMG_PATH+"me1.png",
+                recordOn:false,
+                calendarOn:false,
+                friendsOn:false,
+                meOn:false,
 
 
             }
         },
         methods: {
             record:function () {
-
+               var  _this=this;
                 this.recordImg= web.IMG_PATH+"face2.png";
-                console.log( this.recordImg);
-                this.$router.push(this.linkTo)
+                this.recordOn=true
+                setTimeout(function () {
+                    _this.$router.push(_this.linkTo)
+                },2)
             },
             calendar:function () {
+                var  _this=this;
                 this.calendarImg= web.IMG_PATH+"rl2.png";
-                console.log( this.calendarImg);
-                this.$router.push("/calendar")
+                this.calendarOn=true;
+                setTimeout(function () {
+                    _this.$router.push("/calendar")
+                },2)
             },
 
             care: function (id) {
@@ -316,18 +325,21 @@
                 }
             },
             hideNewCircle:function (key,url) {
-
-
-
+                var _this =this ;
                 if(key == 'mood'){
                     this.friendsImg= web.IMG_PATH+"friend2.png";
+                    this.friendsOn= true;
                     this.hasNewFirendMood = false;
                 }
                 if(key == 'perfect'){
                     this.meImg= web.IMG_PATH+"me2.png";
+                    this.meOn=true;
                     this.hasNewPerfect = false;
                 }
-                this.$router.push(url);
+                setTimeout(function () {
+                    _this.$router.push(url)
+                },2)
+
             },
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
@@ -343,6 +355,7 @@
             let _this = this;
             _this.getFriendLastMood();
             _this.getNewPerfect();
+            console.log(this.meImg);
 
             _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
             //用户信息
@@ -452,17 +465,25 @@
     .tab{position: relative;}
     .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px;width: 8px;}
     .tab img{
-        height: 23px;
-        width:23px;
+        height: 24px;
+        width:24px;
     }
+    .tabOn{ color:#6cb954}
     .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
     }
 
     #tabs {
         position: fixed;
-        z-index:10000
+        z-index:10000;
+        background: #fff;
+        height: 47px;
+        border-top:1px solid #ddd;padding-top:1px;
     }
+    #tabs:before{  display: none }
+    #tabs .weui-tabbar__label{ color:#777}
+
+
 
     body, html {
         width: 100%;
@@ -505,8 +526,8 @@
     }
 
     .friend {
-        margin-left: 55px;
-        padding-top: 15px;
+        margin-left: 59px;
+        padding-top: 12px
     }
 
     .friendName {
@@ -535,7 +556,7 @@
         border-radius: 3px;
         position: absolute;
         top: 50%;
-        margin-top: -20px;
+        margin-top: -22px;
     }
 
     .list_left span {
@@ -563,7 +584,7 @@
         width: 34px;
         height: 34px;
         float: left;
-        margin-top: 19px;
+        margin-top: 17px;
         margin-right: 4px;
     }
 
@@ -571,7 +592,10 @@
         float: left;
         text-align: center;
         padding: 15px;
-        padding-top: 17px;
+        padding-top: 16px;
+        padding-left: 16px;
+
+        padding-right: 14px;
         font-size: 13px;
         color: #aeaeae;
         overflow: hidden;
@@ -581,10 +605,12 @@
     }
 
     .interaction img {
+        display:block; margin-top: 2px;
         width: 20px;
         height: 20px;
     }
     .interaction a{
+
         height:20px;
         padding:0;
     }
@@ -611,6 +637,7 @@
         border-radius: 5px;
         text-align: center;
         margin-bottom: 78px;
+        -webkit-tap-highlight-color: rgba(0,0,0,.2);
     }
     .share:active{
         background: #eeeeee;
@@ -619,12 +646,14 @@
         background: #ffffff;
         border-bottom: 1px solid #eee;
     }
+    .notice_box_p{ padding: 16px 0}
     .notice{
         height: 40px;
         width: 180px;
         background: #393939;
         border-radius: 5px;
         margin: 0 auto;
+        -webkit-tap-highlight-color: rgba(0,0,0,.2);
     }
     .notice_friend{
         height:32px;
