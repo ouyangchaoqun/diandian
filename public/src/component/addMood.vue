@@ -94,7 +94,7 @@
         position: absolute;
         bottom:0;
         width:100%;
-        padding-top: 17px;
+        padding-top: 27px;
         padding-bottom: 25px;
         overflow: hidden;
     }
@@ -106,7 +106,7 @@
         font-size: 18px;
         color: #666666;
         text-align: center;
-        margin-bottom: 1.0588235rem;
+        margin-bottom: 1.647055294117647rem;
     }
     .grid_top{
         margin-bottom:5px;
@@ -186,13 +186,13 @@
             var w =$(window).width() ;
 
             var w1= ( w -31 )/4;
-            $('.grid_25').width(w1).height(w1);
+            $('.grid_25').width(w1).height(w1 * 1.046511627);
 
 
             var w2= ( w -31 )/3;
-            var h2 = ( w -31 )/4
+            var h2 = ( w -31 ) * 1.046511627/4;
             $('.grid_33').width(w2).height(h2);
-            $(".weui-grids").height( ( w -31 )*3/4);
+            $(".weui-grids").height( ( w -31 )*3 * 1.046511627/4);
 
 
 
