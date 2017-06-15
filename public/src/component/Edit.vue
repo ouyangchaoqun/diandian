@@ -6,8 +6,8 @@
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
-                    <div class="addEdit_status">{{moodText}}</div>
-                    <div class="addEdit_scene">{{scenesText}}</div>
+                    <div class="addEdit_status">现在心情{{moodText}}<span class="addEdit_scene">（在{{scenesText}}方面）</span></div>
+                    <div class="addEdit_scene"></div>
                 </div>
             </div>
 
@@ -558,7 +558,7 @@
 
             });
 
-
+            that.clickoptions('first');
             if(!that.checkInit()){
                 that.$router.push({path:'/'});
                 return;
@@ -693,6 +693,7 @@
     .addEdit_status{
         font-size: 18px;
         margin-bottom: 2px;
+        margin-top: 10px;
     }
     .addEdit_scene{
         color: #333333;
@@ -749,7 +750,7 @@
         margin: 0 auto;
         display: block;
         color: #333333;
-        font-size: 0.8823529411764706rem;
+        font-size: 15px;
         overflow: hidden;
     }
     .edit_loc{
