@@ -533,9 +533,10 @@
         height: 72px;
         display: block;
         padding: 0 15px;
-        -webkit-tap-highlight-color: rgba(0,0,0,.2);
+        /*-webkit-tap-highlight-color: rgba(0,0,0,.2);*/
         padding-right: 0;
     }
+    .mycenter a:active{ background: #eee}
 
     .friend {
         margin-left: 59px;
