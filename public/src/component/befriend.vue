@@ -1,9 +1,9 @@
-<template id="banner">
+<template id="befriend">
     <div v-title>成为朋友</div>
 </template>
 <script>
-    var banner = {
-        template: '#banner'
+    var befriend = {
+        template: '#befriend'
     };
     export default {
         data() {

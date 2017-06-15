@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        filename: 'build.js', libraryTarget: 'umd',
+        filename: 'build.js?[hash:5]', libraryTarget: 'umd',
         umdNamedDefine: true
     },
     externals: {
