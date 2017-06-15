@@ -4,30 +4,30 @@
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <a   @click="record()" class="weui-tabbar__item  tab">
-				<span style="display: inline-block;">
-					<img :src="recordImg" class="weui-tabbar__icon"/>
+				<span  class="recordImg">
+
 				</span>
                 <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录心情</p>
             </a>
 
-            <a  @click="calendar()" class="weui-tabbar__item tab">
-				<span style="display: inline-block;">
-					<img :src="calendarImg" class="weui-tabbar__icon"/>
+            <a  @click="calendar()" class="weui-tabbar__item tab " >
+				<span  class="calendarImg">
+
 				</span>
                 <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">心情日历</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
-				<span style="display: inline-block;">
-					<img :src="friendsImg" class="weui-tabbar__icon"/>
+				<span   class="friendsImg">
+
 				</span>
                 <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">朋友心情</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
-				<span style="display: inline-block;">
-					<img :src="meImg" class="weui-tabbar__icon"/>
+				<span  class="meImg">
+
 				</span>
                 <p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>
                 <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
@@ -199,9 +199,9 @@
             record:function () {
                var  _this=this;
                 this.recordImg= web.IMG_PATH+"face2.png";
-                this.recordOn=true
+                this.recordOn=true;
                 setTimeout(function () {
-                    _this.$router.push(_this.linkTo)
+                   // _this.$router.push(_this.linkTo)
                 },2)
             },
             calendar:function () {
@@ -483,6 +483,18 @@
     #tabs:before{  display: none }
     #tabs .weui-tabbar__label{ color:#777}
 
+    #tabs a span{ display: inline-block; height: 24px ; width: 24px;}
+    #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size: 24px;}
+    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size: 24px; }
+    #tabs a span.friendsImg{ background: url(../images/friend1.png) no-repeat; background-size: 24px;}
+    #tabs a span.meImg{ background: url(../images/me1.png) no-repeat; background-size: 24px; }
+
+    #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat; background-size: 24px;}
+    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size: 24px; }
+    #tabs a:active span.friendsImg{ background: url(../images/friend2.png) no-repeat; background-size: 24px;}
+    #tabs a:active span.meImg{ background: url(../images/me2.png) no-repeat; background-size: 24px; }
+
+    #tabs a:active .weui-tabbar__label{ color:#6cb954}
 
 
     body, html {
