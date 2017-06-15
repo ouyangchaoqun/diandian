@@ -11,7 +11,7 @@
                         <div class="leftBgView">
                             <img class="old" src="../images/back.png" @click="oldMonth"/>
                         </div>
-                        <div class="centerView">{{cur_year || "--"}} 年 {{cur_month || "--"}} 月</div>
+                        <div class="centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
                         <div class="rightBgView">
                             <img class="next" src="../images/back.png" @click="nextMonth"/>
                         </div>
@@ -399,13 +399,14 @@
 
     .canlendarTopView {
         height: 36px;
-        font-size: 16px;
+        font-size: 17px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        margin-bottom: 15px;
+        margin-bottom: 11px
     }
+    .canlendarTopView .centerView{ margin-top: 3px;}
 
     .leftBgView {
         text-align: right;
@@ -441,7 +442,7 @@
         justify-content: center;
         align-items: center;
         border-bottom: 1px solid #eeeeee;
-        padding-bottom: 10px;
+        padding-bottom: 7px
     }
 
     .weekView {
@@ -506,7 +507,7 @@
     }
 
     .datesView {
-        height: 30px;
+        height: 28px;
         color: #828080;
         font-size: 13px;
         display: flex;
@@ -562,7 +563,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.8);
         height: 100%;
         width: 100%;
         z-index: 100;
