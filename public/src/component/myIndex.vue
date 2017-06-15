@@ -320,7 +320,7 @@
                 let vm = this;
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
-                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata);
+                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata,false, vm.user.id);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
@@ -367,7 +367,7 @@
         },
         mounted: function () {
             let _this = this;
-            this.getList();
+
 
             this.$http({
                 method: 'GET',
@@ -376,6 +376,7 @@
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     _this.user = eval(data.data.data);
+                    this.getList();
                 }
                 console.log(_this.user);
             }, function (error) {

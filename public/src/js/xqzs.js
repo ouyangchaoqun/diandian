@@ -387,13 +387,14 @@ var xqzs = {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
                     }
                 } else {
-                    if (data[i].moodValue >= 5 && data[i].careCount === 0) {
+
+                    if (data[i].moodValue >= 5 && data[i].careCount == 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
-                    } else if (data[i].moodValue < 5 && data[i].careCount === 0) {
+                    } else if (data[i].moodValue < 5 && data[i].careCount == 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if (data[i].moodValue >= 5 && data[i].careCount !== 0) {
+                    } else if (data[i].moodValue >= 5 && data[i].careCount != 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
-                    } else if (data[i].moodValue < 5 && data[i].careCount !== 0) {
+                    } else if (data[i].moodValue < 5 && data[i].careCount != 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
                     }
                 }
