@@ -3,7 +3,7 @@
         <div v-title>定时提醒</div>
         <div class="remind remind1">
             <span>提醒功能</span>
-            <input type="checkbox"  :checked="isRemind"    @change="change($event)"
+            <input type="checkbox"  v-model="isRemind"    @change="change($event)"
                    class="weui-switch switchFlag">
 
             <div></div>

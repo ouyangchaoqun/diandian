@@ -168,61 +168,48 @@
 		mounted: function () {
 			let _this = this;
 			///用户心情
-			_this.$http({
-				method: 'GET',
-				type: "json",
-				url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
-			}).then(function (data) {//es5写法
-				console.log(data);
-				if (data.data.data) {
-					_this.myLastMood = eval(data.data.data);
-					_this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-					_this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
-				}
-			}, function (error) {
-				//error
-			});
+			_this.getMoodDetail();
+		},
+		methods:{
+			getMoodDetail:function(){
+				let _this=this;
+				_this.$http({
+					method: 'GET',
+					type: "json",
+					url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
+				}).then(function (data) {//es5写法
+					console.log(data);
+					if (data.data.data) {
+						_this.myLastMood = eval(data.data.data);
+						_this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
+						_this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
+						_this.getMoodcarelist();
+					}
+				}, function (error) {
+					//error
+				});
 
-
-
-            //关心的朋友列表
-			_this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/_userId_',
-            }).then(function (data) {
-				console.log(data);
-                if (data.data.data.length>0) {
-                    _this.careFriends = data.data.data;
-					_this.showList=true;
-                }else{
-                	_this.showEmpty=true;
-				}
-                console.log(_this.careFriends.length);
-            }, function (error) {
-                //error
-            });
-
-
-
-//            ///设置已读
-//            this.$http({
-//                method: 'GET',
-//                type: "json",
-//                url: web.API_PATH + 'mood/care/update/read/'+_this.$route.query.moodId,
-//            }).then(function (data) {//es5写法
-//				console.log(data);
-//                if (data.data.status) {
-//
-//                }
-//            }, function (error) {
-//                //error
-//            });
-
-
-
-
-
+			},
+			getMoodcarelist:function(){
+				//关心的朋友列表
+				let _this=this;
+				_this.$http({
+					method: 'GET',
+					type: "json",
+					url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/_userId_',
+				}).then(function (data) {
+					console.log(data);
+					if (data.data.data.length>0) {
+						_this.careFriends = data.data.data;
+						_this.showList=true;
+					}else{
+						_this.showEmpty=true;
+					}
+					console.log(_this.careFriends.length);
+				}, function (error) {
+					//error
+				});
+			}
 		}
 	}
 </script>
