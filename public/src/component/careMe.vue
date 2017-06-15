@@ -1,6 +1,6 @@
 <template id="careMe">
 	<div>
-		<div class="careMe_box" v-if="careFriends" >
+		<div class="careMe_box" v-if="showList" >
 			<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
 				<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 				<div class="careMe_div">
@@ -20,7 +20,7 @@
 				</div>
 			</router-link>
 		</div>
-		<div class="noCare_box"  v-if="!careFriends">
+		<div class="noCare_box"  v-if="showEmpty">
 			<img src="../images/nocare_pic_bj.png" alt="">
 			<div class="noCare_content">
 				<h3>还没有关心我的好友</h3>
@@ -156,9 +156,12 @@
 	export default {
 		data() {
 			return {
-					myLastMood: [],
+				myLastMood: [],
 				careFriends:[],
-                detailUrl:''
+                detailUrl:'',
+				showList:false,
+				showEmpty:false
+
 
 			}
 		},
@@ -166,7 +169,6 @@
 			let _this = this;
 			///用户心情
 			_this.$http({
-
 				method: 'GET',
 				type: "json",
 				url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
@@ -192,7 +194,10 @@
 				console.log(data);
                 if (data.data.data.length>0) {
                     _this.careFriends = data.data.data;
-                }
+					_this.showList=true;
+                }else{
+                	_this.showEmpty=true;
+				}
                 console.log(_this.careFriends.length);
             }, function (error) {
                 //error
