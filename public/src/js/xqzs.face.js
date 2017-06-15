@@ -77,7 +77,7 @@ xqzs.face = {
     },
     init: function () {
         this._allexpount = this.__all__.length;
-        var _fh_ = 1.5294117647058825;
+        var _fh_ = 1.65;
         var _smallfh_ = 1.2;
         var style = 'a.exp{display:inline-block;vertical-align:middle;vertical-align:text-bottom;height:' + _fh_ + 'rem;width:' + _fh_ + 'rem;margin: 0 auto;background-image:url("' + web.IMG_PATH + 'exp.png");background-size:' + _fh_ + 'rem;}';
         style += 'a.expsmall{height:' + _smallfh_ + 'rem;width:' + _smallfh_ + 'rem;background-size:' + _smallfh_ + 'rem;}';

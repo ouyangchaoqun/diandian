@@ -17,7 +17,7 @@
         </div>
         <div class="addEditBox">
             <div v-show="showPositionList('')" class="edit_option">
-                <div v-show="canupload">
+                <div v-show="showupload">
                     <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                     <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
                 </div>
@@ -218,10 +218,10 @@
                 funnypictures:[],
                 buttons:{
                     'first':{
-                        'curr':web.IMG_PATH+'zp_nor.png',
+                        'curr':web.IMG_PATH+'zp_pre.png',
                         'nor':web.IMG_PATH+'zp_nor.png',
                         'pre':web.IMG_PATH+'zp_pre.png',
-                        'on':false
+                        'on':true
                     },
                     'second':{
                         'curr':web.IMG_PATH+'bq_nor.png',
@@ -300,7 +300,7 @@
                 //
                 if(indexcode == 'first'){
                     if(!that.canupload){
-                        return;
+
                     }
                     if(that.pictures.length == 0){
                         that. showAction();
@@ -558,7 +558,7 @@
 
             });
 
-            that.clickoptions('first');
+
             if(!that.checkInit()){
                 that.$router.push({path:'/'});
                 return;
@@ -646,7 +646,10 @@
                 return xqzs.mood.moodScenes[this.scenesId];
             },
             canupload: function () {
-                return this.funnypictures.length == 0 && this.pictures.length < this.maxPhotoCount;
+                return this.funnypictures.length == 0 && this.pictures.length < this.maxPhotoCount ;
+            },
+            showupload:function () {
+              return   this.funnypictures.length == 0;
             },
             canuploadfunny: function () {
                 return this.pictures.length == 0;
@@ -688,12 +691,11 @@
     .addEdit_right{
         float: left;
         margin-left:13px;
-        margin-top:6px;
+
     }
     .addEdit_status{
         font-size: 18px;
-        margin-bottom: 2px;
-        margin-top: 10px;
+        line-height: 63px;
     }
     .addEdit_scene{
         color: #333333;
