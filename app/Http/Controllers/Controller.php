@@ -41,6 +41,24 @@ class Controller extends BaseController
         return view('index');
     }
 
+    /**好友分享页面
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
+     */
+    public function befriend(Request $request)
+    {
+        $userId = $this->getUserId($request);
+        if ($userId == 0) {
+            $fullurl = $request->fullUrl();
+            return redirect("/wx/index?reurl=" . urlencode($fullurl));
+        }
+        $friendid = $request->input('userid');
+        $apiurl = "/user/be/friend/width/ids/{$friendid}/_userId_";
+        $this->apiService->exec($request, $userId, $apiurl, 'POST');
+
+        return redirect("/#/friendCenter?friendId={$friendid}");
+    }
+
 
     protected function getUserId(Request $request)
     {
