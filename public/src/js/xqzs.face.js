@@ -53,7 +53,7 @@ xqzs.face = {
         return content.match(/(\[([\u4e00-\u9fa5]{1,3}]))/ig);
     },
     _replaceByKey: function (content, key) {
-        content = content.replace(new RegExp('\\[' + key.t + '\\]', 'gm'), '<a class="exp exp' + key.id + '"></a>');
+        content = content.replace(new RegExp('\\[' + key.t + '\\]', 'gm'), '<a class="exp expsmall exp' + key.id + '"></a>');
         return content;
     },
     _replace: function (content, keys) {
@@ -78,11 +78,14 @@ xqzs.face = {
     init: function () {
         this._allexpount = this.__all__.length;
         var _fh_ = 1.5294117647058825;
-        var style = 'a.exp{display:inline-block;vertical-align:middle;height:' + _fh_ + 'rem;width:' + _fh_ + 'rem;margin: 0 auto;background-image:url("' + web.IMG_PATH + 'exp.png");background-size:' + _fh_ + 'rem;}';
+        var _smallfh_ = 1.2;
+        var style = 'a.exp{display:inline-block;vertical-align:middle;vertical-align:text-bottom;height:' + _fh_ + 'rem;width:' + _fh_ + 'rem;margin: 0 auto;background-image:url("' + web.IMG_PATH + 'exp.png");background-size:' + _fh_ + 'rem;}';
+        style += 'a.expsmall{height:' + _smallfh_ + 'rem;width:' + _smallfh_ + 'rem;background-size:' + _smallfh_ + 'rem;}';
         $_i = 0;
         var sarr = [];
         while ($_i < this._allexpount) {
-            sarr.push('.exp' + ($_i + 1) + '{background-position:0 -' + (($_i) * _fh_) + 'rem;}')
+            sarr.push('.exp' + ($_i + 1) + '{background-position:0 -' + (($_i) * _fh_) + 'rem;}');
+            sarr.push('.expsmall.exp' + ($_i + 1) + '{background-position:0 -' + (($_i) * _smallfh_) + 'rem;}');
             $_i++;
         }
         this._appendStyle(style + sarr.join(''));
