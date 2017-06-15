@@ -58,17 +58,20 @@
 	.careMe_div div{
 		color: #5e61a2;
 		font-size: 13px;
-		line-height: 10px;
+		line-height: 13px;
+		width: 120px;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.careMe_div img{
 		width: 14px;
 		display: block;
-		margin-top: 8px;
-		margin-bottom:8px;
+		padding: 8px 0 8px 2px;
 	}
 	.careMe_div p{
 		color: #999999;
 		font-size: 12px;
+		line-height: 12px;
 	}
 	.careMe_content{
 		width: 60px;

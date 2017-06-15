@@ -489,6 +489,9 @@
     .friendName {
         font-size: 16px;
         color: #333;
+        width:120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .time {
@@ -590,7 +593,6 @@
         background: #eeeeee;
     }
     .notice_box{
-        padding:15px;
         background: #ffffff;
         border-bottom: 1px solid #eee;
     }

@@ -56,6 +56,7 @@
         <div class="list03" @click="msgSubmit()">
             <a  class="weui-btn weui-btn_primary">提交</a>
         </div>
+        <div style="height: 50px;"></div>
     </div>
 </template>
 <script type="text/javascript">

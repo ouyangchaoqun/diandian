@@ -352,7 +352,7 @@
         width: 44px;
         height: 44px;
         display: block;
-        border-radius: 3px;
+        border-radius: 4px;
         float: left;
     }
 

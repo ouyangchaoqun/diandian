@@ -6,7 +6,7 @@
 				<img class="notice_img" :src="newNotice.faceUrl" alt="">
 				<div class="notice_div">
 					<div class="noticeName">{{newNotice.nickName}}</div>
-					<div class="noticeText">{{newNotice.content}}</div>
+					<div class="noticeText" v-if="newNotice.content">{{newNotice.content}}</div>
 					<div class="noticeStatus" v-if="newNotice.tp=='care'">
 						<img v-bind:src="newNotice.careImg" alt="">
 					</div>
@@ -56,7 +56,8 @@
 </template>
 <style>
 	.noticeStatus{
-		padding:8px 0;
+		padding:8px 0 8px 2px;
+		line-height: 15px;
 	}
 	.notice_div .careStatus img{
 		width:14px;
@@ -89,12 +90,10 @@
 		display: block;
 		float: left;
 		border-radius:3px;
-		margin-top:13px;
 	}
 	.notice_div{
 		float: left;
 		margin-left:10px;
-		margin-top:7px;
 		width: 12rem;
 
 	}
@@ -104,22 +103,25 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+		line-height: 13px;
+	}
+	.noticeText{
+		padding: 8px 0 8px 2px;
 	}
 	.notice_div img{
-		width: 18px;
+		width: 14px;
 		display: block;
 	}
 	.notice_div p{
 		color: #999999;
 		font-size: 12px;
+		line-height: 12px;
 	}
 	.notice_content{
 		width: 60px;
 		height: 60px;
 		float: right;
 		overflow: hidden;
-		/*background: #f9f9f9;*/
-		margin-top: 8px;
 		position: relative;
 		font-size: 13px;
 		color: #666;

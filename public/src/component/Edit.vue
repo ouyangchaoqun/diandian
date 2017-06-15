@@ -15,26 +15,27 @@
             <div class="edit_loc" @click = "getLoc()"><img v-bind:src=locImage alt="">{{showAddress}}</div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
-        <div v-show="showPositionList('')" class="edit_option">
-            <div v-show="canupload">
-                <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
-                <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
+        <div class="addEditBox">
+            <div v-show="showPositionList('')" class="edit_option">
+                <div v-show="canupload">
+                    <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
+                    <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
+                </div>
+                <div>
+                    <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt=""></div>
+                    <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
+                </div>
+                <div v-show="canuploadfunny">
+                    <div><img class="optionThird" @click="clickoptions('third')" v-bind:src="buttons.third.curr" alt=""></div>
+                    <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.third.on}" src="../images/jt.gif" alt="" >
+                </div>
+                <div v-show="!canupload || !canuploadfunny">
+                    <div style="visibility: hidden"><img class="optionThird" alt=""></div>
+                </div>
+                <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
             </div>
-            <div>
-                <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt=""></div>
-                <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
-            </div>
-            <div v-show="canuploadfunny">
-                <div><img class="optionThird" @click="clickoptions('third')" v-bind:src="buttons.third.curr" alt=""></div>
-                <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.third.on}" src="../images/jt.gif" alt="" >
-            </div>
-            <div v-show="!canupload || !canuploadfunny">
-                <div style="visibility: hidden"><img class="optionThird" alt=""></div>
-            </div>
-            <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
             <div><button @click="submitMood()"
-                    v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
-
+                         v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
         </div>
         <div v-show="showPositionList('')" :class="{'weui-mask':maskFlag}" @click = "hideAction()" style="z-index: 999"></div>
         <div v-show="showPositionList('')" :class="{'weui-actionsheet':true,'weui-actionsheet_toggle':activeFlag}">
@@ -673,6 +674,10 @@
     .green{color:#008000 !important;border-color:#008000!important}
     .redisopen{color:#fff !important;border-color:#ff0000!important;background: #ff0000}
     #publishBtn{height:30px !important;vertical-align: bottom;}
+    .addEditBox{
+        position: relative;
+        background: #ffffff;
+    }
     .addEdit img{
         width:40px;
         height:40px;
@@ -782,11 +787,15 @@
         height:2.1764705882352944rem;
         background: #ffffff;
         padding-top: 0.8823529411764706rem;
+        display: -webkit-box;
+        display: -webkit-flex;
         display: flex;
-        padding-left: 0.5882352941176471rem;
+        width:70%;
     }
     .edit_option div{
-        flex-grow: 1;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
         position: relative;
     }
 
@@ -815,10 +824,12 @@
         border-radius: 8px;
     }
     .option_five{
-        margin-top: -0.17647058823529413rem;
+        position: absolute;
         height:1.4705882352941178rem;
         width:3.5294117647058822rem;
-        margin-left: 1.1764705882352942rem;
+        right: 15px;
+        top: 50%;
+        margin-top: -15px;
     }
     .edit_option .optionjt{
         position: absolute;

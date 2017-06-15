@@ -61,7 +61,7 @@
 		<div class="me_bottom">
 			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
 		</div>
-
+		<div style="height: 50px;"></div>
 	</div>
 </template>
 <style>
@@ -164,7 +164,6 @@
 	.me_bottom{
 		padding: 0 15px;
 		margin-top:30px;
-		margin-bottom: 50px;
 	}
 	.privacyImg{
 		width:18px;

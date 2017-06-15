@@ -48,7 +48,7 @@
                     </div>
 
                 </div>
-                <ul class="show_bottom" >
+                <ul class="show_bottom" v-if="reply">
                     <img class="show_img2" src="../images/comments.png"/>
                     <li v-for="(reply ,index) in replies" :key="index" @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
                         <img class="show_bottom_img " :src="reply.from_faceUrl">
