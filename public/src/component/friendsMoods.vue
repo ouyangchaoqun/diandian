@@ -10,7 +10,8 @@
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
-                        <span class="mood_state" :class="item.moodValueStyle">{{item.moodValueText}} <img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i></span>
+                        <span class="mood_state" :class="item.moodValueStyle">心情{{item.moodValueText}} </span>
+                        <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
 
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
                         <ul class="friendImgList" v-if="item.haspicture">
@@ -50,11 +51,7 @@
                                 <a href="javascript:;">
                                     <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
                                         <template v-if="reply.fromuserid==item.userId">作者</template>
-                                        <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>
-                                        :</span>
-                                    <template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template>
-                                        <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span> 回复 <span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName}}</template> :</span></template>
-                                    <span class="commont">{{reply.content}}</span>
+                                        <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
 
@@ -341,7 +338,7 @@
     }
 
     .friends_mood {
-        margin-top: 1px;
+        margin-bottom: 1px;
         background: #ffffff;
         padding: 10px 12px;
 
@@ -357,7 +354,7 @@
     }
 
     .friendState {
-        margin-left: 55px;
+        margin-left: 56px;
     }
 
     .mood_state {
@@ -373,13 +370,13 @@
         word-break: break-all;
         overflow: hidden;
         font-size: 14px;
-        line-height: 20px;
+        line-height: 21px;
         color: #333333;
         padding: 4px 16px 8px 0px;
     }
 
     .stateBottom {
-        height: 12px;
+        height: 17px;
         font-size: 12px;
     }
 
@@ -387,7 +384,7 @@
         font-size: 12px;
         color: #999999;
         float: left;
-        line-height: 12px;
+        line-height: 18px
     }
 
     .time_right {
@@ -398,37 +395,41 @@
     .friendsLoc {
         font-size: 12px;
         color: #516591;
-        line-height:12px;
-        margin-bottom: 12px;
+        line-height: 20px;
     }
 
     .time_right img {
         width:14px;
         vertical-align: middle;
         margin-top: 3px !important;
-        margin-bottom: 4px;
+        margin-bottom: 2px
     }
+    .time_right .frined_zan ,.time_right .frined_com{
+        vertical-align: middle;
+    }
+
     .friendImgList {
         overflow: hidden;
-        margin-bottom: 15px;
+        margin-bottom: 9px;
+        margin-top: 6px;
     }
 
     .friendImgList.two li{
-        width: 6.3rem;
-        height: 4.8rem;
+        width: 7.058823529411765rem;
+        height:5.647058823529412rem;
     }
 
     .friendImgList.one li {
-        width: 10.7rem;
-        height: 8.1rem;
+        width: 10.07058823529412rem;
+        height: 7.623529411764706rem;
     }
 
 
     .friendImgList li {
         float: left;
-        margin-right: 0.3125rem;
-        width: 4.1rem;
-        height: 4.1rem;
+        margin-right: 0.2941176470588235rem;
+        width: 4.6rem;
+        height: 4.6rem;
         overflow: hidden;
         position: relative;
     } 
@@ -441,7 +442,7 @@
         background: #f9f9f9;
         border-radius: 2.5px;
         position: relative;
-        margin-top: 4px !important;
+        margin-top: 15px !important;
         clear: both;
     }
 
@@ -475,7 +476,7 @@
 
     }
     .commont {
-        font-size: 14px;
+        font-size: 13px;
         color: #333333;
     }
     .addCj{
