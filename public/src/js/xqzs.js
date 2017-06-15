@@ -376,7 +376,7 @@ var xqzs = {
                 }
 
 
-                if (data[i].isCare!==undefined && userId!==data[i].userId) {
+                if (data[i].isCare!==undefined && parseInt(userId) !== parseInt(data[i].userId)) {
                     if (data[i].moodValue >= 5 && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare === null) {
