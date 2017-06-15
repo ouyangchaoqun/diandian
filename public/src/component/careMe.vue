@@ -1,35 +1,39 @@
 <template id="careMe">
-	<div class="careMe_box" v-if="careFriends.length" >
-		<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
-			<img class="careMe_img" :src="careFriend.faceUrl" alt="">
-			<div class="careMe_div">
-				<div>{{careFriend.nickName}}</div>
-				<img class="careimg1" v-show="myLastMood.moodValue>=5"
-					 src="../images/mood_icon_dianz_pre.png" alt=""/>
-				<img v-show="myLastMood.moodValue<5"
-					 src="../images/list_baob_pre.png" alt=""/>
-				<p>{{careFriend.addTime}}</p>
-			</div>
-			<div class="careMe_content">
-				<img class="moodpic" v-if="myLastMood.haspicture" :src="myLastMood.pics[0].path">
-				<div v-else-if="myLastMood.content">
-					{{myLastMood.content}}
+	<div>
+		<div class="careMe_box" v-if="careFriends.length" >
+			<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
+				<img class="careMe_img" :src="careFriend.faceUrl" alt="">
+				<div class="careMe_div">
+					<div>{{careFriend.nickName}}</div>
+					<img class="careimg1" v-show="myLastMood.moodValue>=5"
+						 src="../images/mood_icon_dianz_pre.png" alt=""/>
+					<img v-show="myLastMood.moodValue<5"
+						 src="../images/list_baob_pre.png" alt=""/>
+					<p>{{careFriend.addTime}}</p>
 				</div>
-				<img v-else  :src="myLastMood.moodValueUrl"  />
+				<div class="careMe_content">
+					<img class="moodpic" v-if="myLastMood.haspicture" :src="myLastMood.pics[0].path">
+					<div v-else-if="myLastMood.content">
+						{{myLastMood.content}}
+					</div>
+					<img v-else  :src="myLastMood.moodValueUrl"  />
+				</div>
+			</router-link>
+		</div>
+		<div class="noCare_box"  v-if="careFriends.length==0">
+			<img src="../images/nocare_pic_bj.png" alt="">
+			<div class="noCare_content">
+				<h3>还没有关心我的好友</h3>
+				<p>赶紧去生成邀请卡，分享好友互为关注</p>
+				<p>邀更多好友来一起参与记录和互为关心</p>
 			</div>
-		</router-link>
+			<div class="noCare_btn">
+				<button class="weui-btn weui-btn_primary">生成邀请卡</button>
+			</div>
+		</div>
 	</div>
-	<div class="noCare_box"  v-else>
-            <img src="../images/nocare_pic_bj.png" alt="">
-            <div class="noCare_content">
-                <h3>还没有关心我的好友</h3>
-                <p>赶紧去生成邀请卡，分享好友互为关注</p>
-                <p>邀更多好友来一起参与记录和互为关心</p>
-            </div>
-            <div class="noCare_btn">
-                <button class="weui-btn weui-btn_primary">生成邀请卡</button>
-            </div>
-	</div>
+
+
 
 </template>
 <style>
@@ -152,7 +156,7 @@
 	export default {
 		data() {
 			return {
-				myLastMood: [],
+					myLastMood: [],
 				careFriends:[],
                 detailUrl:''
 
@@ -160,38 +164,40 @@
 		},
 		mounted: function () {
 			let _this = this;
+			///用户心情
+			_this.$http({
+
+				method: 'GET',
+				type: "json",
+				url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
+			}).then(function (data) {//es5写法
+				console.log(data);
+				if (data.data.data) {
+					_this.myLastMood = eval(data.data.data);
+					_this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
+					_this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
+				}
+			}, function (error) {
+				//error
+			});
+
+
+
             //关心的朋友列表
 			_this.$http({
                 method: 'GET',
                 type: "json",
                 url: web.API_PATH + 'mood/care/query/'+_this.$route.query.moodId+'/_userId_',
             }).then(function (data) {
-                                    console.log(data);
-                if (data.data.data !== null&&data.data.data.length>0) {
-                    _this.careFriends = eval(data.data.data);
-                    console.log(_this.careFriends);
-                }
-            }, function (error) {
-                //error
-            });
-
-            ///用户心情
-			_this.$http({
-
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'mood/query/detail/'+_this.$route.query.moodId,
-            }).then(function (data) {//es5写法
 				console.log(data);
-                if (data.data.data) {
-                    _this.myLastMood = eval(data.data.data);
-                    _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-                    _this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
-                    console.log(data.data);
+                if (data.data.data.length>0) {
+                    _this.careFriends = data.data.data;
                 }
+                console.log(_this.careFriends.length);
             }, function (error) {
                 //error
             });
+
 
 
 //            ///设置已读

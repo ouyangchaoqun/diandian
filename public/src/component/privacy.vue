@@ -3,12 +3,12 @@
         <div v-title>隐私设置</div>
         <div class="privacy privacyTop">
                 <span>不看好友的心情记录</span>
-                <input type="checkbox" class="weui-switch privacyInput"  :checked="isNotLookFriend"    @change="lookFriend($event)" >
+                <input type="checkbox" class="weui-switch privacyInput"  v-model="isNotLookFriend"    @change="lookFriend($event)" >
             <div></div>
         </div>
         <div class="privacy privacyBottom">
             <span>不让好友看我的心情记录</span>
-            <input type="checkbox" class="weui-switch privacyInput"   :checked="isNotLookMe"     @change="lookMe($event)">
+            <input type="checkbox" class="weui-switch privacyInput"   v-model="isNotLookMe"     @change="lookMe($event)">
         </div>
     </div>
 </template>

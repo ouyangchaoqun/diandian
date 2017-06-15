@@ -76,7 +76,7 @@
                             <img class="show_img1" :src="item.careImg" />
                             <img v-for="care in item.careList" :src="care.faceUrl"/>
                         </div>
-                        <ul class="show_bottom" v-if="item.commentList">
+                        <ul class="show_bottom" v-if="item.comment">
                             <img class="show_img2" src="../images/comments.png"/>
                             <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex" :data-replyid="comment.id" :data-moodid="item.id"
                                 :data-userid="comment.fromuserid" data-ajaxresult="hasface" @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)" >
