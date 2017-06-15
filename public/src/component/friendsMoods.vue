@@ -10,7 +10,7 @@
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
-                        <span class="mood_state" :class="item.moodValueStyle">心情{{item.moodValueText}} </span>
+                        <span class="mood_state" :class="item.moodValueStyle">{{item.moodValueText}} </span>
                         <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
 
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
@@ -50,8 +50,7 @@
                             <div class="friend_commont" v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel">
                                 <a href="javascript:;">
                                     <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
-                                        <template v-if="reply.fromuserid==item.userId">作者</template>
-                                        <template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName}}</template>：</span></template><span class="commont">{{reply.content}}</span>
+                                        <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
 
@@ -411,7 +410,7 @@
     .friendImgList {
         overflow: hidden;
         margin-bottom: 9px;
-        margin-top: 6px;
+        margin-top: 2px;
     }
 
     .friendImgList.two li{
@@ -463,6 +462,10 @@
         line-height: 19px;
 
     }
+    .friend_commont:last-child{
+        margin-bottom: 2px;
+    }
+
     .friend_commont a{
         -webkit-tap-highlight-color: rgba(0,0,0,.2);
         width:100%;

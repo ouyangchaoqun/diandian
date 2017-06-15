@@ -335,7 +335,7 @@ var xqzs = {
             }
         },
         setMoodValueStyle:function (mood) {
-            mood.moodValueStyle = mood.moodValue <=3 ?'unhappy_txt_color' : (mood.moodValue <=6 ?'modle_txt_color':'happy_txt_color');
+            mood.moodValueStyle = mood.moodValue <5 ?'unhappy_txt_color' :'happy_txt_color';
         },
         initMoodsData: function (data, timeType,userId) {
             for (var i = 0; i < data.length; i++) {
