@@ -3,23 +3,23 @@
 
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
-            <router-link :to='linkTo' class="weui-tabbar__item  tab">
+            <a   @click="record()" class="weui-tabbar__item  tab">
 				<span style="display: inline-block;">
-					<img src="../images/face1.png" class="weui-tabbar__icon"/>
+					<img :src="recordImg" class="weui-tabbar__icon"/>
 				</span>
                 <p class="weui-tabbar__label">记录心情</p>
-            </router-link>
+            </a>
 
-            <router-link to='/calendar' class="weui-tabbar__item tab">
+            <a  @click="calendar()" class="weui-tabbar__item tab">
 				<span style="display: inline-block;">
-					<img src="../images/rl1.png" class="weui-tabbar__icon"/>
+					<img :src="calendarImg" class="weui-tabbar__icon"/>
 				</span>
                 <p class="weui-tabbar__label">心情日历</p>
-            </router-link>
+            </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
 				<span style="display: inline-block;">
-					<img src="../images/friend1.png" class="weui-tabbar__icon"/>
+					<img :src="friendsImg" class="weui-tabbar__icon"/>
 				</span>
                 <p class="weui-tabbar__label">朋友心情</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
@@ -27,7 +27,7 @@
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
 				<span style="display: inline-block;">
-					<img src="../images/me1.png" class="weui-tabbar__icon"/>
+					<img :src="meImg" class="weui-tabbar__icon"/>
 				</span>
                 <p class="weui-tabbar__label">我的</p>
                 <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
@@ -182,10 +182,28 @@
                 hasNewFirendMood:false,
                 newFirendMoodStyle:'',
                 hasNewPerfect:false,
-                newPerfectStyle:''
+                newPerfectStyle:'',
+                recordImg:web.IMG_PATH+"face1.png",
+                calendarImg:web.IMG_PATH+"rl1.png",
+                friendsImg:web.IMG_PATH+"friend1.png",
+                meImg:web.IMG_PATH+"me1.png",
+
+
             }
         },
         methods: {
+            record:function () {
+
+                this.recordImg= web.IMG_PATH+"face2.png";
+                console.log( this.recordImg);
+                this.$router.push(this.linkTo)
+            },
+            calendar:function () {
+                this.calendarImg= web.IMG_PATH+"rl2.png";
+                console.log( this.calendarImg);
+                this.$router.push("/calendar")
+            },
+
             care: function (id) {
                 let _this = this;
 
@@ -298,10 +316,15 @@
                 }
             },
             hideNewCircle:function (key,url) {
+
+
+
                 if(key == 'mood'){
+                    this.friendsImg= web.IMG_PATH+"friend2.png";
                     this.hasNewFirendMood = false;
                 }
                 if(key == 'perfect'){
+                    this.meImg= web.IMG_PATH+"me2.png";
                     this.hasNewPerfect = false;
                 }
                 this.$router.push(url);
@@ -426,7 +449,7 @@
 
 </script>
 <style>
-    .tab{position: relative}
+    .tab{position: relative;}
     .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px;width: 8px;}
     .tab img{
         height: 23px;
