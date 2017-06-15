@@ -115,8 +115,8 @@ xqzs.face = {
     },
     parse: function (content) {
         if (content && content != null && content != '') {
-            content = this.parseEmoji(content);
             content = this.htmlEncode(content);
+            content = this.parseEmoji(content);
             return this._toParse(content);
         }
         return '';
@@ -128,6 +128,7 @@ xqzs.face = {
             var obj = JSON.parse(__);
             content = obj.v;
         }catch(e){
+            console.info(content);
             console.info(e);
         }
         return content;
