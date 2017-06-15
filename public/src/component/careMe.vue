@@ -1,6 +1,6 @@
 <template id="careMe">
 	<div>
-		<div class="careMe_box" v-if="careFriends.length" >
+		<div class="careMe_box" v-if="careFriends" >
 			<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
 				<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 				<div class="careMe_div">
@@ -20,7 +20,7 @@
 				</div>
 			</router-link>
 		</div>
-		<div class="noCare_box"  v-if="careFriends.length==0">
+		<div class="noCare_box"  v-if="!careFriends">
 			<img src="../images/nocare_pic_bj.png" alt="">
 			<div class="noCare_content">
 				<h3>还没有关心我的好友</h3>
