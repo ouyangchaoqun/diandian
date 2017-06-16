@@ -3,17 +3,18 @@
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <v-banner></v-banner>
-            <div class="userHeaderImg">
-                <router-link :to="friendSetLink">
+            <router-link :to="friendSetLink" class="headBox">
+                <div class="userHeaderImg">
                     <img :src="friend.faceUrl" alt="">
-                </router-link>
-            </div>
+                </div>
+            </router-link>
         </div>
         <!--banner end -->
 
-        <div class="chart_box">
+        <div class="chart_box" v-if="isLookFriend ">
             <v-chart :chartData="chartData"></v-chart>
         </div>
+        <div class="canot-look" v-if="!isLookFriend "></div>
 
 
     </div>
@@ -33,6 +34,7 @@
         data() {
             return {
                 friend: {},
+                isLookFriend: true,
                 chartData: [
                     {"days": ["1月1", "2", "3", "4", "5", "6", "7"], "moods": [0, 0, 0, 0, 0, 0, 0]},
                     {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [0, 0, 0, 0, 0, 0, 0]},
@@ -45,30 +47,39 @@
 
             }
         },
-        beforeCreate:function () {
+        beforeCreate: function () {
             let _this = this;
-
+            let friendId = _this.$route.query.friendId;
             this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/' + _this.$route.query.friendId,
+                url: web.API_PATH + 'user/find/by/user/Id/' + friendId
             }).then(function (data) {//es5写法
 
                 if (data.body.data) {
                     console.log(data.body.data)
                     _this.friend = (data.body.data);
                     _this.nickName = _this.friend.nickName
-                    _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + _this.$route.query.friendId;
+                    _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + friendId
                 }
             }, function (error) {
                 //error
             });
+
+            _this.$http.get(web.API_PATH + "user/is/look/friend/_userId_/" + friendId)
+                .then(function (bt) {
+                    console.log(bt)
+                    if (bt && bt.body.status == 1) {
+                        _this.isLookFriend = bt.body.data == 1 ? true : false;
+
+                    }
+                })
+
+
         },
         methods: {},
         mounted: function () {
             let _this = this;
-
-
 
 
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + _this.$route.query.friendId)
@@ -106,17 +117,20 @@
 
 </script>
 <style>
-    .friendIndex_box{
-        background: #ffffff !important;
+    .canot-look {
+        clear: both;
+        width: 90%;
+        height: 10px;
+        background: url(../images/xt.jpg) top center no-repeat;
+        margin: 20px auto auto auto;
+        margin-top: 50px;
     }
-    .userHeaderImg {
-        position: absolute;
-        left: 50%;
-        bottom: -32px;
-        margin-left: -32px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
+
+    .friendIndex_box {
+
     }
+
+
 
     .userHeaderImg img {
         height: 64px;
