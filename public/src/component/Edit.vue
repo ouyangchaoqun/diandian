@@ -267,6 +267,8 @@
         methods: {
             getLoc: function () {
                 let that = this;
+                ////
+                Bus.$emit("setFunny",true);
 
                 wx.getLocation({
                     type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -279,9 +281,6 @@
                         that.showModule = 'position';
                         var latLng = new qq.maps.LatLng(latitude, longitude);
                         window['geocoder'].getAddress(latLng);
-
-                        ////
-                        Bus.$emit("setFunny",true);
                     },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
