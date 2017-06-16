@@ -1,12 +1,7 @@
 /**
  * Created by pc on 2017/5/27.
  */
-document.body.addEventListener('touchstart', function () { //...空函数即可ios active问题
-});
-
-document.body.addEventListener('touchmove', function (event) {
-    event.preventDefault();
-});
+document.addEventListener("touchstart", function() {},false);
 var xqzs = {
     constant:{
         PIC_SMALL:'?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',
