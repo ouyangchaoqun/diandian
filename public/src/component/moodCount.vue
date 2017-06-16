@@ -125,7 +125,7 @@
 </script>
 <style>
     .moodCount_bgbox{width: 100%;height: 100%;background: #ffffff !important;}
-    .tabs{height:40px;width: 100%;background:#f5f5f5;border-bottom: 1px solid #eeeeee}
+    .tabs{height:40px;width: 100%;background:#f4f4f8;border-bottom: 1px solid #eeeeee}
     .tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:40px;font-size:15px;text-decoration:none;}
     .tabs a.active{color:#339900;border-bottom: 3px solid #339900}
     .moodCount_box{width:100%;height:100%;}

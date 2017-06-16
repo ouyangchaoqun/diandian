@@ -223,7 +223,7 @@
 </script>
 <style>
 .personal_box{
-    background: #f4f4f4;
+    background: #f4f4f8;
 }
 .line{
     height: 1px;
@@ -234,7 +234,7 @@
     width:92%;
 
 }
-.list0:first-child{margin-top: 15px;}
+.list0:first-child{margin-top: 12px;}
 .list0{
     background:#fff;
     height:60px;
@@ -246,7 +246,7 @@
     margin: 0;
 }
 .list02{
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 .list0 span{
     float: left;

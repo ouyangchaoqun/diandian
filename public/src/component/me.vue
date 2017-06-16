@@ -69,8 +69,8 @@
 		background: #fff;
 	}
 	.me_top{
-		background:#f4f4f4;
-		padding: 15px 0;
+		background:#f4f4f8;
+		padding: 12px 0;
 	}
 	.me1_left{
 		height:60px;
