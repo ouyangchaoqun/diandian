@@ -257,7 +257,6 @@ var xqzs = {
             return value;
         }
 
-
     },
     resizepicture: function (img, size) {
         var defaultsize = {w: 10, h: 10};
