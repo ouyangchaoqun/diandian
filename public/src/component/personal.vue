@@ -121,7 +121,8 @@
             showDate:function () {
                 let _this = this;
                 weui.datePicker({
-                    start: 1990,
+                    start: 1949,
+                    defaultValue: [1988, 1, 1],
                     end: new Date().getFullYear(),
 
                     onChange: function (result) {
