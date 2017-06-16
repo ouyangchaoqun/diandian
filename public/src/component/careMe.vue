@@ -12,7 +12,7 @@
 					<p>{{careFriend.addTime}}</p>
 				</div>
 				<div class="careMe_content">
-					<img class="moodpic" v-if="myLastMood.haspicture" :src="myLastMood.pics[0].path">
+					<img class="moodpic" v-if="myLastMood.pics" :src="myLastMood.pics[0].path">
 					<div v-else-if="myLastMood.content">
 						{{myLastMood.content}}
 					</div>
@@ -58,6 +58,7 @@
 	.careMe_div{
 		float: left;
 		margin-left:10px;
+		padding-top: 2px;
 	}
 	.careMe_div div{
 		color: #5e61a2;
@@ -183,14 +184,14 @@
 						_this.myLastMood = eval(data.data.data);
 						_this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
 						_this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
-						_this.getMoodcarelist();
+						_this.getMoodCareList();
 					}
 				}, function (error) {
 					//error
 				});
 
 			},
-			getMoodcarelist:function(){
+			getMoodCareList:function(){
 				//关心的朋友列表
 				let _this=this;
 				_this.$http({
