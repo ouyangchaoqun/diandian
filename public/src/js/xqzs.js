@@ -351,8 +351,8 @@ var xqzs = {
                 if (data[i].haspicture) {
                     if (data[i].pics !== undefined) {
                         for (var j = 0; j < data[i].pics.length; j++) {
-                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
-                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
+                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0";
+                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0";
 
                         }
                     }
