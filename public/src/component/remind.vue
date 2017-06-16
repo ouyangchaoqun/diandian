@@ -24,8 +24,7 @@
 </template>
 <style>
     .remind_box {
-
-        background: #f4f4f4;
+        background: #f4f4f8;
     }
 
     .remind {
@@ -36,7 +35,7 @@
     }
 
     .remind1 {
-        margin-top: 15px;
+        margin-top: 12px;
         border-top: 1px solid #e5e5e5;
         position: relative;
         overflow: hidden;

@@ -14,7 +14,7 @@
 </template>
 <style>
     .privacy_box{
-        background: #f4f4f4;
+        background: #f4f4f8;
     }
     .privacy {
         height: 50px;
@@ -42,7 +42,7 @@
     .privacyTop{
         border-top: 1px solid #e5e5e5;
         overflow: hidden;
-        margin-top: 15px;
+        margin-top: 12px;
     }
     .privacyBottom{
         border-bottom: 1px solid #e5e5e5;

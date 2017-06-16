@@ -18,7 +18,7 @@
 
 <style>
     .proposal_box{
-        background: #f5f5f5;
+        background: #f4f4f8;
     }
 
     .feedback{
