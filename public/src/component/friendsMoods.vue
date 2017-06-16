@@ -452,11 +452,9 @@
         margin-top: 15px !important;
         clear: both;
         display: -webkit-box;
-        overflow: hidden;
         white-space: normal!important;
         text-overflow: ellipsis;
         word-wrap: break-word;
-        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
     }
     .commont_box :nth-of-type(2){

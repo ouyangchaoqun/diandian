@@ -1,16 +1,17 @@
 /**
  * Created by pc on 2017/5/27.
  */
-document.addEventListener("touchstart", function() {},false);
+document.addEventListener("touchstart", function () {
+}, false);
 
 var xqzs = {
-    constant:{
-        PIC_SMALL:'?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',
-        PIC_MIDDLE:'?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0'
+    constant: {
+        PIC_SMALL: '?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',
+        PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0'
     },
 
     weui: {
-        removeWhenPageChange:function () {
+        removeWhenPageChange: function () {
             $(".weui-mask").remove();
             $("#toast").remove();
             $(".js_dialog").remove();
@@ -37,14 +38,14 @@ var xqzs = {
                 });
             }, 800);
         },
-        loading:function () {
-            var id = '_weui_loading_'+new Date().getTime();
-            var html = '<div id="'+id+'"><div class="weui-mask"><div style="text-align: center;padding-top:100px;"><div class="weui-loading"></div></div></div></div>';
+        loading: function () {
+            var id = '_weui_loading_' + new Date().getTime();
+            var html = '<div id="' + id + '"><div class="weui-mask"><div style="text-align: center;padding-top:100px;"><div class="weui-loading"></div></div></div></div>';
             $("body").append(html);
-            return $('#'+id);
+            return $('#' + id);
         },
         dialog: function (title, msg, cancelFun, submitFun) {
-            if(arguments.length == 1 && typeof arguments[0] == 'object'){
+            if (arguments.length == 1 && typeof arguments[0] == 'object') {
                 return this._dialog(arguments[0]);
             }
             if (title === "") title = "提示";
@@ -77,13 +78,15 @@ var xqzs = {
         _dialog: function (config) {
             var defaultsize = {
                 title: '提示',
-                msg:'',
-                submitText:'确定',
-                submitFun:function () {},
-                cancelText:'取消',
-                cancelFun:function () {}
+                msg: '',
+                submitText: '确定',
+                submitFun: function () {
+                },
+                cancelText: '取消',
+                cancelFun: function () {
+                }
             };
-            config = $.extend(defaultsize,config);
+            config = $.extend(defaultsize, config);
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask"></div>';
@@ -91,8 +94,8 @@ var xqzs = {
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
             html += ' <div class="weui-dialog__ft">';
-            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">'+config.cancelText+'</a>';
-            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">'+config.submitText+'</a>';
+            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">' + config.cancelText + '</a>';
+            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">' + config.submitText + '</a>';
             html += '   </div>';
             html += '   </div>';
             html += '   </div>';
@@ -198,11 +201,11 @@ var xqzs = {
             return this._format(this.DATE_TIME, time);
         },
         getTimeStamp: function (dateTime) {
-            var _timestamp=new Date().getTime();
+            var _timestamp = new Date().getTime();
             if (dateTime) {
                 _timestamp = Date.parse(dateTime);
             }
-            _timestamp = parseInt(_timestamp / 1000) ;
+            _timestamp = parseInt(_timestamp / 1000);
             return _timestamp;
 
 
@@ -282,8 +285,8 @@ var xqzs = {
     },
 
     mood: {
-        canEditTime:20*60,//可以编辑的时间限制
-        canRevokeTime:3*60,//可以撤回时间
+        canEditTime: 20 * 60,//可以编辑的时间限制
+        canRevokeTime: 3 * 60,//可以撤回时间
         moodValueText: ["", "超级不开心",//1
             "很不开心",//2
             "不开心",//3
@@ -295,60 +298,60 @@ var xqzs = {
             "超级开心",//9
             "超级开心"//10
         ],
-        moodScenes:[
-'','学习教育','工作事业','经济','健康','家庭','恋爱婚姻','休闲娱乐','人际关系','天气','生活','运动','其他'
+        moodScenes: [
+            '', '学习教育', '工作事业', '经济', '健康', '家庭', '恋爱婚姻', '休闲娱乐', '人际关系', '天气', '生活', '运动', '其他'
         ],
-        moodScenesList:[
-            {value:1,src:'study.png',haspic:true,text:'学习教育'},
-            {value:2,src:'work.png',haspic:true,text:'工作事业'},
-            {value:3,src:'economics.png',haspic:true,text:'经济'},
-            {value:4,src:'healthy.png',haspic:true,text:'健康'},
-            {value:5,src:'home.png',haspic:true,text:'家庭'},
-            {value:6,src:'love.png',haspic:true,text:'恋爱婚姻'},
-            {value:7,src:'arder.png',haspic:true,text:'娱乐休闲'},
-            {value:8,src:'interpersonal.png',haspic:true,text:'人际关系'},
-            {value:9,src:'weather.png',haspic:true,text:'天气'},
-            {value:10,src:'life.png',haspic:true,text:'生活'},
-            {value:11,src:'sport.png',haspic:true,text:'运动'},
-            {value:12,src:'other.png',haspic:true,text:'其他'}
+        moodScenesList: [
+            {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
+            {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
+            {value: 3, src: 'economics.png', haspic: true, text: '经济'},
+            {value: 4, src: 'healthy.png', haspic: true, text: '健康'},
+            {value: 5, src: 'home.png', haspic: true, text: '家庭'},
+            {value: 6, src: 'love.png', haspic: true, text: '恋爱婚姻'},
+            {value: 7, src: 'arder.png', haspic: true, text: '娱乐休闲'},
+            {value: 8, src: 'interpersonal.png', haspic: true, text: '人际关系'},
+            {value: 9, src: 'weather.png', haspic: true, text: '天气'},
+            {value: 10, src: 'life.png', haspic: true, text: '生活'},
+            {value: 11, src: 'sport.png', haspic: true, text: '运动'},
+            {value: 12, src: 'other.png', haspic: true, text: '其他'}
         ],
         /**
          * 是否可以编辑
          * @param mood
          * @returns {boolean}
          */
-        canEdit:function (mood) {
+        canEdit: function (mood) {
             var currTime = xqzs.dateTime.getTimeStamp();
-            return currTime - mood.addTime <= this.canEditTime && (mood.content=='' || mood.content==null) && mood.haspicture!=1;
+            return currTime - mood.addTime <= this.canEditTime && (mood.content == '' || mood.content == null) && mood.haspicture != 1;
         },
-        canClear:function (mood) {
-            return (mood.content!='' && mood.content!=null) || mood.haspicture==1;
+        canClear: function (mood) {
+            return (mood.content != '' && mood.content != null) || mood.haspicture == 1;
         },
-        canRevoke:function (mood) {
+        canRevoke: function (mood) {
             var currTime = xqzs.dateTime.getTimeStamp();
             return currTime - mood.addTime <= this.canRevokeTime && !this.canClear(mood);
         },
         getTopImg: function () {
             return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
         },
-        getCjImg:function (scenesid) {
-            for(var i=0,l=this.moodScenesList.length;i<l;i++) {
+        getCjImg: function (scenesid) {
+            for (var i = 0, l = this.moodScenesList.length; i < l; i++) {
                 if (this.moodScenesList[i].value == scenesid) {
                     return {
-                        src:web.IMG_PATH+ this.moodScenesList[i].src,
-                        text:this.moodScenesList[i].text
+                        src: web.IMG_PATH + this.moodScenesList[i].src,
+                        text: this.moodScenesList[i].text
                     };
                 }
             }
             return {
-                src:'',
-                text:''
+                src: '',
+                text: ''
             }
         },
-        setMoodValueStyle:function (mood) {
-            mood.moodValueStyle = mood.moodValue <5 ?'unhappy_txt_color' :'happy_txt_color';
+        setMoodValueStyle: function (mood) {
+            mood.moodValueStyle = mood.moodValue < 5 ? 'unhappy_txt_color' : 'happy_txt_color';
         },
-        initMoodsData: function (data, timeType,userId) {
+        initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
                 if (!timeType)
@@ -368,7 +371,7 @@ var xqzs = {
 
                 }
 
-                data[i].editLink="/myCenter/myIndex/Edit?id=" + data[i].id;
+                data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
 
 
                 data[i].hide = false;
@@ -376,20 +379,19 @@ var xqzs = {
                 data[i].scense = xqzs.mood.getCjImg(data[i].scenesId);
 
                 //随机头像
-                if(data[i].faceIndex!==null)
-                data[i].randomFaceUrl= web.IMG_PATH+"anonymous_face/"+data[i].faceIndex +".jpg";
+                if (data[i].faceIndex !== null)
+                    data[i].randomFaceUrl = web.IMG_PATH + "anonymous_face/" + data[i].faceIndex + ".jpg";
 
                 //心抱抱逻辑
-                if(data[i].caremy!==undefined){
-                    data[i].isCare= null;
-                    if( data[i].caremy!==null  && data[i].caremy!==undefined&& data[i].caremy!=="" )
-                    {
-                        data[i].isCare=true;
+                if (data[i].caremy !== undefined) {
+                    data[i].isCare = null;
+                    if (data[i].caremy !== null && data[i].caremy !== undefined && data[i].caremy !== "") {
+                        data[i].isCare = true;
                     }
                 }
 
 
-                if (data[i].isCare!==undefined && parseInt(userId) !== parseInt(data[i].userId)) {
+                if (data[i].isCare !== undefined && parseInt(userId) !== parseInt(data[i].userId)) {
                     if (data[i].moodValue >= 5 && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare === null) {
@@ -413,8 +415,8 @@ var xqzs = {
                 }
 
                 //评论emoji
-                if(data[i].replies && data[i].replies.length>0){
-                    for(var ri=0,rl=data[i].replies.length;ri<rl;ri++){
+                if (data[i].replies && data[i].replies.length > 0) {
+                    for (var ri = 0, rl = data[i].replies.length; ri < rl; ri++) {
                         data[i].replies[ri].content = xqzs.face.parseEmoji(data[i].replies[ri].content);
                     }
                 }
@@ -423,14 +425,15 @@ var xqzs = {
             return data;
         },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder) {
-            if($("#action_sheet_edit")&& $("#action_sheet_edit").hasClass("action-sheet-edit") ){
-               return ;
-            } ;
+            if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
+                return;
+            }
+            ;
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel active"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html +="<span class='placeholder'>"+placeholder+"</span>";
+            html += "<span class='placeholder'>" + placeholder + "</span>";
             html += '  <div contenteditable="true" class="comment_text"></div>';
             html += '  </div>';
             html += '  </div>';
@@ -440,26 +443,25 @@ var xqzs = {
                 $(".comment_text").focus();
             });
 
-            setTimeout(function () {
-                $(".comment_text").focus().keyup(function () {
-                    var val = $(this).text();
-                    if(val.length>0){
-                        $(".placeholder").hide();
-                        $(".action-sheet-edit .release").css({'borderColor':"#05b003","background":"#09bb07"})
-                        $(".comment_p").css('display','none')
-                    }else{
-                        $(".action-sheet-edit .release").css({'borderColor':"#91cc91","background":"#94db93"})
-                        $(".comment_p").css('display','block');
-                        $(".placeholder").show();
-                    }
-                }).keydown(function () {
-                    var val = $(this).text();
 
-                    if(val.length>=0){
-                        $(".placeholder").hide();
-                    }
-                });
-            },150)
+            $(".comment_text").focus().keyup(function () {
+                var val = $(this).text();
+                if (val.length > 0) {
+                    $(".placeholder").hide();
+                    $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
+                    $(".comment_p").css('display', 'none')
+                } else {
+                    $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
+                    $(".comment_p").css('display', 'block');
+                    $(".placeholder").show();
+                }
+            }).keydown(function () {
+                var val = $(this).text();
+
+                if (val.length >= 0) {
+                    $(".placeholder").hide();
+                }
+            });
 
 
             setTimeout(function () {
@@ -505,8 +507,8 @@ var xqzs = {
                 });
             }
         },
-        wxface:function (faceurl) {
-            if(faceurl && faceurl!=null && faceurl!=''){
+        wxface: function (faceurl) {
+            if (faceurl && faceurl != null && faceurl != '') {
                 return faceurl.replace(/\/0$/i, '/132');
             }
             return faceurl;
@@ -582,7 +584,7 @@ var xqzs = {
             fill: function (width, height) {
                 return '?x-oss-process=image/resize,m_fill,h_' + width + ',w_' + height + '/quality,q_100/auto-orient,0';
             },
-            resize:function (width, height) {
+            resize: function (width, height) {
                 return '?x-oss-process=image/resize,h_' + width + ',w_' + height + '/quality,q_100/auto-orient,0';
             }
         },
@@ -693,9 +695,9 @@ var xqzs = {
         f = Math.round(x * 100) / 100;
         return f;
     },
-    string:{
+    string: {
         //封装验证手机号码
-        checkUserPhoneReg:function() {
+        checkUserPhoneReg: function () {
             var regExpP = /^1[34578]\d{9}$/; //手机号
 
             if (regExpP.test($('.input_phone').val())) { //test检测$('#user_phone').val()是否符合regExp格式
@@ -704,13 +706,13 @@ var xqzs = {
             }
             return false;
         },
-        guid:function (glue) {
-            glue = glue||''
+        guid: function (glue) {
+            glue = glue || ''
             var guid = "";
-            for (var i = 1; i <= 32; i++){
-                var n = Math.floor(Math.random()*16.0).toString(16);
-                guid +=   n;
-                if((i==8)||(i==12)||(i==16)||(i==20))
+            for (var i = 1; i <= 32; i++) {
+                var n = Math.floor(Math.random() * 16.0).toString(16);
+                guid += n;
+                if ((i == 8) || (i == 12) || (i == 16) || (i == 20))
                     guid += glue;
             }
             return guid;
@@ -718,21 +720,21 @@ var xqzs = {
     },
 };
 
-function myResizePicture(listObj,imgListStr,containerStr) {
-    if(!listObj){
-        listObj=   $('.myMood_list')
+function myResizePicture(listObj, imgListStr, containerStr) {
+    if (!listObj) {
+        listObj = $('.myMood_list')
     }
-    if(!imgListStr){
-        imgListStr=  "moodPhotoLists";
+    if (!imgListStr) {
+        imgListStr = "moodPhotoLists";
     }
-    if(!containerStr){
-        containerStr="div";
+    if (!containerStr) {
+        containerStr = "div";
     }
 
     var maxsize = 750;
     $.each(listObj, function (index, obj) {
 
-        var imgList = $(obj).find('.'+imgListStr)
+        var imgList = $(obj).find('.' + imgListStr)
 
         var n = imgList.children().length;
         if (n == 1) {
@@ -743,7 +745,7 @@ function myResizePicture(listObj,imgListStr,containerStr) {
 
         if (n > 0) {
             //
-            var container = imgList.find(''+containerStr+':eq(0)');
+            var container = imgList.find('' + containerStr + ':eq(0)');
             var images = imgList.find('img');
             var containersize = {
                 w: container.width(),
@@ -752,7 +754,7 @@ function myResizePicture(listObj,imgListStr,containerStr) {
 
 
             images.each(function () {
-                if($(this).data('type') && $(this).data('type')=='notresize' ){
+                if ($(this).data('type') && $(this).data('type') == 'notresize') {
                     return false;
                 }
                 //var spliter = 'x';
