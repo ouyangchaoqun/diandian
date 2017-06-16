@@ -105,17 +105,13 @@ html { /*375*/
 
 /*文本输入*/
 .comment_box{
-    height: 186px;
-
-    clear: both;
-    overflow: hidden;
     width: 100%;
     background: #efeff4;
     position: absolute;
     bottom: -186px;
     left: 0;
     z-index: 10000;
-
+    border-top:1px solid #ccc;
 }
 .comment_header{
     height: 35px;
@@ -128,20 +124,41 @@ html { /*375*/
     color: #333333;
     float: left;
 }
+.comment_p{
+    color: #999;
+    font-size:13px;
+    line-height: 26px;
+    position: absolute;
+    left:10px;
+    width: 50px;
+}
 .comment_box .release{
-    color: #999999;
-    float: right;
+    position: absolute;
+    right: 5px;
+    top:50%;
+    margin-top: -16px;
+    width:60px ;
+    height: 30px ;
+    font-size: 13px;
+    border-radius: 3px;
+    background: #fff;
+    border:1px solid rgba(0, 0, 0, 0.2);
+    line-height: 30px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.2);
 }
 .comment_box .comment_text{
-    display: block;
-    height:130px;
-    background: #ffffff;
-    margin:0 auto;
-    width: 94%;
-    border: 0;
     outline: none;
-    resize: none;
-    padding:6px;font-size: 16px;
+    min-height: 26px;
+    background: #ffffff;
+    max-height: 72px;
+    overflow-y: auto;
+    margin:0 auto;
+    width: 76%;
+    border: 1px solid #ccc;
+   margin:6px;
+    font-size: 16px;
+    position: relative;
 }
 .comment_box.addactive{
     animation: addheight .2s linear;
@@ -264,6 +281,7 @@ li{list-style: none}
     word-break: break-all;
     overflow: hidden;
     padding: 4px 8px 8px 0px;
+    line-height: 20px;
 }
 
 .moodPhotoLists {

@@ -418,22 +418,25 @@ var xqzs = {
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel active"   ></div>';
             html += ' <div class="comment_box">';
-            html += '  <div class="comment_header">';
-            html += '  <span class="cancel">' + cancelText + '</span>';
+            /*html += '  <div class="comment_header">';*/
+           /* html += '  <span class="cancel">' + cancelText + '</span>';*/
             html += '  <span class="release">' + sendText + '</span>';
-            html += '  </div>';
-            html += '  <textarea placeholder="' + placeholder + '" class="comment_text"></textarea>';
+           /* html += '  </div>';*/
+            html += '  <div contenteditable="true" class="comment_text"></div>';
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
             
             $(".comment_text").focus().keyup(function () {
-                var val = $(this).val();
+                var val = $(this).text();
+               /* console.log(val)*/
                 if(val.length>0){
-                    $(".action-sheet-edit .release").attr("style","color:#1AAD19")
+                    $(".action-sheet-edit .release").css({'color':"#1aad19",'borderColor':"#1aad19"})
+                    $(".comment_p").css('display','none')
                 }else{
-                    $(".action-sheet-edit .release").attr("style","color:#999999")
+                    $(".action-sheet-edit .release").css({"color":"rgba(0, 0, 0, 0.2)",'borderColor':"rgba(0, 0, 0, 0.2)"})
+                    $(".comment_p").css('display','block')
                 }
             })
             setTimeout(function () {

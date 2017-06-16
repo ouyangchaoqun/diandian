@@ -89,9 +89,9 @@
 		-webkit-tap-highlight-color: rgba(0,0,0,.2);
 	}
 	.me1_right{
-		float: left;
-		margin-left: 14px;
-		margin-top: 4px;
+		position: absolute;
+		left:88px;
+		top:16px;
 	}
 	.me1 .hasnew{
 		position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:12px;left:70px;height: 8px;width: 8px;z-index: 999;
@@ -99,17 +99,21 @@
 	.perfec_top{
 		color: #333333;
 		font-size:16px;
-		margin-bottom:6px;
+		line-height: 30px;
 	}
 	.perfec{
 		font-size:14px;
 		color: #999;
 		position: relative;
 	}
+	.perfec span{
+		line-height: 24px;
+	}
 	.perfec img{
 		position: absolute;
-		top:-1px;
+		top:0px;
 		left: 66px;
+		border-radius: 4px;
 	}
 	.edit{
 		height:22px;
