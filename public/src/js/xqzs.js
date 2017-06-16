@@ -417,27 +417,35 @@ var xqzs = {
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel active"   ></div>';
             html += ' <div class="comment_box">';
-            /*html += '  <div class="comment_header">';*/
-           /* html += '  <span class="cancel">' + cancelText + '</span>';*/
             html += '  <span class="release">' + sendText + '</span>';
-           /* html += '  </div>';*/
+            html +="<span class='placeholder'>"+placeholder+"</span>";
             html += '  <div contenteditable="true" class="comment_text"></div>';
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
-            
+            $(".comment_box .placeholder").click(function () {
+                $(".comment_text").focus();
+            })
+
             $(".comment_text").focus().keyup(function () {
                 var val = $(this).text();
-               /* console.log(val)*/
                 if(val.length>0){
+                    $(".placeholder").hide();
                     $(".action-sheet-edit .release").css({'color':"#1aad19",'borderColor':"#1aad19"})
                     $(".comment_p").css('display','none')
                 }else{
                     $(".action-sheet-edit .release").css({"color":"rgba(0, 0, 0, 0.2)",'borderColor':"rgba(0, 0, 0, 0.2)"})
-                    $(".comment_p").css('display','block')
+                    $(".comment_p").css('display','block');
+                    $(".placeholder").show();
                 }
-            })
+            }).keydown(function () {
+                var val = $(this).text();
+
+                if(val.length>=0){
+                    $(".placeholder").hide();
+                }
+            });
             setTimeout(function () {
                 $(".comment_box").removeClass('subactive').addClass("addactive");
             }, 10);
@@ -451,7 +459,7 @@ var xqzs = {
                 });
             });
             $(".comment_box .release").click(function () {
-                var v = $(".comment_text").val();
+                var v = $(".comment_text").html();
                 if (v !== "") {
                     doFun(v);
                 }

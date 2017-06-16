@@ -104,6 +104,7 @@ html { /*375*/
 
 
 /*文本输入*/
+.comment_box .placeholder{ font-size: 14px; color:#999; height: 30px ; width: 60%; overflow: hidden; position: absolute; top:8px; left:15px; z-index: 20}
 .comment_box{
     width: 100%;
     background: #efeff4;
@@ -159,6 +160,7 @@ html { /*375*/
    margin:6px;
     font-size: 16px;
     position: relative;
+    padding-left: 6px;
 }
 .comment_box.addactive{
     animation: addheight .2s linear;

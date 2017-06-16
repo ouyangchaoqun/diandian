@@ -344,19 +344,6 @@
             },
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
-            },
-            stopParentActive:function () {
-
-                $('.friendCenter .interaction').on('touchstart',function(e) {
-                   $(this).parents("a").css({"pointer-events":"none"})
-                });
-                $('.friendCenter .interaction').on('touchend',function(e) {
-                    var _this=this;
-                    setTimeout(function () {
-                        $(_this).parents("a").css({"pointer-events":""})
-                    },200)
-                });
-
             }
         },
         computed:{
@@ -425,9 +412,7 @@
                     if (data.data.status === 1 && data.data.data !== null) {
                         _this.friendMoodsSpe = eval(data.data.data);
                         _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
-                        this.$nextTick(function () {
-                            _this.stopParentActive()
-                        })
+
 
 
                     }
@@ -444,9 +429,7 @@
                     if (data.data.status === 1 && data.data.data !== null) {
                         _this.friendMoods = eval(data.data.data);
                         _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
-                        this.$nextTick(function () {
-                            _this.stopParentActive()
-                        })
+
                     }
                 }, function (error) {
                     //error
