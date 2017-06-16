@@ -2,6 +2,7 @@
  * Created by pc on 2017/5/27.
  */
 document.addEventListener("touchstart", function() {},false);
+
 var xqzs = {
     constant:{
         PIC_SMALL:'?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',

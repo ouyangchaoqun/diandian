@@ -110,7 +110,7 @@
 
                         <div class="list_right">
                             <img class="moodimg" :src="friendMood.moodValueUrl"/>
-                            <div class="interaction" @click.stop="care(friendMood.id)">
+                            <div class="interaction" @click.stop="care(friendMood.id)" >
                                 <div>{{ friendMood.careCount }}</div>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
                                      src="../images/list_icon_dianz_nor.png" alt=""/>
@@ -138,7 +138,7 @@
 
                         <div class="list_right">
                             <img class="moodimg" :src="friendMood.moodValueUrl"/>
-                            <div class="interaction" @click.stop="care(friendMood.id)">
+                            <div class="interaction" @click.stop="care(friendMood.id)" >
                                 <div>{{ friendMood.careCount }}</div>
                                 <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
                                      src="../images/list_icon_dianz_nor.png" alt=""/>
@@ -196,6 +196,7 @@
             }
         },
         methods: {
+
             record:function () {
                var  _this=this;
                 this.recordImg= web.IMG_PATH+"face2.png";
@@ -343,6 +344,19 @@
             },
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
+            },
+            stopParentActive:function () {
+
+                $('.friendCenter .interaction').on('touchstart',function(e) {
+                   $(this).parents("a").css({"pointer-events":"none"})
+                });
+                $('.friendCenter .interaction').on('touchend',function(e) {
+                    var _this=this;
+                    setTimeout(function () {
+                        $(_this).parents("a").css({"pointer-events":""})
+                    },200)
+                });
+
             }
         },
         computed:{
@@ -411,6 +425,10 @@
                     if (data.data.status === 1 && data.data.data !== null) {
                         _this.friendMoodsSpe = eval(data.data.data);
                         _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
+                        this.$nextTick(function () {
+                            _this.stopParentActive()
+                        })
+
 
                     }
                 }, function (error) {
@@ -426,7 +444,9 @@
                     if (data.data.status === 1 && data.data.data !== null) {
                         _this.friendMoods = eval(data.data.data);
                         _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
-
+                        this.$nextTick(function () {
+                            _this.stopParentActive()
+                        })
                     }
                 }, function (error) {
                     //error
