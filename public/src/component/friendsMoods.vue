@@ -443,20 +443,30 @@
         position: relative;
         margin-top: 15px !important;
         clear: both;
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: normal!important;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .commont_box :nth-of-type(2){
+        margin-top: 0;
     }
 
     .arrow {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
         background: #f9f9f9;
         position: absolute;
         left: 20px;
-        top: -4px;
+        top: -6px;
         transform: rotate(45deg);
     }
 
     .friend_commont {
-        margin-bottom: 5px;
+        margin-top: 5px;
         font-size: 13px;
         color: #333;
         line-height: 19px;
