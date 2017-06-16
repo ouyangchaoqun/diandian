@@ -6,7 +6,7 @@
             <div class="addEdit" :class="moodcolorstyle">
                 <img v-bind:src="moodImage">
                 <div class="addEdit_right">
-                    <div class="addEdit_status">现在心情{{moodText}}<span class="addEdit_scene">（在{{scenesText}}方面）</span></div>
+                    <div class="addEdit_status">我{{moodText}}<span class="addEdit_scene">（在{{scenesText}}方面）</span></div>
                     <div class="addEdit_scene"></div>
                 </div>
             </div>
@@ -650,7 +650,7 @@
                 return this.pictures.length == 0;
             },
             moodcolorstyle: function () {
-                return (this.moodValue >= 7 ? 'addEdit1' : (this.moodValue <= 3 ? 'addEdit2' : 'addEdit3'));
+                return (this.moodValue >= 5 ? 'addEdit1' : 'addEdit2');
             },
             openstyle: function () {
                 return this.isopen == 1 ? '' : 'redisopen';

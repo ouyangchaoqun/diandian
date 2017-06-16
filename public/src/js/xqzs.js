@@ -288,7 +288,7 @@ var xqzs = {
             "很不开心",//2
             "不开心",//3
             "郁闷",//4
-            "一般",//5
+            "心情一般",//5
             "小开心",//6
             "开心",//7
             "很开心",//8
@@ -368,6 +368,8 @@ var xqzs = {
 
                 }
 
+                data[i].editLink="/myCenter/myIndex/Edit?id=" + data[i].id;
+
 
                 data[i].hide = false;
 
@@ -442,10 +444,12 @@ var xqzs = {
                 var val = $(this).text();
                 if(val.length>0){
                     $(".placeholder").hide();
-                    $(".action-sheet-edit .release").css({'color':"#1aad19",'borderColor':"#1aad19"})
+                    $(".action-sheet-edit .release").css({'borderColor':"#05b003","background":"#09bb07"})
                     $(".comment_p").css('display','none')
+
+
                 }else{
-                    $(".action-sheet-edit .release").css({"color":"rgba(0, 0, 0, 0.2)",'borderColor':"rgba(0, 0, 0, 0.2)"})
+                    $(".action-sheet-edit .release").css({'borderColor':"#91cc91","background":"#94db93"})
                     $(".comment_p").css('display','block');
                     $(".placeholder").show();
                 }

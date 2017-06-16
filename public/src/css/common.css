@@ -104,10 +104,10 @@ html { /*375*/
 
 
 /*文本输入*/
-.comment_box .placeholder{ font-size: 14px; color:#999; height: 30px ; width: 60%; overflow: hidden; position: absolute; top:8px; left:15px; z-index: 20}
+.comment_box .placeholder{ font-size: 14px; color:#999; line-height: 32px; width: 60%; overflow: hidden; position: absolute; top:4px; left:15px; z-index: 20}
 .comment_box{
     width: 100%;
-    background: #efeff4;
+    background: #f5f5f5;
     position: absolute;
     bottom: -186px;
     left: 0;
@@ -136,31 +136,32 @@ html { /*375*/
 .comment_box .release{
     position: absolute;
     right: 5px;
-    top:50%;
-    margin-top: -16px;
     width:60px ;
     height: 30px ;
     font-size: 13px;
     border-radius: 3px;
-    background: #fff;
-    border:1px solid rgba(0, 0, 0, 0.2);
+    background: #94db93  ;
+    border:1px solid #91cc91;
     line-height: 30px;
     text-align: center;
-    color: rgba(0, 0, 0, 0.2);
+    color:#fff;
+    top:7px
+
 }
 .comment_box .comment_text{
     outline: none;
-    min-height: 26px;
+    min-height: 32px;
     background: #ffffff;
     max-height: 72px;
     overflow-y: auto;
     margin:0 auto;
     width: 76%;
-    border: 1px solid #ccc;
+    border: 1px solid #e4e4e4;
    margin:6px;
     font-size: 16px;
     position: relative;
     padding-left: 6px;
+    border-radius: 4px;
 }
 .comment_box.addactive{
     animation: addheight .2s linear;

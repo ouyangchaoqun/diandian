@@ -87,7 +87,7 @@
     }
     .mood_box{
         /*padding:30px 15px 36px 15px;*/
-        background: url("../images/moodBg.jpg") no-repeat;
+        background: #fff;
         background-size: cover;
         border-top-left-radius:5px;
         border-top-right-radius:5px;
