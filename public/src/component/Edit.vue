@@ -279,6 +279,9 @@
                         that.showModule = 'position';
                         var latLng = new qq.maps.LatLng(latitude, longitude);
                         window['geocoder'].getAddress(latLng);
+
+                        ////
+                        Bus.$emit("setFunny",true);
                     },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
@@ -469,6 +472,8 @@
                 this.address = this.getaddress(i);
                 this.setShowAddress();
                 this.showModule = '';
+
+                Bus.$emit("setFunny",false);
             },
             getaddress:function (ix) {
                 if(ix < -1)
