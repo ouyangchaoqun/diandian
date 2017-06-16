@@ -428,7 +428,7 @@
                         that._showloadingpic(id+i);
                     }
                     that.hideAction();
-                    that.currPhotoCount= currPhotoCount+filecount;
+                    that.currPhotoCount= that.currPhotoCount+filecount;
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
                 },function (e) {
