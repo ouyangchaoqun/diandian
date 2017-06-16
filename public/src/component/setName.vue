@@ -1,7 +1,7 @@
 <template id="setName">
     <div class="setName_box">
         <div class="setName">设置备注名</div>
-        <input type="text" placeholder="添加备注名" ref="name">
+        <input type="text" placeholder="添加备注名" ref="name" :value="friendDetail.memoName">
         <div class="me_bottom">
             <div class="weui-btn weui-btn_primary" @click="setMemoName()"> 提交</div>
         </div>
@@ -16,8 +16,28 @@
     export default {
         data() {
             return {
-                friendId:this.$route.query.friendId
+                friendId:this.$route.query.friendId,
+                friendDetail:{},
             }
+        },
+
+        mounted:function () {
+            let _this = this;
+            let friendId = this.$route.query.friendId;
+
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/friend/set/_userId_/'+friendId,
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.friendDetail = eval(data.data.data);
+
+                }
+            }, function (error) {
+                //error
+            });
+
         },
         methods: {
             setMemoName:function () {
@@ -55,7 +75,7 @@
         color: #333333;
         font-size: 16px;
         width:100%;
-        padding-left: 15px;
+        text-indent: 15px;
         outline: none;
         border:0;
     }

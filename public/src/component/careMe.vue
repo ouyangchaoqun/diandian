@@ -4,7 +4,7 @@
 			<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
 				<img class="careMe_img" :src="careFriend.faceUrl" alt="">
 				<div class="careMe_div">
-					<div>{{careFriend.nickName}}</div>
+					<div>{{careFriend.nickName | shortName(7)}}</div>
 					<img class="careimg1" v-show="myLastMood.moodValue>=5"
 						 src="../images/mood_icon_dianz_pre.png" alt=""/>
 					<img v-show="myLastMood.moodValue<5"
@@ -171,6 +171,11 @@
 			///用户心情
 			_this.getMoodDetail();
 		},
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
+            }
+        },
 		methods:{
 			getMoodDetail:function(){
 				let _this=this;

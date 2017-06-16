@@ -4,9 +4,9 @@
         <div class="friendSetList1">
             <img class="friendSetImg" :src="user.faceUrl" alt="">
             <div class="friendnickname">
-                <div class="nickname" v-if="user.memoName&&user.memoName!=''">{{user.memoName}}</div>
-                <div class="nickname" v-if="!user.memoName||user.memoName==''">{{user.nickName}}</div>
-                <div class="Remarks" v-if="user.memoName&&user.memoName!=''">昵称：{{user.nickName}}</div>
+                <div class="nickname" v-if="user.memoName&&user.memoName!=''">{{user.memoName | shortName(12) }}</div>
+                <div class="nickname" v-if="!user.memoName||user.memoName==''">{{user.nickName | shortName(12) }}</div>
+                <div class="Remarks" v-if="user.memoName&&user.memoName!=''">昵称：{{user.nickName | shortName(12) }}</div>
                 <div class="Remarks" v-if="!user.memoName||user.memoName==''">备注：</div>
 
             </div>
@@ -82,6 +82,11 @@
             }, function (error) {
                 //error
             });
+        },
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
+            }
         },
         methods: {
 

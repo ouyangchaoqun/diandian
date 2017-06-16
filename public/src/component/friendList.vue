@@ -10,8 +10,8 @@
                         <img class="img_frinedsCount" :src="wxFaceUrl(user.faceUrl)" alt="">
                     </div>
                     <div class="weui-cell__bd name_friendsCount">
-                        <template v-if="user.memoName&&user.memoName!==''">{{user.memoName}}</template>
-                        <template v-else-if="user.nickName!==''">{{user.nickName}}</template>
+                        <template v-if="user.memoName&&user.memoName!==''">{{user.memoName | shortName(16)}}</template>
+                        <template v-else-if="user.nickName!==''">{{user.nickName | shortName(16)}}</template>
                     </div>
                     <div class="weui-cell__ft"></div>
                 </a>
@@ -28,8 +28,8 @@
                             <img class="img_frinedsCount" :src="wxFaceUrl(user.faceUrl)" alt="">
                         </div>
                         <div class="weui-cell__bd name_friendsCount">
-                            <template v-if="user.memoName&&user.memoName!==''">{{user.memoName}}</template>
-                            <template v-else-if="user.nickName!==''">{{user.nickName}}</template>
+                            <template v-if="user.memoName&&user.memoName!==''">{{user.memoName | shortName(16)}}</template>
+                            <template v-else-if="user.nickName!==''">{{user.nickName | shortName(16)}}</template>
                         </div>
                         <div class="weui-cell__ft"></div>
                     </a>
@@ -262,6 +262,11 @@
             }, function (error) {
             });
 
+        },
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
+            }
         },
         methods: {
             _createinvite:function (type,callback) {

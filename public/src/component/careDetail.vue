@@ -52,10 +52,10 @@
                         <img class="show_bottom_img " :src="reply.from_faceUrl">
                         <div class="show_bottom_text">
                             <div class="reply_author">
-                                <a class="pname other" >{{reply.from_nickName}}</a>
+                                <a class="pname other" >{{reply.from_nickName | shortName}}</a>
                             </div>
                             <div class="reply_content">
-                                <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName}}</a>
+                                <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName | shortName}}</a>
                                 <span class="text_comment" >{{reply.content}}</span>
                             </div>
                         </div>
@@ -131,6 +131,11 @@
             });
 
         },
+        filters:{
+            shortName:function(value){
+                return xqzs.shortname(value);
+            }
+        },
         methods:{
             canEdit:function (mood) {
                 return xqzs.mood.canEdit(mood);
@@ -179,7 +184,7 @@
                 let vm = this;
 
                 let edithoder="";
-                edithoder= vm.replies[index].from_nickName;
+                edithoder= xqzs.shortname(vm.replies[index].from_nickName);
 
                 xqzs.mood.actionSheetEdit("取消","发送",function (v) {
                     vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.mood.id,"userId":null,"replyId":id,"content":v}).then(response => {

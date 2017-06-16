@@ -6,7 +6,7 @@
 				<span v-show="hasNewPerfect" class="hasnew"></span>
 				<img class="me1_left" :src="user.faceUrl"/>
 				<div class="me1_right">
-					<div class="perfec_top">{{user.nickName}}</div>
+					<div class="perfec_top">{{user.nickName | shortName(6)}}</div>
 					<div class="perfec">
 						<span>完善资料</span>
 						<img class="edit" src="../images/info_icon_por.png"/>
@@ -216,6 +216,11 @@
                 //error
             });
         },
+		filters:{
+			shortName:function(value,len){
+				return xqzs.shortname(value,len);
+			}
+		},
 		methods:{
 			_createinvite:function (type,callback) {
 				this.$http({

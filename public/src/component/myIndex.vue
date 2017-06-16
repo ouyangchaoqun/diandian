@@ -96,12 +96,12 @@
                                 <img class="show_bottom_img" :src="comment.from_faceUrl">
                                 <div class="show_bottom_text">
                                     <div class="reply_author">
-                                        <a class="pname other" href="javascript:;">{{comment.from_nickName}}</a>
+                                        <a class="pname other" href="javascript:;">{{comment.from_nickName | shortName(7)}}</a>
                                     </div>
                                     <div class="reply_content">
                                         <template v-if="comment.tomoodreplyid>0">
                                             <span class="text_comment">回复</span><a class="pname other"
-                                                                                   href="javascript:;">{{comment.to_nickName}}：</a>
+                                                                                   href="javascript:;">{{comment.to_nickName | shortName(7)}}：</a>
                                         </template>
                                         <span class="text_comment">{{emojiContent(comment.content)}}</span>
                                     </div>
@@ -151,6 +151,11 @@
                 {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
 
                 ]
+            }
+        },
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
             }
         },
         methods: {
@@ -217,7 +222,7 @@
                 },function (v) {
                     console.log(v)
                     //取消
-                },"回复 "+vm.downdata[index].commentList[commentIndex].from_nickName)
+                },"回复 "+xqzs.shortname(vm.downdata[index].commentList[commentIndex].from_nickName,7))
             },
             showComment: function (id, $index) {
                 let vm = this;

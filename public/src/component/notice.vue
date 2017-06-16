@@ -5,7 +5,7 @@
 			<router-link :to=detailUrl+newNotice.moodid  class ="notice_list"  v-for="newNotice in newNotices">
 				<img class="notice_img" :src="newNotice.faceUrl" alt="">
 				<div class="notice_div">
-					<div class="noticeName">{{newNotice.nickName}}</div>
+					<div class="noticeName">{{newNotice.nickName | shortName(7)}}</div>
 					<div class="noticeText" v-if="newNotice.content">{{newNotice.content}}</div>
 					<div class="noticeStatus" v-if="newNotice.tp=='care'">
 						<img v-bind:src="newNotice.careImg" alt="">
@@ -159,6 +159,11 @@
 				isNew:1,
 				detailUrl:"/notice/noticeDetail?moodId="
 
+			}
+		},
+		filters:{
+			shortName:function(value,len){
+				return xqzs.shortname(value,len);
 			}
 		},
 		mounted: function () {
