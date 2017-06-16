@@ -21,7 +21,7 @@
                 </div>
                 <div class="scene_box">
                     <div>
-                        <div class="moodBox_header">心情场景</div>
+                        <div class="moodBox_header">在哪方面</div>
                         <div class="weui-grids grids_box">
                             <a v-for="scenes in scenesList" class="weui-grid grid_25" @click="chooseData('scenesId',scenes.value)">
                                 <div class="scene_top" v-if="scenes.haspic">

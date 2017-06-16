@@ -26,7 +26,7 @@
                     <div class="moodImg_right">
                         <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
 
-                            <img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>
+                            <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
 
                         </div>
 
@@ -36,8 +36,13 @@
                                 <img src="../images/bianji.png" alt="">
                             </router-link>
                         </template>
-                        <template v-if=" (item.content!=''&& item.content!=null)  ">
-                            <div class="moodContext" v-html="formatContent(item.content)"></div>
+                        <template v-if=" (item.content==''&& item.content==null)">
+                            <div class="moodContext" v-html="'[在'+item.scense.text+'方面]'">
+                            </div>
+                        </template>
+                        <template ><!--v-if=" (item.content!=''&& item.content!=null)  "-->
+                            <div class="moodContext" v-html="'[在'+item.scense.text+'方面]'+formatContent(item.content)">
+                            </div>
                         </template>
                         <template v-if="item.haspicture">
                             <div class="moodPhotoLists">
@@ -61,22 +66,30 @@
                             <span v-if="canClear(item)" class="btn_del"
                                   @click="empty(item.id,index)">删除</span>
                             <div class="moodFollow" @click="showComment(item.id,index)">
-                                <span class="followCount">{{item.careCount}}</span>
-                                <img class="followtype" :src="item.careImg" alt="">
-                                <template v-if="(item.content!==null&& item.content!=='')">
-                                    <span class="followCount">{{item.replycount}}</span>
-                                    <img class="followtype" src="../images/comments.png" alt="">
-                                </template>
+
+                                <div style="float: right;margin-left: 10px;">
+                                    <template v-if="(item.content!==null&& item.content!=='')">
+                                        <span class="followCount">{{item.replycount}}</span>
+                                        <img class="followtype" src="../images/comments.png" alt="">
+                                    </template>
+                                </div>
+                                <div style="float: right;">
+                                    <span class="followCount">{{item.careCount}}</span>
+                                    <img class="followtype" :src="item.careImg" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="show_box" v-if="item.hasComments && item.isShowComment">
                         <div class="arraw"></div>
-                        <div class="show_top">
+                        <div class="show_top" v-if="item.careList.length>0">
                             <img class="show_img1" :src="item.careImg" />
                             <img v-for="care in item.careList" :src="care.faceUrl"/>
                         </div>
-                        <ul class="show_bottom" v-if="item.comment">
+
+                        <div  class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
+
+                        <ul class="show_bottom" v-if="item.commentList.length>0">
                             <img class="show_img2" src="../images/comments.png"/>
                             <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex" :data-replyid="comment.id" :data-moodid="item.id"
                                 :data-userid="comment.fromuserid" data-ajaxresult="hasface" @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)" >
@@ -421,7 +434,10 @@
         color: #999;
         font-style: normal;
     }
-
+.line_comment{
+    height: 1px;
+    background: #eee;
+}
 
 
 
