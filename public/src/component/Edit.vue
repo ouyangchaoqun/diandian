@@ -15,8 +15,8 @@
             <div class="edit_loc" @click = "getLoc()"><img v-bind:src=locImage alt="">{{showAddress}}</div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
-        <div class="addEditBox">
-            <div v-show="showPositionList('')" class="edit_option">
+        <div class="addEditBox" v-show="showPositionList('')">
+            <div class="edit_option">
                 <div v-show="showupload">
                     <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                     <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
