@@ -15,6 +15,7 @@ var xqzs = {
             $("#toast").remove();
             $(".js_dialog").remove();
             $(".actionSheet_wrap").remove();
+            $("#action_sheet_edit").remove();
 
         },
         toast: function (type, msg, fun) {
@@ -438,28 +439,30 @@ var xqzs = {
             $("body").append(html);
             $(".comment_box .placeholder").click(function () {
                 $(".comment_text").focus();
-            })
-
-            $(".comment_text").focus().keyup(function () {
-                var val = $(this).text();
-                if(val.length>0){
-                    $(".placeholder").hide();
-                    $(".action-sheet-edit .release").css({'borderColor':"#05b003","background":"#09bb07"})
-                    $(".comment_p").css('display','none')
-
-
-                }else{
-                    $(".action-sheet-edit .release").css({'borderColor':"#91cc91","background":"#94db93"})
-                    $(".comment_p").css('display','block');
-                    $(".placeholder").show();
-                }
-            }).keydown(function () {
-                var val = $(this).text();
-
-                if(val.length>=0){
-                    $(".placeholder").hide();
-                }
             });
+
+            setTimeout(function () {
+                $(".comment_text").focus().keyup(function () {
+                    var val = $(this).text();
+                    if(val.length>0){
+                        $(".placeholder").hide();
+                        $(".action-sheet-edit .release").css({'borderColor':"#05b003","background":"#09bb07"})
+                        $(".comment_p").css('display','none')
+                    }else{
+                        $(".action-sheet-edit .release").css({'borderColor':"#91cc91","background":"#94db93"})
+                        $(".comment_p").css('display','block');
+                        $(".placeholder").show();
+                    }
+                }).keydown(function () {
+                    var val = $(this).text();
+
+                    if(val.length>=0){
+                        $(".placeholder").hide();
+                    }
+                });
+            },150)
+
+
             setTimeout(function () {
                 $(".comment_box").removeClass('subactive').addClass("addactive");
             }, 10);
