@@ -250,7 +250,7 @@ var xqzs = {
     },
     shortname:function (value,len) {
         if(!value) return '';
-        if(value.length>6){
+        if(value.length>7){
             return value.substring(0,len)+'...';
         }else{
             return value;
