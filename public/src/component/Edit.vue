@@ -240,6 +240,7 @@
                 maskFlag: false,     //optionFrist
                 activeFlag: false,
                 maxPhotoCount: 3,
+                currPhotoCount:0,
                 uploadpicinfo: {
                     token: '',
                     smallpic: '',
@@ -421,11 +422,13 @@
                 let that = this;
                 var id = 'uf_'+new Date().getTime();
                 //
-                xqzs.wx.takePhotos(sourceType,that.maxPhotoCount,that.uploadpicinfo,that.alioss,function (filecount) {
+                xqzs.wx.takePhotos(sourceType,that.maxPhotoCount -  that.currPhotoCount,that.uploadpicinfo,that.alioss,function (filecount) {
+
                     for(var i=0;i<filecount;i++){
                         that._showloadingpic(id+i);
                     }
                     that.hideAction();
+                    that.currPhotoCount= currPhotoCount+filecount;
                 },function (json,ix) {
                     that._fillloadingpic(id+ix,json.data);
                 },function (e) {
