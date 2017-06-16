@@ -48,16 +48,16 @@
                     </div>
 
                 </div>
-                <ul class="show_bottom" v-if="reply">
+                <ul class="show_bottom" v-if="replies">
                     <img class="show_img2" src="../images/comments.png"/>
                     <li v-for="(reply ,index) in replies" :key="index" @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
                         <img class="show_bottom_img " :src="reply.from_faceUrl">
                         <div class="show_bottom_text">
                             <div class="reply_author">
-                                <a class="pname other" >{{reply.from_nickName}}</a>
+                                <a class="pname other" >{{reply.from_nickName | shortName(7) }}</a>
                             </div>
                             <div class="reply_content">
-                                <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName}}</a>
+                                <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName | shortName(7) }}</a>
                                 <span class="text_comment" >{{emojiContent(reply.content)}}</span>
                             </div>
                         </div>
@@ -156,6 +156,11 @@
             });
 
         },
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
+            }
+        },
         methods: {
             canEdit:function (mood) {
                 return xqzs.mood.canEdit(mood);
@@ -205,7 +210,7 @@
                 let vm = this;
 
                 let edithoder = "";
-                edithoder = vm.replies[index].from_nickName;
+                edithoder = xqzs.shortname(vm.replies[index].from_nickName,7);
 
                 xqzs.mood.actionSheetEdit("取消", "发送", function (v) {
                     vm.$http.put(web.API_PATH + 'mood/reply/add', {

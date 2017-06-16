@@ -248,6 +248,16 @@ var xqzs = {
             this.storage.clear();
         }
     },
+    shortname:function (value,len) {
+        if(!value) return '';
+        if(value.length>6){
+            return value.substring(0,len)+'...';
+        }else{
+            return value;
+        }
+
+
+    },
     resizepicture: function (img, size) {
         var defaultsize = {w: 10, h: 10};
         $.extend(defaultsize, size);

@@ -50,7 +50,7 @@
                             <div class="friend_commont" v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel">
                                 <a href="javascript:;">
                                     <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
-                                        <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName}}</template>：</span></template><span class="commont">{{reply.content}}</span>
+                                        <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName | shortName(7)}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
 
@@ -82,6 +82,11 @@
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
                 user:{}
+            }
+        },
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
             }
         },
         methods: {
@@ -220,7 +225,7 @@
                      if(vm.downdata[index].replies[replyIndex].fromuserid ===vm.downdata[index].userId ){
                         edithoder="作者";
                     }else{
-                        edithoder= vm.downdata[index].replies[replyIndex].from_nickName;
+                        edithoder= xqzs.shortname(vm.downdata[index].replies[replyIndex].from_nickName,7);
                     }
 
                 }
