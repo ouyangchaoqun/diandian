@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </template>
-                        <div class="moodLoc" v-if="item.content!=''&& item.content!=null">{{item.address}}</div>
+                        <div class="moodLoc" v-if="item.address!=''&& item.address!=null">{{item.address}}</div>
                         <div class="moodTime">
                             <span>{{item.outTime}}</span>
                             <span v-if="canRevoke(item)"
