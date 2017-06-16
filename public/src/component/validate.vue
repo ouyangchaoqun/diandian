@@ -52,7 +52,8 @@
                 message: "验证码已发送，请注意查收短信",
                 isShowErrorMobileMsg: false,
                 isShowErrorCodeMsg: false,
-                isAllInput:false
+                isAllInput:false,
+                codeError:false
 
             }
         },
@@ -111,9 +112,10 @@
                             })
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){
-                                clearInterval(_this.interValObj);
+//                                clearInterval(_this.interValObj);
                                _this.isShowErrorCodeMsg =true;
                                _this.isShowMessage = false;
+                                _this.codeError=true;
 
                             }
                             //-1 手机号码为空，-4 验证码为空 ，-5 手机格式错误，-2 验证码过期，-3 验证码不存在
@@ -132,6 +134,7 @@
                 if (_this.isMobileRight&&!_this.isGetingCodeIn) {
                     _this.$http.post(web.API_PATH + 'base/verification/code/get/code', {mobile: _this.mobile}).then(response => {
                         if (response.data.status === 1) {
+                            _this.codeError=false;
                             _this.interValObj = setInterval(function () {
                                 _this.setRemainTime();
                             }, 1000);
@@ -164,12 +167,22 @@
                     _this.getCodeBtnText = "获取验证码";
                     _this.isGetingCodeIn = false;
                     _this.isShowMessage = false;
+                    _this.isShowErrorCodeMsg=false;
                     _this.time = 60;
                 } else {
+
                     _this.time--;
                     _this.getCodeBtnText = '重获验证码' + '(' + _this.time + ')';
                     _this.isGetingCodeIn = true;
-                    _this.isShowMessage = true;
+                    if(_this.codeError){
+                        _this.isShowMessage = false;
+                        _this.isShowErrorCodeMsg=true;
+                    }else{
+                        _this.isShowMessage = true;
+                        _this.isShowErrorCodeMsg=false;
+                    }
+
+
                 }
 
             }
