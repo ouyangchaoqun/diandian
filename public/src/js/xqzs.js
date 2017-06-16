@@ -86,7 +86,7 @@ var xqzs = {
                 cancelFun: function () {
                 }
             };
-            config = $.extend(defaultsize, config);
+            config = $.extend(defaultsize,config);
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask"></div>';
@@ -94,8 +94,8 @@ var xqzs = {
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
             html += ' <div class="weui-dialog__ft">';
-            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">' + config.cancelText + '</a>';
-            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">' + config.submitText + '</a>';
+            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">'+config.cancelText+'</a>';
+            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">'+config.submitText+'</a>';
             html += '   </div>';
             html += '   </div>';
             html += '   </div>';

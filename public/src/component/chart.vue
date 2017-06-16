@@ -41,9 +41,10 @@
         watch: {
             chartData: function (data) {
                 var tagetwidth = window.innerWidth * 1.04;
-                var tagetHeight = window.innerHeight * 0.2848;
+                var tagetHeight = window.innerHeight * 0.3228;
                 $('.odiv').width(tagetwidth);
                 $('.odiv').height(tagetHeight);
+
                 this.makeCharts(data, tagetwidth, tagetHeight);  //图标生成器
 
                 console.log("chartData:" + this.chartData);
@@ -318,10 +319,10 @@
     }
 
     .chart_box {
-        height: 190px;
-        padding: 51px 0 20px 0;
+
+        padding: 51px 0 10px 0;
         background: #ffffff;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     .highcharts-series-group {

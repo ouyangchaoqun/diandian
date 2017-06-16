@@ -36,12 +36,9 @@
                                 <img src="../images/bianji.png" alt="">
                             </router-link>
                         </template>
-                        <template v-if=" (item.content==''&& item.content==null)">
-                            <div class="moodContext" v-html="'[ 在'+item.scense.text+'方面 ]，'">
-                            </div>
-                        </template>
+
                         <template><!--v-if=" (item.content!=''&& item.content!=null)  "-->
-                            <div class="moodContext" v-html="'[ 在'+item.scense.text+'方面 ]，'+formatContent(item.content)">
+                            <div class="moodContext" v-html="formatContent(item)">
                             </div>
                         </template>
                         <template v-if="item.haspicture">
@@ -388,8 +385,14 @@
                     console.log('error');
                 });
             },
-            formatContent: function (c) {
-                return xqzs.face.parse(c);
+            formatContent: function (item) {
+                var before=  "[ 在"+item.scense.text+"方面 ]";
+                if(item.content!=''&&item.content!=null&&item.content!=undefined){
+                    return before + "，"+ xqzs.face.parse(item.content);
+                }else{
+                    return before;
+                }
+
             }
 
         },
