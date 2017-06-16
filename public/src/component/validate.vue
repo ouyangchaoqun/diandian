@@ -111,6 +111,7 @@
                             })
                         } else   {
                             if(response.data.status === -2 || response.data.status === -3){
+                                clearInterval(_this.interValObj);
                                _this.isShowErrorCodeMsg =true;
                                _this.isShowMessage = false;
 
@@ -135,15 +136,19 @@
                                 _this.setRemainTime();
                             }, 1000);
                             _this.isShowMessage = true;
+                            _this.isShowErrorCodeMsg=false;
                             _this.message = "验证码已发送，请注意查收短信";
                         } else if (response.data.status === -1) {
                             _this.isShowMessage = true;
+                            _this.isShowErrorCodeMsg=false;
                             _this.message = "请勿频繁获取验证码";
                         } else if (response.data.status === -2) {
                             _this.isShowMessage = true;
+                            _this.isShowErrorCodeMsg=false;
                             _this.message = "手机号码不能为空";
                         } else if (response.data.status === -3) {
                             _this.isShowMessage = true;
+                            _this.isShowErrorCodeMsg=false;
                             _this.message = "手机号码格式不正确";
                         }
 
