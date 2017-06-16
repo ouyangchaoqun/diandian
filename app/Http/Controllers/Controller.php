@@ -54,7 +54,7 @@ class Controller extends BaseController
         }
         $friendid = $request->input('userid');
         $apiurl = "/user/be/friend/width/ids/{$friendid}/_userId_";
-        $this->apiService->exec($request, $userId, $apiurl, 'POST');
+        $this->apiService->execFull($request, $userId, $apiurl, 'POST');
 
         return redirect("/#/friendCenter?friendId={$friendid}");
     }
@@ -62,6 +62,7 @@ class Controller extends BaseController
 
     protected function getUserId(Request $request)
     {
+
 
 
         $openId = $request->cookie($this->COOKIE_OPEN_ID);

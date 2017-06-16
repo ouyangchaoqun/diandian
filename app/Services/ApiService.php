@@ -19,10 +19,9 @@ class ApiService
     {
         $method = $request->getMethod();
         $url = $request->getRequestUri();
-
         $url = substr($url, 4);
         $url = urldecode($url);
-        //
+
         $useridkeys = ['userId', 'uid'];
         foreach ($useridkeys as $key) {
             $url = str_replace("{" . $key . "}", $userId, $url);
@@ -32,9 +31,9 @@ class ApiService
         $url = $this->API_URL . $url;
 
 
-      //  $curl = new Curl();
+
         $header = $this->getTokenHeader();
-//        print_r($header);
+
 
         //处理参数
         $data = $request->input();
@@ -125,6 +124,7 @@ class ApiService
         foreach ($useridkeys as $key) {
             $url = str_replace("{" . $key . "}", $userId, $url);
             $url = str_replace("[" . $key . "]", $userId, $url);
+            $url = str_replace("_userId_", $userId, $url);
         }
         $url = $this->API_URL . $url;
          $header = $this->getTokenHeader();
