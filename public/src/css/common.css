@@ -271,32 +271,34 @@ li{list-style: none}
 
 .moodState {
     font-size: 14px;
-    margin-bottom: 6px;
-    margin-top:4px;
+    margin-bottom: 4px;
+    margin-top:2px;
+    line-height: 24px;
 }
 
 .moodContext {
-    font-size: 14px;
-    color: #333333;
-    line-height: 15px;
+    border-radius: 4px;
     word-wrap: break-word;
     word-break: break-all;
     overflow: hidden;
+    font-size: 14px;
+    line-height: 21px;
+    color: #333333;
     padding: 4px 8px 8px 0px;
-    line-height: 20px;
 }
 
 .moodPhotoLists {
     display: flex;
     height: auto;
-    margin: 5px 0 10px 0;
+    margin-top: 2px;
+    margin-bottom: 9px;
 }
 
 .moodPhotoList {
     float: left;
-    margin-right: 0.3125rem;
-    width: 4.8675rem;
-    height: 4.8675rem;
+    margin-right: 0.2941176470588235rem;
+    width: 4.6rem;
+    height: 4.6rem;
     overflow: hidden;
     position: relative;
 }
@@ -310,34 +312,36 @@ li{list-style: none}
 .moodTime {
     font-size: 12px;
     color: #999;
-    line-height: 16px;
+   line-height: 16px;
+    position: relative;
+
 }
 
 .moodFollow {
     float: right;
+    padding-top: 2px;
 }
 
 .followCount {
     font-size: 12px;
-    color: #999;
-    margin-left: 5px;
+    vertical-align: middle;
 }
 
 .followtype {
     width: 14px;
-    margin-top: 3px;
     vertical-align: middle;
-    margin-bottom: 4px;
+    margin-top: 3px !important;
+    margin-bottom: 2px;
 }
 
 .moodImg_right .moodPhotoLists.two > div {
-    width: 7.5rem;
-    height: 6rem;
+    width: 7.058823529411765rem;
+    height: 5.647058823529412rem;
 }
 
 .moodImg_right .moodPhotoLists.one > div {
-    width: 10.7rem;
-    height: 8.1rem;
+    width: 10.07058823529412rem;
+    height: 7.623529411764706rem;
 }
 
 .moodFunnPicList {
@@ -365,7 +369,7 @@ li{list-style: none}
     background: #F9F9F9;
     border-radius: 5px;
     margin-top: 15px;
-    position: relative
+    position: relative;
 }
 
 .show_box .arraw {
@@ -453,6 +457,7 @@ li{list-style: none}
     font-size: 13px;
     color: #333333;
     line-height: 20px;
+    height:20px;
 }
 
 .show_bottom_text .pname {
