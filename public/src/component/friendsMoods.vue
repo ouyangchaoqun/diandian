@@ -313,6 +313,9 @@
         },
         components: {
             'v-scroll': scroll
+        },
+        beforeDestroy: function () {
+            xqzs.weui.removeWhenPageChange()
         }
     }
 

@@ -37,11 +37,11 @@
                             </router-link>
                         </template>
                         <template v-if=" (item.content==''&& item.content==null)">
-                            <div class="moodContext" v-html="'[在'+item.scense.text+'方面]'">
+                            <div class="moodContext" v-html="'[ 在'+item.scense.text+'方面 ]，'">
                             </div>
                         </template>
-                        <template ><!--v-if=" (item.content!=''&& item.content!=null)  "-->
-                            <div class="moodContext" v-html="'[在'+item.scense.text+'方面]'+formatContent(item.content)">
+                        <template><!--v-if=" (item.content!=''&& item.content!=null)  "-->
+                            <div class="moodContext" v-html="'[ 在'+item.scense.text+'方面 ]，'+formatContent(item.content)">
                             </div>
                         </template>
                         <template v-if="item.haspicture">
@@ -53,7 +53,8 @@
                                 </div>
                                 <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
                                     <div class="moodFunnyPic" v-for="gif in item.funnypics">
-                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth" :data-h="gif.picheight"/>
+                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth"
+                                             :data-h="gif.picheight"/>
                                     </div>
                                 </div>
                             </div>
@@ -83,25 +84,29 @@
                     <div class="show_box" v-if="item.hasComments && item.isShowComment">
                         <div class="arraw"></div>
                         <div class="show_top" v-if="item.careList.length>0">
-                            <img class="show_img1" :src="item.careImg" />
+                            <img class="show_img1" :src="item.careImg"/>
                             <img v-for="care in item.careList" :src="care.faceUrl"/>
                         </div>
 
-                        <div  class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
+                        <div class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
 
                         <ul class="show_bottom" v-if="item.commentList.length>0">
                             <img class="show_img2" src="../images/comments.png"/>
-                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex" :data-replyid="comment.id" :data-moodid="item.id"
-                                :data-userid="comment.fromuserid" data-ajaxresult="hasface" @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)" >
+                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex"
+                                :data-replyid="comment.id" :data-moodid="item.id"
+                                :data-userid="comment.fromuserid" data-ajaxresult="hasface"
+                                @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)">
                                 <img class="show_bottom_img" :src="comment.from_faceUrl">
                                 <div class="show_bottom_text">
                                     <div class="reply_author">
-                                        <a class="pname other" href="javascript:;">{{comment.from_nickName | shortName(7)}}</a>
+                                        <a class="pname other" href="javascript:;">{{comment.from_nickName |
+                                            shortName(7)}}</a>
                                     </div>
                                     <div class="reply_content">
                                         <template v-if="comment.tomoodreplyid>0">
                                             <span class="text_comment">回复</span><a class="pname other"
-                                                                                   href="javascript:;">{{comment.to_nickName | shortName(7)}}：</a>
+                                                                                   href="javascript:;">{{comment.to_nickName
+                                            | shortName(7)}}：</a>
                                         </template>
                                         <span class="text_comment">{{emojiContent(comment.content)}}</span>
                                     </div>
@@ -135,7 +140,7 @@
     export default {
         data() {
             return {
-                user:{},
+                user: {},
                 counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
                 num: 10,  // 一次显示多少条
                 pageStart: 0, // 开始页数
@@ -143,47 +148,47 @@
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
                 currTime: xqzs.dateTime.getTimeStamp(),
-                topImg:xqzs.mood.getTopImg(),
-                chartData:[
+                topImg: xqzs.mood.getTopImg(),
+                chartData: [
                     {"days": ["1月1", "2", "3", "4", "5", "6", "7"], "moods": [3, 5, 9, 6, 4, 3, 5]},
-                {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [1, 3, 7, 6, 4, 2, 6]},
-                {"days": ["1月15", "16", "17", "18", "19", "20", "21"], "moods": [7, 8, 9, 0, 4, 0, 5]},
-                {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
+                    {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [1, 3, 7, 6, 4, 2, 6]},
+                    {"days": ["1月15", "16", "17", "18", "19", "20", "21"], "moods": [7, 8, 9, 0, 4, 0, 5]},
+                    {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
 
                 ]
             }
         },
-        filters:{
-            shortName:function(value,len){
-                return xqzs.shortname(value,len);
+        filters: {
+            shortName: function (value, len) {
+                return xqzs.shortname(value, len);
             }
         },
         methods: {
-            canEdit:function (mood) {
+            canEdit: function (mood) {
                 return xqzs.mood.canEdit(mood);
             },
-            canClear:function (mood) {
+            canClear: function (mood) {
                 return xqzs.mood.canClear(mood);
             },
-            canRevoke:function (mood) {
+            canRevoke: function (mood) {
                 return xqzs.mood.canRevoke(mood);
             },
-            emojiContent:function (c) {
-               return xqzs.face.parseEmoji(c);
+            emojiContent: function (c) {
+                return xqzs.face.parseEmoji(c);
             },
-            commentOrDel:function (userId,id,index,commentIndex) {
+            commentOrDel: function (userId, id, index, commentIndex) {
                 let vm = this;
-                if(userId===vm.user.id){
-                    vm._delComment(id,index,commentIndex);
-                }else{
-                    vm.addComment(id,index,commentIndex);
+                if (userId === vm.user.id) {
+                    vm._delComment(id, index, commentIndex);
+                } else {
+                    vm.addComment(id, index, commentIndex);
                 }
             },
-            _delComment(id,index,commentIndex){
+            _delComment(id, index, commentIndex){
                 let vm = this;
-                xqzs.weui.actionSheet("删除我的评论?","删除",function () {
+                xqzs.weui.actionSheet("删除我的评论?", "删除", function () {
                     ///删除操作
-                    let url  = web.API_PATH+ "mood/reply/_userId_/"+id;
+                    let url = web.API_PATH + "mood/reply/_userId_/" + id;
                     vm.$http.delete(url)
                         .then((data) => {
                             if (data.data.status === 1) {
@@ -199,16 +204,21 @@
                         });
 
 
-                },function () {
+                }, function () {
                     //取消
                 })
             },
-            addComment(id,index,commentIndex){
+            addComment(id, index, commentIndex){
                 let vm = this;
-                xqzs.mood.actionSheetEdit("取消","发送",function (v) {
-                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":id,"content":v}).then(response => {
-                        if(response.data.status===1){
-                            xqzs.weui.toast("success","提交成功",function () {
+                xqzs.mood.actionSheetEdit("取消", "发送", function (v) {
+                    vm.$http.put(web.API_PATH + 'mood/reply/add', {
+                        "moodId": vm.downdata[index].id,
+                        "userId": null,
+                        "replyId": id,
+                        "content": v
+                    }).then(response => {
+                        if (response.data.status === 1) {
+                            xqzs.weui.toast("success", "提交成功", function () {
                             });
                             vm.downdata[index].commentList.push(response.data.data.reply);
                             vm.$set(vm.downdata, index, vm.downdata[index])
@@ -219,10 +229,10 @@
                     });
                     console.log(v)
 
-                },function (v) {
+                }, function (v) {
                     console.log(v)
                     //取消
-                },"回复 "+xqzs.shortname(vm.downdata[index].commentList[commentIndex].from_nickName,7))
+                }, "回复 " + xqzs.shortname(vm.downdata[index].commentList[commentIndex].from_nickName, 7))
             },
             showComment: function (id, $index) {
                 let vm = this;
@@ -338,7 +348,7 @@
                 let vm = this;
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
-                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata,false, vm.user.id);
+                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
@@ -378,7 +388,7 @@
                     console.log('error');
                 });
             },
-            formatContent:function (c) {
+            formatContent: function (c) {
                 return xqzs.face.parse(c);
             }
 
@@ -404,10 +414,10 @@
 
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
-                     if (data.data.status === 1) {
-                        for(let i =0;i<data.data.data.length;i++){
-                            let week = {days:[],moods:[]};
-                            for(let j=0;j<data.data.data[i].length;j++){
+                    if (data.data.status === 1) {
+                        for (let i = 0; i < data.data.data.length; i++) {
+                            let week = {days: [], moods: []};
+                            for (let j = 0; j < data.data.data[i].length; j++) {
                                 week.days.push(data.data.data[i][j].day);
                                 week.moods.push(data.data.data[i][j].value);
                             }
@@ -418,8 +428,7 @@
                         }
 
 
-
-                         /*console.log( _this.chartData)*/
+                        /*console.log( _this.chartData)*/
                     }
                 })
                 .catch((response) => {
@@ -427,24 +436,26 @@
                 });
         },
         components: {
-            'v-scroll': scroll, "v-chart": chart,"v-banner": banner
+            'v-scroll': scroll, "v-chart": chart, "v-banner": banner
+        },
+        beforeDestroy: function () {
+            xqzs.weui.removeWhenPageChange()
         }
     }
 
 
 </script>
 <style>
-    .moodState i{
+    .moodState i {
         font-size: 12px;
         color: #999;
         font-style: normal;
     }
-.line_comment{
-    height: 1px;
-    background: #eee;
-}
 
-
+    .line_comment {
+        height: 1px;
+        background: #eee;
+    }
 
 
 </style>
