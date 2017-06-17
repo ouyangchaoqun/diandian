@@ -349,8 +349,7 @@
                 that.$http.put(web.API_PATH + apiurl,postdata)
                     .then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
-                        ///myCenter/myIndex
-                        that.$router.push({path:'/myCenter/myIndex'});
+                        that.$router.push({path:'/myCenter/myIndex?scroll=1'});
                     }
                 });
             },

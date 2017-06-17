@@ -2,7 +2,7 @@
 
     <div style="position: relative">
         <div v-title>我的主页</div>
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn">
             <div class="myIndex_box">
                 <div class="banner index_banner">
                     <v-banner></v-banner>
@@ -398,7 +398,10 @@
         },
         mounted: function () {
             let _this = this;
-
+            let scrollFromEdit = _this.$route.query.scroll;
+            if(scrollFromEdit==1){
+                $(".innnn").stop().animate({"scrollTop": 290},800)
+            }
 
             this.$http({
                 method: 'GET',
