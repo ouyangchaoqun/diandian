@@ -290,10 +290,10 @@ var xqzs = {
         moodValueText: ["", "超级不开心",//1
             "很不开心",//2
             "不开心",//3
-            "郁闷",//4
+            "心情郁闷",//4
             "心情一般",//5
             "小开心",//6
-            "开心",//7
+            "心情开心",//7
             "很开心",//8
             "超级开心",//9
             "超级开心"//10
@@ -433,33 +433,20 @@ var xqzs = {
             html += '   <div class="weui-mask cancel active"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += "<span class='placeholder'>" + placeholder + "</span>";
-            html += '  <div contenteditable="true" class="comment_text"></div>';
+            html += '<input contenteditable="true" class="comment_text" placeholder="'+placeholder+'" />';
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
-            $(".comment_box .placeholder").click(function () {
-                $(".comment_text").focus();
-            });
-
 
             $(".comment_text").focus().keyup(function () {
-                var val = $(this).text();
+                var val = $(this).val();
                 if (val.length > 0) {
-                    $(".placeholder").hide();
                     $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
                     $(".comment_p").css('display', 'none')
                 } else {
                     $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
                     $(".comment_p").css('display', 'block');
-                    $(".placeholder").show();
-                }
-            }).keydown(function () {
-                var val = $(this).text();
-
-                if (val.length >= 0) {
-                    $(".placeholder").hide();
                 }
             });
 
@@ -477,7 +464,7 @@ var xqzs = {
                 });
             });
             $(".comment_box .release").click(function () {
-                var v = $(".comment_text").html();
+                var v = $(".comment_text").val();
                 if (v !== "") {
                     doFun(v);
                 }

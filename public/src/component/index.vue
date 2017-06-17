@@ -529,7 +529,7 @@
     }
 
 
-    .addMoodBg{ background: rgba(0,0,0,0.4); height: 100%; width: 100%; z-index: 0; position: fixed; display: none}
+    .addMoodBg{ background: rgba(0,0,0,0.6); height: 100%; width: 100%; z-index: 0; position: fixed;top:0; display: none}
 
 
     .mycenter {

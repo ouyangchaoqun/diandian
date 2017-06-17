@@ -66,10 +66,10 @@
                             <div class="moodFollow" @click="showComment(item.id,index)">
 
                                 <div style="float: right;margin-left: 12px;">
-                                    <template v-if="(item.content!==null&& item.content!=='')">
+
                                         <span class="followCount">{{item.replycount}}</span>
                                         <img class="followtype" src="../images/comments.png" alt="">
-                                    </template>
+
                                 </div>
                                 <div style="float: right;">
                                     <span class="followCount">{{item.careCount}}</span>
@@ -386,8 +386,9 @@
             },
             formatContent: function (item) {
                 var before=  "[ 在"+item.scense.text+"方面 ]";
+                var before2=  "在"+item.scense.text+"方面：";
                 if(item.content!=''&&item.content!=null&&item.content!=undefined){
-                    return before + "，"+ xqzs.face.parse(item.content);
+                    return before2 + xqzs.face.parse(item.content);
                 }else{
                     return before;
                 }

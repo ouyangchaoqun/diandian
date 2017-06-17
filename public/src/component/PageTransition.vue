@@ -91,47 +91,36 @@
         -webkit-overflow-scrolling: touch
     }
 
-    /*.slide-left-enter, .slide-right-leave-active {*/
-    /*!*opacity: 0;*!*/
-    /*background: #ffffff;*/
-    /*-webkit-transform: translate(100px, 0);*/
-    /*transform: translate(100px, 0);*/
-    /*}*/
-    /*.slide-left-leave-active, .slide-right-enter {*/
-    /*!*opacity: 0;*!*/
-    /*background: rgba(0,0,0,0.5);*/
-    /*-webkit-transform: translate(-150px, 0);*/
-    /*transform: translate(-150px, 0);*/
-    /*}*/
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: .4s;
+        animation-duration: .2s;
 
     }
 
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: .9s;
+        animation-duration: .2s;
 
     }
 
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
-        animation-duration: .4s;
-
+        animation-duration: .1s;
+        z-index: 99
     }
 
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
-        animation-duration: .9s;
+        animation-duration: .1s;
+        z-index: 100;
 
     }
 
     @keyframes fold-right-in {
         0% {
-            transform: translate3d(-100%, 0, 0);
-            -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
 
         }
 
@@ -172,8 +161,8 @@
         }
 
         100% {
-            transform: translate3d(-100%, 0, 0);
-            -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
         }
     }
 
@@ -192,21 +181,21 @@
 
     .page-xqzs-up-enter-active {
         animation-name: fold-up-in;
-        animation-duration: .4s;
+        animation-duration: .3s;
         background: none !important;
 
     }
 
     .page-xqzs-up-leave-active {
         animation-name: fold-up-out;
-        animation-duration: .9s;
+        animation-duration: .5s;
 
     }
 
     .page-xqzs-down-enter-active {
 
         animation-name: fold-down-in;
-        animation-duration: .4s;
+        animation-duration: .3s;
 
     }
 
@@ -222,9 +211,7 @@
         0% {
             transform: translate3d(0, 0%, 0);
             -webkit-transform: translate3d(0, 0%, 0);
-
         }
-
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
