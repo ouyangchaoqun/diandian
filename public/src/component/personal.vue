@@ -7,14 +7,14 @@
             <div class="line"></div>
         </div>
 
-        <div class="list0 list02" @click="updateHeadpic()">
+        <div class="list0 list02 active_tab" @click="updateHeadpic()">
             <span>更新头像</span>
-            <a>
+
                 <img src="../images/me_jt.png" alt="">
-            </a>
+
         </div>
-        <router-link to="/me/personal/validate">
-            <div class="list0 list02">
+        <router-link to="/me/personal/validate" >
+            <div class="list0 list02 active_tab">
                 <img src="../images/me_jt.png" alt="">
                 <span>绑定手机号</span><span class="mobile">{{user.mobile}}</span>
 
@@ -222,6 +222,7 @@
     }
 </script>
 <style>
+    .active_tab:active{ background: #ececec}
 .personal_box{
     background: #f4f4f8;
 }
@@ -237,8 +238,8 @@
 .list0:first-child{margin-top: 12px;}
 .list0{
     background:#fff;
-    height:60px;
-    line-height:60px;
+    height:52px;
+    line-height:52px;
     padding:0 15px;
     position: relative;
 }
@@ -257,13 +258,13 @@
     float:right;
     font-size: 15px;
     color:#999;
-    margin-right:5px;
+    margin-right:20px
 }
 .list0 input{
     float: right;
     font-size: 14px;
     color:#999999;
-    height: 60px;
+    height: 52px;
     text-align: right;
     border:0;
     outline: none;
@@ -282,16 +283,20 @@
 }
 .list0 img{
     width:16PX;
-    float: right;
-    margin-top:23px;
+    position: absolute;
+    top:18px;
+right: 15px;
 }
 .showdL{
     float: right;
     color:#999;
     font-size: 15px;
+    width: 150px; text-align: right;
 }
+
 .showdL span{
     margin-left:5px;
+    float:none;
     color:#999;
 }
 .list03{
