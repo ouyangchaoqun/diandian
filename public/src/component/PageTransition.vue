@@ -76,7 +76,7 @@
             }
             setTimeout(function () {
                 next()
-            },40)
+            },540)
 
         }
     }
