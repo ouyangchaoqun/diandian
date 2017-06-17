@@ -4,9 +4,9 @@
             <img class="moodImg" :src="mood.moodValueUrl" alt="">
             <div class="moodImg_right">
                 <div class="moodState" :class="mood.moodValueStyle">{{mood.moodValueText}}
-                    <img class="addCj" :src="mood.scense.src" alt="">  <i>{{mood.scense.text}}</i>
+                    <!--<img class="addCj" :src="mood.scense.src" alt="">  <i>{{mood.scense.text}}</i>-->
                 </div>
-                <div class="moodContext" v-if="mood.content" v-html="formatContent(mood.content)"></div>
+                <div class="moodContext" v-html="formatContent(mood)"></div>
                 <template v-if="canEdit(mood)">
                     <router-link :to=editurl+mood.id class="editMood">
                         20分钟内可以补充文字和图片
@@ -48,7 +48,9 @@
                     </div>
 
                 </div>
-                <ul class="show_bottom" v-if="replies">
+                <div class="line_comment" v-if="replies.length>0&&cares.length>0"></div>
+
+                <ul class="show_bottom" v-if="replies.length>0">
                     <img class="show_img2" src="../images/comments.png"/>
                     <li v-for="(reply ,index) in replies" :key="index" @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
                         <img class="show_bottom_img " :src="reply.from_faceUrl">
@@ -277,8 +279,15 @@
 
 
             },
-            formatContent: function (c) {
-                return xqzs.face.parse(c);
+            formatContent: function (item) {
+                var before=  "[ 在"+item.scense.text+"方面 ]";
+                var before2=  "在"+item.scense.text+"方面：";
+                if(item.content!=''&&item.content!=null&&item.content!=undefined){
+                    return before2 + xqzs.face.parse(item.content);
+                }else{
+                    return before;
+                }
+
             }
         }
     }

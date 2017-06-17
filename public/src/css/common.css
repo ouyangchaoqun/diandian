@@ -509,3 +509,7 @@ li{list-style: none}
 a{
     -webkit-touch-callout: none;
 }
+.line_comment {
+    height: 1px;
+    background: #eee;
+}

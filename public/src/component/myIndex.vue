@@ -458,10 +458,7 @@
         font-style: normal;
     }
 
-    .line_comment {
-        height: 1px;
-        background: #eee;
-    }
+
 
 
 </style>
