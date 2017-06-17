@@ -17,7 +17,7 @@
 		</div>
 		<router-link to = "/me/moodCount" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1" src="../images/listimg1.png"/>
+				<img class="listimg1 record" src="../images/listimg1.png"/>
 				<div class="listtext">我的心情指数</div>
 				<img class="listimg2" src="../images/me_jt.png" />
 			</div>
@@ -31,7 +31,7 @@
 		</router-link>
 		<router-link to="/me/remind" class="me_lists">
 			<div class="me_list">
-				<img class="listimg20" src="../images/listimg3.png"/>
+				<img class="listimg1 remind" src="../images/listimg3.png"/>
 				<div class="listtext">心情记录提醒设置</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
@@ -70,13 +70,13 @@
 	}
 	.me_top{
 		background:#f4f4f8;
-		padding: 12px 0;
+		padding: 15px 0;
 	}
 	.me1_left{
 		height:60px;
 		width:60px;
 		display: block;
-		border-radius: 5px;
+		border-radius: 4px;
 		float: left;
 		position: relative;
 	}
@@ -130,13 +130,14 @@
 		padding:0 15px;
 		display: block;
 		position: relative;
-		-webkit-tap-highlight-color: rgba(0,0,0,.2);
+
 	}
+	.me_lists:active{ background: #ECECEC}
 	.me_list{
-		height:60px;
+		height:58px;
 		border-bottom:1px solid #e5e5e5;
-		line-height: 60px;
-		padding-left: 50px;
+		line-height: 58px;
+		padding-left: 41px;
 	}
 	.listimg1{
 		width:21px;
@@ -144,8 +145,10 @@
 		position: absolute;
 		top:50%;
 		margin-top:-10px;
-		left:20px;
+		left: 16.5px;
 	}
+	.listimg1.record { margin-top: -11px}
+	.listimg1.remind{ width: 20px;margin-top:-11px;}
 	.listimg20{
 		width:20px;
 		display: block;
@@ -171,8 +174,9 @@
 	}
 	.privacyImg{
 		width:18px;
-		margin-top:-12px;
+		margin-top:-11px;
 		height:21px;
+		left: 18px;
 	}
 	.proposalImg{
 		margin-top: -8px;
@@ -183,10 +187,11 @@
 	.listimgSal{
 		width: 20px;
 		margin-top:-8px;
+		left:18px
 	}
 	.listimgPro{
 		width:22px;
-		margin-top: -13px;
+		margin-top: -12px;
 	}
 </style>
 <script type="text/javascript">
