@@ -74,7 +74,10 @@
             } else {
                 this.transitionName = 'page-xqzs-left'
             }
-            next()
+            setTimeout(function () {
+                next()
+            },40)
+
         }
     }
 </script>
@@ -95,8 +98,6 @@
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .3s;
-        animation-delay:.04s;
-        -webkit-animation-delay:.04s; /* Safari 和 Chrome */
 
     }
 
