@@ -322,7 +322,7 @@
 
         padding: 51px 0 10px 0;
         background: #ffffff;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
     .highcharts-series-group {
