@@ -345,7 +345,8 @@
     }
 
     .friends_mood {
-        margin-bottom: 1px;
+        margin-bottom: 0px;
+        border-bottom: 1px solid #eee;
         background: #ffffff;
         padding: 10px 12px;
 

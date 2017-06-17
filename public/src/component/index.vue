@@ -588,7 +588,7 @@
         font-size: 15px;
         line-height: 72px;
         color: #000000;
-        margin-left: 55px;
+        margin-left: 59px;
     }
 
     .list_right {
@@ -602,7 +602,7 @@
         line-height: 72px;
     }
     .list_right span.noRecord{
-        margin-right: 15px;
+        margin-right:24px
     }
 
     .moodimg {
@@ -678,8 +678,9 @@
         background: #393939;
         border-radius: 5px;
         margin: 0 auto;
-        -webkit-tap-highlight-color: rgba(0,0,0,.2);
+
     }
+    .notice:active{ background: #1f1f1f}
     .notice_friend{
         height:32px;
         width: 32px;

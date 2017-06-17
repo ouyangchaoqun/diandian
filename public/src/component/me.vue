@@ -70,7 +70,7 @@
 	}
 	.me_top{
 		background:#f4f4f8;
-		padding: 15px 0;
+		padding: 12px 0;
 	}
 	.me1_left{
 		height:60px;
@@ -135,7 +135,7 @@
 	.me_lists:active{ background: #ECECEC}
 	.me_list{
 		height:58px;
-		border-bottom:1px solid #e5e5e5;
+		border-bottom:1px solid #eee;
 		line-height: 58px;
 		padding-left: 41px;
 	}

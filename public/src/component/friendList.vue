@@ -114,9 +114,17 @@
         background: #ffffff;
     }
 
+
+    .friendsCount_box:before{border-top:none}
     .friendsCount_box {
         margin-top: 0px;
         overflow: inherit;
+    }
+    .friendsCount_box  .weui-cell{
+        padding: 9px 15px;
+    }
+    .friendsCount_box  .weui-cell:before{
+        border-top: 1px solid #eee!important;
     }
 
     .specialCare img {
@@ -138,21 +146,21 @@
         line-height: 25px;
         padding-left: 15px;
         color: #666666;
-        font-size: 14px;
+        font: 12px/25px "arial";
         background: #f4f4f8;
 
     }
 
     .img_frinedsCount {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
         display: block;
         border-radius: 5px;
     }
 
     .name_friendsCount {
         color: #333333;
-        font-size: 14px;
+        font-size: 15px;
         margin-left: 13px;
     }
 
@@ -186,7 +194,7 @@
         padding: 0 !important;
         display: inherit;;
         background: none;
-        font-size: 13px;
+        font-size: 14px;
         color: #5d5d5d
     }
 

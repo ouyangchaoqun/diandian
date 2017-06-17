@@ -3,7 +3,7 @@
         <div v-title>完善资料</div>
         <div class="list0">
             <span>昵称</span>
-            <input type="text" class="nickName" onfocus="this.value=''"  v-bind:value="user.nickName | shortName(7)" placeholder="填写昵称">
+            <input type="text" class="nickName" :value="user.nickName " placeholder="填写昵称">
             <div class="line"></div>
         </div>
 
@@ -22,7 +22,7 @@
         </router-link>
         <div class="list0">
             <span>姓名</span>
-            <input type="text" class="realName" v-bind:value="user.realName | shortName(7)" onfocus="this.value=''" placeholder="还未填写（如张三）">
+            <input type="text" class="realName" :value="user.realName "  placeholder="还未填写（如张三）">
             <div class="line"></div>
         </div>
         <div class="list0 list02" @click="showDate()">

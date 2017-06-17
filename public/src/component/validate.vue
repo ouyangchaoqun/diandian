@@ -221,7 +221,7 @@
 
     #_phonebtn {
         width: 36%;
-        height: 44px;
+        height: 46px;
         font-size: 12px;
         float: right;
         padding: 0;

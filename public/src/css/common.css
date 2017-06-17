@@ -7,7 +7,7 @@ html { /*375*/
 }
 @media only screen and ( min-width:300px ) and (max-width: 321px) {
     html {
-        font-size:14.5px !important
+        font-size:13.5px !important
     }
 }
 
@@ -20,7 +20,7 @@ html { /*375*/
 
 @media only screen and (min-width:414px) and ( max-width: 481px) {
     html {
-        font-size: 21px !important
+        font-size: 19.56px !important
     }
 }
 @media only screen and (min-width:481px) and ( max-width: 561px) {
@@ -413,8 +413,8 @@ li{list-style: none}
     position: relative;
     padding-left: 30px;
     padding-bottom: 4px;
-    overflow: auto;
     padding-right: 12px;
+    height: auto !important;
 
 }
 
@@ -455,11 +455,13 @@ li{list-style: none}
     color: #333;
 }
 
-.show_bottom_text div {
+.show_bottom_text .reply_content {
     font-size: 13px;
     color: #333333;
     line-height: 20px;
-    height:20px;
+   min-height:8px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .show_bottom_text .pname {

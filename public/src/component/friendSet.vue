@@ -1,8 +1,8 @@
 <template id="friendSet">
-    <div>
+    <div class="friendSet">
         <div v-title>好友设置</div>
         <div class="friendSetList1">
-            <img class="friendSetImg" :src="user.faceUrl" alt="">
+            <img class="friendSetImg" :src="user.faceUrl" alt="" @click ="bigFace()">
             <div class="friendnickname">
                 <div class="nickname" v-if="user.memoName&&user.memoName!=''">{{user.memoName | shortName(12) }}</div>
                 <div class="nickname" v-if="!user.memoName||user.memoName==''">{{user.nickName | shortName(12) }}</div>
@@ -89,7 +89,13 @@
             }
         },
         methods: {
-
+            bigFace:function () {
+                var _this= this;
+                wx.previewImage({
+                    current: _this.user.faceUrl, // 当前显示图片的http链接
+                    urls: [_this.user.faceUrl] // 需要预览的图片http链接列表
+                });
+            },
             special:function ($event) {
                 let _this = this;
 //                console.log($event.target.checked);
@@ -140,11 +146,14 @@
     //module.exports=remind
 </script>
 <style>
+    .friendSet .weui-cells{ margin-top: 15px;}
+    .friendSet .weui-cell{  font-size: 15px;}
+
     .friendSetList1 {
         height: 60px;
         padding: 10px 15px;
         background: #ffffff;
-        margin-top: 15px;
+        margin-top: 12px;
     }
 
     .friendSetImg {
@@ -156,18 +165,19 @@
 
     .friendnickname {
         float: left;
-        margin-left: 15px;
-        padding-top: 5px;
+        margin-left: 13px;
+        padding-top: 6px;
     }
 
-    .nickname {
-        font-size: 15px;
+    .friendSet .nickname {
+        font-size: 16px;
         color: #333333;
-        margin-bottom: 5px;
+        line-height: 18px;
+        margin-bottom: 8px;
     }
 
     .Remarks {
-        font-size: 12px;
+        font-size: 14px;
         color: #868686;
     }
 
@@ -180,7 +190,7 @@
         display: block;
         padding: 0 15px;
         position: relative;
-        margin-top: 17px;
+        margin-top: 15px;
     }
 
     .setList img {
@@ -194,7 +204,8 @@
     }
 
     .setListLast {
-        margin-top: 1px;
+        margin-top: 0px;
+        border-top:1px solid #eee;
     }
 
     .setFlag {
