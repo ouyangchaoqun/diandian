@@ -147,6 +147,10 @@
 </script>
 <style>
     .friendSet .weui-cells{ margin-top: 15px;}
+    .friendSet .weui-cells:before{ border-top: 1px solid #EEEEEE;-webkit-transform: scaleY(1);
+        transform: scaleY(1);}
+    .friendSet .weui-cells:after{ border-bottom: 1px solid #EEEEEE ;-webkit-transform: scaleY(1);
+        transform: scaleY(1);}
     .friendSet .weui-cell{  font-size: 15px;}
 
     .friendSetList1 {
@@ -208,7 +212,6 @@
 
     .setListLast {
         margin-top: 0px;
-        border-top:1px solid #eee;
     }
 
     .setFlag {

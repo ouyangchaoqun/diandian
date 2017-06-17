@@ -5,7 +5,7 @@
             <div class="weui-cells friendsCount_box specialCare_box" v-if="friend_s.length">
                 <div class="friendsCount_cell specialCare"><img src="../images/mafriend_icom_special.png" alt="">特别关心
                 </div>
-                <a :href="user.friendLink" class="weui-cell weui-cell_access" v-for="user in  friend_s">
+                <a :href="user.friendLink" class="weui-cell weui-cell_access" v-for="(user,index) in  friend_s" :key="index" :class="{left_zero:(index==0)}">
                     <div class="weui-cell__hd">
                         <img class="img_frinedsCount" :src="wxFaceUrl(user.faceUrl)" alt="">
                     </div>
@@ -23,7 +23,7 @@
                          v-if="index>0&& friend_g[index-1].firstCn[0]!=friend_g[index].firstCn[0]">
                         {{friend_g[index].firstCn[0]}}
                     </div>
-                    <a :href="user.friendLink" class="weui-cell weui-cell_access">
+                    <a :href="user.friendLink" class="weui-cell weui-cell_access" :class="{left_zero:(index==0)||(index>0&& friend_g[index-1].firstCn[0]!=friend_g[index].firstCn[0])}">
                         <div class="weui-cell__hd">
                             <img class="img_frinedsCount" :src="wxFaceUrl(user.faceUrl)" alt="">
                         </div>
@@ -42,7 +42,7 @@
             </div>
             <div class="bottom-card">
                 <div class="plr15 m-30">
-                    <div class="weui-btn weui-btn_primary" id="mack_card_all" @click="createinvite()">生成邀请卡</div>
+                    <div class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</div>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="bottom-card">
                     <div class="plr15 m-30">
-                        <div class="weui-btn weui-btn_primary" id="mack_card_all" @click="createinvite()">生成邀请卡
+                        <div class="weui-btn weui-btn_primary" @click="createinvite()">生成邀请卡
                         </div>
                     </div>
                 </div>
@@ -68,6 +68,8 @@
     </div>
 </template>
 <style>
+
+    .left_zero:before{ left:0 !important}
     .noFriends_box {
         height: 100%;
         position: relative;
@@ -125,6 +127,14 @@
     }
     .friendsCount_box  .weui-cell:before{
         border-top: 1px solid #eee!important;
+         -webkit-transform: scaleY(1);
+         transform: scaleY(1);
+    }
+
+    .friendsCount_box.weui-cells:after{
+        border-bottom: 1px solid #eee;
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
     }
 
     .specialCare img {
@@ -143,13 +153,15 @@
     }
 
     .friendsCount_cell {
-        line-height: 25px;
         padding-left: 15px;
         color: #666666;
         font: 12px/25px "arial";
         background: #f4f4f8;
+        border-top:1px solid #eee;
 
     }
+    .specialCare_box.weui-cells:after{ border-bottom: none}
+
 
     .img_frinedsCount {
         width: 38px;
@@ -200,7 +212,7 @@
 
     .bottom-card {
         background: #ffffff;
-        padding: 7px 0 59px 0;
+        padding: 7px 0 30px 0;
         padding-left: 15px;
         padding-right: 15px
     }
