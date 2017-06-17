@@ -154,6 +154,7 @@
         padding: 10px 15px;
         background: #ffffff;
         margin-top: 12px;
+        position: relative;
     }
 
     .friendSetImg {
@@ -192,7 +193,9 @@
         position: relative;
         margin-top: 15px;
     }
-
+    .setList:before,.setList:after,.friendSetList1:before,.friendSetList1:after{ width: 100%; content: " ";   background:#eee; display: block; height: 1px; overflow: hidden; position: absolute; top:0; left: 0; }
+    .setList:after,.friendSetList1:after{ top:inherit; bottom: 0 }
+    .setListLast:before{ display: none}
     .setList img {
         position: absolute;
         height: 20px;

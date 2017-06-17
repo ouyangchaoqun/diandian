@@ -267,7 +267,7 @@
         height: 44px;
         border: 1px solid #d2d2d2;
         border-radius: 5px;
-        margin-bottom: 44px;
+        margin-bottom: 30px;
         padding-left: 15px;
         position: relative;
     }

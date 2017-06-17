@@ -31,7 +31,7 @@
 		</router-link>
 		<router-link to="/me/remind" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1 remind" src="../images/listimg3.png"/>
+				<img class="listimg1 remindImgIcon" src="../images/listimg3.png"/>
 				<div class="listtext">心情记录提醒设置</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
@@ -148,7 +148,7 @@
 		left: 16.5px;
 	}
 	.listimg1.record { margin-top: -11px}
-	.listimg1.remind{ width: 20px;margin-top:-11px;}
+	.listimg1.remindImgIcon{ width: 20px;margin-top:-11px;}
 	.listimg20{
 		width:20px;
 		display: block;

@@ -57,7 +57,7 @@
         top:0;
         height:100%;
         width:100%;
-        background: rgba(0,0,0,0.8);
+        background: rgba(0,0,0,0.6);
     }
     .scene_top{
         margin-top: 1.082rem;

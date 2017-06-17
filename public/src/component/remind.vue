@@ -78,8 +78,8 @@
     }
 
     .me_bottom {
-        width: 90%;
-        margin-top: 34px;
+        margin: 0 15px;
+        margin-top: 30px;
     }
 </style>
 <script type="text/javascript">

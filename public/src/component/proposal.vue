@@ -46,8 +46,8 @@
         font-size: 13px;
     }
     .feedback_btn{
-        padding:0 20px;
-        margin-top:34px;
+        padding:0 15px;
+        margin-top:30px;
     }
 </style>
 <script type="text/javascript">

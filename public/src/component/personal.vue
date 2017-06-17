@@ -1,31 +1,31 @@
 <template id="personal">
     <div class="personal_box">
         <div v-title>完善资料</div>
-        <div class="list0">
+        <div class="list0 list_top">
             <span>昵称</span>
             <input type="text" class="nickName" :value="user.nickName " placeholder="填写昵称">
             <div class="line"></div>
         </div>
 
-        <div class="list0 list02 active_tab" @click="updateHeadpic()">
+        <div class="list0 list02 active_tab list_bottom" @click="updateHeadpic()">
             <span>更新头像</span>
 
                 <img src="../images/me_jt.png" alt="">
 
         </div>
         <router-link to="/me/personal/validate" >
-            <div class="list0 list02 active_tab">
+            <div class="list0 list02 active_tab list_bottom list_top">
                 <img src="../images/me_jt.png" alt="">
                 <span>绑定手机号</span><span class="mobile">{{user.mobile}}</span>
 
             </div>
         </router-link>
-        <div class="list0">
+        <div class="list0 list_top">
             <span>姓名</span>
             <input type="text" class="realName" :value="user.realName "  placeholder="还未填写（如张三）">
             <div class="line"></div>
         </div>
-        <div class="list0 list02" @click="showDate()">
+        <div class="list0 list02 list_bottom" @click="showDate()">
             <span>生日</span>
             <div class="showdL" v-if="birthday">
                 <span>{{year}}年 </span>
@@ -37,7 +37,7 @@
             </div>
 
         </div>
-        <div class="list0 box"  id="localCity" @click="areaPicker()">
+        <div class="list0 box list_top"  id="localCity" @click="areaPicker()">
             <span>所在地区</span>
             <div class="showdL area">
                 <span>中国</span>
@@ -49,7 +49,7 @@
             <div style="clear: both"></div>
             <div class="line"></div>
         </div>
-        <div class="list0">
+        <div class="list0 list_bottom">
             <span>详细地址</span>
             <input type="text" class="address" v-model:value="user.address"  placeholder="还未填写">
         </div>
@@ -236,10 +236,14 @@
 
 }
 .list0:first-child{margin-top: 12px;}
-.list0{
+
+    .list_top:before,.list_bottom:after{ width: 100%; content: " ";   background:#eee; display: block; height: 1px; overflow: hidden; position: absolute; top:0; left: 0; }
+    .list_bottom:after{ bottom: 0; top:inherit}
+
+    .list0{
     background:#fff;
-    height:52px;
-    line-height:52px;
+    height: 44px;
+    line-height: 44px;
     padding:0 15px;
     position: relative;
 }
@@ -247,7 +251,7 @@
     margin: 0;
 }
 .list02{
-    margin-bottom: 12px;
+    margin-bottom:15px
 }
 .list0 span{
     float: left;
@@ -264,7 +268,7 @@
     float: right;
     font-size: 14px;
     color:#999999;
-    height: 52px;
+    height: 44px;
     text-align: right;
     border:0;
     outline: none;
@@ -275,7 +279,7 @@
 .list0 input:-moz-placeholder{
     color: #999;
 }
-.list0 input::-moz-placeholder,{
+.list0 input::-moz-placeholder{
     color: #999;
 }
 .list0 input:-ms-input-placeholder{
@@ -316,8 +320,8 @@ right: 15px;
 #localCity{
     line-height:inherit;
     height: auto;
-    padding-top:18px;
-    padding-bottom: 11px;
+    padding-top: 9px;
+    padding-bottom: 9px;
 }
 
 #localCity span{

@@ -165,8 +165,8 @@
     }
 
     .friendCount {
-        height: 56px;
-        line-height: 56px !important;
+        height: 74px;
+        line-height: 74px !important;
         text-align: center;
         color: #898989;
         font-size: 16px;
@@ -175,7 +175,7 @@
 
     .bgw {
         background: #fff;
-        padding-bottom: 25px;
+        padding-bottom: 23px;
     }
 
     .btn-gray {

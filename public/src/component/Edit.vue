@@ -719,9 +719,7 @@
         line-height: 49px;
         padding:0;
     }
-    .weui-mask{
-        background: rgba(0,0,0,0.4);
-    }
+
     .upload-images{float: left}
     .upload-images .item-image img,.upload-images .item,.item-up-btn{width: 65px;height: 65px;}
     .upload-images .item,.item-up-btn{float: left}
