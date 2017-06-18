@@ -34,6 +34,7 @@
             </a>
 
         </div>
+        <div class="weui-tab__panel">
         <div class="banner">
             <v-banner></v-banner>
         </div>
@@ -157,6 +158,7 @@
             <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
         <!--friendcenter end-->
+        </div>
 
         <div class="addMoodBg"></div>
 
@@ -486,7 +488,6 @@
     }
 
     #tabs {
-        position: fixed;
         z-index:10000;
         background: #fff;
         height: 47px;
@@ -654,14 +655,13 @@
         line-height: 36px;
         height: 36px;
         font-size: 14px;
-        margin: 30px 15px 60px 15px;
+        margin: 30px 15px 30px 15px;
         color: #696969;
         display: block;
         border: 1px solid rgba(0, 0, 0, 0.2);
         background: #FFFFFF;
         border-radius: 5px;
         text-align: center;
-        margin-bottom: 78px;
 
     }
     .share:active{

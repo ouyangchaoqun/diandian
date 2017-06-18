@@ -74,10 +74,8 @@
             } else {
                 this.transitionName = 'page-xqzs-left'
             }
-            setTimeout(function () {
-                next()
-            },540)
 
+            next()
         }
     }
 </script>
@@ -98,6 +96,8 @@
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .3s;
+        animation-delay: 0.1s;
+        -webkit-animation-delay: 0.1s;
 
     }
 
