@@ -20,7 +20,7 @@
                 user:{},
                 friendMoodsSpe:[],
                 friendMoods:[],
-                myLastMood:{}
+                myLastMood:null
             }
         },
         created:function () {
