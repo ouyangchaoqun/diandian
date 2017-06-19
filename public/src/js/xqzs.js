@@ -351,6 +351,16 @@ var xqzs = {
         setMoodValueStyle: function (mood) {
             mood.moodValueStyle = mood.moodValue < 5 ? 'unhappy_txt_color' : 'happy_txt_color';
         },
+        formatContent: function (item) {
+            var before=  "[ 在"+item.scense.text+"方面 ]";
+            var before2=  "在"+item.scense.text+"方面：";
+            if(item.content!=''&&item.content!=null&&item.content!=undefined){
+                return before2 + xqzs.face.parse(item.content);
+            }else{
+                return before;
+            }
+
+        },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";

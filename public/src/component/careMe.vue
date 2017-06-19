@@ -188,7 +188,7 @@
 					if (data.data.data) {
 						_this.myLastMood = eval(data.data.data);
 						_this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-						_this.detailUrl="./careMe/careDetail?moodId="+_this.myLastMood.id;
+						_this.detailUrl="/moodDetail?moodId="+_this.myLastMood.id;
 						_this.getMoodCareList();
 					}
 				}, function (error) {

@@ -157,7 +157,7 @@
 				pageStart: 0, // 开始页数
 				pageEnd: 0, // 结束页数
 				isNew:1,
-				detailUrl:"/notice/noticeDetail?moodId="
+				detailUrl:"/moodDetail?moodId="
 
 			}
 		},

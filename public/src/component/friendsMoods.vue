@@ -59,7 +59,7 @@
                                     <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName | shortName(7)}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
-                            <div v-if="downdata.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
+                            <div v-if="item.replies.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
                         </div>
                     </div>
                 </div>

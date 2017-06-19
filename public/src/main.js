@@ -14,9 +14,10 @@ let routers =
                 require('./routes/calendar'),
                 require('./routes/me'),
                 require('./routes/notice'),
-                require('./routes/noticeDetail'),
+                /*require('./routes/noticeDetail'),*/
+                require('./routes/moodDetail'),
                 require('./routes/careMe'),
-                require('./routes/careDetail'),
+               /* require('./routes/careDetail'),*/
                 require('./routes/myIndex'),
                 require('./routes/edit'),
                 require('./routes/personal'),

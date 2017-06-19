@@ -310,9 +310,9 @@ li{list-style: none}
 }
 
 .moodTime {
+    height: 17px;
     font-size: 12px;
     color: #999;
-   line-height: 16px;
     position: relative;
 
 }

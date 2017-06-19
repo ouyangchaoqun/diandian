@@ -83,8 +83,6 @@
                                          src="../images/list_baob_pre.png" alt=""/>
                                     <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount<=0"
                                          src="../images/list_baob_nor.png" alt=""/>
-
-
                                 </router-link>
                             </div>
                         </template>
