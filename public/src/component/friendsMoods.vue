@@ -47,13 +47,19 @@
 
                         <div class="commont_box" v-if="item.replies.length>0">
                             <div class="arrow"></div>
-                            <div class="friend_commont" v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel">
+                            <div class="friend_commont"  v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel&&replyIndex<3">
                                 <a href="javascript:;">
                                     <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
                                         <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName | shortName(7)}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
-
+                            <div class="friend_commont"  v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel&&replyIndex>2&&item.showAll">
+                                <a href="javascript:;">
+                                <span class="name" v-if="reply.tomoodreplyid==0||reply.tomoodreplyid==null">
+                                    <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName | shortName(7)}}</template>：</span></template><span class="commont">{{reply.content}}</span>
+                                </a>
+                            </div>
+                            <div v-if="downdata.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +87,8 @@
                 pageEnd: 0, // 结束页数
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
-                user:{}
+                user:{},
+                showAll:false
             }
         },
         filters:{
@@ -90,6 +97,17 @@
             }
         },
         methods: {
+            showOther(ix){
+
+                this.downdata[ix].showAll = !this.downdata[ix].showAll;
+                console.log(this.downdata[ix].showAll)
+
+
+                this.downdata[ix].showordown=  this.downdata[ix].showAll?"收起":"查看全部";
+                this.$set(this.downdata,ix ,this.downdata[ix]);
+                console.log(this.downdata);
+
+            },
             getList(){
                 let vm = this;
                 vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
@@ -322,7 +340,11 @@
 
 </script>
 <style>
-
+.showOthercom{
+    font-size: 13px;
+    color: #666699;
+    margin-top: 10px;
+}
 
     .friend_header {
         border-bottom: 1px solid #eee;

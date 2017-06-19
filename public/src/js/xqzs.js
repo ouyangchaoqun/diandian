@@ -371,6 +371,11 @@ var xqzs = {
 
                 }
 
+
+                data[i].showAll=false;
+                data[i].showordown="查看全部";
+                console.log(111111)
+
                 data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
 
 

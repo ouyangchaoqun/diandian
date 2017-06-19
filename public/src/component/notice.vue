@@ -95,7 +95,7 @@
 		float: left;
 		margin-left:10px;
 		width: 12rem;
-
+		padding-top: 2px;
 	}
 	.notice_div div{
 		font-size: 13px;
