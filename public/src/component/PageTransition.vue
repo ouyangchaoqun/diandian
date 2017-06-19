@@ -26,9 +26,10 @@
 
             });
         },
+
         beforeRouteUpdate (to, from, next) {
             var _this = this;
-
+            console.log("beforeRouteUpdate")
 
             if (_this.isFunny === true) {
                 _this.isFunny = false;
@@ -60,7 +61,7 @@
             if (!isBack)
                 this.pagesIn.push({to: to.fullPath, from: from.fullPath})
 
-
+            console.log("bearbear");
 //
             console.log(from.fullPath);
             //是否为点开心情页面；
@@ -96,8 +97,6 @@
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .3s;
-        animation-delay: 0.1s;
-        -webkit-animation-delay: 0.1s;
 
     }
 
@@ -147,6 +146,10 @@
 
     @keyframes fold-in {
         0% {
+            transform: translate3d(100%, 0, 0);
+            -webkit-transform: translate3d(100%, 0, 0);
+        }
+        10% {
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
         }
