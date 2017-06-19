@@ -3,7 +3,7 @@
         <div v-title>完善资料</div>
         <div class="list0 list_top">
             <span>昵称</span>
-            <input type="text" class="nickName" :value="user.nickName " placeholder="填写昵称">
+            <input type="text" class="nickName" :value="user.nickName " placeholder="填写昵称" maxlength="8">
             <div class="line"></div>
         </div>
 

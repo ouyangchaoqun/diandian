@@ -52,7 +52,7 @@
 		</router-link>
 		<router-link to="/me/problem" class="me_lists">
 			<div class="me_list">
-				<img class="listimg1 listimgPro" src="../images/aboutMe.jpg"/>
+				<img class="listimg1 listimgPro" src="../images/aboutMe.png"/>
 				<div class="listtext ">关于我们</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>

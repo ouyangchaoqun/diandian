@@ -656,10 +656,10 @@
     }
 
     .share {
-        line-height: 36px;
-        height: 36px;
+        line-height: 40px;
+        height: 40px;
         font-size: 14px;
-        margin: 30px 15px 30px 15px;
+        margin: 25px 15px 30px 15px;
         color: #696969;
         display: block;
         border: 1px solid rgba(0, 0, 0, 0.2);

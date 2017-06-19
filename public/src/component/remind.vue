@@ -6,7 +6,6 @@
             <input type="checkbox"  v-model="isRemind"    @change="change($event)"
                    class="weui-switch switchFlag">
 
-            <div></div>
         </div>
         <div class="remind remind2" @click="showTime()">
             <span>时间设定</span>
@@ -28,36 +27,26 @@
     }
 
     .remind {
-        height: 50px;
+        height: 54px;
         padding-left: 15px;
         background: #fff;
-        line-height: 50px;
+        line-height: 54px;
     }
 
     .remind1 {
         margin-top: 12px;
-        border-top: 1px solid #e5e5e5;
-        position: relative;
+        border-bottom: 1px solid #f4f4f4;
         overflow: hidden;
     }
 
-    .remind1 div {
-        width: 100%;
-        height: 1px;
-        background: #e5e5e5;
-        position: absolute;
-        bottom: 0;
-    }
-
     .remind2 {
-        border-bottom: 1px solid #e5e5e5;
-        padding-right: 12px;
+        border-bottom: 1px solid #f4f4f4;
     }
 
     .switchFlag {
         float: right;
-        margin-top: 10px;
-        margin-right: 12px;
+        margin-top: 11px;
+        margin-right: 15px;
     }
 
     .remind span {
@@ -71,12 +60,8 @@
 
     .remind div {
         float: right;
+        margin-right:15px;
     }
-
-    .remind div span {
-        margin-right: 4px;
-    }
-
     .me_bottom {
         margin: 0 15px;
         margin-top: 30px;

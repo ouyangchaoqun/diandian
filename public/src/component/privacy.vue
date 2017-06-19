@@ -1,26 +1,35 @@
 <template id="privacy">
     <div class="privacy_box">
         <div v-title>隐私设置</div>
-        <div class="privacy privacyTop">
+        <div class="privacyList">
+            <div class="privacy privacyTop">
                 <span>不看好友的心情记录</span>
                 <input type="checkbox" class="weui-switch privacyInput"  v-model="isNotLookFriend"    @change="lookFriend($event)" >
-            <div></div>
+
+            </div>
+            <div class="privacy privacyBottom">
+                <span>不让好友看我的心情记录</span>
+                <input type="checkbox" class="weui-switch privacyInput"   v-model="isNotLookMe"     @change="lookMe($event)">
+            </div>
         </div>
-        <div class="privacy privacyBottom">
-            <span>不让好友看我的心情记录</span>
-            <input type="checkbox" class="weui-switch privacyInput"   v-model="isNotLookMe"     @change="lookMe($event)">
-        </div>
+
     </div>
 </template>
 <style>
+    .privacyList{
+        margin-top: 12px;
+        background: #fff;
+        border-top: 1px solid #f4f4f4;
+        border-bottom: 1px solid #f4f4f4;
+    }
     .privacy_box{
         background: #f4f4f8;
     }
     .privacy {
-        height: 50px;
+        height: 52px;
         background: #fff;
-        padding-left:15px;
-        line-height: 50px;
+        margin-left:15px;
+        line-height: 52px;
         position: relative;
     }
     .privacy div{
@@ -36,16 +45,12 @@
     }
     .privacyInput{
         float: right;
-        margin-top:10px;
-        margin-right: 12px;
+        margin-top:11px;
+        margin-right: 15px;
     }
     .privacyTop{
-        border-top: 1px solid #e5e5e5;
-        overflow: hidden;
-        margin-top: 12px;
-    }
-    .privacyBottom{
-        border-bottom: 1px solid #e5e5e5;
+
+        border-bottom: 1px solid #f4f4f4;
     }
 </style>
 <script  >

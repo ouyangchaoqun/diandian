@@ -36,14 +36,14 @@
         outline: none;
         border:0;
         resize: none;
-        font-size:15px;
+        font-size:16px;
         color:#333333;
     }
     .feedback span{
         position:absolute;
         right:20px;
         bottom:10px;
-        font-size: 13px;
+        font-size: 14px;
     }
     .feedback_btn{
         padding:0 15px;
