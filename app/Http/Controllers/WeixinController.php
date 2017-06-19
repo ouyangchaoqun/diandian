@@ -20,6 +20,8 @@ class WeixinController extends Controller
         $backurl = $request->input('reurl');
         if (empty($backurl)) {
             $backurl = 'index';
+        }else{
+            $backurl = urldecode(urldecode($backurl));
         }
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri=" . urlencode($callback)
             . "&response_type=code&scope=snsapi_base&state={$backurl}#wechat_redirect";
