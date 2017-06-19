@@ -19,8 +19,8 @@
     .privacyList{
         margin-top: 12px;
         background: #fff;
-        border-top: 1px solid #f4f4f4;
-        border-bottom: 1px solid #f4f4f4;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
     }
     .privacy_box{
         background: #f4f4f8;
@@ -50,7 +50,7 @@
     }
     .privacyTop{
 
-        border-bottom: 1px solid #f4f4f4;
+        border-bottom: 1px solid #eee;
     }
 </style>
 <script  >

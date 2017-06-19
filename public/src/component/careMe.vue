@@ -44,7 +44,7 @@
     }
 	.careMe_list{
 		height:60px;
-		border-bottom: 1px solid #f5f5f5;
+		border-bottom: 1px solid #eee;
 		padding:10px 15px;
         display: block;
 	}

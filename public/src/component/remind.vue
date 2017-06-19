@@ -35,12 +35,12 @@
 
     .remind1 {
         margin-top: 12px;
-        border-bottom: 1px solid #f4f4f4;
+        border-bottom: 1px solid #eee;
         overflow: hidden;
     }
 
     .remind2 {
-        border-bottom: 1px solid #f4f4f4;
+        border-bottom: 1px solid #eee;
     }
 
     .switchFlag {
