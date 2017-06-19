@@ -201,8 +201,12 @@
     export default {
         data() {
             return {
-                user: {},
                 hasNewPerfect:false
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         mounted: function () {

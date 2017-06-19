@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%">
         <transition :name="transitionName">
-            <router-view class="child-view"></router-view>
+            <router-view class="child-view"  keep-alive :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
         </transition>
     </div>
 </template>
@@ -11,20 +11,96 @@
     import Bus from './bus.js';
 
     export default {
+
         data () {
             return {
                 transitionName: 'page-xqzs-left',
                 pagesIn: [],
-                isFunny: false
-
+                isFunny: false,
+                user:{},
+                friendMoodsSpe:[],
+                friendMoods:[],
+                myLastMood:{}
             }
         },
+        created:function () {
+            console.log("create");
+            var _this = this;
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user = eval(data.data.data);
+
+                    if(_this.user.isLookFriend!==0){
+                        //用户 朋友当天心情 特别关系
+                        _this.$http({
+                            method: 'GET',
+                            type: "json",
+                            url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/1/1',
+                        }).then(function (data) {//es5写法
+                            if (data.data.status === 1 && data.data.data !== null) {
+                                _this.friendMoodsSpe = eval(data.data.data);
+                                _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
+                            }
+                        }, function (error) {
+                            //error
+                        });
+
+                        //用户 朋友当天心情 普通
+                        _this.$http({
+                            method: 'GET',
+                            type: "json",
+                            url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/0/1',
+                        }).then(function (data) {//es5写法
+                            if (data.data.status === 1 && data.data.data !== null) {
+                                _this.friendMoods = eval(data.data.data);
+                                _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
+
+                            }
+                        }, function (error) {
+                            //error
+                        });
+                    }
+                    ///用户心情
+                    _this.$http({
+                        method: 'GET',
+                        type: "json",
+                        url: web.API_PATH + 'mood/find/userlast/_userId_',
+                    }).then(function (data) {//es5写法
+                        if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
+                            _this.myLastMood = eval(data.data.data);
+                            _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
+                            _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
+                            _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
+                            console.log(_this.myLastMood);
+                        }
+                    }, function (error) {
+                        //error
+                    });
+
+
+
+                }
+            }, function (error) {
+                //error
+            });
+
+
+
+        },
         mounted: function () {
+            console.log("mounted")
             var _this = this;
             Bus.$on("setFunny", function (v) {
                 _this.isFunny = v;
 
             });
+        },
+        methods: {
+
         },
 
         beforeRouteUpdate (to, from, next) {
