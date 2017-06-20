@@ -293,7 +293,10 @@
                             _this.hasFriend = false
                         }
                         _this.$nextTick(function () {
-                            $(".friendList_box").scrollTop( xqzs.localdb.get("friendsScrollTop") );
+                            setTimeout(function () {
+                                $(".friendList_box").scrollTop( xqzs.localdb.get("friendsScrollTop") );
+                            },100)
+
                         })
 
 

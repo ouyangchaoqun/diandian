@@ -414,7 +414,9 @@
                 //error
             });
 
-            $(".weui-tab__panel").scrollTop(   xqzs.localdb.get("indexScrollTop"));
+           setTimeout(function () {
+               $(".weui-tab__panel").scrollTop(   xqzs.localdb.get("indexScrollTop"));
+           },100)
 
         },
 
