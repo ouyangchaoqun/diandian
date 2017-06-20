@@ -1,7 +1,9 @@
 <template>
-    <div style="height: 100%" class="transitionBox" :class="transitionName">
+    <div style="height: 100%" class="transitionBox">
         <transition :name="transitionName">
             <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
+            <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
+
         </transition>
     </div>
 </template>
@@ -148,7 +150,9 @@
 
             } else if (isBack) {
                 this.transitionName = 'page-xqzs-right'
+                $(".transitionBox").addClass("page-xqzs-right");
             } else {
+                $(".transitionBox").removeClass("page-xqzs-right");
                 this.transitionName = 'page-xqzs-left'
             }
 
@@ -169,14 +173,10 @@
         -webkit-overflow-scrolling: touch
     }
     .transitionBox{ position: relative}
-    .transitionBox .child-view:first-child{ z-index: 1}
-    .transitionBox .child-view:last-child{ z-index: 10001}
+    .transitionBox .child-view:nth-child(1){ z-index: 10001}
+    .transitionBox .child-view:nth-child(2){ z-index: 1}
 
-    .transitionBox.page-xqzs-right .child-view:first-child{ z-index: 10001}
-    .transitionBox.page-xqzs-right .child-view:last-child{ z-index: 1}
-
-
-    .page-xqzs-left-enter-active {
+     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: .38s;
 
@@ -191,13 +191,11 @@
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
         animation-duration: .25s;
-
     }
 
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
         animation-duration: .25s;
-
 
     }
 
@@ -231,14 +229,16 @@
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
         }
-        10% {
+        15% {
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
+            z-index: 10001;
         }
 
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
+            z-index: 10001;
         }
     }
 
@@ -247,10 +247,15 @@
             transform: translate3d(0%, 0, 0);
             -webkit-transform: translate3d(0%, 0, 0);
         }
-
+        15% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            z-index: 1;
+        }
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
+            z-index: 1;
         }
     }
 
