@@ -209,60 +209,50 @@
 
     @keyframes fold-right-in {
         0% {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
+          left:0
 
         }
 
         100% {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
+            left:0
         }
     }
 
     @keyframes fold-right-out {
         0% {
-            transform: translate3d(0%, 0, 0);
-            -webkit-transform: translate3d(0%, 0, 0);
+            left:0;
         }
 
         100% {
-            transform: translate3d(100%, 0, 0);
-            -webkit-transform: translate3d(100%, 0, 0);
+            left:100%
         }
     }
 
     @keyframes fold-in {
         0% {
-            transform: translate3d(100%, 0, 0);
-            -webkit-transform: translate3d(100%, 0, 0);
+            left:100%
         }
         15% {
-            transform: translate3d(100%, 0, 0);
-            -webkit-transform: translate3d(100%, 0, 0);
+            left:100%;
             z-index: 2;
         }
 
         100% {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
+            left:0;
             z-index: 2;
         }
     }
 
     @keyframes fold-out {
         0% {
-            transform: translate3d(0%, 0, 0);
-            -webkit-transform: translate3d(0%, 0, 0);
+            left:0
         }
         15% {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
+            left:0;
             z-index: 1;
         }
         100% {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
+            left:0;
             z-index: 1;
         }
     }
