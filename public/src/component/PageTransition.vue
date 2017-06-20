@@ -152,7 +152,7 @@
                 this.transitionName = 'page-xqzs-left'
             }
 
-            next()
+//            next()
         }
     }
 </script>
@@ -168,7 +168,7 @@
         overflow-y: scroll !important;
         -webkit-overflow-scrolling: touch
     }
-
+    .transitionBox{ position: relative}
     .transitionBox .child-view:first-child{ z-index: 1}
     .transitionBox .child-view:last-child{ z-index: 10001}
 
