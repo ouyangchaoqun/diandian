@@ -1,7 +1,7 @@
 <template>
     <div style="height: 100%">
         <transition :name="transitionName">
-            <router-view class="child-view"  keep-alive :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
+            <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
         </transition>
     </div>
 </template>
@@ -172,13 +172,13 @@
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: .38s;
+        animation-duration: 22.38s;
 
     }
 
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: .38s;
+        animation-duration: 22.38s;
 
     }
 
