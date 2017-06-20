@@ -129,7 +129,6 @@
 
     import chart from "./chart.vue"
     import banner from "./banner.vue"
-    import scroll from './lib/scroll.vue';
     var myIndex = {
         template: '#myIndex'
     };
@@ -449,6 +448,7 @@
         }
     }
 
+    import scroll from './lib/scroll.vue';
 
 </script>
 <style>

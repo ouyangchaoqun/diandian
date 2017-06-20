@@ -106,7 +106,7 @@
          "v-swiper_box":swiper_box
          },*/
         created: function () {
-
+            $(".calendar_box").click()
         },
         methods: {
             setNowDate: function () {

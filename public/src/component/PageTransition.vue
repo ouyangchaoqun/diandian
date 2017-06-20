@@ -172,13 +172,13 @@
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: 22.38s;
+        animation-duration: 8.38s;
 
     }
 
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: 22.38s;
+        animation-duration: 8.38s;
 
     }
 
