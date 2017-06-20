@@ -1,4 +1,4 @@
-<template id="friendIndex">
+<template id="friendCenter">
     <div class="myIndex_box friendIndex_box">
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">

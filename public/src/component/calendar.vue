@@ -96,7 +96,9 @@
             }
         },
 
-        mounted: function () {                                            //轮播配置
+        mounted: function () {
+            this.setNowDate();
+            //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
         },
@@ -104,7 +106,7 @@
          "v-swiper_box":swiper_box
          },*/
         created: function () {
-            this.setNowDate();
+
         },
         methods: {
             setNowDate: function () {
