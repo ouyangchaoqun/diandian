@@ -86,8 +86,9 @@
 		height:60px;
 		display: block;
 		position: relative;
-		-webkit-tap-highlight-color: rgba(0,0,0,.2);
 	}
+	.me1:active{
+		background: #ECECEC;}
 	.me1_right{
 		position: absolute;
 		left:88px;

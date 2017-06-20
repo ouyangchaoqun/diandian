@@ -497,8 +497,8 @@
         position: relative;
     }
 
-    .dateView a{
-        -webkit-tap-highlight-color: rgba(0,0,0,.2);
+    .dateView a:active{
+        background: #ECECEC;
     }
 
     .dateView img {

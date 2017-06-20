@@ -365,8 +365,11 @@
         color: #666666;
         display: block;
     }
+    .friend_header a:active{
+        background: rgba(0, 0, 0, 0.2);
+    }
 
-    .friends_mood {
+.friends_mood {
         margin-bottom: 0px;
         border-bottom: 1px solid #eee;
         background: #ffffff;
