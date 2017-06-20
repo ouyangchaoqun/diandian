@@ -172,25 +172,25 @@
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: .3s;
+        animation-duration: .38s;
 
     }
 
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: .3s;
+        animation-duration: .38s;
 
     }
 
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
-        animation-duration: .2s;
+        animation-duration: .25s;
         z-index: 99
     }
 
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
-        animation-duration: .2s;
+        animation-duration: .25s;
         z-index: 100;
 
     }
@@ -225,7 +225,7 @@
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
         }
-        10% {
+        40% {
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
         }
