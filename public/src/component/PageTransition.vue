@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 100%">
+    <div style="height: 100%" class="transitionBox" :class="transitionName">
         <transition :name="transitionName">
             <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
         </transition>
@@ -169,35 +169,35 @@
         -webkit-overflow-scrolling: touch
     }
 
+    .transitionBox .child-view:first-child{ z-index: 1}
+    .transitionBox .child-view:last-child{ z-index: 10001}
+
+    .transitionBox.page-xqzs-right .child-view:first-child{ z-index: 10001}
+    .transitionBox.page-xqzs-right .child-view:last-child{ z-index: 1}
+
 
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: 8.38s;
-        z-index: 10001;
+        animation-duration: .38s;
+
 
     }
-    .page-xqzs-left-enter{
-        z-index: 10001;
-    }
-
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: 8.38s;
-        z-index: 10000;
+        animation-duration: .38s;
+
     }
-    .page-xqzs-left-leave{
-        z-index: 10000;
-    }
+
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
         animation-duration: .25s;
-        z-index: 99
+
     }
 
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
         animation-duration: .25s;
-        z-index: 100;
+
 
     }
 
