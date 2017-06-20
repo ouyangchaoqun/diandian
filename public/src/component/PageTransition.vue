@@ -152,7 +152,7 @@
                 this.transitionName = 'page-xqzs-left'
             }
 
-//            next()
+            next()
         }
     }
 </script>
