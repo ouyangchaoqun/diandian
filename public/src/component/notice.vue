@@ -181,22 +181,22 @@
 					for(let i=0;i<_this.newNotices.length;i++){
 						_this.newNotices[i].addtime=xqzs.dateTime.formatTime( _this.newNotices[i].addtime);
 					}
-					console.log(_this.newNotices);
+//					console.log(_this.newNotices);
 				}else{
-					console.log(_this.$route.query.time);
+//					console.log(_this.$route.query.time);
 					_this.$http({
 						method: 'GET',
 						type: "json",
 						url: web.API_PATH + 'notice/find/notices/_userId_/'+_this.$route.query.time,
 					}).then(function (data) {
-						console.log(data.data.data.rows);
+//						console.log(data.data.data.rows);
 						_this.newNotices=data.data.data.rows;
 						if (_this.newNotices.length>0) {
 							_this.newNotices = xqzs.mood.initMoodsData(_this.newNotices);
 							for(let i=0;i<_this.newNotices.length;i++){
 								_this.newNotices[i].addtime=xqzs.dateTime.formatTime( _this.newNotices[i].addtime);
 							}
-							console.log(_this.newNotices);
+//							console.log(_this.newNotices);
 						}
 					}, function (error) {
 						//error
@@ -232,8 +232,25 @@
 					arr = xqzs.mood.initMoodsData(arr);
 
 					for(let i=0;i<arr.length;i++){
+
+                        let isPut=true;
                         arr[i].addtime=xqzs.dateTime.formatTime( arr[i].addtime);
-                        vm.newNotices.push( arr[i]);
+                        if(vm.pageNo<=2){
+                            for(let j=0;j<vm.newNotices.length;j++){
+                                if(arr[i].id==vm.newNotices[j].id){
+                                    isPut=false;
+                                    break;
+								}
+							}
+
+							if(isPut){ vm.newNotices.push( arr[i]);}
+
+
+
+						}else{
+                            vm.newNotices.push( arr[i]);
+						}
+
 					}
 					if (arr.length === 0) {
 						vm.isNew=2;
