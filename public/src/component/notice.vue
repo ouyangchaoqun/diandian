@@ -14,8 +14,8 @@
 				</div>
 				<div class="notice_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
 					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture" class="picContent">
-					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
-						{{newNotice.moodcontent}}
+					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null " v-html="formatContent(newNotice.moodcontent)">
+
 					</div>
 					<img v-else  :src="newNotice.moodValueUrl" class="picMood" />
 				</div>
@@ -218,7 +218,12 @@
 			});
 		},
 		methods:{
+            formatContent: function (item) {
 
+                    return   xqzs.face.parse(item);
+
+
+            },
 
 			checkMore:function(){
 				let vm = this;

@@ -13,8 +13,8 @@
 				</div>
 				<div class="careMe_content">
 					<img class="moodpic" v-if="myLastMood.pics" :src="myLastMood.pics[0].path">
-					<div v-else-if="myLastMood.content">
-						{{myLastMood.content}}
+					<div v-else-if="myLastMood.content" v-html="formatContent(myLastMood.content)">
+
 					</div>
 					<img v-else  :src="myLastMood.moodValueUrl"  />
 				</div>
@@ -177,6 +177,12 @@
             }
         },
 		methods:{
+            formatContent: function (item) {
+
+                return   xqzs.face.parse(item);
+
+
+            },
 			getMoodDetail:function(){
 				let _this=this;
 				_this.$http({
