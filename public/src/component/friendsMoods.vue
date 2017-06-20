@@ -435,7 +435,7 @@
         width:14px;
         vertical-align: middle;
         margin-top: 3px !important;
-        margin-bottom: 2px
+        margin-bottom: 4px
     }
     .time_right .frined_zan ,.time_right .frined_com{
         vertical-align: middle;
