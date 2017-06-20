@@ -767,6 +767,9 @@
         display: block;
         overflow: hidden;
     }
+    .edit_loc:active{
+        background: #ECECEC;
+    }
     .edit_loc img{
         float: left;
         display: block;
@@ -904,6 +907,9 @@
     }
     .locList .loc_checked{
         display: block;
+    }
+    .locList:active{
+        background: #ECECEC;
     }
     .noShow{
         font-size: 14px;
