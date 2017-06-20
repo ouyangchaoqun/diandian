@@ -88,9 +88,13 @@
                 pageEnd: 0, // 结束页数
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
-                user:{},
                 showAll:false,
                 showLoad:false
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         filters:{
@@ -112,9 +116,9 @@
             },
             getList(){
                 let vm = this;
-
                 //显示loding
                 this.showLoad = true;
+
                 vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
                     var maxid = 0;
@@ -323,19 +327,7 @@
         },
         created: function () {
             let _this = this;
-
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-            }).then(function (data) {//es5写法
-                if (data.data.data !== null) {
-                    _this.user = eval(data.data.data);
-                }
-                _this.getList();
-            }, function (error) {
-                //error
-            });
+            _this.getList();
 
         },
         components: {

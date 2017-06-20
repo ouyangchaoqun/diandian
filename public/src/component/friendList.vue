@@ -237,52 +237,22 @@
                 friend_s: [],
                 friend_g: [],
                 friendCount: 0,
-                hasFriend: null
+                hasFriend: null,
+                scrollTop:0
             }
         },
         mounted: function () {
             let _this = this;
-
-            //用户信息
-            this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_').then(function (data) {
-
-                if (data.body.data !== null&&data.body.data !== undefined) {
-                    console.log(data.body.data)
-                    let generalFriends = data.body.data.generalFriends;
-                    _this.friend_s = data.body.data.specialFriends;
-                    for (let i = 0; i < _this.friend_s.length; i++) {
-                        _this.friend_s[i].firstCn ='';
-                        _this.friend_s[i].friendLink = "/#/friendCenter/?friendId=" + _this.friend_s[i].id;
-                    }
-
-
-                    console.log(generalFriends)
-
-                    let arrayGeneal = [];
-                    for (let key in generalFriends) {
-                        for (let i = 0; i < generalFriends[key].length; i++) {
-                            let friend = generalFriends[key][i];
-                            friend.firstCn = key;
-                            friend.friendLink = "/#/friendCenter/?friendId=" + friend.id;
-                            arrayGeneal.push(friend)
-                        }
-                    }
-                    _this.friend_g = arrayGeneal;
-
-
-                    _this.friendCount = _this.friend_g.length + _this.friend_s.length;
-
-                    if (_this.friendCount > 0) {
-                        _this.hasFriend = true
-                    } else {
-                        _this.hasFriend = false
-                    }
-
-
-                }
-
-            }, function (error) {
+            $(".friendList_box").scroll(function () {
+                _this.scrollTop =$(this).scrollTop()
             });
+            _this.getFriends();
+
+        },
+        activated:function () {
+            $(".friendList_box").scrollTop(this.scrollTop );
+            let _this = this;
+            _this.getFriends();
 
         },
         filters:{
@@ -291,6 +261,48 @@
             }
         },
         methods: {
+            getFriends:function () {
+                let _this = this;
+                this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_').then(function (data) {
+
+                    if (data.body.data !== null&&data.body.data !== undefined) {
+                        console.log(data.body.data)
+                        let generalFriends = data.body.data.generalFriends;
+                        _this.friend_s = data.body.data.specialFriends;
+                        for (let i = 0; i < _this.friend_s.length; i++) {
+                            _this.friend_s[i].firstCn ='';
+                            _this.friend_s[i].friendLink = "/#/friendCenter/?friendId=" + _this.friend_s[i].id;
+                        }
+
+
+                        console.log(generalFriends)
+
+                        let arrayGeneal = [];
+                        for (let key in generalFriends) {
+                            for (let i = 0; i < generalFriends[key].length; i++) {
+                                let friend = generalFriends[key][i];
+                                friend.firstCn = key;
+                                friend.friendLink = "/#/friendCenter/?friendId=" + friend.id;
+                                arrayGeneal.push(friend)
+                            }
+                        }
+                        _this.friend_g = arrayGeneal;
+
+
+                        _this.friendCount = _this.friend_g.length + _this.friend_s.length;
+
+                        if (_this.friendCount > 0) {
+                            _this.hasFriend = true
+                        } else {
+                            _this.hasFriend = false
+                        }
+
+
+                    }
+
+                }, function (error) {
+                });
+            },
             _createinvite:function (type,callback) {
                 this.$http({
                     method: 'GET',

@@ -138,7 +138,6 @@
         data() {
             return {
                 showLoad:false,
-                user: {},
                 counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
                 num: 10,  // 一次显示多少条
                 pageStart: 0, // 开始页数
@@ -154,6 +153,11 @@
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
 
                 ]
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         filters: {
@@ -410,22 +414,7 @@
             if(scrollFromEdit==1){
                 $(".innnn").stop().animate({"scrollTop": 290},800)
             }
-
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-            }).then(function (data) {//es5写法
-                if (data.data.data !== null) {
-                    _this.user = eval(data.data.data);
-                    this.getList();
-                }
-                console.log(_this.user);
-            }, function (error) {
-                //error
-            });
-
-
+            this.getList();
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
                     if (data.data.status === 1) {

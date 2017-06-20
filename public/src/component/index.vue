@@ -1,5 +1,5 @@
 <template id="myCenter">
-    <div style="height: 100%">
+    <div style="height: 100%" >
 
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
@@ -34,7 +34,7 @@
             </a>
 
         </div>
-        <div class="weui-tab__panel">
+        <div class="weui-tab__panel" >
         <div class="banner">
             <v-banner></v-banner>
         </div>
@@ -164,7 +164,8 @@
 </template>
 
 <script type="es6">
-    import banner from "./banner.vue"
+    import banner from "./banner.vue";
+    import Bus from './bus.js';
     let myCenter = {
         template: '#myCenter'
     };
@@ -189,6 +190,7 @@
                 calendarOn:false,
                 friendsOn:false,
                 meOn:false,
+                scrollTop:0
 
 
             }
@@ -214,6 +216,7 @@
             }
         },
         methods: {
+
 
             record:function () {
                var  _this=this;
@@ -372,12 +375,15 @@
         },
 
         mounted: function () {
+
             let _this =this;
-            _this.getFriendLastMood();
-            _this.getNewPerfect();
+
+            $(".weui-tab__panel").scroll(function () {
+                _this.scrollTop =$(this).scrollTop()
+            });
+
 
             _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
-            //用户信息
 
             _this.getMoodCount(function (moodcount) {
                 if (moodcount < 10) {
@@ -391,6 +397,14 @@
                 }
             });
 
+
+        },
+        activated:function () {
+            let _this =this;
+
+            Bus.$emit('initHomeData');
+            _this.getFriendLastMood();
+            _this.getNewPerfect();
             _this.$http({
                 method: 'GET',
                 type: "json",
@@ -403,6 +417,8 @@
             }, function (error) {
                 //error
             });
+            $(".weui-tab__panel").scrollTop(_this.scrollTop );
+
         },
         components: {
            "v-banner": banner

@@ -213,18 +213,8 @@
         mounted: function () {
             let _this = this;
 			_this.getNewPerfect();
+			console.log(_this.user)
 
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-            }).then(function (data) {//es5写法
-                if (data.data.data !== null) {
-                    _this.user = eval(data.data.data);
-                }
-            }, function (error) {
-                //error
-            });
         },
 		filters:{
 			shortName:function(value,len){
