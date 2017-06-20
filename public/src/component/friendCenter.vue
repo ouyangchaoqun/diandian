@@ -47,67 +47,67 @@
 
             }
         },
-        beforeCreate: function () {
-            let _this = this;
-            let friendId = _this.$route.query.friendId;
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/' + friendId
-            }).then(function (data) {//es5写法
 
-                if (data.body.data) {
-                    console.log(data.body.data)
-                    _this.friend = (data.body.data);
-                    _this.nickName = _this.friend.nickName
-                    _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + friendId
-                }
-            }, function (error) {
-                //error
-            });
-
-            _this.$http.get(web.API_PATH + "user/is/look/friend/_userId_/" + friendId)
-                .then(function (bt) {
-                    console.log(bt)
-                    if (bt && bt.body.status == 1) {
-                        _this.isLookFriend = bt.body.data == 1 ? true : false;
-
-                    }
-                })
-
-
-        },
         methods: {
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
-            }
-        },
-        mounted: function () {
-            let _this = this;
-
-
-            _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + _this.$route.query.friendId)
-                .then(function (data) {
-                        if (data.data.status === 1) {
-                            for (let i = 0; i < data.data.data.length; i++) {
-                                let week = {days: [], moods: []};
-                                for (let j = 0; j < data.data.data[i].length; j++) {
-                                    week.days.push(data.data.data[i][j].day);
-                                    week.moods.push(data.data.data[i][j].value);
+            },
+            initData: function () {
+                let _this = this;
+                _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + _this.$route.query.friendId)
+                    .then(function (data) {
+                            if (data.data.status === 1) {
+                                for (let i = 0; i < data.data.data.length; i++) {
+                                    let week = {days: [], moods: []};
+                                    for (let j = 0; j < data.data.data[i].length; j++) {
+                                        week.days.push(data.data.data[i][j].day);
+                                        week.moods.push(data.data.data[i][j].value);
+                                    }
+                                    _this.$set(_this.chartData, i, week)
                                 }
 
-                                _this.$set(_this.chartData, i, week)
 
-
+                                console.log(_this.chartData)
                             }
-
-
-                            console.log(_this.chartData)
                         }
+                        , function (error) {
+                            //error
+                        });
+
+                let friendId = _this.$route.query.friendId;
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/' + friendId
+                }).then(function (data) {//es5写法
+
+                    if (data.body.data) {
+                        console.log(data.body.data)
+                        _this.friend = (data.body.data);
+                        _this.nickName = _this.friend.nickName
+                        _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + friendId
                     }
-                    , function (error) {
-                        //error
-                    });
+                }, function (error) {
+                    //error
+                });
+
+                _this.$http.get(web.API_PATH + "user/is/look/friend/_userId_/" + friendId)
+                    .then(function (bt) {
+                        console.log(bt)
+                        if (bt && bt.body.status == 1) {
+                            _this.isLookFriend = bt.body.data == 1 ? true : false;
+
+                        }
+                    })
+
+
+            },
+        },
+        mounted: function () {
+            console.log("activated")
+            let _this = this;
+            _this.initData();
+
 
 
         },

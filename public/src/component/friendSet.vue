@@ -57,7 +57,7 @@
 
 
         mounted: function () {
-            let _this = this;
+             let _this = this;
             let friendId = this.$route.query.friendId;
             console.log(friendId);
             //用户信息

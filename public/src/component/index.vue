@@ -379,7 +379,7 @@
             let _this =this;
 
             $(".weui-tab__panel").scroll(function () {
-                _this.scrollTop =$(this).scrollTop()
+                xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
             });
 
 
@@ -398,10 +398,6 @@
             });
 
 
-        },
-        activated:function () {
-            let _this =this;
-
             Bus.$emit('initHomeData');
             _this.getFriendLastMood();
             _this.getNewPerfect();
@@ -417,9 +413,11 @@
             }, function (error) {
                 //error
             });
-            $(".weui-tab__panel").scrollTop(_this.scrollTop );
+
+            $(".weui-tab__panel").scrollTop(   xqzs.localdb.get("indexScrollTop"));
 
         },
+
         components: {
            "v-banner": banner
         }

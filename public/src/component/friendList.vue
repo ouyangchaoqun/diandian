@@ -244,17 +244,13 @@
         mounted: function () {
             let _this = this;
             $(".friendList_box").scroll(function () {
-                _this.scrollTop =$(this).scrollTop()
+                xqzs.localdb.set("friendsScrollTop",$(this).scrollTop())
             });
             _this.getFriends();
 
-        },
-        activated:function () {
-            $(".friendList_box").scrollTop(this.scrollTop );
-            let _this = this;
-            _this.getFriends();
 
         },
+
         filters:{
             shortName:function(value,len){
                 return xqzs.shortname(value,len);
@@ -296,6 +292,9 @@
                         } else {
                             _this.hasFriend = false
                         }
+                        _this.$nextTick(function () {
+                            $(".friendList_box").scrollTop( xqzs.localdb.get("friendsScrollTop") );
+                        })
 
 
                     }

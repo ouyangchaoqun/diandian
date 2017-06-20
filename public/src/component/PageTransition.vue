@@ -1,9 +1,12 @@
 <template>
     <div style="height: 100%" class="transitionBox">
+
         <transition :name="transitionName">
-            <keep-alive>
-            <router-view class="child-view"   :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
-            </keep-alive>
+
+
+                <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
+
+
         </transition>
     </div>
 </template>
