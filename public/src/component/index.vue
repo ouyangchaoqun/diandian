@@ -173,9 +173,6 @@
         data() {
             return {
                 myLastMood:null,
-                user: {},
-                friendMoodsSpe: null,
-                friendMoods: null,
                 notice:{count:0},
                 linkTo:"#",
                 noticeLink:'/notice',
@@ -203,7 +200,19 @@
 
            }
         },
-
+        props:{
+            user:{
+                type:Object
+            },friendMoodsSpe: {
+                type:Object
+            },
+            friendMoods: {
+                type:Object
+            },
+            myLastMood:{
+                type:Object
+            }
+        },
         methods: {
 
             record:function () {
@@ -361,115 +370,39 @@
                     && this.friendMoods!=null && this.friendMoods.length > 0 ;
             }
         },
-        beforeRouteEnter (to, from, next) {
-            console.log("beforeRouteEnter:index");
-            next(_this => {
 
-                _this.getFriendLastMood();
-                _this.getNewPerfect();
-
-                _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
-                //用户信息
-                _this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-                }).then(function (data) {//es5写法
-                    if (data.data.data !== null) {
-
-                        _this.user = eval(data.data.data);
-                        console.log(_this.user);
-
-                        //
-                        _this.getMoodCount(function (moodcount) {
-                            if (moodcount < 10) {
-                                _this.linkTo = "/addMood";
-                            } else {
-                                if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
-                                    _this.linkTo = "/me/personal/validate";
-                                } else {
-                                    _this.linkTo = "/addMood";
-                                }
-                            }
-                        });
-
-                    }
-                }, function (error) {
-                    //error
-                });
-
-                _this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'notice/find/new/_userId_',
-                }).then(function (data) {
-                    if (data.data.data !== null) {
-                        _this.notice = eval(data.data.data);
-                        console.log(_this.notice);
-                    }
-                }, function (error) {
-                    //error
-                });
-
-
-                if(_this.user.isLookFriend!==0){
-                    //用户 朋友当天心情 特别关系
-                    _this.$http({
-                        method: 'GET',
-                        type: "json",
-                        url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/1/1',
-                    }).then(function (data) {//es5写法
-                        if (data.data.status === 1 && data.data.data !== null) {
-                            _this.friendMoodsSpe = eval(data.data.data);
-                            _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
-
-
-
-                        }
-                    }, function (error) {
-                        //error
-                    });
-
-                    //用户 朋友当天心情 普通
-                    _this.$http({
-                        method: 'GET',
-                        type: "json",
-                        url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/0/1',
-                    }).then(function (data) {//es5写法
-                        if (data.data.status === 1 && data.data.data !== null) {
-                            _this.friendMoods = eval(data.data.data);
-                            _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
-
-                        }
-                    }, function (error) {
-                        //error
-                    });
-                }
-
-
-
-
-                ///用户心情
-                _this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'mood/find/userlast/_userId_',
-                }).then(function (data) {//es5写法
-                    if (data.data.status === 1 && data.data.status === 1 && data.data.data !== null) {
-                        _this.myLastMood = eval(data.data.data);
-                        _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
-                        _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
-                        _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
-                        console.log(_this.myLastMood);
-                    }
-                }, function (error) {
-                    //error
-                });
-                console.log('组件路由勾子beforeRouteEnter的next')
-            })
-        },
         mounted: function () {
+            let _this =this;
+            _this.getFriendLastMood();
+            _this.getNewPerfect();
 
+            _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
+            //用户信息
+
+            _this.getMoodCount(function (moodcount) {
+                if (moodcount < 10) {
+                    _this.linkTo = "/addMood";
+                } else {
+                    if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                        _this.linkTo = "/me/personal/validate";
+                    } else {
+                        _this.linkTo = "/addMood";
+                    }
+                }
+            });
+
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'notice/find/new/_userId_',
+            }).then(function (data) {
+                if (data.data.data !== null) {
+                    _this.notice = eval(data.data.data);
+                    console.log(_this.notice);
+                }
+            }, function (error) {
+                //error
+            });
         },
         components: {
            "v-banner": banner

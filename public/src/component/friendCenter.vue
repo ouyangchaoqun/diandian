@@ -5,7 +5,7 @@
             <v-banner></v-banner>
             <router-link :to="friendSetLink" class="headBox">
                 <div class="userHeaderImg">
-                    <img :src="friend.faceUrl" alt="">
+                    <img alt="" :src="wxFaceUrl(friend.faceUrl)">
                 </div>
             </router-link>
         </div>
@@ -77,7 +77,11 @@
 
 
         },
-        methods: {},
+        methods: {
+            wxFaceUrl:function (faceUrl) {
+                return xqzs.mood.wxface(faceUrl);
+            }
+        },
         mounted: function () {
             let _this = this;
 
