@@ -292,12 +292,12 @@
                         } else {
                             _this.hasFriend = false
                         }
-                        _this.$nextTick(function () {
-                            setTimeout(function () {
-                                $(".friendList_box").scrollTop( xqzs.localdb.get("friendsScrollTop") );
-                            },100)
-
-                        })
+//                        _this.$nextTick(function () {
+//                            setTimeout(function () {
+//                                $(".friendList_box").scrollTop( xqzs.localdb.get("friendsScrollTop") );
+//                            },100)
+//
+//                        })
 
 
                     }
