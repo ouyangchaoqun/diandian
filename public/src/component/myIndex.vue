@@ -1,6 +1,7 @@
 <template id="myIndex">
 
     <div style="position: relative">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>我的主页</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn">
             <div class="myIndex_box">
@@ -129,12 +130,14 @@
 
     import chart from "./chart.vue"
     import banner from "./banner.vue"
+    import showLoad from "./showLoad.vue"
     var myIndex = {
         template: '#myIndex'
     };
     export default {
         data() {
             return {
+                showLoad:false,
                 user: {},
                 counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
                 num: 10,  // 一次显示多少条
@@ -341,15 +344,21 @@
 
             getList(){
                 let vm = this;
+                //显示loding
+                this.showLoad = true;
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
+                        //消失loding
+                        this.showLoad = false;
                     })
                 }, (response) => {
                     console.log('error');
+                    //消失loding
+                    this.showLoad = false;
                 });
             },
             onRefresh(done) {
@@ -441,7 +450,7 @@
                 });
         },
         components: {
-            'v-scroll': scroll, "v-chart": chart, "v-banner": banner
+            'v-scroll': scroll, "v-chart": chart, "v-banner": banner,'v-showLoad':showLoad
         },
         beforeDestroy: function () {
             xqzs.weui.removeWhenPageChange()

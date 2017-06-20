@@ -1,6 +1,7 @@
 <template id="friends">
 
     <div style="position: relative">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>匿名心情</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
             <div class="friends_box">
@@ -74,7 +75,7 @@
 
 <script type="text/javascript">
     import scroll from './lib/scroll.vue';
-
+    import showLoad from './showLoad.vue';
     let friends = {
         template: '#friends'
     };
@@ -88,7 +89,8 @@
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
                 user:{},
-                showAll:false
+                showAll:false,
+                showLoad:false
             }
         },
         filters:{
@@ -110,6 +112,9 @@
             },
             getList(){
                 let vm = this;
+
+                //显示loding
+                this.showLoad = true;
                 vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
                     var maxid = 0;
@@ -123,8 +128,12 @@
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     })
+                    //消失loding
+                   this.showLoad = false;
                 }, (response) => {
                     console.log('error');
+                    //消失loding
+                   this.showLoad = false;
                 });
             },
             onRefresh(done) {
@@ -330,7 +339,8 @@
 
         },
         components: {
-            'v-scroll': scroll
+            'v-scroll': scroll,
+            'v-showLoad':showLoad
         },
         beforeDestroy: function () {
             xqzs.weui.removeWhenPageChange()
