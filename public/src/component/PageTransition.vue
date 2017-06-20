@@ -173,15 +173,21 @@
     .page-xqzs-left-enter-active {
         animation-name: fold-in;
         animation-duration: 8.38s;
+        z-index: 10001;
 
+    }
+    .page-xqzs-left-enter{
+        z-index: 10001;
     }
 
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
         animation-duration: 8.38s;
-
+        z-index: 10000;
     }
-
+    .page-xqzs-left-leave{
+        z-index: 10000;
+    }
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
         animation-duration: .25s;
