@@ -225,7 +225,7 @@
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
         }
-        40% {
+        10% {
             transform: translate3d(100%, 0, 0);
             -webkit-transform: translate3d(100%, 0, 0);
         }
