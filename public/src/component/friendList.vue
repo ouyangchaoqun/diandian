@@ -202,12 +202,14 @@
     }
 
     .btn-gray a {
-        -webkit-tap-highlight-color: rgba(0, 0, 0, .2) !important;
         padding: 0 !important;
         display: inherit;;
         background: none;
         font-size: 14px;
         color: #5d5d5d
+    }
+    .btn-gray a:active{
+        background:rgba(0, 0, 0, .2);
     }
 
     .bottom-card {
