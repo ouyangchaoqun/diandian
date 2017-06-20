@@ -276,13 +276,14 @@
         animation-name: fold-up-in;
         animation-duration: .3s;
         background: none !important;
+        z-index: 10001!important;
 
     }
 
     .page-xqzs-up-leave-active {
         animation-name: fold-up-out;
         animation-duration: .5s;
-
+        z-index: 1!important;
     }
 
     .page-xqzs-down-enter-active {
