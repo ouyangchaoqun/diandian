@@ -44,6 +44,9 @@
     </div>
 </template>
 <style>
+    .addMood,.mood_box{
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
     .grids_box{
         margin:0 15px;
     }
@@ -60,6 +63,7 @@
         width:100%;
         background: rgba(0,0,0,0.6);
         z-index:2;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
     .moodBox{
         position: absolute;
