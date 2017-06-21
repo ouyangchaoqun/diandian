@@ -4,8 +4,9 @@
         <div class="banner">
             <v-banner></v-banner>
         </div>
-
         <div class="moodBox_bg" @click="goIndex()">
+        </div>
+
             <div class="mood_box">
                 <div class="mood_left">
                     <div class="moodBox_header">此刻心情</div>
@@ -39,7 +40,7 @@
 
 
             </div>
-        </div>
+
     </div>
 </template>
 <style>
@@ -58,6 +59,14 @@
         height:100%;
         width:100%;
         background: rgba(0,0,0,0.6);
+        z-index:2;
+    }
+    .moodBox{
+        position: absolute;
+        top:0;
+        height:100%;
+        width:100%;
+        z-index: 3;
     }
     .scene_top{
         margin-top: 1.082rem;
@@ -97,6 +106,7 @@
         padding-top: 23px;
         padding-bottom: 25px;
         overflow: hidden;
+        z-index: 3;
     }
     .scene_box{
         width:100%;
