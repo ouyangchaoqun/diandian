@@ -82,6 +82,7 @@
             }, function (error) {
                 //error
             });
+            xqzs.wx.setConfig(_this);
         },
         filters:{
             shortName:function(value,len){

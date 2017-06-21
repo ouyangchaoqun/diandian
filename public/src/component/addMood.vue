@@ -184,7 +184,7 @@
         },
         mounted: function () {
 
-
+            xqzs.wx.setConfig(this);
 
             var w =$(window).width() ;
 

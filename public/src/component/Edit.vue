@@ -628,6 +628,7 @@
                 }
             });
             //positionList  end
+            xqzs.wx.setConfig(that);
         },
         computed: {
             moodImage: function () {

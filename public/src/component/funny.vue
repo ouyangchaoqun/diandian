@@ -211,6 +211,7 @@
                 });
 
             that.funnyExpWidth = $('.funny_exp').width()*27.8745644/100 - 2;
+            xqzs.wx.setConfig(that);
         }
     }
 </script>

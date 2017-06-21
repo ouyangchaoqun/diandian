@@ -85,7 +85,7 @@
             }, function (error) {
                 //error
             });
-
+            xqzs.wx.setConfig(_this);
 
 
         },

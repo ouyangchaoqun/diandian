@@ -328,6 +328,7 @@
         created: function () {
             let _this = this;
             _this.getList();
+            xqzs.wx.setConfig(_this);
 
         },
         components: {

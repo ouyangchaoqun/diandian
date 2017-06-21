@@ -37,6 +37,7 @@
             }, function (error) {
                 //error
             });
+            xqzs.wx.setConfig(this);
 
         },
         methods: {

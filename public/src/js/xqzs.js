@@ -579,7 +579,23 @@ var xqzs = {
                 current: currentimg, // 当前显示图片的http链接
                 urls: imglist // 需要预览的图片http链接列表
             });
+        },
+   
+        setConfig:function (vm) {
+            vm.$http.get(web.API_PATH+'wei/xin/config').then(response => {
+                 wx.config(response.body);
+                wx.ready(()=>{
+                    wx.hideAllNonBaseMenuItem();
+                    console.log('wx.ready');
+                });
+                wx.error(function(res){
+                    //可以更新签名
+                });
+            }, response => {
+                // error callback
+            });
         }
+   
     },
     oss: {
         Size: {

@@ -214,6 +214,7 @@
             let _this = this;
 			_this.getNewPerfect();
 			console.log(_this.user)
+            xqzs.wx.setConfig(_this);
 
         },
 		filters:{

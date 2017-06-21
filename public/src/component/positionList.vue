@@ -133,6 +133,7 @@
 
             $('.positionList_box').height($('body').height());
             //positionList  end
+            xqzs.wx.setConfig(that);
         }
     }
 </script>

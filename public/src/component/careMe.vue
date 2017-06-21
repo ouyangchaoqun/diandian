@@ -170,6 +170,7 @@
 			let _this = this;
 			///用户心情
 			_this.getMoodDetail();
+            xqzs.wx.setConfig(_this);
 		},
         filters:{
             shortName:function(value,len){

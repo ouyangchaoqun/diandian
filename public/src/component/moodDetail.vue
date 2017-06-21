@@ -148,7 +148,7 @@
                 //error
             });
 
-
+            xqzs.wx.setConfig(_this);
 
         },
         filters:{

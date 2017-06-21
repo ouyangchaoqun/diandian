@@ -377,6 +377,7 @@
         mounted: function () {
 
             let _this =this;
+            xqzs.wx.setConfig(_this);
 
             $(".weui-tab__panel").scroll(function () {
                 xqzs.localdb.set("indexScrollTop",$(this).scrollTop())

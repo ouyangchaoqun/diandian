@@ -81,9 +81,7 @@
             }
         },
         mounted: function () {
-            let _this = this;
-
-
+            xqzs.wx.setConfig(this);
         },
 
 

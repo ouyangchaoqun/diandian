@@ -86,6 +86,9 @@
                     this.feedbackFlag = true
                 }
             }
+        },
+        mounted:function () {
+             xqzs.wx.setConfig(this);
         }
     }
 

@@ -98,7 +98,7 @@
             $('.input_phone').focus(function () {
                 _this.isShowErrorMobileMsg = false;
             });
-
+            xqzs.wx.setConfig(_this);
         },
         methods: {
             submit:function () {

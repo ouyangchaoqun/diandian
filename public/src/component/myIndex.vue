@@ -437,6 +437,7 @@
                 .catch((response) => {
 
                 });
+            xqzs.wx.setConfig(_this);
         },
         components: {
             'v-scroll': scroll, "v-chart": chart, "v-banner": banner,'v-showLoad':showLoad

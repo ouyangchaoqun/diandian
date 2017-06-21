@@ -38,7 +38,11 @@
     var problem={
         template:'#problem'
     }
-    module.exports=problem
+    export default {
+        mounted:function () {
+            xqzs.wx.setConfig(this);
+        }
+    }
 </script>
 
 

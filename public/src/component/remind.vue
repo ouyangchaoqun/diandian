@@ -113,8 +113,7 @@
         },
 
         mounted: function () {
-
-
+            xqzs.wx.setConfig(this);
         },
 
         methods: {

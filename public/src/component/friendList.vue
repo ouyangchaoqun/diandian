@@ -248,7 +248,7 @@
             });
             _this.getFriends();
 
-
+            xqzs.wx.setConfig(_this);
         },
 
         filters:{

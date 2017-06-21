@@ -119,6 +119,7 @@
             $(".tabs a").click(function(e){
                 e.preventDefault();
             });
+            xqzs.wx.setConfig(_this);
         }
 
     }

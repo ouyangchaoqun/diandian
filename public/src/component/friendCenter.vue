@@ -107,9 +107,7 @@
             console.log("activated")
             let _this = this;
             _this.initData();
-
-
-
+            xqzs.wx.setConfig(_this);
         },
 
 
