@@ -420,7 +420,19 @@
 //           },100)
 
         },
+        updated:function () {
+            $(".mycenter>a ,.addBorder>a").on("touchstart",function () {
+                $(this).addClass("active")
+            }).on("touchend",function () {
+                $(this).removeClass("active")
+            }).on("touchmove",function () {
+                $(this).removeClass("active")
+            })
+            $(".interaction").on("touchstart",function () {
+                event.stopPropagation();
+            })
 
+        },
         components: {
            "v-banner": banner
         }
@@ -440,6 +452,7 @@
     .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
     }
+    .active:active{ background: #ECECEC}
 
     #tabs {
         z-index:10000;
@@ -503,7 +516,6 @@
         /*-webkit-tap-highlight-color: rgba(0,0,0,.2);*/
         padding-right: 0;
     }
-    .mycenter a:active{ background: #ECECEC}
 
     .friend {
         margin-left: 59px;
