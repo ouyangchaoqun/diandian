@@ -186,24 +186,24 @@
 
      .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: 22.38s;
+        animation-duration: .38s;
 
 
     }
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: 22.38s;
+        animation-duration: .38s;
 
     }
 
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
-        animation-duration: 22.25s;
+        animation-duration: .25s;
     }
 
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
-        animation-duration: 22.25s;
+        animation-duration: .25s;
 
     }
 
@@ -322,7 +322,7 @@
 
     .page-xqzs-up-enter-active {
         animation-name: fold-up-in;
-        animation-duration: 22.3s;
+        animation-duration: .3s;
         background: none !important;
 
 
@@ -330,20 +330,20 @@
 
     .page-xqzs-up-leave-active {
         animation-name: fold-up-out;
-        animation-duration: 22.5s;
+        animation-duration: .5s;
 
     }
 
     .page-xqzs-down-enter-active {
 
         animation-name: fold-down-in;
-        animation-duration: 22.3s;
+        animation-duration: .3s;
 
     }
 
     .page-xqzs-down-leave-active {
         animation-name: fold-down-out;
-        animation-duration: 22.9s;
+        animation-duration: .5s;
         background: none !important;
 
     }
