@@ -1,6 +1,6 @@
 <template id="myCenter">
     <div style="height: 100%">
-        <!--<v-propaganda></v-propaganda>-->
+        <!--<v-propaganda></v-propaganda>--><!--宣传页-->
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <a   @click="record()" class="weui-tabbar__item  tab">
