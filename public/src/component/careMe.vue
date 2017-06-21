@@ -12,7 +12,7 @@
 					<p>{{careFriend.addTime}}</p>
 				</div>
 				<div class="careMe_content">
-					<img class="moodpic" v-if="myLastMood.pics" :src="myLastMood.pics[0].path">
+					<img class="moodpic" v-if="myLastMood.pics&&myLastMood.pics.length>0" :src="myLastMood.pics[0].path">
 					<div v-else-if="myLastMood.content" v-html="formatContent(myLastMood.content)">
 
 					</div>

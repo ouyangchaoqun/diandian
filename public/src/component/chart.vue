@@ -1,6 +1,6 @@
 <template id="chart">
     <div>
-        <div class="bgs">
+        <div class="bgs" :style="chartStyle">
             <div class="title">心情指数</div>
             <div class="step">
                 <div class="swiper-container swiper-container-h">
@@ -35,7 +35,7 @@
 
     export default {
         data() {
-            return {}
+            return {chartStyle:''}
         },
         props: ['chartData'],
         watch: {
@@ -52,6 +52,10 @@
         },
         updated: function () {
             console.log("chartDataupdate" + this.chartData);
+        },
+        created:function () {
+            let tagetHeight = window.innerHeight * 0.3228;
+            this.chartStyle="height:"+tagetHeight+"px";
         },
         methods: {
 

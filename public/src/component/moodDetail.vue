@@ -15,7 +15,8 @@
                 </template>
                 <div class="moodPhotoLists" v-if="mood.pics">
                     <div class="moodPhotoList" v-for="pic in mood.pics" >
-                        <img :src="pic.path"     @click="showBigImg(mood.pics,pic)">
+                        <img :src="pic.path"  :data-w="pic.width"
+                             :data-h="pic.height" :style="pic.styleObject"   @click="showBigImg(mood.pics,pic)">
                     </div>
                 </div>
                 <div class="moodTime">
@@ -143,6 +144,10 @@
                 }
                 _this.$nextTick(function () {
                     myResizePicture();//渲染完成
+
+
+                     //   myResizePicture($(".friends_mood"),"moodPhotoLists","moodPhotoList");//渲染完成
+
                 });
             }, function (error) {
                 //error
