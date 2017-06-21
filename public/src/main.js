@@ -29,6 +29,8 @@ let routers =
                 require('./routes/friendSet'),
                 require('./routes/setName'),
                 require('./routes/remind'),
+                require('./routes/subscribe'),
+                require('./routes/subscribeList'),
                 require('./routes/privacy'),
                 require('./routes/problem'),
                 require('./routes/proposal'),

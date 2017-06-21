@@ -1,6 +1,6 @@
 <template id="myCenter">
     <div style="height: 100%">
-
+        <!--<v-propaganda></v-propaganda>-->
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <a   @click="record()" class="weui-tabbar__item  tab">
@@ -159,12 +159,12 @@
         </div>
 
         <div class="addMoodBg"></div>
-
     </div>
 </template>
 
 <script type="es6">
     import banner from "./banner.vue"
+    import propaganda from "./propaganda.vue"
     let myCenter = {
         template: '#myCenter'
     };
@@ -403,9 +403,11 @@
             }, function (error) {
                 //error
             });
+
         },
         components: {
-           "v-banner": banner
+           "v-banner": banner,
+            'v-propaganda':propaganda
         }
 
     }
