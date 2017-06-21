@@ -18,6 +18,12 @@
                         <img :src="pic.path"  :data-w="pic.width"
                              :data-h="pic.height" :style="pic.styleObject"   @click="showBigImg(mood.pics,pic)">
                     </div>
+                    <div v-if="mood.funnypics.length > 0" class="moodFunnPicList">
+                        <div class="moodFunnyPic" v-for="gif in mood.funnypics">
+                            <img :src="gif.path" data-type="notresize" :data-w="gif.width"
+                                 :data-h="gif.height"/>
+                        </div>
+                    </div>
                 </div>
                 <div class="moodTime">
                     <span>{{mood.time}}</span>

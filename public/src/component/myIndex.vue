@@ -222,7 +222,9 @@
                         if (response.data.status === 1) {
                             xqzs.weui.toast("success", "提交成功", function () {
                             });
-                            vm.downdata[index].commentList.push(response.data.data.reply);
+                            let reply = response.data.data.reply;
+                            reply.content=vm.emojiContent(reply.content)
+                            vm.downdata[index].commentList.push(reply);
                             vm.$set(vm.downdata, index, vm.downdata[index])
                             console.log(response.data.data.reply)
                         }

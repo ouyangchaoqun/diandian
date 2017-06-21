@@ -269,7 +269,9 @@
                                 response.data.data.reply.to_nickName= "作者";
                             }
                             vm.downdata[index].replycount = response.data.data.mood.replycount;
-                            vm.downdata[index].replies.push(response.data.data.reply);
+                            let reply = response.data.data.reply;
+                            reply.content= xqzs.face.parseEmoji(reply.content);
+                            vm.downdata[index].replies.push(reply);
                             vm.$set(vm.downdata, index, vm.downdata[index])
                          }
 
