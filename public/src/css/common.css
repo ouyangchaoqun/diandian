@@ -48,9 +48,15 @@ html { /*375*/
 
 
 
-
-
-
+*:not(input,textarea){-webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -khtml-user-select:none;
+    user-select:none;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility:hidden;
+}
+input,textarea{  -webkit-appearance:none;}
 
 
 
