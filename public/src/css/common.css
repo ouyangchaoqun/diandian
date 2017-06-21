@@ -113,8 +113,7 @@ input,textarea{  -webkit-appearance:none;}
 .comment_box{
     width: 100%;
     background: #f5f5f5;
-    position: absolute;
-    bottom: -186px;
+    position: fixed;
     left: 0;
     z-index: 10000;
     border-top:1px solid #ccc;
@@ -169,11 +168,11 @@ input,textarea{  -webkit-appearance:none;}
     border-radius: 4px;
 }
 .comment_box.addactive{
-    animation: addheight .2s linear;
+    /*animation: addheight .2s linear;*/
     bottom: 0;
 }
 .comment_box.subactive{
-    animation: subheight .2s linear;
+    /*animation: subheight .2s linear;*/
 }
 @keyframes addheight
 {

@@ -454,7 +454,7 @@ var xqzs = {
             }
             ;
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
-            html += '   <div class="weui-mask cancel active"   ></div>';
+            html += '   <div class="weui-mask cancel"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
             html += '<input contenteditable="true" class="comment_text" placeholder="'+placeholder+'" />';
@@ -463,19 +463,18 @@ var xqzs = {
 
             $("body").append(html);
 
-            var clientHeight = document.body.clientHeight;
-            var _focusElem = null; //输入框焦点
-            //利用捕获事件监听输入框等focus动作
-            document.body.addEventListener("focus", function(e) {
-                _focusElem = e.target || e.srcElement;
-            }, true);
-            //因为存在软键盘显示而屏幕大小还没被改变，所以以窗体（屏幕显示）大小改变为准
-            window.addEventListener("resize", function() {
-                if (_focusElem && document.body.clientHeight < clientHeight) {
-                    //焦点元素滚动到可视范围的底部(false为底部)
-                    _focusElem.scrollIntoView(false);
-                }
+            //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            $(".comment_text").focus(function(){//在这里‘input.inputframe’是我的底部输入栏的输入框，当它获取焦点时触发事件
+                interval = setInterval(function(){//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                },100)
+            }).blur(function(){//设定输入框失去焦点时的事件
+                clearInterval(interval);//清除计时器
+                document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
             });
+
+
 
             $(".comment_text").focus().keyup(function () {
                 var val = $(this).val();
