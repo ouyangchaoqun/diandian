@@ -28,14 +28,14 @@
     web.BASE_PATH="<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IMG_PATH="/dist/";
-//    console.log=function () {
-//        return false;
-//    }
+    console.log=function () {
+        return false;
+    }
 
 </script>
-<script src="/src/js/cookie.js"></script>
-<script src="/src/js/xqzs.js?v=2017061201"></script>
-<script src="/src/js/xqzs.face.js"></script>
-<script src="/dist/build.js"></script>
+<script src="/src/js/cookie.js?v=2017062101"></script>
+<script src="/src/js/xqzs.js?v=2017062101"></script>
+<script src="/src/js/xqzs.face.js?v=2017062101"></script>
+<script src="/dist/build.js?v=2017062101"></script>
 </body>
 </html>
