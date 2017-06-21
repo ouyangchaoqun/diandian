@@ -44,15 +44,16 @@
                     </ul>
                 </div>
                 <div class="swiper-slide">
-                    <!--<ul class="subscribeLists">
-                        <li class="subscribeList">
-                            <img class="timing" src="../images/timing.png" alt="">
-                            <div>
-                                <h3 class="subMarTop">记录时间定时提醒</h3>
-                                <p>每天9:30提醒</p>
-                            </div>
-
-                        </li>
+                    <ul class="subscribeLists">
+                        <router-link to="/me/subscribe/subscribeDetail">
+                            <li class="subscribeList">
+                                <img class="timing" src="../images/timing.png" alt="">
+                                <div>
+                                    <h3 class="subMarTop">记录时间定时提醒</h3>
+                                    <p>每天9:30提醒</p>
+                                </div>
+                            </li>
+                        </router-link>
                         <li class="subscribeList">
                             <img class="timing" src="../images/morning.png" alt="">
                             <div>
@@ -68,8 +69,8 @@
                                 <p>22:30提醒</p>
                             </div>
                         </li>
-                    </ul>-->
-                    <div class="noSubscribe">你暂时还没有任何订阅哦~</div>
+                    </ul>
+                   <!-- <div class="noSubscribe">你暂时还没有任何订阅哦~</div>-->
                 </div>
             </div>
         </div>

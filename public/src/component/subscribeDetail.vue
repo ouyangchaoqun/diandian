@@ -1,4 +1,4 @@
-<template id="subscribeList">
+<template id="subscribeDetail">
     <div class="subscribeList_box">
         <div class="subscribeList_header">
             <img src="../images/subscribanner1.png" alt="">
@@ -22,22 +22,37 @@
             </div>
         </div>
         <div class="subscribeListSet">
-            <button @click="setRemindTime()" v-if="!isSub" class="weui-btn weui-btn_primary">订阅</button>
-            <button v-if="isSub" class="weui-btn weui-btn_primary weui-btn_disabled">已订阅</button>
+            <button class="weui-btn subBtn" @click="show_unsubscribeBox">取消订阅</button>
+        </div>
+        <div v-if="unsubscribe_box">
+            <div class="weui-mask"></div>
+            <div class="weui-actionsheet weui-actionsheet_toggle">
+                <div class="weui-actionsheet__title">
+                    <p class="weui-actionsheet__title-text">确定要取消订阅该内容吗？</p></div>
+                <div class="weui-actionsheet__menu">
+                    <div class="weui-actionsheet__cell unsubscribe" @click="delSubscribe">
+                        取消订阅
+                    </div>
+                </div>
+                <div class="weui-actionsheet__action">
+                    <div class="weui-actionsheet__cell" @click="hide_unsubscribeBox">取消</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <script type="text/javascript">
 
-    var subscribeList={
-        template:'#subscribeList'
+    var subscribeDetail={
+        template:'#subscribeDetail'
     }
     export default {
         data() {
             return {
                 hour: '08',
                 minute: '00',
-                isSub:false
+                isSub:false,
+                unsubscribe_box:false
             }
         },
         methods:{
@@ -96,11 +111,19 @@
                     id: ""
                 }, {emulateJSON: true})
                     .then(function (response) {
-                        xqzs.weui.toast("success", "订阅成功", function () {
-                            _this.$router.go(-1);
+                        xqzs.weui.toast("success", "设置成功", function () {
                         })
                     });
-                _this.isSub = true
+            },
+            show_unsubscribeBox:function () {
+                this.unsubscribe_box = true
+            },
+            hide_unsubscribeBox:function () {
+                this.unsubscribe_box = false
+            },
+            delSubscribe:function () {
+                this.unsubscribe_box = false;
+
             }
         },
         mounted:function () {
@@ -204,6 +227,12 @@
     }
     .weui-picker{
         z-index:10005;
+    }
+    .subBtn{
+        color: #999;
+    }
+    .unsubscribe{
+        color: #ff0000;
     }
 </style>
 

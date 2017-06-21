@@ -4,26 +4,26 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide propagandaPage1">
                     <div class="pagediv page1div">
-                        <h3 class="ani" swiper-animate-effect="bounceInDown" swiper-animate-duration="1.5s">心情指数</h3>
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1.5s">随时记录和分享心情</p>
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1.5s">让每天都能开心快乐一点</p>
+                        <h3>心情指数</h3>
+                        <p>随时记录和分享心情</p>
+                        <p>让每天都能开心快乐一点</p>
                     </div>
                 </div>
                 <div class="swiper-slide propagandaPage2">
                     <div class="pagediv page2div">
-                        <h3 class="ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="1.5s">记录</h3>
-                        <p class="ani" swiper-animate-effect="rollIn" swiper-animate-duration="1.5s">一个表情、一句话、一张图</p>
-                        <p class="ani" swiper-animate-effect="rollIn" swiper-animate-duration="1.5s">记录着你的喜怒哀乐</p>
-                        <p class="ani" swiper-animate-effect="rollIn" swiper-animate-duration="1.5s">建立你的私人心情日历</p>
+                        <h3>记录</h3>
+                        <p>一个表情、一句话、一张图</p>
+                        <p>记录着你的喜怒哀乐</p>
+                        <p>建立你的私人心情日历</p>
                     </div>
                 </div>
                 <div class="swiper-slide propagandaPage3">
                     <div class="pagediv page3div">
-                        <h3 class="ani" swiper-animate-effect="zoomIn" swiper-animate-duration="1.5s">分享</h3>
-                        <p class="ani" swiper-animate-effect="rotateInUpLeft" swiper-animate-duration="1.5s">以匿名的形式分享心情</p>
-                        <p class="ani" swiper-animate-effect="rotateInUpLeft" swiper-animate-duration="1.5s">放下顾虑，放飞自我</p>
-                        <p class="ani" swiper-animate-effect="rotateInUpLeft" swiper-animate-duration="1.5s">洗尽铅华，传递快乐</p>
-                        <div class="page3divModel ani" swiper-animate-effect="bounceInLeft" swiper-animate-duration="2s">
+                        <h3>分享</h3>
+                        <p>以匿名的形式分享心情</p>
+                        <p>放下顾虑，放飞自我</p>
+                        <p>洗尽铅华，传递快乐</p>
+                        <div class="page3divModel">
                             <dl>
                                 <dt>
                                     <img src="../images/page3imglist1.png" alt="">
@@ -45,7 +45,7 @@
                                 <dd>精彩照片</dd>
                             </dl>
                         </div>
-                        <div class="page3divBottom ani" swiper-animate-effect="bounceInRight" swiper-animate-duration="1.5s">
+                        <div class="page3divBottom">
                             <div><img src="../images/page3imglist4.png" alt=""><p>点赞</p></div>
                             <div><img src="../images/page3imglist5.png" alt=""><p>拥抱</p></div>
                             <div><img src="../images/page3imglist6.png" alt=""><p>评论</p></div>
@@ -54,25 +54,25 @@
                 </div>
                 <div class="swiper-slide propagandaPage4">
                     <div class="pagediv page2div page4div">
-                        <h3 class="ani" swiper-animate-effect="bounceInRight" swiper-animate-duration="1.5s">关注</h3>
-                        <p class="ani" swiper-animate-effect="tada" swiper-animate-duration="1.5s">开心Or难过</p>
-                        <p class="page4Bottom ani" swiper-animate-effect="tada" swiper-animate-duration="1.5s">一颗爱心赞Or大大的拥抱</p>
-                        <p class="ani" swiper-animate-effect="tada" swiper-animate-duration="1.5s">这样的关怀</p>
-                        <p class="ani" swiper-animate-effect="tada" swiper-animate-duration="1.5s">就像一支强心针让你感动</p>
+                        <h3>关注</h3>
+                        <p>开心Or难过</p>
+                        <p class="page4Bottom">一颗爱心赞Or大大的拥抱</p>
+                        <p>这样的关怀</p>
+                        <p>就像一支强心针让你感动</p>
                     </div>
                 </div>
                 <div class="swiper-slide propagandaPage5">
                     <div class="page5div">
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.1s">从现在开始</p>
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.3s">记录你最重要的每一刻</p>
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.5s">分享你最幸福的每一刻</p>
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.7s">让心情指数</p>
-                        <p class="ani" swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s" swiper-animate-delay="0.9s">成为你我共同的“羁绊”</p>
+                        <p>从现在开始</p>
+                        <p>记录你最重要的每一刻</p>
+                        <p>分享你最幸福的每一刻</p>
+                        <p>让心情指数</p>
+                        <p>成为你我共同的“羁绊”</p>
                         <div class="page5ewm">
-                            <div class="ani" swiper-animate-effect="rotateIn" swiper-animate-duration="1s" swiper-animate-delay="1s">关注你我 关注心情</div>
+                            <div>关注你我 关注心情</div>
                             <img class="page5img1" src="../images/ewm_top.png" alt="">
-                            <img class="page5img2 ani" swiper-animate-effect="flip" swiper-animate-duration="3s" src="../images/ewm.png" alt="">
-                            <span class="ani" swiper-animate-effect="wobble" swiper-animate-duration="3s">(长按识别二维码加关注)</span>
+                            <img class="page5img2" src="../images/ewm.png" alt="">
+                            <span>(长按识别二维码加关注)</span>
                         </div>
                     </div>
                 </div>
@@ -97,14 +97,7 @@
             console.log(winWidth)
             $('.swiper-slide').css({'width':winWidth})
             var propagandaSwiper = new Swiper ('.propagandaBox', {
-                direction: 'vertical',
-                onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
-                    swiperAnimateCache(swiper); //隐藏动画元素
-                    swiperAnimate(swiper); //初始化完成开始动画
-                },
-                onSlideChangeEnd: function(swiper){
-                    swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
-                }
+                direction: 'vertical'
             })
         }
     }
@@ -135,6 +128,7 @@
      font-size: 34px;
      line-height: 34px;
      margin-bottom: 25px;
+     font-weight: normal;
  }
  .page1div p{
      font-size: 17px;
@@ -145,6 +139,7 @@
      font-size: 34px;
      line-height: 34px;
      margin-bottom: 17px;
+     font-weight: normal;
  }
  .page2div p{
      font-size: 15px;
@@ -155,6 +150,7 @@
      font-size: 34px;
      line-height: 34px;
      margin-bottom: 17px;
+     font-weight: normal;
  }
  .page3div p{
      font-size: 15px;
@@ -287,14 +283,14 @@
     position: absolute;
     left: 50%;
     z-index: 99;
-    width:44px;
-    margin-left: -22px;
+    width:30px;
+    margin-left: -15px;
      animation: jt_top 1s linear infinite;
     }
  @keyframes jt_top
  {
      from {bottom: 20px;}
-     to {bottom: 60px;}
+     to {bottom: 40px;}
  }
 
 </style>

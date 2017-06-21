@@ -31,6 +31,7 @@ let routers =
                 require('./routes/remind'),
                 require('./routes/subscribe'),
                 require('./routes/subscribeList'),
+                require('./routes/subscribeDetail'),
                 require('./routes/privacy'),
                 require('./routes/problem'),
                 require('./routes/proposal'),
