@@ -582,8 +582,8 @@ var xqzs = {
         },
    
         setConfig:function (vm) {
-            vm.$http.get(web.API_PATH+'wei/xin/config').then(response => {
-                 wx.config(response.body);
+            vm.$http.get(web.API_PATH+'wei/xin/config').then(function (response){
+                wx.config(response.body);
                 wx.ready(()=>{
                     wx.hideAllNonBaseMenuItem();
                     console.log('wx.ready');
@@ -591,8 +591,6 @@ var xqzs = {
                 wx.error(function(res){
                     //可以更新签名
                 });
-            }, response => {
-                // error callback
             });
         }
    

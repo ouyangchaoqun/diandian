@@ -207,6 +207,46 @@
 
     }
 
+    @media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+        .page-xqzs-left-enter-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+        .page-xqzs-left-leave-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+        .page-xqzs-right-enter-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+        .page-xqzs-right-leave-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+    }
+    @media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */
+        .page-xqzs-left-enter-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+        .page-xqzs-left-leave-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+        .page-xqzs-right-enter-active {
+            animation-name: noA;
+            animation-duration: 0s;
+        }
+        .page-xqzs-right-leave-active {
+            animation-name: noA;
+            animation-duration: 0s;
+
+        }
+    }
+
+
+
     @keyframes fold-right-in {
         0% {
             transform: translate3d(0, 0, 0);
