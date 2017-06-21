@@ -379,12 +379,16 @@
         border-bottom: 1px solid #eee;
         background: #ffffff;
         padding: 10px 12px;
-    -webkit-user-select:text;
-    -moz-user-select:text;
-    -khtml-user-select:text;
-    user-select:text;
+
 
     }
+
+.friends_mood .mood_text{
+    -webkit-user-select:text !important;;
+    -moz-user-select:text !important;;
+    -khtml-user-select:text !important;
+    user-select:text !important;
+}
 
 
     .friendHeaderImg {
