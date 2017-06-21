@@ -459,6 +459,12 @@
         font-style: normal;
     }
 
+   .myMood_list {
+        -webkit-user-select:text;
+        -moz-user-select:text;
+        -khtml-user-select:text;
+        user-select:text;
+    }
 
 
 

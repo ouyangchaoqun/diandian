@@ -379,6 +379,10 @@
         border-bottom: 1px solid #eee;
         background: #ffffff;
         padding: 10px 12px;
+    -webkit-user-select:text;
+    -moz-user-select:text;
+    -khtml-user-select:text;
+    user-select:text;
 
     }
 
