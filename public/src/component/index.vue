@@ -1,7 +1,7 @@
 <template id="myCenter">
-    <div style="height: 100%" >
-
-        <div v-title>心情指数</div>
+    <div style="height: 100%">
+        <v-propaganda></v-propaganda><!--宣传页-->
+       <!-- <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <a   @click="record()" class="weui-tabbar__item  tab">
 				<span  class="recordImg">
@@ -34,11 +34,11 @@
             </a>
 
         </div>
-        <div class="weui-tab__panel" >
+        <div class="weui-tab__panel">
         <div class="banner">
             <v-banner></v-banner>
         </div>
-        <!--banner end -->
+        &lt;!&ndash;banner end &ndash;&gt;
         <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
         <div class="notice_box notice_box_p">
             <div class="notice" >
@@ -51,9 +51,9 @@
 
 
         <div class="mycenter_list">
-            <!--mycenter start-->
+            &lt;!&ndash;mycenter start&ndash;&gt;
             <div class="mycenter">
-                <a   @click="link('/myCenter/myIndex')">
+                <router-link to="./myCenter/myIndex">
                     <div class="list_left">
                         <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                         <template v-if="myLastMood">
@@ -72,8 +72,9 @@
                     <div class="list_right">
                         <template v-if="myLastMood!=null">
                             <img class="moodimg" :src="myLastMood.moodValueUrl"/>
-                            <div class="interaction" @click.stop="link(myLastMood.careListUrl)">
+                            <div class="interaction">
                                 <div>{{ myLastMood.careCount }}</div>
+                                <router-link :to="myLastMood.careListUrl">
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount<=0"
                                          src="../images/list_icon_dianz_nor.png" alt=""/>
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount>0"
@@ -82,17 +83,18 @@
                                          src="../images/list_baob_pre.png" alt=""/>
                                     <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount<=0"
                                          src="../images/list_baob_nor.png" alt=""/>
+                                </router-link>
                             </div>
                         </template>
                         <template v-if="myLastMood==null">
                             <span class="noRecord">还未记录</span>
                         </template>
                     </div>
-                </a>
+                </router-link>
             </div>
-            <!--mycenter end-->
+            &lt;!&ndash;mycenter end&ndash;&gt;
             <div class="mycenterFill"></div>
-            <!--friendcenter start-->
+            &lt;!&ndash;friendcenter start&ndash;&gt;
             <div class="mycenter friendCenter" v-if="user.isLookFriend!=null&&user.isLookFriend!==0">
                 <div class="addBorder" v-for="friendMood in friendMoodsSpe">
                     <a @click="link(friendMood.link)">
@@ -121,7 +123,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="mycenterFill" v-if="hasLine"></div><!--todo-->
+                <div class="mycenterFill" v-if="hasLine"></div>&lt;!&ndash;&ndash;&gt;
                 <div class="addBorder" v-for="friendMood in friendMoods">
                     <a @click="link(friendMood.link)">
                         <div class="list_left">
@@ -153,17 +155,16 @@
             </div>
             <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
-        <!--friendcenter end-->
+        &lt;!&ndash;friendcenter end&ndash;&gt;
         </div>
 
-        <div class="addMoodBg"></div>
-
+        <div class="addMoodBg"></div>-->
     </div>
 </template>
 
 <script type="es6">
-    import banner from "./banner.vue";
-    import Bus from './bus.js';
+    import banner from "./banner.vue"
+    import propaganda from "./propaganda.vue"
     let myCenter = {
         template: '#myCenter'
     };
@@ -187,10 +188,7 @@
                 recordOn:false,
                 calendarOn:false,
                 friendsOn:false,
-                meOn:false,
-                scrollTop:0
-
-
+                meOn:false
             }
         },
         filters:{
@@ -214,7 +212,6 @@
             }
         },
         methods: {
-
 
             record:function () {
                var  _this=this;
@@ -265,7 +262,7 @@
                 return false;
             },
             link: function (url) {
-                this.$router.push(url)
+                location.href = url;
             },
             _createinvite:function (type,callback) {
                 this.$http({
@@ -373,16 +370,12 @@
         },
 
         mounted: function () {
-
             let _this =this;
-            xqzs.wx.setConfig(_this);
-
-            $(".weui-tab__panel").scroll(function () {
-                xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
-            });
-
+            _this.getFriendLastMood();
+            _this.getNewPerfect();
 
             _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
+            //用户信息
 
             _this.getMoodCount(function (moodcount) {
                 if (moodcount < 10) {
@@ -396,10 +389,6 @@
                 }
             });
 
-
-            Bus.$emit('initHomeData');
-            _this.getFriendLastMood();
-            _this.getNewPerfect();
             _this.$http({
                 method: 'GET',
                 type: "json",
@@ -413,22 +402,10 @@
                 //error
             });
 
-//           setTimeout(function () {
-//               $(".weui-tab__panel").scrollTop(   xqzs.localdb.get("indexScrollTop"));
-//           },100)
-
-        },
-        updated:function () {
-            var obj =  $(".mycenter>a ,.addBorder>a")
-            xqzs.weui.active(obj);
-
-            $(".interaction").on("touchstart",function () {
-                event.stopPropagation();
-            })
-
         },
         components: {
-           "v-banner": banner
+           "v-banner": banner,
+            'v-propaganda':propaganda
         }
 
     }
@@ -509,6 +486,7 @@
         /*-webkit-tap-highlight-color: rgba(0,0,0,.2);*/
         padding-right: 0;
     }
+    .mycenter a:active{ background: #ECECEC}
 
     .friend {
         margin-left: 59px;

@@ -10,9 +10,9 @@
         <div class="remind remind2" @click="showTime()">
             <span>时间设定</span>
             <div v-show="isRemind">
-                <span class=" hours showPicker">{{hour}}</span>
+                <span class="showPicker">{{hour}}</span>
                 <span>:</span>
-                <span class="minutes showPicker">{{minute}}</span>
+                <span class="showPicker">{{minute}}</span>
             </div>
         </div>
         <a v-if="!isRemind" class="me_bottom weui-btn weui-btn_primary weui-btn_disabled"
@@ -164,8 +164,6 @@
                             _this.minute = result[1].value !== '' ? result[1].value : result[1];
                         }
                     });
-
-
             },
             setRemindTime: function () {
                 let _this = this;
@@ -181,7 +179,6 @@
                                     _this.$router.go(-1);
                                 })
                             });
-
                 }
 
             },
