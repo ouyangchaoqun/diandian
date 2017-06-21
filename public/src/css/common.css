@@ -48,7 +48,7 @@ html { /*375*/
 
 
 
-*:not(input,textarea){-webkit-touch-callout:none;
+*:not(input,textarea){
     -webkit-user-select:none;
     -moz-user-select:none;
     -khtml-user-select:none;
