@@ -69,6 +69,8 @@
 </template>
 <style>
 
+    .weui-cell_access:active{ background: #fff }
+
     .left_zero:before{ left:0 !important}
     .noFriends_box {
         height: 100%;
@@ -338,6 +340,10 @@
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             }
+        },
+        updated:function () {
+            var obj = $(".weui-cell_access");
+            xqzs.weui.active(obj)
         }
     }
 

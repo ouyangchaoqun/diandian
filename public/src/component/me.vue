@@ -131,9 +131,7 @@
 		padding:0 15px;
 		display: block;
 		position: relative;
-
 	}
-	.me_lists:active{ background: #ECECEC}
 	.me_list{
 		height:58px;
 		border-bottom:1px solid #eee;
@@ -215,7 +213,8 @@
 			_this.getNewPerfect();
 			console.log(_this.user)
             xqzs.wx.setConfig(_this);
-
+            var obj =  $(".me_lists")
+            xqzs.weui.active(obj);
         },
 		filters:{
 			shortName:function(value,len){
@@ -259,7 +258,11 @@
                     this.hasNewPerfect=true;
                 }
             }
-		}
+		},
+		updated:function () {
+
+
+        }
     }
 
 </script>

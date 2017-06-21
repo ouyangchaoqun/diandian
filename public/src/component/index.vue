@@ -53,7 +53,7 @@
         <div class="mycenter_list">
             <!--mycenter start-->
             <div class="mycenter">
-                <router-link to="./myCenter/myIndex">
+                <a   @click="link('/myCenter/myIndex')">
                     <div class="list_left">
                         <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                         <template v-if="myLastMood">
@@ -72,9 +72,8 @@
                     <div class="list_right">
                         <template v-if="myLastMood!=null">
                             <img class="moodimg" :src="myLastMood.moodValueUrl"/>
-                            <div class="interaction">
+                            <div class="interaction" @click.stop="link(myLastMood.careListUrl)">
                                 <div>{{ myLastMood.careCount }}</div>
-                                <router-link :to="myLastMood.careListUrl">
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount<=0"
                                          src="../images/list_icon_dianz_nor.png" alt=""/>
                                     <img v-if="myLastMood.moodValue>=5 &&  myLastMood.careCount>0"
@@ -83,14 +82,13 @@
                                          src="../images/list_baob_pre.png" alt=""/>
                                     <img v-if="myLastMood.moodValue<5 &&  myLastMood.careCount<=0"
                                          src="../images/list_baob_nor.png" alt=""/>
-                                </router-link>
                             </div>
                         </template>
                         <template v-if="myLastMood==null">
                             <span class="noRecord">还未记录</span>
                         </template>
                     </div>
-                </router-link>
+                </a>
             </div>
             <!--mycenter end-->
             <div class="mycenterFill"></div>
@@ -267,7 +265,7 @@
                 return false;
             },
             link: function (url) {
-                location.href = url;
+                this.$router.push(url)
             },
             _createinvite:function (type,callback) {
                 this.$http({
@@ -421,13 +419,9 @@
 
         },
         updated:function () {
-            $(".mycenter>a ,.addBorder>a").on("touchstart",function () {
-                $(this).addClass("active")
-            }).on("touchend",function () {
-                $(this).removeClass("active")
-            }).on("touchmove",function () {
-                $(this).removeClass("active")
-            })
+            var obj =  $(".mycenter>a ,.addBorder>a")
+            xqzs.weui.active(obj);
+
             $(".interaction").on("touchstart",function () {
                 event.stopPropagation();
             })
@@ -452,7 +446,6 @@
     .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
     }
-    .active:active{ background: #ECECEC}
 
     #tabs {
         z-index:10000;

@@ -56,6 +56,7 @@ html { /*375*/
 }
 input,textarea{  -webkit-appearance:none;}
 
+.active:active{ background: #ECECEC !important}
 
 
 .heartUp {

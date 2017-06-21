@@ -324,6 +324,9 @@
             formatContent:function (c) {
                 return xqzs.face.parse(c);
             }
+        },
+        updated:function () {
+            xqzs.weui.active($(".dateView a"))
         }
 
     }
@@ -499,10 +502,6 @@
         flex-direction: column;
         justify-content: center;
         position: relative;
-    }
-
-    .dateView a:active{
-        background: #ECECEC;
     }
 
     .dateView img {
