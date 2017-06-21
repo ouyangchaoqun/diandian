@@ -186,24 +186,24 @@
 
      .page-xqzs-left-enter-active {
         animation-name: fold-in;
-        animation-duration: .38s;
+        animation-duration: 22.38s;
 
 
     }
     .page-xqzs-left-leave-active {
         animation-name: fold-out;
-        animation-duration: .38s;
+        animation-duration: 22.38s;
 
     }
 
     .page-xqzs-right-enter-active {
         animation-name: fold-right-in;
-        animation-duration: .25s;
+        animation-duration: 22.25s;
     }
 
     .page-xqzs-right-leave-active {
         animation-name: fold-right-out;
-        animation-duration: .25s;
+        animation-duration: 22.25s;
 
     }
 
@@ -322,29 +322,28 @@
 
     .page-xqzs-up-enter-active {
         animation-name: fold-up-in;
-        animation-duration: .3s;
+        animation-duration: 22.3s;
         background: none !important;
-        z-index: 2!important;
+
 
     }
 
     .page-xqzs-up-leave-active {
         animation-name: fold-up-out;
-        animation-duration: .5s;
-        z-index: 1!important;
+        animation-duration: 22.5s;
+
     }
 
     .page-xqzs-down-enter-active {
 
         animation-name: fold-down-in;
-        animation-duration: .3s;
+        animation-duration: 22.3s;
 
     }
 
     .page-xqzs-down-leave-active {
-        z-index: 2;
         animation-name: fold-down-out;
-        animation-duration: .9s;
+        animation-duration: 22.9s;
         background: none !important;
 
     }
@@ -354,9 +353,11 @@
             transform: translate3d(0, 0%, 0);
             -webkit-transform: translate3d(0, 0%, 0);
         }
+
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
+
         }
     }
 
@@ -377,10 +378,15 @@
             transform: translate3d(0, 100%, 0);
             -webkit-transform: translate3d(0, 100%, 0);
         }
-
+        5%{
+            z-index: 2;
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
+            z-index: 2;
         }
     }
 
@@ -389,6 +395,7 @@
             transform: translate3d(0%, 0, 0);
             -webkit-transform: translate3d(0%, 0, 0);
         }
+
 
         100% {
             transform: translate3d(0, 0%, 0);
