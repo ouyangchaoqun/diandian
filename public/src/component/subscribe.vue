@@ -12,65 +12,34 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <ul class="subscribeLists">
-                        <router-link to="/me/subscribe/subscribeList">
+                        <router-link :to="url+data.id" v-for="data in dataArray">
                             <li class="subscribeList">
-                                <img class="timing" src="../images/timing.png" alt="">
+                                <img class="timing" :src="data.icon" alt="">
                                 <div>
-                                    <h3>记录时间定时提醒</h3>
-                                    <p>每天定时提醒你记录此刻心情</p>
-                                    <span>4468人已订阅</span>
+                                    <h3>{{data.title}}</h3>
+                                    <p class="description" v-html="subText(data.description)"></p>
+                                    <span>{{data.subscribecount}}人已订阅</span>
                                 </div>
-                                <img class="addSubscribe" src="../images/add.png" alt="">
+                                <img class="addSubscribe" src="../images/add.png" alt="" v-if="!data.issubscribe==1">
+                                <img class="addSubscribe" src="../images/checked.png" alt="" v-if="data.issubscribe==1">
                             </li>
                         </router-link>
-                        <li class="subscribeList">
-                            <img class="timing" src="../images/morning.png" alt="">
-                            <div>
-                                <h3>早安心语</h3>
-                                <p>每天清晨给你一句早安问候</p>
-                                <span>4468人已订阅</span>
-                            </div>
-                            <img class="addSubscribe" src="../images/add.png" alt="">
-                        </li>
-                        <li class="subscribeList">
-                            <img class="timing" src="../images/night.png" alt="">
-                            <div>
-                                <h3>晚安物语</h3>
-                                <p>每天晚上给你一句晚安物语</p>
-                                <span>4468人已订阅</span>
-                            </div>
-                            <img class="addSubscribe" src="../images/add.png" alt="">
-                        </li>
+
                     </ul>
                 </div>
                 <div class="swiper-slide">
-                    <ul class="subscribeLists">
-                        <router-link to="/me/subscribe/subscribeDetail">
+                    <ul class="subscribeLists" >
+                        <router-link :to="urlDetail+data.id" v-for="data in subArray" v-if="subArray.length>0||data.issubscribe==1">
                             <li class="subscribeList">
-                                <img class="timing" src="../images/timing.png" alt="">
+                                <img class="timing" :src="data.icon" alt="">
                                 <div>
-                                    <h3 class="subMarTop">记录时间定时提醒</h3>
-                                    <p>每天9:30提醒</p>
+                                    <h3 class="subMarTop">{{data.title}}</h3>
+                                    <p>每天{{data.remindtime}}提醒</p>
                                 </div>
                             </li>
                         </router-link>
-                        <li class="subscribeList">
-                            <img class="timing" src="../images/morning.png" alt="">
-                            <div>
-                                <h3 class="subMarTop">早安心语</h3>
-                                <p>每天7:30提醒</p>
-                            </div>
-
-                        </li>
-                        <li class="subscribeList">
-                            <img class="timing" src="../images/night.png" alt="">
-                            <div>
-                                <h3 class="subMarTop">晚安物语</h3>
-                                <p>22:30提醒</p>
-                            </div>
-                        </li>
                     </ul>
-                   <!-- <div class="noSubscribe">你暂时还没有任何订阅哦~</div>-->
+                    <div class="noSubscribe" v-if="subArray.length<=0">你暂时还没有任何订阅哦~</div>
                 </div>
             </div>
         </div>
@@ -84,7 +53,47 @@
     export default {
         data() {
             return {
+                dataArray:[],
+                url:'/me/subscribe/subscribeList/',
+                description:'',
+                urlDetail:'/me/subscribe/subscribeDetail/',
+                subArray:[]
+            }
+        },
+        props:[
+            'issubscribe'
+        ],
+        beforeCreate: function () {
 
+            console.log("beforeCreate")
+            let _this = this;
+            //用户信息
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + 'subscribe/query/subscribes/by/user/_userId_',
+            }).then(function (data) {
+                var dataArray = data.data.data
+                console.log(dataArray);
+                _this.dataArray = dataArray;
+            }, function (data) {
+            });
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + 'subscribe/query/users/subscribes/_userId_',
+            }).then(function (data) {
+                var subArray = data.data.data;
+                console.log(subArray)
+                _this.subArray = subArray;
+            }, function (data) {
+            });
+        },
+        methods:{
+            subText:function (text) {
+                var len = 12;
+                if(text.length>len){
+                    text = text.substr(0,len)+'...';
+                }
+                return text;
             }
         },
         mounted:function () {
@@ -105,6 +114,8 @@
             $(".tabs a").click(function(e){
                 e.preventDefault();
             });
+
+
         }
 
     }
@@ -170,6 +181,7 @@
        font-size: 13px;
        line-height: 13px;
        margin-bottom: 15px;
+       height: 13px;
    }
     .subscribeList span{
         font-size: 11px;
@@ -183,7 +195,7 @@
     }
     .moodCount_box{
         width:100%;
-        height:100%;
+        height:auto;
     }
     .timing{
         width: 41px;

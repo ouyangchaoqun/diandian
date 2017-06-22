@@ -1,13 +1,14 @@
 <template id="subscribeList">
+    <div>
     <div class="subscribeList_box">
         <div class="subscribeList_header">
-            <img src="../images/subscribanner1.png" alt="">
-            <img src="../images/timing.png" alt="">
-            <div>4468人已订阅</div>
+            <img :src="detail.cover" alt="">
+            <img :src="detail.icon" alt="">
+            <div>{{detail.subscribecount}}人已订阅</div>
         </div>
         <div class="subscribeListMiddle">
-            <h3>记录心情定时提醒</h3>
-            <div>每天定时提醒你记录此刻心情每天定时提醒你记录此刻心情每天定时提醒你记录此刻心情每天定时提醒你记录此刻心情每天定时提醒你记录此刻心情</div>
+            <h3>{{detail.title}}</h3>
+            <div class="description">{{detail.description}}</div>
         </div>
         <div class="subscribeListBottom">
             <div>推送设置</div>
@@ -22,9 +23,10 @@
             </div>
         </div>
         <div class="subscribeListSet">
-            <button @click="setRemindTime()" v-if="!isSub" class="weui-btn weui-btn_primary">订阅</button>
-            <button v-if="isSub" class="weui-btn weui-btn_primary weui-btn_disabled">已订阅</button>
+            <button @click="setRemindTime()" v-if="!detail.issubscribe==1" class="weui-btn weui-btn_primary">订阅</button>
+            <button v-if="detail.issubscribe==1" class="weui-btn weui-btn_primary weui-btn_disabled">已订阅</button>
         </div>
+    </div>
     </div>
 </template>
 <script type="text/javascript">
@@ -37,12 +39,29 @@
             return {
                 hour: '08',
                 minute: '00',
-                isSub:false
+                isSub:false,
+                detail:{}
             }
+        },
+        beforeCreate: function () {
+            console.log("beforeCreate")
+            let _this = this;
+            var subsid = _this.$route.params.id;
+            //用户信息
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + 'subscribe/query/detail/with/user/'+subsid+'/_userId_',
+            }).then(function (data) {
+                console.log(data)
+                _this.detail = data.data.data
+                var timies = _this.detail.remindtime.split(':');
+                _this.hour = timies[0];
+                _this.minute = timies[1];
+            }, function (data) {
+            });
         },
         methods:{
             showTime: function () {
-                console.log(111)
                 let _this = this;
                 var hours = [];
                 var obj;
@@ -61,7 +80,6 @@
                     }
                     hours.push(obj)
                 }
-                console.log(hours)
                 var minutes = [];
                 for (i = 0; i < 60; i++) {
                     if (i < 10) {
@@ -77,34 +95,36 @@
                     }
                     minutes.push(obj)
                 }
-                console.log(minutes)
 
                 weui.picker(
                     hours, minutes, {
                         onConfirm: function (result) {
-                            console.log(result)
-                            _this.hour = result[0].value !== '' ? result[0].value : result[0];
-                            _this.minute = result[1].value !== '' ? result[1].value : result[1];
+                            var postdata = {subscriptionId:_this.detail.id,userId:'',remindTime:_this.detail.hour+':'+_this.detail.minute};
+                            _this.hour = result[0].value;
+                            _this.minute = result[1].value;
+                            console.log(postdata)
+                            _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
+                                .then(function (res) {
+                                    console.log(res)
+                                    xqzs.weui.toast("success", "设置成功", function () {
+                                    })
+                                });
                         }
                     });
             },
             setRemindTime: function () {
                 let _this = this;
-                this.$http.post(web.API_PATH + 'user/save/user/remind', {
-                    remindTime: _this.hour + ":" + _this.minute,
-                    userId: "",
-                    id: ""
-                }, {emulateJSON: true})
-                    .then(function (response) {
-                        xqzs.weui.toast("success", "订阅成功", function () {
+                //用户信息
+                var postdata = {subscriptionId:this.$route.params.id,userId:'',remindTime:this.hour+':'+this.minute};
+                console.log(postdata)
+                _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
+                    .then(function (res) {
+                        console.log(res)
+                        xqzs.weui.toast("success", "设置成功", function () {
                             _this.$router.go(-1);
                         })
                     });
-                _this.isSub = true
             }
-        },
-        mounted:function () {
-
         }
 
     }
@@ -137,9 +157,9 @@
         text-align: center;
         position: absolute;
         top: 33px;
-        width: 80px;
+        width: 200px;
         left:50%;
-        margin-left: -40px;
+        margin-left: -100px;
     }
     .subscribeListMiddle{
         height: 90px;
@@ -149,6 +169,10 @@
         font-size: 12px;
         color: #999;
         margin-bottom: 32px;
+    }
+    .description{
+        height:54px;
+        overflow-y: scroll;
     }
     .subscribeListMiddle h3{
         font-size: 15px;

@@ -105,7 +105,6 @@
                         _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
                         _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
                         _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
-                        console.log(_this.myLastMood);
                     }
                 }, function (error) {
                     //error

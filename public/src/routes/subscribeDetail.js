@@ -3,7 +3,7 @@
  */
 const subscribeDetail = resolve => require(['../component/subscribeDetail.vue'], resolve)
 module.exports = {
-    path: '/me/subscribe/subscribeDetail',
+    path: '/me/subscribe/subscribeDetail/:id',
     component: subscribeDetail,
 
 }
