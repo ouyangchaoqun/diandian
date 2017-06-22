@@ -148,18 +148,27 @@
                             }
                             console.log(_pagedata_);
                             console.log(that.pageConfig.currentIndex );
-
+                            that.isLoading=false;
+                            that.pageConfig.currentIndex = that.pageConfig.currentIndex +1
                             that.$nextTick(function () {
+                                $('.pubu img').each(function () {
 
-                                setTimeout(function () {
-                                    that.isLoading=false;
-                                    that.pageConfig.currentIndex = that.pageConfig.currentIndex +1
-                                    $('.pubu').BlocksIt({
-                                        numOfCol:3,
-                                        offsetX: 5,
-                                        offsetY: 5
-                                    });
-                                },200)
+                                    var image=new Image;
+                                    image.src=$(this).attr("src");
+                                    image.onload= function () {
+                                        $('.pubu').BlocksIt({
+                                            numOfCol:3,
+                                            offsetX: 5,
+                                            offsetY: 5
+                                        });
+                                    }
+//                                    console.log($(this).attr("src"))
+//                                    $(this).load(function(){
+//                                        console.log("load")
+//                                    });
+                                })
+
+
                             })
 
                         }
