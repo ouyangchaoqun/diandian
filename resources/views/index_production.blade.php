@@ -39,6 +39,7 @@
 <script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/xqzs.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/xqzs.face.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="/src/js/blocksit.min.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 </body>
 </html>
