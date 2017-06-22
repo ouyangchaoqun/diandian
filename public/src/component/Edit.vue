@@ -21,6 +21,9 @@
                     <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                     <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
                 </div>
+                <div v-show="!canupload">
+                    <div><img class="optionThirdNo" src="../images/cantfunny.png" alt=""></div>
+                </div>
                 <div>
                     <div><img class="optionSecond" @click="clickoptions('second')" v-bind:src="buttons.second.curr" alt=""></div>
                     <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.second.on}" src="../images/jt.gif" alt="" >
@@ -32,9 +35,7 @@
                 <div v-show="!canuploadfunny">
                     <div><img class="optionThirdNo" src="../images/cantfunny.png" alt=""></div>
                 </div>
-                <div v-show="!canupload">
-                    <div style="visibility: hidden"><img class="optionThird" alt=""></div>
-                </div>
+
                 <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
             </div>
             <div><button @click="submitMood()"
@@ -173,6 +174,7 @@
                 </div>
                 <div class="swiper-slide" v-show="buttons.third.on">
                     <div class="optionFrist_box funnyPictures">
+                        <img v-if="!funnypictures||funnypictures.length==0" class="optionAdd" src="../images/tjzp.gif" alt="" @click="clickoptions('third')">
                         <div v-for="(pic,index) in funnypictures" v-bind:key="index" class="upload-images">
                             <div class="item item-image">
                                 <div class="del-img" @click="deletePic(index,pic.pictype)"></div>
@@ -841,7 +843,7 @@
         width:1.55294118rem;margin-top: -0.2rem !important;
     }
     .optionThirdNo{
-        width:1.17294118rem;margin-top: -0.13rem !important;
+        width:1.45294118rem;margin-top: -0.06rem !important;
     }
     .optionThird{
         width: 1.35294118rem;

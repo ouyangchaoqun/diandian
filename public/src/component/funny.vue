@@ -1,35 +1,31 @@
 <template id="funny">
     <div class="funny_box">
-        <ul class="funny_ul">
-            <li  v-for="(item,index) in funnytypes" v-bind:key="index" @click="changeTypes(index)":class="{'funny_active':index==activedIndex}">
-                {{item.name}}
-            </li>
-        </ul>
+
         <div class="funny_exp">
-            <div v-for="(item,index) in funnytypes" v-bind:key="index" :class="{'exp_active':index==activedIndex}">
-                <figure @click="selectGif(pic)" v-for="pic in item.pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)">
-                </figure>
-                <figure v-if="item.hasmore" class="load-paging">数据加载中。。</figure>
-                <figure v-if="!item.hasmore" class="load-paging">全部加载</figure>
+            <div class="exp_active pubu"  >
+                <figure @click="selectGif(pic)" v-for="pic in pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)"><img :src="pic.path" /></figure>
+                <figure v-if="pictures.hasmore" class="load-paging">数据加载中。。</figure>
+                <figure v-if="!pictures.hasmore" class="load-paging">全部加载</figure>
             </div>
         </div>
     </div>
 </template>
 <style>
+    .pubu{ position: relative}
     .funny_ul{
         height:100%;
         overflow-y: scroll;
         width:23.4666%;
         background: #eeeeee;
     }
+    .exp_active figure img { width: 100%}
     .exp_active figure{
         float: left;
         display: block !important;
         width:27.8745644%;
-        height:27.8745644%;
         overflow: hidden;
-        margin-right:4.181184%;
-        margin-bottom: 10px;
+        line-height: 1 !important;
+        font-size: 0 !important;
         border:solid 1px #ccc;
     }
     .exp_active figure.load-paging{
@@ -46,7 +42,7 @@
     .funny_exp img{
     }
     .funny_exp div{
-        margin-left:4.181184%;
+        margin-left: 15px; margin-right: 5px; margin-top: 10px;
         display: none;
     }
     .funny_box{
@@ -70,7 +66,7 @@
     }
     .funny_exp{
         position: absolute;
-        width:75.53333%;
+        width:100%;
         top:0;
         right:0px;
         overflow-y: scroll;
@@ -93,12 +89,14 @@
         props: ['moodvalue'],
         data() {
             return {
-                funnytypes: [],
+                pictures: [],
                 activedIndex:0,
                 funnyExpWidth:0,
+                isLoading:false,
+                isEnd:false,
                 pageConfig:{
-                    size:30,
-                    currentIndex:0
+                    size:18,
+                    currentIndex:1
                 }
             }
         },
@@ -134,35 +132,39 @@
                 return that.pageConfig[_key_];
             },
             getFunnyPictures:function (ix) {
+
                 let that = this;
-                var typeconfig = that.getTypePageConfig(ix);
-                if (typeconfig['locked'] || !that.funnytypes[ix].hasmore) {
-                    return;
-                }
-                that.pageConfig.currentIndex = ix;
-                that.setTypePageConfig(ix, 'locked', true);
-                var page = typeconfig.pageindex;
+                if(that.isLoading==true||that.isEnd==true){ return }
+                that.isLoading= true;
 
-                var type = that.funnytypes[ix];
-                that.$http.get(web.API_PATH + 'funny/query/page/by/type/' + type.id + '/' + page + '/' + that.pageConfig.size)
+                that.$http.get(web.API_PATH + 'funny/query/page/by/moodvalue/' + that.$route.query.moodValue + '/' + that.pageConfig.currentIndex + '/' + that.pageConfig.size)
                     .then(function (bt) {
-                        that.setTypePageConfig(ix, 'locked', false);
                         if (bt.data && bt.data.status == 1) {
-                            console.info('成功加载数据:类别:'+type.id+'第'+page+'页');
-
                             var _pagedata_ = bt.data.data.rows;
 
-                            that.setTypePageConfig(ix, 'pageindex', page + 1);
-                            if (_pagedata_.length < that.pageConfig.size) {
-                                that.funnytypes[ix].hasmore = false;
-                                console.info('该类别已全部加载')
+                            if(_pagedata_.length==0)that.isEnd=true;
+                            for(var i =0 ;i<_pagedata_.length;i++){
+                                that.pictures.push(_pagedata_[i]);
                             }
+                            console.log(_pagedata_);
+                            console.log(that.pageConfig.currentIndex );
 
-                            var _oldpics_ = that.funnytypes[ix].pictures || [];
-                            that.funnytypes[ix].pictures = _oldpics_.concat(_pagedata_);
-                            that.$set(that.funnytypes, ix, that.funnytypes[ix]);
+                            that.$nextTick(function () {
+
+                                setTimeout(function () {
+                                    that.isLoading=false;
+                                    that.pageConfig.currentIndex = that.pageConfig.currentIndex +1
+                                    $('.pubu').BlocksIt({
+                                        numOfCol:3,
+                                        offsetX: 5,
+                                        offsetY: 5
+                                    });
+                                },200)
+                            })
+
                         }
                     })
+
             },
             changeTypes:function (ix) {
                 this.activedIndex = ix;
@@ -171,13 +173,7 @@
             setFigureStyle:function(w,h,src){
                 let that = this;
                 src = src + xqzs.oss.Size.resize(100,100);
-                var style = 'width:'+that.funnyExpWidth+'px;height:'+that.funnyExpWidth+'px;background:url('+src+') no-repeat center;';
-                if(w>h){
-                    style += 'backgroundSize:100% auto'
-                }else{
-                    style += 'backgroundSize:auto 100%'
-                }
-                return style;
+                return ''   ;
             },
             selectGif:function(gif){
                 Bus.$emit('funnyPictureChange',gif);
@@ -190,14 +186,15 @@
                 this.getFunnyPictures(ix);
             }
         },
+
         mounted: function () {
             let that = this;
-            that.getFunnyTypes(function () {
-                if(that.funnytypes.length>0){
-                    that.getFunnyPictures(0);
-                }
-            });
-
+//            that.getFunnyTypes(function () {
+//                if(that.funnytypes.length>0){
+//                    that.getFunnyPictures(0);
+//                }
+//            });
+            that.getFunnyPictures(0);
             $('.funny_exp').unbind('scroll')
                 .bind('scroll',function(){
                     var $this =$(this),
