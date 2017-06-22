@@ -380,7 +380,15 @@
         background: #ffffff;
         padding: 10px 12px;
 
+
     }
+
+.friends_mood .mood_text{
+    -webkit-user-select:text !important;;
+    -moz-user-select:text !important;;
+    -khtml-user-select:text !important;
+    user-select:text !important;
+}
 
 
     .friendHeaderImg {

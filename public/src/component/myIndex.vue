@@ -459,6 +459,12 @@
         font-style: normal;
     }
 
+   .myMood_list .moodContext {
+       -webkit-user-select:text !important;;
+       -moz-user-select:text !important;;
+       -khtml-user-select:text !important;
+       user-select:text !important;
+    }
 
 
 

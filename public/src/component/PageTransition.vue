@@ -311,9 +311,20 @@
         background: none !important;
     }
 
+    .page-xqzs-up-leave-active .addMoodBg{
+        animation-name: goone;
+        animation-duration: .3s;
+    }
+
+    .page-xqzs-down-enter-active .addMoodBg{
+        animation-name: gozelo;
+        animation-duration: .3s;
+    }
+
+
     .page-xqzs-up-leave-active .addMoodBg, .page-xqzs-down-enter-active .addMoodBg {
         display: block;
-        z-index: 2;
+        z-index: 10001;
     }
 
     .page-xqzs-down-leave-active .banner, .page-xqzs-up-enter-active .banner {
@@ -324,14 +335,12 @@
         animation-name: fold-up-in;
         animation-duration: .3s;
         background: none !important;
-        z-index: 2!important;
-
     }
 
     .page-xqzs-up-leave-active {
         animation-name: fold-up-out;
         animation-duration: .5s;
-        z-index: 1!important;
+
     }
 
     .page-xqzs-down-enter-active {
@@ -342,11 +351,30 @@
     }
 
     .page-xqzs-down-leave-active {
-        z-index: 2;
         animation-name: fold-down-out;
-        animation-duration: .9s;
+        animation-duration: .5s;
         background: none !important;
 
+    }
+
+    @keyframes gozelo {
+        0% {
+          opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes goone {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
     @keyframes fold-down-in {
@@ -354,9 +382,11 @@
             transform: translate3d(0, 0%, 0);
             -webkit-transform: translate3d(0, 0%, 0);
         }
+
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
+
         }
     }
 
@@ -377,10 +407,15 @@
             transform: translate3d(0, 100%, 0);
             -webkit-transform: translate3d(0, 100%, 0);
         }
-
+        5%{
+            z-index: 2;
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
         100% {
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
+            z-index: 2;
         }
     }
 
@@ -390,7 +425,14 @@
             -webkit-transform: translate3d(0%, 0, 0);
         }
 
+        95%{
+            z-index: 1;
+            transform: translate3d(0,0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+
         100% {
+            z-index: 1;
             transform: translate3d(0, 0%, 0);
             -webkit-transform: translate3d(0, 0%, 0);
         }
