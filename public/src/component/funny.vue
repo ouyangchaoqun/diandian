@@ -4,8 +4,8 @@
         <div class="funny_exp">
             <div class="exp_active pubu"  >
                 <figure @click="selectGif(pic)" v-for="pic in pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)"><img :src="pic.path" /></figure>
-                <figure v-if="pictures.hasmore" class="load-paging">数据加载中。。</figure>
-                <figure v-if="!pictures.hasmore" class="load-paging">全部加载</figure>
+                <span v-if="!isEnd" class="load-paging">数据加载中..</span>
+                <span v-if="isEnd" class="load-paging">没有更多图片</span>
             </div>
         </div>
     </div>
@@ -18,8 +18,9 @@
         width:23.4666%;
         background: #eeeeee;
     }
-    .exp_active figure img { width: 100%}
+    .exp_active figure img { width: 100%;}
     .exp_active figure{
+        opacity: 0;
         float: left;
         display: block !important;
         width:27.8745644%;
@@ -28,16 +29,23 @@
         font-size: 0 !important;
         border:solid 1px #ccc;
     }
-    .exp_active figure.load-paging{
-        clear: both;
+    .exp_active figure.loadedbox{
+        opacity: 1;
+    }
+    .exp_active .load-paging{
+        position: absolute;
+        left:0;
+        bottom:0;
+        display: block;
         text-align: center;
         margin: 0 auto;
         float: left;
         width: 100%;
         border: none;
         color: #dddddd;
-        height: 50px;
-        line-height: 50px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 13px;
     }
     .funny_exp img{
     }
@@ -101,36 +109,7 @@
             }
         },
         methods: {
-            getFunnyTypes: function (callback) {
-                let that = this;
-                that.$http.get(web.API_PATH + 'funny/query/types')
-                    .then(function (bt) {
-                        if(bt.data && bt.data.status == 1){
-                            var allfunnytypes = bt.data.data;
-                            for(var i = 0,l=allfunnytypes.length;i<l;i++){
-                                allfunnytypes[i].hasmore=true;//有未加载数据
-                            }
-                            that.funnytypes = allfunnytypes;
-                            //
-                            if(typeof callback == 'function'){
-                                callback();
-                            }
-                        }
-                    });
-            },
-            setTypePageConfig:function (ix,key,value) {
-                let that = this;
-                var _key_ ='config_'+ix;
-                that.pageConfig[_key_][key] = value;
-            },
-            getTypePageConfig:function (ix) {
-                let that = this;
-                var _key_ ='config_'+ix;
-                if(typeof that.pageConfig[_key_] == 'undefined'){
-                    that.pageConfig[_key_] = {locked:false,pageindex:1};
-                }
-                return that.pageConfig[_key_];
-            },
+
             getFunnyPictures:function (ix) {
 
                 let that = this;
@@ -146,21 +125,29 @@
                             for(var i =0 ;i<_pagedata_.length;i++){
                                 that.pictures.push(_pagedata_[i]);
                             }
+                            let loadCount=0;
                             console.log(_pagedata_);
                             console.log(that.pageConfig.currentIndex );
                             that.isLoading=false;
                             that.pageConfig.currentIndex = that.pageConfig.currentIndex +1
                             that.$nextTick(function () {
                                 $('.pubu img').each(function () {
-
+                                    var ___this=$(this);
                                     var image=new Image;
                                     image.src=$(this).attr("src");
                                     image.onload= function () {
-                                        $('.pubu').BlocksIt({
-                                            numOfCol:3,
-                                            offsetX: 5,
-                                            offsetY: 5
-                                        });
+                                        if(!___this.hasClass("loaded")){
+                                            loadCount++;
+                                            if(loadCount==_pagedata_.length ){
+                                                $('.pubu').BlocksIt({
+                                                    numOfCol:3,
+                                                    offsetX: 5,
+                                                    offsetY: 5
+                                                });
+                                            }
+                                            ___this.addClass("loaded");
+                                            ___this.parents("figure").addClass("loadedbox")
+                                        }
                                     }
 //                                    console.log($(this).attr("src"))
 //                                    $(this).load(function(){
@@ -220,4 +207,9 @@
             xqzs.wx.setConfig(that);
         }
     }
+
+
+
+
+
 </script>
