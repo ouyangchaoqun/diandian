@@ -138,11 +138,29 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <div v-for="exp in getFaceHtml(77,7)">
+                                            <div v-for="exp in getFaceHtml(77,8)">
+                                                <a :class="getFaceClass(exp.id)" :data="getFaceText(exp.t)"></a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div v-for="exp in getFaceHtml(85,7)">
                                                 <a :class="getFaceClass(exp.id)" :data="getFaceText(exp.t)"></a>
                                             </div>
                                             <div><img src="../images/del.png" class="delexp"/></div>
                                         </div>
+
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="expLists">
+
+                                        <div>
+                                            <div v-for="exp in getFaceHtml(92,7)">
+                                                <a :class="getFaceClass(exp.id)" :data="getFaceText(exp.t)"></a>
+                                            </div>
+                                            <div><img src="../images/del.png" class="delexp"/></div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -615,10 +633,16 @@
             });
             $('.delexp').click(function () {
                 var oldContent =  $('#edit_mood').val()
-                //console.log(oldContent)
-                var newContent = oldContent.substr(0,oldContent.length-1)
-                //console.log(newContent)
-                $('#edit_mood').val(newContent)
+                var newContent = oldContent;
+                if( oldContent.substr(oldContent.length-1,1)=="]"){
+                    newContent = oldContent.substr(0, oldContent.lastIndexOf("["));
+                    $('#edit_mood').val(newContent)
+
+                }else{
+                    newContent= oldContent.substr(0,oldContent.length-1);
+                }
+                that.moodcontent=newContent;
+
             })
             //optionSecond   end
             //positionList
