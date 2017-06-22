@@ -516,3 +516,5 @@ a{
     height: 1px;
     background: #eee;
 }
+
+.weui-mask{ -webkit-tap-highlight-color: rgba(0,0,0,0)}
