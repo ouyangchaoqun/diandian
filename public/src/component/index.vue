@@ -1,7 +1,7 @@
 <template id="myCenter">
     <div style="height: 100%">
-        <v-propaganda></v-propaganda><!--宣传页-->
-       <!-- <div v-title>心情指数</div>
+        <!--<v-propaganda></v-propaganda>-->
+        <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <a   @click="record()" class="weui-tabbar__item  tab">
 				<span  class="recordImg">
@@ -38,7 +38,7 @@
         <div class="banner">
             <v-banner></v-banner>
         </div>
-        &lt;!&ndash;banner end &ndash;&gt;
+        <!--banner end -->
         <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
         <div class="notice_box notice_box_p">
             <div class="notice" >
@@ -51,7 +51,7 @@
 
 
         <div class="mycenter_list">
-            &lt;!&ndash;mycenter start&ndash;&gt;
+            <!--mycenter start-->
             <div class="mycenter">
                 <router-link to="./myCenter/myIndex">
                     <div class="list_left">
@@ -92,9 +92,9 @@
                     </div>
                 </router-link>
             </div>
-            &lt;!&ndash;mycenter end&ndash;&gt;
+            <!--mycenter end-->
             <div class="mycenterFill"></div>
-            &lt;!&ndash;friendcenter start&ndash;&gt;
+            <!--friendcenter start-->
             <div class="mycenter friendCenter" v-if="user.isLookFriend!=null&&user.isLookFriend!==0">
                 <div class="addBorder" v-for="friendMood in friendMoodsSpe">
                     <a @click="link(friendMood.link)">
@@ -123,7 +123,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="mycenterFill" v-if="hasLine"></div>&lt;!&ndash;&ndash;&gt;
+                <div class="mycenterFill" v-if="hasLine"></div><!---->
                 <div class="addBorder" v-for="friendMood in friendMoods">
                     <a @click="link(friendMood.link)">
                         <div class="list_left">
@@ -155,10 +155,10 @@
             </div>
             <a class="share" @click="createinvite()">点击生成邀请卡</a>
         </div>
-        &lt;!&ndash;friendcenter end&ndash;&gt;
+        <!--friendcenter end-->
         </div>
 
-        <div class="addMoodBg"></div>-->
+        <div class="addMoodBg"></div>
     </div>
 </template>
 
