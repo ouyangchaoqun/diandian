@@ -120,7 +120,7 @@
                 _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
                     .then(function (res) {
                         console.log(res)
-                        xqzs.weui.toast("success", "设置成功", function () {
+                        xqzs.weui.toast("success", "订阅成功", function () {
                             _this.$router.go(-1);
                         })
                     });
