@@ -179,9 +179,9 @@
    }
    .subscribeList p{
        font-size: 13px;
-       line-height: 13px;
-       margin-bottom: 15px;
-       height: 13px;
+       line-height: 16px;
+       margin-bottom: 12px;
+       height: 16px;
    }
     .subscribeList span{
         font-size: 11px;
