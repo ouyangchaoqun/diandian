@@ -63,13 +63,19 @@
                         <img class="show_bottom_img " :src="reply.from_faceUrl">
                         <div class="show_bottom_text">
                             <div class="reply_author">
-                                <a class="pname other" >{{reply.from_nickName | shortName(7) }}</a>
+                                <a class="pname other" href="javascript:;">{{reply.from_nickName |
+                                    shortName(7)}}</a>
                             </div>
                             <div class="reply_content">
-                                <span class="text_comment">回复</span><a class="pname other" >{{reply.to_nickName | shortName(7) }}</a>
-                                <span class="text_comment" >{{emojiContent(reply.content)}}</span>
+                                <template v-if="reply.tomoodreplyid>0">
+                                    <span class="text_comment">回复</span><a class="pname other"
+                                                                           href="javascript:;">{{reply.to_nickName
+                                    | shortName(7)}}：</a>
+                                </template>
+                                <span class="text_comment">{{emojiContent(reply.content)}}</span>
                             </div>
                         </div>
+
                     </li>
 
 
