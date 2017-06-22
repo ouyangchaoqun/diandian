@@ -707,6 +707,7 @@
         position: relative;
         background: #ffffff;
     }
+    .swiper-container,.swiper-container .swiper-wrapper{ -webkit-tap-highlight-color: rgba(0,0,0,0)}
     .addEdit img{
         width:40px;
         height:40px;
