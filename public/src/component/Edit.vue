@@ -29,7 +29,10 @@
                     <div><img class="optionThird" @click="clickoptions('third')" v-bind:src="buttons.third.curr" alt=""></div>
                     <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.third.on}" src="../images/jt.gif" alt="" >
                 </div>
-                <div v-show="!canupload || !canuploadfunny">
+                <div v-show="!canuploadfunny">
+                    <div><img class="optionThirdNo" src="../images/cantfunny.png" alt=""></div>
+                </div>
+                <div v-show="!canupload">
                     <div style="visibility: hidden"><img class="optionThird" alt=""></div>
                 </div>
                 <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
@@ -780,7 +783,7 @@
         min-width: 131px;
         max-width: 241px;
         height: 26px;
-        border:1px solid #dcdcdc;
+        border:1px solid #e5e5e5;
         font-size: 12px;
         color: #949292;
         line-height: 26px;
@@ -835,6 +838,9 @@
     }
     .optionSecond{
         width:1.55294118rem;margin-top: -0.2rem !important;
+    }
+    .optionThirdNo{
+        width:1.17294118rem;margin-top: -0.13rem !important;
     }
     .optionThird{
         width: 1.35294118rem;
