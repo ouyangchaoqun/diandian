@@ -455,7 +455,8 @@ var xqzs = {
             }
             return data;
         },
-        textareaAutoOldHeight:28,
+        textareaAutoOldHeight:20,
+        textareaAutoBaseH : 20,
         textareaHeight:[],
         textareaAutoHeight:function () {
             var textareaScrollHeight= document.getElementById("textarea").scrollHeight;
@@ -487,7 +488,7 @@ var xqzs = {
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
-            xqzs.mood.textareaAutoOldHeight=28;
+            xqzs.mood.textareaAutoOldHeight= xqzs.mood.textareaAutoBaseH;
             xqzs.mood.textareaHeight=[];
 
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
