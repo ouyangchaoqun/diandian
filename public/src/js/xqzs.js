@@ -460,7 +460,9 @@ var xqzs = {
         textareaAutoHeight:function () {
             var textareaScrollHeight= document.getElementById("textarea").scrollHeight;
 
-
+            if(xqzs.mood.textareaAutoOldHeight<textareaScrollHeight){
+                xqzs.mood.textareaHeight.push({length:$("#textarea").val().length-1,height:textareaScrollHeight-28});
+            }
             console.log( xqzs.mood.textareaHeight)
             var isset=false;
             for(var i = 0; i< xqzs.mood.textareaHeight.length;i++){
@@ -477,9 +479,7 @@ var xqzs = {
                 }
             }
 
-            if(xqzs.mood.textareaAutoOldHeight<textareaScrollHeight){
-                xqzs.mood.textareaHeight.push({length:$("#textarea").val().length-1,height:textareaScrollHeight-28});
-            }
+
            if(isset==false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
             xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
@@ -487,16 +487,21 @@ var xqzs = {
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
+            xqzs.mood.textareaAutoOldHeight=28;
+            xqzs.mood.textareaHeight=[];
 
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<div class="box"><textarea contenteditable="true"  onkeyup="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="'+placeholder+'" ></textarea></div>';
+            html += '<div class="box"><textarea contenteditable="true"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="'+placeholder+'" ></textarea></div>';
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
+
+
+
 
             //解决第三方软键盘唤起时底部input输入框被遮挡问题
             var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
