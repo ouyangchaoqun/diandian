@@ -152,22 +152,30 @@ input,textarea{  -webkit-appearance:none;}
     top:7px
 
 }
-.comment_box .comment_text{
-    outline: none;
+.comment_box .box{
+    border: 1px solid #e4e4e4;
+    border-radius: 4px;
+    margin:6px;
+    padding: 2px 0 ;
+    width: 75%;padding-left: 6px;
+    position: relative;
+    background: #ffffff;
+    font-size: 0;
 
+}
+.comment_box .comment_text{
+
+    border-radius: 4px;
+    outline: none;
     min-height: 28px;height: 28px;
     background: #ffffff;
     max-height: 84px;
     overflow-y: auto;
-    margin:0 auto;
-    margin:6px;
-    width: 76%;
-    border: 1px solid #e4e4e4;
     font-size: 16px;
-    position: relative;
-    border-radius: 4px;
     line-height: 28px;
-    padding-left: 6px;
+    width: 100%;
+
+     border: none;
 }
 .comment_box.addactive{
     /*animation: addheight .2s linear;*/

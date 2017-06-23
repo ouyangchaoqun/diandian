@@ -42,9 +42,9 @@
         </div>
         <!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
-        <div v-if="isa" @click="hideSwiper()">
-            <div class="weui-mask weui-animate-fade-in  "   ></div>
-            <div id="bg_back">
+        <div  @click="hideSwiper()">
+            <div class="weui-mask weui-animate-fade-in  "   v-if="isa" ></div>
+            <div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >
                 <div class="swiper-container clickBox">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" v-for="mood in dayMoods">

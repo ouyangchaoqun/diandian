@@ -455,22 +455,44 @@ var xqzs = {
             }
             return data;
         },
-
+        textareaAutoOldHeight:28,
+        textareaHeight:[],
         textareaAutoHeight:function () {
-            console.log(  $(" #textarea").height())
-            $("#textarea").height(document.getElementById("textarea").scrollHeight);
+            var textareaScrollHeight= document.getElementById("textarea").scrollHeight;
 
+
+            console.log( xqzs.mood.textareaHeight)
+            var isset=false;
+            for(var i = 0; i< xqzs.mood.textareaHeight.length;i++){
+                if($("#textarea").val().length == xqzs.mood.textareaHeight[i].length ){
+
+                    //处理到达高度
+                    isset=true;
+                    $("#textarea").height(xqzs.mood.textareaHeight[i].height);
+                    console.log("set");
+                    //清除 数组
+                    xqzs.mood.textareaHeight.splice(i, 1)
+
+
+                }
+            }
+
+            if(xqzs.mood.textareaAutoOldHeight<textareaScrollHeight){
+                xqzs.mood.textareaHeight.push({length:$("#textarea").val().length-1,height:textareaScrollHeight-28});
+            }
+           if(isset==false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
+            xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder) {
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
-            ;
+
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<textarea contenteditable="true"  onkeypress="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="'+placeholder+'" ></textarea>';
+            html += '<div class="box"><textarea contenteditable="true"  onkeyup="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="'+placeholder+'" ></textarea></div>';
             html += '  </div>';
             html += '  </div>';
 
