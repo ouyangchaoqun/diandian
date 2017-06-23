@@ -55,6 +55,7 @@
                 console.log(data)
                 _this.detail = data.data.data;
                 console.log(_this.detail)
+                _this.detail.remindtime = _this.detail.remindtime || '08:00';
                 var timies = _this.detail.remindtime.split(':');
                 console.log(timies)
                 _this.hour = timies[0];
@@ -65,6 +66,9 @@
         methods:{
             showTime: function () {
                 let _this = this;
+                if(_this.detail.issubscribe==1){
+                    return;
+                }
                 var hours = [];
                 var obj;
                 for (var i = 0; i < 24; i++) {
@@ -121,11 +125,12 @@
                     .then(function (res) {
                         console.log(res)
                         xqzs.weui.toast("success", "订阅成功", function () {
-                            _this.$router.go(-1);
+                            _this.$router.push('/me/subscribe');
                         })
                     });
             }
         }
+
 
     }
 </script>
@@ -228,32 +233,6 @@
     }
     .weui-picker{
         z-index:10005;
-    }
-    .weui-toast{
-        position: fixed;
-        z-index: 5000;
-        top: 35%;
-        left: 50%;
-        margin-left: -35px;
-        background: rgba(17, 17, 17, 0.7);
-        text-align: center;
-        border-radius: 5px;
-        color: #FFFFFF;
-        width: 70px;
-        height: 70px;
-        min-height: 0;
-    }
-   .weui-icon_toast{
-       margin: 0;
-       display: block;
-       margin-top: 10px;
-    }
-   .weui-toast_content{
-       font-size: 12px;
-       margin: 0;
-   }
-    .weui-icon_toast.weui-icon-success-no-circle:before{
-        font-size: 30px;
     }
 
 </style>

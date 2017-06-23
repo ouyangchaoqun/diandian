@@ -115,7 +115,10 @@
                 e.preventDefault();
             });
 
-
+            //swiperIndex
+            var swiperIndex = this.$route.query.swiperindex || 0;
+            console.info(1212);
+            subtabsSwiper.slideTo(swiperIndex);
         }
 
     }

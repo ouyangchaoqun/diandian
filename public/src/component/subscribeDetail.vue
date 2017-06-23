@@ -143,15 +143,12 @@
                     .then(function (res) {
                         console.log(res)
                          xqzs.weui.toast("success", "取消订阅", function () {
-                         _this.$router.go(-1);
+                         //_this.$router.go(-1);
+                         _this.$router.push('/me/subscribe?swiperindex=1');
                          })
 
                     });
-
             }
-        },
-        mounted:function () {
-
         }
 
     }
@@ -195,7 +192,7 @@
         text-align: left;
         font-size: 12px;
         color: #999;
-        margin-bottom: 32px;
+        margin-bottom: 15px;
     }
     .subscribeListMiddle h3{
         font-size: 15px;
