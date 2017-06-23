@@ -53,8 +53,10 @@
                 url: web.API_PATH + 'subscribe/query/detail/with/user/'+subsid+'/_userId_',
             }).then(function (data) {
                 console.log(data)
-                _this.detail = data.data.data
+                _this.detail = data.data.data;
+                console.log(_this.detail)
                 var timies = _this.detail.remindtime.split(':');
+                console.log(timies)
                 _this.hour = timies[0];
                 _this.minute = timies[1];
             }, function (data) {
@@ -99,15 +101,13 @@
                 weui.picker(
                     hours, minutes, {
                         onConfirm: function (result) {
-                            var postdata = {subscriptionId:_this.detail.id,userId:'',remindTime:_this.detail.hour+':'+_this.detail.minute};
+                            var postdata = {subscriptionId:_this.detail.id,userId:'',remindTime:_this.hour+':'+_this.minute};
+                            console.log(postdata)
                             _this.hour = result[0].value;
                             _this.minute = result[1].value;
-                            console.log(postdata)
                             _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
                                 .then(function (res) {
                                     console.log(res)
-                                    xqzs.weui.toast("success", "设置成功", function () {
-                                    })
                                 });
                         }
                     });
@@ -168,7 +168,7 @@
         text-align: left;
         font-size: 12px;
         color: #999;
-        margin-bottom: 32px;
+        margin-bottom: 15px;
     }
     .description{
         height:54px;
@@ -229,6 +229,33 @@
     .weui-picker{
         z-index:10005;
     }
+    .weui-toast{
+        position: fixed;
+        z-index: 5000;
+        top: 35%;
+        left: 50%;
+        margin-left: -35px;
+        background: rgba(17, 17, 17, 0.7);
+        text-align: center;
+        border-radius: 5px;
+        color: #FFFFFF;
+        width: 70px;
+        height: 70px;
+        min-height: 0;
+    }
+   .weui-icon_toast{
+       margin: 0;
+       display: block;
+       margin-top: 10px;
+    }
+   .weui-toast_content{
+       font-size: 12px;
+       margin: 0;
+   }
+    .weui-icon_toast.weui-icon-success-no-circle:before{
+        font-size: 30px;
+    }
+
 </style>
 
 

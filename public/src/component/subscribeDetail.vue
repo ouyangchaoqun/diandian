@@ -51,6 +51,8 @@
     export default {
         data() {
             return {
+                hour:'',
+                minute:'',
                 isSub:false,
                 unsubscribe_box:false,
                 dataArray:[],
@@ -115,8 +117,9 @@
                         onConfirm: function (result) {
                             _this.hour = result[0].value;
                             _this.minute = result[1].value;
-                            var postdata = {subscriptionId:_this.detail.id,userId:'',remindTime:_this.detail.hour+':'+_this.detail.minute};
+                            var postdata = {subscriptionId:_this.detail.id,userId:'',remindTime:_this.hour+':'+_this.minute};
                             console.log(postdata)
+
                             _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
                                 .then(function (res) {
                                     console.log(res)
@@ -124,18 +127,6 @@
                                     })
                                 });
                         }
-                    });
-            },
-            setRemindTime: function () {
-                let _this = this;
-                var postdata = {subscriptionId:this.$route.params.id,userId:'',remindTime:this.hour+':'+this.minute};
-                _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
-                    .then(function (res) {
-                        console.log(res)
-                        xqzs.weui.toast("success", "取消订阅", function () {
-                            _this.$router.go(-1);
-                        })
-
                     });
             },
             show_unsubscribeBox:function () {

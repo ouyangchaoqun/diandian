@@ -1,7 +1,7 @@
 <template id="subscribe">
     <div class="subscribe_box">
         <div v-title>精选订阅</div>
-        <div class="tabs">
+        <div class="subtabs">
             <div class="tabHeader">
                 <a href="#" hidefocus="true" class="active">订阅推荐</a>
                 <a href="#" hidefocus="true">我的订阅</a>
@@ -13,7 +13,7 @@
                 <div class="swiper-slide">
                     <ul class="subscribeLists">
                         <router-link :to="url+data.id" v-for="data in dataArray">
-                            <li class="subscribeList">
+                            <li class="subscribeList subscribeHeight">
                                 <img class="timing" :src="data.icon" alt="">
                                 <div>
                                     <h3>{{data.title}}</h3>
@@ -97,21 +97,21 @@
             }
         },
         mounted:function () {
-            var tabsSwiper = new Swiper('.swiper-container',{
+            var subtabsSwiper = new Swiper('.swiper-container',{
                 speed:500,
                 onSlideChangeStart: function(){
-                    $(".tabs .active").removeClass('active');
-                    $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+                    $(".subtabs .active").removeClass('active');
+                    $(".subtabs a").eq(subtabsSwiper.activeIndex).addClass('active');
                 }
             });
-            $(".tabs a").on('touchstart mousedown',function(e){
+            $(".subtabs a").on('touchstart mousedown',function(e){
                 e.preventDefault()
-                $(".tabs .active").removeClass('active');
+                $(".subtabs .active").removeClass('active');
                 $(this).addClass('active');
-                tabsSwiper.slideTo($(this).index());
+                subtabsSwiper.slideTo($(this).index());
             });
 
-            $(".tabs a").click(function(e){
+            $(".subtabs a").click(function(e){
                 e.preventDefault();
             });
 
@@ -126,7 +126,7 @@
         height: 100%;
         background: #ffffff !important;
     }
-    .tabs{
+    .subtabs{
         height:37px;
         background:#fff;
         padding:15px;
@@ -138,7 +138,7 @@
         border-radius: 5px;
         padding:0 2px
     }
-    .tabs a{
+    .subtabs a{
         display:block;
         float:left;
         width:50%;
@@ -152,7 +152,7 @@
         margin:2px 0;
         font-family: PingFangSC-Regular
     }
-    .tabs a.active{
+    .subtabs a.active{
         color:#333;
         position: relative;
         background: #fff;
@@ -161,10 +161,13 @@
     }
     .subscribeLists{padding:0 15px 0 15px}
     .subscribeList{
-        height: 77px;
+        height: 62px;
         border-bottom: 1px solid #eee;
         color: #999;
         padding-top: 15px;
+    }
+    .subscribeHeight{
+        height: 77px;
     }
     .subscribeList div{
         float: left;
