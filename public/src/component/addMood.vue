@@ -100,7 +100,7 @@
     }
     .mood_box{
         /*padding:30px 15px 36px 15px;*/
-        background: #fff;
+        background: url(../images/add_mood_bj.jpg);
         background-size: cover;
         border-top-left-radius:5px;
         border-top-right-radius:5px;

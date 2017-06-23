@@ -11,6 +11,9 @@ var xqzs = {
     },
 
     weui: {
+        weuiMaskClose:function () {
+            $(".weui-mask").removeClass("weui-animate-fade-in").addClass("weui-animate-fade-out");
+        },
         active:function (obj) {
             obj.on("touchstart",function () {
                 $(this).addClass("active")
@@ -60,7 +63,7 @@ var xqzs = {
             if (title === "") title = "提示";
             var html = "";
             html += '<div class="js_dialog"  >';
-            html += '   <div class="weui-mask"></div>';
+            html += '   <div class="weui-mask weui-animate-fade-in"></div>';
             html += '   <div class="weui-dialog">';
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + msg + '</div>';
@@ -72,16 +75,18 @@ var xqzs = {
             html += '   </div>';
             $("body").append(html);
             $(".js_dialog .cancel").click(function () {
-                $(".js_dialog").animate({opacity: 0}, 200, function () {
-                    $(".js_dialog").remove();
-                    cancelFun();
-                });
+                xqzs.weui.weuiMaskClose();
+               setTimeout(function () {
+                   $(".js_dialog").remove();
+               },300);
+                cancelFun();
             });
             $(".js_dialog .submit").click(function () {
+                xqzs.weui.weuiMaskClose();
                 submitFun();
-                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                setTimeout(function () {
                     $(".js_dialog").remove();
-                });
+                },300);
             })
         },
         _dialog: function (config) {
@@ -98,7 +103,7 @@ var xqzs = {
             config = $.extend(defaultsize,config);
             var html = "";
             html += '<div class="js_dialog"  >';
-            html += '   <div class="weui-mask"></div>';
+            html += '   <div class="weui-mask weui-animate-fade-in-in"></div>';
             html += '   <div class="weui-dialog">';
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
@@ -125,7 +130,7 @@ var xqzs = {
         actionSheet: function (tip, actionName, doFun, cancelFun) {
             var html = "";
             html += '<div class="actionSheet_wrap">';
-            html += '   <div class="weui-mask cancel active"   ></div>';
+            html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
 
             if (xqzs.isIos()) {
                 html += '    <div class="weui-actionsheet " id="weui-actionsheet" >';
@@ -158,6 +163,7 @@ var xqzs = {
 
 
             $(".actionSheet_wrap .cancel").click(function () {
+                xqzs.weui.weuiMaskClose();
                 $(".actionSheet_wrap .weui-actionsheet").removeClass(" weui-actionsheet_toggle");
                 $(".actionSheet_wrap").delay(100).animate({opacity: 0}, 200, function () {
                     $(".actionSheet_wrap").remove();
@@ -165,6 +171,7 @@ var xqzs = {
                 });
             });
             $(".actionSheet_wrap .doAction").click(function () {
+                xqzs.weui.weuiMaskClose();
                 doFun();
                 $(".actionSheet_wrap .weui-actionsheet").removeClass(" weui-actionsheet_toggle");
                 $(".actionSheet_wrap").delay(100).animate({opacity: 0}, 200, function () {
@@ -448,16 +455,22 @@ var xqzs = {
             }
             return data;
         },
+
+        textareaAutoHeight:function () {
+            console.log(  $(" #textarea").height())
+            $("#textarea").height(document.getElementById("textarea").scrollHeight);
+
+        },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder) {
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
             ;
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
-            html += '   <div class="weui-mask cancel"   ></div>';
+            html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<input contenteditable="true" class="comment_text" placeholder="'+placeholder+'" />';
+            html += '<textarea contenteditable="true"  onkeypress="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="'+placeholder+'" ></textarea>';
             html += '  </div>';
             html += '  </div>';
 
@@ -494,6 +507,7 @@ var xqzs = {
 
 
             $(".action-sheet-edit .cancel").click(function () {
+                xqzs.weui.weuiMaskClose();
                 $(".comment_box").removeClass('addactive').addClass("subactive");
                 $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
                     $(".action-sheet-edit").remove();
@@ -505,12 +519,16 @@ var xqzs = {
                 if (v !== "") {
                     doFun(v);
                 }
+                xqzs.weui.weuiMaskClose();
+
                 $(".comment_box").removeClass('addactive').addClass("subactive");
                 $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
                     $(".action-sheet-edit").remove();
                 });
 
             })
+
+
 
 
         },

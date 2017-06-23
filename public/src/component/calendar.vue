@@ -42,7 +42,8 @@
         </div>
         <!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
-        <div :class="[{show_box_cal:isa,hidden_box:isb}]" @click="hideSwiper()">
+        <div v-if="isa" @click="hideSwiper()">
+            <div class="weui-mask weui-animate-fade-in  "   ></div>
             <div id="bg_back">
                 <div class="swiper-container clickBox">
                     <div class="swiper-wrapper">
@@ -304,10 +305,14 @@
 
             },
             hideSwiper: function () {                                 //轮播隐藏事件
+                let _this= this;
+                xqzs.weui.weuiMaskClose();
+                setTimeout(function () {
+                    _this.isa = false;
+                    _this.isb = true;
+                    _this.moveMove();
+                },200)
 
-                this.isa = false;
-                this.isb = true;
-                this.moveMove();
             },
 
             /***禁止滑动***/
@@ -570,10 +575,9 @@
         position: fixed;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.6);
         height: 100%;
         width: 100%;
-        z-index: 100;
+        z-index: 1000;
     }
 
     .clickBox {

@@ -3,7 +3,7 @@
 
         <div class="funny_exp">
             <div class="exp_active pubu"  >
-                <figure @click="selectGif(pic)" v-for="pic in pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)"><img :src="pic.path" /></figure>
+                <figure @click="selectGif(pic)" v-for="pic in pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)"><img :src="setFigureStyle(pic.width,pic.height,pic.path)" /></figure>
                 <span v-if="!isEnd" class="load-paging">数据加载中..</span>
                 <span v-if="isEnd" class="load-paging">没有更多图片</span>
             </div>
@@ -121,7 +121,7 @@
                         if (bt.data && bt.data.status == 1) {
                             var _pagedata_ = bt.data.data.rows;
 
-                            if(_pagedata_.length==0)that.isEnd=true;
+                            if(_pagedata_.length<that.pageConfig.size)that.isEnd=true;
                             for(var i =0 ;i<_pagedata_.length;i++){
                                 that.pictures.push(_pagedata_[i]);
                             }
@@ -134,16 +134,21 @@
                                 $('.pubu img').each(function () {
                                     var ___this=$(this);
                                     var image=new Image;
+                                    let isPubu=false;
                                     image.src=$(this).attr("src");
                                     image.onload= function () {
                                         if(!___this.hasClass("loaded")){
                                             loadCount++;
+                                            console.log("loadCount:"+loadCount)
+                                            console.log("length:"+_pagedata_.length)
                                             if(loadCount==_pagedata_.length ){
                                                 $('.pubu').BlocksIt({
                                                     numOfCol:3,
                                                     offsetX: 5,
                                                     offsetY: 5
                                                 });
+                                                isPubu=true;
+
                                             }
                                             ___this.addClass("loaded");
                                             ___this.parents("figure").addClass("loadedbox")
@@ -153,7 +158,18 @@
 //                                    $(this).load(function(){
 //                                        console.log("load")
 //                                    });
-                                })
+                                });
+                                setTimeout(function () {
+                                    if(isPubu==false){
+                                        $('.pubu').BlocksIt({
+                                            numOfCol:3,
+                                            offsetX: 5,
+                                            offsetY: 5
+                                        });
+                                    }
+
+                                },3000)
+
 
 
                             })
@@ -162,21 +178,16 @@
                     })
 
             },
-            changeTypes:function (ix) {
-                this.activedIndex = ix;
-                this.getFunnyPictures(ix);
-            },
+
             setFigureStyle:function(w,h,src){
                 let that = this;
                 src = src + xqzs.oss.Size.resize(100,100);
-                return ''   ;
+                return src   ;
             },
             selectGif:function(gif){
                 Bus.$emit('funnyPictureChange',gif);
             },
-            loadGifs:function () {
 
-            },
             loadGifByPages(){
                 var ix = this.pageConfig.currentIndex;
                 this.getFunnyPictures(ix);

@@ -71,14 +71,15 @@
     padding:16px;
 }
     .setName_box input{
-        height:50px;
-        line-height: 50px;
+        height:32px;
+        line-height: 32px;
         color: #333333;
         font-size: 16px;
         width:100%;
         text-indent: 15px;
         outline: none;
         border:0;
+        padding: 9px  0;
     }
     .me_bottom{
         margin-top:30px;

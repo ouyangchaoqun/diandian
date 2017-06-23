@@ -282,7 +282,7 @@
                     console.log(v)
 
                 },function (v) {
-                    console.log(v)
+
                     //取消
                 },replyorcomment+' '  + edithoder)
             },
