@@ -33,7 +33,8 @@ let routers =
                 require('./routes/problem'),
                 require('./routes/proposal'),
                 //require('./routes/positionList'),
-                require('./routes/befriend')
+                require('./routes/befriend'),
+                require('./routes/aboutUs')
 
             ]
         }

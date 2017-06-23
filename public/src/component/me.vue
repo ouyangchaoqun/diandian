@@ -50,7 +50,7 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
-		<router-link to="/me/problem" class="me_lists">
+		<router-link to="/me/aboutUs" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 listimgPro" src="../images/aboutMe.png"/>
 				<div class="listtext ">关于我们</div>
