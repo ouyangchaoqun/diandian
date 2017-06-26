@@ -413,6 +413,16 @@
                 //error
             });
 
+
+            if(window.screen.height==$(window).height()){
+                if(window.screen.width==320&& window.screen.availHeight==548){
+                    var style ="<style id='iphone5style'>.transitionBox .child-view{height:504px !important;}</style>";
+                    $(".child-view").append(style);
+                }
+            }else{
+                $("#iphone5style").remove();
+            }
+
 //           setTimeout(function () {
 //               $(".weui-tab__panel").scrollTop(   xqzs.localdb.get("indexScrollTop"));
 //           },100)

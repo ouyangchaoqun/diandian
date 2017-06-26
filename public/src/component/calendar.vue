@@ -382,6 +382,7 @@
     .next {
         right: 15px;
         transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
         height: 20px;
         width: 20px;
         position: absolute;
@@ -437,6 +438,10 @@
         justify-content: center;
         color: #666666;
         line-height: 36px;
+        position: absolute;
+        left: 50%;
+        margin-left: -25%;
+        top: 0;
     }
 
     .rightBgView {
@@ -461,6 +466,8 @@
         flex-grow: 1;
         text-align: center;
         font-size: 12px;
+        float: left;
+        width: 14.28571%;
      }
 
     .dateBgView {
@@ -478,6 +485,8 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        float: left;
+        height: 66px;
     }
 
     .dateEmptyView_right {
@@ -507,6 +516,8 @@
         flex-direction: column;
         justify-content: center;
         position: relative;
+    text-align: center;
+        float: left;
     }
 
     .dateView img {
@@ -526,6 +537,7 @@
         align-items: flex-end;
         justify-content: center;
         margin-bottom: 2px;
+        text-align: center;
     }
 
     .dateSelectView {
