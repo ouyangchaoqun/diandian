@@ -38,7 +38,7 @@ var xqzs = {
                 html += '<i class="weui-icon-success-no-circle weui-icon_toast"></i>';
             }
             if (type === "fail") {
-                html += '<i class="weui-icon-safe-warn weui-icon_toast" style="    font-size: 40px;"></i>';
+                html += '<i class="weui-icon-safe-warn weui-icon_toast" style="font-size: 40px;"></i>';
             }
 
             html += '<p class="weui-toast_content">' + msg + '</p></div></div>';
@@ -375,7 +375,6 @@ var xqzs = {
             }else{
                 return before;
             }
-
         },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {

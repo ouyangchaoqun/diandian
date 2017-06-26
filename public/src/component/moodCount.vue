@@ -16,7 +16,6 @@
                           <p class="count2">你比{{week.comparison}}%都开心哦~</p>
                           <img src="../images/me_jt.png" alt="">
                       </li>
-
                   </ul>
                 </div>
                 <div class="swiper-slide">
@@ -130,7 +129,7 @@
     .tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:46px;font-size:15px;text-decoration:none;}
     .tabs a.active{color:#339900;position: relative}
     .tabs a.active:after{ content: " "; height: 2px ;overflow: hidden; width: 100%; display: block; position: absolute; background: #339900; bottom:0;left:0}
-    .moodCount_box{width:100%;height:100%;}
+   /* .moodCount_box{width:100%;height:100%;}*/
     .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
     .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
     .count2{color:#a9a9a9;font-size: 15px}

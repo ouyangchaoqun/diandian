@@ -105,7 +105,6 @@
                         _this.myLastMood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.myLastMood.moodValue + ".png";
                         _this.myLastMood.careListUrl ="./myCenter/careMe?moodId=" + _this.myLastMood.id;
                         _this.myLastMood.addTime = xqzs.dateTime.formatTime(_this.myLastMood.addTime);
-                        console.log(_this.myLastMood);
                     }
                 }, function (error) {
                     //error
@@ -150,13 +149,22 @@
             console.log("bearbear");
 //
             console.log(from.fullPath);
+
+            let isBackStrIndex  =  to.fullPath.indexOf("isBack=1");
+            if(isBackStrIndex>0 ){
+                isBack= true;
+            }
+
+            if(_this.$route.query.isBack!=undefined &&　_this.$route.query.isBack==1){
+                isBack= true;
+            }
             //是否为点开心情页面；
             if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/addMood") {
                 this.transitionName = 'page-xqzs-up'
             } else if (from.fullPath === "/addMood" && (to.fullPath === "/" || to.fullPath === "/#")) {
                 this.transitionName = 'page-xqzs-down'
 
-            } else if (isBack) {
+            }else if (isBack) {
                 this.transitionName = 'page-xqzs-right'
                 $(".transitionBox").addClass("page-xqzs-right");
             } else {
