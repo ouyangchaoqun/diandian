@@ -786,7 +786,7 @@
         min-width: 131px;
         max-width: 241px;
         height: 26px;
-        border:1px solid #e5e5e5;
+        border:1px solid #f5f5f5;
         font-size: 12px;
         color: #949292;
         line-height: 26px;
@@ -825,7 +825,7 @@
         display: flex;
         width:70%;
     }
-    .edit_option>div{ height: 37px;}
+    .edit_option>div{ height: 29px;}
     .edit_option div{
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -896,13 +896,19 @@
     .optionSecond_box .optionjt{
         left:3.411764705882353rem;
     }
-    .expLists div{
+    .expLists>div {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .expLists>div div{
         display: flex;
         flex-grow: 1;
         margin-bottom: 0.29411764705882354rem;
         -webkit-box-flex: 1;
         -ms-flex: 1;
         flex: 1;
+
     }
     .delexp{
         height:1.1176470588235294rem;
