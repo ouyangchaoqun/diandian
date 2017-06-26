@@ -71,6 +71,7 @@
             }).then(function (data) {
                 console.log(data)
                 _this.detail = data.data.data
+                _this.detail.remindtime = _this.detail.remindtime || '08:00';
                 var timies = _this.detail.remindtime.split(':');
                 _this.hour = timies[0];
                 _this.minute = timies[1];
@@ -143,8 +144,8 @@
                     .then(function (res) {
                         console.log(res)
                          xqzs.weui.toast("success", "取消订阅", function () {
-                         //_this.$router.go(-1);
-                         _this.$router.push('/me/subscribe?swiperindex=1');
+                         _this.$router.go(-1);
+                         //_this.$router.push('/me/subscribe?isBack=1');
                          })
 
                     });
@@ -231,6 +232,9 @@
     }
     .subscribeListSet{
         padding:0 15px;
+    }
+    .subBtn:active{
+        background: rgba(0,0,0,0.2);
     }
     .showPicker{
         font-size: 15px;

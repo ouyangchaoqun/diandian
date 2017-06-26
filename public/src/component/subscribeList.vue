@@ -66,7 +66,7 @@
         methods:{
             showTime: function () {
                 let _this = this;
-                if(_this.detail.issubscribe==1){
+                if(_this.detail.issubscribe==1){//订阅之后不允许修改
                     return;
                 }
                 var hours = [];
@@ -130,8 +130,6 @@
                     });
             }
         }
-
-
     }
 </script>
 <style>
