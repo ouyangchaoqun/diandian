@@ -6,7 +6,6 @@
                 <a href="#" hidefocus="true" class="active">订阅推荐</a>
                 <a href="#" hidefocus="true">我的订阅</a>
             </div>
-
         </div>
         <div class="swiper-container moodCount_box">
             <div class="swiper-wrapper">
