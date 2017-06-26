@@ -79,7 +79,7 @@ xqzs.face = {
         this._allexpount = this.__all__.length;
         var _fh_ = 1.68;
         var _smallfh_ = 1.1;
-        var style = 'a.exp{display:inline-block;vertical-align:middle;vertical-align:text-bottom;height:' + _fh_ + 'rem;width:' + _fh_ + 'rem;margin: 0 auto;background-image:url("' + web.IMG_PATH + 'exp__.png");background-size:' + _fh_ + 'rem;}';
+        var style = 'a.exp{display:inline-block;vertical-align:middle;vertical-align:text-bottom;height:' + _fh_ + 'rem;width:' + _fh_ + 'rem;margin: 0 auto;background-image:url("' + web.IMG_PATH + 'exp.png?v=4");background-size:' + _fh_ + 'rem;}';
         style += 'a.expsmall{height:' + _smallfh_ + 'rem;width:' + _smallfh_ + 'rem;background-size:' + _smallfh_ + 'rem;}';
         $_i = 0;
         var sarr = [];
