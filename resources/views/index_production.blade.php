@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-    const STATIC_XQZS_VERSION ="2017062201";
+    const STATIC_XQZS_VERSION ="2017062601";
 ?>
 <head>
   <meta charset="utf-8">
