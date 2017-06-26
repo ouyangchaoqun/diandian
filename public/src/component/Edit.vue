@@ -804,8 +804,8 @@
     .edit_loc img{
         float: left;
         display: block;
-        width: 14px;
-        margin-top: 4px;
+        width: 10px;
+        margin-top: 7px;
         margin-left:10px;
         margin-right:5px;
     }
@@ -825,6 +825,7 @@
         display: flex;
         width:70%;
     }
+    .edit_option>div{ height: 37px;}
     .edit_option div{
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -899,6 +900,9 @@
         display: flex;
         flex-grow: 1;
         margin-bottom: 0.29411764705882354rem;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
     }
     .delexp{
         height:1.1176470588235294rem;
