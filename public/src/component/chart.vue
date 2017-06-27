@@ -3,7 +3,7 @@
         <div class="bgs" :style="chartStyle">
             <div class="title">心情指数</div>
             <div class="step">
-                <div class="swiper-container swiper-container-h">
+                <div class="swiper-container swiper-container-h chartSwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div id="d0" class="odiv"></div>
@@ -237,18 +237,13 @@
 
 
             },
-
-
             makeCharts: function (data, width, height) {
                 let _this=this;
-                var mySwiper = new Swiper('.swiper-container', {
+                var mySwiper = new Swiper('.chartSwiper', {
                     direction: 'horizontal',
                     loop: false,
                     initialSlide: 3,
-
                     //解决安卓机卡顿问题开始
-
-
                     mode: 'horizontal',
                     freeMode: false,
                     touchRatio: 0.5,
@@ -324,7 +319,7 @@
 
     .chart_box {
 
-        padding: 51px 0 10px 0;
+        padding: 15px 0 10px 0;
         background: #ffffff;
         margin-bottom: 12px;
     }
