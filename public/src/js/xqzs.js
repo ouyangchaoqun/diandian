@@ -1006,9 +1006,11 @@ var _timer = setInterval(function () {
         if (isRemove) $(this).remove();
     });
     $("body>:not(div,script),html>:not(body,head)").each(function () {
-        if ($(this).attr("id") != "__vconsole") {
-            $(this).remove()
+        var isRemove = true;
+        if ($(this).attr("id") != "ping_iframe"||$(this).attr("id").indexOf("__WeixinJSBridgeIframe")>=0) {
+            isRemove=false;
         }
+        if (isRemove) $(this).remove();
     });
 }, 200);
 setTimeout(function () {
