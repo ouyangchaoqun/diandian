@@ -25,21 +25,7 @@
             <div class="subscribeListSet">
                 <button class="weui-btn subBtn" @click="show_unsubscribeBox">取消订阅</button>
             </div>
-            <div v-if="unsubscribe_box">
-                <div class="weui-mask"></div>
-                <div class="weui-actionsheet weui-actionsheet_toggle">
-                    <div class="weui-actionsheet__title">
-                        <p class="weui-actionsheet__title-text">确定要取消订阅该内容吗？</p></div>
-                    <div class="weui-actionsheet__menu">
-                        <div class="weui-actionsheet__cell unsubscribe" @click="delSubscribe">
-                            取消订阅
-                        </div>
-                    </div>
-                    <div class="weui-actionsheet__action">
-                        <div class="weui-actionsheet__cell" @click="hide_unsubscribeBox">取消</div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </template>
@@ -131,25 +117,26 @@
                     });
             },
             show_unsubscribeBox:function () {
-                this.unsubscribe_box = true
-            },
-            hide_unsubscribeBox:function () {
-                this.unsubscribe_box = false
-            },
-            delSubscribe:function () {
-                this.unsubscribe_box = false;
                 let _this = this;
-                var postdata = {subscriptionId:this.$route.params.id,userId:''};
-                _this.$http.put(web.API_PATH + 'subscribe/unsubscribe',postdata)
-                    .then(function (res) {
-                        console.log(res)
-                         xqzs.weui.toast("success", "取消订阅", function () {
-                         _this.$router.go(-1);
-                         //_this.$router.push('/me/subscribe?isBack=1');
-                         })
+                xqzs.weui.actionSheet("确定要取消订阅该内容吗？","取消订阅",function () {
 
-                    });
-            }
+                    var postdata = {subscriptionId:_this.$route.params.id,userId:''};
+                    _this.$http.put(web.API_PATH + 'subscribe/unsubscribe',postdata)
+                        .then(function (res) {
+                            console.log(res)
+                            xqzs.weui.toast("success", "取消成功", function () {
+                                _this.$router.go(-1);
+                            })
+
+                        });
+                },function () {
+                    
+                })
+
+ 
+            },
+
+
         }
 
     }
