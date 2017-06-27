@@ -21,7 +21,7 @@
                     <div><img class="optionFrist" @click="clickoptions('first')" v-bind:src="buttons.first.curr" alt=""></div>
                     <img v-bind:class="{'optionjt':true,'optionjtFlag':buttons.first.on}" src="../images/jt.gif" alt="" >
                 </div>
-                <div v-show="!canupload">
+                <div v-show="!showupload">
                     <div><img class="optionThirdNo" src="../images/cantfunny.png" alt=""></div>
                 </div>
                 <div>
