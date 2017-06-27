@@ -1,5 +1,6 @@
 <template id="careMe">
 	<div class="careMe_box">
+		<div v-title>关心我的朋友</div>
 		<div  v-if="showList" >
 			<router-link :to=detailUrl   class ="careMe_list"  v-for="careFriend in careFriends">
 				<img class="careMe_img" :src="careFriend.faceUrl" alt="">

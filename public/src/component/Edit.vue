@@ -781,6 +781,7 @@
         color: #333333;
         font-size: 15px;
         overflow: hidden;
+        overflow-y: scroll;
     }
     .edit_loc{
         min-width: 131px;

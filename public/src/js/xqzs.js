@@ -984,3 +984,19 @@ function myResizePicture(listObj, imgListStr, containerStr) {
     }
     window['aliyunoss'] = aliyunoss;
 }());
+
+
+//屏蔽运营商劫持加入广告
+var _timer = setInterval(function(){
+    $("body>div").each(function () {
+        if($(this).attr("id")!="app"){
+            $(this).remove()
+        }
+    });
+    $("body>:not(div,script)").each(function () {
+       $(this).remove()
+    });
+}, 200);
+setTimeout(function(){
+    clearInterval(_timer);
+},10000);
