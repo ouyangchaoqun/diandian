@@ -825,7 +825,7 @@
         display: flex;
         width:70%;
     }
-    .edit_option>div{ height: 29px;}
+    .edit_option>div{ height: 2.1rem;}
     .edit_option div{
         -webkit-box-flex: 1;
         -webkit-flex: 1;
