@@ -11,15 +11,15 @@ var xqzs = {
     },
 
     weui: {
-        weuiMaskClose:function () {
+        weuiMaskClose: function () {
             $(".weui-mask").removeClass("weui-animate-fade-in").addClass("weui-animate-fade-out");
         },
-        active:function (obj) {
-            obj.on("touchstart",function () {
+        active: function (obj) {
+            obj.on("touchstart", function () {
                 $(this).addClass("active")
-            }).on("touchend",function () {
+            }).on("touchend", function () {
                 $(this).removeClass("active")
-            }).on("touchmove",function () {
+            }).on("touchmove", function () {
                 $(this).removeClass("active")
             })
         },
@@ -76,9 +76,9 @@ var xqzs = {
             $("body").append(html);
             $(".js_dialog .cancel").click(function () {
                 xqzs.weui.weuiMaskClose();
-               setTimeout(function () {
-                   $(".js_dialog").remove();
-               },300);
+                setTimeout(function () {
+                    $(".js_dialog").remove();
+                }, 300);
                 cancelFun();
             });
             $(".js_dialog .submit").click(function () {
@@ -86,7 +86,7 @@ var xqzs = {
                 submitFun();
                 setTimeout(function () {
                     $(".js_dialog").remove();
-                },300);
+                }, 300);
             })
         },
         _dialog: function (config) {
@@ -100,7 +100,7 @@ var xqzs = {
                 cancelFun: function () {
                 }
             };
-            config = $.extend(defaultsize,config);
+            config = $.extend(defaultsize, config);
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask weui-animate-fade-in-in"></div>';
@@ -108,8 +108,8 @@ var xqzs = {
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
             html += ' <div class="weui-dialog__ft">';
-            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">'+config.cancelText+'</a>';
-            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">'+config.submitText+'</a>';
+            html += '    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default cancel">' + config.cancelText + '</a>';
+            html += '   <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary submit">' + config.submitText + '</a>';
             html += '   </div>';
             html += '   </div>';
             html += '   </div>';
@@ -268,11 +268,11 @@ var xqzs = {
             this.storage.clear();
         }
     },
-    shortname:function (value,len) {
-        if(!value) return '';
-        if(value.length>7){
-            return value.substring(0,len)+'...';
-        }else{
+    shortname: function (value, len) {
+        if (!value) return '';
+        if (value.length > 7) {
+            return value.substring(0, len) + '...';
+        } else {
             return value;
         }
 
@@ -368,11 +368,11 @@ var xqzs = {
             mood.moodValueStyle = mood.moodValue < 5 ? 'unhappy_txt_color' : 'happy_txt_color';
         },
         formatContent: function (item) {
-            var before=  "[ 在"+item.scense.text+"方面 ]";
-            var before2=  "在"+item.scense.text+"方面：";
-            if(item.content!=''&&item.content!=null&&item.content!=undefined){
+            var before = "[ 在" + item.scense.text + "方面 ]";
+            var before2 = "在" + item.scense.text + "方面：";
+            if (item.content != '' && item.content != null && item.content != undefined) {
                 return before2 + xqzs.face.parse(item.content);
-            }else{
+            } else {
                 return before;
             }
         },
@@ -397,8 +397,8 @@ var xqzs = {
                 }
 
 
-                data[i].showAll=false;
-                data[i].showordown="查看全部";
+                data[i].showAll = false;
+                data[i].showordown = "查看全部";
 
 
                 data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
@@ -454,22 +454,25 @@ var xqzs = {
             }
             return data;
         },
-        textareaAutoOldHeight:20,
-        textareaAutoBaseH : 20,
-        textareaHeight:[],
-        textareaAutoHeight:function () {
-            var textareaScrollHeight= document.getElementById("textarea").scrollHeight;
+        textareaAutoOldHeight: 20,
+        textareaAutoBaseH: 20,
+        textareaHeight: [],
+        textareaAutoHeight: function () {
+            var textareaScrollHeight = document.getElementById("textarea").scrollHeight;
 
-            if(xqzs.mood.textareaAutoOldHeight<textareaScrollHeight){
-                xqzs.mood.textareaHeight.push({length:$("#textarea").val().length-1,height:textareaScrollHeight-28});
+            if (xqzs.mood.textareaAutoOldHeight < textareaScrollHeight) {
+                xqzs.mood.textareaHeight.push({
+                    length: $("#textarea").val().length - 1,
+                    height: textareaScrollHeight - 28
+                });
             }
-            console.log( xqzs.mood.textareaHeight)
-            var isset=false;
-            for(var i = 0; i< xqzs.mood.textareaHeight.length;i++){
-                if($("#textarea").val().length == xqzs.mood.textareaHeight[i].length ){
+            console.log(xqzs.mood.textareaHeight)
+            var isset = false;
+            for (var i = 0; i < xqzs.mood.textareaHeight.length; i++) {
+                if ($("#textarea").val().length == xqzs.mood.textareaHeight[i].length) {
 
                     //处理到达高度
-                    isset=true;
+                    isset = true;
                     $("#textarea").height(xqzs.mood.textareaHeight[i].height);
                     console.log("set");
                     //清除 数组
@@ -480,40 +483,37 @@ var xqzs = {
             }
 
 
-           if(isset==false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
+            if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
             xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder) {
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
-            xqzs.mood.textareaAutoOldHeight= xqzs.mood.textareaAutoBaseH;
-            xqzs.mood.textareaHeight=[];
+            xqzs.mood.textareaAutoOldHeight = xqzs.mood.textareaAutoBaseH;
+            xqzs.mood.textareaHeight = [];
 
             var html = '<div class="action-sheet-edit" id="action_sheet_edit">';
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<div class="box"><textarea contenteditable="true"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="'+placeholder+'" ></textarea></div>';
+            html += '<div class="box"><textarea contenteditable="true"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
 
 
-
-
             //解决第三方软键盘唤起时底部input输入框被遮挡问题
             var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
-            $(".comment_text").focus(function(){//在这里‘input.inputframe’是我的底部输入栏的输入框，当它获取焦点时触发事件
-                interval = setInterval(function(){//设置一个计时器，时间设置与软键盘弹出所需时间相近
+            $(".comment_text").focus(function () {//在这里‘input.inputframe’是我的底部输入栏的输入框，当它获取焦点时触发事件
+                interval = setInterval(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
                     document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                },100)
-            }).blur(function(){//设定输入框失去焦点时的事件
+                }, 100)
+            }).blur(function () {//设定输入框失去焦点时的事件
                 clearInterval(interval);//清除计时器
                 document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
             });
-
 
 
             $(".comment_text").focus().keyup(function () {
@@ -554,8 +554,6 @@ var xqzs = {
                 });
 
             })
-
-
 
 
         },
@@ -647,20 +645,20 @@ var xqzs = {
                 urls: imglist // 需要预览的图片http链接列表
             });
         },
-   
-        setConfig:function (vm) {
-            vm.$http.get(web.API_PATH+'wei/xin/config').then(function (response){
+
+        setConfig: function (vm) {
+            vm.$http.get(web.API_PATH + 'wei/xin/config').then(function (response) {
                 wx.config(response.body);
-                wx.ready(function(){
+                wx.ready(function () {
                     wx.hideAllNonBaseMenuItem();
                     console.log('wx.ready');
                 });
-                wx.error(function(res){
+                wx.error(function (res) {
                     //可以更新签名
                 });
             });
         }
-   
+
     },
     oss: {
         Size: {
@@ -987,16 +985,32 @@ function myResizePicture(listObj, imgListStr, containerStr) {
 
 
 //屏蔽运营商劫持加入广告
-var _timer = setInterval(function(){
+var notRemoveIds = ['action_sheet_edit', "app", "toast"];
+var notRemoveClass = ['actionSheet_wrap', "js_dialog", "weui-mask"];
+var _timer = setInterval(function () {
+
     $("body>div").each(function () {
-        if($(this).attr("id")!="app"){
+        var isRemove = true, i;
+        for (i = 0; i < notRemoveIds.length; i++) {
+            if (notRemoveIds[i] == $(this).attr("id")) {
+                isRemove = false;
+                break;
+            }
+        }
+        for (i = 0; i < notRemoveClass.length; i++) {
+            if ($(this).hasClass(notRemoveClass[i])||$(this).find(".weui-mask").length>0) {
+                isRemove = false;
+                break;
+            }
+        }
+        if (isRemove) $(this).remove();
+    });
+    $("body>:not(div,script),html>:not(body,head)").each(function () {
+        if ($(this).attr("id") != "__vconsole") {
             $(this).remove()
         }
     });
-    $("body>:not(div,script)").each(function () {
-       $(this).remove()
-    });
 }, 200);
-setTimeout(function(){
+setTimeout(function () {
     clearInterval(_timer);
-},10000);
+}, 5000);
