@@ -14,20 +14,7 @@
                         </div>
                     </router-link>
                     <div class="addName">陈小刚</div>
-                    <div class="IndexAdd">
-                        <div>
-                            <p>8</p>
-                            <div>天记录</div>
-                        </div>
-                        <div>
-                            <p>28</p>
-                            <div>条心情</div>
-                        </div>
-                        <div>
-                            <p>8</p>
-                            <div>个好友</div>
-                        </div>
-                    </div>
+                    <v-indexCount></v-indexCount>
                 </div>
                 <!--banner end -->
                 <div class="addSwiper">
@@ -131,9 +118,7 @@
 
                         </div>
                         <div class="swiper-slide content-slide">
-                            <div>
                                 <v-calendarTemplate></v-calendarTemplate>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,7 +127,7 @@
 
             </div>
         </v-scroll>
-
+        <v-calendarPopup></v-calendarPopup>
     </div>
 
 
@@ -155,12 +140,15 @@
     import banner from "./banner.vue"
     import showLoad from "./showLoad.vue"
     import calendarTemplate from './calendarTemplate.vue'
+    import calendarPopup from './calendarPopup.vue'
+    import indexCount from './indexCount.vue'
     var myIndex = {
         template: '#myIndex'
     };
     export default {
         data() {
             return {
+               arrLength:'',
                 showLoad:false,
                 counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
                 num: 10,  // 一次显示多少条
@@ -190,6 +178,7 @@
             }
         },
         methods: {
+
             canEdit: function (mood) {
                 return xqzs.mood.canEdit(mood);
             },
@@ -405,12 +394,16 @@
                     let i = 0;
                     let end = vm.pageEnd;
                     arr = xqzs.mood.initMoodsData(arr);
+                    this.arrLength = arr.length;
+
                     for (; i < arr.length; i++) {
                         vm.downdata.push(arr[i]);
                     }
+
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
                     });
+
                     if (arr.length === 0) {
                         this.$el.querySelector('.load-more').style.display = 'none';
                         this.$el.querySelector('.load-finish').style.display = 'block';
@@ -442,24 +435,31 @@
                 speed:500,
                 initialSlide:0,
                 onSlideChangeStart: function(){
+                    console.log( this.arrLength)
                     $(".addSwiper a").removeClass('AddActive');
                     $(".addSwiper a").eq(addtabsSwiper.activeIndex).addClass('AddActive');
                     console.log(addtabsSwiper.activeIndex)
 
-                    console.log(H)
-                    if(addtabsSwiper.activeIndex ==1){
-                        var H = $(".content-slide").find('.canlendarView').height();
-                        $(".swiper-slide").css('height', H+10 + 'px');
-                        $(".swiper-wrapper").css('height', H+10 + 'px');
-                        $(".load-more").hide();
-                        $(".load-finish").hide();
-                    }else{
-                        var H = $(".content-slide").find('div').height();
-                        $(".swiper-slide").css('height', H + 'px');
-                        $(".swiper-wrapper").css('height', H + 'px');
-                        $(".load-more").show();
-                        $(".load-finish").show();
-                    }
+                        if(addtabsSwiper.activeIndex ==1){
+                            var H = $(".content-slide").find('.canlendarView').height();
+                            $(".swiper-slide").css('height', H + 'px');
+                            $(".swiper-wrapper").css('height', H + 'px');
+                            $('.yo-scroll').css('background','#fff');
+                            $('.load-more').hide()
+
+                        }else{
+                            var H = $(".content-slide").find('div').height();
+                            $(".swiper-slide").css('height', H + 'px');
+                            $(".swiper-wrapper").css('height', H + 'px');
+                            $('.yo-scroll').css('background','#f5f5f5');
+                           /* if (this.arrLength === 0) {
+                                this.$el.querySelector('.load-more').style.display = 'none';
+                                this.$el.querySelector('.load-finish').style.display = 'block';
+                            }else{
+                                this.$el.querySelector('.load-more').style.display = 'block';
+                                this.$el.querySelector('.load-finish').style.display = 'none';
+                            }*/
+                        }
 
                 }
             });
@@ -496,7 +496,10 @@
 
         },
         components: {
-            'v-scroll': scroll, "v-chart": chart, "v-banner": banner,'v-showLoad':showLoad,'v-calendarTemplate':calendarTemplate
+            'v-scroll': scroll, "v-chart": chart,
+            "v-banner": banner,'v-showLoad':showLoad,
+            'v-calendarTemplate':calendarTemplate,'v-calendarPopup':calendarPopup,
+            'v-indexCount':indexCount
         },
         beforeDestroy: function () {
             xqzs.weui.removeWhenPageChange()

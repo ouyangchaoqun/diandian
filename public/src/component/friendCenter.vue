@@ -2,12 +2,15 @@
     <div class="myIndex_box friendIndex_box">
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
-            <v-banner></v-banner>
+            <!--<v-banner></v-banner>-->
+            <img src="../images/indexBanner.jpg" alt="">
             <router-link :to="friendSetLink" class="headBox">
                 <div class="userHeaderImg">
                     <img alt="" :src="wxFaceUrl(friend.faceUrl)">
                 </div>
             </router-link>
+            <div class="addName">陈小刚</div>
+            <v-indexCount></v-indexCount>
         </div>
         <!--banner end -->
 
@@ -15,7 +18,6 @@
             <v-chart :chartData="chartData"></v-chart>
         </div>
         <div class="canot-look" v-if="!isLookFriend "></div>
-
 
     </div>
 
@@ -27,6 +29,7 @@
 
     import chart from "./chart.vue"
     import banner from "./banner.vue"
+    import indexCount from './indexCount.vue'
     var friendCenter = {
         template: '#friendCenter'
     };
@@ -112,7 +115,8 @@
 
 
         components: {
-            "v-chart": chart, "v-banner": banner
+            "v-chart": chart, "v-banner": banner,
+            'v-indexCount':indexCount
         }
     }
 

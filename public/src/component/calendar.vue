@@ -4,15 +4,15 @@
         <div class="banner">
             <v-banner></v-banner>
         </div>
-        <v-calendarTemplate></v-calendarTemplate>
-        <!--<div class="rl_header">
+        <!--<v-calendarTemplate></v-calendarTemplate>-->
+        <div class="rl_header">
             <div class="canlendarBgView">
                 <div class="canlendarView">
                     <div class="canlendarTopView">
                         <div class="leftBgView">
                             <img class="old" src="../images/back.png" @click="oldMonth"/>
                         </div>
-                        <div class="centerView">{{cur_year || "&#45;&#45;"}}年{{cur_month || "&#45;&#45;"}}月</div>
+                        <div class="centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
                         <div class="rightBgView">
                             <img class="next" src="../images/back.png" @click="nextMonth"/>
                         </div>
@@ -40,10 +40,10 @@
                 </div>
             </div>
             <div style="height: 10px;"></div>
-        </div>-->
+        </div>
         <!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
 
-       <!-- <div  @click="hideSwiper()">
+        <div  @click="hideSwiper()">
             <div class="weui-mask weui-animate-fade-in  "   v-if="isa" ></div>
             <div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >
                 <div class="swiper-container clickBox">
@@ -61,7 +61,7 @@
 
             </div>
 
-        </div>-->
+        </div>
 
     </div>
 </template>
