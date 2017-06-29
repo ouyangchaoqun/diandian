@@ -32,8 +32,8 @@
 </script>
 <script src="/src/js/vconsole.min.js"></script>
 <script src="/src/js/cookie.js"></script>
-<script src="/src/js/xqzs.js?v=2017061202"></script>
-<script src="/src/js/xqzs.face.js?v=20170612"></script>
+<script src="/src/js/xqzs.js?v=2017062901"></script>
+<script src="/src/js/xqzs.face.js?v=2017062901"></script>
 <script src="/src/js/blocksit.min.js"></script>
 <script src="/dist/build.js"></script>
 </body>
