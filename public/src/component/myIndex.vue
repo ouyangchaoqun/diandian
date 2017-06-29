@@ -13,8 +13,8 @@
                             <img :src="user.faceUrl" alt="">
                         </div>
                     </router-link>
-                    <div class="addName">陈小刚</div>
-                    <v-indexCount></v-indexCount>
+                    <div class="addName">{{user.nickName}}</div>
+                    <v-indexCount :mmm="aaa"></v-indexCount>
                 </div>
                 <!--banner end -->
                 <div class="addSwiper">
@@ -164,7 +164,8 @@
                     {"days": ["1月15", "16", "17", "18", "19", "20", "21"], "moods": [7, 8, 9, 0, 4, 0, 5]},
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
 
-                ]
+                ],
+                aaa:''
             }
         },
         props:{
@@ -367,6 +368,9 @@
                 this.showLoad = true;
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
+                    console.log( vm.downdata)
+                    console.log( vm.downdata[0].userId)
+                    this.aaa = vm.downdata[0].userId;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
@@ -435,6 +439,7 @@
                 speed:500,
                 initialSlide:0,
                 onSlideChangeStart: function(){
+                    console.log(this.user)
                     console.log( this.arrLength)
                     $(".addSwiper a").removeClass('AddActive');
                     $(".addSwiper a").eq(addtabsSwiper.activeIndex).addClass('AddActive');
@@ -442,23 +447,14 @@
 
                         if(addtabsSwiper.activeIndex ==1){
                             var H = $(".content-slide").find('.canlendarView').height();
-                            $(".swiper-slide").css('height', H + 'px');
-                            $(".swiper-wrapper").css('height', H + 'px');
-                            $('.yo-scroll').css('background','#fff');
-                            $('.load-more').hide()
+                            $(".content-slide").css('height', H + 'px');
+                            $('.content-slide').css('background','#fff');
+
 
                         }else{
                             var H = $(".content-slide").find('div').height();
-                            $(".swiper-slide").css('height', H + 'px');
-                            $(".swiper-wrapper").css('height', H + 'px');
+                            $(".content-slide").css('height', H + 'px');
                             $('.yo-scroll').css('background','#f5f5f5');
-                           /* if (this.arrLength === 0) {
-                                this.$el.querySelector('.load-more').style.display = 'none';
-                                this.$el.querySelector('.load-finish').style.display = 'block';
-                            }else{
-                                this.$el.querySelector('.load-more').style.display = 'block';
-                                this.$el.querySelector('.load-finish').style.display = 'none';
-                            }*/
                         }
 
                 }

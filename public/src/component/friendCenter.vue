@@ -9,15 +9,28 @@
                     <img alt="" :src="wxFaceUrl(friend.faceUrl)">
                 </div>
             </router-link>
-            <div class="addName">陈小刚</div>
+            <div class="addName">{{nickName}}</div>
             <v-indexCount></v-indexCount>
         </div>
         <!--banner end -->
-
-        <div class="chart_box" v-if="isLookFriend ">
-            <v-chart :chartData="chartData"></v-chart>
+        <div class="addSwiper">
+            <a href="#" hidefocus="true" class="AddActive">心情指数</a>
+            <a href="#" hidefocus="true">心情日历</a>
         </div>
-        <div class="canot-look" v-if="!isLookFriend "></div>
+        <div class="swiper-container addSwiperBox">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide content-slide">
+                    <div class="chart_box" v-if="isLookFriend ">
+                        <v-chart :chartData="chartData"></v-chart>
+                    </div>
+                    <div class="canot-look" v-if="!isLookFriend "></div>
+                </div>
+                <div class="swiper-slide content-slide">
+                    <v-calendarTemplate></v-calendarTemplate>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
@@ -30,6 +43,7 @@
     import chart from "./chart.vue"
     import banner from "./banner.vue"
     import indexCount from './indexCount.vue'
+    import calendarTemplate from './calendarTemplate.vue'
     var friendCenter = {
         template: '#friendCenter'
     };
@@ -83,7 +97,7 @@
                     type: "json",
                     url: web.API_PATH + 'user/find/by/user/Id/' + friendId
                 }).then(function (data) {//es5写法
-
+                    console.log(data)
                     if (data.body.data) {
                         console.log(data.body.data)
                         _this.friend = (data.body.data);
@@ -111,12 +125,45 @@
             let _this = this;
             _this.initData();
             xqzs.wx.setConfig(_this);
+            $(".addSwiper a").click(function(e){
+                e.preventDefault();
+            });
+            var addtabsSwiper = new Swiper('.addSwiperBox',{
+                speed:500,
+                initialSlide:0,
+                onSlideChangeStart: function(){
+                    console.log(this.user)
+                    console.log( this.arrLength)
+                    $(".addSwiper a").removeClass('AddActive');
+                    $(".addSwiper a").eq(addtabsSwiper.activeIndex).addClass('AddActive');
+                    console.log(addtabsSwiper.activeIndex)
+                    if(addtabsSwiper.activeIndex ==1){
+                        var H = $(".content-slide").find('.canlendarView').height();
+                        $(".content-slide").css('height', H + 'px');
+                        $('.content-slide').css('background','#fff');
+
+
+                    }else{
+                        var H = $(".content-slide").find('div').height();
+                        $(".content-slide").css('height', H + 'px');
+                        $('.yo-scroll').css('background','#f5f5f5');
+                    }
+                }
+            });
+            $(".addSwiper a").on('touchstart mousedown',function(e){
+                e.preventDefault()
+                $(".addSwiper .active").removeClass('AddActive');
+                $(this).addClass('AddActive');
+                addtabsSwiper.slideTo($(this).index());
+                //console.log($(this).index())
+            });
         },
 
 
         components: {
             "v-chart": chart, "v-banner": banner,
-            'v-indexCount':indexCount
+            'v-indexCount':indexCount,
+            'v-calendarTemplate':calendarTemplate
         }
     }
 

@@ -121,9 +121,6 @@
                         _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
                     }
                     console.log(_this.dayMoods);
-
-
-
                     //日期点击事件
                     this.isa = true;
                     this.isb = false
@@ -131,8 +128,6 @@
                     Bus.$emit("dataClick",{_isa:this.isa,_isb:this.isb,_dayMoods:_this.dayMoods});
 
                 }
-
-
             },
             getThisMonthDays(year, month) {
                 return new Date(year, month, 0).getDate();

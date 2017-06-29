@@ -44,7 +44,6 @@
             _this.mySwiper = new Swiper('.clickBox', {});
             xqzs.wx.setConfig(_this);
             this.$nextTick(function () {
-                console.log("dsfdsfdsfdsfdsfd")
                 if (_this.mySwiper !== null) {
                     _this.mySwiper.update()
                 }
@@ -164,100 +163,3 @@
 
     }
 </script>
-
-<style>
-    .clickBox_time {
-        position: absolute;
-        text-align: center;
-        padding: 0 20px;
-        bottom: 6px;
-        font-size: 14px;
-        color: #999999;
-        height: 72px;
-        overflow: hidden;
-    }
-
-    .clickBox_time span {
-        margin: 0 5px;
-    }
-
-    .clickBox_bottom {
-        margin-top: 6px;
-    }
-
-    .bg_box {
-
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.6);
-        height: 100%;
-        width: 100%;
-        z-index: 1;
-
-    }
-
-    .swiper_box {
-
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        margin-left: -100px;
-    }
-
-    #bg_back {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 1000;
-    }
-
-    .clickBox {
-        width: 100%;
-        text-align: center;
-        z-index: 100;
-        border-radius: 10px;
-        position: absolute;
-        top: 30%;
-        font-size: 18px;
-        color: #666666;
-        height: auto;
-    }
-
-    .clickBox img {
-        width: 90%;
-        height: auto;
-    }
-
-    .clickBox_time {
-        position: absolute;
-        bottom: 29%;
-        width: 90%;
-        height: 30%;
-        left: 50%;
-        margin-left: -50%;
-    }
-
-    .clickBox_time span {
-        font-size: 12px;
-        color: #999999;
-        margin: 0 5px;
-        line-height: 22px;;
-    }
-
-    .clickBox_bottom {
-        font-size: 13px;
-        color: #333333;
-        line-height: 20px;
-        padding: 0 36px;
-        overflow: auto;
-        height: 36px;
-    }
-
-    .swiper-slide {
-        height: auto;
-    }
-
-</style>
