@@ -269,7 +269,7 @@
                         _this.friend_s = data.body.data.specialFriends;
                         for (let i = 0; i < _this.friend_s.length; i++) {
                             _this.friend_s[i].firstCn ='';
-                            _this.friend_s[i].friendLink = "/#/friendCenter/?friendId=" + _this.friend_s[i].id;
+                            _this.friend_s[i].friendLink = "/#/friendCenter/" + _this.friend_s[i].id;
                         }
 
 
@@ -280,7 +280,7 @@
                             for (let i = 0; i < generalFriends[key].length; i++) {
                                 let friend = generalFriends[key][i];
                                 friend.firstCn = key;
-                                friend.friendLink = "/#/friendCenter/?friendId=" + friend.id;
+                                friend.friendLink = "/#/friendCenter/" + friend.id;
                                 arrayGeneal.push(friend)
                             }
                         }

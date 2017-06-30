@@ -132,7 +132,7 @@
             var addtabsSwiper = new Swiper('.addSwiperBox',{
                 speed:500,
                 initialSlide:0,
-                onSlideChangeStart: function(){
+                onSlideChangeEnd: function(){
                     if(addtabsSwiper.activeIndex ==1){
                         var H = $(".content-slide").find('.canlendarView').height();
                         $(".content-slide").css('height', H +10+ 'px');
