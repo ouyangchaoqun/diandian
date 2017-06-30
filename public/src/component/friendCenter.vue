@@ -71,7 +71,8 @@
             },
             initData: function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + _this.$route.query.friendId)
+                let friendId = this.$route.params.Id;
+                _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + friendId)
                     .then(function (data) {
                             if (data.data.status === 1) {
                                 for (let i = 0; i < data.data.data.length; i++) {
@@ -91,7 +92,7 @@
                             //error
                         });
 
-                let friendId = _this.$route.query.friendId;
+
                 this.$http({
                     method: 'GET',
                     type: "json",
@@ -132,21 +133,13 @@
                 speed:500,
                 initialSlide:0,
                 onSlideChangeStart: function(){
-                    console.log(this.user)
-                    console.log( this.arrLength)
                     $(".addSwiper a").removeClass('AddActive');
                     $(".addSwiper a").eq(addtabsSwiper.activeIndex).addClass('AddActive');
                     console.log(addtabsSwiper.activeIndex)
                     if(addtabsSwiper.activeIndex ==1){
                         var H = $(".content-slide").find('.canlendarView').height();
                         $(".content-slide").css('height', H + 'px');
-                        $('.content-slide').css('background','#fff');
-
-
-                    }else{
-                        var H = $(".content-slide").find('div').height();
-                        $(".content-slide").css('height', H + 'px');
-                        $('.yo-scroll').css('background','#f5f5f5');
+                        $('.friendIndex_box').css('background','#fff');
                     }
                 }
             });
