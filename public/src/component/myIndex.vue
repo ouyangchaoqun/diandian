@@ -435,9 +435,10 @@
             var addtabsSwiper = new Swiper('.addSwiperBox',{
                 speed:500,
                 onSlideChangeStart: function(){
+
                         if(addtabsSwiper.activeIndex ==1){
-                            var H = $(".content-slide").find('.canlendarView').height();
-                            $(".content-slide").css('height', H +10+ 'px');
+                            var H = $(".content-slide").find('.calendarTemplate_box').height();
+                            $(".content-slide").css('height', H + 'px');
                             $('.yo-scroll').css('background','#fff');
 
 

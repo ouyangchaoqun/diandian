@@ -2,7 +2,7 @@
     <div style="height: 100%;width: 100%;" @click="hideSwiper()">
         <div class="weui-mask weui-animate-fade-in" v-if="isa"></div>
         <div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >
-            <div class="swiper-container clickBox">
+            <div class="swiper-container1 clickBox">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="mood in dayMoods">
                         <img :src="mood.bgUrl" alt=""/>
@@ -32,8 +32,7 @@
                 dayMoods: [],
                 mySwiper: null,
                 nowMonth: null,
-                nowYear: null,
-                dayMoods:[]
+                nowYear: null
             }
         },
 
@@ -41,17 +40,18 @@
             //this.setNowDate();
             //轮播配置
             let _this = this;
-            _this.mySwiper = new Swiper('.clickBox', {});
-            xqzs.wx.setConfig(_this);
-            this.$nextTick(function () {
-                if (_this.mySwiper !== null) {
-                    _this.mySwiper.update()
+            _this.mySwiper = new Swiper('.clickBox', {
+
+                onSlideChangeStart: function(){
+                    console.log(_this.mySwiper.activeIndex);
                 }
-                _this.mySwiper.slideTo(_this.dayMoods.length - 1, 0, false);//切换到第一个slide
+
+
             });
+            xqzs.wx.setConfig(_this);
+//
         },
         methods: {
-
             calculateDays(year, month) {
                 let defaultImgUrl = web.IMG_PATH + "list_mood_0" + 0 + ".png";
                 let _this = this;
@@ -110,22 +110,12 @@
                 setTimeout(function () {
                     _this.isa = false;
                     _this.isb = true;
-                    _this.moveMove();
+
                 },200)
 
             },
 
-            /***禁止滑动***/
-            moveStop: function () {
-                $('body').css('overflow', 'hidden') .on('touchmove', function(e) {
-                    e.preventDefault();
-                })
-            },
 
-            /***取消滑动限制***/
-            moveMove: function () {
-                $('body').off().css('overflow', 'auto');
-            },
             formatContent:function (c) {
                 return xqzs.face.parse(c);
             }
@@ -143,12 +133,15 @@
                 popup.isb = _is._isb
                 popup.dayMoods = _is._dayMoods
 
-
+                console.log(popup.dayMoods.length)
                 this.$nextTick(function () {
-
                     if (popup.mySwiper !== null) {
                         popup.mySwiper.update()
+
                     }
+
+
+                    console.log(popup.mySwiper.slidesSize);
 
                     popup.mySwiper.slideTo(popup.dayMoods.length - 1, 0, false);//切换到第一个slide
 

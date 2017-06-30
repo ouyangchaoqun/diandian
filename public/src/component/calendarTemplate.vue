@@ -122,7 +122,6 @@
                     //日期点击事件
                     this.isa = true;
                     this.isb = false
-                    this.moveStop();
                     Bus.$emit("dataClick",{_isa:this.isa,_isb:this.isb,_dayMoods:_this.dayMoods});
 
                 }
