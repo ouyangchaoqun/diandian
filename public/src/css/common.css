@@ -289,7 +289,7 @@ li{list-style: none}
 .addSwiper{
     height: 2.588rem;
     font-size: 13px;
-   /* border-bottom: 1px solid #eee;*/
+    border-bottom: 0.0588rem solid #eee;
 }
 .addSwiper a{
     float: left;
@@ -298,6 +298,7 @@ li{list-style: none}
     text-align: center;
     line-height: 2.588rem;
     color: #999999;
+    height: 2.588rem;
 }
 .addSwiper .AddActive{
     background: #fff;
