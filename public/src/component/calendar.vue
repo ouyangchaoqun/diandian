@@ -99,11 +99,24 @@
 
         mounted: function () {
 
+
+
             this.setNowDate();
             //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
             xqzs.wx.setConfig(_this);
+
+
+            if(_this.$route.query.month!=undefined) {
+                let date = new Date();
+                let _month = date.getMonth();
+                let count = _month - parseInt(_this.$route.query.month);
+                for(let i=0;i<=count;i++){
+                    _this.oldMonth();
+                }
+            }
+
         },
         /*components:{
          "v-swiper_box":swiper_box
