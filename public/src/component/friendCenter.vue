@@ -138,8 +138,7 @@
                     console.log(addtabsSwiper.activeIndex)
                     if(addtabsSwiper.activeIndex ==1){
                         var H = $(".content-slide").find('.canlendarView').height();
-                        $(".content-slide").css('height', H + 'px');
-                        $('.friendIndex_box').css('background','#fff');
+                        $(".content-slide").css('height', H +10+ 'px');
                     }
                 }
             });
@@ -173,11 +172,8 @@
     }
 
     .friendIndex_box {
-
+        background: #fff !important;
     }
-
-
-
     .userHeaderImg img {
         height: 64px;
         width: 64px;
