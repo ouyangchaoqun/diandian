@@ -132,10 +132,10 @@
             var addtabsSwiper = new Swiper('.addSwiperBox',{
                 speed:500,
                 initialSlide:0,
-                onSlideChangeEnd: function(){
+                onSlideChangeStart: function(){
                     if(addtabsSwiper.activeIndex ==1){
-                        var H = $(".content-slide").find('.canlendarView').height();
-                        $(".content-slide").css('height', H +200+ 'px');
+                        var H = $(".content-slide").find('.calendarTemplate_box').height();
+                        $(".content-slide").css('height', H + 'px');
                     }
                 }
             });

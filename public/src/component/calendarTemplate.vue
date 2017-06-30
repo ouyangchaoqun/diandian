@@ -1,6 +1,5 @@
 <template id="calendarTemplate">
-    <div>
-        <div class="rl_header">
+    <div class="calendarTemplate_box">
             <div class="canlendarBgView">
                 <div class="canlendarView">
                     <div class="canlendarTopView">
@@ -35,7 +34,6 @@
                 </div>
             </div>
             <div style="height: 10px;background: #fff"></div>
-        </div>
     </div>
 </template>
 <script type="text/javascript">
@@ -278,6 +276,9 @@
 </script>
 
 <style>
+    .calendarTemplate_box{
+        height:auto;
+    }
     .show_box_cal {
         visibility: inherit;
         position: absolute;
