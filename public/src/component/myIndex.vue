@@ -438,7 +438,7 @@
                         if(addtabsSwiper.activeIndex ==1){
                             var H = $(".content-slide").find('.canlendarView').height();
                             $(".content-slide").css('height', H +10+ 'px');
-                            $('.content-slide').css('background','#fff');
+                            $('.yo-scroll').css('background','#fff');
 
 
                         }else{
