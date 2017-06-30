@@ -23,7 +23,7 @@
                 </div>
                 <div class="swiper-container addSwiperBox">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide content-slide">
+                        <div class="swiper-slide content-slide swiper-no-swiping">
 
                             <div>
                                 <div class="chart_box">
@@ -117,7 +117,7 @@
                             </div>
 
                         </div>
-                        <div class="swiper-slide content-slide">
+                        <div class="swiper-slide content-slide swiper-no-swiping">
                                 <v-calendarTemplate></v-calendarTemplate>
                         </div>
                     </div>
@@ -432,19 +432,9 @@
 
         },
         mounted: function () {
-            $(".addSwiper a").click(function(e){
-                e.preventDefault();
-            });
             var addtabsSwiper = new Swiper('.addSwiperBox',{
                 speed:500,
-                initialSlide:0,
                 onSlideChangeStart: function(){
-                    console.log(this.user)
-                    console.log( this.arrLength)
-                    $(".addSwiper a").removeClass('AddActive');
-                    $(".addSwiper a").eq(addtabsSwiper.activeIndex).addClass('AddActive');
-                    console.log(addtabsSwiper.activeIndex)
-
                         if(addtabsSwiper.activeIndex ==1){
                             var H = $(".content-slide").find('.canlendarView').height();
                             $(".content-slide").css('height', H +10+ 'px');
@@ -456,15 +446,17 @@
                             $(".content-slide").css('height', H + 'px');
                             $('.yo-scroll').css('background','#f5f5f5');
                         }
-
                 }
             });
             $(".addSwiper a").on('touchstart mousedown',function(e){
                 e.preventDefault()
-                $(".addSwiper .active").removeClass('AddActive');
+                $(".addSwiper .AddActive").removeClass('AddActive');
                 $(this).addClass('AddActive');
                 addtabsSwiper.slideTo($(this).index());
                 //console.log($(this).index())
+            });
+            $(".addSwiper a").click(function(e){
+                e.preventDefault();
             });
             let _this = this;
             let scrollFromEdit = _this.$route.query.scroll;

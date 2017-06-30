@@ -243,6 +243,7 @@
                     direction: 'horizontal',
                     loop: false,
                     initialSlide: 3,
+                    noSwiping:false,
                     //解决安卓机卡顿问题开始
                     mode: 'horizontal',
                     freeMode: false,
