@@ -138,6 +138,11 @@
                                 duration: 1300  //动画时间
 
                             },
+                            /*events:{
+                              click:function (e) {
+                                  alert(e.point.y)
+                              }
+                            },*/
                             fillOpacity: 0.2,  //默认是0.75
                             //className: 'main-color',
                             // negativeColor: false,

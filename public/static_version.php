@@ -1,0 +1,1 @@
+<?php  const STATIC_XQZS_VERSION ="2017062703";
