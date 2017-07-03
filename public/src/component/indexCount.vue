@@ -13,7 +13,6 @@
 			<div>位好友</div>
 		</div>
 	</div>
-
 </template>
 <style>
 
