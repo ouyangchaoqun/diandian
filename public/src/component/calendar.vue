@@ -94,7 +94,7 @@
                 swiper_box: true,
                 dayMoods: [],
                 mySwiper: null,
-                maxMonthNum: 3,
+                maxMonthNum: 4,
                 nowMonth: null,
                 nowYear: null
             }

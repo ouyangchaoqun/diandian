@@ -5,16 +5,16 @@
             <div class="step">
                 <div class="swiper-container swiper-container-h chartSwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <div class="swiper-slide swiper-no-swiping">
                             <div id="d0" class="odiv"></div>
                         </div>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide swiper-no-swiping">
                             <div id="d1" class="odiv"></div>
                         </div>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide swiper-no-swiping" >
                             <div id="d2" class="odiv"></div>
                         </div>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide" >
                             <div id="d3" class="odiv"></div>
                         </div>
 
@@ -35,7 +35,11 @@
 
     export default {
         data() {
-            return {chartStyle:''}
+            return {
+                chartStyle:'',
+                chartShow:false,
+
+            }
         },
         props: ['chartData'],
         watch: {
@@ -48,10 +52,12 @@
                 this.makeCharts(data, tagetwidth, tagetHeight);  //图标生成器
 
                 console.log("chartData:" + this.chartData);
+                console.log(this.$route.params.Id)
             }
         },
         updated: function () {
             console.log("chartDataupdate" + this.chartData);
+
         },
         created:function () {
             let tagetHeight = window.innerHeight * 0.3228;
@@ -244,12 +250,20 @@
             },
             makeCharts: function (data, width, height) {
                 let _this=this;
+                console.log(this.$route.params.Id)
+                var noSwiping=false;
+                if(this.$route.params.Id!=''&&this.$route.params.Id!=undefined&&this.$route.params.Id!='_userId_'){
+                    noSwiping=true;
+                }
+
+
                 var mySwiper = new Swiper('.chartSwiper', {
                     direction: 'horizontal',
                     loop: false,
                     initialSlide: 3,
-                    noSwiping:false,
+                    noSwiping:noSwiping,
                     touchMoveStopPropagation : false,
+
                     //解决安卓机卡顿问题开始
                     mode: 'horizontal',
                     freeMode: false,

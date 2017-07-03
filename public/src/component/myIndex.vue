@@ -3,7 +3,7 @@
     <div style="position: relative">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>我的主页</div>
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn">
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="myIndex_box">
                 <div class="banner index_banner">
                    <!-- <v-banner></v-banner>-->
@@ -29,7 +29,7 @@
                                 <div class="chart_box">
                                     <v-chart :chartData="chartData"></v-chart>
                                 </div>
-                                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide">
+                                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
                                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                                     <div class="moodImg_right">
                                         <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
@@ -154,6 +154,8 @@
                 num: 10,  // 一次显示多少条
                 pageStart: 0, // 开始页数
                 pageEnd: 0, // 结束页数
+                isPageEnd:false,
+                isShowMoreText:true,
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
                 currTime: xqzs.dateTime.getTimeStamp(),
@@ -369,15 +371,20 @@
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
                     console.log( vm.downdata)
-                    console.log( vm.downdata[0].userId)
+                    //console.log( vm.downdata[0].userId)
                     this.aaa = vm.downdata[0].userId;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
                     console.log(vm.downdata);
+
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
                         //消失loding
                         this.showLoad = false;
                     })
+                    if (vm.downdata.length <vm.num) {
+                        vm.isPageEnd=true;
+                    }
+
                 }, (response) => {
                     console.log('error');
                     //消失loding
@@ -385,6 +392,8 @@
                 });
             },
             onRefresh(done) {
+                this.counter=1;
+                this.isPageEnd=false;
                 this.getList();
                 done() // call done
             },
@@ -408,10 +417,8 @@
                         myResizePicture();//渲染完成
                     });
 
-                    if (arr.length === 0) {
-                        this.$el.querySelector('.load-more').style.display = 'none';
-                        this.$el.querySelector('.load-finish').style.display = 'block';
-                        return;
+                    if (arr.length <vm.num) {
+                        vm.isPageEnd=true;
                     }
 
                     done() // call done
@@ -432,6 +439,7 @@
 
         },
         mounted: function () {
+            var _this = this;
             var addtabsSwiper = new Swiper('.addSwiperBox',{
                 speed:500,
                 onSlideChangeStart: function(){
@@ -440,10 +448,11 @@
                             var H = $(".content-slide").find('.calendarTemplate_box').height();
                             $(".content-slide").css('height', H + 'px');
                             $('.yo-scroll').css('background','#fff');
+                            _this.isShowMoreText=false;
                         }else{
-                            var H = $(".content-slide").find('div').height();
-                            $(".content-slide").css('height', H + 'px');
+                            $(".content-slide").css('height',  'auto');
                             $('.yo-scroll').css('background','#f5f5f5');
+                            _this.isShowMoreText=true
                         }
                 }
             });
@@ -457,7 +466,6 @@
             $(".addSwiper a").click(function(e){
                 e.preventDefault();
             });
-            let _this = this;
             let scrollFromEdit = _this.$route.query.scroll;
             if(scrollFromEdit==1){
                 $(".innnn").stop().animate({"scrollTop": 290},800)
@@ -474,7 +482,6 @@
                             }
                             _this.$set(_this.chartData, i, week)
                         }
-                        /*console.log( _this.chartData)*/
                     }
                 })
                 .catch((response) => {

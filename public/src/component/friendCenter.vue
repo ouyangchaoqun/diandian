@@ -1,5 +1,4 @@
 <template id="friendCenter">
-    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn">
     <div class="myIndex_box friendIndex_box">
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
@@ -21,21 +20,18 @@
         <div class="swiper-container addSwiperBox">
             <div class="swiper-wrapper">
                 <div class="swiper-slide content-slide swiper-no-swiping">
-                    <div class="chart_box" v-if="isLookFriend ">
+                    <div class="chart_box" v-if="isLookFriend">
                         <v-chart :chartData="chartData"></v-chart>
                     </div>
                     <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
                 <div class="swiper-slide content-slide swiper-no-swiping">
-                    <v-calendarTemplate></v-calendarTemplate>
+                    <v-calendarTemplate v-if="isLookFriend"></v-calendarTemplate>
+                    <div class="canot-look" v-if="!isLookFriend"></div>
                 </div>
             </div>
         </div>
-
-
     </div>
-
-        </v-scroll>
 </template>
 
 <script>
@@ -60,8 +56,7 @@
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [0, 0, 0, 0, 0, 0, 0]}
 
                 ],
-                friendSetLink: null,
-                nickName: ''
+                friendSetLink: null
 
             }
         },
@@ -75,6 +70,7 @@
                 let friendId = this.$route.params.Id;
                 _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + friendId)
                     .then(function (data) {
+                        console.log(data.data.data[3])
                             if (data.data.status === 1) {
                                 for (let i = 0; i < data.data.data.length; i++) {
                                     let week = {days: [], moods: []};
@@ -84,8 +80,6 @@
                                     }
                                     _this.$set(_this.chartData, i, week)
                                 }
-
-
                                 console.log(_this.chartData)
                             }
                         }
@@ -118,8 +112,6 @@
 
                         }
                     })
-
-
             },
         },
         mounted: function () {
@@ -166,8 +158,7 @@
         width: 90%;
         height: 10px;
         background: url(../images/xt.jpg) top center no-repeat;
-        margin: 20px auto auto auto;
-        margin-top: 50px;
+        margin: 30px auto;
     }
 
     .friendIndex_box {
@@ -180,5 +171,4 @@
         margin: auto;
         display: block;
     }
-
 </style>

@@ -206,7 +206,11 @@
 
                 //
             },
-            oldMonth: function () {                             //上个月
+            oldMonth: function () {
+                if(this.$route.params.Id!=''&&this.$route.params.Id!=undefined&&this.$route.params.Id!='_userId_'){
+                    return;
+                }
+               //上个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
 
