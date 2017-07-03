@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php  require "static_version.php";  ?>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
   <title>心情指数</title>
   <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
-  <link rel="stylesheet" type="text/css" href="src/css/common.css"/>
+  <link rel="stylesheet" type="text/css" href="src/css/common.css?v=<?=STATIC_XQZS_VERSION?>"/>
   <link rel="stylesheet" href="src/css/swiper-3.4.2.min.css">
   <script src="http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
   <script src="src/js/axios.min.js"></script>
@@ -34,10 +35,10 @@
 
 
 </script>
-<script src="/src/js/cookie.js"></script>
-<script src="/src/js/xqzs.js?v=2017061201"></script>
-<script src="/src/js/xqzs.face.js"></script>
+<script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="/src/js/xqzs.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="/src/js/xqzs.face.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/vconsole.min.js"></script>
-<script src="/dist/build.js"></script>
+<script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 </body>
 </html>
