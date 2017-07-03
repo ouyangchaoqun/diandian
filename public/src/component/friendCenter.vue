@@ -2,19 +2,34 @@
     <div class="myIndex_box friendIndex_box">
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
-            <v-banner></v-banner>
+            <!--<v-banner></v-banner>-->
+            <img src="../images/indexBanner.jpg" alt="">
             <router-link :to="friendSetLink" class="headBox">
                 <div class="userHeaderImg">
                     <img alt="" :src="wxFaceUrl(friend.faceUrl)">
                 </div>
             </router-link>
+            <div class="addName">{{nickName}}</div>
+            <v-indexCount></v-indexCount>
         </div>
         <!--banner end -->
-
-        <div class="chart_box" v-if="isLookFriend ">
-            <v-chart :chartData="chartData"></v-chart>
+        <div class="addSwiper">
+            <a href="#" hidefocus="true" class="AddActive">心情指数</a>
+            <a href="#" hidefocus="true">心情日历</a>
         </div>
-        <div class="canot-look" v-if="!isLookFriend "></div>
+        <div class="swiper-container addSwiperBox">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide content-slide swiper-no-swiping">
+                    <div class="chart_box" v-if="isLookFriend ">
+                        <v-chart :chartData="chartData"></v-chart>
+                    </div>
+                    <div class="canot-look" v-if="!isLookFriend "></div>
+                </div>
+                <div class="swiper-slide content-slide swiper-no-swiping">
+                    <v-calendarTemplate></v-calendarTemplate>
+                </div>
+            </div>
+        </div>
 
 
     </div>
@@ -27,6 +42,8 @@
 
     import chart from "./chart.vue"
     import banner from "./banner.vue"
+    import indexCount from './indexCount.vue'
+    import calendarTemplate from './calendarTemplate.vue'
     var friendCenter = {
         template: '#friendCenter'
     };
@@ -54,7 +71,8 @@
             },
             initData: function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + _this.$route.query.friendId)
+                let friendId = this.$route.params.Id;
+                _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + friendId)
                     .then(function (data) {
                             if (data.data.status === 1) {
                                 for (let i = 0; i < data.data.data.length; i++) {
@@ -74,13 +92,13 @@
                             //error
                         });
 
-                let friendId = _this.$route.query.friendId;
+
                 this.$http({
                     method: 'GET',
                     type: "json",
                     url: web.API_PATH + 'user/find/by/user/Id/' + friendId
                 }).then(function (data) {//es5写法
-
+                    console.log(data)
                     if (data.body.data) {
                         console.log(data.body.data)
                         _this.friend = (data.body.data);
@@ -108,11 +126,32 @@
             let _this = this;
             _this.initData();
             xqzs.wx.setConfig(_this);
+            $(".addSwiper a").click(function(e){
+                e.preventDefault();
+            });
+            var addtabsSwiper = new Swiper('.addSwiperBox',{
+                speed:500,
+                initialSlide:0,
+                onSlideChangeStart: function(){
+                    if(addtabsSwiper.activeIndex ==1){
+                        var H = $(".content-slide").find('.calendarTemplate_box').height();
+                        $(".content-slide").css('height', H + 'px');
+                    }
+                }
+            });
+            $(".addSwiper a").on('touchstart mousedown',function(e){
+                e.preventDefault()
+                $(".addSwiper .AddActive").removeClass('AddActive');
+                $(this).addClass('AddActive');
+                addtabsSwiper.slideTo($(this).index());
+            });
         },
 
 
         components: {
-            "v-chart": chart, "v-banner": banner
+            "v-chart": chart, "v-banner": banner,
+            'v-indexCount':indexCount,
+            'v-calendarTemplate':calendarTemplate
         }
     }
 
@@ -129,11 +168,8 @@
     }
 
     .friendIndex_box {
-
+        background: #fff !important;
     }
-
-
-
     .userHeaderImg img {
         height: 64px;
         width: 64px;

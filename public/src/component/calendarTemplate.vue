@@ -1,11 +1,5 @@
-<template id="calendar">
-    <div class="calendar_box">
-        <div v-title>心情日历</div>
-        <div class="banner">
-            <v-banner></v-banner>
-        </div>
-        <!--<v-calendarTemplate></v-calendarTemplate>-->
-        <div class="rl_header">
+<template id="calendarTemplate">
+    <div class="calendarTemplate_box">
             <div class="canlendarBgView">
                 <div class="canlendarView">
                     <div class="canlendarTopView">
@@ -39,44 +33,16 @@
                     </div>
                 </div>
             </div>
-            <div style="height: 10px;"></div>
-        </div>
-        <!--<v-swiper_box v-if="swiperFlag" @click="hideSwiper()"></v-swiper_box>-->
-
-        <div  @click="hideSwiper()">
-            <div class="weui-mask weui-animate-fade-in  "   v-if="isa" ></div>
-            <div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >
-                <div class="swiper-container clickBox">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for="mood in dayMoods">
-                            <img :src="mood.bgUrl" alt=""/>
-                            <div class="clickBox_time">
-                                <span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>
-                                <div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
+            <div style="height: 10px;background: #fff"></div>
     </div>
 </template>
 <script type="text/javascript">
-    import banner from "./banner.vue";
-    import calendarTemplate from './calendarTemplate.vue'
+    import Bus from './bus.js';
 
-    var calendar = {
-        template: '#calendar'
+    var calendarTemplate = {
+        template: '#calendarTemplate'
     }
     export default {
-        components: {
-            "v-banner": banner,
-            'v-calendarTemplate':calendarTemplate
-        },
         data() {
             return {
                 hasEmptyGrid: false,
@@ -101,25 +67,11 @@
         },
 
         mounted: function () {
-
-
-
             this.setNowDate();
             //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
             xqzs.wx.setConfig(_this);
-
-
-            if(_this.$route.query.month!=undefined) {
-                let date = new Date();
-                let _month = date.getMonth();
-                let count = _month - parseInt(_this.$route.query.month);
-                for(let i=0;i<=count;i++){
-                    _this.oldMonth();
-                }
-            }
-
         },
         /*components:{
          "v-swiper_box":swiper_box
@@ -152,6 +104,27 @@
                 //console.log(today)
                 //console.log(cur_month)
 
+            },
+            showSwiper: function (index) {
+
+                let _this = this;
+                if (_this.days[index].moods.length > 0) {
+                    //植入当天数据
+                    _this.dayMoods = [];
+                    _this.dayMoods = _this.days[index].moods;
+                    for (let i = 0; i < _this.dayMoods.length; i++) {
+                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "bg_mood_0" + _this.dayMoods[i].moodValue + ".png";
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "月");
+                        _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
+                    }
+                    console.log(_this.dayMoods);
+                    //日期点击事件
+                    this.isa = true;
+                    this.isb = false
+                    Bus.$emit("dataClick",{_isa:this.isa,_isb:this.isb,_dayMoods:_this.dayMoods});
+
+                }
             },
             getThisMonthDays(year, month) {
                 return new Date(year, month, 0).getDate();
@@ -194,7 +167,8 @@
 
                 this.days = days;
                 days = [];
-                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/_userId_?date=' + year + '-' + monthchange + '-01').then(response => {
+                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/'+this.$route.params.Id+'?date=' + year + '-' + monthchange + '-01').then(response => {
+                    console.log(this.$route.params.Id)
                     if (response.data.status === 1) {
 
                         if (thisMonthDays > 0) {
@@ -281,56 +255,6 @@
                 this.cur_year = newYear;
                 this.cur_month = newMonth;
             },
-            showSwiper: function (index) {
-
-                let _this = this;
-                if (_this.days[index].moods.length > 0) {
-
-
-                    //植入当天数据
-                    _this.dayMoods = [];
-                    _this.dayMoods = _this.days[index].moods;
-                    for (let i = 0; i < _this.dayMoods.length; i++) {
-                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "bg_mood_0" + _this.dayMoods[i].moodValue + ".png";
-                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
-                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "月");
-                        _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
-                    }
-
-
-                    console.log(_this.dayMoods);
-                    this.$nextTick(function () {
-
-                        if (_this.mySwiper !== null) {
-                            _this.mySwiper.update()
-                        }
-
-                        _this.mySwiper.slideTo(_this.dayMoods.length - 1, 0, false);//切换到第一个slide
-
-                    });
-
-
-                    //日期点击事件
-                    this.isa = true;
-                    this.isb = false
-                   this.moveStop();
-
-
-                }
-
-
-            },
-            hideSwiper: function () {                                 //轮播隐藏事件
-                let _this= this;
-                xqzs.weui.weuiMaskClose();
-                setTimeout(function () {
-                    _this.isa = false;
-                    _this.isb = true;
-                    _this.moveMove();
-                },200)
-
-            },
-
             /***禁止滑动***/
             moveStop: function () {
                 $('body').css('overflow', 'hidden') .on('touchmove', function(e) {
@@ -345,15 +269,15 @@
             formatContent:function (c) {
                 return xqzs.face.parse(c);
             }
-        },
-        updated:function () {
-            xqzs.weui.active($(".dateView a"))
         }
 
     }
 </script>
 
 <style>
+    .calendarTemplate_box{
+        height:auto;
+    }
     .show_box_cal {
         visibility: inherit;
         position: absolute;

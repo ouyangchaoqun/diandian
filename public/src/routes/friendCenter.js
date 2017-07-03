@@ -3,7 +3,8 @@
  */
 const friendCenter = resolve => require(['../component/friendCenter.vue'], resolve)
 module.exports = {
-    path: '/friendCenter',
+    path: '/friendCenter/:Id',
+    name:'friendUrl',
     component: friendCenter,
 
 }

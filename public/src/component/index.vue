@@ -95,7 +95,7 @@
             <!--friendcenter start-->
             <div class="mycenter friendCenter" v-if="user.isLookFriend!=null&&user.isLookFriend!==0">
                 <div class="addBorder" v-for="friendMood in friendMoodsSpe">
-                    <a @click="link(friendMood.link)">
+                    <a @click="friendLink(friendMood.userId)">
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                             <div class="friend">
@@ -123,7 +123,7 @@
                 </div>
                 <div class="mycenterFill" v-if="hasLine"></div><!--todo-->
                 <div class="addBorder" v-for="friendMood in friendMoods">
-                    <a @click="link(friendMood.link)">
+                    <a @click="friendLink(friendMood.userId)">
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                             <div class="friend">
@@ -267,6 +267,9 @@
             link: function (url) {
                 this.$router.push(url)
             },
+            friendLink:function (userId) {
+                this.$router.push({name: 'friendUrl', params: {Id:userId}})
+            },
             _createinvite:function (type,callback) {
                 this.$http({
                     method: 'GET',
@@ -322,7 +325,6 @@
                         .then(function (bt) {
                             if(bt && bt.data.status == 1){
                                 var data = bt.data.data;
-                                //
                                 var newId = data.id;
                                 console.info(newId+'   '+lastfriendmoodid)
                                 if(newId > parseFloat(lastfriendmoodid)){

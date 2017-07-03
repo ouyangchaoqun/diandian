@@ -240,27 +240,80 @@ li{list-style: none}
 
 
 /*心情详列表*/
-.userHeaderImg {
-    height: 76px;
-    width: 76px;
+/*.userHeaderImg {
+    height: 64px;
+    width: 64px;
+}*/
+.headBox{
+    display: block;
     position: absolute;
     left: 50%;
-    top: 50%;
-    margin-top: -36px;
-    margin-left: -38px;
+    top: 1.35rem;
+    margin-left: -1.8235rem;
 }
-.headBox{ display: block; position: relative}
+.IndexAdd{
+    height: 2.35rem;
+    width:100%;
+    background:rgba(204,204,204,0.2);
+    position: absolute;
+    bottom:0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    padding-top: 0.529rem;
+}
+.IndexAdd>div{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    text-align: center;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 0.823rem;
+}
+.IndexAdd p{
+    font-size: 18px;
+    margin-bottom: 0.294rem;
+}
+.addName{
+    width: 7rem;
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    top: 5.94rem;
+    left:50%;
+    margin-left: -3.5rem;
+    text-align: center;
 
+}
+.addSwiper{
+    height: 2.588rem;
+    font-size: 13px;
+    border-bottom: 0.0588rem solid #eee;
+}
+.addSwiper a{
+    float: left;
+    background: #eeeeee;
+    width:50%;
+    text-align: center;
+    line-height: 2.588rem;
+    color: #999999;
+    height: 2.588rem;
+}
+.addSwiper .AddActive{
+    background: #fff;
+    color: #333;
+}
 
 
 
 
 
 .banner .userHeaderImg img {
-    height: 70px;
-    width: 70px;
+    height: 3.647rem;
+    width: 3.647rem;
     border-radius: 50%;
-    border: rgba(255,255,255,0.6) 3px solid;
+    border: rgba(255,255,255,0.6) 2px solid;
 }
 
 
