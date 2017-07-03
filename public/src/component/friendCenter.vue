@@ -20,14 +20,14 @@
         <div class="swiper-container addSwiperBox">
             <div class="swiper-wrapper">
                 <div class="swiper-slide content-slide swiper-no-swiping">
-                    <div class="chart_box" v-if="isLookFriend">
+                    <div class="chart_box" v-if="isLookFriend ">
                         <v-chart :chartData="chartData"></v-chart>
                     </div>
                     <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
                 <div class="swiper-slide content-slide swiper-no-swiping">
                     <v-calendarTemplate v-if="isLookFriend"></v-calendarTemplate>
-                    <div class="canot-look" v-if="!isLookFriend"></div>
+                    <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@
         width: 90%;
         height: 10px;
         background: url(../images/xt.jpg) top center no-repeat;
-        margin: 30px auto;
+        margin:35px auto;
     }
 
     .friendIndex_box {
