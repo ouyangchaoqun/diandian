@@ -460,10 +460,6 @@
                 e.preventDefault();
             });
             let _this = this;
-            let scrollFromEdit = _this.$route.query.scroll;
-            if(scrollFromEdit==1){
-                $(".innnn").stop().animate({"scrollTop": 290},800)
-            }
             this.getList();
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
