@@ -3,6 +3,7 @@
 		<div>
 			<p>{{dayNum}}</p>
 			<div>天记录心情</div>
+
 		</div>
 		<div class="IndexAddBorder">
 			<span></span>
