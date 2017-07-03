@@ -54,12 +54,16 @@
 			}
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + 'mood/query/statistics/years/'+ this.$route.params.Id
+                url: web.API_PATH + 'mood/get/user/count/'+ this.$route.params.Id
             }).then(function (data) {
-                var moodCount = data.data.data;
-                console.log(moodCount)
-				this.moodNum = moodCount[0].count;
-				this.dayNum = moodCount[0].happyDay+moodCount[0].unHappyDay
+				this.moodNum = data.body.data;
+            }, function (data) {
+            });
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + 'mood/get/user/day/count/'+ this.$route.params.Id
+            }).then(function (data) {
+                this.dayNum = data.body.data;
             }, function (data) {
             });
             this.$http({
