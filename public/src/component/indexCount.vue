@@ -8,7 +8,7 @@
 			<p>{{moodNum}}</p>
 			<div>条心情</div>
 		</div>
-		<div>
+		<div @click="openFriend()">
 			<p>{{friendNum}}</p>
 			<div>位好友</div>
 		</div>
@@ -28,16 +28,29 @@
             return {
                 moodNum: '',
                 dayNum: '',
-                friendNum: ''
+                friendNum: '',
+				linkFriendList:''
             }
         },
         props: {
        	 	mmm:String
     	},
+        methods:{
+            openFriend:function () {
+                if(this.linkFriendList==''){
+                    return ;
+				}else{
+                    this.$router.push( this.linkFriendList);
+				}
+				
+            }  
+		},
 		mounted:function () {
             //console.log(this.$route.params.Id)
 			if(this.$route.params.Id==''||this.$route.params.Id==undefined){
-                this.$route.params.Id = '_userId_'
+                this.$route.params.Id = '_userId_';
+                this.linkFriendList="/friendList";
+                console.log('yyyyy')
 			}
             this.$http({
                 method: 'GET',
@@ -51,14 +64,19 @@
             });
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + 'user/query/friend/by/user/id/_userId_',
+                url: web.API_PATH + 'user/query/friend/by/user/id/'+this.$route.params.Id,
             }).then(function (data) {
 				console.log(data)
 				var friend_g = data.body.data.generalFriends;
 				var friend_sLength = data.body.data.specialFriends.length;
 				var friend_gLength = 0;
+
+
+
 				for(var i in friend_g){
-                    friend_gLength++
+				    for(var j  in friend_g[i] ){
+                        friend_gLength++
+					}
 				}
 				this.friendNum = friend_gLength + friend_sLength
             }, function (data) {
