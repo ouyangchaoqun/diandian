@@ -440,8 +440,6 @@
                             var H = $(".content-slide").find('.calendarTemplate_box').height();
                             $(".content-slide").css('height', H + 'px');
                             $('.yo-scroll').css('background','#fff');
-
-
                         }else{
                             var H = $(".content-slide").find('div').height();
                             $(".content-slide").css('height', H + 'px');

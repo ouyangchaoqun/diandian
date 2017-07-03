@@ -1,4 +1,5 @@
 <template id="friendCenter">
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn">
     <div class="myIndex_box friendIndex_box">
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
@@ -34,12 +35,12 @@
 
     </div>
 
-
+        </v-scroll>
 </template>
 
 <script>
 
-
+    import scroll from './lib/scroll.vue'
     import chart from "./chart.vue"
     import banner from "./banner.vue"
     import indexCount from './indexCount.vue'
@@ -126,6 +127,7 @@
             let _this = this;
             _this.initData();
             xqzs.wx.setConfig(_this);
+            $('.yo-scroll').css('background','#fff');
             $(".addSwiper a").click(function(e){
                 e.preventDefault();
             });
@@ -135,7 +137,7 @@
                 onSlideChangeStart: function(){
                     if(addtabsSwiper.activeIndex ==1){
                         var H = $(".content-slide").find('.calendarTemplate_box').height();
-                        $(".content-slide").css('height', H + 'px');
+                        $(".content-slide").css('height',H + 'px');
                     }
                 }
             });
@@ -151,7 +153,8 @@
         components: {
             "v-chart": chart, "v-banner": banner,
             'v-indexCount':indexCount,
-            'v-calendarTemplate':calendarTemplate
+            'v-calendarTemplate':calendarTemplate,
+            'v-scroll':scroll
         }
     }
 
