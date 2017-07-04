@@ -300,13 +300,13 @@ li{list-style: none}
 }
 .addName{
     width: 7rem;
-    font-size: 0.70588rem;
+    font-size: 0.8235rem;
     color: #fff;
     position: absolute;
     top:5.647rem;
-    line-height: 0.7647rem;
+    line-height: 0.88235rem;
     left:50%;
-    margin-top: 0.882355rem;
+    margin-top: 0.88235rem;
     margin-left: -3.5rem;
     text-align: center;
 
@@ -617,21 +617,22 @@ a{
     margin-top: -3.24rem !important;
     margin-left: -3.24rem !important;
 }
+
 .weui-icon_toast.weui-icon-success-no-circle:before{
-    font-size: 48px !important;
+    font-size: 2.823rem !important;
 }
 .weui-toast__content{
     font-size: 13px !important;
     line-height: 14px !important;
 }
 .weui-icon_toast.weui-loading{
-    width: 40px !important;
-    height: 40px !important;
-    margin-top: 26px !important;
-    margin-bottom: 20px !important;
+    width: 2.3529rem !important;
+    height: 2.3529rem !important;
+    margin-top: 1.529rem !important;
+    margin-bottom: 1.176rem !important;
     vertical-align:middle !important;
 }
 .weui-icon-success-no-circle{
-    margin-top: 20px !important;
-    margin-bottom: 14px !important;
+    margin-top: 1.176rem !important;
+    margin-bottom: 0.8235rem !important;
 }
