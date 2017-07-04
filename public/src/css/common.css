@@ -248,11 +248,11 @@ li{list-style: none}
     display: block;
     position: absolute;
     left: 50%;
-    top: 1.35rem;
+    top: 1.7647rem;
     margin-left: -1.8235rem;
 }
 .IndexAdd{
-    height: 2.35rem;
+    height: 2.88rem;
     width:100%;
     background:rgba(204,204,204,0.2);
     position: absolute;
@@ -260,28 +260,53 @@ li{list-style: none}
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
-    padding-top: 0.529rem;
 }
 .IndexAdd>div{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
     text-align: center;
-    color: #ffffff;
-    font-size: 12px;
-    line-height: 0.823rem;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.588rem;
+    padding-top: 0.411rem;
+    line-height: 0.647rem;
+}
+.IndexAdd>div:active{
+    background: #6C7587;
 }
 .IndexAdd p{
-    font-size: 18px;
+    font-size: 1.058rem;
+    color: #fff;
     margin-bottom: 0.294rem;
+    line-height: 1.058rem;
+}
+.IndexAddBorder{
+    position: relative;
+}
+.IndexAddBorder span{
+    width: 1px;
+    height: 0.88rem;
+    background: rgba(255,255,255,0.7);
+    position: absolute;
+    display: block;
+    top: 50%;
+    margin-top:-0.44rem;
+}
+.IndexAddBorder span:nth-of-type(1){
+    left:0;
+}
+.IndexAddBorder span:nth-of-type(2){
+    right:0;
 }
 .addName{
     width: 7rem;
-    font-size: 14px;
+    font-size: 0.70588rem;
     color: #fff;
     position: absolute;
-    top: 5.94rem;
+    top:5.647rem;
+    line-height: 0.7647rem;
     left:50%;
+    margin-top: 0.882355rem;
     margin-left: -3.5rem;
     text-align: center;
 
@@ -583,3 +608,30 @@ a{
 }
 
 .weui-mask{ -webkit-tap-highlight-color: rgba(0,0,0,0)}
+.weui-toast{
+    height:6.48rem !important;
+    width:6.48rem !important;
+    min-height: 0 !important;
+    background:rgba(0, 0, 0, 0.5) !important;
+    top:50% !important;
+    margin-top: -3.24rem !important;
+    margin-left: -3.24rem !important;
+}
+.weui-icon_toast.weui-icon-success-no-circle:before{
+    font-size: 48px !important;
+}
+.weui-toast__content{
+    font-size: 13px !important;
+    line-height: 14px !important;
+}
+.weui-icon_toast.weui-loading{
+    width: 40px !important;
+    height: 40px !important;
+    margin-top: 26px !important;
+    margin-bottom: 20px !important;
+    vertical-align:middle !important;
+}
+.weui-icon-success-no-circle{
+    margin-top: 20px !important;
+    margin-bottom: 14px !important;
+}

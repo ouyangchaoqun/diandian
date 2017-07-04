@@ -1,9 +1,10 @@
 <template id="friendCenter">
     <div class="myIndex_box friendIndex_box">
+
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <!--<v-banner></v-banner>-->
-            <img src="../images/indexBanner.jpg" alt="">
+            <img src="../images/indexBanner1.jpg" alt="">
             <router-link :to="friendSetLink" class="headBox">
                 <div class="userHeaderImg">
                     <img alt="" :src="wxFaceUrl(friend.faceUrl)">
@@ -26,20 +27,17 @@
                     <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
                 <div class="swiper-slide content-slide swiper-no-swiping">
-                    <v-calendarTemplate></v-calendarTemplate>
+                    <v-calendarTemplate v-if="isLookFriend"></v-calendarTemplate>
+                    <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
 </template>
 
 <script>
 
-
+    import scroll from './lib/scroll.vue'
     import chart from "./chart.vue"
     import banner from "./banner.vue"
     import indexCount from './indexCount.vue'
@@ -59,8 +57,7 @@
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [0, 0, 0, 0, 0, 0, 0]}
 
                 ],
-                friendSetLink: null,
-                nickName: ''
+                friendSetLink: null
 
             }
         },
@@ -74,6 +71,7 @@
                 let friendId = this.$route.params.Id;
                 _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/' + friendId)
                     .then(function (data) {
+                        console.log(data.data.data[3])
                             if (data.data.status === 1) {
                                 for (let i = 0; i < data.data.data.length; i++) {
                                     let week = {days: [], moods: []};
@@ -83,8 +81,6 @@
                                     }
                                     _this.$set(_this.chartData, i, week)
                                 }
-
-
                                 console.log(_this.chartData)
                             }
                         }
@@ -96,13 +92,13 @@
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/' + friendId
+                    url: web.API_PATH + 'user/find/friend/'+friendId+'/_userId_'
                 }).then(function (data) {//es5写法
                     console.log(data)
                     if (data.body.data) {
                         console.log(data.body.data)
                         _this.friend = (data.body.data);
-                        _this.nickName = _this.friend.nickName
+                        _this.nickName = _this.friend.outName
                         _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + friendId
                     }
                 }, function (error) {
@@ -117,8 +113,6 @@
 
                         }
                     })
-
-
             },
         },
         mounted: function () {
@@ -126,6 +120,7 @@
             let _this = this;
             _this.initData();
             xqzs.wx.setConfig(_this);
+            $('.yo-scroll').css('background','#fff');
             $(".addSwiper a").click(function(e){
                 e.preventDefault();
             });
@@ -135,7 +130,7 @@
                 onSlideChangeStart: function(){
                     if(addtabsSwiper.activeIndex ==1){
                         var H = $(".content-slide").find('.calendarTemplate_box').height();
-                        $(".content-slide").css('height', H + 'px');
+                        $(".content-slide").css('height',H + 'px');
                     }
                 }
             });
@@ -151,7 +146,8 @@
         components: {
             "v-chart": chart, "v-banner": banner,
             'v-indexCount':indexCount,
-            'v-calendarTemplate':calendarTemplate
+            'v-calendarTemplate':calendarTemplate,
+            'v-scroll':scroll
         }
     }
 
@@ -163,8 +159,7 @@
         width: 90%;
         height: 10px;
         background: url(../images/xt.jpg) top center no-repeat;
-        margin: 20px auto auto auto;
-        margin-top: 50px;
+        margin:35px auto;
     }
 
     .friendIndex_box {
@@ -177,5 +172,4 @@
         margin: auto;
         display: block;
     }
-
 </style>

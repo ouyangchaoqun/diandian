@@ -54,7 +54,9 @@
                 type: Function,
                 default: undefined,
                 require: false
-            }
+            },
+            isPageEnd:false,
+            isShowMoreText:true
         },
         data() {
             return {
@@ -67,14 +69,16 @@
             }
         },
         mounted:function () {
-             this.height="height:"+(document.body.clientHeight)+"px"
-
+             this.height="height:"+(document.body.clientHeight)+"px";
+//            console.log(this.isPageEnd)
+            ;
         },
         methods: {
             touchStart(e) {
                 this.startY = e.targetTouches[0].pageY
                 this.startScroll = this.$el.scrollTop || 0
-                this.touching = true
+                this.touching = true;
+
             },
             touchMove(e) {
                 if (!this.enableRefresh || this.$el.scrollTop > 0 || !this.touching) {
@@ -107,27 +111,49 @@
                     this.state = 0
                     this.top = 0
                 }
+                this.loadMoreText();
             },
             refresh() {
                 this.state = 2
                 this.top = this.offset
-                this.onRefresh(this.refreshDone)
+                this.onRefresh(this.refreshDone);
+
             },
             refreshDone() {
                 this.state = 0
                 this.top = 0
             },
+            loadMoreText:function () {
+                if(!this.isShowMoreText){
+                    $(".load-more").hide();
+                    $(".load-finish").hide();
+                }else{
+                    if(this.isPageEnd){
+                        $(".load-more").hide();
+                        $(".load-finish").show();
+                    }else{
+                        $(".load-finish").hide();
+                        $(".load-more").show();
+                    }
+                }
 
+
+            },
             infinite() {
+                console.log("Loading")
                 this.infiniteLoading = true
-                this.onInfinite(this.infiniteDone)
+                this.onInfinite(this.infiniteDone);
             },
 
             infiniteDone() {
+
+                console.log("done")
                 this.infiniteLoading = false
             },
 
             onScroll(e) {
+
+
                 if (!this.enableInfinite || this.infiniteLoading) {
                     return
                 }
@@ -137,6 +163,7 @@
                 let ptrHeight = this.onRefresh ? this.$el.querySelector('.pull-refresh').clientHeight : 0
                 let infiniteHeight = this.$el.querySelector('.load-more').clientHeight
                 let bottom = innerHeight - outerHeight - scrollTop - ptrHeight
+
                 if (bottom < infiniteHeight) this.infinite()
             }
         }
@@ -193,6 +220,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
     }
     .yo-scroll .load-finish {
         height: 2rem;

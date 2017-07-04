@@ -2,18 +2,19 @@
 	<div class="IndexAdd">
 		<div>
 			<p>{{dayNum}}</p>
-			<div>天记录</div>
+			<div>天记录心情</div>
 		</div>
-		<div>
+		<div class="IndexAddBorder">
+			<span></span>
 			<p>{{moodNum}}</p>
-			<div>条心情</div>
+			<div>条心情数据</div>
+			<span></span>
 		</div>
 		<div @click="openFriend()">
 			<p>{{friendNum}}</p>
-			<div>位好友</div>
+			<div>位好友关注</div>
 		</div>
 	</div>
-
 </template>
 <style>
 
@@ -26,10 +27,10 @@
     export default {
         data() {
             return {
-                moodNum: '',
-                dayNum: '',
-                friendNum: '',
-				linkFriendList:''
+                moodNum: 0,
+                dayNum: 0,
+                friendNum: 0,
+                linkFriendList:''
             }
         },
         props: {
@@ -42,8 +43,8 @@
 				}else{
                     this.$router.push( this.linkFriendList);
 				}
-				
-            }  
+
+            }
 		},
 		mounted:function () {
             //console.log(this.$route.params.Id)

@@ -1,9 +1,13 @@
 <template id="friends">
 
     <div style="position: relative">
+        <!--<div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">已完成</p>
+        </div>-->
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>匿名心情</div>
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="friends_box">
                 <div class="friend_header">
                     <router-link to="/friendList">以下是我关注的朋友，猜猜TA是谁？</router-link>
@@ -89,7 +93,9 @@
                 listdata: [], // 下拉更新数据存放数组
                 downdata: [],  // 上拉更多的数据存放数组
                 showAll:false,
-                showLoad:false
+                showLoad:false,
+                isPageEnd:false,
+                isShowMoreText:true
             }
         },
         props:{
@@ -134,13 +140,19 @@
                     })
                     //消失loding
                    this.showLoad = false;
+                    if (vm.downdata.length <vm.num) {
+                        vm.isPageEnd=true;
+                    }
                 }, (response) => {
                     console.log('error');
                     //消失loding
                    this.showLoad = false;
                 });
+
             },
             onRefresh(done) {
+                this.counter=1;
+                this.isPageEnd=false;
                 this.getList();
                 done() // call done
             },
@@ -160,11 +172,10 @@
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     });
-                    if (arr.length === 0) {
-                        this.$el.querySelector('.load-more').style.display = 'none';
-                        this.$el.querySelector('.load-finish').style.display = 'block';
-                        return;
+                    if (arr.length <vm.num) {
+                        vm.isPageEnd=true;
                     }
+                    console.log(vm.isPageEnd)
 
                     done() // call done
                 }, (response) => {
