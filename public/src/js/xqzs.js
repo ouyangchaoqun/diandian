@@ -41,7 +41,7 @@ var xqzs = {
                 html += '<i class="weui-icon-safe-warn weui-icon_toast" style="font-size: 40px;"></i>';
             }
 
-            html += '<p class="weui-toast_content">' + msg + '</p></div></div>';
+            html += '<p class="weui-toast__content">' + msg + '</p></div></div>';
             $("body").append(html);
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
