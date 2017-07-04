@@ -1,6 +1,10 @@
 <template id="friends">
 
     <div style="position: relative">
+        <!--<div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">已完成</p>
+        </div>-->
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>匿名心情</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
@@ -135,7 +139,7 @@
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     })
                     //消失loding
-                   this.showLoad = false;
+                   //this.showLoad = false;
                     if (vm.downdata.length <vm.num) {
                         vm.isPageEnd=true;
                     }
