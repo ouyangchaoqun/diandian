@@ -1,5 +1,9 @@
 <template id="friendCenter">
     <div class="myIndex_box friendIndex_box">
+        <!--<div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">已完成</p>
+        </div>-->
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <!--<v-banner></v-banner>-->

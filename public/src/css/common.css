@@ -609,9 +609,13 @@ a{
 
 .weui-mask{ -webkit-tap-highlight-color: rgba(0,0,0,0)}
 .weui-toast{
-    height:110px !important;
-    width:110px !important;
+    height:6.48rem !important;
+    width:6.48rem !important;
     min-height: 0;
+    background:rgba(0, 0, 0, 0.5) !important;
+    top:50% !important;
+    margin-top: -3.24rem !important;
+    margin-left: -3.24rem !important;
 }
 .weui-icon_toast{
     margin:20px 0 0 !important;
