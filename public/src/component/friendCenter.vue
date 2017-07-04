@@ -3,7 +3,7 @@
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <!--<v-banner></v-banner>-->
-            <img src="../images/indexBanner.jpg" alt="">
+            <img src="../images/indexBanner1.jpg" alt="">
             <router-link :to="friendSetLink" class="headBox">
                 <div class="userHeaderImg">
                     <img alt="" :src="wxFaceUrl(friend.faceUrl)">
