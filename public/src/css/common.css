@@ -249,7 +249,7 @@ li{list-style: none}
     position: absolute;
     left: 50%;
     top: 1.7647rem;
-    margin-left: -1.8235rem;
+    margin-left: -1.882rem;
 }
 .IndexAdd{
     height: 2.88rem;
@@ -335,8 +335,8 @@ li{list-style: none}
 
 
 .banner .userHeaderImg img {
-    height: 3.647rem;
-    width: 3.647rem;
+    height: 3.529rem;
+    width: 3.529rem;
     border-radius: 50%;
     border: rgba(255,255,255,0.6) 2px solid;
 }
@@ -624,6 +624,7 @@ a{
 .weui-toast__content{
     font-size: 13px !important;
     line-height: 14px !important;
+
 }
 .weui-icon_toast.weui-loading{
     width: 2.3529rem !important;
