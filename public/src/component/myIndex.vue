@@ -7,7 +7,7 @@
             <div class="myIndex_box">
                 <div class="banner index_banner">
                    <!-- <v-banner></v-banner>-->
-                    <img src="../images/indexBanner.jpg" alt="">
+                    <img src="../images/indexBanner1.jpg" alt="">
                     <router-link to="/me" class="headBox">
                         <div class="userHeaderImg">
                             <img :src="user.faceUrl" alt="">
