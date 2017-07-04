@@ -611,7 +611,7 @@ a{
 .weui-toast{
     height:6.48rem !important;
     width:6.48rem !important;
-    min-height: 0;
+    min-height: 0 !important;
     background:rgba(0, 0, 0, 0.5) !important;
     top:50% !important;
     margin-top: -3.24rem !important;
@@ -621,15 +621,15 @@ a{
     font-size: 48px !important;
 }
 .weui-toast__content{
-    font-size: 13px;
-    line-height: 14px;
+    font-size: 13px !important;
+    line-height: 14px !important;
 }
 .weui-icon_toast.weui-loading{
-    width: 40px;
-    height: 40px;
-    margin-top: 26px;
-    margin-bottom: 20px;
-    vertical-align:middle;
+    width: 40px !important;
+    height: 40px !important;
+    margin-top: 26px !important;
+    margin-bottom: 20px !important;
+    vertical-align:middle !important;
 }
 .weui-icon-success-no-circle{
     margin-top: 20px !important;
