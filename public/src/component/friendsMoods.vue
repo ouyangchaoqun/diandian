@@ -139,7 +139,7 @@
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     })
                     //消失loding
-                   //this.showLoad = false;
+                   this.showLoad = false;
                     if (vm.downdata.length <vm.num) {
                         vm.isPageEnd=true;
                     }
