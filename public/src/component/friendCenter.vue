@@ -92,13 +92,13 @@
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/' + friendId
+                    url: web.API_PATH + 'user/find/friend/'+friendId+'/_userId_'
                 }).then(function (data) {//es5写法
                     console.log(data)
                     if (data.body.data) {
                         console.log(data.body.data)
                         _this.friend = (data.body.data);
-                        _this.nickName = _this.friend.nickName
+                        _this.nickName = _this.friend.outName
                         _this.friendSetLink = "/me/friendsCount/friendSet/?friendId=" + friendId
                     }
                 }, function (error) {
