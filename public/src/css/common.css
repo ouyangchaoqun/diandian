@@ -607,3 +607,17 @@ a{
 }
 
 .weui-mask{ -webkit-tap-highlight-color: rgba(0,0,0,0)}
+.weui-toast{
+    height:110px !important;
+    width:110px !important;
+    min-height: 0;
+}
+.weui-icon_toast{
+    margin:20px 0 0 !important;
+}
+.weui-icon_toast.weui-icon-success-no-circle:before{
+    font-size: 48px !important;
+}
+.weui-toast__content{
+    font-size: 13px;
+}

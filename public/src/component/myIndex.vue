@@ -420,6 +420,7 @@
                     if (arr.length <vm.num) {
                         vm.isPageEnd=true;
                     }
+                    console.log(vm.isPageEnd)
 
                     done() // call done
                 }, (response) => {

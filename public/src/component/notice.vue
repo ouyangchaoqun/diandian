@@ -20,26 +20,6 @@
 					<img v-else  :src="newNotice.moodValueUrl" class="picMood" />
 				</div>
 			</router-link>
-			<!--<router-link :to=detailUrl+newNotice.moodid  class ="careMe_list"  v-for="newNotice in newNotices">
-				<img class="careMe_img" :src="newNotice.faceUrl" alt="">
-				<div class="careMe_div">
-					<div class="careMeName">{{newNotice.nickName}}</div>
-					&lt;!&ndash;<div class="careMeText">{{newNotice.content}}</div>&ndash;&gt;
-					<div class="careStatus">
-						<img v-bind:src="newNotice.careImg" alt="">
-					</div>
-
-					<p>{{newNotice.addtime}}</p>
-
-				</div>
-				<div class="careMe_content" :class ="{nobg:newNotice.moodcontent!='' && newNotice.moodcontent!=null}">
-					<img v-if="newNotice.moodpicture" :src="newNotice.moodpicture">
-					<div v-else-if="newNotice.moodcontent!='' && newNotice.moodcontent!=null ">
-						{{newNotice.moodcontent}}
-					</div>
-					<img v-else  :src="newNotice.moodValueUrl"  />
-				</div>
-			</router-link>-->
 
 		</v-scroll>
 
