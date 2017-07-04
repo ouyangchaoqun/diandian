@@ -271,7 +271,7 @@ li{list-style: none}
     padding-top: 0.411rem;
     line-height: 0.647rem;
 }
-.IndexAdd>div:active{
+.IndexAdd>div:last-child:active{
     background: #6C7587;
 }
 .IndexAdd p{
