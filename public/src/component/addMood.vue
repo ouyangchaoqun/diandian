@@ -11,7 +11,7 @@
                 <div class="mood_left">
                     <div class="moodBox_header">此刻心情</div>
                     <div class="weui-grids grids_box">
-                        <a class="weui-grid grid_33 " v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
+                        <a class="weui-grid grid_33" v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
                             <div class="grid_top">
                                 <img :src="moodSrc(mood.src)" alt="">
                             </div>
@@ -22,9 +22,9 @@
                 </div>
                 <div class="scene_box">
                     <div>
-                        <div class="moodBox_header">在哪方面</div>
+                        <div class="moodBox_header">心情场景</div>
                         <div class="weui-grids grids_box">
-                            <a v-for="scenes in scenesList" class="weui-grid grid_25" @click="chooseData('scenesId',scenes.value)">
+                            <a v-for="scenes in scenesList" class="weui-grid grid_33" @click="chooseData('scenesId',scenes.value)">
                                 <div class="scene_top" v-if="scenes.haspic">
                                     <img :src="moodSrc(scenes.src)">
                                 </div>
@@ -77,8 +77,8 @@
         margin-bottom: 0.5rem;
     }
     .scene_top img{
-        width:1.8235294rem;
-        height:1.8235294rem;
+        width:1.883rem;
+        height:1.883rem;
         display: block;
         margin:0 auto;
     }
@@ -123,12 +123,12 @@
         margin-bottom: 1.411761176470588rem;
     }
     .grid_top{
-        margin-bottom:8px;
+        margin-bottom:0.471rem;
     }
     .grid_top img{
         display: block;
-        width:2.5rem;
-        height:2.5rem;
+        width:2.353rem;
+        height:2.353rem;
         margin: auto;
         margin-top: 12px;
     }

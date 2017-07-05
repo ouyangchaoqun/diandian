@@ -315,10 +315,10 @@ var xqzs = {
             "超级开心"//10
         ],
         moodScenes: [
-            '', '学习教育', '工作事业', '经济', '健康', '家庭', '恋爱婚姻', '休闲娱乐', '人际关系', '天气', '生活', '运动', '其他'
+            '', '学习教育', '工作事业', '生活娱乐', '健康运动', '小孩家庭', '感情感悟', '经济收支', '人际社交', '天气及其他'
         ],
         moodScenesList: [
-            {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
+           /* {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
             {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
             {value: 3, src: 'economics.png', haspic: true, text: '经济'},
             {value: 4, src: 'healthy.png', haspic: true, text: '健康'},
@@ -329,7 +329,16 @@ var xqzs = {
             {value: 9, src: 'weather.png', haspic: true, text: '天气'},
             {value: 10, src: 'life.png', haspic: true, text: '生活'},
             {value: 11, src: 'sport.png', haspic: true, text: '运动'},
-            {value: 12, src: 'other.png', haspic: true, text: '其他'}
+            {value: 12, src: 'other.png', haspic: true, text: '其他'}*/
+            {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
+            {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
+            {value: 3, src: 'arder.png', haspic: true, text: '生活娱乐'},
+            {value: 4, src: 'healthy.png', haspic: true, text: '健康运动'},
+            {value: 5, src: 'home.png', haspic: true, text: '小孩家庭'},
+            {value: 6, src: 'love.png', haspic: true, text: '感情感悟'},
+            {value: 7, src: 'economics.png', haspic: true, text: '经济收支'},
+            {value: 8, src: 'interpersonal.png', haspic: true, text: '人际社交'},
+            {value: 9, src: 'other.png', haspic: true, text: '天气及其他'}
         ],
         /**
          * 是否可以编辑

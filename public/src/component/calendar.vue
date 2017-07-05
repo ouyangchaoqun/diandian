@@ -9,12 +9,12 @@
             <div class="canlendarBgView">
                 <div class="canlendarView">
                     <div class="canlendarTopView">
-                        <div class="leftBgView">
-                            <img class="old" src="../images/back.png" @click="oldMonth"/>
+                        <div class="leftBgView" @click="oldMonth">
+                            <img class="old" src="../images/back.png" />
                         </div>
                         <div class="centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
-                        <div class="rightBgView">
-                            <img class="next" src="../images/back.png" @click="nextMonth"/>
+                        <div class="rightBgView" @click="nextMonth">
+                            <img class="next" src="../images/back.png" />
                         </div>
                     </div>
                     <div class="weekBgView">
@@ -430,6 +430,8 @@
         height: 36px;
         font-size: 17px;
         display: flex;
+        display: -webkit-box;
+        display: -webkit-flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
@@ -440,29 +442,29 @@
     .leftBgView {
         text-align: right;
         height: 40px;
-        display: flex;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
         flex-direction: row-reverse;
     }
 
     .centerView {
-        width: 50%;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
         height: 36px;
         text-align: center;
-        display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: center;
         color: #666666;
         line-height: 36px;
-        position: absolute;
-        left: 50%;
-        margin-left: -25%;
-        top: 0;
     }
 
     .rightBgView {
         height: 40px;
-        display: flex;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
         flex-direction: row;
     }
 
