@@ -32,7 +32,7 @@
 		<router-link to="/me/subscribe" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 remindImgIcon" src="../images/listimg3.png"/>
-				<div class="listtext">心情记录提醒设置</div>
+				<div class="listtext">精选订阅</div>
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
