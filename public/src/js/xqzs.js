@@ -338,7 +338,8 @@ var xqzs = {
             {value: 6, src: 'love.png', haspic: true, text: '感情感悟'},
             {value: 7, src: 'economics.png', haspic: true, text: '经济收支'},
             {value: 8, src: 'interpersonal.png', haspic: true, text: '人际社交'},
-            {value: 9, src: 'other.png', haspic: true, text: '天气及其他'}
+            {value: 9, src: 'other.png', haspic: true, text: '天气及其他'},
+            {value: 12, src: 'other.png', haspic: true, text: '综合',hide:true}
         ],
         /**
          * 是否可以编辑
