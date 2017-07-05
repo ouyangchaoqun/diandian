@@ -46,7 +46,7 @@
             var h = 860 * w / 540;
             $(".inter_pic").height(h);
             var y=$(".interview_box11  .inter_xq").width()
-            $(".interview_box11  .inter_xq").height(y)
+         //   $(".interview_box11  .inter_xq").height(y)
 
 
         }
@@ -1192,12 +1192,13 @@
     .interview_box11  .inter_xq {
         text-align: center;
         margin-top: 17%;
-        margin-left: 27%;
-        width: 15%;
-        padding: 10%;
+        margin-left: 29.2%;
+        width: 31.7%;
+        font-size: 1.05rem;
+        padding: 12.2% 1%;
         border-radius: 50%;
         color: #9ed758;
-        border: 15px solid #9ed758 ;
+        border: 10px solid #9ed758 ;
     }
 
     .interview_box11 .inter_an {
