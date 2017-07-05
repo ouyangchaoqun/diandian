@@ -260,24 +260,13 @@
                 var mySwiper = new Swiper('.chartSwiper', {
                     direction: 'horizontal',
                     loop: false,
-                    initialSlide: 3,
+                    initialSlide: 4,
                     noSwiping:noSwiping,
                     touchMoveStopPropagation : false,
 
-                    //解决安卓机卡顿问题开始
-                    mode: 'horizontal',
-                    freeMode: false,
-                    touchRatio: 0.5,
-                    longSwipesRatio: 0.1,
-                    threshold: 50,
-                    followFinger: false,
-                    observer: true,//修改swiper自己或子元素时，自动初始化swiper
-                    observeParents: true,//修改swiper的父元素时，自动初始化swiper
 
-                    //解决安卓机卡顿问题结束
 
                     onSlideChangeStart: function (swiper) {
-
                         //alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
                         var index = swiper.activeIndex;
 
