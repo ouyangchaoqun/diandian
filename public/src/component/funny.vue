@@ -116,7 +116,7 @@
                 if(that.isLoading==true||that.isEnd==true){ return }
                 that.isLoading= true;
 
-                that.$http.get(web.API_PATH + 'funny/query/page/by/moodvalue/' + that.$route.query.moodValue + '/' + that.pageConfig.currentIndex + '/' + that.pageConfig.size)
+                that.$http.get(web.API_PATH + 'funny/query/page/by/moodvalue/' + that.moodvalue + '/' + that.pageConfig.currentIndex + '/' + that.pageConfig.size)
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
                             var _pagedata_ = bt.data.data.rows;
