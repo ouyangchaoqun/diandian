@@ -7,8 +7,8 @@
         <div class="moodBox_bg" @click="goIndex()">
         </div>
 
-            <div class="mood_box">
-                <div class="mood_left">
+            <div class="mood_box"  >
+                <div class="mood_left" v-show="!goScenes"   >
                     <div class="moodBox_header">此刻心情</div>
                     <div class="weui-grids grids_box">
                         <a class="weui-grid grid_33" v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
@@ -20,7 +20,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="scene_box">
+                <div class="scene_box sogo-enter-active"  v-show="goScenes" >
                     <div>
                         <div class="moodBox_header">在何方面</div>
                         <div class="weui-grids grids_box">
@@ -44,6 +44,26 @@
     </div>
 </template>
 <style>
+
+
+    .sogo-enter-active {
+        animation-name: sgo;
+        animation-duration: .2s;
+    }
+
+    @keyframes sgo {
+        0% {
+            transform: translate3d(100%, 0, 0);
+            -webkit-transform: translate3d(100%, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            z-index: 2;
+        }
+    }
+
+
     .addMood,.mood_box{
         -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
@@ -114,7 +134,7 @@
     }
     .scene_box{
         width:100%;
-        display: none;
+        display: block;
     }
     .moodBox_header{
         font-size: 18px;
@@ -172,12 +192,20 @@
                     {value:1,src:'list_mood_01.png',class:'grid_row3',text:'超级不开心'}
                 ],
                 scenesList:xqzs.mood.moodScenesList,
-                choosedData:{}
+                goScenes:false,
+                goScenesIng:false,
+                choosedData:{},
+                canAddMood:true
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         methods: {
             goIndex:function () {
-                this.$router.go(-1)
+                this.$router.push('/')
             },
             moodSrc:function (src) {
                 return web.IMG_PATH+src;
@@ -185,19 +213,39 @@
             chooseData:function (key,v) {
                 this.choosedData[key] = v;
                 //
-                var keys = ['moodValue','scenesId'];
-                var params = [];
-                for(var o in keys){
-                    if(typeof this.choosedData[keys[o]] == 'undefined'){
-                        return true;
+                if(this.canAddMood==false&&'moodValue'==key){
+                    this.$router.push('/me/personal/validate');
+                    this.goScenes=false;
+                }else{
+                    this.goScenes=true;
+                    var keys = ['moodValue','scenesId'];
+                    var params = [];
+                    for(var o in keys){
+                        if(typeof this.choosedData[keys[o]] == 'undefined'){
+                            return true;
+                        }
+                        params.push(keys[o]+'='+this.choosedData[keys[o]]);
                     }
-                    params.push(keys[o]+'='+this.choosedData[keys[o]]);
+                    this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
                 }
-                location.href =  web.BASE_PATH +'#/myCenter/myIndex/Edit?'+params.join('&');
-            }
+
+            },
+            getMoodCount(callback){
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'mood/get/user/count/_userId_'
+                }).then(function (bt) {
+                    if(bt.data && bt.data.status == 1){
+                        if(typeof callback == 'function'){
+                            callback(bt.data.data);
+                        }
+                    }
+                })
+            },
         },
         mounted: function () {
-
+            var _this= this;
             xqzs.wx.setConfig(this);
 
             var w =$(window).width() ;
@@ -215,14 +263,22 @@
             // $(".mood_box").height( h-(500*w/750)-42);
 
 
-
+            _this.getMoodCount(function (moodcount) {
+                if (moodcount < 10) {
+                    _this.canAddMood = true;
+                } else {
+                    if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                        _this.canAddMood = false;
+                    } else {
+                        _this.canAddMood = true;
+                    }
+                }
+           });
 
 
            $('.grids_box a').click(function (event) {
                event.preventDefault();
                event.stopPropagation();
-               $('.mood_left').css('display','none');
-               $('.scene_box').css({'display':'block'});
            })
         },
 
@@ -231,8 +287,3 @@
 
 
 </script>
-
-<style>
-
-
-</style>
