@@ -530,7 +530,7 @@
     .friendName {
         font-size: 16px;
         color: #333;
-        width:128px;
+        width:144px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
