@@ -47,7 +47,7 @@
 
 
     .sogo-enter-active {
-        animation-name: sgo;
+        animation-name: sgo ;
         animation-duration: .2s;
     }
 
