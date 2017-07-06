@@ -1,5 +1,5 @@
-<template id="interview_1">
-    <div class="interview_box interview_box12">
+<template id="interview">
+    <div class="interview_box interview_box9">
         <div class="inter_pic ">
             <div class="inter_face"><img src="../images/arder.png"/></div>
             <div class="inter_name ">CCC</div>
@@ -7,7 +7,7 @@
             <div class="inter_xq">心情指数</div>
             <div class="inter_an">
                 <div class="inter_code"><img src="../images/interview/二维码.png"/></div>
-                <div class="inter_zw"><img src="../images/interview/11.png"/>
+                <div class="inter_zw"><img :src="pic_num"/>
                     <p>长按识别二维码</p>
                 </div>
             </div>
@@ -30,7 +30,7 @@
 <script>
 
 
-    var interview_1 = {
+    var interview = {
         template: '#interview_1'
     };
 
@@ -39,21 +39,23 @@
 
         data() {
             return {
-                num: 1
+                num: 1,
+                pic_num: require("../images/interview/1.png")
             }
         },
         mounted: function () {
+            let __this = this;
             var w = $(".inter_pic").width()
 
             var h = 860 * w / 540;
             $(".inter_pic").height(h);
+            console.log(__this.pic_num)
 
         },
         methods: {
 
             resetInter: function () {
                 var _this = this;
-
 
                 var new_num = Math.round(Math.random() * 12);
                 if (_this.num == new_num) {
@@ -66,11 +68,13 @@
                 for (let i = 1; i < 13; i++) {
                     $(".interview_box").removeClass("interview_box" + i);
                 }
-                if (_this.num != 1) {
+                if (_this.num != 0) {
+
                     $(".interview_box").addClass(stl);
+                    _this.pic_num = web.IMG_PATH + _this.num + ".png";
+                    console.log(_this.pic_num);
+
                 }
-
-
             }
 
 
@@ -368,7 +372,7 @@
 
     }
 
-    .interview_box3.inter_face img {
+    .interview_box3 .inter_face img {
         width: 100%;
         border-radius: 50%;
         box-shadow: #333333 -2px 0px 8px;
@@ -378,7 +382,7 @@
     }
 
     .interview_box3 .inter_name {
-        font-size: 12px;
+        font-size: 0.70rem;
         color: #333333;
         height: 7px;
         text-align: center;
@@ -386,9 +390,8 @@
     }
 
     .interview_box3 .inter_text {
-        font-size: 11px;
+        font-size: 0.647rem;
         color: #7d7c7c;
-        height: 11px;
         text-align: center;
         margin-top: 5%;
     }
@@ -396,7 +399,7 @@
     .interview_box3 .inter_xq {
         color: #333333;
         text-align: center;
-        margin-top: 18%;
+        margin-top: 15%;
         font-size: 0.88rem;
     }
 
@@ -443,8 +446,9 @@
         width: 100%;
         position: absolute;
         bottom: 38%;
-        left: 50%;
-        margin-left: -24.8%;
+        text-align: center;
+        left: auto;
+        margin: 0;
     }
 
     .interview_box3 .inter_tj p {
@@ -452,20 +456,17 @@
     }
 
     .interview_box3 .inter_right {
-        float: right;
-        width: 53%;
-        text-align: left;
         color: #333333;
         font-size: 0.8rem;
+        display: inline;
+        margin: 0;
     }
 
     .interview_box3 .inter_left {
-        width: 30%;
-        text-align: right;
-        float: left;
         color: #7d7c7c;
         line-height: 1.3rem;
-        margin-left: -5%;
+        display: inline;
+        margin: 0;
     }
 
     .interview_box4 .inter_pic {
@@ -496,7 +497,7 @@
     }
 
     .interview_box4 .inter_name {
-        font-size: 12px;
+        font-size: 0.70rem;
         color: #2e4d3c;
         height: 7px;
         text-align: center;
@@ -504,9 +505,9 @@
     }
 
     .interview_box4 .inter_text {
-        font-size: 11px;
+        font-size: 0.647rem;
         color: #2e4d3c;
-        height: 11px;
+
         text-align: center;
         margin-top: 5%;
     }
@@ -575,12 +576,12 @@
     }
 
     .interview_box4 .inter_tj {
-        width: 49.8%;
-        margin: 0 auto;
+        width: 100%;
+        text-align: center;
         position: absolute;
         bottom: 6%;
-        left: 50%;
-        margin-left: -24.8%;
+        left: auto;
+        margin: 0;
     }
 
     .interview_box4 .inter_tj p {
@@ -589,139 +590,18 @@
     }
 
     .interview_box4 .inter_right {
-        float: right;
-        width: 50%;
-        text-align: left;
         color: #333333;
-        margin-right: -10%;
+        margin: 0;
         font-size: 0.64rem;
-
+        display: inline;
     }
 
     .interview_box4 .inter_left {
-        width: 60%;
-        text-align: right;
-        float: left;
+        display: inline;
         color: #333333;
-        margin-left: -5%;
+        margin: 0;
         font-size: 0.588rem;
 
-    }
-
-    .interview_box5 .inter_pic {
-        margin-top: 2%;
-        margin-left: auto;
-        margin-right: auto;
-        background: url("../images/interview/5.jpg") no-repeat;
-        background-size: 100%;
-        width: 78%;
-        position: relative;
-        box-shadow: #ffd3f4 0px 0px 08px;
-
-    }
-
-    .interview_box5 .inter_face {
-        width: 16%;
-        margin: 0 auto;
-        padding-top: 44%;
-        font-size: 0;
-    }
-
-    .interview_box5 .inter_face img {
-        width: 100%;
-        border: 0;
-        border-radius: 50%;
-        box-shadow: #ffd3f4 -0px 0px 0px;
-    }
-
-    .interview_box5 .inter_name {
-        font-size: 0.70rem;
-        color: #0ba98e;
-        height: 7px;
-        text-align: center;
-        margin-top: 1.5%;
-    }
-
-    .interview_box5 .inter_text {
-        font-size: 0.647rem;
-        color: #0ba98e;
-        height: 11px;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 4%;
-    }
-
-    .interview_box5 .inter_xq {
-        color: #0ba98e;
-        text-align: center;
-        margin-top: 16.4%;
-        font-size: 0.88rem;
-    }
-
-    .interview_box5 .inter_an {
-        width: 78%;
-        margin: 0 auto;
-        overflow: hidden;
-        top: 81.2%;
-        position: absolute;
-        left: 50%;
-        margin-left: -39%;
-    }
-
-    .interview_box5 .inter_code {
-        float: left;
-        width: 50%;
-        text-align: right;
-    }
-
-    .interview_box5 .inter_code img {
-        width: 57.09%;
-    }
-
-    .interview_box5 .inter_zw {
-        float: right;
-        text-align: left;
-        width: 50%;
-    }
-
-    .interview_box5 .inter_zw img {
-        width: 33%;
-        margin: 2% 20% 0 20%;
-    }
-
-    .interview_box5 .inter_zw p {
-        color: #666666;
-        font-size: 0.47rem;
-        font-weight: bold;
-        margin-left: 4%;
-        line-height: 1;
-    }
-
-    .interview_box5 .inter_tj {
-        width: 49.8%;
-        margin: 0 auto;
-        position: absolute;
-        bottom: 23%;
-        left: 50%;
-        margin-left: -24.8%;
-    }
-
-    .interview_box5.inter_tj p {
-        color: #515050;
-
-    }
-
-    .interview_box5 .inter_right {
-        text-align: right;
-        margin-right: 3%;
-        font-size: 0.64rem;
-    }
-
-    .interview_box5 .inter_left {
-        text-align: left;
-        margin-left: 0%;
-        font-size: 0.64rem;
-        margin-bottom: -6%;
     }
 
     .interview_box6 .inter_pic {
@@ -818,11 +698,12 @@
     }
 
     .interview_box6 .inter_tj {
-        width: 84%;
+        width: 100%;
         position: absolute;
-        bottom: 13%;
-        left: 50%;
-        margin-left: -24.8%;
+        bottom: 12%;
+        left: auto;
+        margin: 0;
+        text-align: center;
     }
 
     .interview_box6 .inter_tj p {
@@ -830,21 +711,17 @@
     }
 
     .interview_box6 .inter_right {
-        float: right;
-        width: 53%;
-        text-align: left;
+        display: inline;
         color: #7980a2;
         font-size: 0.8rem;
-        margin-top: 1.5%;
+        margin: 0;
     }
 
     .interview_box6 .inter_left {
-        width: 32%;
-        text-align: right;
-        float: left;
+        display: inline;
         color: #7980a2;
-        line-height: 1.6rem;
-        margin-left: -5%;
+        line-height: normal;
+        margin: 0;
     }
 
     .interview_box7 .inter_pic {
@@ -942,11 +819,12 @@
     }
 
     .interview_box7 .inter_tj {
-        width: 88%;
+        width: 100%;
         position: absolute;
         bottom: 0%;
-        left: 50%;
-        margin-left: -24.8%;
+        left: auto;
+        margin: 0;
+        text-align: center;
     }
 
     .interview_box7 .inter_tj p {
@@ -954,21 +832,17 @@
     }
 
     .interview_box7 .inter_right {
-        float: right;
-        width: 53%;
-        text-align: left;
+        margin: 0px;
+        display: inline;
         color: #666666;
         font-size: 0.8rem;
     }
 
     .interview_box7 .inter_left {
-        width: 31.5%;
-        text-align: right;
-        float: left;
         color: #666666;
-        line-height: normal;
-        margin-left: -5%;
-        margin-top: 2.5%;
+        display: inline;
+        font-size: 0.647rem;
+        margin: 0;
     }
 
     .interview_box8 .inter_pic {
@@ -1109,11 +983,11 @@
         display: none;
     }
 
-    .interview_box9 .inter_pic {
+    .interview_box5 .inter_pic {
         margin-top: 2%;
         margin-left: auto;
         margin-right: auto;
-        background: url("../images/interview/9.jpg") no-repeat;
+        background: url("../images/interview/5.jpg") no-repeat;
         background-size: 100%;
         width: 78%;
         position: relative;
@@ -1121,7 +995,7 @@
 
     }
 
-    .interview_box9 .inter_face {
+    .interview_box5 .inter_face {
         border-radius: 50%;
         width: 17%;
         margin-left: 9%;
@@ -1129,14 +1003,14 @@
         font-size: 0;
     }
 
-    .interview_box9 .inter_face img {
+    .interview_box5 .inter_face img {
         width: 100%;
         border: 0px;
         border-radius: 50%;
         box-shadow: #ffd3f4 0px 0px 0px;
     }
 
-    .interview_box9 .inter_name {
+    .interview_box5 .inter_name {
         font-size: 0.705rem;
         color: #666666;
         margin: 0;
@@ -1146,7 +1020,7 @@
         font-weight: normal;
     }
 
-    .interview_box9 .inter_text {
+    .interview_box5 .inter_text {
         font-size: 0.647rem;
         color: #666666;
         height: 11px;
@@ -1157,7 +1031,7 @@
         font-weight: normal;
     }
 
-    .interview_box9 .inter_xq {
+    .interview_box5 .inter_xq {
         color: #666666;
         position: absolute;
         left: 29.3%;
@@ -1167,35 +1041,33 @@
         font-weight: normal;
     }
 
-    .interview_box9 .inter_tj {
-        width: 100%;
+    .interview_box5 .inter_tj {
+        width: 69%;
         position: absolute;
-        bottom: 64%;
-        left: 50%;
-        margin-left: -19.5%;
+        bottom: 63.5%;
+        left: 29.3%;
+        margin: 0;
     }
 
-    .interview_box9 .inter_tj p {
+    .interview_box5 .inter_tj p {
         font-style: oblique;
         color: #666666;
         font-size: 0.647rem;
     }
 
-    .interview_box9 .inter_right {
-        float: right;
-        width: 53%;
-        text-align: left;
+    .interview_box5 .inter_right {
+        display: inline;
+        margin: 0;
 
     }
 
-    .interview_box9 .inter_left {
-        width: 31%;
-        text-align: right;
-        float: left;
-        margin-left: -5%;
+    .interview_box5 .inter_left {
+        margin: 0;
+        display: inline;
+
     }
 
-    .interview_box9 .inter_an {
+    .interview_box5 .inter_an {
         width: 78%;
         overflow: hidden;
         top: 35.2%;
@@ -1204,34 +1076,211 @@
         margin-left: -39%;
     }
 
-    .interview_box9 .inter_code {
+    .interview_box5 .inter_code {
         width: 100%;
         text-align: center;
         margin-top: 47%;
     }
 
-    .interview_box9 .inter_code img {
+    .interview_box5 .inter_code img {
         width: 29.545%;
     }
 
-    .interview_box9 .inter_zw {
+    .interview_box5 .inter_zw {
         text-align: center;
         width: 100%;
         position: absolute;
         top: 13%;
     }
 
-    .interview_box9 .inter_zw img {
+    .interview_box5 .inter_zw img {
         width: 23.1%;
         margin: 3% 21% 0 21%;
     }
 
-    .interview_box9 .inter_zw p {
+    .interview_box5 .inter_zw p {
         color: #666666;
         font-size: 0.52rem;
         font-weight: bold;
         margin-top: -1%;
         margin-left: -1%;
+    }
+
+    .interview_box9 {
+        background: url("../images/interview/9.jpg") no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .interview_box9 .inter_pic {
+        margin: 0;
+        width: 78%;
+        background: none;
+        position: static;
+        box-shadow: #ffd3f4 0px 0px 0px;
+    }
+
+    .interview_box9 .inter_face {
+        border-radius: 50%;
+        width: 12%;
+        margin-top: 0;
+        padding-top: 0;
+        position: absolute;
+        top: 6.8%;
+        font-size: 0;
+        left: 44%;
+    }
+
+    .interview_box9 .inter_face img {
+        width: 100%;
+        border-radius: 50%;
+        box-shadow: #333333 -0px 0px 0px;
+        box-shadow: #333333 0px 0px 0px;
+        border: 0px;
+
+    }
+
+    .interview_box9 .inter_name {
+        font-size: 0.648rem;
+        color: #333333;
+        height: 7px;
+        position: absolute;
+        top: 12%;
+        text-align: center;
+        width: 100%;
+    }
+
+    .interview_box9 .inter_text {
+        font-size: 0.57rem;
+        color: #333333;
+        height: 11px;
+        position: absolute;
+        top: 15%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .interview_box9 .inter_xq {
+        position: absolute;
+        left: 22%;
+        top: 48%;
+        margin-top: 0%;
+        color: #333333;
+        font-size: 0.88rem;
+        margin-left: auto;
+        margin-right: auto;
+        width: 54%;
+        border-bottom: #f3f3f1 solid 2px;
+    }
+
+    .interview_box12 .inter_an {
+        width: 78%;
+        overflow: hidden;
+        position: absolute;
+        top: 55.5%;
+        left: 50%;
+    }
+
+    .interview_box9 .inter_code {
+        float: left;
+        width: 49%;
+        text-align: right;
+    }
+
+    .interview_box9 .inter_code img {
+        width: 45%;
+    }
+
+    .interview_box9 .inter_zw {
+        float: right;
+        text-align: left;
+        width: 50%;
+    }
+
+    .interview_box9.inter_zw img {
+        width: 31%;
+        margin: 3% 21% 0 15%;
+    }
+
+    .interview_box9 .inter_zw p {
+        color: #666666;
+        font-size: 0.47rem;
+        font-weight: bold;
+        margin-left: 6%;
+        margin-top: -4%;
+    }
+
+    .interview_box9 .inter_tj {
+        width: 100%;
+        position: absolute;
+        top: 25%;
+        text-align: center;
+        left: auto;
+        bottom: auto;
+        margin: 0;
+    }
+
+    .interview_box9 .inter_tj p {
+        font-style: normal;
+        color: #666666;
+        font-size: 0.647rem;
+
+    }
+
+    .interview_box9 .inter_right {
+        width: auto;
+        display: inline;
+        margin: 0;
+    }
+
+    .interview_box9 .inter_left {
+        margin: 0;
+        width: auto;
+        display: inline;
+        padding: 0;
+    }
+
+    .interview_box9 .inter_btn {
+        margin: 0px 5%;
+        font-size: 15px;
+        position: absolute;
+        bottom: 2%;
+        width: 90%;
+        color: #ffffff;
+        background-color: #000000;
+    }
+
+    .interview_box9 .inter_btn:active {
+        margin: 0px 5%;
+        font-size: 15px;
+        position: absolute;
+        bottom: 2%;
+        width: 90%;
+        color: #ffffff;
+        background-color: #666666;
+    }
+
+    .interview_box9 .inter_hint {
+        margin: 0px 7.5%;
+        position: absolute;
+        bottom: 10%;
+
+    }
+
+    .interview_box9 .inter_hint h1 {
+        font-size: 0.88rem;
+        margin: 3.24% 0;
+        font-weight: 500;
+        color: #000000;
+    }
+
+    .interview_box9 .inter_hint p {
+        font-size: 0.705rem;
+        color: #666666;
+
+    }
+
+    .interview_box9 .inter_prompt {
+        margin-top: 6%;
     }
 
     .interview_box10 {
@@ -1343,12 +1392,12 @@
     }
 
     .interview_box10 .inter_tj {
-        width: 74%;
+        width: 100%;
         position: absolute;
         top: 8.5%;
-        left: 57%;
+        margin: 0;
         bottom: auto;
-        margin-left: -24.8%;
+        text-align: center;
     }
 
     .interview_box10 .inter_tj p {
@@ -1359,17 +1408,15 @@
     }
 
     .interview_box10 .inter_right {
-        float: right;
-        width: 50%;
-        text-align: left;
-        margin-right: 15%;
+        display: inline;
+        margin: 0;
+
     }
 
     .interview_box10 .inter_left {
-        width: 50%;
-        text-align: right;
-        float: left;
-        margin-left: -15%;
+        display: inline;
+        margin: 0;
+
     }
 
     .interview_box10 .inter_btn {
@@ -1516,12 +1563,13 @@
     }
 
     .interview_box11 .inter_tj {
-        width: 69%;
+        width: 100%;
         position: absolute;
         top: 47.5%;
-        left: 50%;
+        text-align: center;
         bottom: auto;
-        margin-left: -19.8%;
+        margin: 0;
+        left: auto;
     }
 
     .interview_box11 .inter_tj p {
@@ -1532,17 +1580,13 @@
     }
 
     .interview_box11 .inter_right {
-        float: right;
-        width: 47%;
-        text-align: left;
-        margin-right: 25.5%;
+       display: inline;
+        margin: 0;
     }
 
     .interview_box11 .inter_left {
-        width: 43%;
-        text-align: right;
-        float: left;
-        margin-left: -16%;
+        display: inline;
+        margin: 0;
     }
 
     .interview_box11 .inter_btn {
