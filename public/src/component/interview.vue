@@ -1,12 +1,12 @@
 <template id="interview">
-    <div class="interview_box  interview_box9">
+    <div class="interview_box  " :class="interviewBoxClass">
         <div class="inter_pic ">
             <div class="inter_face"><img src="../images/arder.png"/></div>
             <div class="inter_name ">CCC</div>
             <div class="inter_text ">向 /您/ 推/ 荐</div>
             <div class="inter_xq">心情指数</div>
             <div class="inter_an">
-                <div class="inter_code"><img src="../../dist/interview/二维码.png"/></div>
+                <div class="inter_code"><img :src="qrCodePath"/></div>
                 <div class="inter_zw"><img :src="pic_num"/>
                     <p>长按识别二维码</p>
                 </div>
@@ -40,7 +40,14 @@
         data() {
             return {
                 num: 1,
-                pic_num: web.IMG_PATH + "interview/9.png"
+                pic_num: web.IMG_PATH + "interview/1.png",
+                qrCodePath:'',interviewBoxClass:'',
+                bgType:''
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         mounted: function () {
@@ -50,6 +57,24 @@
             var h = 860 * w / 540;
             $(".inter_pic").height(h);
             console.log(__this.pic_num)
+           setTimeout(function () {
+
+               var openId= __this.user.openId
+               //获取背景type ，二维码
+               //http://api.m.xqzs.cn/api/v1/user/query/sharepage/oHE8_uPavJLfKgtMo3OTdTx0ZNkg
+               __this.$http.get(web.API_PATH + "user/query/sharepage/"+openId)
+                       .then(function (bt) {
+                           if(bt && bt.data.status == 1){
+                               __this.qrCodePath =  bt.data.data.qrcodepath;
+                               __this.bgType =  bt.data.data.bgtype;
+                               __this.interviewBoxClass = "interview_box"+  __this.bgType;
+                               __this.pic_num =web.IMG_PATH + "interview/"+ __this.bgType+".png";
+
+                           }
+                       })
+
+           },1000)
+
 
         },
         methods: {
@@ -57,12 +82,18 @@
             resetInter: function () {
                 var _this = this;
 
-                var new_num = Math.round(Math.random() * 12);
+                var new_num = Math.ceil(Math.random() * 12);
                 if (_this.num == new_num) {
                     _this.resetInter();
                     return;
                 }
                 _this.num = new_num;
+
+
+                //重置获取背景type
+
+
+
                 var stl = "interview_box" + _this.num;
                 console.log(stl);
                 for (let i = 1; i < 13; i++) {
@@ -122,20 +153,20 @@
         font-size: 0.705rem;
         color: #7880a2;
         text-align: center;
-        margin-top: 5%;
+        margin-top: 3%;
     }
 
     .inter_text {
         font-size: 0.645rem;
         color: #7880a2;
         text-align: center;
-        margin-top: 5%;
+        margin-top: 1%;
     }
 
     .inter_xq {
         color: #7880a2;
         text-align: center;
-        margin-top: 20.5%;
+        margin-top: 20%;
         font-size: 0.88rem;
     }
 
@@ -150,20 +181,23 @@
     }
 
     .inter_code {
-        float: left;
-        width: 28%;
-        text-align: right;
-        margin-left: 25%;
+        position: absolute;;
+        width: auto;
+        margin-left: 20%;
+        z-index: 600;
+        height:100%;
+        top:-50%;
     }
 
     .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .inter_zw {
         float: left;
         width: 38%;
         text-align: center;
+        margin-left: 50%;
     }
 
     .inter_zw img {
@@ -304,7 +338,7 @@
     }
 
     .interview_box2 .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .interview_box2 .inter_zw {
@@ -417,18 +451,18 @@
         float: left;
         width: 23.5%;
         text-align: right;
-        margin-left: 25%;
+        margin-left: 20%;
     }
 
     .interview_box3 .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .interview_box3 .inter_zw {
         float: left;
-        text-align: left;
         width: 43%;
         text-align: center;
+        margin-left: 45%;
     }
 
     .interview_box3 .inter_zw img {
@@ -535,7 +569,7 @@
     .interview_box4 .inter_xq {
         color: #2e4d3c;
         text-align: center;
-        margin-top: 10%;
+        margin-top: 9%;
         font-size: 1.2rem;
     }
 
@@ -555,14 +589,14 @@
     }
 
     .interview_box4 .inter_code img {
-        width: 100%;
+       height: 200%;
     }
 
     .interview_box4 .inter_zw {
         float: left;
         text-align: center;
         width: 36%;
-        margin: 0;
+        margin-left: 50%;
     }
 
     .interview_box4 .inter_zw img {
@@ -672,18 +706,18 @@
     .interview_box6 .inter_code {
         float: left;
         width: 22%;
-        margin-left: 24%;
+        margin-left: 21%;
     }
 
     .interview_box6 .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .interview_box6 .inter_zw {
         float: left;
         text-align: center;
         width: 40%;
-        margin: 0;
+        margin-left: 46%;
 
     }
 
@@ -790,19 +824,23 @@
     }
 
     .interview_box7 .inter_code {
-        float: left;
-        width: 30%;
+       position: absolute;;
+        width: auto;
         margin-left: 20%;
+        z-index: 600;
+        height:100%;
+        top:-50%;
     }
-
     .interview_box7 .inter_code img {
-        width:100%;
+        height: 200%;
+
     }
 
     .interview_box7 .inter_zw {
         float: left;
         text-align: center;
         width: 40%;
+        margin-left: 50%;
 
     }
 
@@ -925,7 +963,7 @@
     }
 
     .interview_box8 .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .interview_box8 .inter_zw {
@@ -1065,34 +1103,37 @@
     }
 
     .interview_box5 .inter_an {
-        width: 78%;
+        width: 82%;
         overflow: hidden;
-        top: 35.2%;
+        top:52%;
         position: absolute;
         left: 50%;
-        margin-left: -39%;
+        margin-left: -44%;
     }
 
     .interview_box5 .inter_code {
-        width: 100%;
-        text-align: center;
-        margin-top: 47%;
-        margin-left:0;
+        position: absolute;;
+        width: auto;
+        margin-left: 20%;
+        z-index: 600;
+        height:100%;
+        top:-50%;
     }
-
     .interview_box5 .inter_code img {
-        width: 29.545%;
+        height: 200%;
+
     }
 
     .interview_box5 .inter_zw {
+        float: left;
         text-align: center;
-        width: 100%;
-        position: absolute;
-        top: 13%;
+        width: 40%;
+        margin-left: 50%;
+
     }
 
     .interview_box5 .inter_zw img {
-        width: 23.1%;
+        width: 45%;
         margin: 3% 21% 0 21%;
     }
 
@@ -1123,7 +1164,7 @@
         margin-top: 0;
         padding-top: 0;
         position: absolute;
-        top: 6.8%;
+        top: 26%;
         font-size: 0;
         left: 44%;
     }
@@ -1139,78 +1180,74 @@
 
     .interview_box9 .inter_name {
         font-size: 0.648rem;
-        color: #333333;
+        color: #0ba98e;
         height: 7px;
         position: absolute;
-        top: 12%;
+        top: 30.5%;
         text-align: center;
         width: 100%;
     }
 
     .interview_box9 .inter_text {
         font-size: 0.57rem;
-        color: #333333;
+        color: #0ba98e;
         height: 11px;
         position: absolute;
-        top: 15%;
+        top: 33.5%;
         width: 100%;
         text-align: center;
     }
 
     .interview_box9 .inter_xq {
         position: absolute;
-        left: 22%;
-        top: 48%;
+        top: 47.2%;
         margin-top: 0%;
-        color: #333333;
+        color: #0ba98e;;
         font-size: 0.88rem;
-        margin-left: auto;
-        margin-right: auto;
-        width: 54%;
-        border-bottom: #f3f3f1 solid 2px;
+        width: 100%;
+        text-align: center;
     }
 
     .interview_box9 .inter_an {
         width: 78%;
         overflow: hidden;
         position: absolute;
-        top: 55.5%;
+        top: 60%;
         left: 50%;
     }
 
     .interview_box9 .inter_code {
         float: left;
-        width: 49%;
-        text-align: right;
+        width: 19%;
+        margin-left:30% ;
     }
 
     .interview_box9 .inter_code img {
-        width: 45%;
+        height: 200%;
     }
 
     .interview_box9 .inter_zw {
-        float: right;
-        text-align: left;
-        width: 50%;
+        float: left;
+        text-align: center;
+        width: 27%;
     }
 
-    .interview_box9.inter_zw img {
-        width: 31%;
-        margin: 3% 21% 0 15%;
+    .interview_box9 .inter_zw img {
+        width: 41%;
+        margin: 0;
     }
 
     .interview_box9 .inter_zw p {
         color: #666666;
         font-size: 0.47rem;
         font-weight: bold;
-        margin-left: 6%;
         margin-top: -4%;
     }
 
     .interview_box9 .inter_tj {
         width: 100%;
         position: absolute;
-        top: 25%;
+        top: 18%;
         text-align: center;
         left: auto;
         bottom: auto;
@@ -1244,8 +1281,8 @@
         position: absolute;
         bottom: 2%;
         width: 90%;
-        color: #ffffff;
-        background-color: #000000;
+        color: #ffffff ;
+        background-color: #009999;
     }
 
     .interview_box9 .inter_btn:active {
@@ -1255,31 +1292,32 @@
         bottom: 2%;
         width: 90%;
         color: #ffffff;
-        background-color: #666666;
+        background-color: #138699;
     }
 
     .interview_box9 .inter_hint {
-        margin: 0px 7.5%;
+        margin: 0px 14.5%;
         position: absolute;
-        bottom: 10%;
+        bottom: 12%;
+        width: 73%;
 
     }
 
     .interview_box9 .inter_hint h1 {
-        font-size: 0.88rem;
-        margin: 3.24% 0;
+        font-size: 0.70rem;
         font-weight: 500;
         color: #000000;
+        margin: 0;
     }
 
     .interview_box9 .inter_hint p {
-        font-size: 0.705rem;
+        font-size: 0.647rem;
         color: #666666;
 
     }
 
     .interview_box9 .inter_prompt {
-        margin-top: 6%;
+        margin: 0;
     }
 
     .interview_box10 {
@@ -1365,14 +1403,14 @@
     }
 
     .interview_box10 .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .interview_box10 .inter_zw {
         float: left;
         text-align: center;
         width: 30%;
-        margin: 0;
+        margin-left: 50%;
 
     }
 
@@ -1695,12 +1733,11 @@
     .interview_box12 .inter_code {
         float: left;
         width: 19%;
-
         margin-left: 27%;
     }
 
     .interview_box12 .inter_code img {
-        width: 100%;
+        height: 200%;
     }
 
     .interview_box12 .inter_zw {
