@@ -270,7 +270,7 @@ var xqzs = {
     },
     shortname: function (value, len) {
         if (!value) return '';
-        if (value.length > 7) {
+        if (value.length > len) {
             return value.substring(0, len) + '...';
         } else {
             return value;

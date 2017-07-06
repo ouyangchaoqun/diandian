@@ -58,12 +58,12 @@
                         <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                         <template v-if="myLastMood">
                             <div class="friend">
-                                <p class="friendName">{{user.nickName | shortName(7)}}</p>
+                                <p class="friendName">{{user.nickName | shortName(8)}}</p>
                                 <p class="time">{{myLastMood.addTime}}</p>
                             </div>
                         </template>
                         <template v-if="!myLastMood">
-                            <span>{{ user.nickName | shortName(7) }}</span>
+                            <span>{{ user.nickName | shortName(8) }}</span>
                         </template>
 
 
@@ -99,8 +99,8 @@
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                             <div class="friend">
-                                <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(7)}}</p>
-                                <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(7)}}</p>
+                                <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}</p>
+                                <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}</p>
                                 <p class="time">{{friendMood.outTime}}</p>
                             </div>
                         </div>
@@ -127,8 +127,8 @@
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                             <div class="friend">
-                                <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(7) }}</p>
-                                <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(7) }}</p>
+                                <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8) }}</p>
+                                <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8) }}</p>
 
                                 <p class="time">{{friendMood.outTime}}</p>
                             </div>
