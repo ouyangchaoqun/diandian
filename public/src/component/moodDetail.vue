@@ -142,14 +142,18 @@
                     _this.data = data.data.data;
                     _this.replies = _this.data.reply;
                     _this.cares = _this.data.care;
+
+                    for(var i = 0; i< _this.data.mood.pics.length;i++){
+                        _this.data.mood.pics[i].path=_this.data.mood.pics[i].path+xqzs.constant.PIC_MIDDLE;
+                    }
+
                     _this.mood = _this.data.mood;
                     console.log(_this.mood);
                     _this.mood.moodValueUrl = web.IMG_PATH + "list_mood_0" + _this.mood.moodValue + ".png";
                     _this.mood.moodValueText = xqzs.mood.moodValueText[_this.mood.moodValue];
                     _this.mood.time = xqzs.dateTime.formatTime(_this.mood.addTime);
-
-
                     _this.mood.scense = xqzs.mood.getCjImg(_this.mood.scenesId);
+
 
                     xqzs.mood.setMoodValueStyle(_this.mood);
                     console.info(_this.mood)
