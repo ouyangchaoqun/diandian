@@ -14,9 +14,9 @@
                     </router-link>
                 </template>
                 <div class="moodPhotoLists" v-if="mood.pics">
-                    <div class="moodPhotoList" v-for="pic in mood.pics" >
-                        <img :src="pic.path"  :data-w="pic.width"
-                             :data-h="pic.height" :style="pic.styleObject"   @click="showBigImg(mood.pics,pic)">
+                    <div class="moodPhotoList" v-for="pic in mood.pics">
+                        <img :src="pic.path" :data-w="pic.width"
+                             :data-h="pic.height" :style="pic.styleObject" @click="showBigImg(mood.pics,pic)">
                     </div>
                     <div v-if="mood.funnypics.length > 0" class="moodFunnPicList">
                         <div class="moodFunnyPic" v-for="gif in mood.funnypics">
@@ -30,14 +30,14 @@
                     <span class="btn_del" @click="delMoodContent(mood.id)" v-if="canClear(mood)">删除</span>
                     <div class="moodFollow">
                         <span class="followCount">{{mood.careCount}}</span>
-                        <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount>0 "
+                        <img class="followtype" v-if="mood.moodValue>=5 && mood.careCount>0 "
                              src="../images/mood_icon_dianz_pre.png" alt=""/>
-                        <img  class="followtype" v-if="mood.moodValue>=5 && mood.careCount<=0 "
-                              src="../images/mood_icon_dianz_nor.png" alt=""/>
-                        <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount>0"
+                        <img class="followtype" v-if="mood.moodValue>=5 && mood.careCount<=0 "
+                             src="../images/mood_icon_dianz_nor.png" alt=""/>
+                        <img class="followtype" v-if="mood.moodValue<5 && mood.careCount>0"
                              src="../images/list_baob_pre.png" alt=""/>
-                        <img  class="followtype" v-if="mood.moodValue<5 && mood.careCount<=0"
-                              src="../images/list_baob_nor.png" alt=""/>
+                        <img class="followtype" v-if="mood.moodValue<5 && mood.careCount<=0"
+                             src="../images/list_baob_nor.png" alt=""/>
                         <span style="margin-left: 10px;" class="followCount">{{mood.replycount}}</span>
                         <img class="followtype" src="../images/comments.png" alt="">
                     </div>
@@ -46,11 +46,11 @@
             <div class="show_box">
                 <div class="arraw"></div>
                 <div class="show_top" v-if="cares.length">
-                    <img  class="show_img1" v-if="mood.moodValue>=5"
-                          src="../images/mood_icon_dianz_pre.png" alt=""/>
-                    <img  class="show_img1" v-if="mood.moodValue<5"
-                          src="../images/list_baob_pre.png" alt=""/>
-                    <div  v-for="headpic in cares">
+                    <img class="show_img1" v-if="mood.moodValue>=5"
+                         src="../images/mood_icon_dianz_pre.png" alt=""/>
+                    <img class="show_img1" v-if="mood.moodValue<5"
+                         src="../images/list_baob_pre.png" alt=""/>
+                    <div v-for="headpic in cares">
                         <img :src="headpic.faceUrl" alt="">
                     </div>
 
@@ -59,7 +59,8 @@
 
                 <ul class="show_bottom" v-if="replies.length>0">
                     <img class="show_img2" src="../images/comments.png"/>
-                    <li v-for="(reply ,index) in replies" :key="index" @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
+                    <li v-for="(reply ,index) in replies" :key="index"
+                        @click="replyOrDel(reply.fromuserid,reply.id,index)" v-if="!reply.isDel">
                         <img class="show_bottom_img " :src="reply.from_faceUrl">
                         <div class="show_bottom_text">
                             <div class="reply_author">
@@ -85,22 +86,24 @@
     </div>
 </template>
 <style>
-    .noticeborder{
-             border-bottom: 1px solid #eee;
-         }
-    .noticeDetail_box{
-        background: #ffffff;
-        height:100%;
+    .noticeborder {
+        border-bottom: 1px solid #eee;
     }
 
-    .addCj{
+    .noticeDetail_box {
+        background: #ffffff;
+        height: 100%;
+    }
+
+    .addCj {
         height: 16px;
         vertical-align: middle;
         margin-top: -3px;
         margin-left: 5px;
         display: inline-block;
     }
-    .moodState i{
+
+    .moodState i {
         font-size: 12px;
         color: #999;
         font-style: normal;
@@ -108,9 +111,9 @@
 
 </style>
 <script type="text/javascript">
-//    import wx from 'weixin-js-sdk';
-    var moodDetail={
-        template:'#moodDetail'
+    //    import wx from 'weixin-js-sdk';
+    var moodDetail = {
+        template: '#moodDetail'
     };
     export default {
         data() {
@@ -124,9 +127,9 @@
 
             }
         },
-        props:{
-            user:{
-                type:Object
+        props: {
+            user: {
+                type: Object
             }
         },
         mounted: function () {
@@ -142,9 +145,10 @@
                     _this.data = data.data.data;
                     _this.replies = _this.data.reply;
                     _this.cares = _this.data.care;
-
-                    for(var i = 0; i< _this.data.mood.pics.length;i++){
-                        _this.data.mood.pics[i].path=_this.data.mood.pics[i].path+xqzs.constant.PIC_MIDDLE;
+                    if (_this.data.mood.pics !== undefined) {
+                        for (var i = 0; i < _this.data.mood.pics.length; i++) {
+                            _this.data.mood.pics[i].path = _this.data.mood.pics[i].path + xqzs.constant.PIC_MIDDLE;
+                        }
                     }
 
                     _this.mood = _this.data.mood;
@@ -162,7 +166,7 @@
                     myResizePicture();//渲染完成
 
 
-                     //   myResizePicture($(".friends_mood"),"moodPhotoLists","moodPhotoList");//渲染完成
+                    //   myResizePicture($(".friends_mood"),"moodPhotoLists","moodPhotoList");//渲染完成
 
                 });
             }, function (error) {
@@ -172,21 +176,21 @@
             xqzs.wx.setConfig(_this);
 
         },
-        filters:{
-            shortName:function(value,len){
-                return xqzs.shortname(value,len);
+        filters: {
+            shortName: function (value, len) {
+                return xqzs.shortname(value, len);
             }
         },
-        computed:{
-            hasInit:function () {
-                return this.data!=null;
+        computed: {
+            hasInit: function () {
+                return this.data != null;
             }
         },
         methods: {
-            canEdit:function (mood) {
+            canEdit: function (mood) {
                 return xqzs.mood.canEdit(mood);
             },
-            canClear:function (mood) {
+            canClear: function (mood) {
                 return xqzs.mood.canClear(mood);
             },
             replyOrDel: function (userId, id, index) {
@@ -198,7 +202,7 @@
                     vm.addComment(id, index);
                 }
             },
-            emojiContent:function (c) {
+            emojiContent: function (c) {
                 return xqzs.face.parseEmoji(c);
             },
 
@@ -231,7 +235,7 @@
                 let vm = this;
 
                 let edithoder = "";
-                edithoder = xqzs.shortname(vm.replies[index].from_nickName,7);
+                edithoder = xqzs.shortname(vm.replies[index].from_nickName, 7);
 
                 xqzs.mood.actionSheetEdit("取消", "发送", function (v) {
                     vm.$http.put(web.API_PATH + 'mood/reply/add', {
