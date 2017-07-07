@@ -90,6 +90,8 @@
                             __this.interviewBoxClass = "interview_box" + __this.bgType;
                             __this.pic_num = web.IMG_PATH + "interview/" + __this.bgType + ".png";
                             __this.loading =false;
+                        }else{
+                            __this.resetInter();
                         }
                     })
 
