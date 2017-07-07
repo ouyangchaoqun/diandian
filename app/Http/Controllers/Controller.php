@@ -53,21 +53,19 @@ class Controller extends BaseController
             return redirect("/wx/index?reurl=" . urlencode($fullurl));
         }
         $friendid = $request->input('userid');
+        if ($userId == $friendid) {
+            return redirect("/#/myCenter/myIndex");
+        }
         $apiurl = "/user/be/friend/width/ids/{$friendid}/_userId_";
         $this->apiService->execFull($request, $userId, $apiurl, 'POST');
+        return redirect("/#/friendCenter/{$friendid}");
 
-        if($userId==$friendid){
-            return redirect("/#/myCenter/myIndex");
-        }else{
-            return redirect("/#/friendCenter/{$friendid}");
-        }
 
     }
 
 
     protected function getUserId(Request $request)
     {
-
 
 
         $openId = $request->cookie($this->COOKIE_OPEN_ID);
