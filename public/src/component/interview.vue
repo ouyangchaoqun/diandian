@@ -94,7 +94,7 @@
                     })
 
             this.checkIsUser();
-            wx.ready(function () {
+            xqzs.wx.setConfig(this,function () {
                 wx.showAllNonBaseMenuItem();
             });
         },
