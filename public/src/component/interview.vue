@@ -103,8 +103,7 @@
                     desc: '我的邀请卡',
                     link: web.BASE_PATH + 'wx/index?reurl=' +encodeURI(web.BASE_PATH + "/#/interview?openId="+openId),
                 };
-                weshare.init(wx,config,function () {
-                },function () {})
+                weshare.init(wx,config)
             });
         },
         methods: {
