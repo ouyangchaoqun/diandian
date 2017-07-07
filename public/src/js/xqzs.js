@@ -391,7 +391,7 @@ var xqzs = {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
                 if (!timeType)
                     data[i].formatAddTime = xqzs.dateTime.formatTime(data[i].addTime);
-                data[i].link = "friendCenter?friendId=" + data[i].userId;
+                data[i].link = "friendCenter/" + data[i].userId;
                 data[i].hide = false;
                 data[i].moodValueText = this.moodValueText[data[i].moodValue];
                 this.setMoodValueStyle(data[i]);
