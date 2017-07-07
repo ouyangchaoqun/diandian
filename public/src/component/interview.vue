@@ -94,6 +94,9 @@
                     })
 
             this.checkIsUser();
+            wx.ready(function () {
+                wx.showAllNonBaseMenuItem();
+            });
         },
         methods: {
             checkIsUser:function () {
