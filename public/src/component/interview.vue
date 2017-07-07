@@ -1,8 +1,9 @@
 <template id="interview">
     <div class="interview_box  " :class="interviewBoxClass">
-        <div class="inter_pic ">
-            <div class="inter_face"><img src="../images/arder.png"/></div>
-            <div class="inter_name ">CCC</div>
+        <v-showLoad v-if="showLoad||loading"></v-showLoad>
+        <div class="inter_pic " v-show="!loading">
+            <div class="inter_face"><img :src="wxFaceUrl(currUser.faceUrl)"/></div>
+            <div class="inter_name ">{{currUser.nickName | shortName(7) }}</div>
             <div class="inter_text ">向 /您/ 推/ 荐</div>
             <div class="inter_xq">心情指数</div>
             <div class="inter_an">
@@ -16,8 +17,8 @@
                 <p class="inter_right">推荐给你哦!</p>
             </div>
         </div>
-        <div class="inter_prompt">
-            <div class="inter_btn weui-btn weui-btn_primary" @click="resetInter()">重新生成邀请卡</div>
+        <div class="inter_prompt" v-show="!loading">
+            <div class="inter_btn weui-btn weui-btn_primary" @click="resetInter()" v-if="isUser">重新生成邀请卡</div>
             <div class="inter_hint">
                 <h1>邀请卡操作提示</h1>
                 <p>1. 长按保存图片，发送给微信好友或分享至朋友圈</p>
@@ -28,10 +29,10 @@
     </div>
 </template>
 <script>
-
+    import showLoad from "./showLoad.vue"
 
     var interview = {
-        template: '#interview_1'
+        template: '#interview'
     };
 
 
@@ -39,41 +40,65 @@
 
         data() {
             return {
-                num: 1,
-                pic_num: web.IMG_PATH + "interview/1.png",
-                qrCodePath:'',interviewBoxClass:'',
-                bgType:''
+                showLoad: false,
+                pic_num: '',
+                qrCodePath: '', interviewBoxClass: '',
+                bgType: '',
+                isUser: false,
+                currUser: {},
+                userName:"",
+                loading:true
             }
         },
-        props:{
-            user:{
-                type:Object
+        props: {
+            user: {
+                type: Object
+            }
+        },
+        watch: {
+
+            user: function (data) {
+                let _this = this;
+                var openId = _this.$route.query.openId;
+                if (openId == data.openId) {
+                    _this.isUser = true;
+                }
+                else {
+                    _this.isUser = false;
+                }
             }
         },
         mounted: function () {
             let __this = this;
             var w = $(".inter_pic").width()
-
             var h = 860 * w / 540;
             $(".inter_pic").height(h);
-            console.log(__this.pic_num)
-           setTimeout(function () {
+            var openId = __this.$route.query.openId;
+            __this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/open/Id/'+openId,
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    __this.currUser = eval(data.data.data);
+                    console.log(data.data.data)
+                }
+            }, function (error) {
+                //error
+            });
 
-               var openId= __this.user.openId
-               //获取背景type ，二维码
-               //http://api.m.xqzs.cn/api/v1/user/query/sharepage/oHE8_uPavJLfKgtMo3OTdTx0ZNkg
-               __this.$http.get(web.API_PATH + "user/query/sharepage/"+openId)
-                       .then(function (bt) {
-                           if(bt && bt.data.status == 1){
-                               __this.qrCodePath =  bt.data.data.qrcodepath;
-                               __this.bgType =  bt.data.data.bgtype;
-                               __this.interviewBoxClass = "interview_box"+  __this.bgType;
-                               __this.pic_num =web.IMG_PATH + "interview/"+ __this.bgType+".png";
-
-                           }
-                       })
-
-           },1000)
+            //获取背景type ，二维码
+            //http://api.m.xqzs.cn/api/v1/user/query/sharepage/oHE8_uPavJLfKgtMo3OTdTx0ZNkg
+            __this.$http.get(web.API_PATH + "user/query/sharepage/" + openId)
+                    .then(function (bt) {
+                        if (bt && bt.data.status == 1) {
+                            __this.qrCodePath = bt.data.data.qrcodepath;
+                            __this.bgType = bt.data.data.bgtype;
+                            __this.interviewBoxClass = "interview_box" + __this.bgType;
+                            __this.pic_num = web.IMG_PATH + "interview/" + __this.bgType + ".png";
+                            __this.loading =false;
+                        }
+                    })
 
 
         },
@@ -81,37 +106,49 @@
 
             resetInter: function () {
                 var _this = this;
-
+                _this.showLoad = true;
                 var new_num = Math.ceil(Math.random() * 12);
-                if (_this.num == new_num) {
+                if (_this.bgType == new_num) {
                     _this.resetInter();
                     return;
                 }
-                _this.num = new_num;
+                _this.bgType = new_num;
 
 
                 //重置获取背景type
+                //http://api.m.xqzs.cn/api/v1/user/sharepage/26/5
+                _this.$http.put(web.API_PATH + "user/sharepage/_userId_/" + _this.bgType)
+                        .then(function (bt) {
+                            if (bt && bt.data.status == 1) {
+                                _this.showLoad = false;
+                                var stl = "interview_box" + _this.bgType;
+                                console.log(stl);
+                                for (let i = 1; i < 13; i++) {
+                                    $(".interview_box").removeClass("interview_box" + i);
+                                }
+                                if (_this.bgType != 0) {
+
+                                    $(".interview_box").addClass(stl);
+                                    _this.pic_num = web.IMG_PATH + 'interview/' + _this.bgType + ".png";
+                                    console.log(_this.pic_num);
+
+                                }
+                                else {
+                                    _this.pic_num = web.IMG_PATH + 'interview/' + "1.png";
+                                }
+                            }
+                        })
 
 
-
-                var stl = "interview_box" + _this.num;
-                console.log(stl);
-                for (let i = 1; i < 13; i++) {
-                    $(".interview_box").removeClass("interview_box" + i);
-                }
-                if (_this.num != 0) {
-
-                    $(".interview_box").addClass(stl);
-                    _this.pic_num = web.IMG_PATH + 'interview/'+ _this.num + ".png";
-                    console.log(_this.pic_num);
-
-                }
-                else{
-                    _this.pic_num = web.IMG_PATH + 'interview/'+ "1.png";
-                }
+            },
+            wxFaceUrl: function (faceUrl) {
+                return xqzs.mood.wxface(faceUrl);
             }
 
 
+        },
+        components: {
+            'v-showLoad': showLoad
         }
 
 
@@ -185,8 +222,8 @@
         width: auto;
         margin-left: 20%;
         z-index: 600;
-        height:100%;
-        top:-50%;
+        height: 100%;
+        top: -50%;
     }
 
     .inter_code img {
@@ -202,7 +239,7 @@
 
     .inter_zw img {
         width: 35%;
-        margin-top:4%;
+        margin-top: 4%;
     }
 
     .inter_zw p {
@@ -467,7 +504,7 @@
 
     .interview_box3 .inter_zw img {
         width: 34%;
-        margin-top:2%;
+        margin-top: 2%;
     }
 
     .interview_box3 .inter_zw p {
@@ -589,7 +626,7 @@
     }
 
     .interview_box4 .inter_code img {
-       height: 200%;
+        height: 200%;
     }
 
     .interview_box4 .inter_zw {
@@ -666,7 +703,7 @@
         border-radius: 50%;
         box-shadow: #333333 -2px 0px 8px;
         box-shadow: #333333 2px 0px 8px;
-        border: 3px solid #ffffff;
+        border: 2px solid #ffffff;
 
     }
 
@@ -824,13 +861,14 @@
     }
 
     .interview_box7 .inter_code {
-       position: absolute;;
+        position: absolute;;
         width: auto;
         margin-left: 20%;
         z-index: 600;
-        height:100%;
-        top:-50%;
+        height: 100%;
+        top: -50%;
     }
+
     .interview_box7 .inter_code img {
         height: 200%;
 
@@ -846,7 +884,7 @@
 
     .interview_box7 .inter_zw img {
         width: 50%;
-        margin-top:4%;
+        margin-top: 4%;
     }
 
     .interview_box7 .inter_zw p {
@@ -1105,7 +1143,7 @@
     .interview_box5 .inter_an {
         width: 82%;
         overflow: hidden;
-        top:52%;
+        top: 52%;
         position: absolute;
         left: 50%;
         margin-left: -44%;
@@ -1114,13 +1152,14 @@
     .interview_box5 .inter_code {
         position: absolute;;
         width: auto;
-        margin-left: 20%;
+        margin-left: 22%;
         z-index: 600;
-        height:100%;
-        top:-50%;
+        height: 100%;
+        top: -50%;
     }
+
     .interview_box5 .inter_code img {
-        height: 200%;
+        height: 190%;
 
     }
 
@@ -1219,7 +1258,7 @@
     .interview_box9 .inter_code {
         float: left;
         width: 19%;
-        margin-left:30% ;
+        margin-left: 30%;
     }
 
     .interview_box9 .inter_code img {
@@ -1272,7 +1311,7 @@
         width: auto;
         display: inline;
         padding: 0;
-        font-size:0.588rem;
+        font-size: 0.588rem;
     }
 
     .interview_box9 .inter_btn {
@@ -1281,7 +1320,7 @@
         position: absolute;
         bottom: 2%;
         width: 90%;
-        color: #ffffff ;
+        color: #ffffff;
         background-color: #009999;
     }
 
@@ -1416,7 +1455,7 @@
 
     .interview_box10 .inter_zw img {
         width: 42%;
-        margin:0;
+        margin: 0;
     }
 
     .interview_box10 .inter_zw p {
@@ -1571,18 +1610,18 @@
     .interview_box11 .inter_code {
         float: left;
         width: 18.2%;
-        margin-left: 25%;
+        margin-left: 26%;
     }
 
     .interview_box11 .inter_code img {
-        width: 100%;
+        height: 175%;
     }
 
     .interview_box11 .inter_zw {
         float: left;
         text-align: center;
         width: 40%;
-        margin: 0;
+        margin-left: 43%;
     }
 
     .interview_box11 .inter_zw img {
@@ -1616,7 +1655,7 @@
     }
 
     .interview_box11 .inter_right {
-       display: inline;
+        display: inline;
         margin: 0;
     }
 
@@ -1748,7 +1787,7 @@
 
     .interview_box12 .inter_zw img {
         width: 41.5%;
-        margin-top:5%;
+        margin-top: 5%;
 
     }
 
