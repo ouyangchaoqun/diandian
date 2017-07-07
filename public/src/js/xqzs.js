@@ -378,6 +378,7 @@ var xqzs = {
             mood.moodValueStyle = mood.moodValue < 5 ? 'unhappy_txt_color' : 'happy_txt_color';
         },
         formatContent: function (item) {
+            console.log(item.scense);
             var before = "[ 在" + item.scense.text + "方面 ]";
             var before2 = "在" + item.scense.text + "方面：";
             if (item.content != '' && item.content != null && item.content != undefined) {
