@@ -58,6 +58,14 @@
 			</div>
 		</router-link>
 
+		<router-link :to="interviewLink" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1 listimgPro" src="../images/aboutMe.png"/>
+				<div class="listtext ">邀请卡</div>
+				<img class="listimg2" src="../images/me_jt.png"/>
+			</div>
+		</router-link>
+
 		<div class="me_bottom">
 			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
 		</div>
@@ -200,7 +208,8 @@
     export default {
         data() {
             return {
-                hasNewPerfect:false
+                hasNewPerfect:false,
+                interviewLink:"/interview"
             }
         },
         props:{
@@ -215,6 +224,7 @@
             xqzs.wx.setConfig(_this);
             var obj =  $(".me_lists")
             xqzs.weui.active(obj);
+            _this.interviewLink="/interview?openId="+_this.user.openId;
         },
 		filters:{
 			shortName:function(value,len){

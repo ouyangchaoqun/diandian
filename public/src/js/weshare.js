@@ -3,10 +3,13 @@
     config: {
         title: 'hello world',
         desc: '心情，心情指数，日子有大有小，心情能暖共知！关注本微信公众号，心情不好的说说，随时记录、查看自己和朋友的心情！',
-        link: 'http://m.xqzs.cn/',
+        link:   'http://m.xqzs.cn/',
         imgUrl: ''
     },
-    init: function (wx, success, cancel) {
+    init: function (wx,config, success, cancel) {
+        console.log(config);
+        this.config = $.extend(this.config,config);
+        console.log( this.config);
         if (success && typeof success == 'function') {
         }else{
             success = function () {}
@@ -24,6 +27,7 @@
     //获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
     ShareTimeline: function (wx, success, cancel) {
         var that = this;
+        console.log(that.config.title);
         wx.onMenuShareTimeline({
             title: that.config.title, // 分享标题
             link: that.config.link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致

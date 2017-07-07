@@ -58,14 +58,7 @@
         watch: {
 
             user: function (data) {
-                let _this = this;
-                var openId = _this.$route.query.openId;
-                if (openId == data.openId) {
-                    _this.isUser = true;
-                }
-                else {
-                    _this.isUser = false;
-                }
+                this.checkIsUser();
             }
         },
         mounted: function () {
@@ -97,13 +90,33 @@
                             __this.interviewBoxClass = "interview_box" + __this.bgType;
                             __this.pic_num = web.IMG_PATH + "interview/" + __this.bgType + ".png";
                             __this.loading =false;
+                        }else{
+                            __this.resetInter();
                         }
                     })
 
-
+            this.checkIsUser();
+            xqzs.wx.setConfig(this,function () {
+                wx.showAllNonBaseMenuItem();
+                var config ={
+                    title: '邀请卡',
+                    desc: '我的邀请卡',
+                    link: web.BASE_PATH + 'wx/index?reurl=' +encodeURI(web.BASE_PATH + "/#/interview?openId="+openId),
+                };
+                weshare.init(wx,config)
+            });
         },
         methods: {
-
+            checkIsUser:function () {
+                let _this = this;
+                var openId = _this.$route.query.openId;
+                if (openId == _this.user.openId) {
+                    _this.isUser = true;
+                }
+                else {
+                    _this.isUser = false;
+                }
+            },
             resetInter: function () {
                 var _this = this;
                 _this.showLoad = true;
