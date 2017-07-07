@@ -96,6 +96,13 @@
             this.checkIsUser();
             xqzs.wx.setConfig(this,function () {
                 wx.showAllNonBaseMenuItem();
+                var config ={
+                    title: '邀请卡',
+                    desc: '我的邀请卡',
+                    link: web.BASE_PATH + 'wx/index?reurl=' +encodeURI(web.BASE_PATH + "/#/interview?openId="+openId),
+                };
+                weshare.init(wx,config,function () {
+                },function () {})
             });
         },
         methods: {

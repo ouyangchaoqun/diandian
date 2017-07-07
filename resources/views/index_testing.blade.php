@@ -35,6 +35,7 @@
 <script src="/src/js/xqzs.js?v=2017061202"></script>
 <script src="/src/js/xqzs.face.js?v=20170612"></script>
 <script src="/src/js/blocksit.min.js"></script>
+<script src="/src/js/weshare.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/dist/build.js"></script>
 </body>
 </html>
