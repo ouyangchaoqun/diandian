@@ -1222,7 +1222,7 @@
         color: #0ba98e;
         height: 7px;
         position: absolute;
-        top: 30.5%;
+        top: 32.5%;
         text-align: center;
         width: 100%;
     }
@@ -1232,7 +1232,7 @@
         color: #0ba98e;
         height: 11px;
         position: absolute;
-        top: 33.5%;
+        top: 36.5%;
         width: 100%;
         text-align: center;
     }
@@ -1258,7 +1258,7 @@
     .interview_box9 .inter_code {
         float: left;
         width: 19%;
-        margin-left: 30%;
+        margin-left: 28%;
     }
 
     .interview_box9 .inter_code img {
@@ -1268,11 +1268,12 @@
     .interview_box9 .inter_zw {
         float: left;
         text-align: center;
-        width: 27%;
+        width: 31%;
+        margin-left: 46%;
     }
 
     .interview_box9 .inter_zw img {
-        width: 41%;
+        width: 36%;
         margin: 0;
     }
 
@@ -1733,7 +1734,7 @@
         color: #333333;
         height: 7px;
         position: absolute;
-        top: 12%;
+        top: 12.5%;
         text-align: center;
         width: 100%;
     }
@@ -1743,7 +1744,7 @@
         color: #333333;
         height: 11px;
         position: absolute;
-        top: 15%;
+        top: 16.5%;
         width: 100%;
         text-align: center;
     }
