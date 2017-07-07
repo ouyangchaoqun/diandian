@@ -23,6 +23,7 @@ let routers =
                 require('./routes/personal'),
                 require('./routes/validate'),
                 require('./routes/moodCount'),
+                require('./routes/moodData'),
                 require('./routes/friendList'),
                 require('./routes/friendsMoods'),
                 require('./routes/friendCenter'),

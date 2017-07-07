@@ -1,6 +1,6 @@
 <template id="indexCount">
 	<div class="IndexAdd">
-		<div>
+		<div @click="openMoodData()">
 			<p>{{dayNum}}</p>
 			<div>天记录心情</div>
 		</div>
@@ -30,7 +30,8 @@
                 moodNum: 0,
                 dayNum: 0,
                 friendNum: 0,
-                linkFriendList:''
+                linkFriendList:'',
+				linkMoodDat:''
             }
         },
         props: {
@@ -44,6 +45,14 @@
                     this.$router.push( this.linkFriendList);
 				}
 
+            },
+            openMoodData:function () {
+                if(this.linkMoodDat==''){
+                    return ;
+                }else{
+                    this.$router.push( this.linkMoodDat);
+                }
+
             }
 		},
 		mounted:function () {
@@ -51,6 +60,7 @@
 			if(this.$route.params.Id==''||this.$route.params.Id==undefined){
                 this.$route.params.Id = '_userId_';
                 this.linkFriendList="/friendList";
+                this.linkMoodDat='/moodData';
                 console.log('yyyyy')
 			}
             this.$http({
