@@ -56,7 +56,7 @@ class Controller extends BaseController
         $apiurl = "/user/be/friend/width/ids/{$friendid}/_userId_";
         $this->apiService->execFull($request, $userId, $apiurl, 'POST');
 
-        return redirect("/#/friendCenter?friendId={$friendid}");
+        return redirect("/#/friendCenter/{$friendid}");
     }
 
 
