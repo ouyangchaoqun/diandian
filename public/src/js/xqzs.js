@@ -6,8 +6,8 @@ document.addEventListener("touchstart", function () {
 
 var xqzs = {
     constant: {
-        PIC_SMALL: '?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0',
-        PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0'
+        PIC_SMALL: '?x-oss-process=image/resize,h_640,w_640/quality,q_100',
+        PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100'
     },
 
     weui: {
@@ -398,8 +398,8 @@ var xqzs = {
                 if (data[i].haspicture) {
                     if (data[i].pics !== undefined) {
                         for (var j = 0; j < data[i].pics.length; j++) {
-                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100/auto-orient,0";
-                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100/auto-orient,0";
+                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
+                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
 
                         }
                     }
@@ -673,10 +673,10 @@ var xqzs = {
     oss: {
         Size: {
             fill: function (width, height) {
-                return '?x-oss-process=image/resize,m_fill,h_' + width + ',w_' + height + '/quality,q_100/auto-orient,0';
+                return '?x-oss-process=image/resize,m_fill,h_' + width + ',w_' + height + '/quality,q_100';
             },
             resize: function (width, height) {
-                return '?x-oss-process=image/resize,h_' + width + ',w_' + height + '/quality,q_100/auto-orient,0';
+                return '?x-oss-process=image/resize,h_' + width + ',w_' + height + '/quality,q_100';
             }
         },
         /**
