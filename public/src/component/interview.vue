@@ -58,14 +58,7 @@
         watch: {
 
             user: function (data) {
-                let _this = this;
-                var openId = _this.$route.query.openId;
-                if (openId == data.openId) {
-                    _this.isUser = true;
-                }
-                else {
-                    _this.isUser = false;
-                }
+                this.checkIsUser();
             }
         },
         mounted: function () {
@@ -100,10 +93,19 @@
                         }
                     })
 
-
+            this.checkIsUser();
         },
         methods: {
-
+            checkIsUser:function () {
+                let _this = this;
+                var openId = _this.$route.query.openId;
+                if (openId == _this.user.openId) {
+                    _this.isUser = true;
+                }
+                else {
+                    _this.isUser = false;
+                }
+            },
             resetInter: function () {
                 var _this = this;
                 _this.showLoad = true;
