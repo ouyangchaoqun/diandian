@@ -657,11 +657,14 @@ var xqzs = {
             });
         },
 
-        setConfig: function (vm) {
+        setConfig: function (vm,callback) {
             vm.$http.get(web.API_PATH + 'wei/xin/config').then(function (response) {
                 wx.config(response.body);
                 wx.ready(function () {
                     wx.hideAllNonBaseMenuItem();
+                    if(callback&&typeof (callback)=="function"){
+                        callback()
+                    }
                     console.log('wx.ready');
                 });
                 wx.error(function (res) {

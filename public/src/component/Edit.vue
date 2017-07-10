@@ -209,7 +209,7 @@
     </div>
 </template>
 
-<script type="es6">
+<script >
     import insert from "../js/insert";
     import funny from './funny.vue';
     import Bus from './bus.js';
