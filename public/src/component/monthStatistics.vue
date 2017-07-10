@@ -11,9 +11,9 @@
                                 <div class="weui-progress__inner-bar js_progress" style="width: 50%;"></div>
                             </div>
                         </div>
-
                     </div>
                     <div class="Sta_count">22条</div>
+                    <div class="circle"></div>
                 </div>
             </div>
     </div>
@@ -28,20 +28,19 @@
 
         data() {
             return {
-                years: [
-                    {year: 2017},
-                    {year: 2016}
-                ],
-                months: [
-                    {month: 1},
-                    {month: 2},
-                    {month: 3},
-                    {month: 4},
-                    {month: 5},
-                    {month: 6},
-                    {month: 7}
-                ]
+
+                years: [],
+                months: [],
             }
+        },
+        props: {
+            user: {
+                type: Object
+            }
+        },
+        mounted: function () {
+       // let _this=this;
+            //_this.$http.get(web.API_PATH+'mood/query/statistics/months/1267")
         }
     }
 </script>
@@ -53,9 +52,11 @@
     }
     .Sta_year{
         padding: 15.5px 20.5px;
+        line-height: 18px;
     }
-    .Sta_year img{
-        padding: 1px 0px;
+    .Sta_year span {
+        font-size: 20px;
+        margin-left: 10px;
     }
     .Sta_year img {
         width: 18px;
@@ -73,7 +74,7 @@
         width: 60.7%;
         margin-left: 21.06%;
         position: absolute;
-        top:40%
+        top:43%
     }
     .Sta_month{
         width: 15.6%;
@@ -82,17 +83,32 @@
         position: absolute;
         left: 1%;
         text-align: center;
-        top:20%;
+        top:15px;
+        font-size: 15px;
     }
-
+    .circle{
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        border: 1px solid #a0a0a0;
+        position: absolute;
+        left:15% ;
+        top:18.5px;
+        background-color: #f4f4f8;
+    }
     .weui-progress__bar{
         height: 10px;
         background: rgba(9,187,7,0.15);
+        border-radius: 4px;
+    }
+    .weui-progress__inner-bar {
+        border-radius: 4px;
     }
     .Sta_count{
         position: absolute;
         right: 4%;
         top:20%;
+        font-size: 15px;
     }
 
 </style>
