@@ -58,7 +58,7 @@
 			</div>
 		</router-link>
 
-		<router-link :to="interviewLink" class="me_lists">
+		<router-link :to="interviewLink" class="me_lists"  v-if="false">
 			<div class="me_list">
 				<img class="listimg1 listimgPro" src="../images/aboutMe.png"/>
 				<div class="listtext ">邀请卡</div>
@@ -66,7 +66,7 @@
 			</div>
 		</router-link>
 
-		<div class="me_bottom" v-if="false">
+		<div class="me_bottom">
 			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
 		</div>
 		<div style="height: 50px;"></div>
