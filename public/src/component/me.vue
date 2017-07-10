@@ -66,7 +66,7 @@
 			</div>
 		</router-link>
 
-		<div class="me_bottom">
+		<div class="me_bottom" v-if="false">
 			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
 		</div>
 		<div style="height: 50px;"></div>
