@@ -1,13 +1,13 @@
 <template id="indexCount">
 	<div class="IndexAdd">
-		<div @click="openMoodData()">
+		<div @click="openMoodCount()">
 			<p>{{dayNum}}</p>
 			<div>天记录心情</div>
 		</div>
-		<div class="IndexAddBorder">
+		<div class="IndexAddBorder" @click="openMoodData()" >
 			<span></span>
 			<p>{{moodNum}}</p>
-			<div @click="openMoodCount()">  条心情数据</div>
+			<div>条心情数据</div>
 			<span></span>
 		</div>
 		<div @click="openFriend()">
