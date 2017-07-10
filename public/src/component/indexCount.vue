@@ -61,7 +61,6 @@
                 this.$route.params.Id = '_userId_';
                 this.linkFriendList="/friendList";
                 this.linkMoodDat='/moodData';
-                console.log('yyyyy')
 			}
             this.$http({
                 method: 'GET',

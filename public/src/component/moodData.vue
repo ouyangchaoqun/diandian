@@ -6,10 +6,10 @@
             <div>心情条数</div>
         </div>
         <ul class="dataLists">
-            <li class="dataList" v-for="scenes in scenesList">
+            <li class="dataList" v-for="data in dataArray">
                 <div>
-                    <img :src="moodSrc(scenes.src)" alt="">
-                    <span>{{scenes.text}}</span>
+                    <img :src="data.src" alt="">
+                    <span>{{data.text}}</span>
                 </div>
                 <div class="dataPerList">
                     <div class="weui-progress">
@@ -17,11 +17,9 @@
                             <div class="weui-progress__inner-bar addWidth"></div>
                         </div>
                     </div>
-                    <div class="moodPer">50%</div>
+                    <div class="moodPer">{{data.count/allCount*100}}%</div>
                 </div>
-                <div>
-                    90
-                </div>
+                <div>{{data.count}}</div>
             </li>
 
         </ul>
@@ -37,8 +35,10 @@
     export default {
         data() {
             return {
-                scenesList:xqzs.mood.moodScenesList
-            }
+                scenesList:xqzs.mood.moodScenesList,
+                dataArray:[],
+                allCount:''
+        }
         },
         methods:{
             moodSrc:function (src) {
@@ -50,20 +50,22 @@
             //用户信息
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + 'subscribe/query/subscribes/by/user/_userId_',
+                url: web.API_PATH + 'mood/get/user/statistics/_userId_',
             }).then(function (data) {
-                var dataArray = data.data.data
-                console.log(dataArray);
+                var dataArray = data.data.data.data;
+                _this.allCount = data.data.data.allCount;
+                for(var i=0;i<dataArray.length;i++){
+                    console.log('scenesId:'+dataArray[i].scenesId);
+                    for(var j=0;j<_this.scenesList.length;j++){
+                        console.log('value:'+_this.scenesList[j]);
+                        if(dataArray[i].scenesId==_this.scenesList[j].value){
+                            dataArray[i].src=web.IMG_PATH +_this.scenesList[j].src;
+                            dataArray[i].text=_this.scenesList[j].text
+                        }
+                    }
+                }
                 _this.dataArray = dataArray;
-            }, function (data) {
-            });
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + 'subscribe/query/users/subscribes/_userId_',
-            }).then(function (data) {
-                var subArray = data.data.data;
-                console.log(subArray)
-                _this.subArray = subArray;
+
             }, function (data) {
             });
         }

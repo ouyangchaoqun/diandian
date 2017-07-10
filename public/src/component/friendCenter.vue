@@ -23,6 +23,7 @@
                 <div class="swiper-slide content-slide swiper-no-swiping">
                     <div class="chart_box" v-if="isLookFriend ">
                         <v-chart :chartData="chartData"></v-chart>
+                        <div v-if="isLookFriend " class="addSwiperBoxText">只能展示好友七天心情</div>
                     </div>
                     <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
@@ -171,5 +172,11 @@
         border-radius: 50%;
         margin: auto;
         display: block;
+    }
+    .addSwiperBoxText{
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+        margin-top: 15px;
     }
 </style>
