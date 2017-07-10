@@ -7,7 +7,7 @@
 		<div class="IndexAddBorder">
 			<span></span>
 			<p>{{moodNum}}</p>
-			<div>条心情数据</div>
+			<div @click="openMoodCount()">  条心情数据</div>
 			<span></span>
 		</div>
 		<div @click="openFriend()">
@@ -31,7 +31,8 @@
                 dayNum: 0,
                 friendNum: 0,
                 linkFriendList:'',
-				linkMoodDat:''
+				linkMoodDat:'',
+				linkOpenMoodCount:''
             }
         },
         props: {
@@ -53,7 +54,16 @@
                     this.$router.push( this.linkMoodDat);
                 }
 
-            }
+            },
+			openMoodCount:function () {
+				if(this.linkMoodCount==''){
+					return ;
+				}else{
+					this.$router.push( this.linkMoodCount);
+				}
+
+			}
+
 		},
 		mounted:function () {
             //console.log(this.$route.params.Id)
@@ -61,6 +71,8 @@
                 this.$route.params.Id = '_userId_';
                 this.linkFriendList="/friendList";
                 this.linkMoodDat='/moodData';
+				this.linkMoodCount='/monthStatistics';
+                console.log('yyyyy')
 			}
             this.$http({
                 method: 'GET',

@@ -3,10 +3,11 @@
     config: {
         title: 'hello world',
         desc: '心情，心情指数，日子有大有小，心情能暖共知！关注本微信公众号，心情不好的说说，随时记录、查看自己和朋友的心情！',
-        link: 'http://m.xqzs.cn/',
+        link:   'http://m.xqzs.cn/',
         imgUrl: ''
     },
-    init: function (wx, success, cancel) {
+    init: function (wx,config, success, cancel) {
+        this.config = $.extend(this.config,config);
         if (success && typeof success == 'function') {
         }else{
             success = function () {}
