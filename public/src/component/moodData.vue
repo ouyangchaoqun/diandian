@@ -14,10 +14,10 @@
                 <div class="dataPerList">
                     <div class="weui-progress">
                         <div class="weui-progress__bar">
-                            <div class="weui-progress__inner-bar addWidth"></div>
+                            <div class="weui-progress__inner-bar" :style="{width:data.Moodwidth}"></div>
                         </div>
                     </div>
-                    <div class="moodPer">{{data.count/allCount*100}}%</div>
+                    <div class="moodPer">{{data.Moodwidth}}</div>
                 </div>
                 <div>{{data.count}}</div>
             </li>
@@ -54,18 +54,22 @@
             }).then(function (data) {
                 var dataArray = data.data.data.data;
                 _this.allCount = data.data.data.allCount;
+
                 for(var i=0;i<dataArray.length;i++){
                     console.log('scenesId:'+dataArray[i].scenesId);
+                    var Moodwidth = Math.round(dataArray[i].count/_this.allCount*100)+'%';
+
                     for(var j=0;j<_this.scenesList.length;j++){
                         console.log('value:'+_this.scenesList[j]);
                         if(dataArray[i].scenesId==_this.scenesList[j].value){
                             dataArray[i].src=web.IMG_PATH +_this.scenesList[j].src;
                             dataArray[i].text=_this.scenesList[j].text
+                            dataArray[i].Moodwidth = Moodwidth
                         }
                     }
                 }
                 _this.dataArray = dataArray;
-
+                console.log(this.$refs)
             }, function (data) {
             });
         }
