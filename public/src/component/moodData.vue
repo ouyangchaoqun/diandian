@@ -17,7 +17,7 @@
                             <div class="weui-progress__inner-bar" :style="{width:data.Moodwidth}"></div>
                         </div>
                     </div>
-                    <div class="moodPer">{{data.Moodwidth}}</div>
+                    <div class="moodPer" :style="{left:data.Moodwidth}">{{data.Moodwidth}}</div>
                 </div>
                 <div>{{data.count}}</div>
             </li>
@@ -154,8 +154,6 @@
         color: #666666;
         position: absolute;
         top: -20px;
-        left:50%;
-        margin-left: -0.70588rem;
     }
 
 </style>
