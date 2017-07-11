@@ -232,7 +232,7 @@
     }
 
     .subscribeHeight {
-        height: 70px;
+        height: 76px;
     }
 
     .subscribeList div {
@@ -252,7 +252,7 @@
     .subscribeList p {
         font-size: 13px;
         line-height: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 13px;
         height: 16px;
         text-align: left;
     }
@@ -268,7 +268,7 @@
         float: right;
         width: 37px;
         height: 33px;
-        margin-top: 11px;
+        margin-top: 14px;
         margin-right: 15px;
     }
 
