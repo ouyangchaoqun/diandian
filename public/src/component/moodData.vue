@@ -134,10 +134,10 @@
     }
     .dataList div:nth-of-type(3){
         position: absolute;
-        right:28px;
+        right:15px;
         top:0;
         line-height: 50px;
-        color: #333;
+        color: #666;
         text-align: center;
     }
     .dataList div:nth-of-type(3) span{
@@ -157,7 +157,7 @@
         font-size: 11px;
         color: #666666;
         position: absolute;
-        top: -20px;
+        top: -17px;
     }
 
 </style>

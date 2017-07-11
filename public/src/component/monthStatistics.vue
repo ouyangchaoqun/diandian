@@ -111,7 +111,7 @@
         text-align: center;
         padding-top: 14px;
         font-size: 15px;
-        color: #666;
+        color: #838383;
     }
 
     .circle {
@@ -141,6 +141,7 @@
         right:5%;
         top: 12.5px;
         font-size: 15px;
+        color:#666;
     }
 
 </style>
