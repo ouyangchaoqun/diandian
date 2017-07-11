@@ -120,7 +120,7 @@
     }
     .dataList span{
         font-size: 0.7647rem;
-        color: #333;
+        color: #666;
         line-height: 50px;
         margin-left: 1.64rem;
     }
