@@ -125,7 +125,7 @@
                     .then(function (res) {
                         console.log(res)
                         xqzs.weui.toast("success", "订阅成功", function () {
-                            _this.$router.push('/me/subscribe');
+                            _this.$router.go(-1);
                         })
                     });
             }
