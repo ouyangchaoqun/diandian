@@ -170,7 +170,9 @@
                 this.transitionName = 'page-xqzs-left'
             }
             this.$nextTick(function () {
-                next()
+               setTimeout(function () {
+                   next()
+               },10)
             })
 
 
