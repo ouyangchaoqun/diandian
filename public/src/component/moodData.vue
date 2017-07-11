@@ -69,7 +69,6 @@
                     }
                 }
                 _this.dataArray = dataArray;
-                console.log(this.$refs)
             }, function (data) {
             });
         }
@@ -158,8 +157,6 @@
         left:50%;
         margin-left: -0.70588rem;
     }
-    .addWidth{
-        width:50%;
-    }
+
 </style>
 
