@@ -166,9 +166,7 @@
 
             }else if (isBack) {
                 this.transitionName = 'page-xqzs-right'
-                $(".transitionBox").addClass("page-xqzs-right");
             } else {
-                $(".transitionBox").removeClass("page-xqzs-right");
                 this.transitionName = 'page-xqzs-left'
             }
 
