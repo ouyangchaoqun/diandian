@@ -468,6 +468,7 @@
             this.getList();
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
+                console.log(data)
                     if (data.data.status === 1) {
                         for (let i = 0; i < data.data.data.length; i++) {
                             let week = {days: [], moods: []};
