@@ -10,7 +10,7 @@
         <div class="moodCount_box">
             <div v-if="subArray.length>0">
                 <div class="subscribe_dy"><span>我的订阅</span></div>
-                <ul class="subscribeL   ists">
+                <ul class="subscribeLists">
                     <router-link :to="urlDetail+data.id" v-for="data in subArray"
                                  v-if="subArray.length>0||data.issubscribe==1">
                         <li class="subscribeList">
@@ -227,7 +227,7 @@
         width: 91.3%;
         margin: 14px auto;
         background-color: #ffffff;
-        box-shadow: #D9D9D9 4px 4px 4px;
+        box-shadow: rgba(217, 217, 217, 0.71) 2px 2px 2px;
 
     }
 
