@@ -275,7 +275,7 @@
     .moodCount_box {
         width: 100%;
         height: auto;
-        margin-top: 20px;
+        margin-top: 25px
     }
 
     .timing {
