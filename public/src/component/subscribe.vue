@@ -1,12 +1,13 @@
 <template id="subscribe">
-    <div class="subscribe_box">
+    <div class="subscribe_box" style="padding-top: 20px">
         <div v-title>精选订阅</div>
-        <div class="subtabs">
+        <!--<div class="subtabs">
             <div class="tabHeader">
                 <a href="#" hidefocus="true" class="active">订阅推荐</a>
                 <a href="#" hidefocus="true">我的订阅</a>
             </div>
-        </div>
+        </div>-->
+        <div style="font-size: 16px;color: #999;text-align: center;margin-bottom: 15px">订阅推荐</div>
         <div class="swiper-container moodCount_box">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">

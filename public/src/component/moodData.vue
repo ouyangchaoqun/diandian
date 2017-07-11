@@ -98,7 +98,7 @@
         width:3.6rem;
         text-align: center;
         position: absolute;
-        left:52%;
+        left:55%;
         margin-left:-1.8rem;
     }
     .dataLists{
@@ -127,7 +127,7 @@
     .dataPerList{
         width:10.294rem;
         position: absolute;
-        left:52%;
+        left:55%;
         margin-left: -5.147rem;
         top:50%;
         margin-top:-5px;
@@ -139,6 +139,8 @@
         line-height: 50px;
         font-size: 1.0588rem;
         color: #333;
+        vertical-align:middle;
+        text-align: center;
     }
     .weui-progress__bar{
         height:10px;
