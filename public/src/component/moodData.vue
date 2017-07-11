@@ -19,7 +19,7 @@
                     </div>
                     <div class="moodPer" :style="{left:data.Moodwidth}">{{data.Moodwidth}}</div>
                 </div>
-                <div>{{data.count}}条</div>
+                <div><span style="font-size: 16px;">{{data.count}}</span><span style="font-size: 14px">条</span></div>
             </li>
 
         </ul>
@@ -137,10 +137,12 @@
         right:28px;
         top:0;
         line-height: 50px;
-        font-size: 0.9412rem;
         color: #333;
-        vertical-align:middle;
         text-align: center;
+    }
+    .dataList div:nth-of-type(3) span{
+        margin-left:0;
+        vertical-align: bottom
     }
     .weui-progress__bar{
         height:10px;
