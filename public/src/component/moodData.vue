@@ -19,7 +19,7 @@
                     </div>
                     <div class="moodPer" :style="{left:data.Moodwidth}">{{data.Moodwidth}}</div>
                 </div>
-                <div>{{data.count}}</div>
+                <div>{{data.count}}条</div>
             </li>
 
         </ul>
@@ -134,10 +134,10 @@
     }
     .dataList div:nth-of-type(3){
         position: absolute;
-        right:32px;
+        right:28px;
         top:0;
         line-height: 50px;
-        font-size: 1.0588rem;
+        font-size: 0.9412rem;
         color: #333;
         vertical-align:middle;
         text-align: center;
