@@ -94,7 +94,7 @@
 
     .Sta_progress {
         width: 60.7%;
-        margin-left: 21.06%;
+        margin-left: 22.56%;
         position: absolute;
         top: 43%
     }
@@ -107,6 +107,7 @@
         text-align: center;
         padding-top: 14px;
         font-size: 15px;
+        color: #666;
     }
 
     .circle {
@@ -133,7 +134,7 @@
 
     .Sta_days {
         position: absolute;
-        right:5.6%;
+        right:5%;
         top: 12.5px;
         font-size: 15px;
     }

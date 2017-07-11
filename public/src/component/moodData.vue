@@ -19,7 +19,7 @@
                     </div>
                     <div class="moodPer" :style="{left:data.Moodwidth}">{{data.Moodwidth}}</div>
                 </div>
-                <div><span style="font-size: 0.9411rem;">{{data.count}}</span><span style="font-size: 0.8235rem">条</span></div>
+                <div><span style="font-size: 0.8811rem;">{{data.count}}</span><span style="font-size: 0.8035rem">条</span></div>
             </li>
 
         </ul>
