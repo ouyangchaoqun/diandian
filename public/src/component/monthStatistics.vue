@@ -48,7 +48,6 @@
                             response.data.data[i].months[j].style= "width: "+(style*100)+"%;";
                         }
                     }
-
                     _this.data = response.data.data;
                     console.log(_this.data);
                 }
@@ -101,11 +100,10 @@
     }
 
     .Sta_month {
-        width: 15.6%;
+        width: 16.6%;
         border-right: solid #eeeeee 1px;
         height: 35.5px;
         position: absolute;
-        left: 1%;
         text-align: center;
         padding-top: 14px;
         font-size: 15px;
@@ -135,7 +133,7 @@
 
     .Sta_days {
         position: absolute;
-        right: 7%;
+        right:5.6%;
         top: 12.5px;
         font-size: 15px;
     }
