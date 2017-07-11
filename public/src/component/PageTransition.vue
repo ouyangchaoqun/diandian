@@ -169,8 +169,11 @@
             } else {
                 this.transitionName = 'page-xqzs-left'
             }
+            this.$nextTick(function () {
+                next()
+            })
 
-            next()
+
         }
     }
 </script>
