@@ -98,7 +98,7 @@
         width:3.6rem;
         text-align: center;
         position: absolute;
-        left:55%;
+        left:50%;
         margin-left:-1.8rem;
     }
     .dataLists{
