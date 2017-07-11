@@ -174,7 +174,10 @@
                    next()
                },10)
             })
-
+            var tt = document.querySelector('.child-view');
+            tt.addEventListener("webkitAnimationEnd", function(){
+                console.log("webkitAnimationEnd")
+            }, false);
 
         }
     }
