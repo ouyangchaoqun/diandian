@@ -1,7 +1,7 @@
 <template id="monthStatistics">
     <div class="max_box">
         <div v-for="year in data" class="Sta_years">
-            <div class="Sta_year"><img src="../images/时间.png"><span>{{year.year}}年</span></div>
+            <div class="Sta_year"><img src="../images/time.png"><span>{{year.year}}年</span><div class="clear"></div> </div>
             <div v-for="month in year.months" class="Sta_months">
                 <div class="Sta_month"> {{month.month}}月</div>
                 <div class="Sta_progress">
@@ -59,6 +59,7 @@
 
 </script>
 <style>
+    .clear{ clear: both ; height: 0; overflow: hidden}
     .max_box {
         background-color: #ffffff;
     }
@@ -72,15 +73,18 @@
     .Sta_year {
         padding: 15.5px 20.5px;
         line-height: 18px;
+
     }
 
     .Sta_year span {
         font-size: 20px;
         margin-left: 10px;
+        float:left;
     }
 
     .Sta_year img {
         width: 18px;
+        float:left;
     }
 
     .Sta_months {
