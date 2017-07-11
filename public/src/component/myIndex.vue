@@ -491,9 +491,7 @@
             'v-calendarTemplate':calendarTemplate,'v-calendarPopup':calendarPopup,
             'v-indexCount':indexCount
         },
-        beforeDestroy: function () {
-            xqzs.weui.removeWhenPageChange()
-        }
+
     }
 
     import scroll from './lib/scroll.vue';
