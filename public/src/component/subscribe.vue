@@ -1,5 +1,5 @@
 <template id="subscribe">
-    <div class="subscribe_box" style="padding-top: 20px">
+    <div class="subscribe_box">
         <div v-title>精选订阅</div>
         <!--<div class="subtabs">
             <div class="tabHeader">
@@ -275,6 +275,7 @@
     .moodCount_box {
         width: 100%;
         height: auto;
+        margin-top: 20px;
     }
 
     .timing {
