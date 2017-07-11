@@ -39,7 +39,7 @@ let routers =
                 //require('./routes/positionList'),
                 require('./routes/befriend'),
                 require('./routes/aboutUs'),
-                require('./routes/interview'),
+               // require('./routes/interview'),
                 require('./routes/monthStatistics')
             ]
         }
