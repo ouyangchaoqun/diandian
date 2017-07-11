@@ -38,7 +38,7 @@
                 scenesList:xqzs.mood.moodScenesList,
                 dataArray:[],
                 allCount:''
-        }
+            }
         },
         methods:{
             moodSrc:function (src) {
