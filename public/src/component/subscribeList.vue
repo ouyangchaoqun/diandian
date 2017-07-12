@@ -200,7 +200,7 @@
         border-bottom: 1px solid #e5e5e5;
         font-size: 16px;
         font-weight: 600;
-        color: #666;
+        color: #666   ;
     }
     .subscribeListBottom .timeSet{
         border:0;
