@@ -392,8 +392,8 @@ var xqzs = {
                 return;
             }
             item.moodValueText = '微心情札记';
-            var gourl = '/rediect?url='+encodeURI(item.adlink);
-            item.address = '<a href="'+gourl+'">查看详情</a>';
+            var gourl = '/rediect?url='+encodeURIComponent(item.adlink);
+            item.address = '<a class="showOthercom" href="'+gourl+'">查看详情</a>';
         },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
