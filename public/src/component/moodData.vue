@@ -1,5 +1,6 @@
 <template id="moodData">
     <div class="moodDataBox">
+        <div v-title>心情统计</div>
         <div class="moodDtaHeader">
             <div>在哪方面</div>
             <div>心情占比</div>
