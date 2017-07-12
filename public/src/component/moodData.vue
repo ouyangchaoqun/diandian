@@ -7,7 +7,7 @@
             <div>心情条数</div>
         </div>
         <ul class="dataLists">
-            <li class="dataList" v-for="data in dataArray">
+            <li class="dataList" v-for="data in dataArray" v-if="data.scenesId!=12">
                 <div>
                     <img :src="data.src" alt="">
                     <span>{{data.text}}</span>
@@ -22,6 +22,9 @@
                 </div>
                 <div><span style="font-size: 0.8811rem;">{{data.count}}</span><span style="font-size: 0.8035rem">条</span></div>
             </li>
+
+            <li  v-if="otherCount!=0" class="other">（备注：本统计不包括6月14日前的{{otherCount}}条心情记录）</li>
+
 
         </ul>
 
@@ -38,7 +41,8 @@
             return {
                 scenesList:xqzs.mood.moodScenesList,
                 dataArray:[],
-                allCount:''
+                allCount:'',
+                otherCount:0
             }
         },
         methods:{
@@ -57,7 +61,15 @@
                 _this.allCount = data.data.data.allCount;
 
                 for(var i=0;i<dataArray.length;i++){
+                    if(dataArray[i].scenesId==12){
+                        _this.otherCount= dataArray[i].count;
+                        _this.allCount=  _this.allCount-dataArray[i].count;
+                    }
+                }
+
+                for(var i=0;i<dataArray.length;i++){
                     console.log('scenesId:'+dataArray[i].scenesId);
+
                     var Moodwidth = Math.round(dataArray[i].count/_this.allCount*100)+'%';
 
                     for(var j=0;j<_this.scenesList.length;j++){
@@ -77,6 +89,7 @@
     }
 </script>
 <style>
+    .other{font-size: 14px; color:#666; line-height: 50px;}
     .moodDataBox{
         background: #fff;
     }
