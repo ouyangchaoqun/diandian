@@ -111,13 +111,14 @@
         methods: {
 
             getFunnyPictures:function (ix) {
-
+                let isPubu=false;
                 let that = this;
                 if(that.isLoading==true||that.isEnd==true){ return }
                 that.isLoading= true;
 
                 that.$http.get(web.API_PATH + 'funny/query/page/by/moodvalue/' + that.moodvalue + '/' + that.pageConfig.currentIndex + '/' + that.pageConfig.size)
                     .then(function (bt) {
+                        console.log(bt)
                         if (bt.data && bt.data.status == 1) {
                             var _pagedata_ = bt.data.data.rows;
 
@@ -134,7 +135,7 @@
                                 $('.pubu img').each(function () {
                                     var ___this=$(this);
                                     var image=new Image;
-                                    let isPubu=false;
+
                                     image.src=$(this).attr("src");
                                     image.onload= function () {
                                         if(!___this.hasClass("loaded")){
