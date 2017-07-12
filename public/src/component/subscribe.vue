@@ -140,7 +140,6 @@
         margin-bottom: 25px;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 43px;
         position: relative;
     }
     .subscribe_dy {
@@ -223,7 +222,7 @@
     }
 
     .subscribeLists {
-
+            margin-bottom: 43px;
     }
 
     .subscribeList {
@@ -249,7 +248,7 @@
     .subscribeList h3 {
         font-size: 16px;
         color: #666;
-        font-weight: normal;
+        font-weight: bold;
         line-height: 16px;
         margin-bottom: 9px;
         text-align: left;
