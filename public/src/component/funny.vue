@@ -118,7 +118,7 @@
 
                 that.$http.get(web.API_PATH + 'funny/query/page/by/moodvalue/' + that.moodvalue + '/' + that.pageConfig.currentIndex + '/' + that.pageConfig.size)
                     .then(function (bt) {
-                        console.log(bt)
+                        /*console.log(bt)*/
                         if (bt.data && bt.data.status == 1) {
                             var _pagedata_ = bt.data.data.rows;
 
@@ -140,8 +140,8 @@
                                     image.onload= function () {
                                         if(!___this.hasClass("loaded")){
                                             loadCount++;
-                                            console.log("loadCount:"+loadCount)
-                                            console.log("length:"+_pagedata_.length)
+                                            //console.log("loadCount:"+loadCount)
+                                            //console.log("length:"+_pagedata_.length)
                                             if(loadCount==_pagedata_.length ){
                                                 $('.pubu').BlocksIt({
                                                     numOfCol:3,
@@ -160,7 +160,7 @@
 //                                        console.log("load")
 //                                    });
                                 });
-                                setTimeout(function () {
+                               /* setTimeout(function () {
                                     if(isPubu==false){
                                         $('.pubu').BlocksIt({
                                             numOfCol:3,
@@ -169,7 +169,7 @@
                                         });
                                     }
 
-                                },3000)
+                                },3000)*/
 
 
 
