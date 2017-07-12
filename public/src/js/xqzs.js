@@ -387,6 +387,17 @@ var xqzs = {
                 return before;
             }
         },
+        initMoodAdItemData:function (item) {
+            if(item.id>0){
+                return;
+            }
+            item.scense = {
+                src: '',
+                text: '微心情札记'
+            }
+            var gourl = '/rediect?url='+encodeURI(item.adlink);
+            item.address = '<a href="'+gourl+'">查看详情</a>';
+        },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
@@ -461,6 +472,7 @@ var xqzs = {
                         data[i].replies[ri].content = xqzs.face.parseEmoji(data[i].replies[ri].content);
                     }
                 }
+                this.initMoodAdItemData(data[i]);
 
             }
             return data;
