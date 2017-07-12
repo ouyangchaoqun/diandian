@@ -140,7 +140,7 @@
         margin-bottom: 25px;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 43px;
+        position: relative;
     }
     .subscribe_dy {
         height: 1px;
@@ -150,23 +150,28 @@
         margin-bottom: 25px;
         margin-left: auto;
         margin-right: auto;
+        position: relative;
     }
     .subscribe_dy span{
-        position: relative;
+        position: absolute;
         top: -15px;
         background: #f4f4f8;
         padding: 0 13px;
         color: #999;
         font-size: 16px;
+        left: 50%;
+        margin-left: -45px;
     }
 
     .subscribe_tj span {
-        position: relative;
+        position: absolute;
         top: -15px;
         background: #f4f4f8;
         padding: 0 13px;
         color: #999;
         font-size: 16px;
+        left: 50%;
+        margin-left: -45px;
     }
     .details{
         float: right;
@@ -217,7 +222,7 @@
     }
 
     .subscribeLists {
-
+            margin-bottom: 43px;
     }
 
     .subscribeList {
@@ -243,7 +248,7 @@
     .subscribeList h3 {
         font-size: 16px;
         color: #666;
-        font-weight: normal;
+        font-weight: bold;
         line-height: 16px;
         margin-bottom: 9px;
         text-align: left;
