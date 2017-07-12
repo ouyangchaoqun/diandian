@@ -180,7 +180,7 @@
     .subscribeListMiddle h3{
         font-size: 15px;
         line-height: 15px;
-        color: #333;
+        color: #666;
         margin-bottom: 12px;
         text-align: center;
     }
@@ -200,7 +200,7 @@
         border-bottom: 1px solid #e5e5e5;
         font-size: 16px;
         font-weight: 600;
-        color: #333;
+        color: #666;
     }
     .subscribeListBottom .timeSet{
         border:0;
