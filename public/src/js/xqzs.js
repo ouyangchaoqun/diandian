@@ -387,13 +387,25 @@ var xqzs = {
                 return before;
             }
         },
+        clickMoodAd:function (id) {
+            $.ajax({
+                url: web.API_PATH + 'mood/ad/click/add/' + id,
+                type: 'PUT',
+                success: function () {
+                }
+            });
+        },
         initMoodAdItemData:function (item) {
             if(item.id>0){
                 return;
             }
+            var moodadid = item.id;
+            if(moodadid<0){
+                moodadid = 0 - moodadid;
+            }
             item.moodValueText = '微心情札记';
             var gourl = '/rediect?url='+encodeURIComponent(item.adlink);
-            item.address = '<a class="showOthercom" href="'+gourl+'">查看详情</a>';
+            item.address = '<a class="showOthercom" onclick="xqzs.mood.clickMoodAd(\''+moodadid+'\')" href="'+gourl+'">查看详情</a>';
         },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
