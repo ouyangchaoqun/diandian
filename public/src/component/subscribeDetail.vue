@@ -23,7 +23,8 @@
                 </div>
             </div>
             <div class="subscribeListSet">
-                <button class="weui-btn subBtn" @click="show_unsubscribeBox">取消订阅</button>
+                <button @click="setRemindTime()" v-if="!detail.issubscribe==1" class="weui-btn weui-btn_primary">订阅</button>
+                <button class="weui-btn subBtn" @click="show_unsubscribeBox" v-if="detail.issubscribe==1">取消订阅</button>
             </div>
 
         </div>
@@ -130,11 +131,24 @@
 
                         });
                 },function () {
-                    
+
                 })
 
  
             },
+            setRemindTime: function () {
+                let _this = this;
+                //用户信息
+                var postdata = {subscriptionId:this.$route.params.id,userId:'',remindTime:this.hour+':'+this.minute};
+                console.log(postdata)
+                _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
+                        .then(function (res) {
+                            console.log(res)
+                            xqzs.weui.toast("success", "订阅成功", function () {
+                                _this.$router.go(-1);
+                            })
+                        });
+            }
 
 
         }

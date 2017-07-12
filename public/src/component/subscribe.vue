@@ -23,12 +23,11 @@
                         </li>
                     </router-link>
                 </ul>
-                <div class="noSubscribe" v-if="subArray.length<=0">你暂时还没有任何订阅哦~</div>
             </div>
             <div v-if="isTrue">
                 <div class="subscribe_tj"><span>订阅推荐</span></div>
                 <ul class="subscribeLists">
-                    <router-link :to="url+data.id" v-for="data in dataArray" v-if="data.issubscribe==0">
+                    <router-link :to="urlDetail+data.id" v-for="data in dataArray" v-if="data.issubscribe==0">
                         <li class="subscribeList subscribeHeight">
                             <div>
                                 <h3>{{data.title}}</h3>
@@ -54,7 +53,6 @@
         data() {
             return {
                 dataArray: [],
-                url: '/me/subscribe/subscribeList/',
                 description: '',
                 urlDetail: '/me/subscribe/subscribeDetail/',
                 subArray: [],
