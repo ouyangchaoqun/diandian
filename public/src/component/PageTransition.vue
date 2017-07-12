@@ -123,6 +123,7 @@
                 return false;
             }
 
+            $(".child-view").removeClass("page-xqzs-left-enter-active").removeClass("page-xqzs-left-leave-active").removeClass("page-xqzs-right-enter-active").removeClass("page-xqzs-right-leave-active");
 
             xqzs.weui.removeWhenPageChange();
 
@@ -166,13 +167,19 @@
 
             }else if (isBack) {
                 this.transitionName = 'page-xqzs-right'
-                $(".transitionBox").addClass("page-xqzs-right");
             } else {
-                $(".transitionBox").removeClass("page-xqzs-right");
                 this.transitionName = 'page-xqzs-left'
             }
+            this.$nextTick(function () {
+               setTimeout(function () {
+                   next()
+               },10)
+            })
+            var tt = document.querySelector('.child-view');
+            tt.addEventListener("webkitAnimationEnd", function(){
+                console.log("webkitAnimationEnd")
+            }, false);
 
-            next()
         }
     }
 </script>

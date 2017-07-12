@@ -1,5 +1,6 @@
 <template id="monthStatistics">
     <div class="max_box">
+        <div v-title>记录天数统计</div>
         <div v-for="year in data" class="Sta_years">
             <div class="Sta_year"><img src="../images/time.png"><span>{{year.year}}年</span><div class="clear"></div> </div>
             <div v-for="month in year.months" class="Sta_months">
@@ -29,11 +30,6 @@
             return {
                 data: [],
                 day: []
-            }
-        },
-        props: {
-            user: {
-                type: Object
             }
         },
         created: function () {
