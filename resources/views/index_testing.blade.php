@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php  require "static_version.php";  ?>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
   <title>心情指数</title>
   <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css"/>
-  <link rel="stylesheet" type="text/css" href="src/css/common.css"/>
+  <link rel="stylesheet" type="text/css" href="src/css/common.css?v=<?=STATIC_XQZS_VERSION?>"/>
   <link rel="stylesheet" href="https://cdn.staticfile.org/Swiper/3.4.2/css/swiper.min.css">
   <script  src="https://cdn.staticfile.org/jquery/3.0.0/jquery.min.js"></script>
   <script src="https://cdn.staticfile.org/vue/2.2.6/vue.min.js"></script>
@@ -31,11 +32,12 @@
 
 </script>
 <script src="/src/js/vconsole.min.js"></script>
-<script src="/src/js/cookie.js"></script>
-<script src="/src/js/xqzs.js?v=2017061202"></script>
-<script src="/src/js/xqzs.face.js?v=20170612"></script>
+<script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="/src/js/xqzs.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="/src/js/xqzs.face.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/blocksit.min.js"></script>
 <script src="/src/js/weshare.js"></script>
-<script src="/dist/build.js"></script>
+<script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="https://cdn.staticfile.org/highcharts/5.0.9/highcharts.js"></script>
 </body>
 </html>

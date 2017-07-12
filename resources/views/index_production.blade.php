@@ -40,5 +40,6 @@
 <script src="/src/js/weshare.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/blocksit.min.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="https://cdn.staticfile.org/highcharts/5.0.9/highcharts.js"></script>
 </body>
 </html>

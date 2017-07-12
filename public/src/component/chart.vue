@@ -26,9 +26,6 @@
 </template>
 <script>
 
-    let Highcharts = require('../js/highcharts');
-
-
     var chart = {
         template: '#chart'
     }
