@@ -404,7 +404,7 @@ var xqzs = {
                 moodadid = 0 - moodadid;
             }
             item.moodValueText = '微心情札记';
-            var gourl = '/rediect?url='+encodeURIComponent(item.adlink);
+            var gourl = item.adlink;
             item.address = '<a class="showOthercom" onclick="xqzs.mood.clickMoodAd(\''+moodadid+'\')" href="'+gourl+'">查看详情</a>';
         },
         initMoodsData: function (data, timeType, userId) {
