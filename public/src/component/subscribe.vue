@@ -10,7 +10,7 @@
         <div class="moodCount_box">
             <div v-if="subArray.length>0">
                 <div class="subscribe_dy"><span>我的订阅</span></div>
-                <ul class="subscribeL   ists">
+                <ul class="subscribeLists">
                     <router-link :to="urlDetail+data.id" v-for="data in subArray"
                                  v-if="subArray.length>0||data.issubscribe==1">
                         <li class="subscribeList">
@@ -26,7 +26,7 @@
                 <div class="noSubscribe" v-if="subArray.length<=0">你暂时还没有任何订阅哦~</div>
             </div>
             <div v-if="isTrue">
-                <div class="subscribe_tj">订阅推荐</div>
+                <div class="subscribe_tj"><span>订阅推荐</span></div>
                 <ul class="subscribeLists">
                     <router-link :to="url+data.id" v-for="data in dataArray" v-if="data.issubscribe==0">
                         <li class="subscribeList subscribeHeight">
@@ -133,11 +133,14 @@
 </script>
 <style>
     .subscribe_tj {
-        font-size: 16px;
-        color: #999;
+        height: 1px;
+        border-top: 1px solid #cccccc;
         text-align: center;
-        margin-bottom: 15px;
-        position: relative;
+        width: 238.5px;
+        margin-bottom: 25px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 43px;
     }
     .subscribe_dy {
         height: 1px;
@@ -158,14 +161,12 @@
     }
 
     .subscribe_tj span {
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 8px solid #999;
-        margin-left: 5.5px;
-        position: absolute;
-        top: 10px;
+        position: relative;
+        top: -15px;
+        background: #f4f4f8;
+        padding: 0 13px;
+        color: #999;
+        font-size: 16px;
     }
     .details{
         float: right;
@@ -227,7 +228,6 @@
         width: 91.3%;
         margin: 14px auto;
         background-color: #ffffff;
-        box-shadow: #D9D9D9 4px 4px 4px;
 
     }
 
@@ -242,7 +242,7 @@
 
     .subscribeList h3 {
         font-size: 16px;
-        color: #333;
+        color: #666;
         font-weight: normal;
         line-height: 16px;
         margin-bottom: 9px;
