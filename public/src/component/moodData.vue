@@ -89,7 +89,7 @@
     }
 </script>
 <style>
-    .other{font-size: 14px; color:#666; line-height: 50px;}
+    .dataLists .other{font-size: 14px; color:#666; line-height: 50px; text-align: center}
     .moodDataBox{
         background: #fff;
     }
