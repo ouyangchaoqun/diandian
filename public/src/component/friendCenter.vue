@@ -23,7 +23,7 @@
                 <div class="swiper-slide content-slide swiper-no-swiping">
                     <div class="chart_box" v-if="isLookFriend ">
                         <v-chart :chartData="chartData"></v-chart>
-                        <div v-if="isLookFriend " class="addSwiperBoxText">只能展示好友七天心情</div>
+                        <div v-if="isLookFriend " class="addSwiperBoxText">（只展示好友最近七天的心情指数）</div>
                     </div>
                     <div class="canot-look" v-if="!isLookFriend "></div>
                 </div>
