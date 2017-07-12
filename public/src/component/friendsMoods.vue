@@ -33,7 +33,7 @@
                             </li>
 
                         </ul>
-                        <div class="friendsLoc" v-if="item.address">{{item.address}}</div>
+                        <div class="friendsLoc" v-if="item.address" v-html="item.address"></div>
                         <div class="stateBottom">
                             <div class="time">{{item.outTime}}</div>
                             <div class="time_right">

@@ -391,10 +391,7 @@ var xqzs = {
             if(item.id>0){
                 return;
             }
-            item.scense = {
-                src: '',
-                text: '微心情札记'
-            }
+            item.moodValueText = '微心情札记';
             var gourl = '/rediect?url='+encodeURI(item.adlink);
             item.address = '<a href="'+gourl+'">查看详情</a>';
         },
