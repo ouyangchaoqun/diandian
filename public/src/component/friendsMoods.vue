@@ -10,7 +10,7 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="friends_box">
                 <div class="friend_header">
-                    <router-link to="/friendList">以下是我关注的朋友，猜猜TA是谁？</router-link>
+                    <router-link to="/treeHole">你知道“小树洞”的故事吗？</router-link>
                 </div>
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">

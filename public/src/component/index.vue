@@ -17,11 +17,11 @@
                 <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">心情日历</p>
             </a>
 
-            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/treeHole')">
+            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
 				<span   class="friendsImg">
 
 				</span>
-                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">朋友心情</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小树洞</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
             </a>
 
