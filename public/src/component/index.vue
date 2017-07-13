@@ -17,7 +17,7 @@
                 <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">心情日历</p>
             </a>
 
-            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
+            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/treeHole')">
 				<span   class="friendsImg">
 
 				</span>

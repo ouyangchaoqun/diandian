@@ -3,7 +3,7 @@
 
         <div class="funny_exp">
             <div class="exp_active pubu"  >
-                <figure @click="selectGif(pic)" v-for="pic in pictures" ><img :src="setFigureStyle(pic.width,pic.height,pic.path)" /></figure>
+                <figure @click="selectGif(pic)" v-for="pic in pictures" :style="setFigureStyle(pic.height)"><img :src="setFigureStyle(pic.width,pic.height,pic.path)" /></figure>
                 <span v-if="!isEnd" class="load-paging">数据加载中..</span>
                 <span v-if="isEnd" class="load-paging">没有更多图片</span>
             </div>
@@ -21,11 +21,9 @@
     .exp_active figure img { width: 100%;}
     .exp_active figure{
         opacity: 0;
-        float: left;
         display: block !important;
         width:27.8745644%;
         overflow: hidden;
-        line-height: 1 !important;
         font-size: 0 !important;
         border:solid 1px #ccc;
     }

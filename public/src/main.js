@@ -26,6 +26,7 @@ let routers =
                 require('./routes/moodData'),
                 require('./routes/friendList'),
                 require('./routes/friendsMoods'),
+                require('./routes/treeHole'),
                 require('./routes/friendCenter'),
                 require('./routes/friendSet'),
                 require('./routes/setName'),
