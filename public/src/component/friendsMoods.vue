@@ -361,6 +361,8 @@
     color: #5e61a2;
     margin-top: 10px;
 }
+
+.showOthercom.adlink{ margin-bottom: 0; padding-top: 2px; padding-bottom: 8px; padding-right: 30px;}
 .showOthercom .link{ background:url(../images/friends_moods_ad_link.png) ; height: 12px; width: 12px;
     display: inline-block; background-size: 12px;vertical-align: middle ; margin-left: 3px;}
 
