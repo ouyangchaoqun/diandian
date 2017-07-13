@@ -58,8 +58,8 @@
         background: url("../images/circular.png") no-repeat;
         background-size: cover;
         position: absolute;
-        /*left:10rem;*/
-        right: 1.823529rem;
+        left:10rem;
+        /*right: 1.823529rem;*/
         bottom:7.17647rem;
     }
     .treeHole_c p{
