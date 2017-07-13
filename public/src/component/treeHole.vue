@@ -57,48 +57,48 @@
         font-size: 14px;
     }
     .treeHole_text p{
-        margin-bottom: 16px;
-        text-indent:10px;
-        line-height: 24px;
+        margin-bottom: 0.941176rem;
+        text-indent:0.588rem;
+        line-height: 1.4117647rem;
     }
     .treeHole_c{
-        height:164px;
-        width:174px;
+        height:9.647rem;
+        width:10.235rem;
         background: url("../images/circular.png") no-repeat;
         background-size: cover;
         position: absolute;
-        left:170px;
-        bottom:122px;
+        left:10rem;
+        bottom:7.17647rem;
     }
     .treeHole_c p{
         color: #663333;
-        font-size: 10px;
-        line-height: 20px;
+        font-size: 0.588235rem;
+        line-height: 1.17647rem;
     }
     .treeHole_c div{
         position: absolute;
-        top: 24px;
-        left:30px;
+        top: 1.411764rem;
+        left:1.76471rem;
     }
     .treeHole_bottom{
-        width: 105px;
-        height: 34px;
+        width: 6.17647rem;
+        height: 2rem;
         background: rgba(255,255,255,0.61);
-        border-radius: 17px;
+        border-radius: 1rem;
         position: absolute;
-        bottom: 36px;
-        right:13px;
+        bottom: 2.117647rem;
+        right:0.76471rem;
         color: #663333;
-        font-size: 13px;
-        line-height: 34px;
-        padding-left: 15px;
+        font-size: 0.76471rem;
+        line-height: 2rem;
+        padding-left: 0.88235rem;
     }
 .treeHole_bottom img{
-    height: 15px;
-    width: 15px;
+    height: 0.88235rem;
+    width: 0.88235rem;
     position: absolute;
-    right:7px;
-    top:10px;
+    right:0.4117647rem;
+    top:0.588235rem;
 }
 </style>
 
