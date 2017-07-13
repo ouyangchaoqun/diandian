@@ -40,7 +40,7 @@
     height:100%;
     width:100%;
     background: url("../images/treeHole_bg.jpg") no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
 }
     .treeHole_text{
         margin:1.470588rem 0.76471rem 0 0.70588rem;
