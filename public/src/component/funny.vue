@@ -160,7 +160,7 @@
 //                                        console.log("load")
 //                                    });
                                 });
-                                /*setTimeout(function () {
+                                setTimeout(function () {
                                     if(isPubu==false){
                                         $('.pubu').BlocksIt({
                                             numOfCol:3,
@@ -169,7 +169,7 @@
                                         });
                                     }
 
-                                },3000)*/
+                                },3000)
 
 
 
