@@ -15,10 +15,10 @@
                 <p>您能猜出TA是谁嘛</p>
             </div>
         </div>
-        <div class="treeHole_bottom">
+        <router-link to="/friendList" class="treeHole_bottom">
                 <p>我关注的好友</p>
             <img src="../images/tree_b.png" alt="">
-        </div>
+        </router-link>
     </div>
 </template>
 <script type="text/javascript">
@@ -91,6 +91,9 @@
     right:0.4117647rem;
     top:0.588235rem;
 }
+    .treeHole_bottom:active{
+        background: rgba(244,199,146,1);
+    }
 </style>
 
 
