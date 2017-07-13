@@ -39,11 +39,11 @@
 .treeHole_box{
     height:100%;
     width:100%;
-    background: url("../images/treeHole_bg.png") no-repeat;
+    background: url("../images/treeHole_bg.jpg") no-repeat;
     background-size: cover;
 }
     .treeHole_text{
-        margin:25px 13px 0 12px;
+        margin:1.470588rem 0.76471rem 0 0.70588rem;
         color: #663333;
         font-size: 14px;
     }
@@ -58,7 +58,8 @@
         background: url("../images/circular.png") no-repeat;
         background-size: cover;
         position: absolute;
-        left:10rem;
+        /*left:10rem;*/
+        right: 1.823529rem;
         bottom:7.17647rem;
     }
     .treeHole_c p{
