@@ -45,7 +45,7 @@
     .treeHole_text{
         margin:1.470588rem 0.76471rem 0 0.70588rem;
         color: #663333;
-        font-size: 14px;
+        font-size: 0.823529rem;
     }
     .treeHole_text p{
         margin-bottom: 0.941176rem;
