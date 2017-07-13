@@ -429,7 +429,7 @@ var xqzs = {
 
 
                 data[i].showAll = false;
-                data[i].showordown = "查看全部";
+                data[i].showordown = "查看更多";
 
 
                 data[i].editLink = "/myCenter/myIndex/Edit?id=" + data[i].id;
