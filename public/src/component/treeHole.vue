@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="treeHole_bottom">
-                我关注的好友
+                <p>我关注的好友</p>
             <img src="../images/tree_b.png" alt="">
         </div>
     </div>
@@ -67,7 +67,7 @@
         background: url("../images/circular.png") no-repeat;
         background-size: cover;
         position: absolute;
-        right:31px;
+        left:170px;
         bottom:122px;
     }
     .treeHole_c p{
