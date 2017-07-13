@@ -3,7 +3,7 @@
 
         <div class="funny_exp">
             <div class="exp_active pubu"  >
-                <figure @click="selectGif(pic)" v-for="pic in pictures" :style="setFigureStyle(pic.width,pic.height,pic.path)"><img :src="setFigureStyle(pic.width,pic.height,pic.path)" /></figure>
+                <figure @click="selectGif(pic)" v-for="pic in pictures" ><img :src="setFigureStyle(pic.width,pic.height,pic.path)" /></figure>
                 <span v-if="!isEnd" class="load-paging">数据加载中..</span>
                 <span v-if="isEnd" class="load-paging">没有更多图片</span>
             </div>
@@ -160,7 +160,7 @@
 //                                        console.log("load")
 //                                    });
                                 });
-                               /* setTimeout(function () {
+                                /*setTimeout(function () {
                                     if(isPubu==false){
                                         $('.pubu').BlocksIt({
                                             numOfCol:3,
@@ -219,9 +219,4 @@
             xqzs.wx.setConfig(that);
         }
     }
-
-
-
-
-
 </script>
