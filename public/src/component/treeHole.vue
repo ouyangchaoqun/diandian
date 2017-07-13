@@ -67,8 +67,8 @@
         background: url("../images/circular.png") no-repeat;
         background-size: cover;
         position: absolute;
-        right:16px;
-        bottom:140px;
+        right:31px;
+        bottom:122px;
     }
     .treeHole_c p{
         color: #663333;
