@@ -69,7 +69,7 @@
     .treeHole_c div{
         position: absolute;
         top: 1.411764rem;
-        left:1.76471rem;
+        left:1.88235rem;
     }
     .treeHole_bottom{
         width: 6.17647rem;
