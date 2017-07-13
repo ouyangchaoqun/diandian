@@ -15,7 +15,7 @@
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
                     <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
-                        <span class="mood_state" :class="item.moodValueStyle">{{item.moodValueText}} </span>
+                        <span class="mood_state" :class="item.moodValueStyle"><span :class="{bluecolor:item.isAd==1}">{{item.moodValueText}}</span></span>
                         <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
 
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
@@ -358,9 +358,11 @@
 <style>
 .showOthercom{
     font-size: 13px;
-    color: #666699;
+    color: #5e61a2;
     margin-top: 10px;
 }
+.showOthercom .link{ background:url(../images/friends_moods_ad_link.png) ; height: 12px; width: 12px;
+    display: inline-block; background-size: 12px;vertical-align: middle ; margin-left: 3px;}
 
     .friend_header {
         border-bottom: 1px solid #eee;
@@ -401,7 +403,7 @@
     user-select:text !important;
 }
 
-
+.bluecolor{ color:#5e61a2}
     .friendHeaderImg {
         width: 44px;
         height: 44px;
@@ -453,6 +455,7 @@
         font-size: 12px;
         color: #516591;
         line-height: 20px;
+        margin-bottom: 6px;
     }
 
     .time_right img {

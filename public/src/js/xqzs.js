@@ -405,7 +405,7 @@ var xqzs = {
             }
             item.moodValueText = '微心情札记';
             var gourl = item.adlink;
-            item.address = '<a class="showOthercom" onclick="xqzs.mood.clickMoodAd(\''+moodadid+'\')" href="'+gourl+'">阅读原文</a>';
+            item.address = '<a class="showOthercom" onclick="xqzs.mood.clickMoodAd(\''+moodadid+'\')" href="'+gourl+'">阅读原文 <span class="link"></span> </a>';
         },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
