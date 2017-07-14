@@ -218,6 +218,7 @@
 
             record:function () {
                var  _this=this;
+                Bus.$emit("goIndex",false);
                 this.recordImg= web.IMG_PATH+"face2.png";
                 this.recordOn=true;
                 setTimeout(function () {
