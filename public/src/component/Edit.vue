@@ -581,7 +581,11 @@
 
 
             if(!that.checkInit()){
-                that.$router.push({path:'/'});
+                console.log(window.history.length);
+                if(window.history.length>=2){
+                    that.$router.go(0-window.history.length+2   )
+                }
+               // that.$router.push({path:'/'});
                 return;
             }
             Bus.$on('funnyPictureChange',data=>{

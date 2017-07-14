@@ -420,9 +420,10 @@
 
     .mood_state {
         font-size: 14px;
-        margin-bottom: 6px;
+        margin-bottom: 1px;
         display: block;
         line-height: 24px;
+        font-weight: bold;
     }
 
     .mood_text {

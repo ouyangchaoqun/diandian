@@ -201,11 +201,18 @@
         props:{
             user:{
                 type:Object
-            }
+            },
+            pagesIn:[]
         },
         methods: {
             goIndex:function () {
-                this.$router.push('/')
+
+                if(window.history.length>=2){
+                    this.$router.go(0-window.history.length+1)
+                }
+
+                this.$router.replace('/');
+
             },
             moodSrc:function (src) {
                 return web.IMG_PATH+src;
