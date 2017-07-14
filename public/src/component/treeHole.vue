@@ -12,7 +12,7 @@
                 <p>在这里，</p>
                 <p>是好友和我寄存心情的地方</p>
                 <p>发布心情采用匿名的方式</p>
-                <p>您能猜出TA是谁嘛</p>
+                <p>多与好友留言互动吧</p>
             </div>
         </div>
         <router-link to="/friendList" class="treeHole_bottom">
