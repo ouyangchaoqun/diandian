@@ -423,7 +423,6 @@
         margin-bottom: 1px;
         display: block;
         line-height: 24px;
-        font-weight: bold;
     }
 
     .mood_text {
