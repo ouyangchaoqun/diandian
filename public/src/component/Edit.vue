@@ -583,6 +583,7 @@
             if(!that.checkInit()){
                 console.log(window.history.length);
                 if(window.history.length>=2){
+                    Bus.$emit("goIndex",true);
                     that.$router.go(0-window.history.length+2   )
                 }
                // that.$router.push({path:'/'});

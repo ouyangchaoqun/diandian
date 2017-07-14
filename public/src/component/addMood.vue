@@ -202,7 +202,8 @@
             user:{
                 type:Object
             },
-            pagesIn:[]
+            pagesIn:[],
+            isGoIndex:{type:Object}
         },
         methods: {
             goIndex:function () {
@@ -252,7 +253,11 @@
             },
         },
         mounted: function () {
+
             var _this= this;
+            if(_this.isGoIndex==true){
+                _this.goIndex();
+            }
             xqzs.wx.setConfig(this);
 
             var w =$(window).width() ;

@@ -4,7 +4,7 @@
         <transition :name="transitionName">
 
 
-                <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
+                <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood" :isGoIndex="isGoIndex"></router-view>
 
 
         </transition>
@@ -25,7 +25,8 @@
                 user:{},
                 friendMoodsSpe:[],
                 friendMoods:[],
-                myLastMood:null
+                myLastMood:null,
+                isGoIndex:false
             }
         },
         created:function () {
@@ -52,6 +53,10 @@
             var _this = this;
             Bus.$on("setFunny", function (v) {
                 _this.isFunny = v;
+
+            });
+            Bus.$on("goIndex", function (v) {
+                _this.isGoIndex = v;
 
             });
             _this.initData();
