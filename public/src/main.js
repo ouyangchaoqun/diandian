@@ -41,7 +41,9 @@ let routers =
                 require('./routes/befriend'),
                 require('./routes/aboutUs'),
                // require('./routes/interview'),
-                require('./routes/monthStatistics')
+                require('./routes/monthStatistics'),
+                require('./routes/rankList')
+
             ]
         }
     ];
