@@ -14,7 +14,7 @@
 				<span  class="calendarImg">
 
 				</span>
-                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">心情日历</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">完善资料</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
@@ -230,7 +230,7 @@
                 this.calendarImg= web.IMG_PATH+"rl2.png";
                 this.calendarOn=true;
                 setTimeout(function () {
-                    _this.$router.push("/calendar")
+                    _this.$router.push("/me/personal")
                 },2)
             },
 
@@ -471,12 +471,12 @@
 
     #tabs a span{ display: inline-block; height: 24px ; width: 24px;}
     #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size: 24px;}
-    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size: 24px 24px; }
+    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size:auto 24px;  margin-left: 7px;}
     #tabs a span.friendsImg{ background: url(../images/friend1.png) no-repeat; background-size: 24px;}
     #tabs a span.meImg{ background: url(../images/me1.png) no-repeat; background-size: 24px; }
 
     #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat; background-size: 24px;}
-    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size: 24px 24px; }
+    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size: auto 24px; margin-left: 7px; }
     #tabs a:active span.friendsImg{ background: url(../images/friend2.png) no-repeat; background-size: 24px;}
     #tabs a:active span.meImg{ background: url(../images/me2.png) no-repeat; background-size: 24px; }
 
