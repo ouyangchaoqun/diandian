@@ -30,7 +30,8 @@ class Controller extends BaseController
 
         $userId = $this->getUserId($request);
         if ($userId == 0) {
-            return redirect("/wx/index");
+            $fullurl = $request->fullUrl();
+            return redirect("/wx/index?reurl=".urlencode($fullurl));
         }
         if (env("APP_ENV") == "production") {
             return view('index_production');
@@ -66,8 +67,6 @@ class Controller extends BaseController
 
     protected function getUserId(Request $request)
     {
-
-
         $openId = $request->cookie($this->COOKIE_OPEN_ID);
         if ($openId == "") {
             return false;
