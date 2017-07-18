@@ -7,3 +7,4 @@ module.exports = {
     component: rankList,
 
 }
+///:Type/:Value'

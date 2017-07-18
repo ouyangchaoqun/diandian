@@ -4,73 +4,104 @@
         <div class="mid_line1"></div>
         <div class="mid_line2"></div>
         <div class="tabs">
-            <a href="#" hidefocus="true" class="active">活跃</a>
-            <a href="#" hidefocus="true">关心</a>
-            <a href="#" hidefocus="true">新增好友</a>
+            <a hidefocus="true" class="active">活跃</a>
+            <a hidefocus="true" class="yyyyyy">关心</a>
+            <a hidefocus="true">新增好友</a>
         </div>
         <div class="swiper-container moodCount_box">
             <div class="swiper-wrapper">
+                <!--活跃度排行-->
                 <div class="swiper-slide">
-                    <div class="my_rank"></div>
-                    <ul>
-                        <li class="rank_list" v-for="(active,index) in activePerson" :key="index" :class="active.addClassName" >
+                    <template v-if="useActive.length>0">
+                        <div class="my_rank" :class="useActive.addClassName">
                             <div class="rank_index">
                                 <span class="img"></span>
-                                <span v-if="index>2">{{ index+1}}.</span>
-                               </div>
-                            <div class="rank_face">
-                                <img src="../images/face1.png"/>
+                                <span v-if="useActive[0].row !=undefined&&useActive[0].row>3">{{useActive[0].row}}.</span>
                             </div>
-                            <div class="rank_name">{{active.name}}</div>
-                            <div class="rank_data" >连续记录{{active.value}}条</div>
-                        </li>
-                    </ul>
+                            <div class="rank_face">
+                                <img :src="wxFaceUrl(useActive[0].faceUrl)"/>
+                            </div>
+                            <div class="rank_name">{{useActive[0].nickName}}</div>
+                            <div class="rank_data">连续记录{{useActive[0].count}}条</div>
+                        </div>
+                        <ul>
+                            <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
+                                :class="rank.addClassName">
+                                <div class="rank_index">
+                                    <span class="img"></span>
+                                    <span v-if="index>2">{{ index+1}}.</span>
+                                </div>
+                                <div class="rank_face">
+                                    <img :src="wxFaceUrl(rank.faceUrl)"/>
+                                </div>
+                                <div class="rank_name">{{rank.nickName}}</div>
+                                <div class="rank_data">连续记录{{rank.count}}条</div>
+                            </li>
+                        </ul>
+                    </template>
                 </div>
+                <!--关心排行-->
                 <div class="swiper-slide">
-                    <div class="my_rank">
-                        <div class="rank_index" :class="sd.addClassName">
+                    <template v-if="useCare.length>0">
+                    <div class="my_rank" :class="useCare.addClassName">
+                        <div class="rank_index">
                             <span class="img"></span>
-                            <span v-if="sd.index>2">{{sd.index}}.</span>
+                            <span v-if=" useCare[0].row !=undefined&&  useCare[0].row>3">{{useCare[0].row}}.</span>
                         </div>
                         <div class="rank_face">
-                            <img src="../images/face1.png"/>
+                            <img :src="wxFaceUrl(useCare[0].faceUrl)"/>
                         </div>
-                        <div class="rank_name">{{sd.name}}</div>
-                        <div class="rank_value" >{{sd.value}}</div>
+                        <div class="rank_name">{{useCare[0].nickName}}</div>
+                        <div class="rank_value">{{useCare[0].count}}</div>
                         <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
                     </div>
                     <ul>
-                        <li class="rank_list" v-for="(active,index) in activePerson" :key="index" :class="active.addClassName" >
+                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
                                 <span class="img"></span>
                                 <span v-if="index>2">{{ index+1}}.</span>
                             </div>
                             <div class="rank_face">
-                                <img src="../images/face1.png"/>
+                                <img :src="wxFaceUrl(rank.faceUrl)"/>
                             </div>
-                            <div class="rank_name">{{active.name}}</div>
-                            <div class="rank_value" >{{active.value}}</div>
+                            <div class="rank_name">{{rank.nickName}}</div>
+                            <div class="rank_value">{{rank.count}}</div>
                             <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
                         </li>
                     </ul>
-
+                    </template>
                 </div>
+                <!--新增好友排行-->
                 <div class="swiper-slide">
-                    <div class="my_rank">123123</div>
+                    <template v-if="useFriend.length>0">
+                    <div class="my_rank" :class="useFriend.addClassName">
+                        <div class="rank_index">
+                            <span class="img"></span>
+                            <span v-if="useFriend[0].row !=undefined&&useFriend[0].row>3">{{useFriend[0].row}}.</span>
+                        </div>
+                        <div class="rank_face">
+                            <img :src="wxFaceUrl(useFriend[0].faceUrl)"/>
+                        </div>
+                        <div class="rank_name">{{useFriend[0].nickName}}</div>
+                        <div class="rank_data">新增好友{{useFriend[0].newfriend}}位</div>
+                    </div>
                     <ul>
-                        <li class="rank_list" v-for="(active,index) in activePerson" :key="index" :class="active.addClassName" >
+                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
                                 <span class="img"></span>
                                 <span v-if="index>2">{{ index+1}}.</span>
                             </div>
                             <div class="rank_face">
-                                <img src="../images/face1.png"/>
+                                <img :src="wxFaceUrl(rank.faceUrl)"/>
                             </div>
-                            <div class="rank_name">{{active.name}}</div>
-                            <div class="rank_data" >新增加好友{{active.value}}人</div>
+                            <div class="rank_name">{{rank.nickName}}</div>
+                            <div class="rank_data">新增加好友{{rank.newfriend}}人</div>
                         </li>
                     </ul>
+                    </template>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -83,56 +114,120 @@
     export default {
         data() {
             return {
-                activePerson: [
-                    {name: '江湖里有位陈公子' ,value:15},
-                    {name: 'xiaof',value:12},
-                    {name: '赵四',value:10},
-                    {name: '尼古拉斯',value:8},
-                    {name: '小冯',value:7},
-                    {name: '陈小刚',value:6}
-                ],
+                activePerson: [],
                 cares: [],
                 friends: [],
-                sd:""
+                useActive: [],
+                useCare: [],
+                useFriend: [],
+                type: "w",
+                value: "2017-28"
             }
         },
         mounted: function () {
             let _this = this;
 
-            for(let i =0 ; i< _this.activePerson.length; i++){
-                 _this.activePerson[i].addClassName = "first_"+(i+1);
-                _this.activePerson[i].index=i+1;
-                _this.$set( _this.activePerson,i , _this.activePerson[i])
-            }
-           // _this.activePerson= _this.activePerson
-                for(let i=0;i<_this.activePerson.length;i++){
-                    if(_this.activePerson[i].name=='xiaof'){
-                       _this.sd=_this.activePerson[i];
-                    }
-                    else{
 
-                    }
-                }
-            console.log(_this.sd);
 
-            var tabsSwiper = new Swiper('.moodCount_box', {
-                speed: 500,
-                onSlideChangeStart: function () {
+            _this.$nextTick(function () {
+                var tabsSwiper = new Swiper('.moodCount_box', {
+                    speed: 500,
+                    onSlideChangeStart: function () {
+                        $(".tabs .active").removeClass('active');
+                        $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+                    }
+                });
+                $(".tabs a").on('touchstart mousedown', function (e) {
+
+                    console.log("touchstart");
+                    e.preventDefault()
                     $(".tabs .active").removeClass('active');
-                    $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
-                }
-            });
-            $(".tabs a").on('touchstart mousedown', function (e) {
-                e.preventDefault()
-                $(".tabs .active").removeClass('active');
-                $(this).addClass('active');
-                tabsSwiper.slideTo($(this).index());
-            });
+                    $(this).addClass('active');
+                    tabsSwiper.slideTo($(this).index());
+                });
 
-            $(".tabs a").click(function (e) {
-                e.preventDefault();
-            });
+                $(".tabs a").click(function (e) {
+                    console.log("click  ");
+                    e.preventDefault();
+                });
+            })
+
+
+
+
+
+//             _this.type = this.$route.params.Type;
+//                _this.value=this.$route.params.Value;
+            //获取活跃排行
+            _this.$http.get(web.API_PATH + "rank/get/record/mood/_userId_/10/" + _this.type + "?times=" + _this.value)
+                    .then(function (response) {
+                        if (response.body.status == 1) {
+                            //获取自己的排行
+                            _this.useActive = response.body.data.userRank;
+                            console.log("1111111111")
+                            console.log(response.body.data.userRank[0].row);
+                            _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
+                            //获取所有排行
+                            _this.activePerson = response.body.data.allUserRank;
+                            for (let i = 0; i < _this.activePerson.length; i++) {
+                                _this.activePerson[i].addClassName = "first_" + (i + 1);
+
+                                _this.$set(_this.activePerson, i, _this.activePerson[i])
+                            }
+                        }
+                    })
+            //获取关注排行
+            ///http://api.m.xqzs.cn/api/v1/rank/get/care/mood/1267/10/w/2017-28
+            _this.$http.get(web.API_PATH + "rank/get/care/mood/_userId_/10/" + _this.type + "/" + _this.value)
+                    .then(function (data) {
+                        if (data.body.status == 1) {
+                            //获取自己的排行
+                            _this.useCare = data.body.data.myCareRank;
+                            console.log(data.body.data.myCareRank);
+                            console.log("2222222222222")
+                            console.log(data.body.data.myCareRank[0].row);
+
+                            _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
+                            //获取所有排行
+                            _this.cares = data.body.data.allCareRank;
+                            for (let i = 0; i < _this.cares.length; i++) {
+                                _this.cares[i].addClassName = "first_" + (i + 1);
+
+                                _this.$set(_this.cares, i, _this.cares[i])
+                            }
+                        }
+                    })
+            //获取新增好友的排名
+            //http://api.m.xqzs.cn/api/v1/rank/get/relation/1267/10/w/2017-28
+            //api/v1/rank/get/relation/1267/10/w/2017-28
+
+
+            _this.$http.get(web.API_PATH + "rank/get/relation/_userId_/10/" + _this.type + "/" + _this.value)
+                    .then(function (response) {
+                        if (response.body.status == 1) {
+                            //获取自己的排行
+                            _this.useFriend = response.body.data.myNewFriendRank;
+                            console.log("3333333333")
+                            console.log(response.body.data.myNewFriendRank[0].row);
+                            _this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
+                            //获取所有排行
+                            _this.friends = response.body.data.allNewFriendRank;
+                            for (let i = 0; i < _this.friends.length; i++) {
+                                _this.friends[i].addClassName = "first_" + (i + 1);
+
+                                _this.$set(_this.friends, i, _this.friends[i])
+                            }
+                        }
+                    })
+
+
+
             xqzs.wx.setConfig(_this);
+        },
+        methods: {
+            wxFaceUrl: function (faceUrl) {
+                return xqzs.mood.wxface(faceUrl);
+            }
         }
     }
 </script>
@@ -219,6 +314,7 @@
         height: 49px;
         position: relative;
     }
+
     .rank_list:after {
         content: " ";
         width: 87.4%;
@@ -226,96 +322,117 @@
         position: absolute;
         right: 0;
         bottom: 0;
-        background-color:#eeeeee ;
+        background-color: #eeeeee;
     }
-    .rank_list:last-child:after{ content: "";display: none;
+
+    .rank_list:last-child:after {
+        content: "";
+        display: none;
     }
-    .rank_index{
+
+    .rank_index {
         font-size: 16px;
         position: absolute;
         left: 4%;
         top: 13px;
     }
-    .first_1  .img {
+
+    .first_1 .img {
         background: url("../images/zb_jb1.png") no-repeat;
         width: 17px;
         height: 22.5px;
-        background-size:100% 100% ;
+        background-size: 100% 100%;
         position: absolute;
         left: 4%;
     }
-    .first_2  .img {
+
+    .first_2 .img {
         background: url("../images/zb_jb2.png") no-repeat;
         width: 17px;
         height: 22.5px;
-        background-size:100% 100% ;
+        background-size: 100% 100%;
         position: absolute;
         left: 4%;
     }
-    .first_3  .img {
+
+    .first_3 .img {
         background: url("../images/zb_jb3.png") no-repeat;
         width: 17px;
         height: 22.5px;
-        background-size:100% 100% ;
+        background-size: 100% 100%;
         position: absolute;
         left: 4%;
     }
-    .rank_face{
+
+    .rank_face {
         width: 29px;
         height: 29px;
         position: absolute;
-        top:10px;
+        top: 10px;
         left: 12.4%;
     }
-    .rank_face img{
-       width: 100%;
+
+    .rank_face img {
+        width: 100%;
+        border-radius: 50%;
     }
-    .rank_name{
+
+    .rank_name {
         font-size: 14px;
         position: absolute;
-        top:15px;
+        top: 15px;
         left: 24.8%;
     }
-    .rank_data{
+
+    .rank_data {
         font-size: 14px;
         color: #666666;
         position: absolute;
         left: 71.6%;
-        top:14px;
+        top: 14px;
     }
-    .first_1  .rank_data{
+
+    .first_1 .rank_data {
         color: #ffc800;
     }
-    .first_2  .rank_data{
-        color:#c3c1c1;
+
+    .first_2 .rank_data {
+        color: #c3c1c1;
     }
-    .first_3  .rank_data{
+
+    .first_3 .rank_data {
         color: #c27502;
     }
-    .rank_value{
+
+    .rank_value {
         font-size: 24px;
         color: #666666;
         position: absolute;
         right: 17.8%;
-        top:4px;
+        top: 4px;
     }
-    .first_1  .rank_value{
+
+    .first_1 .rank_value {
         color: #ffc800;
     }
-    .first_2  .rank_value{
-        color:#c3c1c1;
+
+    .first_2 .rank_value {
+        color: #c3c1c1;
     }
-    .first_3  .rank_value{
+
+    .first_3 .rank_value {
         color: #c27502;
     }
-    .rank_img{
+
+    .rank_img {
         font-size: 14px;
         color: #666666;
         position: absolute;
         right: 6.8%;
-        top:14px;
+        top: 14px;
     }
-    .rank_img img{
+
+    .rank_img img {
         width: 15px;
     }
 </style>
