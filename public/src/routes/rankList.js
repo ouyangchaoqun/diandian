@@ -3,7 +3,7 @@
  */
 const rankList = resolve => require(['../component/rankList.vue'], resolve)
 module.exports = {
-    path: '/rankList',
+    path: '/rankList/:Type/:Value',
     component: rankList,
 
 }

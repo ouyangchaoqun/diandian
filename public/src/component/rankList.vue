@@ -126,9 +126,10 @@
         },
         mounted: function () {
             let _this = this;
-
-
-
+            _this.type=this.$route.params.Type;
+            _this.value=this.$route.params.Value;
+            console.log(_this.type)
+            console.log(_this.value)
             _this.$nextTick(function () {
                 var tabsSwiper = new Swiper('.moodCount_box', {
                     speed: 500,
