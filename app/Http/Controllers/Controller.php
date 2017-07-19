@@ -27,9 +27,12 @@ class Controller extends BaseController
 
 
     public function  guest(Request $request){
-
-
-
+        if (env("APP_ENV") == "production") {
+            return view('index_production');
+        }
+        if (env("APP_ENV") == "testing") {
+            return view('index_testing');
+        }
         return view('index');
     }
 
