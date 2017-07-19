@@ -136,7 +136,7 @@
                 if(_this.feedbackFlag==false){
                     this.$http.put(web.API_PATH+'base/feedback/add',{"content":_this.$refs.content.value,"userId":null,"contactname":_this.contactname,"mobile":_this.mobile}).then(response => {
                         xqzs.weui.toast("success","提交成功",function () {
-
+                            window.history.go(-1)
                         })
                     }, response => {
                         // error
