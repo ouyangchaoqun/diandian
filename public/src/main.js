@@ -1,13 +1,12 @@
 import App from './App.vue';
-import PageTransition from "./component/PageTransition.vue"
 Vue.use(VueRouter);
 Vue.use(VueResource);
 let routers =
     [
         {
             path: '/',
-            name: 'PageTransition',
-            component: PageTransition, // 引入页面切换组件
+            name: 'App',
+            component: App, // 引入页面切换组件
             children: [
                 require('./routes/addMood'),
                 require('./routes/index'),
@@ -41,7 +40,8 @@ let routers =
                 require('./routes/befriend'),
                 require('./routes/aboutUs'),
                // require('./routes/interview'),
-                require('./routes/monthStatistics')
+                require('./routes/monthStatistics'),
+                require('./routes/collect')
             ]
         }
     ];
