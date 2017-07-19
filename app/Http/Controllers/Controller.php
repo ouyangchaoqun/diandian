@@ -25,6 +25,14 @@ class Controller extends BaseController
         $this->API_URL = env("API_URL_HOST") . "/" . env("API_VERSION");
     }
 
+
+    public function  guest(Request $request){
+
+
+
+        return view('index');
+    }
+
     public function index(Request $request)
     {
 
@@ -32,7 +40,7 @@ class Controller extends BaseController
         if ($userId == 0) {
             $fullurl = $request->fullUrl();
 
-            echo   "<script>if(window.location.href.indexOf('#/collect')<=0)window.location.href = '/wx/index?reurl='+encodeURIComponent(window.location.href);</script>";
+            return  "<script>window.location.href = '/wx/index?reurl='+encodeURIComponent(window.location.href);</script>";
 
 //            return redirect("/wx/index?reurl=".urlencode($fullurl));
         }
@@ -70,7 +78,6 @@ class Controller extends BaseController
 
     protected function getUserId(Request $request)
     {
-
         $openId = $request->cookie($this->COOKIE_OPEN_ID);
         if ($openId == "") {
             return false;
