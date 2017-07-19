@@ -9,7 +9,6 @@
   <link rel="stylesheet" type="text/css" href="src/css/common.css?v=<?=STATIC_XQZS_VERSION?>"/>
   <link rel="stylesheet" href="src/css/swiper-3.4.2.min.css">
   <script src="http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
-  <script src="src/js/axios.min.js"></script>
   <script src="src/js/vue/vue.min.js"></script>
   <script src="src/js/vue/vue-resource.js"></script>
   <script src="src/js/vue/vue-router.min.js"></script>
@@ -40,5 +39,6 @@
 <script src="/src/js/xqzs.face.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/vconsole.min.js"></script>
 <script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="https://cdn.staticfile.org/highcharts/5.0.9/highcharts.js"></script>
 </body>
 </html>
