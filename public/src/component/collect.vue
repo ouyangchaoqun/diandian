@@ -3,7 +3,7 @@
         <div v-title>有奖征集</div>
         <div class="feedback">
             <textarea placeholder="有奖征集" v-model="proposalCon"  ref="content" @input="listenProposal"/>
-            <span :class="{redmax:isOutMaxLen}">字数小于200字</span>
+            <span :class="{redmax:isOutMaxLen}">字数少于200字</span>
         </div>
 
         <div class="list0 list_top">
