@@ -44,7 +44,7 @@
 
                                 <div style="float: left;margin-left: 10px;">
                                     <span class="frined_com">{{item.replycount}}</span>
-                                    <img class="time_rightimg2" src="../images/comments.png" alt="" @click="addComment(item.id,index)">
+                                    <img class="time_rightimg2" src="../images/comments.png" alt="" @click="addComment(0,index)">
                                 </div>
 
                             </div>
@@ -217,23 +217,23 @@
                     });
                 }
             },
-            commentOrDel:function (userId,id,index,replyIndex) {
+            commentOrDel:function (userId,replyId,index,replyIndex) {
 
 
                 let vm = this;
                 console.log(userId);
                 console.log(vm.user.id);
                 if(userId==vm.user.id){
-                    vm._delComment(id,index,replyIndex);
+                    vm._delComment(replyId,index,replyIndex);
                 }else{
-                    vm.addComment(id,index,replyIndex);
+                    vm.addComment(replyId,index,replyIndex);
                 }
             },
-            _delComment(id,index,replyIndex){
+            _delComment(replyId,index,replyIndex){
                 let vm = this;
                 xqzs.weui.actionSheet("删除我的评论?","删除",function () {
                     ///删除操作
-                    let url  = web.API_PATH+ "mood/reply/_userId_/"+id;
+                    let url  = web.API_PATH+ "mood/reply/_userId_/"+replyId;
                     vm.$http.delete(url)
                         .then((data) => {
                             if (data.data.status === 1) {
@@ -257,7 +257,7 @@
                     //取消
                 })
             },
-            addComment(id,index,replyIndex){
+            addComment(replyId,index,replyIndex){
                 let vm = this;
                 let replyorcomment='评论';
                 let edithoder="";
@@ -272,12 +272,12 @@
 
                 }
                 xqzs.mood.actionSheetEdit("取消","发送",function (v) {
-                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":id,"content":v}).then(response => {
+                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":replyId,"content":v}).then(response => {
                         if(response.data.status===1){
 
 
                             if(response.data.data.reply.touserid===vm.downdata[index].userId){
-                                response.data.data.reply.to_nickName= "作者";
+                                response.data.data.reply.to_nickName= "作者";ss
                             }
                             vm.downdata[index].replycount = response.data.data.mood.replycount;
                             let reply = response.data.data.reply;
