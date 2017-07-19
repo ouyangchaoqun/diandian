@@ -32,7 +32,7 @@ class Controller extends BaseController
         if ($userId == 0) {
             $fullurl = $request->fullUrl();
 
-            return  "<script>if(window.location.href.indexOf('#/collect')<=0)window.location.href = '/wx/index?reurl='+encodeURIComponent(window.location.href);</script>";
+            echo   "<script>if(window.location.href.indexOf('#/collect')<=0)window.location.href = '/wx/index?reurl='+encodeURIComponent(window.location.href);</script>";
 
 //            return redirect("/wx/index?reurl=".urlencode($fullurl));
         }
