@@ -277,7 +277,7 @@
 
 
                             if(response.data.data.reply.touserid===vm.downdata[index].userId){
-                                response.data.data.reply.to_nickName= "作者";ss
+                                response.data.data.reply.to_nickName= "作者";
                             }
                             vm.downdata[index].replycount = response.data.data.mood.replycount;
                             let reply = response.data.data.reply;
