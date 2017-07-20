@@ -1,24 +1,15 @@
 <template>
-    <div style="height: 100%" class="transitionBox" id="app">
-
+    <div id="app">
         <transition :name="transitionName">
-
-
-            <router-view class="child-view"    :user=user :friend-moods-spe="friendMoodsSpe"  :friend-moods="friendMoods" :my-last-mood="myLastMood" :isGoIndex="isGoIndex"></router-view>
-
-
+            <router-view class="child-view" :user=user :friend-moods-spe="friendMoodsSpe" :friend-moods="friendMoods" :my-last-mood="myLastMood"></router-view>
         </transition>
     </div>
 </template>
-
-
-<script>
-
+<script type="es6">
     import Bus from './component/bus.js';
-
     export default {
-
-        data () {
+        name: 'app',
+        data() {
             return {
                 transitionName: 'page-xqzs-left',
                 pagesIn: [],
@@ -26,10 +17,9 @@
                 user:{},
                 friendMoodsSpe:[],
                 friendMoods:[],
-                myLastMood:null,
-                isGoIndex:false
+                myLastMood:null
             }
-        },
+        },  
         created:function () {
             console.log("create");
             var _this = this;
@@ -54,10 +44,6 @@
             var _this = this;
             Bus.$on("setFunny", function (v) {
                 _this.isFunny = v;
-
-            });
-            Bus.$on("goIndex", function (v) {
-                _this.isGoIndex = v;
 
             });
             _this.initData();
@@ -117,7 +103,6 @@
                 });
             }
         },
-
         beforeRouteUpdate (to, from, next) {
             var _this = this;
             console.log("beforeRouteUpdate")
@@ -189,8 +174,10 @@
         }
     }
 </script>
-
 <style>
+    #app {
+        height: 100%;
+    }
     .child-view {
         position: absolute !important;
         width: 100% !important;
@@ -458,6 +445,4 @@
             -webkit-transform: translate3d(0, 0%, 0);
         }
     }
-
-
 </style>
