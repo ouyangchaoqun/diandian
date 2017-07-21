@@ -42,6 +42,7 @@ let routers =
                // require('./routes/interview'),
                 require('./routes/monthStatistics'),
                 require('./routes/collect'),
+                require('./routes/clock'),
                 require('./routes/record')
             ]
         }
