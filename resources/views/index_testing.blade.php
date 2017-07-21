@@ -30,6 +30,7 @@
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
     web.IMG_PATH="/dist/";
+    console.log( web.IPAddress);
 
 </script>
 <script src="/src/js/vconsole.min.js"></script>
