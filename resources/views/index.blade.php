@@ -30,6 +30,7 @@
     web.BASE_PATH="<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IMG_PATH="/dist/";
+    web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
 
 
 

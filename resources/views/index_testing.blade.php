@@ -22,16 +22,18 @@
 <div id="app">
 
 </div>
+<script src="/src/js/vconsole.min.js"></script>
 <script>
 
     var web={};
     web.BASE_PATH2="<?=env("BASE_PATH")?>";
     web.BASE_PATH="<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH2+"api/";
+    web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
     web.IMG_PATH="/dist/";
-
+    console.log( web.IPAddress);
 </script>
-<script src="/src/js/vconsole.min.js"></script>
+
 <script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/xqzs.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/xqzs.face.js?v=<?=STATIC_XQZS_VERSION?>"></script>
