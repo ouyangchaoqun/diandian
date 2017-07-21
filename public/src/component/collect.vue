@@ -2,7 +2,7 @@
     <div class="proposal_box">
         <div v-title>有奖征集</div>
         <div class="feedback">
-            <textarea placeholder="有奖征集" v-model="proposalCon"  ref="content" @input="listenProposal"/>
+            <textarea placeholder="有奖征集（名字+内涵意义）" v-model="proposalCon"  ref="content" @input="listenProposal"/>
             <span :class="{redmax:isOutMaxLen}">字数少于200字</span>
         </div>
 
