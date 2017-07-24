@@ -18,7 +18,7 @@
                 <div class="weather">
                     <div class="weather_pic">
                         <img v-if="hour>=6&&hour<=18" src="{{weather.dayPictureUrl}}"/>
-                        <img v-if="hour<6||hour>18" src="{{weather.nightPictureUrl}}s/arder1.png"/>
+                        <img v-if="hour<6||hour>18" src="{{weather.nightPictureUrl}}"/>
                     </div>
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
