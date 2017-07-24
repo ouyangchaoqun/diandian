@@ -17,8 +17,8 @@
                 </div>
                 <div class="weather">
                     <div class="weather_pic">
-                        <img v-if="hour>=6&&hour<=18" src="../images/arder1.png"/>
-                        <img v-if="hour<6||hour>18" src="../images/arder1.png"/>
+                        <img v-if="hour>=6&&hour<=18" src="{{weather.dayPictureUrl}}"/>
+                        <img v-if="hour<6||hour>18" src="{{weather.nightPictureUrl}}s/arder1.png"/>
                     </div>
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
@@ -108,7 +108,7 @@
                                 }).then(function (data) {
                                     _this.weather=data.body.results[0].weather_data[0];
                                     var s=_this.weather.date;
-                                    _this.weather.current=s.substring(s.indexOf("："),s.indexOf(")"));
+                                    _this.weather.current=s.substring(s.indexOf("：")+1,s.indexOf(")"));
                                     console.log(_this.weather)
                                     console.log(data)
                                 }, function (error) {
@@ -237,7 +237,6 @@
 
     .weather_info {
         position: absolute;
-        width: 50px;
         top: 50%;
         left: 84%;
         text-align: center;
