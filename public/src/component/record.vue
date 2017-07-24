@@ -16,7 +16,10 @@
                     </div>
                 </div>
                 <div class="weather">
-                    <div class="weather_pic"><img src="../images/arder1.png"/></div>
+                    <div class="weather_pic">
+                        <img v-if="" src="../images/arder1.png"/>
+                        <img v-if="" src="../images/arder1.png"/>
+                    </div>
                     <div class="weather_info">
                         <p>晴转多云</p>
                         <p>28-32</p>
@@ -66,35 +69,36 @@
                     {week:'五'},
                     {week:'六'}
                 ],
+                hour:15,
                 week:'',
                 weather:{}
             }
         },
         mounted:function () {
             let _this=this;
+            xqzs.wx.setConfig(_this);
+
+
+            //获取当前时间
             var mydate = new Date();
             _this.year=mydate.getFullYear();
             _this.month=mydate.getMonth();
             _this.day=mydate.getDate();
+            _this.hour=mydate.getHours();
             var weekNo=mydate.getDay();
-            console.log("mounted");
-            xqzs.wx.setConfig(_this);
             _this.week=_this.weeks[weekNo];
             console.log(_this.week);
             wx.ready(function () {
                 //获取天气
-                console.log("ready");
                 wx.getLocation({
                     type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                     success: function (res) {
-                        console.log("getLocationsuccess");
                         let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                         let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                         let latLng = new qq.maps.LatLng(latitude, longitude);
                         //调用城市服务信息
                         let citylocation = new qq.maps.CityService({
                             complete: function (results) {
-                                console.log("CityService");
                                 let area = results.detail.detail;
                                 let city = encodeURIComponent(area.split(",")[1]);
                                 _this.$http({
@@ -102,8 +106,6 @@
                                     type: "json",
                                     url: web.API_PATH + "base/get/weather/" + city,
                                 }).then(function (data) {
-                                    console.log("api");
-                                    console.log(data);
 
                                 }, function (error) {
                                     //error
