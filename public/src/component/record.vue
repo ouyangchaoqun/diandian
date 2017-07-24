@@ -17,8 +17,8 @@
                 </div>
                 <div class="weather">
                     <div class="weather_pic">
-                        <img v-if="hour>=6&&hour<=18" src="{{weather.dayPictureUrl}}"/>
-                        <img v-if="hour<6||hour>18" src="{{weather.nightPictureUrl}}"/>
+                        <img v-if="hour>=6&&hour<=18" :src="weather.dayPictureUrl"/>
+                        <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
                     </div>
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
@@ -27,18 +27,24 @@
                 </div>
             </div>
             <div class="notes">
-                <div class="go_record record_left">
-                    <div class="img"><img src=""/></div>
-                    <div class="morning">早起打卡</div>
-                </div>
-                <div class="go_record record_mid">
-                    <div class="img"><img src=""/></div>
-                    <div class="any">心情记录</div>
-                </div>
-                <div class="go_record record_right">
-                    <div class="img"><img src=""/></div>
-                    <div class="night">早睡打卡</div>
-                </div>
+                <router-link to="">
+                    <div class="go_record record_left">
+                        <div class="img"><img src=""/></div>
+                        <div class="morning">早起打卡</div>
+                    </div>
+                </router-link>
+                <router-link to="addMood">
+                    <div class="go_record record_mid">
+                        <div class="img"><img src=""/></div>
+                        <div class="any">心情记录</div>
+                    </div>
+                </router-link>
+                <router-link to="">
+                    <div class="go_record record_right">
+                        <div class="img"><img src=""/></div>
+                        <div class="night">早睡打卡</div>
+                    </div>
+                </router-link>
             </div>
             <div class="record_tx1">21天可以养成一个好习惯</div>
             <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
@@ -57,36 +63,36 @@
         },
         data(){
             return {
-                day:30,
-                month:12,
-                year:2017,
-                weeks:[
-                    {week:'日'},
-                    {week:'一'},
-                    {week:'二'},
-                    {week:'三'},
-                    {week:'四'},
-                    {week:'五'},
-                    {week:'六'}
+                day: 30,
+                month: 12,
+                year: 2017,
+                weeks: [
+                    {week: '日'},
+                    {week: '一'},
+                    {week: '二'},
+                    {week: '三'},
+                    {week: '四'},
+                    {week: '五'},
+                    {week: '六'}
                 ],
-                hour:15,
-                week:'',
-                weather:{}
+                hour: 15,
+                week: '',
+                weather: {}
             }
         },
-        mounted:function () {
-            let _this=this;
+        mounted: function () {
+            let _this = this;
             xqzs.wx.setConfig(_this);
 
 
             //获取当前时间
             var mydate = new Date();
-            _this.year=mydate.getFullYear();
-            _this.month=mydate.getMonth();
-            _this.day=mydate.getDate();
-            _this.hour=mydate.getHours();
-            var weekNo=mydate.getDay();
-            _this.week=_this.weeks[weekNo];
+            _this.year = mydate.getFullYear();
+            _this.month = mydate.getMonth();
+            _this.day = mydate.getDate();
+            _this.hour = mydate.getHours();
+            var weekNo = mydate.getDay();
+            _this.week = _this.weeks[weekNo];
             console.log(_this.week);
             wx.ready(function () {
                 //获取天气
@@ -106,9 +112,9 @@
                                     type: "json",
                                     url: web.API_PATH + "base/get/weather/" + city,
                                 }).then(function (data) {
-                                    _this.weather=data.body.results[0].weather_data[0];
-                                    var s=_this.weather.date;
-                                    _this.weather.current=s.substring(s.indexOf("：")+1,s.indexOf(")"));
+                                    _this.weather = data.body.results[0].weather_data[0];
+                                    var s = _this.weather.date;
+                                    _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
                                     console.log(_this.weather)
                                     console.log(data)
                                 }, function (error) {
@@ -126,9 +132,8 @@
             });
         }
     }
- 
-         
-     
+
+
 </script>
 <style>
     .sogo-enter-active {
@@ -242,63 +247,74 @@
         text-align: center;
         margin-top: -19px;
     }
-    .notes{
+
+    .notes {
         margin: 25px 25px 0px 25px;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         text-align: center;
     }
-    .go_record{
+
+    .go_record {
         width: 27%;
         height: 6.7rem;
         background: #fff;
         border-radius: 5px;
     }
-    .go_record .img{
-        height:83%;
+
+    .go_record .img {
+        height: 83%;
         background-color: #0ba98e;
         width: 100%;
         border-radius: 5px 5px 0px 0px;
     }
-     .record_left{
+
+    .record_left {
         float: left;
     }
-     .morning{
-         background: #b8baca;
-         color: #fff;
-         border-radius: 0px 0px 5px 5px;
-         font-size: 0.7rem;
-     }
-     .any{
-         color: #fff;
-         background-color: #ecb47a;
-         border-radius: 0px 0px 5px 5px;
-         font-size: 12px;
-     }
-     .night{
-         background: #b8baca;
-         color: #fff;
-         border-radius: 0px 0px 5px 5px;
-         font-size: 0.7rem;
-     }
-    .record_mid{
+
+    .morning {
+        background: #b8baca;
+        color: #fff;
+        border-radius: 0px 0px 5px 5px;
+        font-size: 0.7rem;
+    }
+
+    .any {
+        color: #fff;
+        background-color: #ecb47a;
+        border-radius: 0px 0px 5px 5px;
+        font-size: 12px;
+    }
+
+    .night {
+        background: #b8baca;
+        color: #fff;
+        border-radius: 0px 0px 5px 5px;
+        font-size: 0.7rem;
+    }
+
+    .record_mid {
         margin: 0 auto;
     }
-    .record_right{
+
+    .record_right {
         float: right;
     }
-    .record_tx1{
+
+    .record_tx1 {
         margin-top: 13.5%;
         font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
     }
-    .record_tx2{
+
+    .record_tx2 {
         margin-top: 2%;
         font-size: 0.70rem;
         text-align: center;
-        color:#b9bdc0;
+        color: #b9bdc0;
     }
 
 </style>
