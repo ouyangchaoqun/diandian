@@ -77,7 +77,8 @@
             _this.month=mydate.getMonth();
             _this.day=mydate.getDate();
             var weekNo=mydate.getDay();
-
+            console.log("mounted");
+            xqzs.wx.setConfig(_this);
             _this.week=_this.weeks[weekNo];
             console.log(_this.week);
             wx.ready(function () {
