@@ -20,6 +20,7 @@
                         <img v-if="hour>=6&&hour<=18" :src="weather.dayPictureUrl"/>
                         <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
                     </div>
+                    <div class="current">{{weather.weather}}</div>
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
                         <p>{{weather.temperature}}</p>
@@ -27,24 +28,24 @@
                 </div>
             </div>
             <div class="notes">
-                <router-link to="" class="weui-tabbar__item tab">
+                <a @click="" class="weui-tabbar__item ">
                     <div class="go_record record_left ">
                         <div class="img"><img src=""/></div>
                         <div class="morning">早起打卡</div>
                     </div>
-                </router-link>
-                <router-link to="addMood" class="weui-tabbar__item tab">
+                </a>
+                <router-link to="addMood" class="weui-tabbar__item">
                     <div class="go_record record_mid">
                         <div class="img"><img src=""/></div>
                         <div class="any">心情记录</div>
                     </div>
                 </router-link>
-                <router-link to="" class="weui-tabbar__item tab">
+                <a to="" class="weui-tabbar__item">
                     <div class="go_record record_right">
                         <div class="img"><img src=""/></div>
                         <div class="night">早睡打卡</div>
                     </div>
-                </router-link>
+                </a>
             </div>
             <div class="record_tx1">21天可以养成一个好习惯</div>
             <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
@@ -79,6 +80,9 @@
                 week: '',
                 weather: {}
             }
+        },
+        methods: {
+
         },
         mounted: function () {
             let _this = this;
@@ -116,7 +120,8 @@
                                 }).then(function (data) {
                                     _this.weather = data.body.results[0].weather_data[0];
                                     var s = _this.weather.date;
-                                    _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
+                                    var w = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
+                                    _this.weather.current= w.replace("~","/").trim();
                                     console.log(_this.weather)
                                     console.log(data)
                                 }, function (error) {
@@ -228,12 +233,14 @@
         font-size: 0.7rem;
         text-align: right;
     }
-
+        .current{
+            position: ;
+        }
     .weather_pic {
         width: 8%;
         height: 30px;
         position: absolute;
-        left: 75%;
+        right: 10%;
         top: 50%;
         margin-top: -10px;
     }
