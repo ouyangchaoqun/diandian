@@ -27,30 +27,55 @@
                     </div>
                 </div>
             </div>
-            <div class="notes">
-                <a @click="" class="weui-tabbar__item ">
-                    <div class="go_record record_left ">
-                        <div class="img"><img src=""/></div>
-                        <div class="morning">早起打卡</div>
-                    </div>
-                </a>
-                <router-link to="addMood" class="weui-tabbar__item">
-                    <div class="go_record record_mid">
-                        <div class="img"><img src=""/></div>
-                        <div class="any">心情记录</div>
-                    </div>
-                </router-link>
-                <a to="" class="weui-tabbar__item">
-                    <div class="go_record record_right">
-                        <div class="img"><img src=""/></div>
-                        <div class="night">早睡打卡</div>
-                    </div>
-                </a>
-            </div>
-            <div class="record_tx1">21天可以养成一个好习惯</div>
-            <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
-        </div>
+            <!--<div class="notes">-->
+            <!--<a @click="" class="weui-tabbar__item ">-->
+            <!--<div class="go_record record_left ">-->
+            <!--<div class="img"><img src=""/></div>-->
+            <!--<div class="morning">早起打卡</div>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--<router-link to="addMood" class="weui-tabbar__item">-->
+            <!--<div class="go_record record_mid">-->
+            <!--<div class="img"><img src=""/></div>-->
+            <!--<div class="any">心情记录</div>-->
+            <!--</div>-->
+            <!--</router-link>-->
+            <!--<a to="" class="weui-tabbar__item">-->
+            <!--<div class="go_record record_right">-->
+            <!--<div class="img"><img src=""/></div>-->
+            <!--<div class="night">早睡打卡</div>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--<div class="record_tx1">21天可以养成一个好习惯</div>-->
+            <!--<div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>-->
 
+            <div class="bottom1 ">
+                <div class="record_time">6:30</div>
+                <div class="next"><img src="../images/good.png"/>连续早起5天</div>
+                <div class="record_compare">32444人正在参加，比70%的人起的早</div>
+                <div class="record_text">
+                    <div class="record_pic"><img src="../images/record.png"></div>
+                    <div  class="doRecord">早安，今天的小目标是...</div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="finish">完成</div>
+
+            </div>
+            <!--<div class="bottom2 ">-->
+                <!--<div class="re_text1">早起时间</div>-->
+                <!--<div><img src=""></div>-->
+                <!--<div class="ealy_time">05:00-10:00</div>-->
+                <!--<div class="re_text2">早起，将开启你对新的一天的最佳状态</div>-->
+                <!--<div class="record_text">-->
+                    <!--<div class="record_pic"><img src="../images/record.png"></div>-->
+                    <!--<div  class="doRecord">不忘初心</div>-->
+                    <!--<div style="clear: both;"></div>-->
+                <!--</div>-->
+                <!--<div class="finish">我知道了</div>-->
+
+            <!--</div>-->
+        </div>
     </div>
 </template>
 <script>
@@ -78,7 +103,8 @@
                 ],
                 hour: 15,
                 week: '',
-                weather: {}
+                weather: {},
+                record: '',
             }
         },
         methods: {
@@ -90,8 +116,8 @@
                     type: "json",
                     url: web.API_PATH + 'mood/get/user/count/_userId_'
                 }).then(function (bt) {
-                    if(bt.data && bt.data.status == 1){
-                        if(typeof callback == 'function'){
+                    if (bt.data && bt.data.status == 1) {
+                        if (typeof callback == 'function') {
                             callback(bt.data.data);
                         }
                     }
@@ -135,7 +161,7 @@
                                     _this.weather = data.body.results[0].weather_data[0];
                                     var s = _this.weather.date;
                                     var w = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
-                                    _this.weather.current= w.replace("~","/").trim();
+                                    _this.weather.current = w.replace("~", "/").trim();
                                     console.log(_this.weather)
                                     console.log(data)
                                 }, function (error) {
@@ -222,7 +248,6 @@
         width: 100%;
         overflow: hidden;
         z-index: 3;
-        height: 63%;
     }
 
     .date_info {
@@ -261,9 +286,11 @@
         font-size: 0.7rem;
         text-align: right;
     }
-        .current{
-            position: ;
-        }
+
+    .current {
+        position: absolute;
+    }
+
     .weather_pic {
         width: 8%;
         height: 30px;
@@ -352,6 +379,68 @@
         font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
+        padding-bottom:5rem;
     }
 
+    .bottom1 {
+        width: 100%;
+        background:url("../images/nightbg.png") no-repeat;
+        background-size:100% 100% ;
+        padding-bottom: 1.52rem;
+    }
+
+    .record_time {
+        text-align: center;
+        font-size: 1.82rem;
+        padding-top: 50px;
+        color: rgba(102, 102, 102, 1);
+    }
+
+    .next {
+        text-align: center;
+        font-size: 0.78rem;
+        color: rgba(102, 102, 102, 1);
+        margin-top: 18px;
+    }
+        .next img{
+            width:0.9rem;
+            margin-right: 2%;
+        }
+    .record_compare {
+        text-align: center;
+        font-size: 0.70rem;
+        color: rgba(101, 103, 101, 1);
+        margin-top: 25px;
+    }
+    .record_pic{
+        width: 17.5px;
+        height: 17.5px;
+        float: left;
+    }
+    .record_pic img{
+        width: 100%;
+
+    }
+    .record_text {
+        font-size: 0.78rem;
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+    .doRecord{
+        border-bottom:1px solid rgba(102,102,102,1) ;
+        text-align: center;
+        width: 85%;
+        float: left;
+    }
+    .finish{
+        width: 105px;
+        height: 30px;
+        color: rgba(190,190,190,1);
+        border-radius:15px 15px 15px 15px;
+        border: 1px solid rgba(190,190,190,1);
+        text-align: center;
+        margin: 0 auto;
+        margin-top:38px;
+    }
 </style>
