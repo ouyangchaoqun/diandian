@@ -187,9 +187,7 @@
                             console.log(data.body.data.myCareRank);
                             console.log("2222222222222")
                             if(data.body.data.myCareRank.length>0)
-                            console.log(data.body.data.myCareRank[0].row);
-
-                            _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
+                           _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
                             //获取所有排行
                             _this.cares = data.body.data.allCareRank;
                             for (let i = 0; i < _this.cares.length; i++) {
