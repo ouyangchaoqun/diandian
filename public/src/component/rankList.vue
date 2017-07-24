@@ -166,8 +166,8 @@
                             //获取自己的排行
                             _this.useActive = response.body.data.userRank;
                             console.log("1111111111")
-                            console.log(response.body.data.userRank[0].row);
-                            _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
+                            if(response.body.data.userRank.length>0)
+                             _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
                             //获取所有排行
                             _this.activePerson = response.body.data.allUserRank;
                             for (let i = 0; i < _this.activePerson.length; i++) {
@@ -186,6 +186,7 @@
                             _this.useCare = data.body.data.myCareRank;
                             console.log(data.body.data.myCareRank);
                             console.log("2222222222222")
+                            if(data.body.data.myCareRank.length>0)
                             console.log(data.body.data.myCareRank[0].row);
 
                             _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
