@@ -6,8 +6,48 @@
         </div>
         <div class="moodBox_bg" @click="goIndex()">
         </div>
-        <div class="record_box">
-            <div class="date_info">
+        <div class="record_box" :class="{bgw:isShowResult,nightbg:isNight}">
+
+            <div class="main_record">
+                <div class="init_record" :class="{goHide:isShowResult}">
+                    <div class="notes">
+                        <a @click="morning" class="weui-tabbar__item ">
+                            <div class="go_record record_left ">
+                                <div class="img"><img src=""/></div>
+                                <div class="morning" :class="{recorded:isGetUp}">早起打卡</div>
+                            </div>
+                        </a>
+                        <router-link :to="linkTo" class="weui-tabbar__item">
+                            <div class="go_record record_mid">
+                                <div class="img"><img src=""/></div>
+                                <div class="any">心情记录</div>
+                            </div>
+                        </router-link>
+                        <a @click="night" class="weui-tabbar__item">
+                            <div class="go_record record_right">
+                                <div class="img"><img src=""/></div>
+                                <div class="night" :class="{recorded:isGoBed}">早睡打卡</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="record_tx1">21天可以养成一个好习惯</div>
+                    <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
+                </div>
+                <div class="result" :class="{goShow:isShowResult}">
+                    <div class="bottom1"  >
+                        <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
+                        <div class="next"><img src="../images/good.png"/>连续早起{{result.data.continuousDays}}天</div>
+                        <div class="record_compare">{{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早</div>
+                        <div class="record_text">
+                            <div class="record_pic"><img src="../images/record.png"></div>
+                            <div  class="doRecord">早安，今天的小目标是...</div>
+                            <div style="clear: both;"></div>
+                        </div>
+                        <div class="finish">完成</div>
+                    </div>
+                </div>
+            </div>
+            <div class="date_info ">
                 <div class="date">
                     <div class="day">{{day}}</div>
                     <div class="date_right">
@@ -27,61 +67,17 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="notes">-->
-            <!--<a @click="" class="weui-tabbar__item ">-->
-            <!--<div class="go_record record_left ">-->
-            <!--<div class="img"><img src=""/></div>-->
-            <!--<div class="morning">早起打卡</div>-->
-            <!--</div>-->
-            <!--</a>-->
-            <!--<router-link to="addMood" class="weui-tabbar__item">-->
-            <!--<div class="go_record record_mid">-->
-            <!--<div class="img"><img src=""/></div>-->
-            <!--<div class="any">心情记录</div>-->
-            <!--</div>-->
-            <!--</router-link>-->
-            <!--<a to="" class="weui-tabbar__item">-->
-            <!--<div class="go_record record_right">-->
-            <!--<div class="img"><img src=""/></div>-->
-            <!--<div class="night">早睡打卡</div>-->
-            <!--</div>-->
-            <!--</a>-->
-            <!--</div>-->
-            <!--<div class="record_tx1">21天可以养成一个好习惯</div>-->
-            <!--<div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>-->
 
-            <div class="bottom1 ">
-                <div class="record_time">6:30</div>
-                <div class="next"><img src="../images/good.png"/>连续早起5天</div>
-                <div class="record_compare">32444人正在参加，比70%的人起的早</div>
-                <div class="record_text">
-                    <div class="record_pic"><img src="../images/record.png"></div>
-                    <div  class="doRecord">早安，今天的小目标是...</div>
-                    <div style="clear: both;"></div>
-                </div>
-                <div class="finish">完成</div>
 
-            </div>
-            <!--<div class="bottom2 ">-->
-                <!--<div class="re_text1">早起时间</div>-->
-                <!--<div><img src=""></div>-->
-                <!--<div class="ealy_time">05:00-10:00</div>-->
-                <!--<div class="re_text2">早起，将开启你对新的一天的最佳状态</div>-->
-                <!--<div class="record_text">-->
-                    <!--<div class="record_pic"><img src="../images/record.png"></div>-->
-                    <!--<div  class="doRecord">不忘初心</div>-->
-                    <!--<div style="clear: both;"></div>-->
-                <!--</div>-->
-                <!--<div class="finish">我知道了</div>-->
 
-            <!--</div>-->
+
         </div>
     </div>
 </template>
 <script>
     import banner from "./banner.vue";
-    let addMood = {
-        template: '#addMood'
+    let record = {
+        template: '#record'
     };
     export default {
         components: {
@@ -89,9 +85,11 @@
         },
         data(){
             return {
+                linkTo:"#",
                 day: 30,
                 month: 12,
                 year: 2017,
+                isNight:false,
                 weeks: [
                     {week: '日'},
                     {week: '一'},
@@ -104,11 +102,122 @@
                 hour: 15,
                 week: '',
                 weather: {},
+                MORNING_FROM_TIME:'14:30',
+                MORNING_END_TIME:'22:30',
+                NIGHT_FROM_TIME:'14:30',
+                NIGHT_END_TIME:'22:30',
+                outMorningTime:false,
+                outNightTime:false,
+                isGetUp:false,
+                isGoBed:false,
+                result:{
+                    allCount:0,
+                    earlyPer:0,
+                    data:{hour:0,minute:0}
+                },
                 record: '',
+                isShowResult:false
+
             }
         },
         methods: {
 
+            morning:function () {
+                let _this =this;
+                if(_this.isGoBed==true){
+                    //_this.$router.push("/")
+                }
+                if(this.isRecordTime(this.MORNING_FROM_TIME,this.MORNING_END_TIME)){
+                    this.checkIn(2);
+                }else{
+                    console.log('outMorningTime');
+                    this.outMorningTime=true;
+                }
+
+            },
+            night:function () {
+                let _this =this;
+                if(_this.isGetUp==true){
+                   // _this.$router.push("/")
+                }
+
+                if(this.isRecordTime(this.NIGHT_FROM_TIME,this.NIGHT_END_TIME)){
+                    this.checkIn(3);
+                }else{
+                    console.log('outnightTime');
+                    this.outMorningTime=true;
+                }
+            },
+            checkIn:function (type) {
+                let _this = this;
+                let weather ='';
+                if(_this.weather.weather!=undefined){
+                    weather +=_this.weather.weather;
+                }
+                if(_this.weather.current!=undefined){
+                    weather += " " +_this.weather.current;
+                }
+
+                _this.$http.put(web.API_PATH+'sleep/checkin/'+type+'/_userId_',{"weather":weather}).then(response => {
+                    console.log(response);
+                    if(response.data.status===1){
+                        _this.result.data = response.data.data;
+                        let   time=new   Date(response.data.data.time);
+                        _this.result.data.hour=time.getHours();
+                        _this.result.data.minute=time.getMinutes();
+
+
+                        _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+type+'').then(data => {
+                            if(data.data.status===1){
+                                _this.result.allCount=data.data.data;
+                            }
+                        });
+                        _this.$http.get(web.API_PATH+'record/sleep/get/early/per/_userId_/'+type+'').then(data => {
+                            if(data.data.status===1){
+                                _this.result.earlyPer=data.data.data.toFixed(2);
+                            }
+                        });
+                        _this.isShowResult=true;
+                        $(".init_record").stop().animate({"opacity":0},200,function () {
+                            $(this).hide();
+                        });
+                        $(".result").show().stop().animate({"opacity":1},200);
+
+                        $(".date_info").animate({"backgroundColor":"#4e4c73"},200);
+
+                        $(".nightbg .date_info").addClass("ngihttop")
+                        if (type==3){
+                            _this.isNight=true;
+                        }
+
+
+                    }
+                });
+            },
+
+            //是否在打卡时间内
+            isRecordTime:function (fromTime,endTime) {
+                let startTime=parseInt( fromTime.split(":")[0])*60+parseInt(fromTime.split(":")[1]);
+                endTime=parseInt( endTime.split(":")[0])*60+parseInt(endTime.split(":")[1]);
+                let mydate = new Date();
+                //打卡时间
+                let _r =false;
+                if(startTime<=mydate.getHours()*60+mydate.getMinutes()&&mydate.getHours()*60+mydate.getMinutes()<=endTime){
+                    _r = true;
+                }else{//非打卡时间
+                    _r = false;
+                }
+                return _r;
+            },
+
+
+
+            goIndex:function () {
+                if(window.history.length>=2){
+                    this.$router.go(0-window.history.length+1)
+                }
+                this.$router.replace('/');
+            },
 
             getMoodCount(callback){
                 this.$http({
@@ -127,7 +236,8 @@
         mounted: function () {
             let _this = this;
             xqzs.wx.setConfig(_this);
-
+            let  w= $("body").width();
+            $(".record_box").height(w*684/750);
 
             //获取当前时间
             var mydate = new Date();
@@ -140,6 +250,23 @@
             console.log(_this.week);
 
 
+
+            //是否打卡
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + "record/sleep/get/is/record/_userId_" ,
+            }).then(function (data) {
+                  if(data.body.status==1){
+                      _this.isGetUp=data.body.data.isGetUp;
+                      _this.isGoBed=data.body.data.isGoBed;
+                  }
+            }, function (error) {
+
+            });
+
+
+            //获取天气
             wx.ready(function () {
                 //获取天气
                 wx.getLocation({
@@ -197,28 +324,39 @@
 
 </script>
 <style>
-    .sogo-enter-active {
-        animation-name: sgo;
-        animation-duration: .2s;
-    }
+    .main_record{position: relative}
+    .init_record,.result{ position: absolute; top:0; left:0; width: 100%; z-index: 2}
+    .result{   display: none; opacity: 0; top:-33px}
+    .bgw{ background: #fff !important;}
+    .nightbg{ color:#f4f4f7 !important}
+    .nightbg .result .bottom1{ background:url(../images/nightbg.png) no-repeat;background-size: 100% 100%;}
+    .nightbg .record_time,.nightbg .next,.nightbg .record_compare  { color:#f4f4f7 }
 
-    @keyframes sgo {
-        0% {
-            transform: translate3d(100%, 0, 0);
-            -webkit-transform: translate3d(100%, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-            z-index: 2;
-        }
-    }
+    .nightbg .date_right , .nightbg .date{color:#cececd}
+    .nightbg .doRecord{ border-bottom: 1px solid #fff}
 
     .record, .record_box {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
+    .nightbg .date_info{ background: #4e4c73 ;}
 
-    .recordBox_bg {
+    .ngihttop{
+        animation-name: gozelo;
+        animation-duration: .2s;
+    }
+
+    @keyframes gozelo {
+        0%{
+            background: #fff ;
+        }
+        100% {
+            background: #4e4c73 ;
+        }
+    }
+
+
+
+    .moodBox_bg {
         position: absolute;
         top: 0;
         height: 100%;
@@ -238,16 +376,15 @@
     }
 
     .record_box {
-        /*padding:30px 15px 36px 15px;*/
         background: #f4f4f8;
         background-size: cover;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         position: absolute;
         bottom: 0;
         width: 100%;
-        overflow: hidden;
         z-index: 3;
+
     }
 
     .date_info {
@@ -256,8 +393,12 @@
         border-radius: 10px;
         box-shadow: rgba(102, 102, 102, 0.2) 0px 3px 4px;
         overflow: hidden;
-        position: relative;
+        position: absolute;
+        width: 100%; z-index: 2;
+        top: -40px;
     }
+    .main_record{ position: absolute;
+        width: 100%; top:26px; z-index: 1}
 
     .date {
         float: left;
@@ -382,9 +523,11 @@
         padding-bottom:5rem;
     }
 
+    .recorded{background:#ecb47a;}
+
     .bottom1 {
         width: 100%;
-        background:url("../images/nightbg.png") no-repeat;
+        background:url("../images/daybg.png") no-repeat;
         background-size:100% 100% ;
         padding-bottom: 1.52rem;
     }
