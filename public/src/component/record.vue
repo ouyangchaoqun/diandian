@@ -106,10 +106,10 @@
                                     type: "json",
                                     url: web.API_PATH + "base/get/weather/" + city,
                                 }).then(function (data) {
-                                    _this.weather=data.body.data.results[0].weather_data[0];
-                                    var s=_this.weather.date;
-                                    _this.weather.current=s.substring(s.indexOf(":"),s.indexOf(")"));
-                                    console.log(_this.weather)
+//                                    _this.weather=data.body.data.results[0].weather_data[0];
+//                                    var s=_this.weather.date;
+//                                    _this.weather.current=s.substring(s.indexOf(":"),s.indexOf(")"));
+//                                    console.log(_this.weather)
                                     console.log(data)
                                 }, function (error) {
                                     //error
