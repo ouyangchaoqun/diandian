@@ -9,10 +9,10 @@
         <div class="record_box">
             <div class="date_info">
                 <div class="date">
-                    <div class="day">19</div>
+                    <div class="day">{{day}}</div>
                     <div class="date_right">
-                        <p>星期四</p>
-                        <p>2017年7月</p>
+                        <p>星期{{week.week}}</p>
+                        <p>{{year}}年{{month+1}}月</p>
                     </div>
                 </div>
                 <div class="weather">
@@ -66,6 +66,7 @@
                     {week:'五'},
                     {week:'六'}
                 ],
+                week:'',
                 weather:{}
             }
         },
@@ -74,19 +75,25 @@
             var mydate = new Date();
             _this.year=mydate.getFullYear();
             _this.month=mydate.getMonth();
-            _this.day=mydate.getDay();
+            _this.day=mydate.getDate();
+            var weekNo=mydate.getDay();
 
+            _this.week=_this.weeks[weekNo];
+            console.log(_this.week);
             wx.ready(function () {
                 //获取天气
+                console.log("ready");
                 wx.getLocation({
                     type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                     success: function (res) {
+                        console.log("getLocationsuccess");
                         let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
                         let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                         let latLng = new qq.maps.LatLng(latitude, longitude);
                         //调用城市服务信息
                         let citylocation = new qq.maps.CityService({
                             complete: function (results) {
+                                console.log("CityService");
                                 let area = results.detail.detail;
                                 let city = encodeURIComponent(area.split(",")[1]);
                                 _this.$http({
@@ -94,6 +101,7 @@
                                     type: "json",
                                     url: web.API_PATH + "base/get/weather/" + city,
                                 }).then(function (data) {
+                                    console.log("api");
                                     console.log(data);
 
                                 }, function (error) {
