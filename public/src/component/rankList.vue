@@ -8,7 +8,7 @@
             <a hidefocus="true" class="yyyyyy">关心</a>
             <a hidefocus="true">新增好友</a>
         </div>
-        <div class="swiper-container moodCount_box">
+        <div class="swiper-container moodCount_box" style="width: 100%">
             <div class="swiper-wrapper">
                 <!--活跃度排行-->
                 <div class="swiper-slide">
@@ -209,7 +209,7 @@
                             //获取自己的排行
                             _this.useFriend = response.body.data.myNewFriendRank;
                             console.log("3333333333")
-                            console.log(response.body.data.myNewFriendRank[0].row);
+                            if(response.body.data.myNewFriendRank.length>0)
                             _this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                             //获取所有排行
                             _this.friends = response.body.data.allNewFriendRank;
