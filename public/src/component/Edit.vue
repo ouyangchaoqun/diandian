@@ -363,6 +363,7 @@
                     pictures: that.getUploadPictureIds(),
                     gifs:that.getFunnyPictureIds()
                 };
+                console.log(that.moodcontent)
                 that.cansubmit = false;
                 var apiurl = 'mood/add';
                 if(that.moodid > 0 ){
@@ -371,6 +372,7 @@
                 }
                 that.$http.put(web.API_PATH + apiurl,postdata)
                     .then(function (bt) {
+                        console.log(postdata)
                     if (bt.data && bt.data.status == 1) {
                         that.$router.push({path:'/myCenter/myIndex?scroll=1'});
                     }
