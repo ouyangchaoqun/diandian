@@ -53,9 +53,67 @@
             "v-banner": banner
         },
         data(){
-            return {}
+            return {
+                day:30,
+                month:12,
+                year:2017,
+                weeks:[
+                    {week:'日'},
+                    {week:'一'},
+                    {week:'二'},
+                    {week:'三'},
+                    {week:'四'},
+                    {week:'五'},
+                    {week:'六'}
+                ],
+                weather:{}
+            }
+        },
+        mounted:function () {
+            let _this=this;
+            var mydate = new Date();
+            _this.year=mydate.getFullYear();
+            _this.month=mydate.getMonth();
+            _this.day=mydate.getDay();
+
+            wx.ready(function () {
+                //获取天气
+                wx.getLocation({
+                    type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                    success: function (res) {
+                        let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                        let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                        let latLng = new qq.maps.LatLng(latitude, longitude);
+                        //调用城市服务信息
+                        let citylocation = new qq.maps.CityService({
+                            complete: function (results) {
+                                let area = results.detail.detail;
+                                let city = encodeURIComponent(area.split(",")[1]);
+                                _this.$http({
+                                    method: 'GET',
+                                    type: "json",
+                                    url: web.API_PATH + "base/get/weather/" + city,
+                                }).then(function (data) {
+                                    console.log(data);
+
+                                }, function (error) {
+                                    //error
+                                });
+                            }
+                        });
+
+                        citylocation.searchCityByLatLng(latLng);
+                    },
+                    cancel: function (res) {
+
+                    }
+                });
+            });
         }
     }
+ 
+         
+     
 </script>
 <style>
     .sogo-enter-active {
@@ -129,28 +187,28 @@
     .day {
         line-height: 70px;
         float: left;
-        font-size: 40px;
+        font-size: 2.35rem;
         margin-left: 7%;
     }
 
     .date_right {
-        font-size: 12px;
+        font-size: 0.7rem;
         color: #666666;
         position: absolute;
         left: 17%;
         top: 50%;
-        margin-top: -19px;
+        margin-top: -1rem;
     }
 
     .weather {
         float: right;
         width: 30%;
-        font-size: 12px;
+        font-size: 0.7rem;
         text-align: right;
     }
 
     .weather_pic {
-        width: 30px;
+        width: 8%;
         height: 30px;
         position: absolute;
         left: 75%;
@@ -178,15 +236,16 @@
         text-align: center;
     }
     .go_record{
-        width: 87.5px;
-        height: 115px;
+        width: 27%;
+        height: 6.7rem;
         background: #fff;
         border-radius: 5px;
     }
     .go_record .img{
-        height: 95px;
+        height:83%;
         background-color: #0ba98e;
-        width: 87.5px;
+        width: 100%;
+        border-radius: 5px 5px 0px 0px;
     }
      .record_left{
         float: left;
@@ -195,7 +254,7 @@
          background: #b8baca;
          color: #fff;
          border-radius: 0px 0px 5px 5px;
-         font-size: 12px;
+         font-size: 0.7rem;
      }
      .any{
          color: #fff;
@@ -207,7 +266,7 @@
          background: #b8baca;
          color: #fff;
          border-radius: 0px 0px 5px 5px;
-         font-size: 12px;
+         font-size: 0.7rem;
      }
     .record_mid{
         margin: 0 auto;
@@ -217,13 +276,13 @@
     }
     .record_tx1{
         margin-top: 13.5%;
-        font-size: 12px;
+        font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
     }
     .record_tx2{
         margin-top: 2%;
-        font-size: 12px;
+        font-size: 0.70rem;
         text-align: center;
         color:#b9bdc0;
     }
