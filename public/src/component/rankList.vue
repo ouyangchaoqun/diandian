@@ -24,6 +24,7 @@
                             <div class="rank_name">{{useActive[0].nickName}}</div>
                             <div class="rank_data">连续记录{{useActive[0].count}}条</div>
                         </div>
+                    </template>
                         <ul>
                             <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
                                 :class="rank.addClassName">
@@ -38,7 +39,7 @@
                                 <div class="rank_data">连续记录{{rank.count}}条</div>
                             </li>
                         </ul>
-                    </template>
+
                 </div>
                 <!--关心排行-->
                 <div class="swiper-slide">
@@ -55,6 +56,7 @@
                         <div class="rank_value">{{useCare[0].count}}</div>
                         <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
                     </div>
+                    </template>
                     <ul>
                         <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
@@ -69,7 +71,7 @@
                             <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
                         </li>
                     </ul>
-                    </template>
+
                 </div>
                 <!--新增好友排行-->
                 <div class="swiper-slide">
@@ -85,11 +87,12 @@
                         <div class="rank_name">{{useFriend[0].nickName}}</div>
                         <div class="rank_data">新增好友{{useFriend[0].newfriend}}位</div>
                     </div>
+                    </template>
                     <ul>
                         <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
                                 <span class="img"></span>
-                                <span v-if="index>2">{{ index+1}}.</span>
+                                <span v-show="index>2">{{ index+1}}.</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(rank.faceUrl)"/>
@@ -98,7 +101,7 @@
                             <div class="rank_data">新增加好友{{rank.newfriend}}人</div>
                         </li>
                     </ul>
-                    </template>
+
                 </div>
 
 
@@ -151,14 +154,8 @@
                     console.log("click  ");
                     e.preventDefault();
                 });
-            })
+            });
 
-
-
-
-
-//             _this.type = this.$route.params.Type;
-//                _this.value=this.$route.params.Value;
             //获取活跃排行
             _this.$http.get(web.API_PATH + "rank/get/record/mood/_userId_/10/" + _this.type + "?times=" + _this.value)
                     .then(function (response) {
@@ -166,8 +163,10 @@
                             //获取自己的排行
                             _this.useActive = response.body.data.userRank;
                             console.log("1111111111")
-                            if(response.body.data.userRank.length>0)
-                             _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
+                            if(response.body.data.userRank.length>0){
+                                _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
+                            }
+
                             //获取所有排行
                             _this.activePerson = response.body.data.allUserRank;
                             for (let i = 0; i < _this.activePerson.length; i++) {
@@ -186,15 +185,18 @@
                             _this.useCare = data.body.data.myCareRank;
                             console.log(data.body.data.myCareRank);
                             console.log("2222222222222")
-                            if(data.body.data.myCareRank.length>0)
-                           _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
+                            if(data.body.data.myCareRank.length>0){
+                                _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
+                            }
+
                             //获取所有排行
+
                             _this.cares = data.body.data.allCareRank;
                             for (let i = 0; i < _this.cares.length; i++) {
                                 _this.cares[i].addClassName = "first_" + (i + 1);
-
                                 _this.$set(_this.cares, i, _this.cares[i])
                             }
+                            console.log( _this.cares)
                         }
                     })
             //获取新增好友的排名
@@ -208,8 +210,10 @@
                             //获取自己的排行
                             _this.useFriend = response.body.data.myNewFriendRank;
                             console.log("3333333333")
-                            if(response.body.data.myNewFriendRank.length>0)
-                            _this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
+                            if(response.body.data.myNewFriendRank.length>0){
+                                _this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
+                            }
+
                             //获取所有排行
                             _this.friends = response.body.data.allNewFriendRank;
                             for (let i = 0; i < _this.friends.length; i++) {
