@@ -27,19 +27,19 @@
                 </div>
             </div>
             <div class="notes">
-                <router-link to="">
-                    <div class="go_record record_left">
+                <router-link to="" class="weui-tabbar__item tab">
+                    <div class="go_record record_left ">
                         <div class="img"><img src=""/></div>
                         <div class="morning">早起打卡</div>
                     </div>
                 </router-link>
-                <router-link to="addMood">
+                <router-link to="addMood" class="weui-tabbar__item tab">
                     <div class="go_record record_mid">
                         <div class="img"><img src=""/></div>
                         <div class="any">心情记录</div>
                     </div>
                 </router-link>
-                <router-link to="">
+                <router-link to="" class="weui-tabbar__item tab">
                     <div class="go_record record_right">
                         <div class="img"><img src=""/></div>
                         <div class="night">早睡打卡</div>
@@ -94,6 +94,8 @@
             var weekNo = mydate.getDay();
             _this.week = _this.weeks[weekNo];
             console.log(_this.week);
+
+
             wx.ready(function () {
                 //获取天气
                 wx.getLocation({
@@ -233,7 +235,7 @@
         position: absolute;
         left: 75%;
         top: 50%;
-        margin-top: -15px;
+        margin-top: -10px;
     }
 
     .weather_pic img {
@@ -257,7 +259,7 @@
     }
 
     .go_record {
-        width: 27%;
+        width: 81%;
         height: 6.7rem;
         background: #fff;
         border-radius: 5px;
