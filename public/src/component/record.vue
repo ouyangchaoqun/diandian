@@ -4,7 +4,7 @@
         <div class="banner">
             <v-banner></v-banner>
         </div>
-        <div class="recordBox_bg" @click="goIndex()">
+        <div class="moodBox_bg" @click="goIndex()">
         </div>
         <div class="record_box">
             <div class="date_info">
@@ -83,6 +83,20 @@
         },
         methods: {
 
+
+            getMoodCount(callback){
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'mood/get/user/count/_userId_'
+                }).then(function (bt) {
+                    if(bt.data && bt.data.status == 1){
+                        if(typeof callback == 'function'){
+                            callback(bt.data.data);
+                        }
+                    }
+                })
+            },
         },
         mounted: function () {
             let _this = this;
@@ -137,6 +151,20 @@
                     }
                 });
             });
+
+            _this.getMoodCount(function (moodcount) {
+                if (moodcount < 10) {
+                    _this.linkTo = "/addMood";
+                } else {
+                    if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                        _this.linkTo = "/me/personal/validate";
+                    } else {
+                        _this.linkTo = "/addMood";
+                    }
+                }
+            });
+
+
         }
     }
 

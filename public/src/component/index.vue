@@ -222,7 +222,7 @@
                 this.recordImg= web.IMG_PATH+"face2.png";
                 this.recordOn=true;
                 setTimeout(function () {
-                    _this.$router.push(_this.linkTo)
+                    _this.$router.push("/record")
                 },2)
             },
             calendar:function () {
@@ -304,19 +304,7 @@
             canWriteMood:function () {
 
             },
-            getMoodCount(callback){
-                this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'mood/get/user/count/_userId_'
-                }).then(function (bt) {
-                    if(bt.data && bt.data.status == 1){
-                        if(typeof callback == 'function'){
-                            callback(bt.data.data);
-                        }
-                    }
-                })
-            },
+
             getFriendLastMood:function () {
                 var that = this;
                 //好友是否有新心情
@@ -387,17 +375,7 @@
 
             _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
 
-            _this.getMoodCount(function (moodcount) {
-                if (moodcount < 10) {
-                    _this.linkTo = "/addMood";
-                } else {
-                    if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
-                        _this.linkTo = "/me/personal/validate";
-                    } else {
-                        _this.linkTo = "/addMood";
-                    }
-                }
-            });
+
 
 
             Bus.$emit('initHomeData');
