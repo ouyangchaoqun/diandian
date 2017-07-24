@@ -17,12 +17,12 @@
                 </div>
                 <div class="weather">
                     <div class="weather_pic">
-                        <img v-if="" src="../images/arder1.png"/>
-                        <img v-if="" src="../images/arder1.png"/>
+                        <img v-if="hour>=6&&hour<=18" src="../images/arder1.png"/>
+                        <img v-if="hour<6||hour>18" src="../images/arder1.png"/>
                     </div>
                     <div class="weather_info">
-                        <p>晴转多云</p>
-                        <p>28-32</p>
+                        <p>{{weather.weather}}</p>
+                        <p>{{weather.temperature}}</p>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                                 }).then(function (data) {
                                     _this.weather=data.body.results[0].weather_data[0];
                                     var s=_this.weather.date;
-                                    _this.weather.current=s.substring(s.indexOf(":"),s.indexOf(")"));
+                                    _this.weather.current=s.substring(s.indexOf("："),s.indexOf(")"));
                                     console.log(_this.weather)
                                     console.log(data)
                                 }, function (error) {
