@@ -43,7 +43,8 @@ let routers =
                 require('./routes/monthStatistics'),
                 require('./routes/collect'),
                 require('./routes/clock'),
-                require('./routes/record')
+                require('./routes/record'),
+                require('./routes/write')
             ]
         }
     ];
