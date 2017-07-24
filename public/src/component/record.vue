@@ -110,6 +110,7 @@
                                     var s=_this.weather.date;
                                     _this.weather.current=s.substring(s.indexOf(":"),s.indexOf(")"));
                                     console.log(_this.weather)
+                                    console.log(data)
                                 }, function (error) {
                                     //error
                                 });
