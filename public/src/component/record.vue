@@ -40,7 +40,7 @@
                         <div class="record_compare">{{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早</div>
                         <div class="record_text" @click="write">
                             <div class="record_pic"><img src="../images/record.png"></div>
-                            <div class="doRecord">向新的一天问好</div>
+                            <div class="doRecord">{{doRecordText}}</div>
                             <div style="clear: both;"></div>
                         </div>
                         <div class="finish" @click="finish">完成</div>
@@ -148,7 +148,8 @@
                     data: {hour: 0, minute: 0, id: 0}
                 },
                 record: '',
-                isShowResult: false
+                isShowResult: false,
+                doRecordText:''
 
             }
         },
@@ -248,11 +249,12 @@
                             }
                         });
                         _this.isShowResult = true;
-
+                        _this.doRecordText='向新的一天问好';
                         _this.animateIn();
                         $(".result").show().stop().animate({"opacity": 1}, 200);
                         if (type == 3) {
                             _this.isNight = true;
+                            _this.doRecordText='今日小成就';
                         }
 
 
