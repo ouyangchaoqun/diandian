@@ -215,7 +215,6 @@
         },
         methods: {
 
-
             record:function () {
                var  _this=this;
                 Bus.$emit("goIndex",false);
@@ -236,8 +235,7 @@
 
             care: function (id) {
                 let _this = this;
-
-                this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
+                _this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
                     if (data.data.status === 1) {
                         for(var i = 0; i<_this.friendMoodsSpe.length;i++){
                             if(_this.friendMoodsSpe[i].id===id){

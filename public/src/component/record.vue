@@ -30,8 +30,8 @@
                             </div>
                         </a>
                     </div>
-                    <div class="record_tx1">21天可以养成一个好习惯</div>
-                    <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
+                    <div class="record_tx1">坚持21天A计划</div>
+                    <div class="record_tx2">遇见更好的自己</div>
                 </div>
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1">
@@ -40,7 +40,7 @@
                         <div class="record_compare">{{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早</div>
                         <div class="record_text" @click="write">
                             <div class="record_pic"><img src="../images/record.png"></div>
-                            <div class="doRecord">早安，今天的小目标是...</div>
+                            <div class="doRecord">向新的一天问好</div>
                             <div style="clear: both;"></div>
                         </div>
                         <div class="finish" @click="finish">完成</div>
@@ -54,12 +54,12 @@
                     <div class="jiantou"></div>
                     <div class="ealy_time" v-if="outMorningTime">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</div>
                     <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
-                    <div class="re_text2" v-if="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
-                    <div class="re_text2" v-if="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
+                    <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
+                    <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
                     <div class="record_text2" @click="write">
                         <div class="record_pic"><img src="../images/record.png"></div>
                         <div class="doRecord" v-if="outMorningTime">不忘初心</div>
-                        <div class="doRecord" v-if="outNightTime">什么让你如此忘我的熬夜?</div>
+                        <div class="doRecord" v-if="outNightTime">为啥熬夜</div>
                         <div style="clear: both;"></div>
                     </div>
                     <div class="finish" @click="back" v-if="outMorningTime">我知道了</div>
