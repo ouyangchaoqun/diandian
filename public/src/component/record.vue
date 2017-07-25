@@ -75,15 +75,27 @@
                         <p>{{year}}年{{month+1}}月</p>
                     </div>
                 </div>
-                <div class="weather">
+                <div class="weather" >
                     <div class="weather_pic">
                         <img v-if="hour>=6&&hour<=18" :src="weather.dayPictureUrl"/>
                         <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
                     </div>
-                    <div class="current">{{weather.weather}}</div>
+                    <div class="current">{{weather.current}}</div>
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
                         <p>{{weather.temperature}}</p>
+                    </div>
+                </div>
+                <div class="weather" v-show="false">
+                    <div class="weather_info">
+                        <p>请转多云</p>
+                        <p>29/41C</p>
+                    </div>
+
+                    <div class="current">38C</div>
+                    <div class="weather_pic">
+                        <img v-if="hour>=6&&hour<=18" src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
+                        <img v-if="hour<6||hour>18" src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
                     </div>
                 </div>
             </div>
@@ -335,11 +347,10 @@
                                     url: web.API_PATH + "base/get/weather/" + city,
                                 }).then(function (data) {
                                     _this.weather = data.body.results[0].weather_data[0];
-                                    var s = _this.weather.date;
-                                    var w = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
-                                    _this.weather.current = w.replace("~", "/").trim();
-                                    console.log(_this.weather)
-                                    console.log(data)
+                                    let s = _this.weather.date;
+                                    _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
+                                    _this.weather.temperature= _this.weather.temperature.replace("~", "/").trim();
+                                    console.log(_this.weather);
                                 }, function (error) {
                                     //error
                                 });
@@ -473,22 +484,22 @@
 
     .weather {
         float: right;
-        width: 30%;
+        width: 49%;
         font-size: 0.7rem;
         text-align: right;
+        color:#666;
     }
 
-    .current {
-        position: absolute;
+    .weather .current {
+        float: right;
+        font-size: 18px; margin-left: 10px;
+        margin-top: 19px;
     }
 
     .weather_pic {
-        width: 8%;
+        width: 42px;
         height: 30px;
-        position: absolute;
-        right: 10%;
-        top: 50%;
-        margin-top: -10px;
+        float: right; margin-top: 20px;
     }
 
     .weather_pic img {
@@ -496,11 +507,13 @@
     }
 
     .weather_info {
-        position: absolute;
-        top: 50%;
-        left: 84%;
-        text-align: center;
-        margin-top: -19px;
+        text-align: right;
+        float: right;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-right: 12px;
+        margin-top: 14px;
+
     }
 
     .notes {
