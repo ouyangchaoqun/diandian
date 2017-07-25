@@ -76,14 +76,14 @@
                     </div>
                 </div>
                 <div class="weather" >
-                    <div class="weather_pic">
-                        <img v-if="hour>=6&&hour<=18" :src="weather.dayPictureUrl"/>
-                        <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
-                    </div>
-                    <div class="current">{{weather.current}}</div>
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
                         <p>{{weather.temperature}}</p>
+                    </div>
+                    <div class="current">{{weather.current}}</div>
+                    <div class="weather_pic">
+                        <img v-if="hour>=6&&hour<=18" :src="weather.dayPictureUrl"/>
+                        <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
                     </div>
                 </div>
                 <div class="weather" v-show="false">
