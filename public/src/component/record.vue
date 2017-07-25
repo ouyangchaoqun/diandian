@@ -9,7 +9,7 @@
         <div class="record_box" :class="{bgw:isShowResult,nightbg:isNight}">
 
             <div class="main_record">
-                <div class="init_record" :class="{goHide:isShowResult}">
+                <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
                         <a @click="morning" class="weui-tabbar__item ">
                             <div class="go_record record_left ">
@@ -38,14 +38,34 @@
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
                         <div class="next"><img src="../images/good.png"/>连续早起{{result.data.continuousDays}}天</div>
                         <div class="record_compare">{{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早</div>
-                        <div class="record_text">
+                        <div class="record_text" @click="write">
                             <div class="record_pic"><img src="../images/record.png"></div>
                             <div  class="doRecord">早安，今天的小目标是...</div>
                             <div style="clear: both;"></div>
                         </div>
-                        <div class="finish">完成</div>
+                        <div class="finish" @click="finish">完成</div>
                     </div>
                 </div>
+
+
+                <div class="timeout" :class="{night_time_out:outNightTime}" v-show="outMorningTime||outNightTime">
+                    <div class="re_text1" v-show="outMorningTime">早起时间</div>
+                    <div class="re_text1" v-show="outNightTime">早睡时间</div>
+                    <div class="jiantou"></div>
+                    <div class="ealy_time" v-show="outMorningTime">05:00-10:00</div>
+                    <div class="ealy_time" v-show="outNightTime">20:00-24:00</div>
+                    <div class="re_text2" v-show="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
+                    <div class="re_text2" v-show="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
+                    <div class="record_text2" @click="write">
+                        <div class="record_pic"><img src="../images/record.png"></div>
+                        <div class="doRecord"  v-show="outMorningTime">不忘初心</div>
+                        <div  class="doRecord"  v-show="outNightTime">是什么让你如此忘我的熬夜?</div>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="finish" @click="back" v-show="outMorningTime">我知道了</div>
+                    <div class="finish" @click="back" v-show="outNightTime">早点睡啦</div>
+                </div>
+
             </div>
             <div class="date_info ">
                 <div class="date">
@@ -102,8 +122,8 @@
                 hour: 15,
                 week: '',
                 weather: {},
-                MORNING_FROM_TIME:'5:0',
-                MORNING_END_TIME:'10:0',
+                MORNING_FROM_TIME:'0:0',
+                MORNING_END_TIME:'23:0',
                 NIGHT_FROM_TIME:'0:0',
                 NIGHT_END_TIME:'23:59',
                 outMorningTime:false,
@@ -113,7 +133,7 @@
                 result:{
                     allCount:0,
                     earlyPer:0,
-                    data:{hour:0,minute:0}
+                    data:{hour:0,minute:0,id:0}
                 },
                 record: '',
                 isShowResult:false
@@ -121,31 +141,58 @@
             }
         },
         methods: {
+            back:function () {
+                this.outNightTime=false;
+                this.outMorningTime=false;
+                $(".timeout").hide();
+                $(".init_record").animate({opacity:1});
+                this.isNight=false;
+            },
+            finish:function () {
+                this.$router.push("/clock?type="+this.result.data.type)
+            },
 
+            write:function () {
+                let parm='';
+                if(this.result.data.id!=0){
+                    parm="?id="+this.result.data.id
+                }
+                this.$router.push("/write"+parm)
+            },
             morning:function () {
                 let _this =this;
-                if(_this.isGoBed==true){
-                    //_this.$router.push("/")
+                if(_this.isGetUp==true){
+                   _this.$router.push("/clock?type=2")
                 }
                 if(this.isRecordTime(this.MORNING_FROM_TIME,this.MORNING_END_TIME)){
                     this.checkIn(2);
                 }else{
                     console.log('outMorningTime');
-                    this.outMorningTime=true;
+                    _this.animateIn();
+                    $(".timeout").show().animate({"opacity":1},200,function () {
+                        _this.outMorningTime=true;
+                    });
+
                 }
 
             },
             night:function () {
                 let _this =this;
-                if(_this.isGetUp==true){
-                   // _this.$router.push("/")
+                if(_this.isGoBed==true){
+                    _this.$router.push("/clock?type=3")
                 }
 
                 if(this.isRecordTime(this.NIGHT_FROM_TIME,this.NIGHT_END_TIME)){
                     this.checkIn(3);
                 }else{
                     console.log('outnightTime');
-                    this.outMorningTime=true;
+                    _this.isNight=true;
+                    _this.animateIn();
+                    console.log('outnightTime');
+                    $(".timeout").show().animate({"opacity":1},200,function () {
+                        _this.outNightTime=true;
+                    });
+
                 }
             },
             checkIn:function (type) {
@@ -178,14 +225,9 @@
                             }
                         });
                         _this.isShowResult=true;
-                        $(".init_record").stop().animate({"opacity":0},200,function () {
-                            $(this).hide();
-                        });
+
+                        _this.animateIn();
                         $(".result").show().stop().animate({"opacity":1},200);
-
-                        $(".date_info").animate({"backgroundColor":"#4e4c73"},200);
-
-                        $(".nightbg .date_info").addClass("ngihttop")
                         if (type==3){
                             _this.isNight=true;
                         }
@@ -193,6 +235,13 @@
 
                     }
                 });
+            },
+            animateIn:function () {
+                console.log('animateIn');
+                $(".init_record").stop().animate({"opacity":0},300,function () {
+                    $(this).hide();
+                });
+
             },
 
             //是否在打卡时间内
@@ -325,11 +374,12 @@
 </script>
 <style>
     .main_record{position: relative}
-    .init_record,.result{ position: absolute; top:0; left:0; width: 100%; z-index: 2}
-    .result{   display: none; opacity: 0; top:-33px}
+    .init_record,.result{ position: absolute; bottom:0; left:0; width: 100%; z-index: 2}
+    .result{   display: none; opacity: 0; bottom:0; height: 100%
+    }
     .bgw{ background: #fff !important;}
     .nightbg{ color:#f4f4f7 !important}
-    .nightbg .result .bottom1{ background:url(../images/nightbg.png) no-repeat;background-size: 100% 100%;}
+    .nightbg .result .bottom1{ background:url(../images/nightbg.png) no-repeat;background-size: 100% 100%; height: 100%}
     .nightbg .record_time,.nightbg .next,.nightbg .record_compare  { color:#f4f4f7 }
 
     .nightbg .date_right , .nightbg .date{color:#cececd}
@@ -389,16 +439,16 @@
 
     .date_info {
         height: 70px;
-        background-color: #fff;
+        background: #fff;
         border-radius: 10px;
         box-shadow: rgba(102, 102, 102, 0.2) 0px 3px 4px;
         overflow: hidden;
         position: absolute;
         width: 100%; z-index: 2;
-        top: -40px;
+        top: -38px;
     }
     .main_record{ position: absolute;
-        width: 100%; top:26px; z-index: 1}
+        width: 100%;  z-index: 1; height: 100%}
 
     .date {
         float: left;
@@ -509,7 +559,7 @@
     }
 
     .record_tx1 {
-        margin-top: 13.5%;
+        margin-top: 11.5%;
         font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
@@ -527,9 +577,9 @@
 
     .bottom1 {
         width: 100%;
-        background:url("../images/daybg.png") no-repeat;
-        background-size:100% 100% ;
-        padding-bottom: 1.52rem;
+        background:url("../images/daybg.png") no-repeat bottom center;
+        background-size:100% ;
+        height: 100%;
     }
 
     .record_time {
@@ -558,7 +608,8 @@
     .record_pic{
         width: 17.5px;
         height: 17.5px;
-        float: left;
+        display: inline-block;
+        vertical-align: middle;
     }
     .record_pic img{
         width: 100%;
@@ -569,12 +620,14 @@
         width: 50%;
         margin: 0 auto;
         margin-top: 50px;
+        text-align: center;
     }
     .doRecord{
         border-bottom:1px solid rgba(102,102,102,1) ;
         text-align: center;
-        width: 85%;
-        float: left;
+
+        display: inline-block;
+        vertical-align: middle;
     }
     .finish{
         width: 105px;
@@ -584,6 +637,59 @@
         border: 1px solid rgba(190,190,190,1);
         text-align: center;
         margin: 0 auto;
-        margin-top:38px;
+        margin-top:32px
     }
+
+
+
+    .record_text2 {
+        font-size: 0.78rem;
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .timeout {
+        width: 100%;
+        padding-bottom: 1.52rem;
+        text-align: center;  position: absolute;
+        bottom:0;left:0
+     }
+    .timeout.night_time_out .re_text1,.timeout.night_time_out .ealy_time,.timeout.night_time_out .re_text2,.timeout.night_time_out .re_text1 { color:#ccc;}
+    .timeout.night_time_out .doRecord{border-bottom: 1px solid #ccc}
+
+
+    .re_text1 {
+        padding-top: 1.47rem;
+        text-align: center;
+        font-size: 1.05rem;
+        color: rgba(165, 165, 165, 1);
+    }
+
+    .jiantou {
+        width: 16px;
+        height: 12.5px;
+        background: url("../images/record_jt.png") no-repeat;
+        background-size: cover;
+        margin: 0 auto;
+        margin-top: 15px;
+    }
+
+    .ealy_time {
+        margin-top: 0.88rem;
+        text-align: center;
+        font-size: 2.11rem;
+        color: rgba(165, 165, 165, 1);
+        line-height:1;
+    }
+
+    .re_text2 {
+        font-size: 0.7rem;
+        color: rgba(128, 126, 126, 1);
+        margin-top: 23px;
+        text-align: center;
+    }
+    .night_time_out{ opacity: 0;   }
+    .nightbg{background: #66617e}
 </style>
