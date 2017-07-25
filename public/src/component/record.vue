@@ -30,20 +30,36 @@
                             </div>
                         </a>
                     </div>
-                    <div class="record_tx1">21天可以养成一个好习惯</div>
-                    <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
+                    <div class="record_tx1">坚持21天A计划</div>
+                    <div class="record_tx2">遇见更好的自己</div>
                 </div>
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
-                        <div class="next"><img src="../images/good.png"/>连续早起{{result.data.continuousDays}}天</div>
-                        <div class="record_compare">{{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早</div>
-                        <div class="record_text" @click="write">
-                            <div class="record_pic"><img src="../images/record.png"></div>
-                            <div class="doRecord">早安，今天的小目标是...</div>
+                        <div class="next" v-if="result.data.type==2"><img src="../images/good.png"/>连续早起{{result.data.continuousDays}}天
+                        </div>
+                        <div class="next" v-if="result.data.type==3"><img src="../images/good.png"/>连续早睡{{result.data.continuousDays}}天
+                        </div>
+                        <div class="record_compare" v-if="result.data.type==2">
+                            {{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早
+                        </div>
+                        <div class="record_compare" v-if="result.data.type==3">
+                            {{result.allCount}}人正在参加，比{{result.earlyPer}}%的人睡的早
+                        </div>
+                        <div class="record_fx">
+                            <div class="record_inmid">
+                                <div class="record_share" :class="{night_share:result.data.type==3}">分享成就</div>
+                                <div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>
+                            </div>
+                        </div>
+                        <div class="record_bottom" @click="write">
+                            <div class="record_pic"><img src="../images/record_ss.png" v-if="result.data.type==3">
+                                <img src="../images/record_record1.png" v-if="result.data.type==2"></div>
+                            <div class="doRecord" v-if="result.data.type==2">向新的一天问好</div>
+                            <div class="doRecord" v-if="result.data.type==3">今日小成就</div>
                             <div style="clear: both;"></div>
                         </div>
-                        <div class="finish" @click="finish">完成</div>
+                        <!--<div class="finish" @click="finish">完成</div>-->
                     </div>
                 </div>
 
@@ -57,13 +73,13 @@
                     <div class="re_text2" v-if="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
                     <div class="record_text2" @click="write">
-                        <div class="record_pic"><img src="../images/record.png"></div>
+                        <div class="record_pic"><img src="../images/record_ss.png"></div>
                         <div class="doRecord" v-if="outMorningTime">不忘初心</div>
-                        <div class="doRecord" v-if="outNightTime">什么让你如此忘我的熬夜?</div>
+                        <div class="doRecord" v-if="outNightTime">为啥熬夜</div>
                         <div style="clear: both;"></div>
                     </div>
-                    <div class="finish" @click="back" v-if="outMorningTime">我知道了</div>
-                    <div class="finish" @click="back" v-if="outNightTime">早点睡啦</div>
+                    <!--<div class="finish" @click="back" v-if="outMorningTime">我知道了</div>-->
+                    <!--<div class="finish" @click="back" v-if="outNightTime">早点睡啦</div>-->
                 </div>
 
             </div>
@@ -145,7 +161,7 @@
                 result: {
                     allCount: 0,
                     earlyPer: 0,
-                    data: {hour: 0, minute: 0, id: 0}
+                    data: {hour: 0, minute: 0, id: 0, type: 2}
                 },
                 record: '',
                 isShowResult: false
@@ -168,13 +184,13 @@
             },
 
             write: function () {
-                let type=2;
-                if(this.isNight==true){
-                    type=3;
+                let type = 2;
+                if (this.isNight == true) {
+                    type = 3;
                 }
-                let parm = '?type='+type;
+                let parm = '?type=' + type;
                 if (this.result.data.id != 0) {
-                    parm  += "&id=" + this.result.data.id
+                    parm += "&id=" + this.result.data.id
                 }
                 this.$router.push("/write" + parm)
             },
@@ -232,7 +248,7 @@
                     console.log(response);
                     if (response.data.status === 1) {
                         _this.result.data = response.data.data;
-                        let time = new Date(response.data.data.time);
+                        let time = new Date(response.data.data.time*1000);
                         _this.result.data.hour = time.getHours();
                         _this.result.data.minute = time.getMinutes();
 
@@ -303,6 +319,10 @@
                     }
                 })
             },
+            goRank:function () {
+                this.$router.push("/clock?type="+this.result.data.type)
+
+            }
         },
         mounted: function () {
             let _this = this;
@@ -335,7 +355,7 @@
                     _this.MORNING_FROM_TIME = data.body.data.getUpConfig.starttime;
                     _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
                     _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
-                    _this.NIGHT_END_TIME =data.body.data.goBedConfig.endtime;
+                    _this.NIGHT_END_TIME = data.body.data.goBedConfig.endtime;
                 }
             }, function (error) {
 
@@ -434,7 +454,7 @@
         color: #f4f4f7 !important
     }
 
-    .nightbg .result .bottom1 {
+    .nightbg .timeout ,.nightbg .result .bottom1 {
         background: url(../images/nightbg.png) no-repeat;
         background-size: 100% 100%;
         height: 100%
@@ -443,13 +463,11 @@
     .nightbg .record_time, .nightbg .next, .nightbg .record_compare {
         color: #f4f4f7
     }
-
+    .nightbg .record_bottom,  .nightbg .timeout .record_text2{
+     background-color: #4e4c73;
+ }
     .nightbg .date_right, .nightbg .date, .nightbg .weather {
         color: #cececd
-    }
-
-    .nightbg .doRecord {
-        border-bottom: 1px solid #fff
     }
 
     .record, .record_box {
@@ -540,7 +558,7 @@
         font-size: 0.7rem;
         color: #666666;
         position: absolute;
-        left: 17%;
+        left: 18%;
         top: 50%;
         margin-top: -1rem;
     }
@@ -557,7 +575,7 @@
         float: right;
         font-size: 18px;
         margin-left: 10px;
-        margin-top: 19px;
+        margin-top: 21px;
     }
 
     .weather_pic {
@@ -577,7 +595,7 @@
         font-size: 12px;
         margin-left: 10px;
         margin-right: 12px;
-        margin-top: 14px;
+        margin-top: 16px;
 
     }
 
@@ -606,6 +624,42 @@
 
     .record_left {
         float: left;
+    }
+    .record_fx{
+        text-align: center;
+        margin-top: 55px;
+    }
+    .record_rank,.record_share{
+        float: left;
+        background: url("../images/record_share.png") no-repeat; height: 20px;
+        background-size: 20px;
+        padding-top: 4px;
+        padding-left: 26px;
+        margin: 0 10px;
+    }
+    .record_rank{
+        float: right;
+        background: url("../images/record_rank.png") no-repeat;
+        background-size: 20px;
+    }
+
+    .record_share.night_share{
+        background: url("../images/record_share1.png") no-repeat;
+        background-size: 20px;
+    }
+    .record_rank.night_rank{
+        background: url("../images/record_rank1.png") no-repeat;
+        background-size: 20px;
+    }
+
+
+    .record_inmid{
+        display: inline-block;
+        font-size: 12px;
+    }
+    .record_fx img{
+        width: 21.5px;
+        margin-right: 10px;
     }
 
     .morning {
@@ -649,7 +703,6 @@
         font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
-        padding-bottom: 5rem;
     }
 
     .recorded {
@@ -666,7 +719,8 @@
     .record_time {
         text-align: center;
         font-size: 1.82rem;
-        padding-top: 50px;
+        padding-top: 80px;
+        line-height: 1;
         color: rgba(102, 102, 102, 1);
     }
 
@@ -686,33 +740,34 @@
         text-align: center;
         font-size: 0.70rem;
         color: rgba(101, 103, 101, 1);
-        margin-top: 25px;
+        margin-top: 22px;
     }
 
     .record_pic {
         width: 17.5px;
         height: 17.5px;
         display: inline-block;
-        vertical-align: middle;
     }
 
     .record_pic img {
         width: 100%;
-
+        vertical-align: middle;
     }
 
-    .record_text {
-        font-size: 0.78rem;
-        width: 50%;
-        margin: 0 auto;
-        margin-top: 50px;
+    .record_bottom {
+        font-size: 0.88rem;
+        width: 100%;
         text-align: center;
+        background-color: rgba(137, 181, 250, 1);
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        height:40px;
+        padding-top:10px;
     }
 
     .doRecord {
-        border-bottom: 1px solid rgba(102, 102, 102, 1);
         text-align: center;
-
         display: inline-block;
         vertical-align: middle;
     }
@@ -729,36 +784,36 @@
     }
 
     .record_text2 {
-        font-size: 0.78rem;
-        width: 50%;
-        margin: 0 auto;
+        font-size: 0.88rem;
+        width: 100%;
         text-align: center;
-        margin-top: 30px;
+        background-color: rgba(137, 181, 250, 1);
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        height:40px;
+        padding-top:10px;
     }
 
     .timeout {
         width: 100%;
-        padding-bottom: 1.52rem;
         text-align: center;
-        position: absolute;
-        bottom: 0;
-        left: 0;
         opacity: 0;
+        background: url("../images/daybg.png") no-repeat bottom center;
+        background-size: 100%;
     }
 
     .timeout.night_time_out .re_text1, .timeout.night_time_out .ealy_time, .timeout.night_time_out .re_text2, .timeout.night_time_out .re_text1 {
         color: #ccc;
     }
 
-    .timeout.night_time_out .doRecord {
-        border-bottom: 1px solid #ccc
-    }
 
     .re_text1 {
         padding-top: 1.47rem;
         text-align: center;
         font-size: 1.05rem;
         color: rgba(165, 165, 165, 1);
+        padding-top: 78px;
     }
 
     .jiantou {
