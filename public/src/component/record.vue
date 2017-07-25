@@ -31,7 +31,7 @@
                         </a>
                     </div>
                     <div class="record_tx1">21天可以养成一个好习惯</div>
-                    <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
+                    <div class="record_tx2">可以让你遇到一个更好的自己</div>
                 </div>
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1"  >
@@ -484,7 +484,7 @@
         font-size: 0.7rem;
         color: #666666;
         position: absolute;
-        left: 17%;
+        left: 18%;
         top: 50%;
         margin-top: -1rem;
     }
@@ -499,14 +499,15 @@
 
     .weather .current {
         float: right;
-        font-size: 18px; margin-left: 10px;
-        margin-top: 19px;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-top: 22px;
     }
 
     .weather_pic {
         width: 42px;
         height: 30px;
-        float: right; margin-top: 20px;
+        float: right; margin-top: 21px;
     }
 
     .weather_pic img {
@@ -514,12 +515,12 @@
     }
 
     .weather_info {
-        text-align: right;
+        text-align: center;
         float: right;
         font-size: 12px;
         margin-left: 10px;
         margin-right: 12px;
-        margin-top: 14px;
+        margin-top: 16px;
 
     }
 
@@ -586,7 +587,7 @@
     }
 
     .record_tx2 {
-        margin-top: 2%;
+        margin-top: 1%;
         font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
