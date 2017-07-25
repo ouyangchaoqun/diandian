@@ -569,7 +569,7 @@
                 that.placeholder = '在遇见更好自己的列车上，没有晚点，写下目标即刻出发！'
             }if(that.type==3&&that.withId==''){
                 that.placeholder = '晚安之前，记录下今天的小成就和明天最想做的事情吧~'
-            }else {
+            }if(that.type==3&&that.withId!=='') {
                 that.placeholder = '是什么让你如此忘我熬夜呀~'
             }
             Bus.$on("closeFunnyWindow", function () {

@@ -237,7 +237,7 @@
                     _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':mood.type,'withId':mood.id}).then(response => {
                         if(response.data.status===1){
                             _this.allRankList[index].careCount= response.data.data;
-                            _this.$set(_this.allRankList, index, _this.allRankList[index]);
+                           /* _this.$set(_this.allRankList, index, _this.allRankList[index]);*/
                             _this.myInFriendRank[index].careCount= response.data.data;
                             _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
                             /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
