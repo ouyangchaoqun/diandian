@@ -1,41 +1,41 @@
 <template id="clock">
-    <div :class="{'clock_box':true,'clock_boxNight':recordType}">
-        <div :class="{'clock_top':true,'clock_topNight':recordType}">
+    <div :class="{'clock_box':true,'clock_boxNight':isNight}">
+        <div :class="{'clock_top':true,'clock_topNight':isNight}">
             <div class="clock_head">
-                <img :src="myRank.faceUrl" alt="">
+                <img :src="user.faceUrl" alt="">
             </div>
-            <div :class="{'clock_count':true,'clock_countNight':recordType}">
-                <div :class="{'clock_lists':true,'clock_listsNight':recordType}">
+            <div :class="{'clock_count':true,'clock_countNight':isNight}">
+                <div :class="{'clock_lists':true,'clock_listsNight':isNight}">
                     <div>
                         <p>起床时间</p>
                         <div>{{myRank.time}}</div>
                     </div>
                     <div>
                         <p>连续天数</p>
-                        <div>XX</div>
+                        <div>{{continueDay}}</div>
                     </div>
                     <div>
                         <p>打卡天数</p>
-                        <div>XX</div>
+                        <div>{{allDay}}</div>
                     </div>
                 </div>
-                <div class="clock_ratio">32444人正在参加，你比70%的人都起的早。</div>
+                <div class="clock_ratio">{{allCount}}人正在参加，你比{{earlyPer}}%的人都起的早。</div>
             </div>
         </div>
 
-        <div :class="{'clock_tab':true,'clock_tabNight':recordType}">
+        <div :class="{'clock_tab':true,'clock_tabNight':isNight}">
             <div >好友排行</div>
             <div class="clock_tabActive">总排行</div>
         </div>
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
                 <div class="clock_rank">
-                    <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':recordType}">
-                        <span :class="{'rank_cup':true,'rank_cupNight':recordType}">{{myRank.rank}}</span>
+                    <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
+                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="myRank.faceUrl" alt="">
                             <div class="rank_name">{{myRank.nickName}}</div>
-                            <div :class="{'rank_right':true,'rank_rightNight':recordType}">
+                            <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                 <div class="clock_time">{{myRank.time}}</div>
                                 <div>
                                     <span>2</span>
@@ -45,15 +45,15 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':recordType}" v-for="(rankList,index) in myInFriendRank">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(rankList,index) in myInFriendRank">
                             <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
                             <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">
-                            <span :class="{'rank_cup':true,'rank_cupNight':recordType}" v-if="index>2">{{index+1}}</span>
-                            <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':recordType}">
+                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}" v-if="index>2">{{index+1}}</span>
+                            <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':isNight}">
                                 <img class="rank_headImg" :src="rankList.faceUrl" alt="">
                                 <div class="rank_name">{{rankList.nickName}}</div>
-                                <div :class="{'rank_right':true,'rank_rightNight':recordType}">
+                                <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                     <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{rankList.time}}</div>
                                     <div>
                                         <span>2</span>
@@ -68,12 +68,12 @@
                 </div>
                 <!--总排行-->
                 <div class="clock_rank">
-                    <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':recordType}">
-                        <span :class="{'rank_cup':true,'rank_cupNight':recordType}">{{allRank.rank}}</span>
+                    <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
+                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="allRank.faceUrl" alt="">
                             <div class="rank_name">{{allRank.nickName}}</div>
-                            <div :class="{'rank_right':true,'rank_rightNight':recordType}">
+                            <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                 <div class="clock_time">{{allRank.time}}</div>
                                 <div>
                                     <span>2</span>
@@ -83,15 +83,15 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':recordType}" v-for="(allRannList,index) in allRankList">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(allRannList,index) in allRankList">
                             <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
                             <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">
-                            <span :class="{'rank_cup':true,'rank_cupNight':recordType}" v-if="index>2">{{index+1}}</span>
-                            <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':recordType}">
+                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}" v-if="index>2">{{index+1}}</span>
+                            <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':isNight}">
                                 <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
                                 <div class="rank_name">{{allRannList.nickName}}</div>
-                                <div :class="{'rank_right':true,'rank_rightNight':recordType}">
+                                <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                     <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{allRannList.time}}</div>
                                     <div>
                                         <span>2</span>
@@ -119,37 +119,77 @@
                 myInFriendRank:[],
                 allRank:'',
                 allRankList:[],
-                recordType:false
+                isNight:false,
+                continueDay:0,
+                allDay:0,
+                earlyPre:0,
+                allCount:0
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         beforeCreate: function () {
             console.log("beforeCreate")
-            //let _this = this;
+            let _this = this;
             //var subsid = _this.$route.params.id;
-           /* var typeId = 2;
-            var clockDay = 21;
-            var clockMonth = 7;
-            var clockYear = 2017;*/
+            let   time=new   Date();
+            var typeId = _this.$route.query.type;
+            var clockDay = time.getDate();
+            var clockMonth =time.getMonth()+1;
+            var clockYear = time.getFullYear();
+
+
+
+
+            _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+typeId+'').then(data => {
+                if(data.data.status===1){
+                    _this.allDay= data.data.data;
+                }
+            });
+            _this.$http.get(web.API_PATH+'record/sleep/get/continue/day/count/_userId_/'+typeId+'').then(data => {
+                if(data.data.status===1){
+                    _this.continueDay= data.data.data;
+                }
+            });
+
+            _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+typeId+'').then(data => {
+                if(data.data.status===1){
+                    _this.allCount=data.data.data;
+                }
+            });
+            _this.$http.get(web.API_PATH+'record/sleep/get/early/per/_userId_/'+typeId+'').then(data => {
+                if(data.data.status===1){
+                    _this.earlyPer=data.data.data.toFixed(2);
+                }
+            });
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + "sleep/daily/relation/rank/2/1273/5/21/7/2017",
+                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
-                //console.log(data)
-                this.myRank = data.data.data.userRank;
-                this.myInFriendRank = data.data.data.allRank;
+                console.log(data)
+                _this.myRank = data.data.data.userRank;
+                _this.myInFriendRank = data.data.data.allRank;
             }, function (data) {
             });
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + "sleep/daily/rank/2/1273/5/21/7/2017",
+                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 console.log(data)
-                this.allRank = data.data.data.userRank;
-                this.allRankList = data.data.data.allRank;
+                _this.allRank = data.data.data.userRank;
+                _this.allRankList = data.data.data.allRank;
             }, function (data) {
             });
         },
         mounted:function () {
+            var typeId = this.$route.query.type;
+            if(typeId==3){
+                console.log("rrrrr333333")
+                this.isNight= true;
+            }
             $('.clock_tab div').on('touchstart mousedown',function () {
                 $('.clock_tab div').removeClass('clock_tabActive');
                 $(this).addClass('clock_tabActive');
