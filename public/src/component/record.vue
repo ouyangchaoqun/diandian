@@ -31,16 +31,16 @@
                         </a>
                     </div>
                     <div class="record_tx1">21天可以养成一个好习惯</div>
-                    <div class="record_tx2">可以让你遇到一个更好的自己</div>
+                    <div class="record_tx2">21天的坚持可以让你遇到一个更好的自己</div>
                 </div>
                 <div class="result" :class="{goShow:isShowResult}">
-                    <div class="bottom1"  >
+                    <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
                         <div class="next"><img src="../images/good.png"/>连续早起{{result.data.continuousDays}}天</div>
                         <div class="record_compare">{{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早</div>
                         <div class="record_text" @click="write">
                             <div class="record_pic"><img src="../images/record.png"></div>
-                            <div  class="doRecord">早安，今天的小目标是...</div>
+                            <div class="doRecord">早安，今天的小目标是...</div>
                             <div style="clear: both;"></div>
                         </div>
                         <div class="finish" @click="finish">完成</div>
@@ -52,14 +52,14 @@
                     <div class="re_text1" v-if="outMorningTime">早起时间</div>
                     <div class="re_text1" v-if="outNightTime">早睡时间</div>
                     <div class="jiantou"></div>
-                    <div class="ealy_time" v-if="outMorningTime">05:00-10:00</div>
-                    <div class="ealy_time" v-if="outNightTime">20:00-24:00</div>
+                    <div class="ealy_time" v-if="outMorningTime">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</div>
+                    <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
                     <div class="re_text2" v-if="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
                     <div class="record_text2" @click="write">
                         <div class="record_pic"><img src="../images/record.png"></div>
-                        <div class="doRecord"  v-if="outMorningTime">不忘初心</div>
-                        <div  class="doRecord"  v-if="outNightTime">是什么让你如此忘我的熬夜?</div>
+                        <div class="doRecord" v-if="outMorningTime">不忘初心</div>
+                        <div class="doRecord" v-if="outNightTime">什么让你如此忘我的熬夜?</div>
                         <div style="clear: both;"></div>
                     </div>
                     <div class="finish" @click="back" v-if="outMorningTime">我知道了</div>
@@ -75,7 +75,7 @@
                         <p>{{year}}年{{month+1}}月</p>
                     </div>
                 </div>
-                <div class="weather"  >
+                <div class="weather">
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
                         <p>{{weather.temperature}}</p>
@@ -94,13 +94,13 @@
 
                     <div class="current">38C</div>
                     <div class="weather_pic">
-                        <img v-if="(hour>=6&&hour<=18)&&!isNight" src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
-                        <img v-if="(hour<6||hour>18)||isNight" src="http://api.map.baidu.com/images/weather/night/zhenyu.png"/>
+                        <img v-if="(hour>=6&&hour<=18)&&!isNight"
+                             src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
+                        <img v-if="(hour<6||hour>18)||isNight"
+                             src="http://api.map.baidu.com/images/weather/night/zhenyu.png"/>
                     </div>
                 </div>
             </div>
-
-
 
 
         </div>
@@ -117,11 +117,11 @@
         },
         data(){
             return {
-                linkTo:"#",
+                linkTo: "#",
                 day: 30,
                 month: 12,
                 year: 2017,
-                isNight:false,
+                isNight: false,
                 weeks: [
                     {week: '日'},
                     {week: '一'},
@@ -134,155 +134,158 @@
                 hour: 15,
                 week: '',
                 weather: {},
-                MORNING_FROM_TIME:'5:0',
-                MORNING_END_TIME:'10:0',
-                NIGHT_FROM_TIME:'20:0',
-                NIGHT_END_TIME:'23:59',
-                outMorningTime:false,
-                outNightTime:false,
-                isGetUp:false,
-                isGoBed:false,
-                result:{
-                    allCount:0,
-                    earlyPer:0,
-                    data:{hour:0,minute:0,id:0}
+                MORNING_FROM_TIME: '5:00',
+                MORNING_END_TIME: '10:00',
+                NIGHT_FROM_TIME: '20:00',
+                NIGHT_END_TIME: '23:59',
+                outMorningTime: false,
+                outNightTime: false,
+                isGetUp: false,
+                isGoBed: false,
+                result: {
+                    allCount: 0,
+                    earlyPer: 0,
+                    data: {hour: 0, minute: 0, id: 0}
                 },
                 record: '',
-                isShowResult:false
+                isShowResult: false
 
             }
         },
         methods: {
-            back:function () {
-                let _this=this;
-                $(".timeout").animate({opacity:0},200);
-                $(".init_record").show().animate({opacity:1},200,function () {
-                    _this.outNightTime=false;
-                    _this.outMorningTime=false;
+            back: function () {
+                let _this = this;
+                $(".timeout").animate({opacity: 0}, 200);
+                $(".init_record").show().animate({opacity: 1}, 200, function () {
+                    _this.outNightTime = false;
+                    _this.outMorningTime = false;
                 });
 
-                this.isNight=false;
+                this.isNight = false;
             },
-            finish:function () {
-                this.$router.push("/clock?type="+this.result.data.type)
+            finish: function () {
+                this.$router.push("/clock?type=" + this.result.data.type)
             },
 
-            write:function () {
-                let parm='';
-                if(this.result.data.id!=0){
-                    parm="?id="+this.result.data.id
+            write: function () {
+                let type=2;
+                if(this.isNight==true){
+                    type=3;
                 }
-                this.$router.push("/write"+parm)
+                let parm = '?type='+type;
+                if (this.result.data.id != 0) {
+                    parm  += "&id=" + this.result.data.id
+                }
+                this.$router.push("/write" + parm)
             },
-            morning:function () {
-                let _this =this;
-                if(_this.isGetUp==true){
-                   _this.$router.push("/clock?type=2")
+            morning: function () {
+                let _this = this;
+                if (_this.isGetUp == true) {
+                    _this.$router.push("/clock?type=2")
                 }
-                if(this.isRecordTime(this.MORNING_FROM_TIME,this.MORNING_END_TIME)){
+                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
                     this.checkIn(2);
-                }else{
+                } else {
                     console.log('outMorningTime');
                     _this.animateIn();
-                    _this.outMorningTime=true;
-                    $(".timeout").show().animate({"opacity":1},200,function () {
+                    _this.outMorningTime = true;
+                    $(".timeout").show().animate({"opacity": 1}, 200, function () {
 
                     });
 
                 }
 
             },
-            night:function () {
-                let _this =this;
-                if(_this.isGoBed==true){
+            night: function () {
+                let _this = this;
+                if (_this.isGoBed == true) {
                     _this.$router.push("/clock?type=3")
-                    return ;
+                    return;
                 }
 
-                if(this.isRecordTime(this.NIGHT_FROM_TIME,this.NIGHT_END_TIME)){
+                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)) {
                     this.checkIn(3);
-                }else{
+                } else {
                     console.log('outnightTime');
-                    _this.isNight=true;
+                    _this.isNight = true;
                     _this.animateIn();
                     console.log('outnightTime');
-                    _this.outNightTime=true;
-                    $(".timeout").show().animate({"opacity":1},200,function () {
+                    _this.outNightTime = true;
+                    $(".timeout").show().animate({"opacity": 1}, 200, function () {
 
                     });
                     $(".date_info").addClass("ngihttop")
 
                 }
             },
-            checkIn:function (type) {
+            checkIn: function (type) {
                 let _this = this;
-                let weather ='';
-                if(_this.weather.weather!=undefined){
-                    weather +=_this.weather.weather;
+                let weather = '';
+                if (_this.weather.weather != undefined) {
+                    weather += _this.weather.weather;
                 }
-                if(_this.weather.current!=undefined){
-                    weather += " " +_this.weather.current;
+                if (_this.weather.current != undefined) {
+                    weather += " " + _this.weather.current;
                 }
 
-                _this.$http.put(web.API_PATH+'sleep/checkin/'+type+'/_userId_',{"weather":weather}).then(response => {
+                _this.$http.put(web.API_PATH + 'sleep/checkin/' + type + '/_userId_', {"weather": weather}).then(response => {
                     console.log(response);
-                    if(response.data.status===1){
+                    if (response.data.status === 1) {
                         _this.result.data = response.data.data;
-                        let   time=new   Date(response.data.data.time);
-                        _this.result.data.hour=time.getHours();
-                        _this.result.data.minute=time.getMinutes();
+                        let time = new Date(response.data.data.time);
+                        _this.result.data.hour = time.getHours();
+                        _this.result.data.minute = time.getMinutes();
 
 
-                        _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+type+'').then(data => {
-                            if(data.data.status===1){
-                                _this.result.allCount=data.data.data;
+                        _this.$http.get(web.API_PATH + 'record/sleep/all/user/count/' + type + '').then(data => {
+                            if (data.data.status === 1) {
+                                _this.result.allCount = data.data.data;
                             }
                         });
-                        _this.$http.get(web.API_PATH+'record/sleep/get/early/per/_userId_/'+type+'').then(data => {
-                            if(data.data.status===1){
-                                _this.result.earlyPer=data.data.data.toFixed(2);
+                        _this.$http.get(web.API_PATH + 'record/sleep/get/early/per/_userId_/' + type + '').then(data => {
+                            if (data.data.status === 1) {
+                                _this.result.earlyPer = data.data.data.toFixed(2);
                             }
                         });
-                        _this.isShowResult=true;
+                        _this.isShowResult = true;
 
                         _this.animateIn();
-                        $(".result").show().stop().animate({"opacity":1},200);
-                        if (type==3){
-                            _this.isNight=true;
+                        $(".result").show().stop().animate({"opacity": 1}, 200);
+                        if (type == 3) {
+                            _this.isNight = true;
                         }
 
 
                     }
                 });
             },
-            animateIn:function () {
+            animateIn: function () {
                 console.log('animateIn');
-                $(".init_record").stop().animate({"opacity":0},300,function () {
+                $(".init_record").stop().animate({"opacity": 0}, 300, function () {
                     $(this).hide();
                 });
 
             },
 
             //是否在打卡时间内
-            isRecordTime:function (fromTime,endTime) {
-                let startTime=parseInt( fromTime.split(":")[0])*60+parseInt(fromTime.split(":")[1]);
-                endTime=parseInt( endTime.split(":")[0])*60+parseInt(endTime.split(":")[1]);
+            isRecordTime: function (fromTime, endTime) {
+                let startTime = parseInt(fromTime.split(":")[0]) * 60 + parseInt(fromTime.split(":")[1]);
+                endTime = parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1]);
                 let mydate = new Date();
                 //打卡时间
-                let _r =false;
-                if(startTime<=mydate.getHours()*60+mydate.getMinutes()&&mydate.getHours()*60+mydate.getMinutes()<=endTime){
+                let _r = false;
+                if (startTime <= mydate.getHours() * 60 + mydate.getMinutes() && mydate.getHours() * 60 + mydate.getMinutes() <= endTime) {
                     _r = true;
-                }else{//非打卡时间
+                } else {//非打卡时间
                     _r = false;
                 }
                 return _r;
             },
 
 
-
-            goIndex:function () {
-                if(window.history.length>=2){
-                    this.$router.go(0-window.history.length+1)
+            goIndex: function () {
+                if (window.history.length >= 2) {
+                    this.$router.go(0 - window.history.length + 1)
                 }
                 this.$router.replace('/');
             },
@@ -304,8 +307,8 @@
         mounted: function () {
             let _this = this;
             xqzs.wx.setConfig(_this);
-            let  w= $("body").width();
-            $(".record_box").height(w*684/750);
+            let w = $("body").width();
+            $(".record_box").height(w * 684 / 750);
 
             //获取当前时间
             var mydate = new Date();
@@ -318,17 +321,22 @@
             console.log(_this.week);
 
 
-
             //是否打卡
             _this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + "record/sleep/get/is/record/_userId_" ,
+                url: web.API_PATH + "record/sleep/get/is/record/_userId_",
             }).then(function (data) {
-                  if(data.body.status==1){
-                      _this.isGetUp=data.body.data.isGetUp;
-                      _this.isGoBed=data.body.data.isGoBed;
-                  }
+                if (data.body.status == 1) {
+                    _this.isGetUp = data.body.data.isGetUp;
+                    _this.isGoBed = data.body.data.isGoBed;
+
+
+                    _this.MORNING_FROM_TIME = data.body.data.getUpConfig.starttime;
+                    _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
+                    _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
+                    _this.NIGHT_END_TIME =data.body.data.goBedConfig.endtime;
+                }
             }, function (error) {
 
             });
@@ -356,7 +364,7 @@
                                     _this.weather = data.body.results[0].weather_data[0];
                                     let s = _this.weather.date;
                                     _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
-                                    _this.weather.temperature= _this.weather.temperature.replace("~", "/").trim();
+                                    _this.weather.temperature = _this.weather.temperature.replace("~", "/").trim();
                                     console.log(_this.weather);
                                 }, function (error) {
                                     //error
@@ -391,38 +399,80 @@
 
 </script>
 <style>
-    .main_record{position: relative}
-    .init_record,.result{ position: absolute; bottom:0; left:0; width: 100%; z-index: 2}
-    .result{   display: none; opacity: 0; bottom:0; height: 100%
+    .go_record .img:active {
+        background: red
     }
-    .bgw{ background: #fff !important;}
-    .nightbg{ color:#f4f4f7 !important}
-    .nightbg .result .bottom1{ background:url(../images/nightbg.png) no-repeat;background-size: 100% 100%; height: 100%}
-    .nightbg .record_time,.nightbg .next,.nightbg .record_compare  { color:#f4f4f7 }
 
-    .nightbg .date_right , .nightbg .date, .nightbg .weather{color:#cececd}
-    .nightbg .doRecord{ border-bottom: 1px solid #fff}
+    .main_record {
+        position: relative
+    }
+
+    .init_record, .result {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2
+    }
+
+    .init_record {
+        position: relative
+    }
+
+    .result {
+        display: none;
+        opacity: 0;
+        bottom: 0;
+        height: 100%
+    }
+
+    .bgw {
+        background: #fff !important;
+    }
+
+    .nightbg {
+        color: #f4f4f7 !important
+    }
+
+    .nightbg .result .bottom1 {
+        background: url(../images/nightbg.png) no-repeat;
+        background-size: 100% 100%;
+        height: 100%
+    }
+
+    .nightbg .record_time, .nightbg .next, .nightbg .record_compare {
+        color: #f4f4f7
+    }
+
+    .nightbg .date_right, .nightbg .date, .nightbg .weather {
+        color: #cececd
+    }
+
+    .nightbg .doRecord {
+        border-bottom: 1px solid #fff
+    }
 
     .record, .record_box {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
-    .nightbg .date_info{ background: #4e4c73 ;}
 
-    .ngihttop{
+    .nightbg .date_info {
+        background: #4e4c73;
+    }
+
+    .ngihttop {
         animation-name: gonight;
         animation-duration: .4s;
     }
 
     @keyframes gonight {
-        0%{
-            background: #fff ;
+        0% {
+            background: #fff;
         }
         100% {
-            background: #4e4c73 ;
+            background: #4e4c73;
         }
     }
-
-
 
     .moodBox_bg {
         position: absolute;
@@ -456,17 +506,23 @@
     }
 
     .date_info {
-        height: 70px;
+        height: 4.11764rem;
         background: #fff;
         border-radius: 10px;
         box-shadow: rgba(102, 102, 102, 0.2) 0px 3px 4px;
         overflow: hidden;
         position: absolute;
-        width: 100%; z-index: 2;
-        top: -38px;
+        width: 100%;
+        z-index: 2;
+        top: -1.764705rem;
     }
-    .main_record{ position: absolute;
-        width: 100%;  z-index: 1; height: 100%}
+
+    .main_record {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        height: 100%
+    }
 
     .date {
         float: left;
@@ -474,7 +530,7 @@
     }
 
     .day {
-        line-height: 70px;
+        line-height: 4.11764rem;
         float: left;
         font-size: 2.35rem;
         margin-left: 7%;
@@ -484,7 +540,7 @@
         font-size: 0.7rem;
         color: #666666;
         position: absolute;
-        left: 18%;
+        left: 17%;
         top: 50%;
         margin-top: -1rem;
     }
@@ -494,20 +550,21 @@
         width: 49%;
         font-size: 0.7rem;
         text-align: right;
-        color:#666;
+        color: #666;
     }
 
     .weather .current {
         float: right;
         font-size: 18px;
         margin-left: 10px;
-        margin-top: 22px;
+        margin-top: 19px;
     }
 
     .weather_pic {
         width: 42px;
         height: 30px;
-        float: right; margin-top: 21px;
+        float: right;
+        margin-top: 20px;
     }
 
     .weather_pic img {
@@ -515,21 +572,22 @@
     }
 
     .weather_info {
-        text-align: center;
+        text-align: right;
         float: right;
         font-size: 12px;
         margin-left: 10px;
         margin-right: 12px;
-        margin-top: 16px;
+        margin-top: 14px;
 
     }
 
     .notes {
-        margin: 25px 25px 0px 25px;
+        padding: 3.47058823rem 1.47058823rem 0 1.47058823rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         text-align: center;
+
     }
 
     .go_record {
@@ -561,7 +619,7 @@
         color: #fff;
         background-color: #ecb47a;
         border-radius: 0px 0px 5px 5px;
-        font-size: 12px;
+        font-size: 0.7rem;
     }
 
     .night {
@@ -587,19 +645,21 @@
     }
 
     .record_tx2 {
-        margin-top: 1%;
+        margin-top: 2%;
         font-size: 0.70rem;
         text-align: center;
         color: #b9bdc0;
-        padding-bottom:5rem;
+        padding-bottom: 5rem;
     }
 
-    .recorded{background:#ecb47a;}
+    .recorded {
+        background: #ecb47a;
+    }
 
     .bottom1 {
         width: 100%;
-        background:url("../images/daybg.png") no-repeat bottom center;
-        background-size:100% ;
+        background: url("../images/daybg.png") no-repeat bottom center;
+        background-size: 100%;
         height: 100%;
     }
 
@@ -616,26 +676,31 @@
         color: rgba(102, 102, 102, 1);
         margin-top: 18px;
     }
-        .next img{
-            width:0.9rem;
-            margin-right: 2%;
-        }
+
+    .next img {
+        width: 0.9rem;
+        margin-right: 2%;
+    }
+
     .record_compare {
         text-align: center;
         font-size: 0.70rem;
         color: rgba(101, 103, 101, 1);
         margin-top: 25px;
     }
-    .record_pic{
+
+    .record_pic {
         width: 17.5px;
         height: 17.5px;
         display: inline-block;
         vertical-align: middle;
     }
-    .record_pic img{
+
+    .record_pic img {
         width: 100%;
 
     }
+
     .record_text {
         font-size: 0.78rem;
         width: 50%;
@@ -643,25 +708,25 @@
         margin-top: 50px;
         text-align: center;
     }
-    .doRecord{
-        border-bottom:1px solid rgba(102,102,102,1) ;
+
+    .doRecord {
+        border-bottom: 1px solid rgba(102, 102, 102, 1);
         text-align: center;
 
         display: inline-block;
         vertical-align: middle;
     }
-    .finish{
-        width: 105px;
-        height: 30px;
-        color: rgba(190,190,190,1);
-        border-radius:15px 15px 15px 15px;
-        border: 1px solid rgba(190,190,190,1);
+
+    .finish {
+        width: 6.17647rem;
+        height: 1.76470588rem;
+        color: rgba(190, 190, 190, 1);
+        border-radius: 15px 15px 15px 15px;
+        border: 1px solid rgba(190, 190, 190, 1);
         text-align: center;
         margin: 0 auto;
-        margin-top:32px
+        margin-top: 32px
     }
-
-
 
     .record_text2 {
         font-size: 0.78rem;
@@ -674,12 +739,20 @@
     .timeout {
         width: 100%;
         padding-bottom: 1.52rem;
-        text-align: center;  position: absolute;
-        bottom:0;left:0;opacity: 0;
-     }
-    .timeout.night_time_out .re_text1,.timeout.night_time_out .ealy_time,.timeout.night_time_out .re_text2,.timeout.night_time_out .re_text1 { color:#ccc;}
-    .timeout.night_time_out .doRecord{border-bottom: 1px solid #ccc}
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+    }
 
+    .timeout.night_time_out .re_text1, .timeout.night_time_out .ealy_time, .timeout.night_time_out .re_text2, .timeout.night_time_out .re_text1 {
+        color: #ccc;
+    }
+
+    .timeout.night_time_out .doRecord {
+        border-bottom: 1px solid #ccc
+    }
 
     .re_text1 {
         padding-top: 1.47rem;
@@ -702,7 +775,7 @@
         text-align: center;
         font-size: 2.11rem;
         color: rgba(165, 165, 165, 1);
-        line-height:1;
+        line-height: 1;
     }
 
     .re_text2 {
@@ -711,6 +784,12 @@
         margin-top: 23px;
         text-align: center;
     }
-    .night_time_out{ opacity: 0;   }
-    .nightbg{background: #66617e}
+
+    .night_time_out {
+        opacity: 0;
+    }
+
+    .nightbg {
+        background: #66617e
+    }
 </style>
