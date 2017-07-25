@@ -70,8 +70,8 @@
                     <div class="jiantou"></div>
                     <div class="ealy_time" v-if="outMorningTime">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</div>
                     <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
-                    <div class="re_text2" v-if="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
-                    <div class="re_text2" v-if="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
+                    <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
+                    <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
                     <div class="record_text2" @click="write">
                         <div class="record_pic"><img src="../images/record_ss.png"></div>
                         <div class="doRecord" v-if="outMorningTime">不忘初心</div>
@@ -164,7 +164,8 @@
                     data: {hour: 0, minute: 0, id: 0, type: 2}
                 },
                 record: '',
-                isShowResult: false
+                isShowResult: false,
+                doRecordText:''
 
             }
         },
@@ -264,11 +265,12 @@
                             }
                         });
                         _this.isShowResult = true;
-
+                        _this.doRecordText='向新的一天问好';
                         _this.animateIn();
                         $(".result").show().stop().animate({"opacity": 1}, 200);
                         if (type == 3) {
                             _this.isNight = true;
+                            _this.doRecordText='今日小成就';
                         }
 
 

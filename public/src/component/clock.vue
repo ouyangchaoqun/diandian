@@ -14,12 +14,12 @@
                     <div>
                         <p v-if="!isNight">连续早起</p>
                         <p v-if="isNight">连续早睡</p>
-                        <div>{{continueDay}}</div>
+                        <div>{{continueDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                     <div>
                         <p v-if="!isNight">坚持早起</p>
                         <p v-if="isNight">坚持早睡</p>
-                        <div>{{allDay}}</div>
+                        <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
                 <div class="clock_ratio" v-if="!isNight">{{allCount}}人正在参加，你比{{earlyPer}}%的人都起的早。</div>
@@ -35,15 +35,19 @@
             <div class="rank_box goleft">
                 <div class="clock_rank">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
-                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{myRank.rank}}</span>
+                        <img class="rank_cup" v-if="myRank.rank==1" src="../images/rank1.png" alt="">
+                        <img class="rank_cup" v-if="myRank.rank==2" src="../images/rank2.png" alt="">
+                        <img class="rank_cup" v-if="myRank.rank==3" src="../images/rank3.png" alt="">
+                        <span v-if="myRank.rank>3" :class="{'rank_cup':true,'rank_cupNight':isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="myRank.faceUrl" alt="">
                             <div class="rank_name">{{myRank.nickName}}</div>
                             <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                 <div class="clock_time">{{myRank.time}}</div>
-                                <div>
-                                    <span>2</span>
-                                    <img src="../images/mood_icon_dianz_pre.png" alt="">
+                                <div @click.stop="care(myRank)">
+                                    <span>{{myRank.careCount||0}}</span>
+                                    <img v-if="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-if="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -59,9 +63,10 @@
                                 <div class="rank_name">{{rankList.nickName}}</div>
                                 <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                     <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{rankList.time}}</div>
-                                    <div>
-                                        <span>2</span>
-                                        <img src="../images/mood_icon_dianz_pre.png" alt="">
+                                    <div @click.stop="addCare(rankList,index)">
+                                        <span>{{rankList.careCount||0}}</span>
+                                        <img v-if="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-if="rankList.caremy>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -73,15 +78,19 @@
                 <!--总排行-->
                 <div class="clock_rank">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
-                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{allRank.rank}}</span>
+                        <img class="rank_cup" v-if="allRank.rank==1" src="../images/rank1.png" alt="">
+                        <img class="rank_cup" v-if="allRank.rank==2" src="../images/rank2.png" alt="">
+                        <img class="rank_cup" v-if="allRank.rank==3" src="../images/rank3.png" alt="">
+                        <span v-if="allRank.rank>3" :class="{'rank_cup':true,'rank_cupNight':isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="allRank.faceUrl" alt="">
                             <div class="rank_name">{{allRank.nickName}}</div>
                             <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                 <div class="clock_time">{{allRank.time}}</div>
                                 <div>
-                                    <span>2</span>
-                                    <img src="../images/mood_icon_dianz_pre.png" alt="">
+                                    <span>{{allRank.careCount||0}}</span>
+                                    <img v-if="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-if="allRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -98,8 +107,9 @@
                                 <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                     <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{allRannList.time}}</div>
                                     <div>
-                                        <span>2</span>
-                                        <img src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <span>{{allRannList.careCount||0}}</span>
+                                        <img v-if="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-if="allRannList.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -127,11 +137,17 @@
                 continueDay:0,
                 allDay:0,
                 earlyPre:0,
-                allCount:0
+                allCount:0,
+                clock_careCount:0
             }
         },
         props:{
             user:{
+                type:Object
+            },friendMoodsSpe: {
+                type:Object
+            },
+            friendMoods: {
                 type:Object
             }
         },
@@ -139,7 +155,7 @@
             console.log("beforeCreate")
             let _this = this;
             //var subsid = _this.$route.params.id;
-            let   time=new   Date();
+            let time=new Date();
             var typeId = _this.$route.query.type;
             var clockDay = time.getDate();
             var clockMonth =time.getMonth()+1;
@@ -174,24 +190,31 @@
                 url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 console.log(data)
-                _this.myRank = data.data.data.userRank;
-                _this.myInFriendRank = data.data.data.allRank;
+                _this.myRank = data.data.data.userRank||{};
+                //console.log(_this.myRank)
+                _this.myInFriendRank = data.data.data.allRank||[];
+                for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
+                    _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+                }
+                //console.log( _this.myInFriendRank)
             }, function (data) {
             });
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
-                console.log(data)
-                _this.allRank = data.data.data.userRank;
-                _this.allRankList = data.data.data.allRank;
+                _this.allRank = data.data.data.userRank||{};
+                _this.allRankList = data.data.data.allRank||[];
+                for(var i=0,l=_this.allRankList.length;i<l;i++){
+                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+                }
+                console.log( _this.allRankList)
             }, function (data) {
             });
         },
         mounted:function () {
             var typeId = this.$route.query.type;
             if(typeId==3){
-                console.log("rrrrr333333")
                 this.isNight= true;
             }
             $('.clock_tab div').on('touchstart mousedown',function () {
@@ -205,6 +228,30 @@
                     $('.rank_box').addClass('goright')
                 }
             })
+        },
+        methods:{
+            addCare:function (mood,index) {
+                let _this = this;
+                if(mood.userId !=_this.user.id && mood.caremy==0){
+                    console.info(mood)
+                    _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':mood.type,'withId':mood.id}).then(response => {
+                        if(response.data.status===1){
+                            console.info(index);
+                            console.info(_this.myInFriendRank[index]);
+
+                            _this.myInFriendRank[index].careCount= response.data.data;
+                            _this.myInFriendRank[index].caremy= 1;
+                            _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
+                            /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
+                            console.log( _this.allRankList)
+
+                        }
+                    });
+                }
+            },
+            care:function (o) {
+                console.info(o)
+            }
         }
 
     }
@@ -272,6 +319,9 @@
         color: #807e7e;
         line-height: 0.88235rem;
         margin-bottom: 1rem;
+    }
+    .clock_listsDay{
+        font-size: 0.88235rem;
     }
     .clock_listsNight p{
         color: #e9e9ec;
