@@ -48,22 +48,22 @@
                 </div>
 
 
-                <div class="timeout" :class="{night_time_out:outNightTime}" v-show="outMorningTime||outNightTime">
-                    <div class="re_text1" v-show="outMorningTime">早起时间</div>
-                    <div class="re_text1" v-show="outNightTime">早睡时间</div>
+                <div class="timeout" :class="{night_time_out:outNightTime}">
+                    <div class="re_text1" v-if="outMorningTime">早起时间</div>
+                    <div class="re_text1" v-if="outNightTime">早睡时间</div>
                     <div class="jiantou"></div>
-                    <div class="ealy_time" v-show="outMorningTime">05:00-10:00</div>
-                    <div class="ealy_time" v-show="outNightTime">20:00-24:00</div>
-                    <div class="re_text2" v-show="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
-                    <div class="re_text2" v-show="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
+                    <div class="ealy_time" v-if="outMorningTime">05:00-10:00</div>
+                    <div class="ealy_time" v-if="outNightTime">20:00-24:00</div>
+                    <div class="re_text2" v-if="outMorningTime">早起，将开启你对新的一天的最佳状态</div>
+                    <div class="re_text2" v-if="outNightTime">早睡，是为了遇见新的一天和一个新的自己</div>
                     <div class="record_text2" @click="write">
                         <div class="record_pic"><img src="../images/record.png"></div>
-                        <div class="doRecord"  v-show="outMorningTime">不忘初心</div>
-                        <div  class="doRecord"  v-show="outNightTime">是什么让你如此忘我的熬夜?</div>
+                        <div class="doRecord"  v-if="outMorningTime">不忘初心</div>
+                        <div  class="doRecord"  v-if="outNightTime">是什么让你如此忘我的熬夜?</div>
                         <div style="clear: both;"></div>
                     </div>
-                    <div class="finish" @click="back" v-show="outMorningTime">我知道了</div>
-                    <div class="finish" @click="back" v-show="outNightTime">早点睡啦</div>
+                    <div class="finish" @click="back" v-if="outMorningTime">我知道了</div>
+                    <div class="finish" @click="back" v-if="outNightTime">早点睡啦</div>
                 </div>
 
             </div>
@@ -75,7 +75,7 @@
                         <p>{{year}}年{{month+1}}月</p>
                     </div>
                 </div>
-                <div class="weather" >
+                <div class="weather"  v-show="false">
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
                         <p>{{weather.temperature}}</p>
@@ -86,7 +86,7 @@
                         <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
                     </div>
                 </div>
-                <div class="weather" v-show="false">
+                <div class="weather">
                     <div class="weather_info">
                         <p>请转多云</p>
                         <p>29/41C</p>
@@ -154,10 +154,13 @@
         },
         methods: {
             back:function () {
-                this.outNightTime=false;
-                this.outMorningTime=false;
-                $(".timeout").hide();
-                $(".init_record").animate({opacity:1});
+                let _this=this;
+                $(".timeout").animate({opacity:0},200);
+                $(".init_record").show().animate({opacity:1},200,function () {
+                    _this.outNightTime=false;
+                    _this.outMorningTime=false;
+                });
+
                 this.isNight=false;
             },
             finish:function () {
@@ -181,8 +184,9 @@
                 }else{
                     console.log('outMorningTime');
                     _this.animateIn();
+                    _this.outMorningTime=true;
                     $(".timeout").show().animate({"opacity":1},200,function () {
-                        _this.outMorningTime=true;
+
                     });
 
                 }
@@ -192,6 +196,7 @@
                 let _this =this;
                 if(_this.isGoBed==true){
                     _this.$router.push("/clock?type=3")
+                    return ;
                 }
 
                 if(this.isRecordTime(this.NIGHT_FROM_TIME,this.NIGHT_END_TIME)){
@@ -201,9 +206,11 @@
                     _this.isNight=true;
                     _this.animateIn();
                     console.log('outnightTime');
+                    _this.outNightTime=true;
                     $(".timeout").show().animate({"opacity":1},200,function () {
-                        _this.outNightTime=true;
+
                     });
+                    $(".date_info").addClass("ngihttop")
 
                 }
             },
@@ -393,7 +400,7 @@
     .nightbg .result .bottom1{ background:url(../images/nightbg.png) no-repeat;background-size: 100% 100%; height: 100%}
     .nightbg .record_time,.nightbg .next,.nightbg .record_compare  { color:#f4f4f7 }
 
-    .nightbg .date_right , .nightbg .date{color:#cececd}
+    .nightbg .date_right , .nightbg .date, .nightbg .weather{color:#cececd}
     .nightbg .doRecord{ border-bottom: 1px solid #fff}
 
     .record, .record_box {
@@ -402,11 +409,11 @@
     .nightbg .date_info{ background: #4e4c73 ;}
 
     .ngihttop{
-        animation-name: gozelo;
-        animation-duration: .2s;
+        animation-name: gonight;
+        animation-duration: .4s;
     }
 
-    @keyframes gozelo {
+    @keyframes gonight {
         0%{
             background: #fff ;
         }
@@ -667,7 +674,7 @@
         width: 100%;
         padding-bottom: 1.52rem;
         text-align: center;  position: absolute;
-        bottom:0;left:0
+        bottom:0;left:0;opacity: 0;
      }
     .timeout.night_time_out .re_text1,.timeout.night_time_out .ealy_time,.timeout.night_time_out .re_text2,.timeout.night_time_out .re_text1 { color:#ccc;}
     .timeout.night_time_out .doRecord{border-bottom: 1px solid #ccc}
