@@ -7,19 +7,23 @@
             <div :class="{'clock_count':true,'clock_countNight':isNight}">
                 <div :class="{'clock_lists':true,'clock_listsNight':isNight}">
                     <div>
-                        <p>起床时间</p>
+                        <p v-if="!isNight">起床时间</p>
+                        <p v-if="isNight">睡觉时间</p>
                         <div>{{myRank.time}}</div>
                     </div>
                     <div>
-                        <p>连续天数</p>
+                        <p v-if="!isNight">连续早起</p>
+                        <p v-if="isNight">连续早睡</p>
                         <div>{{continueDay}}</div>
                     </div>
                     <div>
-                        <p>打卡天数</p>
+                        <p v-if="!isNight">坚持早起</p>
+                        <p v-if="isNight">坚持早睡</p>
                         <div>{{allDay}}</div>
                     </div>
                 </div>
-                <div class="clock_ratio">{{allCount}}人正在参加，你比{{earlyPer}}%的人都起的早。</div>
+                <div class="clock_ratio" v-if="!isNight">{{allCount}}人正在参加，你比{{earlyPer}}%的人都起的早。</div>
+                <div class="clock_ratio" v-if="isNight">{{allCount}}人正在参加，你比{{earlyPer}}%的人都睡的早。</div>
             </div>
         </div>
 
