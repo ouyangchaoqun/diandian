@@ -355,7 +355,7 @@
                 }
                 var postdata = {
                     moodValue: null,
-                    scenesId: null,
+                    scenesId: 0,
                     isOpen: 1,
                     type: that.type,
                     withId: that.withId,
@@ -370,9 +370,15 @@
                 console.log(postdata)
                 that.$http.put(web.API_PATH + apiurl, postdata)
                     .then(function (bt) {
-
                         if (bt.data && bt.data.status == 1) {
-                          //  that.$router.push({path: '/myCenter/myIndex?scroll=1'});
+                            console.log(that.withId)
+                            return;
+                            if(that.withId!=''&&that.withId!=undefined){
+                                that.$router.push("/clock?type="+that.type);
+                            }else{
+                                that.$router.push("/friendsMoods");
+                            }
+
                         }
                     });
             },
@@ -556,7 +562,7 @@
 
             let that = this;
             that.type = that.$route.query.type;
-            that.withId = that.$route.query.withId;
+            that.withId = that.$route.query.id;
             Bus.$on("closeFunnyWindow", function () {
                 that.showModule = '';
 
