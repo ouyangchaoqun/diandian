@@ -106,7 +106,7 @@
                                 <div class="rank_name">{{allRannList.nickName}}</div>
                                 <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                     <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{allRannList.time}}</div>
-                                    <div @click="addCare(allRannList,index)">
+                                    <div>
                                         <span>{{allRannList.careCount||0}}</span>
                                         <img v-if="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
                                         <img v-if="allRannList.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
@@ -237,7 +237,7 @@
                     _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':mood.type,'withId':mood.id}).then(response => {
                         if(response.data.status===1){
                             _this.allRankList[index].careCount= response.data.data;
-                           /* _this.$set(_this.allRankList, index, _this.allRankList[index]);*/
+                            _this.$set(_this.allRankList, index, _this.allRankList[index]);
                             _this.myInFriendRank[index].careCount= response.data.data;
                             _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
                             /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
