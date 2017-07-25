@@ -240,6 +240,7 @@
                             console.info(_this.myInFriendRank[index]);
 
                             _this.myInFriendRank[index].careCount= response.data.data;
+                            _this.myInFriendRank[index].caremy= 1;
                             _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
                             /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
                             console.log( _this.allRankList)
