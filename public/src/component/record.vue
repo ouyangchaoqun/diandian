@@ -75,27 +75,27 @@
                         <p>{{year}}年{{month+1}}月</p>
                     </div>
                 </div>
-                <div class="weather"  v-show="false">
+                <div class="weather"  >
                     <div class="weather_info">
                         <p>{{weather.weather}}</p>
                         <p>{{weather.temperature}}</p>
                     </div>
                     <div class="current">{{weather.current}}</div>
                     <div class="weather_pic">
-                        <img v-if="hour>=6&&hour<=18" :src="weather.dayPictureUrl"/>
-                        <img v-if="hour<6||hour>18" :src="weather.nightPictureUrl"/>
+                        <img v-if="(hour>=6&&hour<=18)&&!isNight" :src="weather.dayPictureUrl"/>
+                        <img v-if="(hour<6||hour>18)||isNight" :src="weather.nightPictureUrl"/>
                     </div>
                 </div>
-                <div class="weather">
+                <div class="weather" v-show="false">
                     <div class="weather_info">
-                        <p>请转多云</p>
+                        <p>晴转多云</p>
                         <p>29/41C</p>
                     </div>
 
                     <div class="current">38C</div>
                     <div class="weather_pic">
-                        <img v-if="hour>=6&&hour<=18" src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
-                        <img v-if="hour<6||hour>18" src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
+                        <img v-if="(hour>=6&&hour<=18)&&!isNight" src="http://api.map.baidu.com/images/weather/day/zhenyu.png"/>
+                        <img v-if="(hour<6||hour>18)||isNight" src="http://api.map.baidu.com/images/weather/night/zhenyu.png"/>
                     </div>
                 </div>
             </div>
