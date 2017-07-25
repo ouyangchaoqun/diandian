@@ -87,7 +87,7 @@
                             <div class="rank_name">{{allRank.nickName}}</div>
                             <div :class="{'rank_right':true,'rank_rightNight':isNight}">
                                 <div class="clock_time">{{allRank.time}}</div>
-                                <div @click.stop="care(allRank)">
+                                <div>
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-if="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-if="allRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
@@ -191,19 +191,18 @@
             }).then(function (data) {
                 console.log(data)
                 _this.myRank = data.data.data.userRank||{};
-                console.log(_this.myRank)
+                //console.log(_this.myRank)
                 _this.myInFriendRank = data.data.data.allRank||[];
                 for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
                     _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
                 }
-                console.log( _this.myInFriendRank)
+                //console.log( _this.myInFriendRank)
             }, function (data) {
             });
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
-                console.log(data)
                 _this.allRank = data.data.data.userRank||{};
                 _this.allRankList = data.data.data.allRank||[];
                 for(var i=0,l=_this.allRankList.length;i<l;i++){
@@ -232,12 +231,13 @@
         },
         methods:{
             addCare:function (mood,index) {
+                console.info(mood)
                 let _this = this;
                 if(mood.userId !=_this.user.id){
                     _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':mood.type,'withId':mood.id}).then(response => {
                         if(response.data.status===1){
-                            _this.allRankList[index].careCount= response.data.data;
-                            _this.$set(_this.allRankList, index, _this.allRankList[index]);
+                           /* _this.allRankList[index].careCount= response.data.data;
+                            _this.$set(_this.allRankList, index, _this.allRankList[index]);*/
                             _this.myInFriendRank[index].careCount= response.data.data;
                             _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
                             /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
