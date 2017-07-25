@@ -238,7 +238,9 @@
                         if(response.data.status===1){
                             _this.allRankList[index].careCount= response.data.data;
                             _this.$set(_this.allRankList, index, _this.allRankList[index]);
-                            _this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);
+                            _this.myInFriendRank[index].careCount= response.data.data;
+                            _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
+                            /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
                             console.log( _this.allRankList)
 
                         }
