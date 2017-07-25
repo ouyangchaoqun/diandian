@@ -372,7 +372,7 @@
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
                             console.log(that.withId)
-                            return;
+
                             if(that.withId!=''&&that.withId!=undefined){
                                 that.$router.push("/clock?type="+that.type);
                             }else{
