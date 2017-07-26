@@ -18,12 +18,12 @@
                                 <div class="morning" :class="{recorded:isGetUp}">早起<template v-if="!isGetUp">打卡</template><template v-if="isGetUp">排行</template></div>
                             </div>
                         </a>
-                        <router-link :to="linkTo" class="weui-tabbar__item">
-                            <div class="go_record record_mid">
+                        <a class="weui-tabbar__item">
+                            <div class="go_record record_mid"  @click="addMood">
                                 <div class="img"></div>
                                 <div class="any">心情记录</div>
                             </div>
-                        </router-link>
+                        </a>
                         <a  class="weui-tabbar__item">
                             <div class="go_record record_right" @click="night">
                                 <div class="img"></div>
@@ -364,6 +364,23 @@
             goRank:function () {
                 this.$router.push("/sleepRank?type="+this.result.data.type)
 
+            },
+            addMood:function () {
+                let _this = this ;
+                console.log("addMood");
+                _this.getMoodCount(function (moodcount) {
+                    if (moodcount < 10) {
+                        _this.$router.push("/addMood")
+
+                    } else {
+                        if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                            _this.$router.push("/me/personal/validate")
+                        } else {
+                            _this.$router.push("/addMood")
+                        }
+                    }
+                });
+
             }
         },
 
@@ -457,17 +474,7 @@
                 });
             });
 
-            _this.getMoodCount(function (moodcount) {
-                if (moodcount < 10) {
-                    _this.linkTo = "/addMood";
-                } else {
-                    if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
-                        _this.linkTo = "/me/personal/validate";
-                    } else {
-                        _this.linkTo = "/addMood";
-                    }
-                }
-            });
+
 
 
         },
