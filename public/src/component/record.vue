@@ -774,7 +774,7 @@
 
     .bottom1 {
         width: 100%;
-        background: url("../images/daybg.png") no-repeat bottom center;
+        background: url("../images/daybg1.png") no-repeat bottom center;
         background-size: 100%;
         height: 100%;
     }
@@ -862,7 +862,7 @@
         width: 100%;
         text-align: center;
         opacity: 0;
-        background: url("../images/daybg.png") no-repeat bottom center;
+        background: url("../images/daybg1.png") no-repeat bottom center;
         background-size: 100%;
         height: 100%;
         display:none
