@@ -5,26 +5,39 @@
             <div class="clock_head">
                 <img :src="user.faceUrl" alt="">
             </div>
-            <div class="clock_count" :class="{clock_countNight:isNight}">
-                <div class="clock_lists" :class="{clock_listsNight:isNight}">
+            <div class="clock_count" v-if="!isNight">
+                <div class="clock_lists" >
                     <div>
-                        <p v-if="!isNight">起床时间</p>
-                        <p v-if="isNight">睡觉时间</p>
+                        <p >起床时间</p>
                         <div>{{myRank.time}}</div>
                     </div>
                     <div>
-                        <p v-if="!isNight">连续早起</p>
-                        <p v-if="isNight">连续早睡</p>
+                        <p >连续早起</p>
                         <div>{{continueDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                     <div>
-                        <p v-if="!isNight">坚持早起</p>
-                        <p v-if="isNight">坚持早睡</p>
+                        <p >坚持早起</p>
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" v-if="!isNight">共有{{allCount}}人陪我一起参加早起计划</div>
-                <div class="clock_ratio" v-if="isNight">共有{{allCount}}人陪我一起参加早睡计划</div>
+                <div class="clock_ratio">共有{{allCount}}人陪我一起参加早起计划</div>
+            </div>
+            <div class="clock_count clock_countNight"   v-if="isNight">
+                <div class="clock_lists clock_listsNight">
+                    <div>
+                        <p >睡觉时间</p>
+                        <div>{{myRank.time}}</div>
+                    </div>
+                    <div>
+                        <p>连续早睡</p>
+                        <div>{{continueDay}}<span class="clock_listsDay">天</span> </div>
+                    </div>
+                    <div>
+                        <p>坚持早睡</p>
+                        <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
+                    </div>
+                </div>
+                <div class="clock_ratio" >共有{{allCount}}人陪我一起参加早睡计划</div>
             </div>
         </div>
 
