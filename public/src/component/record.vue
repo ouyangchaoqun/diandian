@@ -421,7 +421,7 @@
                                     let s = _this.weather.date;
                                     _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
                                     _this.weather.current =_this.weather.current.replace("℃","°");
-                                    _this.weather.temperature = _this.weather.temperature.replace("~", "/").trim();
+                                    _this.weather.temperature = _this.weather.temperature.replace("~", "-").trim();
                                      _this.weather.temperature = _this.weather.temperature.replace("℃","°");
                                     console.log(_this.weather);
                                 }, function (error) {
@@ -612,14 +612,14 @@
 
     .weather .current {
         line-height: 1;
-        font-size: 30px;
+        font-size: 1.76rem;
     }
 
     .weather_pic {
-        width: 42px;
-        height: 42px;
+        width: 2.45rem;
+        height: 1.76rem;
         float: right;
-        margin-top: 14px;
+        margin-top: 1.18rem;
     }
 
     .weather_pic img {
@@ -633,7 +633,7 @@
         font-size: 12px;
         margin-left: 10px;
         margin-right: 5px;
-        margin-top: 11px;
+        margin-top: 12px;
 
     }
 
@@ -760,7 +760,7 @@
     .record_time {
         text-align: center;
         font-size: 1.82rem;
-        padding-top: 80px;
+        padding-top: 4.7rem;
         line-height: 1;
         color: rgba(102, 102, 102, 1);
     }
@@ -769,7 +769,7 @@
         text-align: center;
         font-size: 0.78rem;
         color: rgba(102, 102, 102, 1);
-        margin-top: 18px;
+        margin-top: 1.05rem;
     }
     .next span{ display: inline-block; padding-left: 1.2rem; background: url(../images/daygood.png) no-repeat; background-size: 0.9rem; background-position: 0 3px ;}
 
@@ -802,8 +802,8 @@
         color: #fff;
         position: absolute;
         bottom: 0;
-        height:40px;
-        padding-top:10px;
+        height:2.35rem;
+        padding-top:0.588rem;
     }
 
     .doRecord {

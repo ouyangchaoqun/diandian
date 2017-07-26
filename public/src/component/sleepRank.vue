@@ -1,5 +1,6 @@
 <template id="sleepRank">
     <div :class="{'clock_box':true,'clock_boxNight':isNight}">
+        <div v-title><div v-if="!isNight">早起排行</div><div v-if="isNight">早睡排行</div></div>
         <div :class="{'clock_top':true,'clock_topNight':isNight}">
             <div class="clock_head">
                 <img :src="user.faceUrl" alt="">
@@ -22,14 +23,15 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" v-if="!isNight">{{allCount}}人正在参加，你比{{earlyPer}}%的人都起的早。</div>
-                <div class="clock_ratio" v-if="isNight">{{allCount}}人正在参加，你比{{earlyPer}}%的人都睡的早。</div>
+                <div class="clock_ratio" v-if="!isNight">共有{{allCount}}人陪我一起参加早起计划</div>
+                <div class="clock_ratio" v-if="isNight">共有{{allCount}}人陪我一起参加早睡计划</div>
             </div>
         </div>
 
-        <div :class="{'clock_tab':true,'clock_tabNight':isNight}">
+        <div :class="{'clock_tab':true,'clock_tabNight':isNight}" style="position: relative;">
             <div >好友排行</div>
             <div class="clock_tabActive">总排行</div>
+            <div class="tabMove"></div>
         </div>
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
@@ -43,7 +45,7 @@
                             <img class="rank_headImg" :src="myRank.faceUrl" alt="">
                             <div class="rank_name">{{myRank.nickName}}</div>
                             <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                <div class="clock_time">{{myRank.time}}</div>
+                                <div :class="{'clock_time':true/*,'rank1Color':myRank.rank==1,'rank2Color':myRank.rank==2,'rank3Color':myRank.rank==3*/}">{{myRank.time}}</div>
                                 <div @click.stop="care(myRank)">
                                     <span>{{myRank.careCount||0}}</span>
                                     <img v-if="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -62,7 +64,7 @@
                                 <img class="rank_headImg" :src="rankList.faceUrl" alt="">
                                 <div class="rank_name">{{rankList.nickName}}</div>
                                 <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                    <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{rankList.time}}</div>
+                                    <div :class="{'clock_time':true/*,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2*/}">{{rankList.time}}</div>
                                     <div @click.stop="addCare(rankList,index)">
                                         <span>{{rankList.careCount||0}}</span>
                                         <img v-if="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -86,7 +88,7 @@
                             <img class="rank_headImg" :src="allRank.faceUrl" alt="">
                             <div class="rank_name">{{allRank.nickName}}</div>
                             <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                <div class="clock_time">{{allRank.time}}</div>
+                                <div :class="{'clock_time':true/*,'rank1Color':allRank.rank==1,'rank2Color':allRank.rank==2,'rank3Color':allRank.rank==3*/}">{{allRank.time}}</div>
                                 <div>
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-if="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -105,7 +107,7 @@
                                 <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
                                 <div class="rank_name">{{allRannList.nickName}}</div>
                                 <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                    <div :class="{'clock_time':true,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2}">{{allRannList.time}}</div>
+                                    <div :class="{'clock_time':true/*,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2*/}">{{allRannList.time}}</div>
                                     <div>
                                         <span>{{allRannList.careCount||0}}</span>
                                         <img v-if="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -138,7 +140,8 @@
                 allDay:0,
                 earlyPre:0,
                 allCount:0,
-                clock_careCount:0
+                clock_careCount:0,
+                sleepRank_title:'早睡排行'
             }
         },
         props:{
@@ -164,7 +167,7 @@
 
 
 
-            _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+typeId+'').then(data => {
+            _this.$http.get(web.API_PATH+'record/sleep/get/all/day/count/_userId_/'+typeId+'').then(data => {
                 if(data.data.status===1){
                     _this.allDay= data.data.data;
                 }
@@ -219,12 +222,16 @@
             }
             $('.clock_tab div').on('touchstart mousedown',function () {
                 $('.clock_tab div').removeClass('clock_tabActive');
+
                 $(this).addClass('clock_tabActive');
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight')
                 $('.rank_box').removeClass('goleft').removeClass('goright')
                 //console.log($(this).index())
                 if($(this).index()==1){
+                    $('.tabMove').addClass('tab_goRight')
                     $('.rank_box').addClass('goleft')
                 }else{
+                    $('.tabMove').addClass('tab_goleft')
                     $('.rank_box').addClass('goright')
                 }
             })
@@ -345,34 +352,50 @@
         text-align: center;
         font-size:0.8235rem;
         line-height: 2rem;
-        border:1px solid #ccc;
-        overflow: hidden;
-        color: #fff;
+        border:1px solid #fff;
+        color: #333;
     }
     .clock_tab>div{
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        background: #b8baca;
     }
     .clock_tabNight>div{
-        background: rgba(219,219,221,0.4);
-        color: #ccc;
+        color: #fff;
     }
 
     .clock_tab .clock_tabActive{
+
+    }
+    .tabMove{
+        height: 100%;
+        width:50%;
         background: #fff;
-        color: #333;
+        border-radius: 1rem;
+        position: absolute;
+        left:50%;
+        top:-1px;
+        z-index:-1;
+        border:1px solid #fff;
+    }
+    .tab_goleft{
+        transition:all .5s;
+        left:0;
+    }
+    .tab_goRight{
+        transition:all .5s;
+        left:50%;
     }
     .clock_tabNight .clock_tabActive{
-        background: rgba(254,254,254,0.5);
+        /*background: #fff;*/
+        color: #333;
     }
     .clock_rank{
         float: left;
         width:50%;
     }
     .rank_list{
-        height:3rem;
+        height:60px;
         background: #fff;
         padding-left:2.70589rem;
         position: relative;
@@ -382,12 +405,14 @@
     }
     .rank_cup{
         position: absolute;
-        top:0.7647rem;
+        top:50%;
+        margin-top:-12px;
         left:0.88235rem;
         width:1rem;
         font-family: PingFangSC-Regular;
         font-size: 0.94118rem;
         color: #666;
+        text-align: center;
     }
     .rank_cupNight{
         color:#333;
@@ -396,9 +421,9 @@
         margin-bottom: 0.88235rem;
     }
     .rank_main{
-        height:2.9412rem;
+        height:59px;
         position: relative;
-        line-height: 3rem;
+        line-height: 60px;
         padding-right: 0.88235rem;
     }
     .rank_border{
@@ -408,8 +433,8 @@
         border-color: rgba(204,204,204,0.2);
     }
     .rank_headImg{
-        height:1.706rem;
-        width:1.706rem;
+        height:40px;
+        width:40px;
         display: block;
         float: left;
         margin-top:0.588rem;
@@ -430,6 +455,7 @@
     .clock_time{
         margin-right:1.9412rem;
         font-size: 0.88235rem;
+        color: #666;
     }
     .rank_right img{
         display: block;
