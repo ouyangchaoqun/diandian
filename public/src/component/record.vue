@@ -421,7 +421,7 @@
                                     let s = _this.weather.date;
                                     _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
                                     _this.weather.current =_this.weather.current.replace("℃","°");
-                                    _this.weather.temperature = _this.weather.temperature.replace("~", "/").trim();
+                                    _this.weather.temperature = _this.weather.temperature.replace("~", "-").trim();
                                      _this.weather.temperature = _this.weather.temperature.replace("℃","°");
                                     console.log(_this.weather);
                                 }, function (error) {
@@ -617,9 +617,9 @@
 
     .weather_pic {
         width: 42px;
-        height: 42px;
+        height: 30px;
         float: right;
-        margin-top: 14px;
+        margin-top: 20px;
     }
 
     .weather_pic img {
@@ -633,7 +633,7 @@
         font-size: 12px;
         margin-left: 10px;
         margin-right: 5px;
-        margin-top: 11px;
+        margin-top: 12px;
 
     }
 
