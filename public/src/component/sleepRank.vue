@@ -187,36 +187,36 @@
                     _this.earlyPer=data.data.data.toFixed(2);
                 }
             });
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-            }).then(function (data) {
-                console.log(data)
-                _this.myRank = data.data.data.userRank||{};
-                //console.log(_this.myRank)
-                _this.myInFriendRank = data.data.data.allRank||[];
-                for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
-                    _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
-                }
-                console.log( _this.myInFriendRank)
-            }, function (data) {
-            });
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-            }).then(function (data) {
-                _this.allRank = data.data.data.userRank||{};
-                _this.allRankList = data.data.data.allRank||[];
-                for(var i=0,l=_this.allRankList.length;i<l;i++){
-                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
-                }
-                console.log( _this.allRankList)
-
-
-
-
-            }, function (data) {
-            });
+//            this.$http({
+//                method: 'GET',
+//                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+//            }).then(function (data) {
+//                console.log(data)
+//                _this.myRank = data.data.data.userRank||{};
+//                //console.log(_this.myRank)
+//                _this.myInFriendRank = data.data.data.allRank||[];
+//                for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
+//                    _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+//                }
+//                console.log( _this.myInFriendRank)
+//            }, function (data) {
+//            });
+//            this.$http({
+//                method: 'GET',
+//                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+//            }).then(function (data) {
+//                _this.allRank = data.data.data.userRank||{};
+//                _this.allRankList = data.data.data.allRank||[];
+//                for(var i=0,l=_this.allRankList.length;i<l;i++){
+//                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+//                }
+//                console.log( _this.allRankList)
+//
+//
+//
+//
+//            }, function (data) {
+//            });
 
 
             var typeId = this.$route.query.type;
@@ -236,29 +236,29 @@
                     $(".rank_box").css('height', 'auto');
                 }
             });
-//            $('.clock_tab div').on('touchstart mousedown',function () {
-//                myRankSwiper.slideTo($(this).index());
-//                var clock_rank1Width = $('.clock_rank1').height();
-//                var clock_rank2Width = $('.clock_rank2').height();
-//                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
-//                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
-//                $(this).addClass('clock_tabActive')
-//                $('.rank_Bgbox').css('height','auto');
-//                if(_this.swipersettime!=null){
-//                    clearTimeout(_this.swipersettime);
-//                }
-//                if($(this).index()==1){
-//                    $('.tabMove').addClass('tab_goRight');
-//                    _this.swipersettime = setTimeout(function () {
-//                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
-//                        },500)
-//                }else{
-//                    $('.tabMove').addClass('tab_goleft');
-//                    _this.swipersettime = setTimeout(function () {
-//                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
-//                    },500)
-//                }
-//            })
+            $('.clock_tab div').on('touchstart mousedown',function () {
+                myRankSwiper.slideTo($(this).index());
+                var clock_rank1Width = $('.clock_rank1').height();
+                var clock_rank2Width = $('.clock_rank2').height();
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
+                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                $(this).addClass('clock_tabActive')
+                $('.rank_Bgbox').css('height','auto');
+                if(_this.swipersettime!=null){
+                    clearTimeout(_this.swipersettime);
+                }
+                if($(this).index()==1){
+                    $('.tabMove').addClass('tab_goRight');
+                    _this.swipersettime = setTimeout(function () {
+                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
+                        },500)
+                }else{
+                    $('.tabMove').addClass('tab_goleft');
+                    _this.swipersettime = setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
+                    },500)
+                }
+            })
 
         },
         methods:{
