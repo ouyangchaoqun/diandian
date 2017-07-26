@@ -182,8 +182,8 @@
                 }).then(function (bt) {
                     if(bt.body.status==1){
                         xqzs.weui.dialog({
-                            title:'分享卡已经发送',
-                            msg:'前往公众号查看，分享好友互为关注',
+                            title:'成就卡已经发送',
+                            msg:'前往公众号查看，分享到朋友圈',
                             submitText:'查看',
                             submitFun:function () {
                                 try {
@@ -284,6 +284,8 @@
                             _this.result.data.hour =time.getHours();
                         }
                         _this.result.data.minute = time.getMinutes();
+                        if(_this.result.data.hour <10){_this.result.data.hour ="0"+_this.result.data.hour}
+                        if(_this.result.data.minute <10){_this.result.data.minute ="0"+_this.result.data.minute}
 
 
                         _this.$http.get(web.API_PATH + 'record/sleep/all/user/count/' + type + '').then(data => {
