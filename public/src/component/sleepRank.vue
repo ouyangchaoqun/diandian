@@ -161,7 +161,7 @@
 
 
 
-
+/**
             _this.$http.get(web.API_PATH+'record/sleep/get/all/day/count/_userId_/'+typeId+'').then(data => {
                 if(data.data.status===1){
                     _this.allDay= data.data.data;
@@ -197,6 +197,7 @@
                 console.log( _this.myInFriendRank)
             }, function (data) {
             });
+ **/
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
