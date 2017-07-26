@@ -35,7 +35,7 @@
         </div>
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
-                <div class="clock_rank">
+                <div class="clock_rank clock_rank1">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
                         <!--<img class="rank_cup" v-if="myRank.rank==1" src="../images/rank1.png" alt="">
                         <img class="rank_cup" v-if="myRank.rank==2" src="../images/rank2.png" alt="">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(rankList,index) in myInFriendRank">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-show="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
                            <!-- <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
                             <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
@@ -78,7 +78,7 @@
                     </ul>
                 </div>
                 <!--总排行-->
-                <div class="clock_rank">
+                <div class="clock_rank clock_rank2">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
                         <!--<img class="rank_cup" v-if="allRank.rank==1" src="../images/rank1.png" alt="">
                         <img class="rank_cup" v-if="allRank.rank==2" src="../images/rank2.png" alt="">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(allRannList,index) in allRankList">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-if="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
                             <!--<img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
                             <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
@@ -199,7 +199,7 @@
                 for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
                     _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
                 }
-                //console.log( _this.myInFriendRank)
+                console.log( _this.myInFriendRank)
             }, function (data) {
             });
             this.$http({
@@ -217,6 +217,7 @@
         },
         mounted:function () {
             var typeId = this.$route.query.type;
+
             if(typeId==3){
                 this.isNight= true;
                 this.sleepRank_title="早睡排行";
@@ -224,18 +225,29 @@
                 this.sleepRank_title="早起排行";
             }
             $('.clock_tab div').on('touchstart mousedown',function () {
+                var clock_rank1Width = $('.clock_rank1').height();
+                console.log()
+                var clock_rank2Width = $('.clock_rank2').height();
+
                 $('.clock_tab div').removeClass('clock_tabActive');
 
                 $(this).addClass('clock_tabActive');
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight')
                 $('.rank_box').removeClass('goleft').removeClass('goright')
                 //console.log($(this).index())
+                $('.rank_Bgbox').css('height','auto')
                 if($(this).index()==1){
                     $('.tabMove').addClass('tab_goRight')
-                    $('.rank_box').addClass('goleft')
+                    $('.rank_box').addClass('goleft');
+                    setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank2Width+15)
+                    },800)
                 }else{
                     $('.tabMove').addClass('tab_goleft')
                     $('.rank_box').addClass('goright')
+                    setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15)
+                    },800)
                 }
             })
 
