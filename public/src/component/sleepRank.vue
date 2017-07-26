@@ -201,22 +201,22 @@
                 console.log( _this.myInFriendRank)
             }, function (data) {
             });
-//            this.$http({
-//                method: 'GET',
-//                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-//            }).then(function (data) {
-//                _this.allRank = data.data.data.userRank||{};
-//                _this.allRankList = data.data.data.allRank||[];
-//                for(var i=0,l=_this.allRankList.length;i<l;i++){
-//                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
-//                }
-//                console.log( _this.allRankList)
-//
-//
-//
-//
-//            }, function (data) {
-//            });
+            this.$http({
+                method: 'GET',
+                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+            }).then(function (data) {
+                _this.allRank = data.data.data.userRank||{};
+                _this.allRankList = data.data.data.allRank||[];
+                for(var i=0,l=_this.allRankList.length;i<l;i++){
+                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+                }
+                console.log( _this.allRankList)
+
+
+
+
+            }, function (data) {
+            });
 
 
             var typeId = this.$route.query.type;
@@ -231,7 +231,7 @@
 
              let myRankSwiper = new Swiper ('.rank_Bgbox',{
                 speed:500,
-                initialSlide:1,
+                //initialSlide:1,
                 onSlideChangeStart: function(){
                     $(".rank_box").css('height', 'auto');
                 }
