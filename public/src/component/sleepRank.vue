@@ -1,6 +1,6 @@
 <template id="sleepRank">
     <div :class="{'clock_box':true,'clock_boxNight':isNight}">
-        <div v-title><div v-if="!isNight">早起排行</div><div v-if="isNight">早睡排行</div></div>
+        <div ><div v-title>{{sleepRank_title}}</div></div>
         <div :class="{'clock_top':true,'clock_topNight':isNight}">
             <div class="clock_head">
                 <img :src="user.faceUrl" alt="">
@@ -35,12 +35,12 @@
         </div>
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
-                <div class="clock_rank">
+                <div class="clock_rank clock_rank1">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
-                        <img class="rank_cup" v-if="myRank.rank==1" src="../images/rank1.png" alt="">
+                        <!--<img class="rank_cup" v-if="myRank.rank==1" src="../images/rank1.png" alt="">
                         <img class="rank_cup" v-if="myRank.rank==2" src="../images/rank2.png" alt="">
-                        <img class="rank_cup" v-if="myRank.rank==3" src="../images/rank3.png" alt="">
-                        <span v-if="myRank.rank>3" :class="{'rank_cup':true,'rank_cupNight':isNight}">{{myRank.rank}}</span>
+                        <img class="rank_cup" v-if="myRank.rank==3" src="../images/rank3.png" alt="">-->
+                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="myRank.faceUrl" alt="">
                             <div class="rank_name">{{myRank.nickName}}</div>
@@ -55,11 +55,11 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(rankList,index) in myInFriendRank">
-                            <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-show="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
+                           <!-- <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
-                            <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">
-                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}" v-if="index>2">{{index+1}}</span>
+                            <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
+                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{index+1}}</span>
                             <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':isNight}">
                                 <img class="rank_headImg" :src="rankList.faceUrl" alt="">
                                 <div class="rank_name">{{rankList.nickName}}</div>
@@ -78,12 +78,12 @@
                     </ul>
                 </div>
                 <!--总排行-->
-                <div class="clock_rank">
+                <div class="clock_rank clock_rank2">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
-                        <img class="rank_cup" v-if="allRank.rank==1" src="../images/rank1.png" alt="">
+                        <!--<img class="rank_cup" v-if="allRank.rank==1" src="../images/rank1.png" alt="">
                         <img class="rank_cup" v-if="allRank.rank==2" src="../images/rank2.png" alt="">
-                        <img class="rank_cup" v-if="allRank.rank==3" src="../images/rank3.png" alt="">
-                        <span v-if="allRank.rank>3" :class="{'rank_cup':true,'rank_cupNight':isNight}">{{allRank.rank}}</span>
+                        <img class="rank_cup" v-if="allRank.rank==3" src="../images/rank3.png" alt="">-->
+                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="allRank.faceUrl" alt="">
                             <div class="rank_name">{{allRank.nickName}}</div>
@@ -98,11 +98,11 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(allRannList,index) in allRankList">
-                            <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-if="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
+                            <!--<img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
-                            <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">
-                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}" v-if="index>2">{{index+1}}</span>
+                            <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
+                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{index+1}}</span>
                             <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':isNight}">
                                 <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
                                 <div class="rank_name">{{allRannList.nickName}}</div>
@@ -141,7 +141,7 @@
                 earlyPre:0,
                 allCount:0,
                 clock_careCount:0,
-                sleepRank_title:'早睡排行'
+                sleepRank_title:''
             }
         },
         props:{
@@ -199,7 +199,7 @@
                 for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
                     _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
                 }
-                //console.log( _this.myInFriendRank)
+                console.log( _this.myInFriendRank)
             }, function (data) {
             });
             this.$http({
@@ -217,24 +217,41 @@
         },
         mounted:function () {
             var typeId = this.$route.query.type;
+
             if(typeId==3){
                 this.isNight= true;
+                this.sleepRank_title="早睡排行";
+            }else{
+                this.sleepRank_title="早起排行";
             }
             $('.clock_tab div').on('touchstart mousedown',function () {
+                var clock_rank1Width = $('.clock_rank1').height();
+                console.log()
+                var clock_rank2Width = $('.clock_rank2').height();
+
                 $('.clock_tab div').removeClass('clock_tabActive');
 
                 $(this).addClass('clock_tabActive');
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight')
                 $('.rank_box').removeClass('goleft').removeClass('goright')
                 //console.log($(this).index())
+                $('.rank_Bgbox').css('height','auto')
                 if($(this).index()==1){
                     $('.tabMove').addClass('tab_goRight')
-                    $('.rank_box').addClass('goleft')
+                    $('.rank_box').addClass('goleft');
+                    setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank2Width+15)
+                    },800)
                 }else{
                     $('.tabMove').addClass('tab_goleft')
                     $('.rank_box').addClass('goright')
+                    setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15)
+                    },800)
                 }
             })
+
+            //document.title = "sadasdasdasdsa"
         },
         methods:{
             addCare:function (mood,index) {
@@ -280,13 +297,13 @@
         color: #f4f4f7;
     }
     .clock_count{
-        background: url("../images/clockDay.png") no-repeat;
+        background: url("../images/clockDay2.png") no-repeat;
         background-size: 100% 100%;
         height:11.03rem;
         position: relative;
     }
     .clock_countNight{
-        background: url("../images/clockNight.png") no-repeat;
+        background: url("../images/clockNight2.png") no-repeat;
         background-size: 100% 100%;
     }
     .clock_head{
@@ -394,14 +411,18 @@
         float: left;
         width:50%;
     }
+    .rank_list:last-of-type{
+        border-bottom: 0;
+    }
     .rank_list{
-        height:60px;
+        height:3.53rem;
         background: #fff;
         padding-left:2.70589rem;
         position: relative;
+        border-bottom: 0.06rem solid #eee;
     }
     .rank_listNight{
-        background: rgba(255,255,255,0.2);
+        /*background: rgba(255,255,255,0.2);*/
     }
     .rank_cup{
         position: absolute;
@@ -421,20 +442,20 @@
         margin-bottom: 0.88235rem;
     }
     .rank_main{
-        height:59px;
+        height:3.53rem;
         position: relative;
-        line-height: 60px;
+        line-height: 3.53rem;
         padding-right: 0.88235rem;
     }
     .rank_border{
-        border-bottom: 0.06rem solid #eee;
+
     }
     .rank_borderNight{
-        border-color: rgba(204,204,204,0.2);
+
     }
     .rank_headImg{
-        height:40px;
-        width:40px;
+        height:2.35rem;
+        width:2.35rem;
         display: block;
         float: left;
         margin-top:0.588rem;
@@ -468,7 +489,7 @@
         color: #999;
         display: block;
         text-align: center;
-        margin-top: 0.588rem;
+        margin-top: 0.8rem;
         margin-bottom: 0.2941rem;
     }
     .rank_rightNight span{
@@ -485,6 +506,7 @@
     .rank_Bgbox{
         width:100%;
         overflow: hidden;
+        margin-bottom: 0.88235rem;
     }
     .rank_box{
         width:200%;
