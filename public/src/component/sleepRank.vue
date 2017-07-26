@@ -236,15 +236,8 @@
             }
 
 
-             let myRankSwiper = new Swiper ('.rank_Bgbox',{
-                speed:500,
-                initialSlide:1,
-                onSlideChangeStart: function(){
-                    $(".rank_box").css('height', 'auto');
-                }
-            });
+
             $('.clock_tab div').on('touchstart mousedown',function () {
-                myRankSwiper.slideTo($(this).index());
                 var clock_rank1Width = $('.clock_rank1').height();
                 var clock_rank2Width = $('.clock_rank2').height();
                 $('.rank_box').removeClass('goleft').removeClass('goright')
