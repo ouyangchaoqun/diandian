@@ -47,7 +47,7 @@ html { /*375*/
 }
 
 
-
+img[src=""],img:not([src]){opacity:0;}
 *:not(input,textarea){
     -webkit-user-select:none;
     -moz-user-select:none;
