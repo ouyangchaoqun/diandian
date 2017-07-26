@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list" :class="{rank_listNight:isNight}" v-if="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
+                        <li class="rank_list" :class="{rank_listNight:isNight}" v-show="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
 
                             <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
@@ -161,7 +161,7 @@
 
 
 
-/**
+
             _this.$http.get(web.API_PATH+'record/sleep/get/all/day/count/_userId_/'+typeId+'').then(data => {
                 if(data.data.status===1){
                     _this.allDay= data.data.data;
@@ -183,7 +183,7 @@
                     _this.earlyPer=data.data.data.toFixed(2);
                 }
             });
- **/
+
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
