@@ -13,8 +13,7 @@
                     <router-link to="/treeHole">你知道“小树洞”的故事吗？</router-link>
                 </div>
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
-                    <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="" v-show="item.type==1">
-                    <img class="friendHeaderImg" :src="item.typeFaceUrl" alt="" v-show="item.type!=1">
+                    <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
                     <div class="friendState">
                         <span class="mood_state" :class="item.moodValueStyle"><span :class="{bluecolor:item.isAd==1}" :style="item.typeFaceColor">{{item.moodValueText}}</span></span>
                         <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
