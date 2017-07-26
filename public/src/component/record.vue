@@ -15,7 +15,7 @@
                         <a  class="weui-tabbar__item ">
                             <div class="go_record record_left " @click="morning">
                                 <div class="img"></div>
-                                <div class="morning" :class="{recorded:isGetUp}">早起打卡</div>
+                                <div class="morning" :class="{recorded:isGetUp}">早起<template v-if="!isGetUp">打卡</template><template v-if="isGetUp">排行</template></div>
                             </div>
                         </a>
                         <router-link :to="linkTo" class="weui-tabbar__item">
@@ -27,7 +27,7 @@
                         <a  class="weui-tabbar__item">
                             <div class="go_record record_right" @click="night">
                                 <div class="img"></div>
-                                <div class="night" :class="{recorded:isGoBed}">早睡打卡</div>
+                                <div class="night" :class="{recorded:isGoBed}">早睡<template v-if="!isGoBed">打卡</template><template v-if="isGoBed">排行</template></div>
                             </div>
                         </a>
                     </div>
@@ -98,8 +98,8 @@
                         <p>{{weather.temperature}}</p>
                     </div>
                     <div class="weather_pic">
-                        <img v-if="(hour>=6&&hour<=18)&&!isNight" :src="weather.dayPictureUrl"/>
-                        <img v-if="(hour<6||hour>18)||isNight" :src="weather.nightPictureUrl"/>
+                        <img v-if="(hour>=6&&hour<=18)&&!isNight&&weather.weather!=''" :src="weather.dayPictureUrl"/>
+                        <img v-if="(hour<6||hour>18)||isNight&&weather.weather!=''" :src="weather.nightPictureUrl"/>
                     </div>
                 </div>
                 <div class="weather" v-show="false">
@@ -421,7 +421,7 @@
                                     let s = _this.weather.date;
                                     _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
                                     _this.weather.current =_this.weather.current.replace("℃","°");
-                                    _this.weather.temperature = _this.weather.temperature.replace("~", "-").trim();
+                                    _this.weather.temperature = _this.weather.temperature.replace(" ~ ", "-");
                                      _this.weather.temperature = _this.weather.temperature.replace("℃","°");
                                     console.log(_this.weather);
                                 }, function (error) {
@@ -565,13 +565,13 @@
     .date_info {
         height: 4.11764rem;
         background: #fff;
-        border-radius: 10px;
+        border-radius: 5px;
         box-shadow: rgba(102, 102, 102, 0.2) 0px 3px 4px;
         overflow: hidden;
         position: absolute;
         width: 100%;
         z-index: 2;
-        top: -1.764705rem;
+        top: -2.6005rem;
     }
 
     .main_record {
@@ -632,7 +632,7 @@
         float: right;
         font-size: 12px;
         margin-left: 10px;
-        margin-right: 5px;
+        margin-right: 10px;
         margin-top: 12px;
 
     }
@@ -668,7 +668,7 @@
     .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center; background-size: 80% }
     .record_fx{
         text-align: center;
-        margin-top: 55px;
+        margin-top: 2.23rem;
     }
     .record_rank,.record_share{
         float: left;
@@ -687,6 +687,7 @@
     .record_share.night_share{
         background: url("../images/record_share1.png") no-repeat;
         background-size: 20px;
+        color: #f4f4f7;
     }
     .record_rank.night_rank{
         background: url("../images/record_rank1.png") no-repeat;
@@ -696,7 +697,8 @@
 
     .record_inmid{
         display: inline-block;
-        font-size: 12px;
+        font-size: 14px;
+        color: #999;
     }
     .record_fx img{
         width: 21.5px;
@@ -707,21 +709,21 @@
         background: #b8baca;
         color: #fff;
         border-radius: 0px 0px 5px 5px;
-        font-size: 0.7rem;
+        font-size: 0.82rem;
     }
 
     .any {
         color: #fff;
         background-color: #ecb47a;
         border-radius: 0px 0px 5px 5px;
-        font-size: 0.7rem;
+        font-size: 0.82rem;
     }
 
     .night {
         background: #b8baca;
         color: #fff;
         border-radius: 0px 0px 5px 5px;
-        font-size: 0.7rem;
+        font-size: 0.82rem;
     }
 
     .record_mid {
@@ -734,16 +736,16 @@
 
     .record_tx1 {
         margin-top: 11.5%;
-        font-size: 0.70rem;
+        font-size: 0.82rem;
         text-align: center;
-        color: #b9bdc0;
+        color: #999;
     }
 
     .record_tx2 {
         margin-top: 2%;
-        font-size: 0.70rem;
+        font-size: 0.82rem;
         text-align: center;
-        color: #b9bdc0;
+        color: #999;
     }
 
     .recorded {
@@ -767,7 +769,7 @@
 
     .next {
         text-align: center;
-        font-size: 0.78rem;
+        font-size: 0.82rem;
         color: rgba(102, 102, 102, 1);
         margin-top: 1.05rem;
     }
@@ -778,7 +780,7 @@
 
     .record_compare {
         text-align: center;
-        font-size: 0.70rem;
+        font-size: 0.82rem;
         color: rgba(101, 103, 101, 1);
         margin-top: 22px;
     }
@@ -810,6 +812,7 @@
         text-align: center;
         display: inline-block;
         vertical-align: middle;
+        font-size: 0.82rem;
     }
 
     .finish {
@@ -876,7 +879,7 @@
     }
 
     .re_text2 {
-        font-size: 0.7rem;
+        font-size: 0.82rem;
         color: rgba(128, 126, 126, 1);
         margin-top: 23px;
         text-align: center;
