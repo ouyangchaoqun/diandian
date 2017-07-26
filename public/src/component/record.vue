@@ -12,21 +12,21 @@
             <div class="main_record">
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
-                        <a @click="morning" class="weui-tabbar__item ">
-                            <div class="go_record record_left ">
-                                <div class="img"><img src=""/></div>
+                        <a  class="weui-tabbar__item ">
+                            <div class="go_record record_left " @click="morning">
+                                <div class="img"></div>
                                 <div class="morning" :class="{recorded:isGetUp}">早起打卡</div>
                             </div>
                         </a>
                         <router-link :to="linkTo" class="weui-tabbar__item">
                             <div class="go_record record_mid">
-                                <div class="img"><img src=""/></div>
+                                <div class="img"></div>
                                 <div class="any">心情记录</div>
                             </div>
                         </router-link>
-                        <a @click="night" class="weui-tabbar__item">
-                            <div class="go_record record_right">
-                                <div class="img"><img src=""/></div>
+                        <a  class="weui-tabbar__item">
+                            <div class="go_record record_right" @click="night">
+                                <div class="img"></div>
                                 <div class="night" :class="{recorded:isGoBed}">早睡打卡</div>
                             </div>
                         </a>
@@ -456,8 +456,8 @@
 
 </script>
 <style>
-    .go_record .img:active {
-        background: red
+    .go_record:active {
+        background: #eee
     }
 
     .main_record {
@@ -660,6 +660,9 @@
     .record_left {
         float: left;
     }
+    .record_left .img{ background: url("../images/record_get_up.png") no-repeat center; background-size: 80% }
+    .record_mid .img{ background: url("../images/record_mood.png") no-repeat center ; background-size: 80%}
+    .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center; background-size: 80% }
     .record_fx{
         text-align: center;
         margin-top: 55px;
