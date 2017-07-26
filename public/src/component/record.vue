@@ -51,7 +51,7 @@
                                 <!--<div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>-->
                             <!--</div>-->
                         <!--</div>-->
-                        <div class="midLine" ></div>
+                        <div class="midLine" v-if="result.data.type==2"></div>
                         <div class="record_bottom" @click="share"v-if="result.data.type==2">
                             <div class="doRecord" v-if="result.data.type==2">分享成就</div>
                         </div>
