@@ -42,13 +42,13 @@
         </div>
 
         <div class="clock_tab" :class="{clock_tabNight:isNight}" style="position: relative;">
-            <div >好友排行</div>
-            <div class="clock_tabActive">总排行</div>
+            <div style="z-index: 100">好友排行</div>
+            <div class="clock_tabActive" style="z-index: 100">总排行</div>
             <div class="tabMove"></div>
         </div>
-        <div class="rank_Bgbox swiper-container">
-            <div class="rank_box swiper-wrapper">
-                <div class="clock_rank clock_rank1 swiper-slide swiper-no-swiping">
+        <div class="rank_Bgbox">
+            <div class="rank_box goleft">
+                <div class="clock_rank clock_rank1">
                     <div  class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
@@ -87,7 +87,7 @@
                     </ul>
                 </div>
                 <!--总排行-->
-                <div class="clock_rank clock_rank2 swiper-slide swiper-no-swiping">
+                <div class="clock_rank clock_rank2 ">
                     <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
@@ -247,6 +247,7 @@
                 myRankSwiper.slideTo($(this).index());
                 var clock_rank1Width = $('.clock_rank1').height();
                 var clock_rank2Width = $('.clock_rank2').height();
+                $('.rank_box').removeClass('goleft').removeClass('goright')
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
                 $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
                 $(this).addClass('clock_tabActive')
@@ -256,11 +257,13 @@
                 }
                 if($(this).index()==1){
                     $('.tabMove').addClass('tab_goRight');
+                    $('.rank_box').addClass('goleft')
                     _this.swipersettime = setTimeout(function () {
                             $('.rank_Bgbox').css('height',clock_rank2Width+15);
                         },500)
                 }else{
                     $('.tabMove').addClass('tab_goleft');
+                    $('.rank_box').addClass('goright')
                     _this.swipersettime = setTimeout(function () {
                         $('.rank_Bgbox').css('height',clock_rank1Width+15);
                     },500)
@@ -293,6 +296,10 @@
     }
 </script>
 <style>
+    .clock_rank{
+        width:50%;
+        float: left;
+    }
     .clock_box{
         height:100%;
         background: #e2f4fe;
@@ -400,7 +407,7 @@
         position: absolute;
         left:50%;
         top:-1px;
-        z-index:-1;
+        z-index:1;
         border:1px solid #fff;
         transition:transform .5s;
         -webkit-transition:transform .5s;
