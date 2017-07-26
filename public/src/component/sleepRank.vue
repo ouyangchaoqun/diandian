@@ -164,7 +164,7 @@
 
 
 
-            _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+typeId+'').then(data => {
+            _this.$http.get(web.API_PATH+'record/sleep/get/all/day/count/_userId_/'+typeId+'').then(data => {
                 if(data.data.status===1){
                     _this.allDay= data.data.data;
                 }
