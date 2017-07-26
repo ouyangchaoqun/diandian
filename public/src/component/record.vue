@@ -45,22 +45,20 @@
                         <div class="record_compare" v-if="result.data.type==3">
                             {{result.allCount}}人正在参加，比{{result.earlyPer}}%的人睡的早
                         </div>
-                        <div class="record_fx">
-                            <div class="record_inmid">
-                                <div class="record_share" :class="{night_share:result.data.type==3}" @click="share">分享成就</div>
-                                <div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>
-                            </div>
+                        <!--<div class="record_fx">-->
+                            <!--<div class="record_inmid">-->
+                                <!--<div class="record_share" :class="{night_share:result.data.type==3}" @click="share">分享成就</div>-->
+                                <!--<div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="midLine" ></div>
+                        <div class="record_bottom" @click="share"v-if="result.data.type==2">
+                            <div class="doRecord" v-if="result.data.type==2">分享成就</div>
                         </div>
-                        <div class="record_bottom" @click="write">
-                            <div class="record_pic">
-                                <img src="../images/record_ss.png" v-if="result.data.type==3">
-                                <img src="../images/record_record1.png" v-if="result.data.type==2">
-                            </div>
+                        <div class="record_bottom2" @click="write">
                             <div class="doRecord" v-if="result.data.type==2">向新的一天问好</div>
                             <div class="doRecord" v-if="result.data.type==3">今日小成就</div>
-                            <div style="clear: both;"></div>
                         </div>
-                        <!--<div class="finish" @click="finish">完成</div>-->
                     </div>
                 </div>
 
@@ -68,13 +66,13 @@
                 <div class="timeout" :class="{night_time_out:outNightTime}">
                     <div class="re_text1" v-if="outMorningTime">早起时间</div>
                     <div class="re_text1" v-if="outNightTime">早睡时间</div>
-                    <div class="jiantou"></div>
+                    <!--<div class="jiantou"></div>-->
                     <div class="ealy_time" v-if="outMorningTime">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</div>
                     <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
                     <div class="record_text2" @click="write">
-                        <div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>
+                        <!--<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>-->
                         <div class="doRecord" v-if="outMorningTime">不忘初心</div>
                         <div class="doRecord" v-if="outNightTime">为啥熬夜</div>
                         <div style="clear: both;"></div>
@@ -524,6 +522,11 @@
     .nightbg .record_bottom,  .nightbg .timeout .record_text2{
      background-color: #4e4c73;
  }
+    .nightbg .record_bottom2,  .nightbg .timeout .record_text2 {
+        background-color: #4e4c73;
+        left: 0;
+        width: 100%;
+    }
     .nightbg .date_right, .nightbg .date, .nightbg .weather {
         color: #cececd
     }
@@ -590,7 +593,7 @@
         position: absolute;
         width: 100%;
         z-index: 2;
-        top: -2.6005rem;
+        top: -2.005rem;
     }
 
     .main_record {
@@ -782,7 +785,7 @@
     .record_time {
         text-align: center;
         font-size: 1.82rem;
-        padding-top: 4.7rem;
+        padding-top: 6rem;
         line-height: 1;
         color: rgba(102, 102, 102, 1);
     }
@@ -791,7 +794,7 @@
         text-align: center;
         font-size: 0.82rem;
         color: rgba(102, 102, 102, 1);
-        margin-top: 1.05rem;
+        margin-top: 1.5rem;
     }
     .next span{ display: inline-block; padding-left: 1.2rem; background: url(../images/daygood.png) no-repeat; background-size: 0.9rem; background-position: 0 3px ;}
 
@@ -816,18 +819,31 @@
         vertical-align: middle;
     }
 
-    .record_bottom {
+    .record_bottom,.record_bottom2 {
         font-size: 0.88rem;
-        width: 100%;
+        width: 50%;
         text-align: center;
         background-color: rgba(137, 181, 250, 1);
         color: #fff;
         position: absolute;
         bottom: 0;
-        height:2.35rem;
-        padding-top:0.588rem;
+        height:2.95rem;
+        line-height: 2.8rem;
     }
-
+    .record_bottom2{
+        width: 50%;
+        left: 50%;
+        border: none;
+    }
+    .midLine{
+        width: 1px;
+        height: 1.5rem;
+        position: absolute;
+        left: 50%;
+        bottom: 0.75rem;
+        background-color: #fff;
+        z-index: 99;
+    }
     .doRecord {
         text-align: center;
         display: inline-block;
@@ -878,7 +894,7 @@
         text-align: center;
         font-size: 1.05rem;
         color: rgba(165, 165, 165, 1);
-        padding-top: 78px;
+        padding-top: 6rem;
     }
 
     .jiantou {
@@ -891,7 +907,7 @@
     }
 
     .ealy_time {
-        margin-top: 0.88rem;
+        margin-top: 1.2rem;
         text-align: center;
         font-size: 2.11rem;
         color: rgba(165, 165, 165, 1);
