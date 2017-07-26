@@ -231,7 +231,7 @@
 
              let myRankSwiper = new Swiper ('.rank_Bgbox',{
                 speed:500,
-                //initialSlide:1,
+                initialSlide:1,
                 onSlideChangeStart: function(){
                     $(".rank_box").css('height', 'auto');
                 }
