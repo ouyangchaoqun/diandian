@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-show="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
+                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-for="(rankList,index) in myInFriendRank">
                            <!-- <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
                             <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
                             <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list" :class="{rank_listNight:isNight}" v-show="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
+                        <li class="rank_list" :class="{rank_listNight:isNight}" v-for="(allRannList,index) in allRankList">
 
                             <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
