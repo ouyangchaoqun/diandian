@@ -7,7 +7,7 @@
 				<span  class="recordImg">
 
 				</span>
-                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录心情</p>
+                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录</p>
             </a>
 
             <a  @click="calendar()" class="weui-tabbar__item tab " >
@@ -215,14 +215,13 @@
         },
         methods: {
 
-
             record:function () {
                var  _this=this;
                 Bus.$emit("goIndex",false);
                 this.recordImg= web.IMG_PATH+"face2.png";
                 this.recordOn=true;
                 setTimeout(function () {
-                    _this.$router.push(_this.linkTo)
+                    _this.$router.push("/record")
                 },2)
             },
             calendar:function () {
@@ -236,8 +235,7 @@
 
             care: function (id) {
                 let _this = this;
-
-                this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
+                _this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
                     if (data.data.status === 1) {
                         for(var i = 0; i<_this.friendMoodsSpe.length;i++){
                             if(_this.friendMoodsSpe[i].id===id){
@@ -304,19 +302,7 @@
             canWriteMood:function () {
 
             },
-            getMoodCount(callback){
-                this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'mood/get/user/count/_userId_'
-                }).then(function (bt) {
-                    if(bt.data && bt.data.status == 1){
-                        if(typeof callback == 'function'){
-                            callback(bt.data.data);
-                        }
-                    }
-                })
-            },
+
             getFriendLastMood:function () {
                 var that = this;
                 //好友是否有新心情
@@ -387,17 +373,7 @@
 
             _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
 
-            _this.getMoodCount(function (moodcount) {
-                if (moodcount < 10) {
-                    _this.linkTo = "/addMood";
-                } else {
-                    if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
-                        _this.linkTo = "/me/personal/validate";
-                    } else {
-                        _this.linkTo = "/addMood";
-                    }
-                }
-            });
+
 
 
             Bus.$emit('initHomeData');
@@ -470,12 +446,12 @@
     #tabs .weui-tabbar__label{ color:#777}
 
     #tabs a span{ display: inline-block; height: 24px ; width: 24px;}
-    #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size: 24px;}
+    #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size:26px; width: 26px;}
     #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size:auto 24px;   width: 19.2px}
     #tabs a span.friendsImg{ background: url(../images/friend1.png) no-repeat; background-size: 24px;}
     #tabs a span.meImg{ background: url(../images/me1.png) no-repeat; background-size: 24px; }
 
-    #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat; background-size: 24px;}
+    #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat;background-size:26px; width: 26px;}
     #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size: auto 24px; width: 19.2px }
     #tabs a:active span.friendsImg{ background: url(../images/friend2.png) no-repeat; background-size: 24px;}
     #tabs a:active span.meImg{ background: url(../images/me2.png) no-repeat; background-size: 24px; }

@@ -41,7 +41,11 @@ let routers =
                 require('./routes/aboutUs'),
                // require('./routes/interview'),
                 require('./routes/monthStatistics'),
-                require('./routes/collect')
+                require('./routes/collect'),
+                require('./routes/rankList'),
+                require('./routes/sleepRank'),
+                require('./routes/record'),
+                require('./routes/write')
             ]
         }
     ];
@@ -58,6 +62,10 @@ new Vue({
 
 Vue.directive('title', {
     inserted: function (el, binding) {
+        document.title = el.innerText;
+        el.remove()
+    },
+    update: function (el, binding) {
         document.title = el.innerText;
         el.remove()
     }

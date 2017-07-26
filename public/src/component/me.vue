@@ -65,6 +65,13 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
+		<!--<a  href="/#/ranklist/w/2017-29" class="me_lists" >-->
+			<!--<div class="me_list">-->
+				<!--<img class="listimg1 listimgPro" src="../images/aboutMe.png"/>-->
+				<!--<div class="listtext ">排行榜</div>-->
+				<!--<img class="listimg2" src="../images/me_jt.png"/>-->
+			<!--</div>-->
+		<!--</a>-->
 
 		<div class="me_bottom">
 			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>

@@ -395,6 +395,26 @@ var xqzs = {
                 }
             });
         },
+        initSleepText:function (item) {
+            if(item.type==2){
+                // item.typeFaceUrl=web.IMG_PATH+"face_day.png";
+                if(item.withId==0){
+                    item.moodValueText = '迟来的早安';
+                }else{
+                    item.moodValueText = '早安';
+                }
+                item.typeFaceColor="color:#89b5fa";
+            } else if(item.type==3){
+                // item.typeFaceUrl=web.IMG_PATH+"face_night.png";
+                if(item.withId==0){
+                    item.moodValueText = '迟来的晚安';
+                }else{
+                    item.moodValueText = '晚安';
+                }
+                item.typeFaceColor="color:#46486f";
+            }
+
+        },
         initMoodAdItemData:function (item) {
             if(item.id>0){
                 return;
@@ -482,6 +502,7 @@ var xqzs = {
                     }
                 }
                 this.initMoodAdItemData(data[i]);
+                this.initSleepText(data[i]);
 
             }
             return data;
