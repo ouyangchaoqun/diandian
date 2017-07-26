@@ -33,9 +33,9 @@
             <div class="clock_tabActive">总排行</div>
             <div class="tabMove"></div>
         </div>
-        <div class="rank_Bgbox">
-            <div class="rank_box goleft">
-                <div class="clock_rank clock_rank1">
+        <div class="rank_Bgbox swiper-container">
+            <div class="rank_box swiper-wrapper">
+                <div class="clock_rank clock_rank1 swiper-slide swiper-no-swiping">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
                         <!--<img class="rank_cup" v-if="myRank.rank==1" src="../images/rank1.png" alt="">
                         <img class="rank_cup" v-if="myRank.rank==2" src="../images/rank2.png" alt="">
@@ -78,7 +78,7 @@
                     </ul>
                 </div>
                 <!--总排行-->
-                <div class="clock_rank clock_rank2">
+                <div class="clock_rank clock_rank2 swiper-slide swiper-no-swiping">
                     <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
                         <!--<img class="rank_cup" v-if="allRank.rank==1" src="../images/rank1.png" alt="">
                         <img class="rank_cup" v-if="allRank.rank==2" src="../images/rank2.png" alt="">
@@ -120,7 +120,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 <script type="text/javascript">
@@ -224,35 +223,34 @@
             }else{
                 this.sleepRank_title="早起排行";
             }
+
+
+            var myRankSwiper = new Swiper ('.rank_Bgbox',{
+                speed:500,
+                initialSlide :1,
+                onSlideChangeStart: function(){
+                    $(".rank_box").css('height', 'auto');
+                }
+            });
             $('.clock_tab div').on('touchstart mousedown',function () {
-
+                myRankSwiper.slideTo($(this).index());
                 var clock_rank1Width = $('.clock_rank1').height();
-                console.log()
                 var clock_rank2Width = $('.clock_rank2').height();
-
-                $('.clock_tab div').removeClass('clock_tabActive');
-
-                $(this).addClass('clock_tabActive');
-                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight')
-                $('.rank_box').removeClass('goleft').removeClass('goright')
-                //console.log($(this).index())
-                $('.rank_Bgbox').css('height','auto')
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
+                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                $(this).addClass('clock_tabActive')
                 if($(this).index()==1){
-                    $('.tabMove').addClass('tab_goRight')
-                    $('.rank_box').addClass('goleft');
-                    setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank2Width+15)
-                    },500)
+                    $('.tabMove').addClass('tab_goRight');
+
+                    $('.rank_Bgbox').css('height',clock_rank2Width+15);
+
                 }else{
-                    $('.tabMove').addClass('tab_goleft')
-                    $('.rank_box').addClass('goright')
-                    setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank1Width+15)
-                    },500)
+                    $('.tabMove').addClass('tab_goleft');
+                    $('.rank_Bgbox').css('height',clock_rank1Width+15);
+
                 }
             })
 
-            //document.title = "sadasdasdasdsa"
         },
         methods:{
             addCare:function (mood,index) {
@@ -381,10 +379,6 @@
     .clock_tabNight>div{
         color: #fff;
     }
-
-    .clock_tab .clock_tabActive{
-
-    }
     .tabMove{
         height: 100%;
         width:50%;
@@ -395,22 +389,20 @@
         top:-1px;
         z-index:-1;
         border:1px solid #fff;
+        transition:transform .5s;
+        -webkit-transition:transform .5s;
     }
     .tab_goleft{
-        transition:all .5s;
-        left:0;
+
+        transform: translate3d(-100%, 0px, 0px);
+        -webkit-transform: translate3d(-100%, 0px, 0px);
     }
     .tab_goRight{
-        transition:all .5s;
-        left:50%;
+        transform: translate3d(0, 0px, 0px);
+        -webkit-transform: translate3d(0, 0px, 0px);
     }
     .clock_tabNight .clock_tabActive{
-        /*background: #fff;*/
         color: #333;
-    }
-    .clock_rank{
-        float: left;
-        width:50%;
     }
     .rank_list:last-of-type{
         border-bottom: 0;
