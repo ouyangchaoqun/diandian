@@ -141,8 +141,7 @@
                 earlyPre:0,
                 allCount:0,
                 clock_careCount:0,
-                sleepRank_title:'',
-                islockbutton:false
+                sleepRank_title:''
             }
         },
         props:{
@@ -217,7 +216,6 @@
             });
         },
         mounted:function () {
-            let _this = this;
             var typeId = this.$route.query.type;
 
             if(typeId==3){
@@ -227,10 +225,7 @@
                 this.sleepRank_title="早起排行";
             }
             $('.clock_tab div').on('touchstart mousedown',function () {
-                if(_this.islockbutton){
-                    return;
-                }
-                _this.islockbutton=true;
+
                 var clock_rank1Width = $('.clock_rank1').height();
                 console.log()
                 var clock_rank2Width = $('.clock_rank2').height();
@@ -246,15 +241,13 @@
                     $('.tabMove').addClass('tab_goRight')
                     $('.rank_box').addClass('goleft');
                     setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank2Width+15);
-                        _this.islockbutton=false;
+                        $('.rank_Bgbox').css('height',clock_rank2Width+15)
                     },800)
                 }else{
                     $('.tabMove').addClass('tab_goleft')
                     $('.rank_box').addClass('goright')
                     setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
-                        _this.islockbutton=false;
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15)
                     },800)
                 }
             })
@@ -504,13 +497,17 @@
         color:#ccc;
     }
     .goleft{
+        -webkit-transition:all .8s;
         transition:all .8s;
         /*margin-left: -100%;*/
+        -webkit-transform:translate3d(-50%,0,0);
         transform:translate3d(-50%,0,0)
     }
     .goright{
+        -webkit-transition:all .8s;
         transition:all .8s;
        /* margin-left: 0%;*/
+        -webkit-transform:translate3d(0,0,0);
         transform:translate3d(0,0,0)
     }
     .rank_Bgbox{
