@@ -122,6 +122,15 @@
             var _this = this;
             console.log("beforeRouteUpdate")
 
+
+            //处理页面跳转逻辑
+            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write") {
+                _this.$router.push("/")
+                next(false);
+                return false;
+            }
+
+
             if (_this.isFunny === true) {
                 _this.isFunny = false;
                 Bus.$emit("closeFunnyWindow");
@@ -166,9 +175,9 @@
                 isBack= true;
             }
             //是否为点开心情页面；
-            if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/addMood") {
+            if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/record") {
                 this.transitionName = 'page-xqzs-up'
-            } else if (from.fullPath === "/addMood" && (to.fullPath === "/" || to.fullPath === "/#")) {
+            } else if (from.fullPath === "/record" && (to.fullPath === "/" || to.fullPath === "/#")) {
                 this.transitionName = 'page-xqzs-down'
 
             }else if (isBack) {
