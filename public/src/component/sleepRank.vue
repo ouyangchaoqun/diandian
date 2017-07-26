@@ -140,7 +140,8 @@
                 earlyPre:0,
                 allCount:0,
                 clock_careCount:0,
-                sleepRank_title:''
+                sleepRank_title:'',
+                swipersettime:null
             }
         },
         props:{
@@ -215,6 +216,7 @@
             });
         },
         mounted:function () {
+            var _this = this;
             var typeId = this.$route.query.type;
 
             if(typeId==3){
@@ -239,15 +241,20 @@
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
                 $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
                 $(this).addClass('clock_tabActive')
+                $('.rank_Bgbox').css('height','auto');
+                if(_this.swipersettime!=null){
+                    clearTimeout(_this.swipersettime);
+                }
                 if($(this).index()==1){
                     $('.tabMove').addClass('tab_goRight');
-
-                    $('.rank_Bgbox').css('height',clock_rank2Width+15);
-
+                    _this.swipersettime = setTimeout(function () {
+                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
+                        },500)
                 }else{
                     $('.tabMove').addClass('tab_goleft');
-                    $('.rank_Bgbox').css('height',clock_rank1Width+15);
-
+                    _this.swipersettime = setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
+                    },500)
                 }
             })
 
