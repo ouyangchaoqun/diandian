@@ -418,7 +418,9 @@
                                     _this.weather = data.body.results[0].weather_data[0];
                                     let s = _this.weather.date;
                                     _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
+                                    _this.weather.current =_this.weather.current.replace("℃","°");
                                     _this.weather.temperature = _this.weather.temperature.replace("~", "/").trim();
+                                     _this.weather.temperature = _this.weather.temperature.replace("℃","°");
                                     console.log(_this.weather);
                                 }, function (error) {
                                     //error
@@ -599,7 +601,7 @@
     }
 
     .weather {
-        float: right;
+        float:right;
         width: 49%;
         font-size: 0.7rem;
         text-align: right;
@@ -608,27 +610,28 @@
 
     .weather .current {
         line-height: 1;
-        font-size: 20px;
+        font-size: 30px;
     }
 
     .weather_pic {
         width: 42px;
-        height: 30px;
+        height: 42px;
         float: right;
         margin-top: 20px;
     }
 
     .weather_pic img {
         width: 100%;
+        height: 100%;
     }
 
     .weather_info {
-        text-align: center;
+        text-align: left;
         float: right;
         font-size: 12px;
         margin-left: 10px;
-        margin-right: 12px;
-        margin-top: 17px;
+        margin-right: 5px;
+        margin-top: 11px;
 
     }
 
