@@ -619,7 +619,7 @@
         width: 42px;
         height: 42px;
         float: right;
-        margin-top: 20px;
+        margin-top: 14px;
     }
 
     .weather_pic img {
