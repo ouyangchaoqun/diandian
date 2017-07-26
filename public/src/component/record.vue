@@ -689,9 +689,9 @@
     .record_left {
         float: left;
     }
-    .record_left .img{ background: url("../images/record_get_up.png") no-repeat center; background-size: 80% }
-    .record_mid .img{ background: url("../images/record_mood.png") no-repeat center ; background-size: 80%}
-    .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center; background-size: 80% }
+    .record_left .img{ background: url("../images/record_get_up.png") no-repeat center; background-size: 100% }
+    .record_mid .img{ background: url("../images/record_mood.png") no-repeat center ; background-size: 100%}
+    .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center; background-size: 100% }
     .record_fx{
         text-align: center;
         margin-top: 2.23rem;
@@ -732,26 +732,12 @@
         margin-right: 10px;
     }
 
-    .morning {
-        background: #b8baca;
-        color: #fff;
+    .morning , .any , .night{
+
         border-radius: 0px 0px 5px 5px;
         font-size: 0.82rem;
     }
 
-    .any {
-        color: #fff;
-        background-color: #ecb47a;
-        border-radius: 0px 0px 5px 5px;
-        font-size: 0.82rem;
-    }
-
-    .night {
-        background: #b8baca;
-        color: #fff;
-        border-radius: 0px 0px 5px 5px;
-        font-size: 0.82rem;
-    }
 
     .record_mid {
         margin: 0 auto;
@@ -776,7 +762,7 @@
     }
 
     .recorded {
-        background: #ecb47a;
+
     }
 
     .bottom1 {
