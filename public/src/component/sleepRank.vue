@@ -242,13 +242,13 @@
                     $('.rank_box').addClass('goleft');
                     setTimeout(function () {
                         $('.rank_Bgbox').css('height',clock_rank2Width+15)
-                    },800)
+                    },500)
                 }else{
                     $('.tabMove').addClass('tab_goleft')
                     $('.rank_box').addClass('goright')
                     setTimeout(function () {
                         $('.rank_Bgbox').css('height',clock_rank1Width+15)
-                    },800)
+                    },500)
                 }
             })
 
@@ -497,15 +497,15 @@
         color:#ccc;
     }
     .goleft{
-        -webkit-transition:transform .8s;
-        transition:transform .8s;
+        -webkit-transition:transform .5s;
+        transition:transform .5s;
         /*margin-left: -100%;*/
         -webkit-transform:translate3d(-50%,0,0);
         transform:translate3d(-50%,0,0)
     }
     .goright{
-        -webkit-transition:transform .8s;
-        transition:transform .8s;
+        -webkit-transition:transform .5s;
+        transition:transform .5s;
        /* margin-left: 0%;*/
         -webkit-transform:translate3d(0,0,0);
         transform:translate3d(0,0,0)
