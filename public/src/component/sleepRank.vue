@@ -5,7 +5,7 @@
             <div class="clock_head">
                 <img :src="user.faceUrl" alt="">
             </div>
-            <div class="clock_count" v-if="!isNight">
+            <div class="clock_count" v-show="!isNight">
                 <div class="clock_lists" >
                     <div>
                         <p >起床时间</p>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="clock_ratio">共有{{allCount}}人陪我一起参加早起计划</div>
             </div>
-            <div class="clock_count clock_countNight"   v-if="isNight">
+            <div class="clock_count clock_countNight"   v-show="isNight">
                 <div class="clock_lists clock_listsNight">
                     <div>
                         <p >睡觉时间</p>
@@ -59,14 +59,14 @@
                                 <div class="clock_time">{{myRank.time}}</div>
                                 <div >
                                     <span>{{myRank.careCount||0}}</span>
-                                    <img v-if="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                    <img v-if="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                    <img v-show="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list " :class="{rank_listNight:isNight}" v-if="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
+                        <li class="rank_list " :class="{rank_listNight:isNight}" v-show="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
 
                             <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
@@ -76,8 +76,8 @@
                                     <div class="clock_time">{{rankList.time}}</div>
                                     <div @click.stop="addCare(rankList,index)">
                                         <span>{{rankList.careCount||0}}</span>
-                                        <img v-if="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-if="rankList.caremy>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-show="rankList.caremy>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -98,14 +98,14 @@
                                 <div class="clock_time">{{allRank.time}}</div>
                                 <div>
                                     <span>{{allRank.careCount||0}}</span>
-                                    <img v-if="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                    <img v-if="allRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                    <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-show="allRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list" :class="{rank_listNight:isNight}" v-if="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
+                        <li class="rank_list" :class="{rank_listNight:isNight}" v-show="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
 
                             <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
@@ -115,8 +115,8 @@
                                     <div  class="clock_time">{{allRannList.time}}</div>
                                     <div>
                                         <span>{{allRannList.careCount||0}}</span>
-                                        <img v-if="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-if="allRannList.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-show="allRannList.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
