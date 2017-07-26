@@ -275,41 +275,47 @@
                 _this.$http.put(web.API_PATH + 'sleep/checkin/' + type + '/_userId_', {"weather": weather}).then(response => {
                     console.log(response);
                     if (response.data.status === 1) {
-                        _this.result.data = response.data.data;
-                        let time = new Date(response.data.data.time*1000);
-                        if(time.getHours()<10){
-                            _this.result.data.hour = '0'+time.getHours();
-                        }
-                        else{
-                            _this.result.data.hour =time.getHours();
-                        }
-                        _this.result.data.minute = time.getMinutes();
-                        if(_this.result.data.hour <10){_this.result.data.hour ="0"+_this.result.data.hour}
-                        if(_this.result.data.minute <10){_this.result.data.minute ="0"+_this.result.data.minute}
 
-
-                        _this.$http.get(web.API_PATH + 'record/sleep/all/user/count/' + type + '').then(data => {
-                            if (data.data.status === 1) {
-                                _this.result.allCount = data.data.data;
-                            }
-                        });
-                        _this.$http.get(web.API_PATH + 'record/sleep/get/early/per/_userId_/' + type + '').then(data => {
-                            if (data.data.status === 1) {
-                                _this.result.earlyPer = data.data.data.toFixed(2);
-                            }
-                        });
-                        _this.isShowResult = true;
-                        _this.doRecordText='向新的一天问好';
-                        _this.animateIn();
-                        $(".result").show().stop().animate({"opacity": 1}, 200);
-                        if (type == 3) {
-                            _this.isNight = true;
-                            _this.doRecordText='今日小成就';
-                        }
-
+                        _this.initResultData(response.data.data)
 
                     }
                 });
+            },
+            initResultData:function (data) {
+
+                let _this = this;
+                _this.result.data = data;
+                let time = new Date(data.time*1000);
+                let type  = data.type;
+                if(time.getHours()<10){
+                    _this.result.data.hour = '0'+time.getHours();
+                }
+                else{
+                    _this.result.data.hour =time.getHours();
+                }
+                _this.result.data.minute = time.getMinutes();
+                if(_this.result.data.hour <10){_this.result.data.hour ="0"+_this.result.data.hour}
+                if(_this.result.data.minute <10){_this.result.data.minute ="0"+_this.result.data.minute}
+
+
+                _this.$http.get(web.API_PATH + 'record/sleep/all/user/count/' + type + '').then(data => {
+                    if (data.data.status === 1) {
+                        _this.result.allCount = data.data.data;
+                    }
+                });
+                _this.$http.get(web.API_PATH + 'record/sleep/get/early/per/_userId_/' + type + '').then(data => {
+                    if (data.data.status === 1) {
+                        _this.result.earlyPer = data.data.data.toFixed(2);
+                    }
+                });
+                _this.isShowResult = true;
+                _this.doRecordText='向新的一天问好';
+                _this.animateIn();
+                $(".result").show().stop().animate({"opacity": 1}, 200);
+                if (type == 3) {
+                    _this.isNight = true;
+                    _this.doRecordText='今日小成就';
+                }
             },
             animateIn: function () {
                 console.log('animateIn');
@@ -360,6 +366,7 @@
 
             }
         },
+
         mounted: function () {
             let _this = this;
             xqzs.wx.setConfig(_this);
@@ -376,6 +383,18 @@
             _this.week = _this.weeks[weekNo];
             console.log(_this.week);
 
+
+
+            //获取是否从写点什么页面过来
+            if(cookie.get("withId")!=''&&cookie.get("withId")!=null){
+                _this.$http.get(web.API_PATH + 'record/sleep/get/detail/'+cookie.get("withId")).then(response => {
+                    console.log(response);
+                    cookie.delete("withId")
+                    if (response.data.status === 1) {
+                        _this.initResultData(response.data.data)
+                    }
+                });
+            }
 
             //是否打卡
             _this.$http({

@@ -380,6 +380,7 @@
                 that.$http.put(web.API_PATH + apiurl, postdata)
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
+                            cookie.delete('withId','')
                             console.log(that.withId)
 
                             if(that.withId!=''&&that.withId!=undefined){
@@ -581,6 +582,10 @@
             }if(that.type==3&&that.withId!=='') {
                 that.placeholder = '晚安之前，记录下今天的小成就和明天最想做的事情吧~'
             }
+            if(that.withId!=''){
+                cookie.set('withId',that.withId,1)
+            }
+
             Bus.$on("closeFunnyWindow", function () {
                 that.showModule = '';
 
