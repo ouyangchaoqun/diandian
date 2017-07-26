@@ -1,30 +1,30 @@
 <template id="sleepRank">
     <div class="clock_box" :class="{clock_boxNight:isNight}">
-        <div v-title></div>
+        <div v-title>{{sleepRank_title}}</div>
         <div  class="clock_top" :class="{clock_topNight:isNight}">
             <div class="clock_head">
-
+                <img :src="user.faceUrl" alt="">
             </div>
             <div class="clock_count" :class="{clock_countNight:isNight}">
                 <div class="clock_lists" :class="{clock_listsNight:isNight}">
                     <div>
                         <p v-if="!isNight">起床时间</p>
                         <p v-if="isNight">睡觉时间</p>
-                        <div>--</div>
+                        <div>{{myRank.time}}</div>
                     </div>
                     <div>
                         <p v-if="!isNight">连续早起</p>
                         <p v-if="isNight">连续早睡</p>
-                        <div>--<span class="clock_listsDay">天</span> </div>
+                        <div>{{continueDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                     <div>
                         <p v-if="!isNight">坚持早起</p>
                         <p v-if="isNight">坚持早睡</p>
-                        <div>--<span class="clock_listsDay">天</span> </div>
+                        <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" v-if="!isNight">共有---人陪我一起参加早起计划</div>
-                <div class="clock_ratio" v-if="isNight">共有--人陪我一起参加早睡计划</div>
+                <div class="clock_ratio" v-if="!isNight">共有{{allCount}}人陪我一起参加早起计划</div>
+                <div class="clock_ratio" v-if="isNight">共有{{allCount}}人陪我一起参加早睡计划</div>
             </div>
         </div>
 
