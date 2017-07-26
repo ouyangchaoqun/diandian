@@ -353,7 +353,6 @@
         font-size:0.8235rem;
         line-height: 2rem;
         border:1px solid #fff;
-        overflow: hidden;
         color: #333;
     }
     .clock_tab>div{
@@ -375,8 +374,9 @@
         border-radius: 1rem;
         position: absolute;
         left:50%;
-        top:0;
+        top:-1px;
         z-index:-1;
+        border:1px solid #fff;
     }
     .tab_goleft{
         transition:all .5s;
