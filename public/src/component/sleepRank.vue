@@ -183,6 +183,7 @@
                     _this.earlyPer=data.data.data.toFixed(2);
                 }
             });
+ **/
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
@@ -197,7 +198,7 @@
                 console.log( _this.myInFriendRank)
             }, function (data) {
             });
- **/
+
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
