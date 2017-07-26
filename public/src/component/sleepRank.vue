@@ -497,15 +497,15 @@
         color:#ccc;
     }
     .goleft{
-        -webkit-transition:all .8s;
-        transition:all .8s;
+        -webkit-transition:transform .8s;
+        transition:transform .8s;
         /*margin-left: -100%;*/
         -webkit-transform:translate3d(-50%,0,0);
         transform:translate3d(-50%,0,0)
     }
     .goright{
-        -webkit-transition:all .8s;
-        transition:all .8s;
+        -webkit-transition:transform .8s;
+        transition:transform .8s;
        /* margin-left: 0%;*/
         -webkit-transform:translate3d(0,0,0);
         transform:translate3d(0,0,0)
