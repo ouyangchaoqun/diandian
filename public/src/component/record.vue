@@ -51,8 +51,10 @@
                             </div>
                         </div>
                         <div class="record_bottom" @click="write">
-                            <div class="record_pic"><img src="../images/record_ss.png" v-if="result.data.type==3">
-                                <img src="../images/record_record1.png" v-if="result.data.type==2"></div>
+                            <div class="record_pic">
+                                <img src="../images/record_ss.png" v-if="result.data.type==3">
+                                <img src="../images/record_record1.png" v-if="result.data.type==2">
+                            </div>
                             <div class="doRecord" v-if="result.data.type==2">向新的一天问好</div>
                             <div class="doRecord" v-if="result.data.type==3">今日小成就</div>
                             <div style="clear: both;"></div>
@@ -71,7 +73,7 @@
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
                     <div class="record_text2" @click="write">
-                        <div class="record_pic"><img src="../images/record_ss.png"></div>
+                        <div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>
                         <div class="doRecord" v-if="outMorningTime">不忘初心</div>
                         <div class="doRecord" v-if="outNightTime">为啥熬夜</div>
                         <div style="clear: both;"></div>
@@ -198,7 +200,7 @@
                 if (_this.isGetUp == true) {
                     _this.$router.push("/sleepRank?type=2")
                 }
-                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
+                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)&&false) {
                     this.checkIn(2);
                 } else {
                     console.log('outMorningTime');
@@ -218,7 +220,7 @@
                     return;
                 }
 
-                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)) {
+                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)&&false) {
                     this.checkIn(3);
                 } else {
                     console.log('outnightTime');
@@ -800,6 +802,8 @@
         opacity: 0;
         background: url("../images/daybg.png") no-repeat bottom center;
         background-size: 100%;
+        height: 100%;
+        display:none
     }
 
     .timeout.night_time_out .re_text1, .timeout.night_time_out .ealy_time, .timeout.night_time_out .re_text2, .timeout.night_time_out .re_text1 {
