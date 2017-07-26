@@ -1,12 +1,12 @@
 <template id="sleepRank">
-    <div :class="{'clock_box':true,'clock_boxNight':isNight}">
-        <div ><div v-title>{{sleepRank_title}}</div></div>
-        <div :class="{'clock_top':true,'clock_topNight':isNight}">
+    <div class="clock_box" :class="{clock_boxNight:isNight}">
+        <div v-title>{{sleepRank_title}}</div>
+        <div  class="clock_top" :class="{clock_topNight:isNight}">
             <div class="clock_head">
                 <img :src="user.faceUrl" alt="">
             </div>
-            <div :class="{'clock_count':true,'clock_countNight':isNight}">
-                <div :class="{'clock_lists':true,'clock_listsNight':isNight}">
+            <div class="clock_count" :class="{clock_countNight:isNight}">
+                <div class="clock_lists" :class="{clock_listsNight:isNight}">
                     <div>
                         <p v-if="!isNight">起床时间</p>
                         <p v-if="isNight">睡觉时间</p>
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div :class="{'clock_tab':true,'clock_tabNight':isNight}" style="position: relative;">
+        <div class="clock_tab" :class="{clock_tabNight:isNight}" style="position: relative;">
             <div >好友排行</div>
             <div class="clock_tabActive">总排行</div>
             <div class="tabMove"></div>
@@ -79,16 +79,14 @@
                 </div>
                 <!--总排行-->
                 <div class="clock_rank clock_rank2 swiper-slide swiper-no-swiping">
-                    <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
-                        <!--<img class="rank_cup" v-if="allRank.rank==1" src="../images/rank1.png" alt="">
-                        <img class="rank_cup" v-if="allRank.rank==2" src="../images/rank2.png" alt="">
-                        <img class="rank_cup" v-if="allRank.rank==3" src="../images/rank3.png" alt="">-->
-                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{allRank.rank}}</span>
+                    <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
+
+                        <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="allRank.faceUrl" alt="">
                             <div class="rank_name">{{allRank.nickName}}</div>
-                            <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                <div :class="{'clock_time':true/*,'rank1Color':allRank.rank==1,'rank2Color':allRank.rank==2,'rank3Color':allRank.rank==3*/}">{{allRank.time}}</div>
+                            <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                <div class="clock_time">{{allRank.time}}</div>
                                 <div>
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-if="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -98,16 +96,14 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-if="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
-                            <!--<img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
-                            <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
-                            <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
-                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{index+1}}</span>
-                            <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':isNight}">
+                        <li class="rank_list" :class="{rank_listNight:isNight}" v-if="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
+
+                            <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
+                            <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
                                 <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
                                 <div class="rank_name">{{allRannList.nickName}}</div>
-                                <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                    <div :class="{'clock_time':true/*,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2*/}">{{allRannList.time}}</div>
+                                <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                    <div  class="clock_time">{{allRannList.time}}</div>
                                     <div>
                                         <span>{{allRannList.careCount||0}}</span>
                                         <img v-if="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -236,29 +232,29 @@
                     $(".rank_box").css('height', 'auto');
                 }
             });
-//            $('.clock_tab div').on('touchstart mousedown',function () {
-//                myRankSwiper.slideTo($(this).index());
-//                var clock_rank1Width = $('.clock_rank1').height();
-//                var clock_rank2Width = $('.clock_rank2').height();
-//                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
-//                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
-//                $(this).addClass('clock_tabActive')
-//                $('.rank_Bgbox').css('height','auto');
-//                if(_this.swipersettime!=null){
-//                    clearTimeout(_this.swipersettime);
-//                }
-//                if($(this).index()==1){
-//                    $('.tabMove').addClass('tab_goRight');
-//                    _this.swipersettime = setTimeout(function () {
-//                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
-//                        },500)
-//                }else{
-//                    $('.tabMove').addClass('tab_goleft');
-//                    _this.swipersettime = setTimeout(function () {
-//                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
-//                    },500)
-//                }
-//            })
+            $('.clock_tab div').on('touchstart mousedown',function () {
+                myRankSwiper.slideTo($(this).index());
+                var clock_rank1Width = $('.clock_rank1').height();
+                var clock_rank2Width = $('.clock_rank2').height();
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
+                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                $(this).addClass('clock_tabActive')
+                $('.rank_Bgbox').css('height','auto');
+                if(_this.swipersettime!=null){
+                    clearTimeout(_this.swipersettime);
+                }
+                if($(this).index()==1){
+                    $('.tabMove').addClass('tab_goRight');
+                    _this.swipersettime = setTimeout(function () {
+                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
+                        },500)
+                }else{
+                    $('.tabMove').addClass('tab_goleft');
+                    _this.swipersettime = setTimeout(function () {
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
+                    },500)
+                }
+            })
 
         },
         methods:{
