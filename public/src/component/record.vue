@@ -169,6 +169,11 @@
 
             }
         },
+        props:{
+            user:{
+                type:Object
+            }
+        },
         methods: {
             share:function () {
                 let _this=this;
