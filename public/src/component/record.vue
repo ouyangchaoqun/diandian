@@ -697,9 +697,9 @@
     .record_left {
         float: left;
     }
-    .record_left .img{ background: url("../images/record_get_up.png") no-repeat center; background-size: 100% }
-    .record_mid .img{ background: url("../images/record_mood.png") no-repeat center ; background-size: 100%}
-    .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center; background-size: 100% }
+    .record_left .img{ background: url("../images/record_get_up.png") no-repeat center top; background-size: 100% }
+    .record_mid .img{ background: url("../images/record_mood.png") no-repeat center top ; background-size: 100%}
+    .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center top; background-size: 100% }
     .record_fx{
         text-align: center;
         margin-top: 2.23rem;
