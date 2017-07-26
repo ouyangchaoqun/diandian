@@ -98,8 +98,8 @@
                         <p>{{weather.temperature}}</p>
                     </div>
                     <div class="weather_pic">
-                        <img v-if="(hour>=6&&hour<=18)&&!isNight&&weather.weather!=''" :src="weather.dayPictureUrl"/>
-                        <img v-if="(hour<6||hour>18)||isNight&&weather.weather!=''" :src="weather.nightPictureUrl"/>
+                        <img v-if="(hour>=6&&hour<=18)&&!isNight&&weather.weather!=undefined" :src="weather.dayPictureUrl"/>
+                        <img v-if="(hour<6||hour>18)||isNight&&weather.weather!=undefined" :src="weather.nightPictureUrl"/>
                     </div>
                 </div>
                 <div class="weather" v-show="false">
@@ -711,6 +711,7 @@
     .record_rank.night_rank{
         background: url("../images/record_rank1.png") no-repeat;
         background-size: 20px;
+        color: #f4f4f7;
     }
 
 
