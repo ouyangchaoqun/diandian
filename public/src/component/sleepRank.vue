@@ -192,32 +192,32 @@
                     _this.earlyPer=data.data.data.toFixed(2);
                 }
             });
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-            }).then(function (data) {
-                console.log(data)
-                _this.myRank = data.data.data.userRank||{};
-                //console.log(_this.myRank)
-                _this.myInFriendRank = data.data.data.allRank||[];
-                for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
-                    _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
-                }
-                console.log( _this.myInFriendRank)
-            }, function (data) {
-            });
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-            }).then(function (data) {
-                _this.allRank = data.data.data.userRank||{};
-                _this.allRankList = data.data.data.allRank||[];
-                for(var i=0,l=_this.allRankList.length;i<l;i++){
-                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
-                }
-                console.log( _this.allRankList)
-            }, function (data) {
-            });
+//            this.$http({
+//                method: 'GET',
+//                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+//            }).then(function (data) {
+//                console.log(data)
+//                _this.myRank = data.data.data.userRank||{};
+//                //console.log(_this.myRank)
+//                _this.myInFriendRank = data.data.data.allRank||[];
+//                for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
+//                    _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+//                }
+//                console.log( _this.myInFriendRank)
+//            }, function (data) {
+//            });
+//            this.$http({
+//                method: 'GET',
+//                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+//            }).then(function (data) {
+//                _this.allRank = data.data.data.userRank||{};
+//                _this.allRankList = data.data.data.allRank||[];
+//                for(var i=0,l=_this.allRankList.length;i<l;i++){
+//                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+//                }
+//                console.log( _this.allRankList)
+//            }, function (data) {
+//            });
 
 
             var typeId = this.$route.query.type;
