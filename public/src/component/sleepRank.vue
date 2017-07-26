@@ -237,7 +237,8 @@
                 var clock_rank1Width = $('.clock_rank1').height();
                 var clock_rank2Width = $('.clock_rank2').height();
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
-
+                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                $(this).addClass('clock_tabActive')
                 if($(this).index()==1){
                     $('.tabMove').addClass('tab_goRight');
 
@@ -378,10 +379,6 @@
     .clock_tabNight>div{
         color: #fff;
     }
-
-    .clock_tab .clock_tabActive{
-
-    }
     .tabMove{
         height: 100%;
         width:50%;
@@ -392,23 +389,21 @@
         top:-1px;
         z-index:-1;
         border:1px solid #fff;
+        transition:transform .5s;
+        -webkit-transition:transform .5s;
     }
     .tab_goleft{
-        transition:all .5s;
-        left:0;
+
+        transform: translate3d(-100%, 0px, 0px);
+        -webkit-transform: translate3d(-100%, 0px, 0px);
     }
     .tab_goRight{
-        transition:all .5s;
-        left:50%;
+        transform: translate3d(0, 0px, 0px);
+        -webkit-transform: translate3d(0, 0px, 0px);
     }
     .clock_tabNight .clock_tabActive{
-        /*background: #fff;*/
         color: #333;
     }
-    /*.clock_rank{
-        float: left;
-        width:50%;
-    }*/
     .rank_list:last-of-type{
         border-bottom: 0;
     }
