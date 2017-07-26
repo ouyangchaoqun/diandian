@@ -374,7 +374,7 @@
                             console.log(that.withId)
 
                             if(that.withId!=''&&that.withId!=undefined){
-                                that.$router.push("/clock?type="+that.type);
+                                that.$router.push("/sleepRank?type="+that.type);
                             }else{
                                 that.$router.push("/friendsMoods");
                             }

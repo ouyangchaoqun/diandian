@@ -42,7 +42,7 @@ let routers =
                // require('./routes/interview'),
                 require('./routes/monthStatistics'),
                 require('./routes/collect'),
-                require('./routes/clock'),
+                require('./routes/sleepRank'),
                 require('./routes/record'),
                 require('./routes/write')
             ]

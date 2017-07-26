@@ -36,9 +36,7 @@
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
-                        <div class="next" v-if="result.data.type==2"><img src="../images/good.png"/>连续早起{{result.data.continuousDays}}天
-                        </div>
-                        <div class="next" v-if="result.data.type==3"><img src="../images/good.png"/>连续早睡{{result.data.continuousDays}}天
+                        <div class="next"><span  :class="{ok_night:result.data.type==3}">连续早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
                         <div class="record_compare" v-if="result.data.type==2">
                             {{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早
@@ -181,7 +179,7 @@
                 this.isNight = false;
             },
             finish: function () {
-                this.$router.push("/clock?type=" + this.result.data.type)
+                this.$router.push("/sleepRank?type=" + this.result.data.type)
             },
 
             write: function () {
@@ -198,7 +196,7 @@
             morning: function () {
                 let _this = this;
                 if (_this.isGetUp == true) {
-                    _this.$router.push("/clock?type=2")
+                    _this.$router.push("/sleepRank?type=2")
                 }
                 if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
                     this.checkIn(2);
@@ -216,7 +214,7 @@
             night: function () {
                 let _this = this;
                 if (_this.isGoBed == true) {
-                    _this.$router.push("/clock?type=3")
+                    _this.$router.push("/sleepRank?type=3")
                     return;
                 }
 
@@ -322,7 +320,7 @@
                 })
             },
             goRank:function () {
-                this.$router.push("/clock?type="+this.result.data.type)
+                this.$router.push("/sleepRank?type="+this.result.data.type)
 
             }
         },
@@ -635,7 +633,7 @@
         float: left;
         background: url("../images/record_share.png") no-repeat; height: 20px;
         background-size: 20px;
-        padding-top: 4px;
+        padding-top: 3px;
         padding-left: 26px;
         margin: 0 10px;
     }
@@ -732,11 +730,10 @@
         color: rgba(102, 102, 102, 1);
         margin-top: 18px;
     }
+    .next span{ display: inline-block; padding-left: 1.2rem; background: url(../images/daygood.png) no-repeat; background-size: 0.9rem; background-position: 0 3px ;}
 
-    .next img {
-        width: 0.9rem;
-        margin-right: 2%;
-    }
+    .next .ok_night{background: url(../images/good.png) no-repeat; background-size: 0.9rem; background-position: 0 3px ;}
+
 
     .record_compare {
         text-align: center;

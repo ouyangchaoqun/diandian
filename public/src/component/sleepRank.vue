@@ -1,4 +1,4 @@
-<template id="clock">
+<template id="sleepRank">
     <div :class="{'clock_box':true,'clock_boxNight':isNight}">
         <div :class="{'clock_top':true,'clock_topNight':isNight}">
             <div class="clock_head">
@@ -123,8 +123,8 @@
 </template>
 <script type="text/javascript">
 
-    var clock = {
-        template: '#clock'
+    var sleepRank = {
+        template: '#sleepRank'
     }
     export default {
         data() {
