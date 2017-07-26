@@ -36,17 +36,15 @@
         <div class="rank_Bgbox swiper-container">
             <div class="rank_box swiper-wrapper">
                 <div class="clock_rank clock_rank1 swiper-slide swiper-no-swiping">
-                    <div :class="{'rank_list':true,'me_rank':true,'rank_listNight':isNight}">
-                        <!--<img class="rank_cup" v-if="myRank.rank==1" src="../images/rank1.png" alt="">
-                        <img class="rank_cup" v-if="myRank.rank==2" src="../images/rank2.png" alt="">
-                        <img class="rank_cup" v-if="myRank.rank==3" src="../images/rank3.png" alt="">-->
-                        <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{myRank.rank}}</span>
+                    <div  class="rank_list me_rank" :class="{rank_listNight:isNight}">
+
+                        <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="myRank.faceUrl" alt="">
                             <div class="rank_name">{{myRank.nickName}}</div>
-                            <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                <div :class="{'clock_time':true/*,'rank1Color':myRank.rank==1,'rank2Color':myRank.rank==2,'rank3Color':myRank.rank==3*/}">{{myRank.time}}</div>
-                                <div @click.stop="care(myRank)">
+                            <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                <div class="clock_time">{{myRank.time}}</div>
+                                <div >
                                     <span>{{myRank.careCount||0}}</span>
                                     <img v-if="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-if="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
@@ -55,16 +53,14 @@
                         </div>
                     </div>
                     <ul>
-                        <li :class="{'rank_list':true,'rank_listNight':isNight}" v-if="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
-                           <!-- <img class="rank_cup" v-if="index==0" src="../images/rank1.png" alt="">
-                            <img class="rank_cup" v-if="index==1" src="../images/rank2.png" alt="">
-                            <img class="rank_cup" v-if="index==2" src="../images/rank3.png" alt="">-->
-                            <span :class="{'rank_cup':true,'rank_cupNight':isNight}">{{index+1}}</span>
-                            <div :class="{'rank_main':true,'rank_border':true,'rank_borderNight':isNight}">
+                        <li class="rank_list " :class="{rank_listNight:isNight}" v-if="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
+
+                            <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
+                            <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
                                 <img class="rank_headImg" :src="rankList.faceUrl" alt="">
                                 <div class="rank_name">{{rankList.nickName}}</div>
-                                <div :class="{'rank_right':true,'rank_rightNight':isNight}">
-                                    <div :class="{'clock_time':true/*,'rank1Color':index==0,'rank2Color':index==1,'rank3Color':index==2*/}">{{rankList.time}}</div>
+                                <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                    <div class="clock_time">{{rankList.time}}</div>
                                     <div @click.stop="addCare(rankList,index)">
                                         <span>{{rankList.careCount||0}}</span>
                                         <img v-if="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -278,9 +274,6 @@
                         }
                     });
                 }
-            },
-            care:function (o) {
-                console.info(o)
             }
         }
 
