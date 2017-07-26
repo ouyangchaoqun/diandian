@@ -229,7 +229,7 @@
             var typeId = this.$route.query.type;
 
             if(typeId==3){
-                this.isNight= true;
+                this.isNight= false;
                 this.sleepRank_title="早睡排行";
             }else{
                 this.sleepRank_title="早起排行";
