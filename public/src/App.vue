@@ -122,6 +122,15 @@
             var _this = this;
             console.log("beforeRouteUpdate")
 
+
+            //处理页面跳转逻辑
+            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write") {
+                _this.$router.go(0-window.history.length+2)
+                next(false);
+                return false;
+            }
+
+
             if (_this.isFunny === true) {
                 _this.isFunny = false;
                 Bus.$emit("closeFunnyWindow");

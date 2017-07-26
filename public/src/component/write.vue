@@ -350,9 +350,18 @@
             },
             submitMood: function () {
                 let that = this;
+
                 if (!that.cansubmit) {
                     return;
                 }
+
+                if( (that.getUploadPictureIds().length>0||that.moodcontent.length>0)){
+                }else{
+                   return ;
+                }
+
+
+
                 var postdata = {
                     moodValue: null,
                     scenesId: 0,
