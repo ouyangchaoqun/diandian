@@ -200,7 +200,7 @@
                 if (_this.isGetUp == true) {
                     _this.$router.push("/sleepRank?type=2")
                 }
-                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)&&false) {
+                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
                     this.checkIn(2);
                 } else {
                     console.log('outMorningTime');
@@ -220,7 +220,7 @@
                     return;
                 }
 
-                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)&&false) {
+                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)) {
                     this.checkIn(3);
                 } else {
                     console.log('outnightTime');
