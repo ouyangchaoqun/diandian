@@ -156,6 +156,10 @@
         },
         beforeCreate: function () {
             console.log("beforeCreate")
+
+        },
+        mounted:function () {
+
             let _this = this;
             //var subsid = _this.$route.params.id;
             let time=new Date();
@@ -214,9 +218,8 @@
                 console.log( _this.allRankList)
             }, function (data) {
             });
-        },
-        mounted:function () {
-            var _this = this;
+
+
             var typeId = this.$route.query.type;
 
             if(typeId==3){
@@ -227,13 +230,13 @@
             }
 
 
-//            var myRankSwiper = new Swiper ('.rank_Bgbox',{
-//                speed:500,
-//                initialSlide :1,
-//                onSlideChangeStart: function(){
-//                    $(".rank_box").css('height', 'auto');
-//                }
-//            });
+            var myRankSwiper = new Swiper ('.rank_Bgbox',{
+                speed:500,
+                initialSlide :1,
+                onSlideChangeStart: function(){
+                    $(".rank_box").css('height', 'auto');
+                }
+            });
             $('.clock_tab div').on('touchstart mousedown',function () {
                 myRankSwiper.slideTo($(this).index());
                 var clock_rank1Width = $('.clock_rank1').height();
