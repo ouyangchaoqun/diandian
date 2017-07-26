@@ -10,7 +10,7 @@
                     <div>
                         <p v-if="!isNight">起床时间</p>
                         <p v-if="isNight">睡觉时间</p>
-                        <div>{{myRank.time}}</div>
+                        <div>--------</div>
                     </div>
                     <div>
                         <p v-if="!isNight">连续早起</p>
@@ -142,16 +142,10 @@
                 clock_careCount:0,
                 sleepRank_title:'',
                 swipersettime:null,
-                myRankSwiper:null
             }
         },
         props:{
             user:{
-                type:Object
-            },friendMoodsSpe: {
-                type:Object
-            },
-            friendMoods: {
                 type:Object
             }
         },
@@ -235,9 +229,9 @@
             }
 
 
-            this.myRankSwiper = new Swiper ('.rank_Bgbox',{
+             let myRankSwiper = new Swiper ('.rank_Bgbox',{
                 speed:500,
-                initialSlide:0,
+                initialSlide:1,
                 onSlideChangeStart: function(){
                     $(".rank_box").css('height', 'auto');
                 }
