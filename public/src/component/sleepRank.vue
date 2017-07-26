@@ -10,7 +10,7 @@
                     <div>
                         <p v-if="!isNight">起床时间</p>
                         <p v-if="isNight">睡觉时间</p>
-                        <div>--------</div>
+                        <div>{{myRank.time}}</div>
                     </div>
                     <div>
                         <p v-if="!isNight">连续早起</p>
@@ -236,29 +236,29 @@
                     $(".rank_box").css('height', 'auto');
                 }
             });
-            $('.clock_tab div').on('touchstart mousedown',function () {
-                myRankSwiper.slideTo($(this).index());
-                var clock_rank1Width = $('.clock_rank1').height();
-                var clock_rank2Width = $('.clock_rank2').height();
-                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
-                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
-                $(this).addClass('clock_tabActive')
-                $('.rank_Bgbox').css('height','auto');
-                if(_this.swipersettime!=null){
-                    clearTimeout(_this.swipersettime);
-                }
-                if($(this).index()==1){
-                    $('.tabMove').addClass('tab_goRight');
-                    _this.swipersettime = setTimeout(function () {
-                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
-                        },500)
-                }else{
-                    $('.tabMove').addClass('tab_goleft');
-                    _this.swipersettime = setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
-                    },500)
-                }
-            })
+//            $('.clock_tab div').on('touchstart mousedown',function () {
+//                myRankSwiper.slideTo($(this).index());
+//                var clock_rank1Width = $('.clock_rank1').height();
+//                var clock_rank2Width = $('.clock_rank2').height();
+//                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
+//                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+//                $(this).addClass('clock_tabActive')
+//                $('.rank_Bgbox').css('height','auto');
+//                if(_this.swipersettime!=null){
+//                    clearTimeout(_this.swipersettime);
+//                }
+//                if($(this).index()==1){
+//                    $('.tabMove').addClass('tab_goRight');
+//                    _this.swipersettime = setTimeout(function () {
+//                            $('.rank_Bgbox').css('height',clock_rank2Width+15);
+//                        },500)
+//                }else{
+//                    $('.tabMove').addClass('tab_goleft');
+//                    _this.swipersettime = setTimeout(function () {
+//                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
+//                    },500)
+//                }
+//            })
 
         },
         methods:{
