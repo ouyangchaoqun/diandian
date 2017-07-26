@@ -141,7 +141,8 @@
                 earlyPre:0,
                 allCount:0,
                 clock_careCount:0,
-                sleepRank_title:''
+                sleepRank_title:'',
+                islockbutton:false
             }
         },
         props:{
@@ -216,6 +217,7 @@
             });
         },
         mounted:function () {
+            let _this = this;
             var typeId = this.$route.query.type;
 
             if(typeId==3){
@@ -225,6 +227,10 @@
                 this.sleepRank_title="早起排行";
             }
             $('.clock_tab div').on('touchstart mousedown',function () {
+                if(_this.islockbutton){
+                    return;
+                }
+                _this.islockbutton=true;
                 var clock_rank1Width = $('.clock_rank1').height();
                 console.log()
                 var clock_rank2Width = $('.clock_rank2').height();
@@ -240,13 +246,15 @@
                     $('.tabMove').addClass('tab_goRight')
                     $('.rank_box').addClass('goleft');
                     setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank2Width+15)
+                        $('.rank_Bgbox').css('height',clock_rank2Width+15);
+                        _this.islockbutton=false;
                     },800)
                 }else{
                     $('.tabMove').addClass('tab_goleft')
                     $('.rank_box').addClass('goright')
                     setTimeout(function () {
-                        $('.rank_Bgbox').css('height',clock_rank1Width+15)
+                        $('.rank_Bgbox').css('height',clock_rank1Width+15);
+                        _this.islockbutton=false;
                     },800)
                 }
             })
@@ -497,11 +505,13 @@
     }
     .goleft{
         transition:all .8s;
-        margin-left: -100%;
+        /*margin-left: -100%;*/
+        transform:translate3d(-50%,0,0)
     }
     .goright{
         transition:all .8s;
-        margin-left: 0%;
+       /* margin-left: 0%;*/
+        transform:translate3d(0,0,0)
     }
     .rank_Bgbox{
         width:100%;
