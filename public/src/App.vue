@@ -125,7 +125,7 @@
 
             //处理页面跳转逻辑
             if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write") {
-                _this.$router.go(0-window.history.length+2)
+                _this.$router.push("/")
                 next(false);
                 return false;
             }
