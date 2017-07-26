@@ -1,6 +1,7 @@
 <template id="record">
     <div class="record">
         <div v-title>每日打卡</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="banner">
             <v-banner></v-banner>
         </div>
@@ -46,7 +47,7 @@
                         </div>
                         <div class="record_fx">
                             <div class="record_inmid">
-                                <div class="record_share" :class="{night_share:result.data.type==3}">分享成就</div>
+                                <div class="record_share" :class="{night_share:result.data.type==3}" @click="share">分享成就</div>
                                 <div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>
                             </div>
                         </div>
@@ -124,16 +125,18 @@
 </template>
 <script>
     import banner from "./banner.vue";
+    import showLoad from './showLoad.vue';
     let record = {
         template: '#record'
     };
     export default {
         components: {
-            "v-banner": banner
+            "v-banner": banner,'v-showLoad':showLoad
         },
         data(){
             return {
                 linkTo: "#",
+                showLoad:false,
                 day: 30,
                 month: 12,
                 year: 2017,
@@ -170,6 +173,31 @@
             }
         },
         methods: {
+            share:function () {
+                let _this=this;
+                _this.showLoad=true;
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/'+_this.result.data.type
+                }).then(function (bt) {
+                    if(bt.body.status==1){
+                        xqzs.weui.dialog({
+                            title:'分享卡已经发送',
+                            msg:'前往公众号查看，分享好友互为关注',
+                            submitText:'查看',
+                            submitFun:function () {
+                                try {
+                                    WeixinJSBridge.call('closeWindow');
+                                }catch (e){
+                                }
+                            }
+                        })
+                    }
+                    _this.showLoad=false;
+                })
+
+            },
             back: function () {
                 let _this = this;
                 $(".timeout").animate({opacity: 0}, 200);
@@ -415,7 +443,8 @@
             });
 
 
-        }
+        },
+
     }
 
 
