@@ -21,7 +21,7 @@
                         <a class="weui-tabbar__item">
                             <div class="go_record record_mid"  @click="addMood">
                                 <div class="img"></div>
-                                <div class="any">心情记录</div>
+                                <div class="any">记录心情</div>
                             </div>
                         </a>
                         <a  class="weui-tabbar__item">
