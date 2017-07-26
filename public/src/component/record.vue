@@ -93,10 +93,9 @@
                 </div>
                 <div class="weather">
                     <div class="weather_info">
-                        <p>{{weather.weather}}</p>
+                        <p class="current">{{weather.current}}</p>
                         <p>{{weather.temperature}}</p>
                     </div>
-                    <div class="current">{{weather.current}}</div>
                     <div class="weather_pic">
                         <img v-if="(hour>=6&&hour<=18)&&!isNight" :src="weather.dayPictureUrl"/>
                         <img v-if="(hour<6||hour>18)||isNight" :src="weather.nightPictureUrl"/>
@@ -250,7 +249,12 @@
                     if (response.data.status === 1) {
                         _this.result.data = response.data.data;
                         let time = new Date(response.data.data.time*1000);
-                        _this.result.data.hour = time.getHours();
+                        if(time.getHours()<10){
+                            _this.result.data.hour = '0'+time.getHours();
+                        }
+                        else{
+                            _this.result.data.hour =time.getHours();
+                        }
                         _this.result.data.minute = time.getMinutes();
 
 
@@ -574,10 +578,8 @@
     }
 
     .weather .current {
-        float: right;
-        font-size: 18px;
-        margin-left: 10px;
-        margin-top: 21px;
+        line-height: 1;
+        font-size: 20px;
     }
 
     .weather_pic {
@@ -592,12 +594,12 @@
     }
 
     .weather_info {
-        text-align: right;
+        text-align: center;
         float: right;
         font-size: 12px;
         margin-left: 10px;
         margin-right: 12px;
-        margin-top: 16px;
+        margin-top: 17px;
 
     }
 
