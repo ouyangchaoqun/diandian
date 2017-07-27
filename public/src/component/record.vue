@@ -258,7 +258,7 @@
             },
             night: function () {
                 let _this = this;
-                if (_this.isGoBed &&_this.isRecordTime(_this.MORNING_FROM_TIME,_this.NIGHT_END_TIME)) {
+                if (_this.isGoBed &&_this.isRecordTime(_this.NIGHT_FROM_TIME,_this.NIGHT_END_TIME)) {
                     _this.$router.push("/sleepRank?type=3")
                     return;
                 }
