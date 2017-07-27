@@ -290,12 +290,7 @@
                 _this.result.data = data;
                 let time = new Date(data.time*1000);
                 let type  = data.type;
-                if(time.getHours()<10){
-                    _this.result.data.hour = '0'+time.getHours();
-                }
-                else{
-                    _this.result.data.hour =time.getHours();
-                }
+                _this.result.data.hour =time.getHours();
                 _this.result.data.minute = time.getMinutes();
                 if(_this.result.data.hour <10){_this.result.data.hour ="0"+_this.result.data.hour}
                 if(_this.result.data.minute <10){_this.result.data.minute ="0"+_this.result.data.minute}
