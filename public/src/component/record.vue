@@ -853,7 +853,6 @@
     .doRecord {
         text-align: center;
         display: inline-block;
-        vertical-align: middle;
         font-size: 0.82rem;
     }
 
@@ -876,8 +875,10 @@
         color: #fff;
         position: absolute;
         bottom: 0;
-        height:40px;
+        height:30px;
         padding-top:10px;
+        padding-bottom:10px;
+        line-height: 30px;
     }
 
     .timeout {
