@@ -40,6 +40,9 @@ var xqzs = {
             if (type === "fail") {
                 html += '<i class="weui-icon-safe-warn weui-icon_toast" style="font-size: 40px;"></i>';
             }
+            if(type==="tip"){
+                html += '<i class="weui-icon_toast" style="height: 1.5rem"></i>';
+            }
 
             html += '<p class="weui-toast__content">' + msg + '</p></div></div>';
             $("body").append(html);

@@ -45,9 +45,6 @@
             }, function (error) {
                 //error
             });
-
-
-
         },
         mounted: function () {
             console.log("mounted")
@@ -60,7 +57,6 @@
                 _this.isGoIndex = v;
 
             });
-            _this.initData();
 
             Bus.$on("initHomeData", function () {
                 _this.initData();

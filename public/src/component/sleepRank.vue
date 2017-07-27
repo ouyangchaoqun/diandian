@@ -177,26 +177,14 @@
 
 
 
-            _this.$http.get(web.API_PATH+'record/sleep/get/all/day/count/_userId_/'+typeId+'').then(data => {
+            _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+typeId+'').then(data => {
                 if(data.data.status===1){
-                    _this.allDay= data.data.data;
+                    _this.allDay= data.data.data.allDays;
+                    _this.continueDay= data.data.data.continueDays;
+                    _this.allCount= data.data.data.userNum;
+                    _this.allCareCount= data.data.data.careNum;
                 }
-            });
-            _this.$http.get(web.API_PATH+'record/sleep/get/continue/day/count/_userId_/'+typeId+'').then(data => {
-                if(data.data.status===1){
-                    _this.continueDay= data.data.data;
-                }
-            });
 
-            _this.$http.get(web.API_PATH+'record/sleep/all/user/count/'+typeId+'').then(data => {
-                if(data.data.status===1){
-                    _this.allCount=data.data.data;
-                }
-            });
-            _this.$http.get(web.API_PATH+'record/sleep/get/early/per/_userId_/'+typeId+'').then(data => {
-                if(data.data.status===1){
-                    _this.earlyPer=data.data.data.toFixed(2);
-                }
             });
 
             this.$http({

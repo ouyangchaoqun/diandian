@@ -355,9 +355,12 @@
                     return;
                 }
 
-                if( (that.getUploadPictureIds().length>0||that.moodcontent.length>0)){
+                if( (that.getUploadPictureIds().length>0||that.moodcontent.length>=8)){
                 }else{
-                   return ;
+                    xqzs.weui.toast("tip","内容不少于8个字",function () {
+                        
+                    });
+                    return ;
                 }
 
 
