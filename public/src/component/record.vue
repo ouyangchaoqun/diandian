@@ -522,7 +522,7 @@
     .night_action{ background: url(../images/nightbg.png) no-repeat;
         background-size: 100% 100%; width: 100%; opacity: 0 ; display: none;; position: absolute; top:0;
          }
-    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 4rem; font-size: 0.882352rem;  }
+    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 4rem; font-size: 0.7rem;;  }
 
     .night_do_ac{
         background: url(../images/nightbg.png) no-repeat;
