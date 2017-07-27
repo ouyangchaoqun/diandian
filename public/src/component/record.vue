@@ -71,10 +71,10 @@
                     <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
-                    <div class="record_text2" @click="write">
+                    <div class="record_text2" @click="writeOrRank">
                         <!--<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>-->
                         <div class="doRecord" v-if="outMorningTime">不忘初心</div>
-                        <div class="doRecord" v-if="outNightTime">为啥熬夜</div>
+                        <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
                         <div style="clear: both;"></div>
                     </div>
                     <!--<div class="finish" @click="back" v-if="outMorningTime">我知道了</div>-->
@@ -213,7 +213,13 @@
             finish: function () {
                 this.$router.push("/sleepRank?type=" + this.result.data.type)
             },
-
+            writeOrRank:function () {
+                if(this.outNightTime){
+                    this.$router.push("/sleepRank?type=3")
+                }else{
+                    this.write()
+                }
+            },
             write: function () {
                 let type = 2;
                 if (this.isNight == true) {
@@ -329,12 +335,14 @@
                 let startTime = parseInt(fromTime.split(":")[0]) * 60 + parseInt(fromTime.split(":")[1]);
                 endTime = parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1]);
                 let mydate = new Date();
+                let nowTime  =mydate.getHours() * 60 + mydate.getMinutes();
                 //打卡时间
                 let _r = false;
-                if (startTime <= mydate.getHours() * 60 + mydate.getMinutes() && mydate.getHours() * 60 + mydate.getMinutes() <= endTime) {
-                    _r = true;
-                } else {//非打卡时间
-                    _r = false;
+                //跨天判断
+                if(startTime>endTime){  //跨天
+                    _r=(startTime <= nowTime && nowTime <= 24*60)||(0<=nowTime&&nowTime<=endTime);
+                }else{ //非跨天
+                    _r =startTime <= nowTime && nowTime <= endTime;
                 }
                 return _r;
             },
@@ -740,6 +748,10 @@
 
         border-radius: 0px 0px 5px 5px;
         font-size: 0.82rem;
+        color: #666;
+        height: 24px;
+        line-height: 24px;
+        background: #fff;
     }
 
 
@@ -765,7 +777,9 @@
         color: #999;
     }
 
+
     .recorded {
+        background: #e3e3e3;
 
     }
 

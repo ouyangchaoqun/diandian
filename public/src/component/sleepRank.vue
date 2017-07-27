@@ -1,6 +1,7 @@
 <template id="sleepRank">
     <div class="clock_box" :class="{clock_boxNight:isNight}">
         <div v-title>{{sleepRank_title}}</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div  class="clock_top" :class="{clock_topNight:isNight}">
             <div class="clock_head">
                 <img :src="user.faceUrl" alt="">
@@ -20,7 +21,7 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio">共有{{allCount}}人陪我一起参加早起计划</div>
+                <div class="clock_ratio">共有{{allCount}}人陪我早起，收获{{allCareCount}}个点赞</div>
             </div>
             <div class="clock_count clock_countNight"   v-show="isNight">
                 <div class="clock_lists clock_listsNight">
@@ -37,7 +38,7 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" >共有{{allCount}}人陪我一起参加早睡计划</div>
+                <div class="clock_ratio" >共有{{allCount}}人陪我早起，收获{{allCareCount}}个点赞</div>
             </div>
         </div>
 
@@ -85,6 +86,7 @@
 
 
                     </ul>
+                    <a class="share" @click="share()" v-show="!isNight">点击获取早起成就卡</a>
                 </div>
                 <!--总排行-->
                 <div class="clock_rank clock_rank2 ">
@@ -128,11 +130,14 @@
     </div>
 </template>
 <script type="text/javascript">
-
+    import showLoad from './showLoad.vue';
     var sleepRank = {
         template: '#sleepRank'
     }
     export default {
+        components: {
+           'v-showLoad':showLoad
+        },
         data() {
             return {
                 myRank:'',
@@ -147,6 +152,7 @@
                 clock_careCount:0,
                 sleepRank_title:'',
                 swipersettime:null,
+                showLoad:false
             }
         },
         props:{
@@ -265,6 +271,32 @@
 
         },
         methods:{
+            share:function () {
+                let _this=this;
+                var typeId = _this.$route.query.type;
+                _this.showLoad=true;
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/'+typeId
+                }).then(function (bt) {
+                    if(bt.body.status==1){
+                        xqzs.weui.dialog({
+                            title:'成就卡已经发送',
+                            msg:'前往公众号查看，分享到朋友圈',
+                            submitText:'查看',
+                            submitFun:function () {
+                                try {
+                                    WeixinJSBridge.call('closeWindow');
+                                }catch (e){
+                                }
+                            }
+                        })
+                    }
+                    _this.showLoad=false;
+                })
+
+            },
             addCare:function (item) {
                 let _this = this;
                 if(item.userId !=_this.user.id && item.caremy==0){

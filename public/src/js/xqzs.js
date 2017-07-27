@@ -398,20 +398,12 @@ var xqzs = {
         initSleepText:function (item) {
             if(item.type==2){
                 // item.typeFaceUrl=web.IMG_PATH+"face_day.png";
-                if(item.withId==0){
-                    item.moodValueText = '迟来的早安';
-                }else{
-                    item.moodValueText = '早安';
-                }
-                item.typeFaceColor="color:#89b5fa";
+                item.moodValueText = '早安打卡';
+                item.typeFaceColor="color:#5e61a2";
             } else if(item.type==3){
                 // item.typeFaceUrl=web.IMG_PATH+"face_night.png";
-                if(item.withId==0){
-                    item.moodValueText = '迟来的晚安';
-                }else{
-                    item.moodValueText = '晚安';
-                }
-                item.typeFaceColor="color:#46486f";
+                item.moodValueText = '晚安打卡';
+                item.typeFaceColor="color:#5e61a2";
             }
 
         },
@@ -473,22 +465,22 @@ var xqzs = {
 
 
                 if (data[i].isCare !== undefined && parseInt(userId) !== parseInt(data[i].userId)) {
-                    if (data[i].moodValue >= 5 && data[i].isCare === null) {
+                    if ((data[i].moodValue >= 5 ||data[i].moodValue ==0) && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if (data[i].moodValue >= 5 && data[i].isCare !== null) {
+                    } else if ((data[i].moodValue >= 5||data[i].moodValue == 0 ) && data[i].isCare !== null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare !== null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
                     }
                 } else {
 
-                    if (data[i].moodValue >= 5 && data[i].careCount == 0) {
+                    if ((data[i].moodValue >= 5||data[i].moodValue == 0 ) && data[i].careCount == 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].careCount == 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if (data[i].moodValue >= 5 && data[i].careCount != 0) {
+                    } else if ((data[i].moodValue >= 5||data[i].moodValue == 0 ) && data[i].careCount != 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
                     } else if (data[i].moodValue < 5 && data[i].careCount != 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
