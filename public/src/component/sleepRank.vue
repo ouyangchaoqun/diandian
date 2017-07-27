@@ -71,7 +71,7 @@
                             <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
                                 <img class="rank_headImg" :src="rankList.faceUrl" alt="">
-                                <div class="rank_name">{{rankList.nickName}}</div>
+                                <div class="rank_name">{{cutNickName(rankList.nickName)}}</div>
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
                                     <div class="clock_time">{{rankList.time}}</div>
                                     <div @click.stop="addCare(rankList)" class="care_icon">
@@ -110,7 +110,7 @@
                             <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
                                 <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
-                                <div class="rank_name">{{allRannList.nickName}}</div>
+                                <div class="rank_name">{{cutNickName(allRannList.nickName)}}</div>
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
                                     <div  class="clock_time">{{allRannList.time}}</div>
                                     <div class="care_icon" @click="addCare(allRannList)">
@@ -298,6 +298,13 @@
                         }
                     });
                 }
+            },
+            cutNickName:function (nickName) {
+                var len = 8;
+                if(nickName.length>len){
+                    return nickName.substr(0,len)+'...';
+                }
+                return nickName;
             }
         }
 
@@ -422,12 +429,12 @@
     }
     .tab_goleft{
 
-        transform: translate3d(-100%, 0px, 0px);
-        -webkit-transform: translate3d(-100%, 0px, 0px);
+        transform: translate3d(-100%, 0px, 10px);
+        -webkit-transform: translate3d(-100%, 0px, 10px);
     }
     .tab_goRight{
-        transform: translate3d(0, 0px, 0px);
-        -webkit-transform: translate3d(0, 0px, 0px);
+        transform: translate3d(0, 0px, 10px);
+        -webkit-transform: translate3d(0, 0px, 10px);
     }
     .clock_tabNight .clock_tabActive{
         color: #333;
