@@ -63,7 +63,7 @@
                 </div>
                 <div class="night_action">
                     <div style="height:1px;"></div>
-                    <div class="record_action_go_bed" @click="checkIn(3)">晚安,现在睡觉就点一下按钮吧<br>不要耍赖哦</div>
+                    <div class="record_action_go_bed" @click="checkIn(3)">晚安，现在睡觉就点一下按钮吧<br>不要耍赖哦</div>
                     <div class="record_text2" @click="writeOrRank"> <div class="doRecord">早睡排行榜</div></div>
                 </div>
 
