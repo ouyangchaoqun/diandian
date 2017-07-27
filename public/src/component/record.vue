@@ -13,9 +13,9 @@
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
                         <a  class="weui-tabbar__item ">
-                            <div class="go_record record_left " @click="morning">
+                            <div class="go_record record_left " :class="{recorded:isGetUp}" @click="morning">
                                 <div class="img"></div>
-                                <div class="morning" :class="{recorded:isGetUp}">早起<template v-if="!isGetUp">打卡</template><template v-if="isGetUp">排行</template></div>
+                                <div class="morning" >早起<template v-if="!isGetUp">打卡</template><template v-if="isGetUp">排行</template></div>
                             </div>
                         </a>
                         <a class="weui-tabbar__item">
@@ -25,9 +25,9 @@
                             </div>
                         </a>
                         <a  class="weui-tabbar__item">
-                            <div class="go_record record_right" @click="night">
+                            <div class="go_record record_right" :class="{recorded:isGoBed}"  @click="night">
                                 <div class="img"></div>
-                                <div class="night" :class="{recorded:isGoBed}">早睡<template v-if="!isGoBed">打卡</template><template v-if="isGoBed">排行</template></div>
+                                <div class="night">早睡<template v-if="!isGoBed">打卡</template><template v-if="isGoBed">排行</template></div>
                             </div>
                         </a>
                     </div>
@@ -686,7 +686,7 @@
 
     .go_record {
         width: 81%;
-        height: 6.7rem;
+        height: 7.2rem;
         background: #fff;
         border-radius: 5px;
     }
@@ -749,9 +749,7 @@
         border-radius: 0px 0px 5px 5px;
         font-size: 0.82rem;
         color: #666;
-        height: 24px;
-        line-height: 24px;
-        background: #fff;
+        line-height: 16px
     }
 
 
