@@ -58,8 +58,8 @@
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
                             <div class="rank_name">{{cutNickName(user.nickName)}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                <div class="clock_time" v-if="myRank.rank!='--'" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
-                                <div class="clock_time" v-if="myRank.rank=='--'" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
+                                <div class="clock_time" v-if="myRank.rank!=''" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
+                                <div class="clock_time" v-if="myRank.rank==''" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
                                 <div  class="care_icon" v-if="myRank.careCount!=null">
                                     <span>{{myRank.careCount||0}}</span>
                                     <img v-show="myRank.careCount==0||myRank.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -99,8 +99,8 @@
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
                             <div class="rank_name">{{cutNickName(user.nickName)}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                <div class="clock_time" v-if="allRank.rank!='--'":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
-                                <div class="clock_time" v-if="allRank.rank=='--'" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
+                                <div class="clock_time" v-if="allRank.rank!=''":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
+                                <div class="clock_time" v-if="allRank.rank==''" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
                                 <div class="care_icon" v-if="allRank.careCount!=null">
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
@@ -143,9 +143,9 @@
         },
         data() {
             return {
-                myRank: {rank:"--",time:"--:--",notRecordTxt:"还未打卡"},
+                myRank: {rank:"",time:"--:--",notRecordTxt:"还未打卡"},
                 myInFriendRank:[],
-                allRank: {rank:"--",time:"--:--",notRecordTxt:"还未打卡"},
+                allRank: {rank:"",time:"--:--",notRecordTxt:"还未打卡"},
                 allRankList:[],
                 isNight:false,
                 continueDay:0,
