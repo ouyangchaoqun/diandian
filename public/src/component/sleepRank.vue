@@ -431,12 +431,12 @@
     }
     .tab_goleft{
 
-        transform: translate3d(-100%, 0px, 10px);
-        -webkit-transform: translate3d(-100%, 0px, 10px);
+        transform: translate3d(-100%, 0, 0);
+        -webkit-transform: translate3d(-100%, 0, 0);
     }
     .tab_goRight{
-        transform: translate3d(0, 0px, 10px);
-        -webkit-transform: translate3d(0, 0px, 10px);
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
     }
     .clock_tabNight .clock_tabActive{
         color: #333;
