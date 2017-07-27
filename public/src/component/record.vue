@@ -229,6 +229,7 @@
                 let _this = this;
                 if (_this.isGetUp == true) {
                     _this.$router.push("/sleepRank?type=2")
+                    return ;
                 }
                 if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
                     this.checkIn(2);

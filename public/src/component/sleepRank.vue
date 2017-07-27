@@ -42,8 +42,8 @@
         </div>
 
         <div class="clock_tab" :class="{clock_tabNight:isNight}" style="position: relative;">
-            <div style="z-index: 100">好友排行</div>
-            <div class="clock_tabActive" style="z-index: 100">总排行</div>
+            <div  class="tab_title">好友排行</div>
+            <div class="clock_tabActive tab_title tab_title_right"  >总排行</div>
             <div class="tabMove"></div>
         </div>
         <div class="rank_Bgbox">
@@ -115,8 +115,8 @@
                                     <div  class="clock_time">{{allRannList.time}}</div>
                                     <div class="care_icon" @click="addCare(allRannList)">
                                         <span>{{allRannList.careCount||0}}</span>
-                                        <img v-show="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="allRannList.careCount>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -404,6 +404,8 @@
         -webkit-flex: 1;
         flex: 1;
     }
+    .clock_tab .tab_title{ z-index: 100; position: absolute; width: 50%}
+    .clock_tab .tab_title_right{ left:50%;}
     .clock_tabNight>div{
         color: #fff;
     }
