@@ -39,11 +39,8 @@
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
                         <div class="next"><span  :class="{ok_night:result.data.type==3}">连续早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
-                        <div class="record_compare" v-if="result.data.type==2">
-                            {{result.allCount}}人正在参加，比{{result.earlyPer}}%的人起的早
-                        </div>
-                        <div class="record_compare" v-if="result.data.type==3">
-                            {{result.allCount}}人正在参加，比{{result.earlyPer}}%的人睡的早
+                        <div class="record_compare" >
+                            共有{{result.allCount}}人陪我早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>，当前总排行第{{result.rank}}名
                         </div>
                         <!--<div class="record_fx">-->
                             <!--<div class="record_inmid">-->
@@ -56,7 +53,7 @@
                             <div class="doRecord" v-if="result.data.type==2">分享成就</div>
                         </div>
                         <div class="record_bottom2" @click="write">
-                            <div class="doRecord" v-if="result.data.type==2">向新的一天问好</div>
+                            <div class="doRecord" v-if="result.data.type==2">向今天问好</div>
                             <div class="doRecord" v-if="result.data.type==3">今日小成就</div>
                         </div>
                     </div>
@@ -73,7 +70,7 @@
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
                     <div class="record_text2" @click="writeOrRank">
                         <!--<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>-->
-                        <div class="doRecord" v-if="outMorningTime">不忘初心</div>
+                        <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
                         <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
                         <div style="clear: both;"></div>
                     </div>
@@ -161,6 +158,7 @@
                 result: {
                     allCount: 0,
                     earlyPer: 0,
+                    rank:0,
                     data: {hour: 0, minute: 0, id: 0, type: 2}
                 },
                 record: '',
@@ -217,7 +215,7 @@
                 if(this.outNightTime){
                     this.$router.push("/sleepRank?type=3")
                 }else{
-                    this.write()
+                    this.$router.push("/sleepRank?type=2")
                 }
             },
             write: function () {
@@ -303,18 +301,23 @@
                 if(_this.result.data.minute <10){_this.result.data.minute ="0"+_this.result.data.minute}
 
 
-                _this.$http.get(web.API_PATH + 'record/sleep/all/user/count/' + type + '').then(data => {
-                    if (data.data.status === 1) {
-                        _this.result.allCount = data.data.data;
+
+
+                _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+type+'').then(data => {
+                    if(data.data.status===1){
+                        _this.result.allCount= data.data.data.userNum;
                     }
                 });
-                _this.$http.get(web.API_PATH + 'record/sleep/get/early/per/_userId_/' + type + '').then(data => {
-                    if (data.data.status === 1) {
-                        _this.result.earlyPer = data.data.data.toFixed(2);
+                _this.$http.get(web.API_PATH+'record/sleep/get/rank/today/_userId_/'+type+'').then(data => {
+                    if(data.data.status===1){
+                        _this.result.rank= data.data.data;
                     }
                 });
+
+
+
                 _this.isShowResult = true;
-                _this.doRecordText='向新的一天问好';
+                _this.doRecordText='向今天问好';
                 _this.animateIn();
                 $(".result").show().stop().animate({"opacity": 1}, 200);
                 if (type == 3) {
