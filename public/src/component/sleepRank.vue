@@ -54,7 +54,7 @@
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="myRank.faceUrl" alt="">
-                            <div class="rank_name">{{myRank.nickName}}</div>
+                            <div class="rank_name">{{cutNickName(myRank.nickName)}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time">{{myRank.time}}</div>
                                 <div  class="care_icon">
@@ -93,7 +93,7 @@
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="allRank.faceUrl" alt="">
-                            <div class="rank_name">{{allRank.nickName}}</div>
+                            <div class="rank_name">{{cutNickName(allRank.nickName)}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time">{{allRank.time}}</div>
                                 <div class="care_icon">
@@ -300,6 +300,9 @@
                 }
             },
             cutNickName:function (nickName) {
+                if(!nickName){
+                    return '';
+                }
                 var len = 8;
                 if(nickName.length<=len){
                     return nickName;
