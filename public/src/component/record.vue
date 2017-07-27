@@ -13,9 +13,9 @@
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
                         <a  class="weui-tabbar__item ">
-                            <div class="go_record record_left " :class="{recorded:isGetUp}" @click="morning">
+                            <div class="go_record record_left " :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}" @click="morning">
                                 <div class="img"></div>
-                                <div class="morning" >早起<template v-if="!isGetUp">打卡</template><template v-if="isGetUp">排行</template></div>
+                                <div class="morning" >早起<template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">打卡</template><template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">排行</template></div>
                             </div>
                         </a>
                         <a class="weui-tabbar__item">
@@ -25,9 +25,9 @@
                             </div>
                         </a>
                         <a  class="weui-tabbar__item">
-                            <div class="go_record record_right" :class="{recorded:isGoBed}"  @click="night">
+                            <div class="go_record record_right" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  @click="night">
                                 <div class="img"></div>
-                                <div class="night">早睡<template v-if="!isGoBed">打卡</template><template v-if="isGoBed">排行</template></div>
+                                <div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>
                             </div>
                         </a>
                     </div>
@@ -239,7 +239,7 @@
             },
             morning: function () {
                 let _this = this;
-                if (_this.isGetUp == true) {
+                if (_this.isGetUp&&_this.isRecordTime(_this.MORNING_FROM_TIME,_this.MORNING_END_TIME)) {
                     _this.$router.push("/sleepRank?type=2")
                     return ;
                 }
@@ -258,7 +258,7 @@
             },
             night: function () {
                 let _this = this;
-                if (_this.isGoBed == true) {
+                if (_this.isGoBed &&_this.isRecordTime(_this.MORNING_FROM_TIME,_this.NIGHT_END_TIME)) {
                     _this.$router.push("/sleepRank?type=3")
                     return;
                 }
