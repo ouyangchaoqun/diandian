@@ -57,7 +57,7 @@
                             <div class="rank_name">{{myRank.nickName}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time">{{myRank.time}}</div>
-                                <div >
+                                <div  class="care_icon">
                                     <span>{{myRank.careCount||0}}</span>
                                     <img v-show="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
@@ -74,10 +74,10 @@
                                 <div class="rank_name">{{rankList.nickName}}</div>
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
                                     <div class="clock_time">{{rankList.time}}</div>
-                                    <div @click.stop="addCare(rankList,index)">
+                                    <div @click.stop="addCare(rankList)" class="care_icon">
                                         <span>{{rankList.careCount||0}}</span>
                                         <img v-show="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="rankList.caremy>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="rankList.caremy>0" :class="{heartUp:rankList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -96,10 +96,10 @@
                             <div class="rank_name">{{allRank.nickName}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time">{{allRank.time}}</div>
-                                <div>
+                                <div class="care_icon">
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                    <img v-show="allRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                    <img v-show="allRank.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -113,10 +113,10 @@
                                 <div class="rank_name">{{allRannList.nickName}}</div>
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
                                     <div  class="clock_time">{{allRannList.time}}</div>
-                                    <div>
+                                    <div class="care_icon" @click="addCare(allRannList)">
                                         <span>{{allRannList.careCount||0}}</span>
                                         <img v-show="allRannList.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="allRannList.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="allRannList.careCount>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
 
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 console.log(data)
                 _this.myRank = data.data.data.userRank||{};
@@ -210,7 +210,7 @@
 
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/10/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 _this.allRank = data.data.data.userRank||{};
                 _this.allRankList = data.data.data.allRank||[];
@@ -265,20 +265,35 @@
 
         },
         methods:{
-            addCare:function (mood,index) {
+            addCare:function (item) {
                 let _this = this;
-                if(mood.userId !=_this.user.id && mood.caremy==0){
-                    console.info(mood)
-                    _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':mood.type,'withId':mood.id}).then(response => {
+                if(item.userId !=_this.user.id && item.caremy==0){
+                    console.info(item)
+                    _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':item.type,'withId':item.id}).then(response => {
                         if(response.data.status===1){
-                            console.info(index);
-                            console.info(_this.myInFriendRank[index]);
 
-                            _this.myInFriendRank[index].careCount= response.data.data;
-                            _this.myInFriendRank[index].caremy= 1;
-                            _this.$set(_this.myInFriendRank, index, _this.myInFriendRank[index]);
-                            /*_this.allRankList =  xqzs.mood.initMoodsData(_this.allRankList,false,_this.user.id);*/
-                            console.log( _this.allRankList)
+
+                            for(let i=0 ;i<_this.myInFriendRank.length;i++){
+                                if(_this.myInFriendRank[i].id==item.id){
+                                    _this.myInFriendRank[i].careCount= response.data.data;
+                                    _this.myInFriendRank[i].caremy= 1;
+                                    _this.myInFriendRank[i].hit= true;
+                                    _this.$set(_this.myInFriendRank, i, _this.myInFriendRank[i]);
+                                }
+                            }
+
+                            for(let i=0 ;i<_this.allRankList.length;i++){
+                                if(_this.allRankList[i].id==item.id){
+                                    _this.allRankList[i].careCount= response.data.data;
+                                    _this.allRankList[i].caremy= 1;
+                                    _this.allRankList[i].hit= true;
+                                    _this.$set(_this.allRankList, i, _this.allRankList[i]);
+                                }
+                            }
+
+
+
+
 
                         }
                     });
@@ -451,7 +466,7 @@
         height:3.53rem;
         position: relative;
         line-height: 3.53rem;
-        padding-right: 0.88235rem;
+
     }
     .rank_border{
 
@@ -480,10 +495,11 @@
         float: left;
     }
     .clock_time{
-        margin-right:1.9412rem;
+        margin-right:0.5412rem;
         font-size: 0.88235rem;
         color: #666;
     }
+    .care_icon{ padding-left: 1.2rem;  height: 3.53rem;    padding-right: 0.88235rem;}
     .rank_right img{
         display: block;
         width:0.9412rem;
