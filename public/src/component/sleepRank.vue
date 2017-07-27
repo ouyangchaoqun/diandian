@@ -301,8 +301,25 @@
             },
             cutNickName:function (nickName) {
                 var len = 8;
-                if(nickName.length>len){
-                    return nickName.substr(0,len)+'...';
+
+                var newLength = 0;
+                var newNickName = "";
+                var chineseRegex = /[^\x00-\xff]/g;
+                var singleChar = "";
+                var strLength = nickName.replace(chineseRegex, "**").length;
+                if(strLength<=len){
+                    return nickName;
+                }
+                for(var i = 0,l=nickName.length;i<l;i++){
+                    singleChar = nickName.charAt(i).toString();
+                    newLength++;
+                    if(chineseRegex.test(singleChar)){
+                        newLength++;
+                    }
+                    newNickName+=singleChar;
+                    if(newLength>len){
+                        return newNickName;
+                    }
                 }
                 return nickName;
             }
