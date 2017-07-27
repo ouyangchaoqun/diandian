@@ -237,7 +237,7 @@
 
 
 
-            $('.clock_tab div').on('touchstart mousedown',function () {
+            $('.clock_tab .tab_title').on('touchstart mousedown',function () {
                 var clock_rank1Width = $('.clock_rank1').height();
                 var clock_rank2Width = $('.clock_rank2').height();
                 $('.rank_box').removeClass('goleft').removeClass('goright')
@@ -414,7 +414,7 @@
         -webkit-flex: 1;
         flex: 1;
     }
-    .clock_tab .tab_title{ z-index: 100; position: absolute; width: 50%}
+    .clock_tab .tab_title{ z-index: 100; position: absolute; width: 50%;     height: 2rem;}
     .clock_tab .tab_title_right{ left:50%;}
     .clock_tabNight>div{
         color: #fff;
