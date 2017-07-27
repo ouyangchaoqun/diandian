@@ -38,7 +38,7 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" >共有{{allCount}}人陪我早起，收获{{allCareCount}}个点赞</div>
+                <div class="clock_ratio" >共有{{allCount}}人陪我早睡，收获{{allCareCount}}个点赞</div>
             </div>
         </div>
 
@@ -47,6 +47,7 @@
             <div class="clock_tabActive tab_title tab_title_right"  >总排行</div>
             <div class="tabMove"></div>
         </div>
+
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
                 <div class="clock_rank clock_rank1">
@@ -54,13 +55,14 @@
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
-                            <img class="rank_headImg" :src="myRank.faceUrl" alt="">
-                            <div class="rank_name">{{cutNickName(myRank.nickName)}}</div>
+                            <img class="rank_headImg" :src="user.faceUrl" alt="">
+                            <div class="rank_name">{{cutNickName(user.nickName)}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                <div class="clock_time">{{myRank.time}}</div>
-                                <div  class="care_icon">
+                                <div class="clock_time" v-if="myRank.rank!='--'" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
+                                <div class="clock_time" v-if="myRank.rank=='--'" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
+                                <div  class="care_icon" v-if="myRank.careCount!=null">
                                     <span>{{myRank.careCount||0}}</span>
-                                    <img v-show="myRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-show="myRank.careCount==0||myRank.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
@@ -94,11 +96,12 @@
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
-                            <img class="rank_headImg" :src="allRank.faceUrl" alt="">
-                            <div class="rank_name">{{cutNickName(allRank.nickName)}}</div>
+                            <img class="rank_headImg" :src="user.faceUrl" alt="">
+                            <div class="rank_name">{{cutNickName(user.nickName)}}</div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                <div class="clock_time">{{allRank.time}}</div>
-                                <div class="care_icon">
+                                <div class="clock_time" v-if="allRank.rank!='--'":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
+                                <div class="clock_time" v-if="allRank.rank=='--'" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
+                                <div class="care_icon" v-if="allRank.careCount!=null">
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-show="allRank.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
@@ -140,9 +143,9 @@
         },
         data() {
             return {
-                myRank:'',
+                myRank: {rank:"--",time:"--:--",notRecordTxt:"还未打卡"},
                 myInFriendRank:[],
-                allRank:'',
+                allRank: {rank:"--",time:"--:--",notRecordTxt:"还未打卡"},
                 allRankList:[],
                 isNight:false,
                 continueDay:0,
@@ -192,7 +195,7 @@
                 url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 console.log(data)
-                _this.myRank = data.data.data.userRank||{};
+                _this.myRank = data.data.data.userRank||_this.myRank;
                 //console.log(_this.myRank)
                 _this.myInFriendRank = data.data.data.allRank||[];
                 for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
@@ -206,7 +209,7 @@
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
-                _this.allRank = data.data.data.userRank||{};
+                _this.allRank = data.data.data.userRank|| _this.allRank ;
                 _this.allRankList = data.data.data.allRank||[];
                 for(var i=0,l=_this.allRankList.length;i<l;i++){
                     _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
@@ -531,6 +534,7 @@
         font-size: 0.88235rem;
         color: #666;
     }
+    .no_record{ margin-right:1.41176rem;}
     .care_icon{ padding-left: 1.2rem;  height: 3.53rem;    padding-right: 0.88235rem;}
     .rank_right img{
         display: block;
