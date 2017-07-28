@@ -542,11 +542,15 @@
 </script>
 <style>
 
-    .night_action{ background: url(../images/nightbg.png) no-repeat;
+    .night_action{
+
+        /*background: url(../images/nightbg.png) no-repeat;*/
+        background-image:-webkit-linear-gradient(135deg, #756684, #4e4d7a);
+        background-image:linear-gradient(135deg,#756684, #4e4d7a);
         background-size: 100% 100%; width: 100%; opacity: 0 ; display: none;; position: absolute; top:0;
         background-position: 0 4.11764rem;
          }
-    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 7rem; font-size: 0.7rem;; position: relative }
+    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 7.5rem; font-size: 0.7rem;; position: relative }
     .record_action_go_bed span{ display: inline-block; position: absolute; top:0; width: 100%; text-align: center;left:0; line-height: 6.1764705rem; font-size: 1.0588rem; color:#645b76}
 
     .night_do_ac{
