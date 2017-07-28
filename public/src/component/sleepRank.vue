@@ -190,6 +190,7 @@
 
             });
 
+            //好友排行
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
@@ -205,6 +206,8 @@
             }, function (data) {
             });
 
+            //总排行
+            _this.showLoad=true;
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
@@ -214,12 +217,10 @@
                 for(var i=0,l=_this.allRankList.length;i<l;i++){
                     _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
                 }
-                console.log( _this.allRankList)
-
-
-
-
+                console.log( _this.allRankList);
+                _this.showLoad=false;
             }, function (data) {
+                _this.showLoad=false;
             });
 
 
