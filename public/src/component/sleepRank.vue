@@ -17,11 +17,11 @@
                         <div>{{continueDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                     <div>
-                        <p >坚持早起</p>
+                        <p >累计早起</p>
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio">共有{{allCount}}人陪我早起，收获{{allCareCount}}个点赞</div>
+                <div class="clock_ratio">共有{{allCount}}人陪我早起，收获{{myRank.careCount||0}}个点赞</div>
             </div>
             <div class="clock_count clock_countNight"   v-show="isNight">
                 <div class="clock_lists clock_listsNight">
@@ -34,11 +34,11 @@
                         <div>{{continueDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                     <div>
-                        <p>坚持早睡</p>
+                        <p>累计早睡</p>
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" >共有{{allCount}}人陪我早睡，收获{{allCareCount}}个点赞</div>
+                <div class="clock_ratio" >共有{{allCount}}人陪我早睡，收获{{myRank.careCount||0}}个点赞</div>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
 
 
                     </ul>
-                    <a class="share" @click="share()" v-show="!isNight">点击获取早起成就卡</a>
+
                 </div>
                 <!--总排行-->
                 <div class="clock_rank clock_rank2 ">
@@ -185,7 +185,10 @@
                     _this.allDay= data.data.data.allDays;
                     _this.continueDay= data.data.data.continueDays;
                     _this.allCount= data.data.data.userNum;
-                    _this.allCareCount= data.data.data.careNum;
+                    if( _this.allCount>0){
+                        _this.allCount =  _this.allCount - 1;
+                    }
+
                 }
 
             });

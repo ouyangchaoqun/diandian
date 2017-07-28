@@ -55,15 +55,15 @@
                         <div class="record_bottom" @click="share"v-if="result.data.type==2">
                             <div class="doRecord" v-if="result.data.type==2">分享成就</div>
                         </div>
-                        <div class="record_bottom2" @click="write">
-                            <div class="doRecord" v-if="result.data.type==2">向今天问好</div>
-                            <div class="doRecord" v-if="result.data.type==3">今日小成就</div>
+                        <div class="record_bottom2" @click="writeOrRank">
+                            <div class="doRecord" v-if="result.data.type==2">早起排行榜</div>
+                            <div class="doRecord" v-if="result.data.type==3">早睡排行榜</div>
                         </div>
                     </div>
                 </div>
                 <div class="night_action">
                     <div style="height:1px;"></div>
-                    <div class="record_action_go_bed" @click="checkIn(3)">晚安，现在睡觉就点一下按钮吧<br>不要耍赖哦</div>
+                    <div class="record_action_go_bed" @click="checkIn(3)"><span>睡觉</span>确定睡觉就点击按钮，不要耍赖哦</div>
                     <div class="record_text2" @click="writeOrRank"> <div class="doRecord">早睡排行榜</div></div>
                 </div>
 
@@ -75,12 +75,21 @@
                     <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
-                    <div class="record_text2" @click="writeOrRank">
-                        <!--<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>-->
+
+                    <div class="midLine" v-if="isGetUp"></div>
+                    <div class="record_bottom" @click="share"v-if="isGetUp">
+                        <div class="doRecord">分享成就</div>
+                    </div>
+                    <div :class="{record_bottom2:isGetUp,record_text2:!isGetUp}" @click="writeOrRank">
                         <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
                         <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
-                        <div style="clear: both;"></div>
                     </div>
+                    <!--<div class="record_text2" @click="writeOrRank">-->
+                        <!--&lt;!&ndash;<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>&ndash;&gt;-->
+                        <!--<div class="doRecord" v-if="outMorningTime">早起排行榜</div>-->
+                        <!--<div class="doRecord" v-if="outNightTime">早睡排行榜</div>-->
+                        <!--<div style="clear: both;"></div>-->
+                    <!--</div>-->
                     <!--<div class="finish" @click="back" v-if="outMorningTime">我知道了</div>-->
                     <!--<div class="finish" @click="back" v-if="outNightTime">早点睡啦</div>-->
                 </div>
@@ -162,6 +171,8 @@
                 outNightTime: false,
                 isGetUp: false,
                 isGoBed: false,
+                goBedId:0,
+                getUpId:0,
                 result: {
                     allCount: 0,
                     earlyPer: 0,
@@ -240,7 +251,7 @@
             morning: function () {
                 let _this = this;
                 if (_this.isGetUp&&_this.isRecordTime(_this.MORNING_FROM_TIME,_this.MORNING_END_TIME)) {
-                    _this.$router.push("/sleepRank?type=2")
+                    _this.showResult(_this.getUpId);
                     return ;
                 }
                 if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
@@ -259,7 +270,7 @@
             night: function () {
                 let _this = this;
                 if (_this.isGoBed &&_this.isRecordTime(_this.NIGHT_FROM_TIME,_this.NIGHT_END_TIME)) {
-                    _this.$router.push("/sleepRank?type=3")
+                   _this.showResult(_this.goBedId);
                     return;
                 }
 
@@ -270,7 +281,7 @@
                     $(".night_action").show().animate({"opacity": 1}, 200, function () {
                     });
                     let w = $("body").width();
-                    $(".night_action").height(w * 684 / 750);
+                    $(".night_action").height(w * 746 / 750);
                     _this.isNight = true;
                     _this.isDoNight=true;
 
@@ -287,6 +298,14 @@
                     $(".date_info").addClass("ngihttop")
 
                 }
+            },
+            showResult:function (id) {
+                let _this = this;
+                _this.$http.get(web.API_PATH + 'record/sleep/get/detail/'+id).then(response => {
+                    if (response.data.status === 1) {
+                        _this.initResultData(response.data.data)
+                    }
+                });
             },
             checkIn: function (type) {
                 let _this = this;
@@ -330,6 +349,9 @@
                 _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+type+'').then(data => {
                     if(data.data.status===1){
                         _this.result.allCount= data.data.data.userNum;
+                        if(  _this.result.allCount>0){
+                            _this.result.allCount =   _this.result.allCount-1;
+                        }
                     }
                 });
                 _this.$http.get(web.API_PATH+'record/sleep/get/rank/today/_userId_/'+type+'').then(data => {
@@ -422,7 +444,7 @@
             let _this = this;
             xqzs.wx.setConfig(_this);
             let w = $("body").width();
-            $(".record_box ,.night_action").height(w * 684 / 750);
+            $(".record_box ,.night_action").height(w * 746 / 750);
 
             //获取当前时间
             var mydate = new Date();
@@ -456,7 +478,8 @@
                 if (data.body.status == 1) {
                     _this.isGetUp = data.body.data.isGetUp;
                     _this.isGoBed = data.body.data.isGoBed;
-
+                    _this.goBedId = data.body.data.goBedId;
+                    _this.getUpId = data.body.data.getUpId;
 
                     _this.MORNING_FROM_TIME = data.body.data.getUpConfig.starttime;
                     _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
@@ -522,7 +545,8 @@
     .night_action{ background: url(../images/nightbg.png) no-repeat;
         background-size: 100% 100%; width: 100%; opacity: 0 ; display: none;; position: absolute; top:0;
          }
-    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 4rem; font-size: 0.7rem;;  }
+    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 7rem; font-size: 0.7rem;; position: relative }
+    .record_action_go_bed span{ display: inline-block; position: absolute; top:0; width: 100%; text-align: center;left:0; line-height: 6.1764705rem; font-size: 1.6rem; color:#645b76}
 
     .night_do_ac{
         background: url(../images/nightbg.png) no-repeat;
@@ -588,9 +612,7 @@
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
 
-    .nightbg .date_info {
-        background: #4e4c73;
-    }
+
 
     .ngihttop {
         animation-name: gonight;
@@ -634,19 +656,26 @@
         bottom: 0;
         width: 100%;
         z-index: 3;
+        overflow: hidden;
 
     }
 
     .date_info {
         height: 4.11764rem;
-        background: #fff;
+
         border-radius: 5px;
-        box-shadow: rgba(102, 102, 102, 0.2) 0px 3px 4px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: 1px solid #ccc;
         overflow: hidden;
         position: absolute;
         width: 100%;
         z-index: 2;
-        top: -2.005rem;
+
+    }
+    .nightbg .date_info{
+        border-bottom: 1px solid #86849f;
+
     }
 
     .main_record {
@@ -713,7 +742,7 @@
     }
 
     .notes {
-        padding: 3.47058823rem 1.47058823rem 0 1.47058823rem;
+        padding: 5.37058823rem 1.47058823rem 0 1.47058823rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -828,7 +857,7 @@
     .record_time {
         text-align: center;
         font-size: 1.82rem;
-        padding-top: 6rem;
+        padding-top: 7rem;
         line-height: 1;
         color: rgba(102, 102, 102, 1);
     }
@@ -922,7 +951,7 @@
         width: 100%;
         text-align: center;
         opacity: 0;
-        background: url("../images/daybg1.png") no-repeat bottom center;
+        background: url("../images/daybg1.png") no-repeat bottom center #fff;
         background-size: 100%;
         height: 100%;
         display:none
