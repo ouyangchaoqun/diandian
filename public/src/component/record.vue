@@ -95,7 +95,7 @@
                 </div>
 
             </div>
-            <div class="date_info ">
+            <div class="date_info " :class="{morning_time_out:outMorningTime}">
                 <div class="date">
                     <div class="day">{{day}}</div>
                     <div class="date_right">
@@ -678,6 +678,12 @@
         background: #fff;
 
     }
+
+    .date_info.morning_time_out{
+        background: #f2f3f4;
+    }
+
+
     .bgw .date_info{
         background: #f2f3f4;
     }
