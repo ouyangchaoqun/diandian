@@ -420,6 +420,7 @@
         line-height: 0.88235rem;
         margin-bottom: 1rem;
     }
+    .clock_lists>div, .clock_lists p,.clock_ratio{ color:#fff}
     .clock_listsDay{
         font-size: 0.88235rem;
     }
