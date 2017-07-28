@@ -961,10 +961,8 @@
         color: #fff;
         position: absolute;
         bottom: 0;
-        height:30px;
-        padding-top:10px;
-        padding-bottom:10px;
-        line-height: 30px;
+        height: 2.95rem;
+        line-height: 2.95rem;
     }
 
     .timeout {
@@ -981,6 +979,7 @@
         color: #ccc;
     }
 
+    .night_time_out{ border-top-left-radius: 8px; border-top-right-radius: 8px;}
 
     .re_text1 {
         text-align: center;
