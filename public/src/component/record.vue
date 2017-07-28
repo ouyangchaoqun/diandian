@@ -7,7 +7,7 @@
         </div>
         <div class="moodBox_bg" @click="goIndex()">
         </div>
-        <div class="record_box" :class="{bgw:isShowResult,nightbg:isNight,night_do_ac:isDoNight}">
+        <div class="record_box" :class="{bgw:isShowResult&&!isNight,nightbg:isNight,night_do_ac:isDoNight}">
 
             <div class="main_record">
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
@@ -53,7 +53,7 @@
                         <!--</div>-->
                         <div class="midLine" v-if="result.data.type==2"></div>
                         <div class="record_bottom" @click="share"v-if="result.data.type==2">
-                            <div class="doRecord" v-if="result.data.type==2">分享成就</div>
+                            <div class="doRecord" v-if="result.data.type==2">分享成就卡</div>
                         </div>
                         <div class="record_bottom2" @click="writeOrRank">
                             <div class="doRecord" v-if="result.data.type==2">早起排行榜</div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="night_action">
                     <div style="height:1px;"></div>
-                    <div class="record_action_go_bed" @click="checkIn(3)"><span>睡觉</span>确定睡觉就点击按钮，不要耍赖哦</div>
+                    <div class="record_action_go_bed" @click="checkIn(3)"><span>睡觉</span>睡觉之前戳一下（不要耍赖哦）</div>
                     <div class="record_text2" @click="writeOrRank"> <div class="doRecord">早睡排行榜</div></div>
                 </div>
 
@@ -76,11 +76,11 @@
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
 
-                    <div class="midLine" v-if="isGetUp"></div>
+                    <div class="midLine" v-if="isGetUp&&outMorningTime"></div>
                     <div class="record_bottom" @click="share"v-if="isGetUp">
-                        <div class="doRecord">分享成就</div>
+                        <div class="doRecord">分享成就卡</div>
                     </div>
-                    <div :class="{record_bottom2:isGetUp,record_text2:!isGetUp}" @click="writeOrRank">
+                    <div :class="{record_text2:outNightTime||(!isGetUp&&outMorningTime),record_bottom2:!outNightTime&&(isGetUp&&outMorningTime)}" @click="writeOrRank">
                         <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
                         <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
                     </div>
@@ -281,7 +281,7 @@
                     $(".night_action").show().animate({"opacity": 1}, 200, function () {
                     });
                     let w = $("body").width();
-                    $(".night_action").height(w * 746 / 750);
+                    $(".night_action").height(w * 753 / 750);
                     _this.isNight = true;
                     _this.isDoNight=true;
 
@@ -444,7 +444,7 @@
             let _this = this;
             xqzs.wx.setConfig(_this);
             let w = $("body").width();
-            $(".record_box ,.night_action").height(w * 746 / 750);
+            $(".record_box ,.night_action").height(w * 753 / 750);
 
             //获取当前时间
             var mydate = new Date();
@@ -544,13 +544,16 @@
 
     .night_action{ background: url(../images/nightbg.png) no-repeat;
         background-size: 100% 100%; width: 100%; opacity: 0 ; display: none;; position: absolute; top:0;
+        background-position: 0 4.11764rem;
          }
     .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 7rem; font-size: 0.7rem;; position: relative }
-    .record_action_go_bed span{ display: inline-block; position: absolute; top:0; width: 100%; text-align: center;left:0; line-height: 6.1764705rem; font-size: 1.6rem; color:#645b76}
+    .record_action_go_bed span{ display: inline-block; position: absolute; top:0; width: 100%; text-align: center;left:0; line-height: 6.1764705rem; font-size: 1.0588rem; color:#645b76}
 
     .night_do_ac{
         background: url(../images/nightbg.png) no-repeat;
-        background-size: 100% 100%;}
+        background-size: 100% 100%;
+        background-position: 0 4.11764rem;
+    }
 
     .go_record:active {
         background: #eee
@@ -590,7 +593,8 @@
     .nightbg .timeout ,.nightbg .result .bottom1 {
         background: url(../images/nightbg.png) no-repeat;
         background-size: 100% 100%;
-        height: 100%
+        height: 100%;
+        background-position: 0 4.11764rem;
     }
 
     .nightbg .record_time, .nightbg .next, .nightbg .record_compare {
@@ -650,8 +654,8 @@
     .record_box {
         background: #f4f4f8;
         background-size: cover;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
         position: absolute;
         bottom: 0;
         width: 100%;
@@ -666,16 +670,20 @@
         border-radius: 5px;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        border-bottom: 1px solid #ccc;
+
         overflow: hidden;
         position: absolute;
         width: 100%;
         z-index: 2;
+        background: #fff;
 
     }
+    .bgw .date_info{
+        background: #f2f3f4;
+    }
     .nightbg .date_info{
-        border-bottom: 1px solid #86849f;
-
+        border-bottom: none;
+        background: #4e4c73;
     }
 
     .main_record {
@@ -857,7 +865,7 @@
     .record_time {
         text-align: center;
         font-size: 1.82rem;
-        padding-top: 7rem;
+        padding-top: 8rem;
         line-height: 1;
         color: rgba(102, 102, 102, 1);
     }
@@ -963,11 +971,10 @@
 
 
     .re_text1 {
-        padding-top: 1.47rem;
         text-align: center;
         font-size: 1.05rem;
         color: rgba(165, 165, 165, 1);
-        padding-top: 6rem;
+        padding-top: 7.8rem;
     }
 
     .jiantou {

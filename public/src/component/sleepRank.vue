@@ -21,7 +21,7 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio">共有{{allCount}}人陪我早起，收获{{myRank.careCount||0}}个点赞</div>
+                <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早起，收获{{myRank.careCount||0}}个点赞</div>
             </div>
             <div class="clock_count clock_countNight"   v-show="isNight">
                 <div class="clock_lists clock_listsNight">
@@ -38,7 +38,7 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" >共有{{allCount}}人陪我早睡，收获{{myRank.careCount||0}}个点赞</div>
+                <div class="clock_ratio" >{{date}}共有{{allCount}}人陪我早睡，收获{{myRank.careCount||0}}个点赞</div>
             </div>
         </div>
 
@@ -155,7 +155,8 @@
                 clock_careCount:0,
                 sleepRank_title:'',
                 swipersettime:null,
-                showLoad:false
+                showLoad:false,
+                date:""
             }
         },
         props:{
@@ -200,13 +201,16 @@
                 url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 console.log(data)
-                _this.myRank = data.data.data.userRank||_this.myRank;
-                //console.log(_this.myRank)
-                _this.myInFriendRank = data.data.data.allRank||[];
-                for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
-                    _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+                if(data.data.status==1){
+                    _this.myRank = data.data.data.userRank||_this.myRank;
+                    //console.log(_this.myRank)
+                    _this.myInFriendRank = data.data.data.allRank||[];
+                    for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
+                        _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+                    }
+//                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
+                    console.log( _this.myInFriendRank)
                 }
-                console.log( _this.myInFriendRank)
             }, function (data) {
             });
 
@@ -216,12 +220,16 @@
                 method: 'GET',
                 url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
-                _this.allRank = data.data.data.userRank|| _this.allRank ;
-                _this.allRankList = data.data.data.allRank||[];
-                for(var i=0,l=_this.allRankList.length;i<l;i++){
-                    _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+                if(data.data.status==1){
+                    _this.allRank = data.data.data.userRank|| _this.allRank ;
+                    _this.allRankList = data.data.data.allRank||[];
+                    for(var i=0,l=_this.allRankList.length;i<l;i++){
+                        _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+                    }
+//                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
+                    console.log( _this.allRankList);
                 }
-                console.log( _this.allRankList);
+
                 _this.showLoad=false;
             }, function (data) {
                 _this.showLoad=false;
@@ -582,7 +590,7 @@
     }
     .rank_box{
         width:200%;
-        margin-top: 0.70588rem;
+        margin-top: 0.88235rem
     }
     .rank1Color{
         color: #ffc800;
