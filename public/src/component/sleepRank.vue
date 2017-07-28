@@ -170,6 +170,7 @@
         mounted:function () {
 
             let _this = this;
+            xqzs.wx.setConfig(_this);
             //var subsid = _this.$route.params.id;
             let time=new Date();
             var typeId = _this.$route.query.type;
@@ -239,12 +240,15 @@
 
 
             $('.clock_tab .tab_title').on('touchstart mousedown',function () {
+                let  domThis=this;
                 var clock_rank1Width = $('.clock_rank1').height();
                 var clock_rank2Width = $('.clock_rank2').height();
                 $('.rank_box').removeClass('goleft').removeClass('goright')
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
                 $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
-                $(this).addClass('clock_tabActive')
+               setTimeout(function () {
+                   $(domThis).addClass('clock_tabActive')
+               },150)
                 $('.rank_Bgbox').css('height','auto');
                 if(_this.swipersettime!=null){
                     clearTimeout(_this.swipersettime);
