@@ -14,7 +14,7 @@
 				<span  class="calendarImg">
 
 				</span>
-                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">完善资料</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">本月运势</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
@@ -229,7 +229,7 @@
                 this.calendarImg= web.IMG_PATH+"rl2.png";
                 this.calendarOn=true;
                 setTimeout(function () {
-                    _this.$router.push("/me/personal")
+                    _this.$router.push("/luck")
                 },2)
             },
 

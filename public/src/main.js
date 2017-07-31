@@ -45,7 +45,9 @@ let routers =
                 require('./routes/rankList'),
                 require('./routes/sleepRank'),
                 require('./routes/record'),
-                require('./routes/write')
+                require('./routes/write'),
+                require('./routes/luck'),
+
             ]
         }
     ];
