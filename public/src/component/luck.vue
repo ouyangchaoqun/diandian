@@ -9,6 +9,7 @@
 			<div class="bottom_info">说明：本站测试羡慕主要根据中华传统周易学或者民间流传的占卜法制定，测试结果仅够娱乐参考）</div>
 		</div>
 		<div v-if="!hasBirsday">
+			<div class="title"></div>
 			<div class="input_top">输入姓名和出生年月，立即测算本月运程</div>
 			<div class="input_box">
 				<div class="inputItem" >
@@ -48,13 +49,13 @@
 	.luck .main_content:after{ content: " "; display: block; position: absolute; bottom:-1px;left:0;height:1.1470588rem; background: url(../images/luck/content_bottom.png) no-repeat; background-size: 100%; width: 100%}
 	.luck .bottom_info{ font-size: 0.76470588rem;; margin:2.3rem 15px 0;}
 
-	.luck .input_box{ height: 9.52941181rem; width: 17.6470588rem; position: absolute; top:50%;left:50%; margin-left: -8.823529411rem; margin-top: -5.66176470585rem; background: url(../images/luck/input_bg.png); background-size: 100%; padding-top: 1.7941176rem;}
+	.luck .input_box{ height: 9.52941181rem; width: 17.6470588rem; position: relative; margin: 0 auto;  margin-top: 2.66176470585rem; background: url(../images/luck/input_bg.png); background-size: 100%; padding-top: 1.7941176rem;}
 	.luck .input_box:before{ content: " "; display: block; position: absolute; top:0; left:0; height:0.9117647rem; background: url(../images/luck/input_top.png) no-repeat; background-size: 100%; width: 100% }
 	.luck .input_box:after{ content: " "; display: block; position: absolute; bottom:0px;left:0;height:0.9117647rem; background: url(../images/luck/input_bottom.png) no-repeat #fffcf9 bottom; background-size: 100%; width: 100%;}
 
 	.luck .btn_action{
-	  position: absolute;bottom:7.058823rem; height: 2.58823529411rem;line-height: 2.58823529411rem; border-radius: 1.176470588rem; background: #bc3b38; text-align: center ; color:#fff; font-size: 1rem;font-weight: bold; width: 13.32529411rem; left:50%; margin-left: -6.66176470rem;	}
-	.luck .input_top{  position: absolute;top:7.558823rem; text-align: center ; color:#bc3b38; width: 100%; line-height: 1rem;}
+	  position: relative;  height: 2.58823529411rem;line-height: 2.58823529411rem; border-radius: 1.176470588rem; background: #bc3b38; text-align: center ; color:#fff; font-size: 1rem;font-weight: bold; width: 13.32529411rem; margin: 0 auto; margin-top: 3rem;	}
+	.luck .input_top{  margin-top:2.558823rem; text-align: center ; color:#bc3b38; width: 100%; line-height: 1rem;}
 	.luck .inputItem{border-bottom: 1px solid #cba98d; width: 76%; margin: 0 auto; height: 2.617647rem; line-height: 2.617647rem;}
 	.luck .inputItem .left{ float: left;}
 	.luck .inputItem .right{ float: left;width: 64% }
@@ -184,7 +185,7 @@
                 if(_this.user.birthday!=null&&_this.user.birthday!=''){
                     let timeSplit= _this.user.birthday.split(",");
                     _this.hasBirsday=true;
-                    let  time = _this.toLunar(timeSplit[0],parseInt(timeSplit[1])-1,timeSplit[2]);
+                    let  time = _this.toLunar(timeSplit[0],parseInt(timeSplit[1]),timeSplit[2]);
                     console.log(time)
                     _this.index=  _this.getIndex(time[0])
                 }else {
