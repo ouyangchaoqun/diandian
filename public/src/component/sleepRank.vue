@@ -204,6 +204,8 @@
                     _this.myInFriendRank = data.data.data.allRank||[];
                     for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
                         _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+
+                        _this.myInFriendRank[i].faceUrl=_this.wxFaceUrl(_this.myInFriendRank[i].faceUrl)
                     }
 //                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
                     console.log( _this.myInFriendRank)
@@ -222,6 +224,7 @@
                     _this.allRankList = data.data.data.allRank||[];
                     for(var i=0,l=_this.allRankList.length;i<l;i++){
                         _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
+                        _this.allRankList[i].faceUrl=_this.wxFaceUrl(_this.allRankList[i].faceUrl)
                     }
 //                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
                     console.log( _this.allRankList);
@@ -275,6 +278,9 @@
 
         },
         methods:{
+            wxFaceUrl:function (faceUrl) {
+                return xqzs.mood.wxface(faceUrl);
+            },
             share:function () {
                 let _this=this;
                 var typeId = _this.$route.query.type;
