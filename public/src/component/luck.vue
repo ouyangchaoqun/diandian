@@ -48,7 +48,7 @@
 	.luck .main_content .br{ display: block; margin-bottom: 10px;}
 	.luck .main_content:before{ content: " "; display: block; position: absolute; top:0; left:0; height:1.1470588rem; background: url(../images/luck/content_top.png) no-repeat; background-size: 100%; width: 100% }
 	.luck .main_content:after{ content: " "; display: block; position: absolute; bottom:-1px;left:0;height:1.1470588rem; background: url(../images/luck/content_bottom.png) no-repeat; background-size: 100%; width: 100%}
-	.luck .bottom_info{ font-size: 0.76470588rem;; margin:2.3rem 15px 0;}
+	.luck .bottom_info{ font-size: 0.76470588rem;; margin:2.3rem 15px 1.1rem;}
 
 	.luck .input_box{ height: 9.52941181rem; width: 17.6470588rem; position: relative; margin: 0 auto;  margin-top: 2.66176470585rem; background: url(../images/luck/input_bg.png); background-size: 100%; padding-top: 1.7941176rem;}
 	.luck .input_box:before{ content: " "; display: block; position: absolute; top:0; left:0; height:0.9117647rem; background: url(../images/luck/input_top.png) no-repeat; background-size: 100%; width: 100% }
