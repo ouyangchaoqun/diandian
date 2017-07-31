@@ -7,7 +7,7 @@
 				<span  class="recordImg">
 
 				</span>
-                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录</p>
+                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录打卡</p>
             </a>
 
             <a  @click="calendar()" class="weui-tabbar__item tab " >
