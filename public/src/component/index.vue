@@ -447,12 +447,12 @@
 
     #tabs a span{ display: inline-block; height: 24px ; width: 24px;}
     #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size:26px; width: 26px;}
-    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size:auto 24px;   width: 19.2px}
+    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size:26px 23px;   width: 26px}
     #tabs a span.friendsImg{ background: url(../images/friend1.png) no-repeat; background-size: 24px;}
     #tabs a span.meImg{ background: url(../images/me1.png) no-repeat; background-size: 24px; }
 
     #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat;background-size:26px; width: 26px;}
-    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size: auto 24px; width: 19.2px }
+    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size:26px 23px;   width: 26px }
     #tabs a:active span.friendsImg{ background: url(../images/friend2.png) no-repeat; background-size: 24px;}
     #tabs a:active span.meImg{ background: url(../images/me2.png) no-repeat; background-size: 24px; }
 
