@@ -349,9 +349,7 @@
                 _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+type+'').then(data => {
                     if(data.data.status===1){
                         _this.result.allCount= data.data.data.userNum;
-                        if(  _this.result.allCount>0){
-                            _this.result.allCount =   _this.result.allCount-1;
-                        }
+
                     }
                 });
                 _this.$http.get(web.API_PATH+'record/sleep/get/rank/today/_userId_/'+type+'').then(data => {

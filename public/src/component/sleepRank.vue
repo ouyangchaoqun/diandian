@@ -187,10 +187,7 @@
                     _this.allDay= data.data.data.allDays;
                     _this.continueDay= data.data.data.continueDays;
                     _this.allCount= data.data.data.userNum;
-                    if( _this.allCount>0){
-                        _this.allCount =  _this.allCount - 1;
-                    }
-
+                  
                 }
 
             });
