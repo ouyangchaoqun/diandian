@@ -193,7 +193,7 @@
                 }
             },
             getIndex:function (year) {
-                var ss=year-1864;//设定1864为初始年份
+                var ss=year-1864+1;//设定1864为初始年份
                 return ss%12;
             },
 
