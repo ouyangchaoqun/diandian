@@ -4,53 +4,13 @@
         <div class="mid_line1"></div>
         <div class="mid_line2"></div>
         <div class="tabs">
-            <a hidefocus="true" class="active">活跃</a>
-            <a hidefocus="true" class="yyyyyy">关心</a>
+            <a hidefocus="true" class="active">好友互动</a>
+            <a hidefocus="true" class="yyyyyy">心情记录</a>
             <a hidefocus="true">新增好友</a>
         </div>
         <div class="swiper-container moodCount_box" style="width: 100%">
             <div class="swiper-wrapper">
-                <!--活跃度排行-->
-                <div class="swiper-slide">
-                    <template v-if="useActive.length>0">
-                        <div class="my_rank" :class="useActive.addClassName">
-                            <div class="rank_index">
-                                <span v-if="useActive[0].row !=undefined&&useActive[0].row>=0">{{useActive[0].row}}</span>
-                            </div>
-                            <div class="rank_face">
-                                <img :src="wxFaceUrl(useActive[0].faceUrl)"/>
-                            </div>
-                            <div class="rank_name">{{useActive[0].nickName| shortName(7)}}</div>
-                            <div class="rank_data">连续记录{{useActive[0].count}}条</div>
-                        </div>
-                    </template>
-                    <template v-if="useActive.length<=0">
-                        <div class="my_rank">
-                            <div class="rank_index">
-                                <span ></span>
-                            </div>
-                            <div class="rank_face">
-                                <img :src="user.faceUrl"/>
-                            </div>
-                            <div class="rank_name">{{user.nickName | shortName(7)}}</div>
-                            <div class="rank_data">未记录</div>
-                        </div>
-                    </template>
-                        <ul>
-                            <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
-                                :class="rank.addClassName">
-                                <div class="rank_index">
-                                    <span v-if="index>=0">{{ index+1}}</span>
-                                </div>
-                                <div class="rank_face">
-                                    <img :src="wxFaceUrl(rank.faceUrl)"/>
-                                </div>
-                                <div class="rank_name">{{rank.nickName | shortName(7)}}</div>
-                                <div class="rank_data">连续记录{{rank.count}}条</div>
-                            </li>
-                        </ul>
 
-                </div>
                 <!--关心排行-->
                 <div class="swiper-slide">
                     <template v-if="useCare.length>0">
@@ -62,8 +22,8 @@
                             <img :src="wxFaceUrl(useCare[0].faceUrl)"/>
                         </div>
                         <div class="rank_name">{{useCare[0].nickName| shortName(7)}}</div>
-                        <div class="rank_value">{{useCare[0].count}}</div>
-                        <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
+                        <div class="rank_value">{{useCare[0].count}}次</div>
+
 
                     </div>
                     </template>
@@ -76,8 +36,7 @@
                                 <img :src="user.faceUrl"/>
                             </div>
                             <div class="rank_name">{{user.nickName | shortName(7)}}</div>
-                            <div class="rank_value">0</div>
-                            <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
+                            <div class="rank_value">0次</div>
                         </div>
                     </template>
                     <ul>
@@ -89,8 +48,49 @@
                                 <img :src="wxFaceUrl(rank.faceUrl)"/>
                             </div>
                             <div class="rank_name">{{rank.nickName| shortName(7)}}</div>
-                            <div class="rank_value">{{rank.count}}</div>
-                            <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
+                            <div class="rank_value">{{rank.count}}次</div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!--活跃度排行-->
+                <div class="swiper-slide">
+                    <template v-if="useActive.length>0">
+                        <div class="my_rank" :class="useActive.addClassName">
+                            <div class="rank_index">
+                                <span v-if="useActive[0].row !=undefined&&useActive[0].row>=0">{{useActive[0].row}}</span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="wxFaceUrl(useActive[0].faceUrl)"/>
+                            </div>
+                            <div class="rank_name">{{useActive[0].nickName| shortName(7)}}</div>
+                            <div class="rank_data">{{useActive[0].count}}次</div>
+                        </div>
+                    </template>
+                    <template v-if="useActive.length<=0">
+                        <div class="my_rank">
+                            <div class="rank_index">
+                                <span ></span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="user.faceUrl"/>
+                            </div>
+                            <div class="rank_name">{{user.nickName | shortName(7)}}</div>
+                            <div class="rank_data">0次</div>
+                        </div>
+                    </template>
+                    <ul>
+                        <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
+                            :class="rank.addClassName">
+                            <div class="rank_index">
+                                <span v-if="index>=0">{{ index+1}}</span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="wxFaceUrl(rank.faceUrl)"/>
+                            </div>
+                            <div class="rank_name">{{rank.nickName | shortName(7)}}</div>
+                            <div class="rank_data">{{rank.count}}次</div>
                         </li>
                     </ul>
 
@@ -107,7 +107,7 @@
                             <img :src="wxFaceUrl(useFriend[0].faceUrl)"/>
                         </div>
                         <div class="rank_name">{{useFriend[0].nickName| shortName(7)}}</div>
-                        <div class="rank_data">新增好友{{useFriend[0].newfriend}}位</div>
+                        <div class="rank_data">{{useFriend[0].newfriend}}位</div>
                     </div>
                     </template>
                     <template v-if="useFriend.length<=0">
@@ -119,7 +119,7 @@
                                 <img :src="user.faceUrl"/>
                             </div>
                             <div class="rank_name">{{user.nickName | shortName(7)}}</div>
-                            <div class="rank_data">未增加好友</div>
+                            <div class="rank_data">0位</div>
                         </div>
                     </template>
                     <ul>
@@ -131,7 +131,7 @@
                                 <img :src="wxFaceUrl(rank.faceUrl)"/>
                             </div>
                             <div class="rank_name">{{rank.nickName| shortName(7)}}</div>
-                            <div class="rank_data">新增加好友{{rank.newfriend}}人</div>
+                            <div class="rank_data">{{rank.newfriend}}位</div>
                         </li>
                     </ul>
 
@@ -282,7 +282,7 @@
     .rankList_box {
         width: 100%;
         height: 100%;
-        background-color: #ffffff;
+        background-color: #f4f4f8;
     }
 
     .tabs {
@@ -350,7 +350,7 @@
         border-top: 10px #f4f4f8 solid;
         width: 100%;
         background-color: #ffffff;
-        height: 50px;
+        height: 60px;
         border-bottom: 15px #f4f4f8 solid;
         position: relative;
     }
@@ -358,13 +358,13 @@
     .rank_list {
         width: 100%;
         background-color: #ffffff;
-        height: 49px;
+        height: 59px;
         position: relative;
     }
 
     .rank_list:after {
         content: " ";
-        width: 87.4%;
+        width: 100%;
         height: 1px;
         position: absolute;
         right: 0;
@@ -381,7 +381,7 @@
         font-size: 16px;
         position: absolute;
         left: 4%;
-        top: 13px;
+        top: 18px;
     }
 
     .first_1 .img {
@@ -412,8 +412,8 @@
     }
 
     .rank_face {
-        width: 29px;
-        height: 29px;
+        width: 40px;
+        height: 40px;
         position: absolute;
         top: 10px;
         left: 12.4%;
@@ -421,29 +421,29 @@
 
     .rank_face img {
         width: 100%;
-        border-radius: 50%;
+        border-radius: 5px;
     }
 
     .rank_name {
         font-size: 14px;
         position: absolute;
-        top: 15px;
-        left: 24.8%;
+        top: 20px;
+        left: 27%;
     }
 
     .rank_data {
-        font-size: 14px;
+        font-size: 15px;
         color: #666666;
         position: absolute;
-        left: 71.6%;
-        top: 14px;
+        right: 10%;
+        top: 13px;
     }
     .rank_value {
-        font-size: 24px;
         color: #666666;
+        font-size: 15px;
         position: absolute;
-        right: 17.8%;
-        top: 4px;
+        right: 10%;
+        top: 18px;
     }
 
     .rank_img {
