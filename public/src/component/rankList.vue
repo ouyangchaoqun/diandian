@@ -14,23 +14,23 @@
                 <!--关心排行-->
                 <div class="swiper-slide">
                     <template v-if="useCare.length>0">
-                    <div class="my_rank" :class="useCare.addClassName">
-                        <div class="rank_index">
-                            <span v-if=" useCare[0].row !=undefined&&  useCare[0].row>=0">{{useCare[0].row}}</span>
-                        </div>
-                        <div class="rank_face">
-                            <img :src="wxFaceUrl(useCare[0].faceUrl)"/>
-                        </div>
-                        <div class="rank_name">{{useCare[0].nickName| shortName(7)}}</div>
-                        <div class="rank_value">{{useCare[0].count}}次</div>
+                        <div class="my_rank" :class="useCare.addClassName">
+                            <div class="rank_index">
+                                <span v-if=" useCare[0].row !=undefined&&  useCare[0].row>=0">{{useCare[0].row}}</span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="wxFaceUrl(useCare[0].faceUrl)"/>
+                            </div>
+                            <div class="rank_name">{{useCare[0].nickName| shortName(7)}}</div>
+                            <div class="rank_value">{{useCare[0].count}}次</div>
 
 
-                    </div>
+                        </div>
                     </template>
                     <template v-if="!useCare.length>0">
                         <div class="my_rank">
                             <div class="rank_index">
-                                <span ></span>
+                                <span></span>
                             </div>
                             <div class="rank_face">
                                 <img :src="user.faceUrl"/>
@@ -39,7 +39,7 @@
                             <div class="rank_value">0次</div>
                         </div>
                     </template>
-                    <ul>
+                    <ul class="bottom_margin">
                         <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
                                 <span v-if="index>=0">{{ index+1}}</span>
@@ -71,7 +71,7 @@
                     <template v-if="useActive.length<=0">
                         <div class="my_rank">
                             <div class="rank_index">
-                                <span ></span>
+                                <span></span>
                             </div>
                             <div class="rank_face">
                                 <img :src="user.faceUrl"/>
@@ -80,7 +80,7 @@
                             <div class="rank_data">0次</div>
                         </div>
                     </template>
-                    <ul>
+                    <ul class="bottom_margin">
                         <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
                             :class="rank.addClassName">
                             <div class="rank_index">
@@ -98,22 +98,22 @@
                 <!--新增好友排行-->
                 <div class="swiper-slide">
                     <template v-if="useFriend.length>0">
-                    <div class="my_rank" :class="useFriend.addClassName">
-                        <div class="rank_index">
-                            <span class="img"></span>
-                            <span v-if="useFriend[0].row !=undefined&&useFriend[0].row>=0">{{useFriend[0].row}}</span>
+                        <div class="my_rank" :class="useFriend.addClassName">
+                            <div class="rank_index">
+                                <span class="img"></span>
+                                <span v-if="useFriend[0].row !=undefined&&useFriend[0].row>=0">{{useFriend[0].row}}</span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="wxFaceUrl(useFriend[0].faceUrl)"/>
+                            </div>
+                            <div class="rank_name">{{useFriend[0].nickName| shortName(7)}}</div>
+                            <div class="rank_data">{{useFriend[0].newfriend}}位</div>
                         </div>
-                        <div class="rank_face">
-                            <img :src="wxFaceUrl(useFriend[0].faceUrl)"/>
-                        </div>
-                        <div class="rank_name">{{useFriend[0].nickName| shortName(7)}}</div>
-                        <div class="rank_data">{{useFriend[0].newfriend}}位</div>
-                    </div>
                     </template>
                     <template v-if="useFriend.length<=0">
                         <div class="my_rank">
                             <div class="rank_index">
-                                <span ></span>
+                                <span></span>
                             </div>
                             <div class="rank_face">
                                 <img :src="user.faceUrl"/>
@@ -122,7 +122,7 @@
                             <div class="rank_data">0位</div>
                         </div>
                     </template>
-                    <ul>
+                    <ul class="bottom_margin">
                         <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
                                 <span v-show="index>=0">{{ index+1}}</span>
@@ -160,20 +160,20 @@
                 value: "2017-28"
             }
         },
-        props:{
-            user:{
-                type:Object
+        props: {
+            user: {
+                type: Object
             }
         },
-        filters:{
-            shortName:function(value,len){
-                return xqzs.shortname(value,len);
+        filters: {
+            shortName: function (value, len) {
+                return xqzs.shortname(value, len);
             }
         },
         mounted: function () {
             let _this = this;
-            _this.type=this.$route.params.Type;
-            _this.value=this.$route.params.Value;
+            _this.type = this.$route.params.Type;
+            _this.value = this.$route.params.Value;
             console.log(_this.type)
             console.log(_this.value)
             _this.$nextTick(function () {
@@ -206,7 +206,7 @@
                             //获取自己的排行
                             _this.useActive = response.body.data.userRank;
                             console.log("1111111111")
-                            if(response.body.data.userRank.length>0){
+                            if (response.body.data.userRank.length > 0) {
                                 _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
                             }
 
@@ -228,7 +228,7 @@
                             _this.useCare = data.body.data.myCareRank;
                             console.log(data.body.data.myCareRank);
                             console.log("2222222222222")
-                            if(data.body.data.myCareRank.length>0){
+                            if (data.body.data.myCareRank.length > 0) {
                                 _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
                             }
 
@@ -239,7 +239,7 @@
                                 _this.cares[i].addClassName = "first_" + (i + 1);
                                 _this.$set(_this.cares, i, _this.cares[i])
                             }
-                            console.log( _this.cares)
+                            console.log(_this.cares)
                         }
                     })
             //获取新增好友的排名
@@ -253,7 +253,7 @@
                             //获取自己的排行
                             _this.useFriend = response.body.data.myNewFriendRank;
                             console.log("3333333333")
-                            if(response.body.data.myNewFriendRank.length>0){
+                            if (response.body.data.myNewFriendRank.length > 0) {
                                 _this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                             }
 
@@ -266,7 +266,6 @@
                             }
                         }
                     })
-
 
 
             xqzs.wx.setConfig(_this);
@@ -316,6 +315,10 @@
         background: #f4f4f8;
         border-bottom: 1px solid #e5e5e5;
 
+    }
+
+    .bottom_margin {
+        margin-bottom: 15px;
     }
 
     .tabs a {
@@ -440,6 +443,7 @@
         right: 4%;
         top: 18px;
     }
+
     .rank_value {
         color: #666666;
         font-size: 15px;
