@@ -65,7 +65,7 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
-		<a  href="/#/ranklist/w/2017-29" class="me_lists"  v-if="false" >
+		<a  href="/#/ranklist/w/2017-29" class="me_lists"  >
 			<div class="me_list">
 				<img class="listimg1 listimgPro" src="../images/aboutMe.png"/>
 				<div class="listtext ">排行榜</div>
