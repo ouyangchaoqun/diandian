@@ -713,15 +713,13 @@
         float: left;
         font-size: 2.35rem;
         margin-left: 7%;
+        margin-right: 5%;
     }
 
     .date_right {
         font-size: 0.7rem;
         color: #666666;
-        position: absolute;
-        left: 18%;
-        top: 50%;
-        margin-top: -1rem;
+        margin-top: 1rem;
     }
 
     .weather {
