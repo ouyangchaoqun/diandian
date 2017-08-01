@@ -1,6 +1,6 @@
 <template id="rankList">
     <div class="rankList_box">
-        <div v-title>我的心情指数</div>
+        <div v-title>本周人气排行</div>
         <div class="mid_line1"></div>
         <div class="mid_line2"></div>
         <div class="tabs">
@@ -347,7 +347,7 @@
     }
 
     .my_rank {
-        border-top: 10px #f4f4f8 solid;
+        border-top: 15px #f4f4f8 solid;
         width: 100%;
         background-color: #ffffff;
         height: 60px;
@@ -382,6 +382,8 @@
         position: absolute;
         left: 4%;
         top: 18px;
+        color: #666;
+        font-family: "PingFangSC-Regular";
     }
 
     .first_1 .img {
@@ -435,14 +437,14 @@
         font-size: 15px;
         color: #666666;
         position: absolute;
-        right: 10%;
-        top: 13px;
+        right: 4%;
+        top: 18px;
     }
     .rank_value {
         color: #666666;
         font-size: 15px;
         position: absolute;
-        right: 10%;
+        right: 4%;
         top: 18px;
     }
 
