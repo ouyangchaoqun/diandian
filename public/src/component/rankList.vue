@@ -40,7 +40,7 @@
                         </div>
                     </template>
                     <ul class="bottom_margin">
-                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName" v-if="useCare[0] !=undefined&& useCare[0].row!=index+1">
+                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName" v-if="useCare[0] ==undefined||(useCare[0] !=undefined&& useCare[0].row!=index+1)">
                             <div class="rank_index">
 
 
@@ -84,7 +84,7 @@
                     </template>
                     <ul class="bottom_margin">
                         <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
-                            :class="rank.addClassName" v-if="useActive[0] !=undefined&&useActive[0].row!=index+1">
+                            :class="rank.addClassName" v-if="useActive[0] ==undefined||(useActive[0] !=undefined&&useActive[0].row!=index+1)">
                             <div class="rank_index">
                                 <span v-if="index>=0">{{ index+1}}</span>
                             </div>
@@ -125,7 +125,7 @@
                         </div>
                     </template>
                     <ul class="bottom_margin">
-                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName"  v-if="useFriend[0] !=undefined&&useFriend[0].row!=index+1">
+                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName"  v-if="useFriend[0] ==undefined||(useFriend[0] !=undefined&&useFriend[0].row!=index+1)">
                             <div class="rank_index">
                                 <span v-show="index>=0">{{ index+1}}</span>
                             </div>
@@ -254,7 +254,9 @@
                         if (response.body.status == 1) {
                             //获取自己的排行
                             _this.useFriend = response.body.data.myNewFriendRank;
-                            console.log("3333333333")
+
+
+                            console.log(_this.useFriend[0])
                             if (response.body.data.myNewFriendRank.length > 0) {
                                 //_this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                             }
