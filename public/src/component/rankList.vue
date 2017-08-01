@@ -184,6 +184,19 @@
                     onSlideChangeStart: function () {
                         $(".tabs .active").removeClass('active');
                         $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+                        $(".swiper-wrapper").height("auto")
+                    },
+                    onSlideChangeEnd:function (swiper) {
+                         $(".swiper-slide").each(function (i) {
+                             console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
+                            if(swiper.activeIndex==i){
+                                $(".swiper-wrapper").height($(this).height())
+                            }
+
+                        })
+
+
+
                     }
                 });
                 $(".tabs a").on('touchstart mousedown', function (e) {
