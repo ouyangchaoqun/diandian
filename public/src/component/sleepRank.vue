@@ -443,20 +443,13 @@
         margin:0 auto;
         margin-top:1.1765rem;
         border-radius: 1rem;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
         text-align: center;
         font-size:0.8235rem;
         line-height: 2rem;
         border:1px solid #fff;
         color: #333;
     }
-    .clock_tab>div{
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-    }
+
     .clock_tab .tab_title{ z-index: 100; position: absolute; width: 50%;     height: 2rem;}
     .clock_tab .tab_title_right{ left:50%;}
     .clock_tabNight>div{
