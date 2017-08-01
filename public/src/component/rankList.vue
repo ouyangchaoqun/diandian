@@ -16,7 +16,7 @@
                     <template v-if="useCare.length>0">
                         <div class="my_rank" :class="useCare.addClassName">
                             <div class="rank_index">
-                                <span v-if=" useCare[0].row !=undefined&&  useCare[0].row>=0">{{useCare[0].row}}</span>
+                                <span v-if=" useCare[0] !=undefined&&  useCare[0].row>=0">{{useCare[0].row}}</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(useCare[0].faceUrl)"/>
@@ -40,7 +40,7 @@
                         </div>
                     </template>
                     <ul class="bottom_margin">
-                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName" v-if="useCare[0].row!=index+1">
+                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName" v-if="useCare[0] !=undefined&& useCare[0].row!=index+1">
                             <div class="rank_index">
 
 
@@ -61,7 +61,7 @@
                     <template v-if="useActive.length>0">
                         <div class="my_rank" :class="useActive.addClassName">
                             <div class="rank_index">
-                                <span v-if="useActive[0].row !=undefined&&useActive[0].row>=0">{{useActive[0].row}}</span>
+                                <span v-if="useActive[0] !=undefined&&useActive[0].row>=0">{{useActive[0].row}}</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(useActive[0].faceUrl)"/>
@@ -84,7 +84,7 @@
                     </template>
                     <ul class="bottom_margin">
                         <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
-                            :class="rank.addClassName" v-if="useActive[0].row!=index+1">
+                            :class="rank.addClassName" v-if="useActive[0] !=undefined&&useActive[0].row!=index+1">
                             <div class="rank_index">
                                 <span v-if="index>=0">{{ index+1}}</span>
                             </div>
@@ -103,7 +103,7 @@
                         <div class="my_rank" :class="useFriend.addClassName">
                             <div class="rank_index">
                                 <span class="img"></span>
-                                <span v-if="useFriend[0].row !=undefined&&useFriend[0].row>=0">{{useFriend[0].row}}</span>
+                                <span v-if="useFriend[0] !=undefined&&useFriend[0].row>=0">{{useFriend[0].row}}</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(useFriend[0].faceUrl)"/>
@@ -125,7 +125,7 @@
                         </div>
                     </template>
                     <ul class="bottom_margin">
-                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName"  v-if="useFriend[0].row!=index+1">
+                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName"  v-if="useFriend[0] !=undefined&&useFriend[0].row!=index+1">
                             <div class="rank_index">
                                 <span v-show="index>=0">{{ index+1}}</span>
                             </div>
