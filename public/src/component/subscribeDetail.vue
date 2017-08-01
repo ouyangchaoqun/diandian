@@ -175,7 +175,9 @@
         position: absolute;
         left:50%;
         margin-left: -30px;
-        top: 60px
+        top: 60px;
+        border-radius: 50%;
+
     }
     .subscribeList_header div{
         font-size: 12px;
