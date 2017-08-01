@@ -1,12 +1,13 @@
 import App from './App.vue';
+import appTransition from "./component/appTransition.vue"
 Vue.use(VueRouter);
 Vue.use(VueResource);
 let routers =
     [
         {
             path: '/',
-            name: 'App',
-            component: App, // 引入页面切换组件
+            name: 'appTransition',
+            component: appTransition, // 引入页面切换组件
             children: [
                 require('./routes/addMood'),
                 require('./routes/index'),
