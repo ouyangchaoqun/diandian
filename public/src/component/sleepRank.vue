@@ -480,10 +480,10 @@
     .clock_tabNight .clock_tabActive{
         color: #333;
     }
-    .rank_list:last-of-type{
+    .clock_box .rank_list:last-of-type{
         border-bottom: 0;
     }
-    .rank_list{
+    .clock_box .rank_list{
         height:3.53rem;
         background: #fff;
         padding-left:2.70589rem;
@@ -530,16 +530,16 @@
         margin-top:0.588rem;
         border-radius: 0.294rem;
     }
-    .rank_name{
+    .clock_box .rank_name{
         font-size: 0.8235rem;
         color: #333;
         float: left;
         margin-left:0.9412rem;
     }
-    .rank_right{
+    .clock_box .rank_right{
         float: right;
     }
-    .rank_right>div{
+    .clock_box .rank_right>div{
         float: left;
     }
     .clock_time{
@@ -549,12 +549,12 @@
     }
     .no_record{ margin-right:1.41176rem;}
     .care_icon{ padding-left: 1.2rem;  height: 3.53rem;    padding-right: 0.88235rem;}
-    .rank_right img{
+    .clock_box .rank_right img{
         display: block;
         width:0.9412rem;
         height:0.88235rem;
     }
-    .rank_right span{
+    .clock_box .rank_right span{
         line-height: 0.7647rem;
         font-size: 0.7059rem;
         color: #999;

@@ -375,14 +375,14 @@
         position: relative;
     }
 
-    .rank_list {
+   .rankList_box  .rank_list {
         width: 100%;
         background-color: #ffffff;
         height: 59px;
         position: relative;
     }
 
-    .rank_list:after {
+    .rankList_box .rank_list:after {
         content: " ";
         width: 100%;
         height: 1px;
@@ -392,12 +392,12 @@
         background-color: #eeeeee;
     }
 
-    .rank_list:last-child:after {
+    .rankList_box .rank_list:last-child:after {
         content: "";
         display: none;
     }
 
-    .rank_index {
+    .rankList_box .rank_index {
         font-size: 16px;
         position: absolute;
         left: 4%;
@@ -446,7 +446,7 @@
         border-radius: 5px;
     }
 
-    .rank_name {
+    .rankList_box .rank_name {
         font-size: 14px;
         position: absolute;
         top: 20px;
