@@ -14,7 +14,7 @@
 				<span  class="calendarImg">
 
 				</span>
-                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">本月运势</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">人气排行</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
@@ -229,10 +229,23 @@
                 this.calendarImg= web.IMG_PATH+"rl2.png";
                 this.calendarOn=true;
                 setTimeout(function () {
-                    _this.$router.push("/luck")
+                    let date = new Date();
+                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+_this.getYearWeek(date) );
                 },2)
             },
-
+            getYearWeek:function(date){
+                console.log("bearrrrr")
+                var date2=new Date(date.getFullYear(), 0, 1);
+                console.log(date2)
+                var day1=date.getDay();
+                if(day1==0) day1=7;
+                console.log(day1)
+                var day2=date2.getDay();
+                if(day2==0) day2=7;
+                console.log(day2)
+               let  d = Math.round((date.getTime() - date2.getTime()+(day2-day1)*(24*60*60*1000)) / 86400000);
+                return Math.ceil(d /7)-1;
+            },
             care: function (id) {
                 let _this = this;
                 _this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
@@ -447,12 +460,12 @@
 
     #tabs a span{ display: inline-block; height: 24px ; width: 24px;}
     #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size:26px; width: 26px;}
-    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size:26px 23px;   width: 26px}
+    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size: 25px 21px;   width: 25px}
     #tabs a span.friendsImg{ background: url(../images/friend1.png) no-repeat; background-size: 24px;}
     #tabs a span.meImg{ background: url(../images/me1.png) no-repeat; background-size: 24px; }
 
     #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat;background-size:26px; width: 26px;}
-    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat; background-size:26px 23px;   width: 26px }
+    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat;  background-size: 25px 21px;   width: 25px }
     #tabs a:active span.friendsImg{ background: url(../images/friend2.png) no-repeat; background-size: 24px;}
     #tabs a:active span.meImg{ background: url(../images/me2.png) no-repeat; background-size: 24px; }
 
