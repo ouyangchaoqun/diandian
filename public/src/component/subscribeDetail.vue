@@ -44,7 +44,9 @@
                 unsubscribe_box:false,
                 dataArray:[],
                 issubscribe:'',
-                detail:{}
+                detail:{},
+                minHour:0,
+                maxHour:24
             }
         },
         beforeCreate: function () {
@@ -62,6 +64,8 @@
                 var timies = _this.detail.remindtime.split(':');
                 _this.hour = timies[0];
                 _this.minute = timies[1];
+                _this.minHour= parseInt(_this.detail.mintime /100);
+                _this.maxHour= parseInt(_this.detail.maxtime /100);
             }, function (data) {
             });
         },
@@ -70,7 +74,7 @@
                 let _this = this;
                 var hours = [];
                 var obj;
-                for (var i = 0; i < 24; i++) {
+                for (var i =  _this.minHour; i <=  _this.maxHour; i++) {
                     if (i < 10) {
                         obj = {
                             label: '0' + i,
