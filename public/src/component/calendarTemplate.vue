@@ -62,7 +62,9 @@
                 mySwiper: null,
                 maxMonthNum: 4,
                 nowMonth: null,
-                nowYear: null
+                nowYear: null,
+                empLength:null,
+                dayLenght:null
             }
         },
 
@@ -70,12 +72,11 @@
             this.setNowDate();
             //轮播配置
             let _this = this;
-            _this.mySwiper = new Swiper('.swiper-container', {});
+            _this.mySwiper = new Swiper('.swiper-container', {
+
+            });
             xqzs.wx.setConfig(_this);
         },
-        /*components:{
-         "v-swiper_box":swiper_box
-         },*/
         created: function () {
             $(".calendar_box").click()
         },
@@ -104,6 +105,13 @@
                 //console.log(today)
                 //console.log(cur_month)
 
+            },
+            setContentHeight:function (days) {
+                var lines = Math.ceil(days/7);
+                var hh = $('.canlendarTopView').outerHeight(true)+$('.weekBgView').outerHeight(true);
+                var itemHeight = $('.dateView:eq(0)').height();
+
+                $('.content-slide').height(itemHeight*lines+hh+10);
             },
             showSwiper: function (index) {
 
@@ -145,12 +153,13 @@
                     _this.hasEmptyGrid = true;
                     _this.empytGrids = empytGrids;
 
+
                 } else {
                     _this.hasEmptyGrid = false;
                     _this.empytGrids = []
                 }
-
-
+                _this.empLength = _this.empytGrids.length;
+                console.log(_this.empLength)
             },
             calculateDays(year, month) {
                 let defaultImgUrl = web.IMG_PATH + "list_mood_0" + 0 + ".png";
@@ -204,12 +213,15 @@
                     }
                 });
 
+                _this.dayLenght = this.days.length
+                console.log(_this.dayLenght)
                 //
             },
             oldMonth: function () {
                 if(this.$route.params.Id!=''&&this.$route.params.Id!=undefined&&this.$route.params.Id!='_userId_'){
                     return;
                 }
+
                //上个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
@@ -233,12 +245,18 @@
                     newYear = cur_year - 1;
                     newMonth = 12;
                 }
-                this.calculateDays(newYear, newMonth);
-                this.calculateEmptyGrids(newYear, newMonth);
-                this.cur_year = newYear,
-                    this.cur_month = newMonth
+                    this.calculateDays(newYear, newMonth);
+                    this.calculateEmptyGrids(newYear, newMonth);
+                    this.cur_year = newYear;
+                    this.cur_month = newMonth;
+
+                this.setContentHeight(this.dayLenght+this.empLength)
+
+
+
             },
-            nextMonth: function () {                             //下个月
+            nextMonth: function () {
+                //下个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
 
@@ -258,6 +276,9 @@
                 this.calculateEmptyGrids(newYear, newMonth);
                 this.cur_year = newYear;
                 this.cur_month = newMonth;
+
+
+                this.setContentHeight(this.dayLenght+this.empLength);
             },
             /***禁止滑动***/
             moveStop: function () {

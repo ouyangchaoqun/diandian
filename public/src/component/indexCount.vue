@@ -96,9 +96,6 @@
 				var friend_g = data.body.data.generalFriends;
 				var friend_sLength = data.body.data.specialFriends.length;
 				var friend_gLength = 0;
-
-
-
 				for(var i in friend_g){
 				    for(var j  in friend_g[i] ){
                         friend_gLength++
@@ -107,7 +104,6 @@
 				this.friendNum = friend_gLength + friend_sLength
             }, function (data) {
             });
-
         }
 
     }

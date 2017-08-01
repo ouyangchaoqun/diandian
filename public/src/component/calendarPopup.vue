@@ -126,9 +126,6 @@
         created: function () {
             var popup = this;
             Bus.$on('dataClick',function (_is) {
-                console.log(_is)
-                console.log(_is._isa)
-                console.log(_is._isb)
                 popup.isa = _is._isa
                 popup.isb = _is._isb
                 popup.dayMoods = _is._dayMoods
@@ -139,17 +136,8 @@
                         popup.mySwiper.update()
 
                     }
-
-
-                    console.log(popup.mySwiper.slidesSize);
-
                     popup.mySwiper.slideTo(popup.dayMoods.length - 1, 0, false);//切换到第一个slide
-
                 });
-
-
-
-
             })
             $(".calendar_box").click()
         },
