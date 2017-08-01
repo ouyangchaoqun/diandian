@@ -125,9 +125,13 @@
         methods:{
             showDate:function () {
                 let _this = this;
+                let defaultValue =  [1988, 1, 1];
+                if(this.year!=''&&this.month!=''&&this.day!=''){
+                    defaultValue=  [this.year, this.month, this.day]
+                }
                 weui.datePicker({
                     start: 1949,
-                    defaultValue: [1988, 1, 1],
+                    defaultValue : defaultValue,
                     end: new Date().getFullYear(),
 
                     onChange: function (result) {
