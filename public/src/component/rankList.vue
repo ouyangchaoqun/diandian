@@ -15,27 +15,37 @@
                     <template v-if="useActive.length>0">
                         <div class="my_rank" :class="useActive.addClassName">
                             <div class="rank_index">
-                                <span class="img"></span>
-                                <span v-if="useActive[0].row !=undefined&&useActive[0].row>3">{{useActive[0].row}}.</span>
+                                <span v-if="useActive[0].row !=undefined&&useActive[0].row>=0">{{useActive[0].row}}</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(useActive[0].faceUrl)"/>
                             </div>
-                            <div class="rank_name">{{useActive[0].nickName}}</div>
+                            <div class="rank_name">{{useActive[0].nickName| shortName(7)}}</div>
                             <div class="rank_data">连续记录{{useActive[0].count}}条</div>
+                        </div>
+                    </template>
+                    <template v-if="useActive.length<=0">
+                        <div class="my_rank">
+                            <div class="rank_index">
+                                <span ></span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="user.faceUrl"/>
+                            </div>
+                            <div class="rank_name">{{user.nickName | shortName(7)}}</div>
+                            <div class="rank_data">未记录</div>
                         </div>
                     </template>
                         <ul>
                             <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
                                 :class="rank.addClassName">
                                 <div class="rank_index">
-                                    <span class="img"></span>
-                                    <span v-if="index>2">{{ index+1}}.</span>
+                                    <span v-if="index>=0">{{ index+1}}</span>
                                 </div>
                                 <div class="rank_face">
                                     <img :src="wxFaceUrl(rank.faceUrl)"/>
                                 </div>
-                                <div class="rank_name">{{rank.nickName}}</div>
+                                <div class="rank_name">{{rank.nickName | shortName(7)}}</div>
                                 <div class="rank_data">连续记录{{rank.count}}条</div>
                             </li>
                         </ul>
@@ -46,27 +56,39 @@
                     <template v-if="useCare.length>0">
                     <div class="my_rank" :class="useCare.addClassName">
                         <div class="rank_index">
-                            <span class="img"></span>
-                            <span v-if=" useCare[0].row !=undefined&&  useCare[0].row>3">{{useCare[0].row}}.</span>
+                            <span v-if=" useCare[0].row !=undefined&&  useCare[0].row>=0">{{useCare[0].row}}</span>
                         </div>
                         <div class="rank_face">
                             <img :src="wxFaceUrl(useCare[0].faceUrl)"/>
                         </div>
-                        <div class="rank_name">{{useCare[0].nickName}}</div>
+                        <div class="rank_name">{{useCare[0].nickName| shortName(7)}}</div>
                         <div class="rank_value">{{useCare[0].count}}</div>
                         <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
+
                     </div>
+                    </template>
+                    <template v-if="!useCare.length>0">
+                        <div class="my_rank">
+                            <div class="rank_index">
+                                <span ></span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="user.faceUrl"/>
+                            </div>
+                            <div class="rank_name">{{user.nickName | shortName(7)}}</div>
+                            <div class="rank_value">0</div>
+                            <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
+                        </div>
                     </template>
                     <ul>
                         <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
-                                <span class="img"></span>
-                                <span v-if="index>2">{{ index+1}}.</span>
+                                <span v-if="index>=0">{{ index+1}}</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(rank.faceUrl)"/>
                             </div>
-                            <div class="rank_name">{{rank.nickName}}</div>
+                            <div class="rank_name">{{rank.nickName| shortName(7)}}</div>
                             <div class="rank_value">{{rank.count}}</div>
                             <div class="rank_img"><img src="../images/mood_icon_dianz_pre.png"/></div>
                         </li>
@@ -79,25 +101,36 @@
                     <div class="my_rank" :class="useFriend.addClassName">
                         <div class="rank_index">
                             <span class="img"></span>
-                            <span v-if="useFriend[0].row !=undefined&&useFriend[0].row>3">{{useFriend[0].row}}.</span>
+                            <span v-if="useFriend[0].row !=undefined&&useFriend[0].row>=0">{{useFriend[0].row}}</span>
                         </div>
                         <div class="rank_face">
                             <img :src="wxFaceUrl(useFriend[0].faceUrl)"/>
                         </div>
-                        <div class="rank_name">{{useFriend[0].nickName}}</div>
+                        <div class="rank_name">{{useFriend[0].nickName| shortName(7)}}</div>
                         <div class="rank_data">新增好友{{useFriend[0].newfriend}}位</div>
                     </div>
+                    </template>
+                    <template v-if="useFriend.length<=0">
+                        <div class="my_rank">
+                            <div class="rank_index">
+                                <span ></span>
+                            </div>
+                            <div class="rank_face">
+                                <img :src="user.faceUrl"/>
+                            </div>
+                            <div class="rank_name">{{user.nickName | shortName(7)}}</div>
+                            <div class="rank_data">未增加好友</div>
+                        </div>
                     </template>
                     <ul>
                         <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName">
                             <div class="rank_index">
-                                <span class="img"></span>
-                                <span v-show="index>2">{{ index+1}}.</span>
+                                <span v-show="index>=0">{{ index+1}}</span>
                             </div>
                             <div class="rank_face">
                                 <img :src="wxFaceUrl(rank.faceUrl)"/>
                             </div>
-                            <div class="rank_name">{{rank.nickName}}</div>
+                            <div class="rank_name">{{rank.nickName| shortName(7)}}</div>
                             <div class="rank_data">新增加好友{{rank.newfriend}}人</div>
                         </li>
                     </ul>
@@ -125,6 +158,16 @@
                 useFriend: [],
                 type: "w",
                 value: "2017-28"
+            }
+        },
+        props:{
+            user:{
+                type:Object
+            }
+        },
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
             }
         },
         mounted: function () {
@@ -395,37 +438,12 @@
         left: 71.6%;
         top: 14px;
     }
-
-    .first_1 .rank_data {
-        color: #ffc800;
-    }
-
-    .first_2 .rank_data {
-        color: #c3c1c1;
-    }
-
-    .first_3 .rank_data {
-        color: #c27502;
-    }
-
     .rank_value {
         font-size: 24px;
         color: #666666;
         position: absolute;
         right: 17.8%;
         top: 4px;
-    }
-
-    .first_1 .rank_value {
-        color: #ffc800;
-    }
-
-    .first_2 .rank_value {
-        color: #c3c1c1;
-    }
-
-    .first_3 .rank_value {
-        color: #c27502;
     }
 
     .rank_img {
