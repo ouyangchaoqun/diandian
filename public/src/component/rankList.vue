@@ -200,7 +200,7 @@
             });
 
             //获取活跃排行
-            _this.$http.get(web.API_PATH + "rank/get/record/mood/_userId_/10/" + _this.type + "?times=" + _this.value)
+            _this.$http.get(web.API_PATH + "rank/get/record/mood/_userId_/100/" + _this.type + "?times=" + _this.value)
                     .then(function (response) {
                         if (response.body.status == 1) {
                             //获取自己的排行
@@ -221,7 +221,7 @@
                     })
             //获取关注排行
             ///http://api.m.xqzs.cn/api/v1/rank/get/care/mood/1267/10/w/2017-28
-            _this.$http.get(web.API_PATH + "rank/get/care/mood/_userId_/10/" + _this.type + "/" + _this.value)
+            _this.$http.get(web.API_PATH + "rank/get/care/mood/_userId_/100/" + _this.type + "/" + _this.value)
                     .then(function (data) {
                         if (data.body.status == 1) {
                             //获取自己的排行
@@ -247,7 +247,7 @@
             //api/v1/rank/get/relation/1267/10/w/2017-28
 
 
-            _this.$http.get(web.API_PATH + "rank/get/relation/_userId_/10/" + _this.type + "/" + _this.value)
+            _this.$http.get(web.API_PATH + "rank/get/relation/_userId_/100/" + _this.type + "/" + _this.value)
                     .then(function (response) {
                         if (response.body.status == 1) {
                             //获取自己的排行
