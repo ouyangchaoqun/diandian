@@ -207,13 +207,13 @@
                             _this.useActive = response.body.data.userRank;
                             console.log("1111111111")
                             if (response.body.data.userRank.length > 0) {
-                                _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
+                               // _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
                             }
 
                             //获取所有排行
                             _this.activePerson = response.body.data.allUserRank;
                             for (let i = 0; i < _this.activePerson.length; i++) {
-                                _this.activePerson[i].addClassName = "first_" + (i + 1);
+                               // _this.activePerson[i].addClassName = "first_" + (i + 1);
 
                                 _this.$set(_this.activePerson, i, _this.activePerson[i])
                             }
@@ -229,14 +229,14 @@
                             console.log(data.body.data.myCareRank);
                             console.log("2222222222222")
                             if (data.body.data.myCareRank.length > 0) {
-                                _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
+                               // _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
                             }
 
                             //获取所有排行
 
                             _this.cares = data.body.data.allCareRank;
                             for (let i = 0; i < _this.cares.length; i++) {
-                                _this.cares[i].addClassName = "first_" + (i + 1);
+                                //_this.cares[i].addClassName = "first_" + (i + 1);
                                 _this.$set(_this.cares, i, _this.cares[i])
                             }
                             console.log(_this.cares)
@@ -254,13 +254,13 @@
                             _this.useFriend = response.body.data.myNewFriendRank;
                             console.log("3333333333")
                             if (response.body.data.myNewFriendRank.length > 0) {
-                                _this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
+                                //_this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                             }
 
                             //获取所有排行
                             _this.friends = response.body.data.allNewFriendRank;
                             for (let i = 0; i < _this.friends.length; i++) {
-                                _this.friends[i].addClassName = "first_" + (i + 1);
+                               // _this.friends[i].addClassName = "first_" + (i + 1);
 
                                 _this.$set(_this.friends, i, _this.friends[i])
                             }
