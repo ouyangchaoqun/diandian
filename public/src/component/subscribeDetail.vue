@@ -4,9 +4,9 @@
             <div class="subscribeList_header">
                 <img :src="detail.cover" alt="">
                 <img :src="detail.icon" alt="">
-                <div>{{detail.subscribecount}}人已订阅</div>
             </div>
             <div class="subscribeListMiddle">
+                <p>{{detail.subscribecount}}人已订阅</p>
                 <h3>{{detail.title}}</h3>
                 <div>{{detail.description}}</div>
             </div>
@@ -175,7 +175,7 @@
         position: absolute;
         left:50%;
         margin-left: -30px;
-        top: 60px;
+        top: 60px
     }
     .subscribeList_header div{
         font-size: 12px;
@@ -188,13 +188,13 @@
         margin-left: -100px;
     }
     .subscribeListMiddle{
-        height: 90px;
         background: #fff;
-        padding-top: 50px;
+        padding-top: 40px;
         text-align: left;
         font-size: 12px;
         color: #999;
         margin-bottom: 15px;
+        padding-bottom: 20px;
     }
     .subscribeListMiddle h3{
         font-size: 15px;
@@ -202,6 +202,10 @@
         color: #666;
         margin-bottom: 12px;
         text-align: center;
+    }
+    .subscribeListMiddle p{
+        text-align: center;
+        padding-bottom: 12px;
     }
     .subscribeListMiddle div{
         padding:0 25px;
