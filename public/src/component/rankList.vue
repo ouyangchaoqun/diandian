@@ -40,8 +40,10 @@
                         </div>
                     </template>
                     <ul class="bottom_margin">
-                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName">
+                        <li class="rank_list" v-for="(rank,index) in cares" :key="index" :class="rank.addClassName" v-if="useCare[0].row!=index+1">
                             <div class="rank_index">
+
+
                                 <span v-if="index>=0">{{ index+1}}</span>
                             </div>
                             <div class="rank_face">
@@ -82,7 +84,7 @@
                     </template>
                     <ul class="bottom_margin">
                         <li class="rank_list" v-for="(rank,index) in activePerson" :key="index"
-                            :class="rank.addClassName">
+                            :class="rank.addClassName" v-if="useActive[0].row!=index+1">
                             <div class="rank_index">
                                 <span v-if="index>=0">{{ index+1}}</span>
                             </div>
@@ -123,7 +125,7 @@
                         </div>
                     </template>
                     <ul class="bottom_margin">
-                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName">
+                        <li class="rank_list" v-for="(rank,index) in friends" :key="index" :class="rank.addClassName"  v-if="useFriend[0].row!=index+1">
                             <div class="rank_index">
                                 <span v-show="index>=0">{{ index+1}}</span>
                             </div>
