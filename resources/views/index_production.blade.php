@@ -30,6 +30,7 @@
     web.API_PATH=web.BASE_PATH2+"api/";
     web.IMG_PATH="/dist/";
     web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
+    var now_week= "<?=date("W")?>";
     console.log=function () {
         return false;
     }

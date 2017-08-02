@@ -230,21 +230,8 @@
                 this.calendarOn=true;
                 setTimeout(function () {
                     let date = new Date();
-                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+_this.getYearWeek(date) );
+                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+ now_week );
                 },2)
-            },
-            getYearWeek:function(date){
-                console.log("bearrrrr")
-                var date2=new Date(date.getFullYear(), 0, 1);
-                console.log(date2)
-                var day1=date.getDay();
-                if(day1==0) day1=7;
-                console.log(day1)
-                var day2=date2.getDay();
-                if(day2==0) day2=7;
-                console.log(day2)
-               let  d = Math.round((date.getTime() - date2.getTime()+(day2-day1)*(24*60*60*1000)) / 86400000);
-                return Math.ceil(d /7)-1;
             },
             care: function (id) {
                 let _this = this;
