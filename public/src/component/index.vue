@@ -4,31 +4,23 @@
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
             <a   @click="record()" class="weui-tabbar__item  tab">
-				<span  class="recordImg">
-
-				</span>
+				<span  class="recordImg tab_icon"></span>
                 <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录打卡</p>
             </a>
 
             <a  @click="calendar()" class="weui-tabbar__item tab " >
-				<span  class="calendarImg">
-
-				</span>
+				<span  class="calendarImg tab_icon"></span>
                 <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">人气排行</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
-				<span   class="friendsImg">
-
-				</span>
+				<span   class="friendsImg tab_icon"></span>
                 <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小树洞</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
-				<span  class="meImg">
-
-				</span>
+				<span  class="meImg tab_icon"></span>
                 <p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>
                 <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
             </a>
@@ -180,17 +172,7 @@
                 newFirendMoodStyle:'',
                 hasNewPerfect:false,
                 newPerfectStyle:'',
-                recordImg:web.IMG_PATH+"face1.png",
-                calendarImg:web.IMG_PATH+"rl1.png",
-                friendsImg:web.IMG_PATH+"friend1.png",
-                meImg:web.IMG_PATH+"me1.png",
-                recordOn:false,
-                calendarOn:false,
-                friendsOn:false,
-                meOn:false,
                 scrollTop:0
-
-
             }
         },
         filters:{
@@ -214,20 +196,15 @@
             }
         },
         methods: {
-
             record:function () {
                var  _this=this;
                 Bus.$emit("goIndex",false);
-                this.recordImg= web.IMG_PATH+"face2.png";
-                this.recordOn=true;
                 setTimeout(function () {
                     _this.$router.push("/record")
                 },2)
             },
             calendar:function () {
                 var  _this=this;
-                this.calendarImg= web.IMG_PATH+"rl2.png";
-                this.calendarOn=true;
                 setTimeout(function () {
                     let date = new Date();
                     _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+ now_week );
@@ -336,13 +313,9 @@
             hideNewCircle:function (key,url) {
                 var _this =this ;
                 if(key == 'mood'){
-                    this.friendsImg= web.IMG_PATH+"friend2.png";
-                    this.friendsOn= true;
                     this.hasNewFirendMood = false;
                 }
                 if(key == 'perfect'){
-                    this.meImg= web.IMG_PATH+"me2.png";
-                    this.meOn=true;
                     this.hasNewPerfect = false;
                 }
                 setTimeout(function () {
@@ -425,13 +398,25 @@
 
 </script>
 <style>
-    .tab{position: relative;}
+    .tab{position: relative; padding-top: 0 !important;}
+    #tabs a .tab_icon{ background: url(../images/tab_icons.png) no-repeat; background-size: 116px; height: 27px; width: 29px; display: inline-block; margin-top: 1px;}
+    #tabs a .tab_icon.recordImg{ background-position: 0 0px}
+    #tabs a .tab_icon.calendarImg{ background-position: -29px 0px}
+    #tabs a .tab_icon.friendsImg{ background-position: -58px 0px}
+    #tabs a .tab_icon.meImg{ background-position: -87px 0px}
+
+    #tabs a:active span.recordImg{ background-position: 0  -29px}
+    #tabs a:active span.calendarImg{ background-position: -29px -29px}
+    #tabs a:active span.friendsImg{ background-position: -58px -29px}
+    #tabs a:active span.meImg{ background-position: -87px -29px}
+    #tabs a:active .weui-tabbar__label{ color:#00bd00}
+
+
     .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px !important;width: 8px!important;}
     .tab img{
         height: 24px;
         width:24px;
     }
-    .tabOn{ color:#6cb954}
     .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
     }
@@ -445,18 +430,9 @@
     #tabs:before{  display: none }
     #tabs .weui-tabbar__label{ color:#777}
 
-    #tabs a span{ display: inline-block; height: 24px ; width: 24px;}
-    #tabs a span.recordImg{ background: url(../images/face1.png) no-repeat; background-size:26px; width: 26px;}
-    #tabs a span.calendarImg{ background: url(../images/rl1.png) no-repeat; background-size: 25px 21px;   width: 25px;    background-position: 0 2px;}
-    #tabs a span.friendsImg{ background: url(../images/friend1.png) no-repeat; background-size: 24px;}
-    #tabs a span.meImg{ background: url(../images/me1.png) no-repeat; background-size: 24px; }
 
-    #tabs a:active span.recordImg{ background: url(../images/face2.png) no-repeat;background-size:26px; width: 26px;}
-    #tabs a:active span.calendarImg{ background: url(../images/rl2.png) no-repeat;  background-size: 25px 21px;   width: 25px; background-position: 0 2px; }
-    #tabs a:active span.friendsImg{ background: url(../images/friend2.png) no-repeat; background-size: 24px;}
-    #tabs a:active span.meImg{ background: url(../images/me2.png) no-repeat; background-size: 24px; }
 
-    #tabs a:active .weui-tabbar__label{ color:#6cb954}
+
 
 
     body, html {
