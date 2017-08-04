@@ -258,7 +258,7 @@
 					that._createinvite('card',function () {});
 					xqzs.weui.dialog({
 						title:'邀请卡已经发送',
-						msg:'前往公众号查看，分享好友互为关注',
+						msg:'前往公众号查看你的专属名片',
 						submitText:'查看',
 						submitFun:function () {
 							try {

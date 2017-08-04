@@ -1,6 +1,6 @@
 <template id="rankList">
     <div class="rankList_box">
-        <div v-title>本周人气排行</div>
+        <div v-title>本周Top100</div>
         <div class="mid_line1"></div>
         <div class="mid_line2"></div>
         <div class="tabs">
@@ -53,7 +53,7 @@
                             <div class="rank_value">{{rank.count}}次</div>
                         </li>
                     </ul>
-
+                    <div class="memo">备注：好友互动数 = 好友对我心情的点赞/拥抱数 + 我对好友心情的点赞/拥抱数</div>
                 </div>
 
                 <!--活跃度排行-->
@@ -337,6 +337,7 @@
     .bottom_margin {
         margin-bottom: 15px;
     }
+    .memo{ font-size: 13px; color:#333;  margin: 15px;  text-align: left;}
 
     .tabs a {
         display: block;

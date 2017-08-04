@@ -203,7 +203,7 @@
                     if(bt.body.status==1){
                         xqzs.weui.dialog({
                             title:'成就卡已经发送',
-                            msg:'前往公众号查看，分享到朋友圈',
+                            msg:'前往公众号查看，留住每一次早起回忆',
                             submitText:'查看',
                             submitFun:function () {
                                 try {
