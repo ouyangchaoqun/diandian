@@ -339,7 +339,7 @@ var xqzs = {
             {value: 4, src: 'healthy.png', haspic: true, text: '健康运动'},
             {value: 5, src: 'home.png', haspic: true, text: '小孩家庭'},
             {value: 6, src: 'love.png', haspic: true, text: '感情感悟'},
-            {value: 7, src: 'economics.png', haspic: true, text: '经济收支'},
+            {value: 7, src: 'economics.png', haspic: true, text: '收入消费'},
             {value: 8, src: 'interpersonal.png', haspic: true, text: '人际社交'},
             {value: 9, src: 'other.png', haspic: true, text: '天气及其他'},
             {value: 12, src: 'mooddata10.png', haspic: true, text: '综合',hide:true}
