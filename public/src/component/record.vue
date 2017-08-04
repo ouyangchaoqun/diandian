@@ -53,7 +53,7 @@
                         <!--</div>-->
                         <div class="midLine" v-if="result.data.type==2"></div>
                         <div class="record_bottom" @click="share"v-if="result.data.type==2">
-                            <div class="doRecord" v-if="result.data.type==2">分享成就卡</div>
+                            <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
                         </div>
                         <div class="record_bottom2" @click="writeOrRank">
                             <div class="doRecord" v-if="result.data.type==2">早起排行榜</div>
@@ -78,7 +78,7 @@
 
                     <div class="midLine" v-if="isGetUp&&outMorningTime"></div>
                     <div class="record_bottom" @click="share"v-if="isGetUp">
-                        <div class="doRecord">分享成就卡</div>
+                        <div class="doRecord">获取成就卡</div>
                     </div>
                     <div :class="{record_text2:outNightTime||(!isGetUp&&outMorningTime),record_bottom2:!outNightTime&&(isGetUp&&outMorningTime)}" @click="writeOrRank">
                         <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
