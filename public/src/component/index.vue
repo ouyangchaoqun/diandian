@@ -2,30 +2,30 @@
     <div style="height: 100%" >
 
         <div v-title>心情指数</div>
-        <div class="weui-tabbar" id="tabs">
-            <a   @click="record()" class="weui-tabbar__item  tab">
-				<span  class="recordImg tab_icon"></span>
-                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录打卡</p>
-            </a>
+        <!--<div class="weui-tabbar" id="tabs">-->
+            <!--<a   @click="record()" class="weui-tabbar__item  tab">-->
+				<!--<span  class="recordImg tab_icon"></span>-->
+                <!--<p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录打卡</p>-->
+            <!--</a>-->
 
-            <a  @click="calendar()" class="weui-tabbar__item tab " >
-				<span  class="calendarImg tab_icon"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">人气排行</p>
-            </a>
+            <!--<a  @click="calendar()" class="weui-tabbar__item tab " >-->
+				<!--<span  class="calendarImg tab_icon"></span>-->
+                <!--<p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">人气排行</p>-->
+            <!--</a>-->
 
-            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
-				<span   class="friendsImg tab_icon"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小树洞</p>
-                <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
-            </a>
+            <!--<a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">-->
+				<!--<span   class="friendsImg tab_icon"></span>-->
+                <!--<p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小树洞</p>-->
+                <!--<span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>-->
+            <!--</a>-->
 
-            <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
-				<span  class="meImg tab_icon"></span>
-                <p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>
-                <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
-            </a>
+            <!--<a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">-->
+				<!--<span  class="meImg tab_icon"></span>-->
+                <!--<p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>-->
+                <!--<span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>-->
+            <!--</a>-->
 
-        </div>
+        <!--</div>-->
         <div class="weui-tab__panel" >
         <div class="banner">
             <v-banner></v-banner>
