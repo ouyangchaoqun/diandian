@@ -65,6 +65,7 @@ new Vue({
 
 Vue.directive('title', {
     inserted: function (el, binding) {
+        console.log(el);
         document.title = el.innerText;
         el.remove()
     },
