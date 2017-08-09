@@ -66,11 +66,33 @@ new Vue({
 
 Vue.directive('title', {
     inserted: function (el, binding) {
+        console.log(el);
         document.title = el.innerText;
+
+        var i = document.createElement('iframe');
+        i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+            setTimeout(function(){
+                i.remove();
+            }, 9)
+        };
+        document.body.appendChild(i);
+
+
         el.remove()
     },
     update: function (el, binding) {
         document.title = el.innerText;
+        var i = document.createElement('iframe');
+        i.src = '//m.baidu.com/favicon.ico';
+        i.style.display = 'none';
+        i.onload = function() {
+            setTimeout(function(){
+                i.remove();
+            }, 9)
+        };
+        document.body.appendChild(i);
         el.remove()
     }
 })
