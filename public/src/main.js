@@ -48,6 +48,7 @@ let routers =
                 require('./routes/record'),
                 require('./routes/write'),
                 require('./routes/luck'),
+                require('./routes/getUpStatistics')
 
             ]
         }

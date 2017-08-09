@@ -1,0 +1,743 @@
+<template id="getUpStatistics">
+    <div class="getUpStatistics_box">
+        <div v-title>心情日历</div>
+
+        <div class="get_header">
+            <div class="getupBgView">
+                <div class="canlendarView">
+                    <div class="canlendarTopView">
+                        <div class="leftBgView" @click="oldMonth">
+                            <img class="get_old" src="../images/back.png" />
+                        </div>
+                        <div class="centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
+                        <div class="rightBgView" @click="nextMonth">
+                            <img class="get_next" src="../images/back.png" />
+                        </div>
+                    </div>
+                    <div class="getUpBorder">
+                    <div class="get_weekBgView">
+                        <div class="weekView" v-for="item in weeks_ch">{{item}}</div>
+                    </div>
+                    <div class="dateBgView">
+                        <div class="get_dateEmptyView" v-for="item in empytGrids">{{item.index}}
+                        </div>
+                        <div v-for="(item,index) in days" :key="index"
+                             :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']"
+                             @click="showSwiper(item.index)">
+                            <a href="javascript:;">
+                                <div class="get_datesView"><div class="get_yuan">{{item.index+1}}</div>
+
+                                </div>
+                               <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">{{item.getuptime}}</div>
+                                <div class="recordTime" v-if="item.getuptime==0">pic</div>
+                                <div class="recordTime" v-if="item.getuptime==-1">none</div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="getUpSlice">
+            <div class="getUpTitle">早起时间段分布</div>
+            <div class="getUpMain">
+                <div class="get_value">
+                    <div class="getUp_time">05:00-05:30</div>
+                    <div class="getUp_progress">
+                        <div class="weui-progress">
+                            <div class="weui-progress__bar">
+                                <div class="weui-progress__inner-bar js_progress" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="getUp_count">8天</div>
+                </div>
+                <div class="get_value">
+                    <div class="getUp_time">05:00-05:30</div>
+                    <div class="getUp_progress">
+                        <div class="weui-progress">
+                            <div class="weui-progress__bar">
+                                <div class="weui-progress__inner-bar js_progress" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="getUp_count">8天</div>
+                </div>
+                <div class="get_value">
+                    <div class="getUp_time">05:00-05:30</div>
+                    <div class="getUp_progress">
+                        <div class="weui-progress">
+                            <div class="weui-progress__bar">
+                                <div class="weui-progress__inner-bar js_progress" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="getUp_count">8天</div>
+                </div>
+            </div>
+            <div class="getUpCount">
+                <p>本月共早起打卡20天，平均起床时间是5:59，早于70%的用户！</p>
+                <p class="get_top">2017.05.25第一次早起打卡，到今天已累计早起打卡62天。</p>
+            </div>
+
+
+            </div>
+        <!--<div  @click="hideSwiper()">-->
+            <!--<div class="weui-mask weui-animate-fade-in  "   v-if="isa" ></div>-->
+            <!--<div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >-->
+                <!--<div class="swiper-container clickBox">-->
+                    <!--<div class="swiper-wrapper">-->
+                        <!--<div class="swiper-slide" v-for="mood in dayMoods">-->
+                            <!--<img :src="mood.bgUrl" alt=""/>-->
+                            <!--<div class="clickBox_time">-->
+                                <!--<span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>-->
+                                <!--<div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+
+        <!--</div>-->
+
+    </div>
+</template>
+<script type="text/javascript">
+    import banner from "./banner.vue";
+    import calendarTemplate from './calendarTemplate.vue'
+
+    var calendar = {
+        template: '#calendar'
+    }
+    export default {
+        components: {
+            "v-banner": banner,
+            'v-calendarTemplate':calendarTemplate
+        },
+        data() {
+            return {
+                hasEmptyGrid: false,
+                cur_year: '',
+                cur_month: '',
+                weeks_ch: ['日', '一', '二', '三', '四', '五', '六'],
+                empytGrids: [],
+                days: [],
+                commonClass: 'dateView',
+                _month: '',
+                today: '',
+                index: '',
+                isa: false,
+                isb: true,
+                swiper_box: true,
+                dayMoods: [],
+                mySwiper: null,
+                maxMonthNum: 4,
+                nowMonth: null,
+                nowYear: null,
+                cur_day:null
+            }
+        },
+
+        mounted: function () {
+
+
+
+            this.setNowDate();
+            //轮播配置
+            let _this = this;
+            _this.mySwiper = new Swiper('.swiper-container', {});
+            xqzs.wx.setConfig(_this);
+
+
+            if(_this.$route.query.month!=undefined) {
+                let date = new Date();
+                let _month = date.getMonth();
+                let count = _month - parseInt(_this.$route.query.month);
+                for(let i=0;i<=count;i++){
+                    _this.oldMonth();
+                }
+            }
+
+        },
+        /*components:{
+         "v-swiper_box":swiper_box
+         },*/
+        created: function () {
+            $(".calendar_box").click()
+        },
+        methods: {
+            setNowDate: function () {
+                let date = new Date();
+                var now = "";
+                now = date.getFullYear() + "-"; //读英文就行了
+                if (date.getMonth() < 10) {
+                    now = now + "0" + (date.getMonth() + 1) + "-"
+                } else {
+                now = now + (date.getMonth() + 1) + "-";//取月的时候取的是当前月-1如果想取当前月+1就可以了
+                }
+                if(date.getDate()<10){
+                    now = now +"0"+ date.getDate();
+                }else {
+                    now = now + date.getDate();
+                }
+                let cur_year = date.getFullYear();
+                /**年份 */
+                let cur_month = date.getMonth() + 1;
+                /**月 */
+                this.cur_day=now;
+                console.log(this.cur_day)
+                this.nowYear = cur_year;
+                this.nowMonth = cur_month;
+                let todayIndex = date.getDay() - 1;
+                let today = date.getDate();
+                /**日 */
+                //console.log(today)
+                this.calculateEmptyGrids(cur_year, cur_month);
+                /**调用计算空格子*/
+                this.calculateDays(cur_year, cur_month);
+                let date2 = new Date();
+                let _month = date2.getMonth() + 1;
+                this.cur_year = cur_year;
+                this.cur_month = cur_month;
+                this._month = _month;
+                this.today = today
+                //console.log(today)
+                //console.log(cur_month)
+
+            },
+            getThisMonthDays(year, month) {
+                return new Date(year, month, 0).getDate();
+            },
+            getFirstDayOfWeek(year, month) {
+                return new Date(Date.UTC(year, month - 1, 1)).getDay();
+            },
+            calculateEmptyGrids(year, month) {
+                /**计算空格子*/
+                let _this = this;
+                var firstDayOfWeek = this.getFirstDayOfWeek(year, month);
+
+                var empytGrids = []
+                if (firstDayOfWeek > 0) {
+                    for (var i = 0; i < firstDayOfWeek; i++) {
+                        empytGrids.push({index: i, date: "", smailUrl: ""});
+                    }
+                    _this.hasEmptyGrid = true;
+                    _this.empytGrids = empytGrids;
+
+                } else {
+                    _this.hasEmptyGrid = false;
+                    _this.empytGrids = []
+                }
+
+
+            },
+            calculateDays(year, month) {
+                let noRecord = web.IMG_PATH + "list_mood_0" + 0 + ".png";
+                let _this = this;
+                let days = [];
+                let thisMonthDays = this.getThisMonthDays(year, month);
+                let monthchange = month;
+                if (month < 10) monthchange = "0" + monthchange;
+
+
+                for (let i = 1; i <= thisMonthDays; i++) {
+                    days.push({index: i - 1, date: "", smailUrl: noRecord, moods: []});
+                }
+                console.log("1111111111")
+                    console.log(this.days)
+                this.days = days;
+                days = [];
+                _this.$http.get(web.API_PATH + 'record/sleep/get/statistics/month/_userId_/2/'+year+'/'+month).then(response => {
+                    if (response.data.status === 1) {
+                        console.log("22222222222222222")
+                        console.log(response.data.data)
+                        if (thisMonthDays > 0) {
+                            for (let i = 1; i <= thisMonthDays; i++) {
+                                let dayChange = i;
+                                if (i < 10) dayChange = "0" + i;
+                                let dateStr = year + "-" + monthchange + "-" + dayChange;
+                                let shorttime = 0;
+
+                                for (let j = 0; j < response.data.data.daily.length; j++) {
+                                    if (dateStr === response.data.data.daily[j].date) {
+                                        shorttime = response.data.data.daily[j].shorttime;
+                                    }
+                                }
+                                if(dateStr<=this.cur_day){
+                                days.push({index: i - 1, date: dateStr, getuptime:shorttime});
+                                }
+                                else if(dateStr>=this.cur_day){
+                                days.push({index: i - 1, date: dateStr, getuptime: -1});
+                                }else{
+
+                                days.push({index: i - 1, date: dateStr, getuptime: shorttime});
+                                }
+                            }
+
+
+                        }
+
+                        this.days = days
+                        console.log(this.days)
+                    } else {
+                        for (let i = 1; i <= thisMonthDays; i++) {
+                            days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
+                        }
+                    }
+                }, response => {
+                    for (let i = 1; i <= thisMonthDays; i++) {
+                        days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
+                    }
+                });
+
+                //
+            },
+            oldMonth: function () {                             //上个月
+                let cur_year = this.cur_year;
+                let cur_month = this.cur_month;
+
+                //阻止前面的的月份
+                let firstYear = this.nowYear;
+                let firstMonth = this.nowMonth;
+                firstMonth = firstMonth - this.maxMonthNum;
+                if (firstMonth <= 0) {
+                    firstYear = firstYear - 1;
+                    firstMonth = 12 + firstMonth;
+                }
+                if (firstYear === cur_year && firstMonth === cur_month) {
+                    return;
+                }
+
+
+                let newMonth = cur_month - 1;
+                let newYear = cur_year;
+                if (newMonth < 1) {
+                    newYear = cur_year - 1;
+                    newMonth = 12;
+                }
+                this.calculateDays(newYear, newMonth);
+                this.calculateEmptyGrids(newYear, newMonth);
+                this.cur_year = newYear,
+                        this.cur_month = newMonth
+            },
+            nextMonth: function () {                             //下个月
+                let cur_year = this.cur_year;
+                let cur_month = this.cur_month;
+
+                //阻止后面的月份
+                if (this.nowYear === cur_year && this.nowMonth === cur_month) {
+                    return;
+                }
+
+                let newMonth = cur_month + 1;
+                let newYear = cur_year;
+                if (newMonth > 12) {
+                    newYear = cur_year + 1;
+                    newMonth = 1;
+                }
+
+                this.calculateDays(newYear, newMonth);
+                this.calculateEmptyGrids(newYear, newMonth);
+
+                this.cur_year = newYear;
+                this.cur_month = newMonth;
+            },
+            showSwiper: function (index) {
+
+                let _this = this;
+                if (_this.days[index].moods.length > 0) {
+
+
+                    //植入当天数据
+                    _this.dayMoods = [];
+                    _this.dayMoods = _this.days[index].moods;
+                    for (let i = 0; i < _this.dayMoods.length; i++) {
+                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "bg_mood_0" + _this.dayMoods[i].moodValue + ".png";
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "月");
+                        _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
+                    }
+
+
+                    console.log(_this.dayMoods);
+                    this.$nextTick(function () {
+
+                        if (_this.mySwiper !== null) {
+                            _this.mySwiper.update()
+                        }
+
+                        _this.mySwiper.slideTo(_this.dayMoods.length - 1, 0, false);//切换到第一个slide
+
+                    });
+
+
+                    //日期点击事件
+                    this.isa = true;
+                    this.isb = false
+                    this.moveStop();
+
+
+                }
+
+
+            },
+            hideSwiper: function () {                                 //轮播隐藏事件
+                let _this= this;
+                xqzs.weui.weuiMaskClose();
+                setTimeout(function () {
+                    _this.isa = false;
+                    _this.isb = true;
+                    _this.moveMove();
+                },200)
+
+            },
+
+            /***禁止滑动***/
+            moveStop: function () {
+                $('body').css('overflow', 'hidden') .on('touchmove', function(e) {
+                    e.preventDefault();
+                })
+            },
+
+            /***取消滑动限制***/
+            moveMove: function () {
+                $('body').off().css('overflow', 'auto');
+            },
+            formatContent:function (c) {
+                return xqzs.face.parse(c);
+            }
+        },
+        updated:function () {
+            xqzs.weui.active($(".get_dateView a"))
+        }
+
+    }
+</script>
+
+<style>
+    .getUpStatistics_box {
+        height: 100%;
+        background: #f4f4f8;
+    }
+    .get_header {
+
+        position: relative;
+
+    }
+    .recordTime{
+        color: #0D0D0D;
+        font-size: 12px;
+        padding-top: 2px;
+    }
+    .get_old {
+        left: 40px;
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        top: 15px;
+        display: block;
+    }
+
+    .get_next {
+        right: 40px;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        top: 15px;
+        display: block;
+    }
+
+    .getUpBorder{
+        border-radius: 10px;
+        width: 95%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .week_day text {
+        flex: 1;
+        text-align: center;
+        color: #828080;
+        font-size: 12px;
+    }
+
+    .getupBgView {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f4f4f8;
+    }
+
+    .canlendarView {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .canlendarTopView {
+        height: 2.11rem;
+        font-size: 1rem;
+        display: flex;
+        display: -webkit-box;
+        display: -webkit-flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.647rem;
+    }
+    .canlendarTopView .centerView{ margin-top: 0.176rem;}
+
+    .leftBgView {
+        text-align: right;
+        height: 2.35rem;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        flex-direction: row-reverse;
+    }
+
+    .centerView {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        height: 2.12rem;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        color: #666666;
+        line-height: 2.12rem;
+    }
+
+    .rightBgView {
+        height: 2.35rem;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        flex-direction: row;
+    }
+
+    .get_weekBgView {
+        height: 1.47rem;
+        line-height: 1.47rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 0.412rem;
+        color:#828080
+    }
+
+    .get_weekView {
+        flex-grow: 1;
+        text-align: center;
+        font-size: 0.70rem;
+        float: left;
+        width: 12.85%;
+    }
+
+    .dateBgView {
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .get_dateEmptyView {
+        width: 14.28571%;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        float: left;
+    }
+
+
+
+    .get_dateView {
+        width: 12.85%;
+        display: flex;
+        background: #ffffff;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        text-align: center;
+        float: left;
+    }
+
+    .get_dateView img {
+        height: 1.53rem;
+        width: 1.53rem;
+        display: block;
+        margin: 0.35px auto;
+        margin-top: 0.235rem;
+        margin-bottom: 0.47rem;
+    }
+
+    .get_datesView {
+        height: 1.176rem;
+        color: #828080;
+        font-size: 0.64rem;
+        align-items: flex-end;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .dateSelectView .get_datesView .get_yuan {
+        width: 1.176rem;
+        height: 1.176rem;
+        border-radius: 50%;
+        background-color: #0BB20C;
+        color: #fff;
+        margin: 0 auto;
+    }
+    .dateSelectView .get_datesView,.dateSelectView .recordTime{
+        background: #fff;
+    }
+    .clickBox_time {
+        position: absolute;
+        text-align: center;
+        padding: 0 20px;
+        bottom: 6px;
+        font-size: 14px;
+        color: #999999;
+        height: 72px;
+        overflow: hidden;
+    }
+
+    .clickBox_time span {
+        margin: 0 5px;
+    }
+
+    .clickBox_bottom {
+        margin-top: 6px;
+    }
+
+    .bg_box {
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.6);
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+
+    }
+
+    .swiper_box {
+
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        margin-left: -100px;
+    }
+
+    #bg_back {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .clickBox {
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+        border-radius: 10px;
+        position: absolute;
+        top: 30%;
+        font-size: 18px;
+        color: #666666;
+        height: auto;
+    }
+
+    .clickBox img {
+        width: 90%;
+        height: auto;
+    }
+
+    .clickBox_time {
+        position: absolute;
+        bottom: 5%;
+        width: 90%;
+        height: 30%;
+        left: 50%;
+        margin-left: -50%;
+    }
+
+    .clickBox_time span {
+        font-size: 12px;
+        color: #999999;
+        margin: 0 5px;
+        line-height: 22px;;
+    }
+
+    .clickBox_bottom {
+        font-size: 13px;
+        color: #333333;
+        line-height: 20px;
+        padding: 0 36px;
+        overflow: auto;
+        height: 36px;
+    }
+
+    .swiper-slide {
+        height: auto;
+    }
+    .getUpTitle{
+        text-align: center;
+        margin-top: 0.82rem;
+    }
+    .getUpMain{
+        width: 95%;
+        margin: 0 auto;
+        margin-top: 0.82rem;
+        background-color: #fff;
+    }
+    .get_value{
+        height: 2.94rem;
+        position: relative;
+    }
+    .getUp_time{
+        font-size: 0.70rem;
+        position: absolute;
+        left: 0.88rem;
+        top: 50%;
+        margin-top: -0.47rem;
+    }
+    .getUp_progress{
+        width: 60%;
+        position: absolute;
+        left: 5.88rem;
+        top: 50%;
+
+    }
+    .getUp_count{
+        position: absolute;
+        right: 0.88rem;
+        top:50%;
+        margin-top: -0.588rem;
+        font-size: 0.70rem;
+    }
+    .getUpCount{
+        text-align: center;
+        margin-top: 1.47rem;
+    }
+    .getUpCount p{
+        font-size: 0.7rem;
+        color: rgba(99,106,116,1);
+    }
+    .get_top{
+        margin-top: 0.82rem;
+    }
+
+</style>
