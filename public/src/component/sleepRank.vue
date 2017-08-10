@@ -4,7 +4,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div  class="clock_top" :class="{clock_topNight:isNight}">
             <div class="clock_head">
-                <img :src="user.faceUrl" alt="">
+                <img @click="goRecordCount()" :src="user.faceUrl" alt="">
             </div>
             <div class="clock_count" v-show="!isNight">
                 <div class="clock_lists" >
@@ -307,6 +307,13 @@
                 })
 
             },
+            //页面跳转
+            goRecordCount:function () {
+                this.$router.push("/getUpStatistics");
+
+            },
+
+
             addCare:function (item) {
                 let _this = this;
                 if(item.userId !=_this.user.id && item.caremy==0){
