@@ -29,8 +29,8 @@
 
                                 </div>
                                <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">{{item.getuptime}}</div>
-                                <div class="recordTime" v-if="item.getuptime==0">pic</div>
-                                <div class="recordTime" v-if="item.getuptime==-1">none</div>
+                                <div class="recordTime" v-if="item.getuptime==0"><img src="../images/norecord.png"/></div>
+                                <div class="recordTime" v-if="item.getuptime==-1" style="height: 19px;padding-top: 2px;"></div>
                             </a>
                         </div>
                     </div>
@@ -41,43 +41,21 @@
         <div class="getUpSlice">
             <div class="getUpTitle">早起时间段分布</div>
             <div class="getUpMain">
-                <div class="get_value">
-                    <div class="getUp_time">05:00-05:30</div>
+                <div class="get_value" v-for="index in monthCount">
+                    <div class="getUp_time">{{index.min}}-{{index.max}}</div>
                     <div class="getUp_progress">
                         <div class="weui-progress">
                             <div class="weui-progress__bar">
-                                <div class="weui-progress__inner-bar js_progress" ></div>
+                                <div class="weui-progress__inner-bar js_progress" :style="index.width" ></div>
                             </div>
                         </div>
                     </div>
-                    <div class="getUp_count">8天</div>
-                </div>
-                <div class="get_value">
-                    <div class="getUp_time">05:00-05:30</div>
-                    <div class="getUp_progress">
-                        <div class="weui-progress">
-                            <div class="weui-progress__bar">
-                                <div class="weui-progress__inner-bar js_progress" ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="getUp_count">8天</div>
-                </div>
-                <div class="get_value">
-                    <div class="getUp_time">05:00-05:30</div>
-                    <div class="getUp_progress">
-                        <div class="weui-progress">
-                            <div class="weui-progress__bar">
-                                <div class="weui-progress__inner-bar js_progress" ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="getUp_count">8天</div>
+                    <div class="getUp_count">{{index.count}}条</div>
                 </div>
             </div>
             <div class="getUpCount">
-                <p>本月共早起打卡20天，平均起床时间是5:59，早于70%的用户！</p>
-                <p class="get_top">2017.05.25第一次早起打卡，到今天已累计早起打卡62天。</p>
+                <p>本月共早起打卡{{monthInfo.total}}天，平均起床时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
+                <p class="get_top">{{allInfo.firsttime}}第一次早起打卡，到今天已累计早起打卡{{allInfo.totaldays}}天。</p>
             </div>
 
 
@@ -136,7 +114,10 @@
                 maxMonthNum: 4,
                 nowMonth: null,
                 nowYear: null,
-                cur_day:null
+                cur_day:null,
+                monthCount:'',
+                allInfo:'',
+                monthInfo:''
             }
         },
 
@@ -253,6 +234,24 @@
                     if (response.data.status === 1) {
                         console.log("22222222222222222")
                         console.log(response.data.data)
+                        //进度条统计
+                        this.monthCount=response.data.data.distribute;
+                        var allcount=0;
+                        for(var k=0;k<this.monthCount.length;k++){
+                            allcount+=this.monthCount[k].count;
+                        }
+                        for(var q=0;q<this.monthCount.length;q++){
+                            if(allcount>0) {
+                                this.monthCount[q].width = "width: " + ((this.monthCount[q].count / allcount) * 100) + "%;"
+                            }
+                            else{
+                                this.monthCount[q].width="width:0%;"
+                            }
+                        }
+                        //文字统计
+                        this.allInfo=response.data.data.info;
+                        this.monthInfo=response.data.data.month;
+                        //日历输出
                         if (thisMonthDays > 0) {
                             for (let i = 1; i <= thisMonthDays; i++) {
                                 let dayChange = i;
@@ -265,7 +264,7 @@
                                         shorttime = response.data.data.daily[j].shorttime;
                                     }
                                 }
-                                if(dateStr<=this.cur_day){
+                                if(dateStr<this.cur_day){
                                 days.push({index: i - 1, date: dateStr, getuptime:shorttime});
                                 }
                                 else if(dateStr>=this.cur_day){
@@ -275,20 +274,16 @@
                                 days.push({index: i - 1, date: dateStr, getuptime: shorttime});
                                 }
                             }
-
-
                         }
-
-                        this.days = days
-                        console.log(this.days)
+                        this.days = days;
                     } else {
                         for (let i = 1; i <= thisMonthDays; i++) {
-                            days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
+                            days.push({index: i - 1, date: "", getuptime: 0, moods: []});
                         }
                     }
                 }, response => {
                     for (let i = 1; i <= thisMonthDays; i++) {
-                        days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
+                        days.push({index: i - 1, date: "", getuptime: 0, moods: []});
                     }
                 });
 
@@ -600,6 +595,9 @@
     .dateSelectView .get_datesView,.dateSelectView .recordTime{
         background: #fff;
     }
+    .dateSelectView .dateView{
+        background: #fff;
+    }
     .clickBox_time {
         position: absolute;
         text-align: center;
@@ -702,6 +700,7 @@
         margin: 0 auto;
         margin-top: 0.82rem;
         background-color: #fff;
+        border-radius: 10px;
     }
     .get_value{
         height: 2.94rem;
@@ -738,6 +737,12 @@
     }
     .get_top{
         margin-top: 0.82rem;
+    }
+     .dateView .recordTime img{
+            height: 19px;
+        margin: 0 auto;
+        display: block;
+         width: auto;
     }
 
 </style>
