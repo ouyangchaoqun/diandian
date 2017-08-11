@@ -9,7 +9,7 @@
                         <div class="leftBgView" @click="oldMonth">
                             <img class="get_old" src="../images/back.png" />
                         </div>
-                        <div class="centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
+                        <div class="get_centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
                         <div class="rightBgView" @click="nextMonth">
                             <img class="get_next" src="../images/back.png" />
                         </div>
@@ -22,7 +22,7 @@
                         <div class="get_dateEmptyView" v-for="item in empytGrids">{{item.index}}
                         </div>
                         <div v-for="(item,index) in days" :key="index"
-                             :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']"
+                             :class="[commonClass,_month == cur_month&&index == today-1? 'get_dateSelectView' : '']"
                              @click="showSwiper(item.index)">
                             <a href="javascript:;">
                                 <div class="get_datesView"><div class="get_yuan1"><div class="get_yuan">{{item.index+1}}</div></div>
@@ -264,10 +264,10 @@
                                         shorttime = response.data.data.daily[j].shorttime;
                                     }
                                 }
-                                if(dateStr<this.cur_day){
+                                if(dateStr<=this.cur_day){
                                 days.push({index: i - 1, date: dateStr, getuptime:shorttime});
                                 }
-                                else if(dateStr>=this.cur_day){
+                                else if(dateStr>this.cur_day){
                                 days.push({index: i - 1, date: dateStr, getuptime: -1});
                                 }else{
 
@@ -423,8 +423,8 @@
     }
     .recordTime{
         color: #0D0D0D;
-        font-size: 12px;
-        padding-top: 2px;
+        font-size:0.70rem;
+        padding-top: 0.117rem;
     }
     .get_old {
         left: 40px;
@@ -485,7 +485,7 @@
         justify-content: center;
         margin-bottom: 0.647rem;
     }
-    .canlendarTopView .centerView{ margin-top: 0.176rem;}
+    .canlendarTopView .get_centerView{ margin-top: 0.7rem;}
 
     .leftBgView {
         text-align: right;
@@ -496,7 +496,7 @@
         flex-direction: row-reverse;
     }
 
-    .centerView {
+    .get_centerView {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
@@ -506,6 +506,7 @@
         justify-content: center;
         color: #666666;
         line-height: 2.12rem;
+        margin-top: 15px;
     }
 
     .rightBgView {
@@ -564,6 +565,7 @@
         position: relative;
         text-align: center;
         float: left;
+        height: 2.64rem;
     }
 
     .get_dateView img {
@@ -584,19 +586,14 @@
         text-align: center;
     }
 
-    .dateSelectView .get_datesView .get_yuan {
+    .get_dateSelectView .get_datesView .get_yuan {
         width: 1.176rem;
         height: 1.176rem;
         border-radius: 50%;
         background-color: #0BB20C;
         color: #fff;
         margin: 0 auto;
-    }
-    .dateSelectView .get_datesView,.dateSelectView .recordTime{
-        background: #fff;
-    }
-    .get_dateView .dateSelectView {
-        background: #fff;
+        line-height: 1.176rem;
     }
     .getUpTitle{
         text-align: center;
@@ -616,20 +613,20 @@
     .getUp_time{
         font-size: 0.70rem;
         position: absolute;
-        left: 0.88rem;
+        left: 1.17rem;
         top: 50%;
         margin-top: -0.47rem;
     }
     .getUp_progress{
-        width: 60%;
+        width: 55%;
         position: absolute;
         left: 5.88rem;
         top: 50%;
-
+        margin-top: -0.11rem;
     }
     .getUp_count{
         position: absolute;
-        right: 0.88rem;
+        right: 1.17rem;
         top:50%;
         margin-top: -0.588rem;
         font-size: 0.70rem;
@@ -637,6 +634,7 @@
     .getUpCount{
         text-align: center;
         margin-top: 1.47rem;
+        margin-bottom: 20px;
     }
     .getUpCount p{
         font-size: 0.7rem;
@@ -650,6 +648,15 @@
         margin: 0 auto;
         display: block;
          width: auto;
+    }
+     .get_value .weui-progress__bar{
+        height: 5px;
+        background: rgba(9, 187, 7, 0.15);
+        border-radius: 4px;
+    }
+
+     .get_value .weui-progress__inner-bar {
+        border-radius: 4px;
     }
 
 </style>
