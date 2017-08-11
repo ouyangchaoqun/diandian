@@ -4,7 +4,7 @@
 
         <div class="get_header">
             <div class="getupBgView">
-                <div class="canlendarView">
+
                     <div class="canlendarTopView">
                         <div class="leftBgView" @click="oldMonth">
                             <img class="get_old" src="../images/back.png" />
@@ -35,7 +35,6 @@
                         </div>
                     </div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="getUpSlice">
@@ -55,7 +54,6 @@
             </div>
             <div class="getUpCount">
                 <p>本月共早起打卡{{monthInfo.total}}天，平均起床时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
-                <p class="get_top">{{allInfo.firsttime}}第一次早起打卡，到今天已累计早起打卡{{allInfo.totaldays}}天。</p>
             </div>
 
 
@@ -462,18 +460,10 @@
     }
 
     .getupBgView {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
+
         align-items: center;
         background: #f4f4f8;
     }
-
-    .canlendarView {
-        display: flex;
-        flex-direction: column;
-    }
-
     .canlendarTopView {
         height: 2.11rem;
         font-size: 1rem;
@@ -520,10 +510,6 @@
     .get_weekBgView {
         height: 1.47rem;
         line-height: 1.47rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
         padding-bottom: 0.412rem;
         color:#828080
     }
@@ -584,13 +570,13 @@
     }
 
     .get_dateSelectView .get_datesView .get_yuan {
-        width: 1.176rem;
-        height: 1.176rem;
+        width: 0.94rem;
+        height: 0.94rem;
         border-radius: 50%;
-        background-color: #0BB20C;
-        color: #fff;
+        border: solid #0BB20C 0.117rem;
+        color: #828080;
         margin: 0 auto;
-        line-height: 1.176rem;
+        line-height: 0.94rem;
     }
     .getUpTitle{
         text-align: center;
@@ -639,7 +625,7 @@
         color: rgba(99,106,116,1);
     }
     .get_top{
-        margin-top: 0.4rem;
+        margin-top: 0.82rem;
     }
      .get_dateView .recordTime img{
             height: 1.176rem;
@@ -655,6 +641,9 @@
 
      .get_value .weui-progress__inner-bar {
         border-radius: 4px;
+    }
+    .get_yuan{
+        height: 1.176rem;
     }
 
 </style>
