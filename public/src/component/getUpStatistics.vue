@@ -23,7 +23,7 @@
                         </div>
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'get_dateSelectView' : '']"
-                             @click="showSwiper(item.index)">
+                             >
                             <a href="javascript:;">
                                 <div class="get_datesView"><div class="get_yuan">{{item.index+1}}</div>
 
@@ -37,7 +37,7 @@
                     </div>
             </div>
         </div>
-        <div class="getUpSlice">
+        <div class="getUpSlice" v-if="monthCount!=''">
             <div class="getUpTitle">早起时间段分布</div>
             <div class="getUpMain">
                 <div class="get_value" v-for="index in monthCount">
@@ -337,45 +337,7 @@
                 this.cur_year = newYear;
                 this.cur_month = newMonth;
             },
-            showSwiper: function (index) {
 
-                let _this = this;
-                if (_this.days[index].moods.length > 0) {
-
-
-                    //植入当天数据
-                    _this.dayMoods = [];
-                    _this.dayMoods = _this.days[index].moods;
-                    for (let i = 0; i < _this.dayMoods.length; i++) {
-                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "bg_mood_0" + _this.dayMoods[i].moodValue + ".png";
-                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
-                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "月");
-                        _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
-                    }
-
-
-                    console.log(_this.dayMoods);
-                    this.$nextTick(function () {
-
-                        if (_this.mySwiper !== null) {
-                            _this.mySwiper.update()
-                        }
-
-                        _this.mySwiper.slideTo(_this.dayMoods.length - 1, 0, false);//切换到第一个slide
-
-                    });
-
-
-                    //日期点击事件
-                    this.isa = true;
-                    this.isb = false
-                    this.moveStop();
-
-
-                }
-
-
-            },
             hideSwiper: function () {                                 //轮播隐藏事件
                 let _this= this;
                 xqzs.weui.weuiMaskClose();
@@ -421,7 +383,7 @@
     }
     .recordTime{
         color: #0D0D0D;
-        font-size:0.70rem;
+        font-size:0.64rem;
         padding-top: 0.117rem;
     }
     .get_old {
@@ -549,6 +511,7 @@
         text-align: center;
         float: left;
         height: 2.64rem;
+        border-top: 1px solid #eee;
     }
 
     .get_dateView img {
@@ -570,13 +533,10 @@
     }
 
     .get_dateSelectView .get_datesView .get_yuan {
-        width: 0.94rem;
-        height: 0.94rem;
-        border-radius: 50%;
-        border: solid #0BB20C 0.117rem;
-        color: #828080;
+        width: 1.176rem;
+        height: 1.176rem;
+        color: #0BB20C;
         margin: 0 auto;
-        line-height: 0.94rem;
     }
     .getUpTitle{
         text-align: center;
@@ -628,7 +588,7 @@
         margin-top: 0.82rem;
     }
      .get_dateView .recordTime img{
-            height: 1.176rem;
+            height: 0.94rem;
         margin: 0 auto;
         display: block;
          width: auto;
