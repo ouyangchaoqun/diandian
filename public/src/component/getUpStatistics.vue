@@ -25,7 +25,7 @@
                              :class="[commonClass,_month == cur_month&&index == today-1? 'get_dateSelectView' : '']"
                              @click="showSwiper(item.index)">
                             <a href="javascript:;">
-                                <div class="get_datesView"><div class="get_yuan1"><div class="get_yuan">{{item.index+1}}</div></div>
+                                <div class="get_datesView"><div class="get_yuan">{{item.index+1}}</div>
 
                                 </div>
                                <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">{{item.getuptime}}</div>
@@ -558,10 +558,7 @@
 
     .get_dateView {
         width: 14.28571%;
-        display: flex;
         background: #ffffff;
-        flex-direction: column;
-        justify-content: center;
         position: relative;
         text-align: center;
         float: left;
@@ -605,9 +602,10 @@
         margin-top: 0.82rem;
         background-color: #fff;
         border-radius: 10px;
+        padding: 0.7rem 0;
     }
     .get_value{
-        height: 2.94rem;
+        height: 2.35rem;
         position: relative;
     }
     .getUp_time{
@@ -641,10 +639,10 @@
         color: rgba(99,106,116,1);
     }
     .get_top{
-        margin-top: 0.82rem;
+        margin-top: 0.4rem;
     }
      .get_dateView .recordTime img{
-            height: 19px;
+            height: 1.176rem;
         margin: 0 auto;
         display: block;
          width: auto;
