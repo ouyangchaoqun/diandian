@@ -454,7 +454,6 @@
         text-align: center;
         align-items: center;
         justify-content: center;
-        color: #666666;
         line-height: 2.12rem;
         margin-top: 15px;
     }
