@@ -51,7 +51,7 @@
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
                 <div class="clock_rank clock_rank1">
-                    <div  class="rank_list me_rank" :class="{rank_listNight:isNight}">
+                    <div  class="rank_list me_rank" :class="{rank_listNight:isNight}" @click="goRecordCount()">
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
@@ -60,7 +60,7 @@
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time" v-if="myRank.rank!=''" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
                                 <div class="clock_time" v-if="myRank.rank==''" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
-                                <div  class="care_icon" v-if="myRank.careCount!=null">
+                                <div  class="care_icon" v-if="myRank.careCount!=null" @click.stop="">
                                     <span>{{myRank.careCount||0}}</span>
                                     <img v-show="myRank.careCount==0||myRank.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
@@ -92,7 +92,7 @@
                 </div>
                 <!--总排行-->
                 <div class="clock_rank clock_rank2 ">
-                    <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
+                    <div class="rank_list me_rank" :class="{rank_listNight:isNight}" @click="goRecordCount()">
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
@@ -101,7 +101,7 @@
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time" v-if="allRank.rank!=''":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
                                 <div class="clock_time" v-if="allRank.rank==''" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
-                                <div class="care_icon" v-if="allRank.careCount!=null">
+                                <div class="care_icon" v-if="allRank.careCount!=null" @click.stop="">
                                     <span>{{allRank.careCount||0}}</span>
                                     <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
                                     <img v-show="allRank.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
@@ -309,6 +309,7 @@
             },
             //页面跳转
             goRecordCount:function () {
+                if(!this.isNight)
                 this.$router.push("/getUpStatistics");
 
             },
