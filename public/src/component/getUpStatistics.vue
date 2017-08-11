@@ -1,7 +1,6 @@
 <template id="getUpStatistics">
     <div class="getUpStatistics_box">
-        <div v-title>心情日历</div>
-
+        <div v-title>早起统计</div>
         <div class="get_header">
             <div class="getupBgView">
 
@@ -384,7 +383,6 @@
     .recordTime{
         color: #0D0D0D;
         font-size:0.64rem;
-        padding-top: 0.117rem;
     }
     .get_old {
         left: 40px;
@@ -500,6 +498,7 @@
         justify-content: center;
         position: relative;
         float: left;
+        border-top: 1px solid #eee;
     }
 
 
@@ -537,6 +536,7 @@
         height: 1.176rem;
         color: #0BB20C;
         margin: 0 auto;
+        margin-top: 0.176rem;
     }
     .getUpTitle{
         text-align: center;
@@ -604,6 +604,7 @@
     }
     .get_yuan{
         height: 1.176rem;
+        margin-top: 0.176rem;
     }
 
 </style>
