@@ -2,16 +2,20 @@
     <div class="luck">
         <div v-title>本月运势</div>
         <div v-if="hasBirthday">
-            <div class="title"></div>
-            <div class="info"><img :src="constellation.pic">{{constellation.name}}本月运势</div>
-            <div class="main_txt"><span>{{time.year}}-{{time.month}}-01 - {{time.year}}-{{time.month}}-{{time.solarMonthDays}}</span></div>
+            <div class="title"><img class="xs_pic" :src="constellation.pic"></div>
+            <div class="info">{{constellation.name}}</div>
+            <div  class="main_txt">{{constellation.times}}</div>
+            <!--<div class="main_txt"><span>{{time.year}}-{{time.month}}-01 - {{time.year}}-{{time.month}}-{{time.solarMonthDays}}</span></div>-->
             <div class="main_content"  v-for="item in  constellation.data">
-
-                {{item.name}}:{{item.content}}
-
-
+            <div style="background: #fff;">
+                <div class="xz">
+                    <div class="xz_pic"><img src="../../dist/constellation/ys_love.png"></div>
+                    <div class="xz_ys">{{item.name}}运势</div>
+                    <div class="xz_zs"><img src="../../dist/constellation/star1.png" v-for="n in item.index"><img src="../../dist/constellation/star0.png" v-for="n in 5-item.index"></div>
+                </div>
+                <div class="xz_content">{{item.content}}</div>
             </div>
-            <div class="bottom_info">说明：本站测试项目主要根据中华传统周易学或民间流传的占卜法制定，测试结果仅供娱乐参考。</div>
+            </div>
         </div>
         <div v-if="!hasBirthday">
             <div class="title"></div>
@@ -42,26 +46,35 @@
     </div>
 </template>
 <style>
+    .xs_pic{
+        position: absolute;
+        left: 50%;
+        margin-left: -30.25px;
+        top:5.705rem;
+        margin-top: -37.5px;
+    }
     .luck {
         font-size: 0.8823529rem;
         color: #333;
         position: relative;
-        background: #fffcf9
+        background: rgba(238,238,238,1);
     }
 
     .luck .title {
-        background: url(../images/luck/title.png) no-repeat;
+        background: url(../../dist/constellation/timg.jpg) no-repeat;
         background-size: 100% 100%;
-        height: 3.970588rem;
-        width: 16.3235294117rem;
+        height: 5.705rem;
+        width: 100%;
         margin: 0 auto;
-        margin-top: 1.5rem;
     }
 
     .luck .info {
-        margin: 0 15px;
-        margin-top: 1.17647rem;
         text-align: center;
+        padding-top: 3.38rem;
+        font-size: 1.76rem;
+        color: darkorchid;
+        line-height: 1;
+        background: #fff;
     }
 
     .luck .info span {
@@ -70,11 +83,12 @@
     }
 
     .luck .main_txt {
-        margin: 0 15px;
-        border: 1px solid #b49781;
-        border-radius: 4px;;
-        margin-top: 0.4rem;
         text-align: center;
+        padding-top: 0.70rem;
+        color: #ff50fb;
+        line-height: 1;
+        background: #fff;
+        padding-bottom: 0.70rem;
     }
 
     .luck .main_txt span {
@@ -89,12 +103,8 @@
     }
 
     .luck .main_content {
-        margin: 15px;
         margin-top: 1.17647rem;
         line-height: 1.6;
-        position: relative;
-        padding: 1.35241rem 1.058823rem;
-        background: url(../images/luck/content_bg.png);
         background-size: 100%;
     }
 
@@ -103,29 +113,6 @@
         margin-bottom: 10px;
     }
 
-    .luck .main_content:before {
-        content: " ";
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 1.1470588rem;
-        background: url(../images/luck/content_top.png) no-repeat;
-        background-size: 100%;
-        width: 100%
-    }
-
-    .luck .main_content:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        height: 1.1470588rem;
-        background: url(../images/luck/content_bottom.png) no-repeat;
-        background-size: 100%;
-        width: 100%
-    }
 
     .luck .bottom_info {
         font-size: 0.76470588rem;;
@@ -216,6 +203,17 @@
     .luck .inputItem {
         position: relative
     }
+    .xz{
+        position: relative;
+        height: 3.235rem;
+        border-bottom: 1px solid #eee;
+    }
+    .xz div{
+      float: left;
+    }
+    .xz_content{
+        height: 4.94rem;
+    }
 
     .luck .down {
         width: 16px;
@@ -227,7 +225,35 @@
         right: 0.4rem;
         top: 0.9rem;
     }
-
+    .xz_pic{
+        width: 1.56rem;
+        height: 1.56rem;
+        margin-left: 0.82rem;
+        margin-top: 0.85rem;
+    }
+    .xz_pic img{
+        width: 100%;
+        height: 100%;
+    }
+    .xz_ys{
+        font-size: 0.88rem;
+        margin-left: 0.82rem;
+        margin-top: 1.147rem;
+        line-height: 1;
+    }
+    .xz_zs {
+        font-size: 0.88rem;
+        margin-left: 0.88rem;
+        margin-top: 1.147rem;
+        line-height: 1;
+    }
+    .xz_zs img{
+        width:0.88rem;
+        height: 0.94rem;
+    }
+    .xz_content{
+        padding: 0.82rem 0.64rem;
+    }
 
 </style>
 
