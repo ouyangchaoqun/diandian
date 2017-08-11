@@ -3,7 +3,7 @@
         <div v-title>本月运势</div>
         <div v-if="hasBirthday">
             <div class="title"></div>
-            <div class="info">{{constellation.name}}本月运势</div>
+            <div class="info"><img :src="constellation.pic">{{constellation.name}}本月运势</div>
             <div class="main_txt"><span>{{time.year}}-{{time.month}}-01 - {{time.year}}-{{time.month}}-{{time.solarMonthDays}}</span></div>
             <div class="main_content"  v-for="item in  constellation.data">
 
