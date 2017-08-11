@@ -570,13 +570,13 @@
     }
 
     .get_dateSelectView .get_datesView .get_yuan {
-        width: 1.1rem;
-        height: 1.1rem;
+        width: 0.94rem;
+        height: 0.94rem;
         border-radius: 50%;
-       border: solid #0BB20C 2px;
+        border: solid #0BB20C 0.117rem;
         color: #828080;
         margin: 0 auto;
-        line-height: 1.1rem;
+        line-height: 0.94rem;
     }
     .getUpTitle{
         text-align: center;
@@ -641,6 +641,9 @@
 
      .get_value .weui-progress__inner-bar {
         border-radius: 4px;
+    }
+    .get_yuan{
+        height: 1.176rem;
     }
 
 </style>
