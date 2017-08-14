@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="!hasBirthday">
+        <div v-if="!hasBirthday&&hasBirthday!=null">
             <div class="title"></div>
             <div class="input_top">输入姓名和出生年月，立即测算本月运程</div>
             <div class="input_box">
@@ -280,7 +280,7 @@
                 year: '',
                 month: '',
                 day: '',
-                hasBirthday: false,
+                hasBirthday: null,
                 index: 0,
                 MIN_YEAR: 1891,
                 MAX_YEAR: 2100,
