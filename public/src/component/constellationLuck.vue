@@ -4,17 +4,18 @@
         <div v-if="hasBirthday">
             <div class="title"><img class="xs_pic" :src="constellation.pic"></div>
             <div class="info">{{constellation.name}}</div>
-            <div  class="main_txt">{{constellation.times}}</div>
+            <div class="main_txt">{{constellation.times}}</div>
             <!--<div class="main_txt"><span>{{time.year}}-{{time.month}}-01 - {{time.year}}-{{time.month}}-{{time.solarMonthDays}}</span></div>-->
-            <div class="main_content"  v-for="item in  constellation.data">
-            <div style="background: #fff;">
-                <div class="xz">
-                    <div class="xz_pic"><img src="../../dist/constellation/ys_love.png"></div>
-                    <div class="xz_ys">{{item.name}}运势</div>
-                    <div class="xz_zs"><img src="../../dist/constellation/star1.png" v-for="n in item.index"><img src="../../dist/constellation/star0.png" v-for="n in 5-item.index"></div>
+            <div class="main_content" v-for="item in  constellation.data">
+                <div style="background: #fff;">
+                    <div class="xz">
+                        <div class="xz_pic"><img src="../../dist/constellation/ys_love.png"></div>
+                        <div class="xz_ys">{{item.name}}运势</div>
+                        <div class="xz_zs"><img src="../../dist/constellation/star1.png" class="onimg" :color="item.color"  v-for="n in item.index"><img
+                                src="../../dist/constellation/star0.png" v-for="n in 5-item.index"></div>
+                    </div>
+                    <div class="xz_content">{{item.content}}</div>
                 </div>
-                <div class="xz_content">{{item.content}}</div>
-            </div>
             </div>
         </div>
         <div v-if="!hasBirthday">
@@ -46,18 +47,19 @@
     </div>
 </template>
 <style>
-    .xs_pic{
+    .xs_pic {
         position: absolute;
         left: 50%;
         margin-left: -30.25px;
-        top:5.705rem;
+        top: 5.705rem;
         margin-top: -37.5px;
     }
+
     .luck {
         font-size: 0.8823529rem;
         color: #333;
         position: relative;
-        background: rgba(238,238,238,1);
+        background: rgba(238, 238, 238, 1);
     }
 
     .luck .title {
@@ -112,7 +114,6 @@
         display: block;
         margin-bottom: 10px;
     }
-
 
     .luck .bottom_info {
         font-size: 0.76470588rem;;
@@ -203,15 +204,18 @@
     .luck .inputItem {
         position: relative
     }
-    .xz{
+
+    .xz {
         position: relative;
         height: 3.235rem;
         border-bottom: 1px solid #eee;
     }
-    .xz div{
-      float: left;
+
+    .xz div {
+        float: left;
     }
-    .xz_content{
+
+    .xz_content {
         height: 4.94rem;
     }
 
@@ -225,33 +229,39 @@
         right: 0.4rem;
         top: 0.9rem;
     }
-    .xz_pic{
+
+    .xz_pic {
         width: 1.56rem;
         height: 1.56rem;
         margin-left: 0.82rem;
         margin-top: 0.85rem;
     }
-    .xz_pic img{
+
+    .xz_pic img {
         width: 100%;
         height: 100%;
     }
-    .xz_ys{
+
+    .xz_ys {
         font-size: 0.88rem;
         margin-left: 0.82rem;
         margin-top: 1.147rem;
         line-height: 1;
     }
+
     .xz_zs {
         font-size: 0.88rem;
         margin-left: 0.88rem;
         margin-top: 1.147rem;
         line-height: 1;
     }
-    .xz_zs img{
-        width:0.88rem;
+
+    .xz_zs img {
+        width: 0.88rem;
         height: 0.94rem;
     }
-    .xz_content{
+
+    .xz_content {
         padding: 0.82rem 0.64rem;
     }
 
@@ -274,8 +284,8 @@
                 index: 0,
                 MIN_YEAR: 1891,
                 MAX_YEAR: 2100,
-                constellation:{data:[]},
-                time:{year:2017,month:8}
+                constellation: {data: []},
+                time: {year: 2017, month: 8}
 
             }
         },
@@ -313,13 +323,13 @@
             }
         },
         methods: {
-            solarMonthDays : function(year, month) {
+            solarMonthDays: function (year, month) {
                 let FebDays = this.isLeapYear(year) ? 29 : 28;
                 let monthHash = ['', 31, FebDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
                 return monthHash[month];
             },
             //是否闰年
-            isLeapYear : function(year) {
+            isLeapYear: function (year) {
                 return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
             },
             initBD: function () {
@@ -334,25 +344,43 @@
                 }
                 let date = new Date();
                 let year = date.getFullYear();
-                let month= date.getMonth()+1;
-                _this.time={year:year,month:month,solarMonthDays:_this.solarMonthDays(year,month)};
+                let month = date.getMonth() + 1;
+                _this.time = {year: year, month: month, solarMonthDays: _this.solarMonthDays(year, month)};
 
-                let  constellation=xqzs.constellation.array[xqzs.constellation.getIndex( _this.month, _this.day)];
+                let constellation = xqzs.constellation.array[xqzs.constellation.getIndex(_this.month, _this.day)];
 
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'constellation/get/'+year+'/'+month+'/'+constellation.id,
+                    url: web.API_PATH + 'constellation/get/' + year + '/' + month + '/' + constellation.id,
                 }).then(function (data) {//es5写法
                     console.log(data)
                     if (data.data.status == 1) {
-                        constellation.data= data.data.data;
-                        _this.constellation= constellation;
+                        constellation.data = data.data.data;
+                        _this.constellation = constellation;
+
+
+                        _this.$nextTick(function () {
+
+                            $(".onimg").each(function () {
+                                let __=$(this);
+                                _this.changeImageColor(
+                                    '/dist/constellation/star1.png', //'http://127.0.0.1:5555/images/app/mc_forum_main_bar_button1_h.png',
+                                    __.attr("color"), //'#f51ca6',
+                                    function (data) {
+                                        __.attr("src",data)
+                                        console.log(data);
+                                    }
+                                )
+                            })
+
+                        })
+
+
                     }
                 }, function (error) {
                     //error
                 });
-
 
 
                 if (_this.user.birthday != null && _this.user.birthday != '') {
@@ -412,8 +440,61 @@
                     );
 
 
-            }
+            },
 
+
+            /**
+             * 根据主题颜色修改图片颜色
+             * @param  {[type]}   imgUrl    图片url
+             * @param  {[type]}   rgb_color 主题颜色
+             * @param  {Function} callback  返回值 返回base64
+             * @return {[type]}             [description]
+             */
+            changeImageColor: function (imgUrl, rgb_color, callback) {
+                var img = new Image();
+                img.src = imgUrl;
+                //计算对应的通道值
+                rgb_color = rgb_color || '#727272';
+                var newR = parseInt('0x' + rgb_color.substr(1, 2));
+                var newG = parseInt('0x' + rgb_color.substr(3, 2));
+                var newB = parseInt('0x' + rgb_color.substr(5, 2));
+                //图片加载后进行处理
+                img.onload = function () {
+                    var width = img.width,
+                        height = img.height,
+                        canvas = document.createElement('canvas'),
+                        ctx = canvas.getContext('2d');
+                    canvas.width = width;
+                    canvas.height = height;
+                    // 将源图片复制到画布上
+                    ctx.drawImage(img, 0, 0, width, height);
+                    // 获取画布的像素信息
+                    var imageData = ctx.getImageData(0, 0, width, height);
+                    // 对像素集合中的单个像素进行循环，每个像素是由4个通道组成，所以要注意
+                    var i = 0;
+                    while (i < imageData.data.length) {
+
+                        var r = imageData.data[i++],
+                            g = imageData.data[i++],
+                            b = imageData.data[i++],
+                            a = imageData.data[i++];
+                        //计算透明度//判断是否透明
+
+                        imageData.data[i - 4] = newR;
+                        imageData.data[i - 3] = newG;
+                        imageData.data[i - 2] = newB;
+                        imageData.data[i - 1] = a;
+
+                    }
+                    // 将修改后的代码复制回画布中
+                    ctx.putImageData(imageData, 0, 0);
+                    // 图片导出为 png 格式
+                    var type = 'png';
+                    var imgData = canvas.toDataURL(type);
+                    // console.log(imgData); // 生成base64
+                    callback && callback(imgData);
+                };
+            }
 
         }
     }
