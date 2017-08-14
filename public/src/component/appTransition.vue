@@ -120,7 +120,7 @@
 
 
             //处理页面跳转逻辑
-            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write") {
+            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
                 _this.$router.push("/")
                 next(false);
                 return false;

@@ -439,6 +439,14 @@
         },
         mounted: function () {
             var _this = this;
+            let scrollFromEdit = _this.$route.query.scroll;
+            if(scrollFromEdit==1){
+                setTimeout(function () {
+                    $(".innnn").stop().animate({"scrollTop": 272},800)
+                },800)
+
+            }
+
             var addtabsSwiper = new Swiper('.addSwiperBox',{
                 speed:500,
                 onSlideChangeStart: function(){
