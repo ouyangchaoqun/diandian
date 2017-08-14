@@ -442,8 +442,8 @@
             let scrollFromEdit = _this.$route.query.scroll;
             if(scrollFromEdit==1){
                 setTimeout(function () {
-                    $(".innnn").stop().animate({"scrollTop": 272},800)
-                },800)
+                    $(".innnn").stop().animate({"scrollTop": 230},800)
+                },600)
 
             }
 
