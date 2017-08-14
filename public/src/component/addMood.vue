@@ -234,7 +234,35 @@
                         }
                         params.push(keys[o]+'='+this.choosedData[keys[o]]);
                     }
-                    this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
+
+
+
+                    let that = this;
+
+
+
+                    if("scenesId"!=key||that.choosedData["moodValue"]==null){
+                        return;
+                    }
+                    var postdata = {
+                        moodValue:that.choosedData["moodValue"],
+                        scenesId:that.choosedData["scenesId"],
+                        isOpen: true,
+                        userId: '_userId_',
+                    };
+
+                    var apiurl = 'mood/add';
+
+                    that.$http.put(web.API_PATH + apiurl,postdata)
+                        .then(function (bt) {
+                            console.log(postdata)
+                            if (bt.data && bt.data.status == 1) {
+                                that.$router.push({path:'/myCenter/myIndex?scroll=1'});
+                            }
+                        });
+
+
+                   // this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
                 }
 
             },
