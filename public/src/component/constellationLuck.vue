@@ -9,7 +9,7 @@
             <div class="main_content" v-for="item in  constellation.data">
                 <div style="background: #fff;">
                     <div class="xz">
-                        <div class="xz_pic"><img src="../../dist/constellation/ys_love.png"></div>
+                        <div class="xz_pic"><img :src="item.pic"></div>
                         <div class="xz_ys">{{item.name}}运势</div>
                         <div class="xz_zs"><img src="../../dist/constellation/star1.png" class="onimg" :color="item.color"  v-for="n in item.index"><img
                                 src="../../dist/constellation/star0.png" v-for="n in 5-item.index"></div>
