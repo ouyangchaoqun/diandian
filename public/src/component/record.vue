@@ -15,7 +15,7 @@
                         <a class="weui-tabbar__item " @click="morning">
                             <div class="go_record record_morning "
                                  :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}">
-                                <div class="record_cover"></div>
+                                <div class="record_cover" @click="morning"></div>
                                 <div class="img"></div>
                                 <div class="morning">早起
                                     <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">打卡
@@ -27,7 +27,7 @@
                         </a>
                         <a class="weui-tabbar__item" @click="addMood">
                             <div class="go_record record_mid" :class="{recorded:isRecordMood}">
-                                <div class="record_cover"></div>
+                                <div class="record_cover" @click="addMood"></div>
                                 <div class="img"></div>
                                 <div class="any">记录心情</div>
                             </div>
@@ -43,7 +43,7 @@
                         <a class="weui-tabbar__item" @click="night">
                             <div class="go_record record_night"
                                  :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}">
-                                <div class="record_cover"></div>
+                                <div class="record_cover" @click="night"></div>
                                 <div class="img"></div>
                                 <div class="night">早睡
                                     <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡
@@ -55,7 +55,7 @@
                         </a>
                         <a class="weui-tabbar__item" @click="dailyRecord">
                             <div class="go_record record_everyDay" :class="{recorded:isDailyRecord}">
-                                <div class="record_cover"></div>
+                                <div class="record_cover"  @click="dailyRecord"></div>
                                 <div class="img"></div>
                                 <div class="any">每日一签</div>
                             </div>
@@ -903,7 +903,7 @@
     }
 
     .weui-tabbar__item:active .record_cover {
-        /*//display: block;*/
+        display: block;
     }
 
     .go_record .img {
