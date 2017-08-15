@@ -265,6 +265,8 @@
                 this.$router.push("/write" + parm)
             },
             morning: function () {
+                console.log("morning")
+
                 let _this = this;
                 if (_this.isGetUp&&_this.isRecordTime(_this.MORNING_FROM_TIME,_this.MORNING_END_TIME)) {
                     _this.showResult(_this.getUpId);
