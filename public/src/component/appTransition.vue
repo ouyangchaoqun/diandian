@@ -117,11 +117,19 @@
         beforeRouteUpdate (to, from, next) {
             var _this = this;
             console.log("beforeRouteUpdate")
-
+            let isBack = false;
+            for (let i = 0; i < this.pagesIn.length; i++) {
+//                console.log(this.pagesIn[i]);
+                if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
+                    isBack = true;
+                    this.pagesIn.splice(i, 1);
+                    break;
+                }
+            }
 
             //处理页面跳转逻辑
-            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
-                _this.$router.push("/")
+            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")||(from.path === "/myCenter/myIndex"&&  to.path === "/myCenter/myIndex/Edit")) {
+                _this.$router.push("/");
                 next(false);
                 return false;
             }
@@ -144,15 +152,7 @@
 //            console.log({to:to.fullPath,from:from.fullPath});
 
 
-            let isBack = false;
-            for (let i = 0; i < this.pagesIn.length; i++) {
-//                console.log(this.pagesIn[i]);
-                if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
-                    isBack = true;
-                    this.pagesIn.splice(i, 1);
-                    break;
-                }
-            }
+
             if(to.fullPath==='/')isBack=true;
 
             if (!isBack)
