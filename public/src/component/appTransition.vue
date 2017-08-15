@@ -132,7 +132,7 @@
             if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
 
 
-                this.$router.replace("/");
+                this.$router.go("/");
                 next(false);
                 return false;
             }
