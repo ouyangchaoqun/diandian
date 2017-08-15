@@ -118,12 +118,10 @@
             var _this = this;
             console.log("beforeRouteUpdate")
 
-            //处理页面跳转逻辑
-            if (from.path === "/myCenter/myIndex"&&  to.path === "/addMood") {
-                _this.$router.go(-2);
-                next(false);
-                return false;
-            }
+            console.log(from.path);
+            console.log(to.path);
+
+
             //处理页面跳转逻辑
             if (from.path === "/myCenter/myIndex"&&  to.path === "/record") {
                 _this.$router.go(-2);
@@ -131,8 +129,7 @@
                 return false;
             }
 
-            console.log(from.path);
-            console.log(to.path);
+
 
 
             if (_this.isFunny === true) {
