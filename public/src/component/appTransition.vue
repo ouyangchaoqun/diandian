@@ -127,6 +127,12 @@
 
             console.log(from.path);
             console.log(to.path);
+            //处理页面跳转逻辑
+            if (from.path === "/myCenter/myIndex"&&  to.path === "/record") {
+                window.history.go(-2)
+                next(false);
+                return false;
+            }
 
 
             if (_this.isFunny === true) {
