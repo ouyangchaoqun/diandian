@@ -857,7 +857,7 @@
     }
 
     .notes {
-        padding: 6.12rem 1.47058823rem 0 1.47058823rem;
+        padding: 5.82rem 1.47058823rem 0 1.47058823rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -866,7 +866,7 @@
     }
 
     .notes2 {
-        padding: 2rem 1.47058823rem 0 1.47058823rem;
+        padding: 1.71rem 1.47058823rem 0 1.47058823rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
