@@ -923,7 +923,7 @@
     }
 
     .record_everyDay .img {
-        background: url("../images/record_everyday.png") no-repeat center top;
+        background: url("../images/record_everyday.jpg") no-repeat center top;
         background-size: 100%
     }
 
