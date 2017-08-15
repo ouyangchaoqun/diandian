@@ -17,6 +17,8 @@
                     <div class="xz_content">{{item.content}}</div>
                 </div>
             </div>
+            <div class="xz_introduce">说明：本站测试项目主要根据中华传统周易学或者民间流传的占
+                卜法制定，测试结果仅够娱乐参考）</div>
         </div>
         <div v-if="!hasBirthday&&hasBirthday!=null">
             <div class="title"></div>
@@ -72,7 +74,7 @@
 
     .luck .info {
         text-align: center;
-        padding-top: 3.38rem;
+        padding-top: 2.64rem;
         font-size: 1.76rem;
         color: darkorchid;
         line-height: 1;
@@ -216,7 +218,7 @@
     }
 
     .xz_content {
-        height: 4.94rem;
+
     }
 
     .luck .down {
@@ -247,6 +249,7 @@
         margin-left: 0.82rem;
         margin-top: 1.147rem;
         line-height: 1;
+        color:rgba(51,51,51,1);
     }
 
     .xz_zs {
@@ -263,8 +266,13 @@
 
     .xz_content {
         padding: 0.82rem 0.64rem;
+        color: rgba(76,75,75,1);
     }
-
+    .xz_introduce{
+        padding: 0.88rem 0.88rem 0.88rem 0.88rem;
+        font-size: 0.76rem;
+        color: #666;
+    }
 </style>
 
 
