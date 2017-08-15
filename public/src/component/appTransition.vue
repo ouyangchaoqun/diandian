@@ -127,9 +127,13 @@
                 }
             }
 
+            console.log(this.pagesIn);
             //处理页面跳转逻辑
-            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")||(from.path === "/myCenter/myIndex"&&  to.path === "/myCenter/myIndex/Edit")) {
-                _this.$router.push("/");
+            if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
+
+
+                console.log(window.history.length)
+                this.$router.go(0 - window.history.length + 2);
                 next(false);
                 return false;
             }
