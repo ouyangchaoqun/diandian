@@ -464,7 +464,7 @@
                         if (_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
                             _this.$router.push("/me/personal/validate")
                         } else {
-                            _this.$router.push("/addMood")
+                            _this.$router.replace("/addMood")
                         }
                     }
                 });
