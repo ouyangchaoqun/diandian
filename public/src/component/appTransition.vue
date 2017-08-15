@@ -133,7 +133,7 @@
 
 
                 console.log(window.history.length)
-                this.$router.go(0 - window.history.length + 2);
+                this.$router.go(0 - window.history.length + 1);
                 next(false);
                 return false;
             }
