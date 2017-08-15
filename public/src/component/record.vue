@@ -903,7 +903,7 @@
     }
 
     .weui-tabbar__item:active .record_cover {
-        display: block;
+        /*//display: block;*/
     }
 
     .go_record .img {
