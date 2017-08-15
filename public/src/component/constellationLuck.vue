@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="xz_introduce">说明：本站测试项目主要根据中华传统周易学或者民间流传的占
-                卜法制定，测试结果仅够娱乐参考）</div>
+                卜法制定，测试结果仅够娱乐参考</div>
         </div>
         <div v-if="!hasBirthday&&hasBirthday!=null">
             <div class="title"></div>
@@ -267,10 +267,11 @@
     .xz_content {
         padding: 0.82rem 0.64rem;
         color: rgba(76,75,75,1);
+        font-size: 0.82rem;
     }
     .xz_introduce{
         padding: 0.88rem 0.88rem 0.88rem 0.88rem;
-        font-size: 0.76rem;
+        font-size: 0.70rem;
         color: #666;
     }
 </style>
