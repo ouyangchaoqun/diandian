@@ -120,8 +120,8 @@
 
             //处理页面跳转逻辑
             if (from.path === "/myCenter/myIndex"&&  to.path === "/addMood") {
-                _this.$router.go(-3);
-                next();
+                window.history.go(-3)
+                next(false);
                 return false;
             }
 
