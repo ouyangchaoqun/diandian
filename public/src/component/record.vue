@@ -665,9 +665,6 @@
         background-position: 0 4.11764rem;
     }
 
-    .go_record:active {
-        background: #eee
-    }
 
     .main_record {
         position: relative
@@ -896,7 +893,6 @@
         width: 100%;
         height: 100%;
         position: absolute;
-        z-index: 99;
         float: left;
         background: rgba(0, 0, 0, 0.3);
         display: none;
