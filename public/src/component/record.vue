@@ -17,11 +17,8 @@
                                  :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
-                                <div class="morning">早起
-                                    <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">打卡
-                                    </template>
-                                    <template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">排行
-                                    </template>
+                                <div class="morning">
+                                    <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起打卡</template><template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起排行</template>
                                 </div>
                             </div>
                         </a>
@@ -45,11 +42,8 @@
                                  :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
-                                <div class="night">早睡
-                                    <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡
-                                    </template>
-                                    <template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行
-                                    </template>
+                                <div class="night">
+                                    <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡排行</template>
                                 </div>
                             </div>
                         </a>
@@ -863,7 +857,7 @@
     }
 
     .notes {
-        padding: 5.37058823rem 1.47058823rem 0 1.47058823rem;
+        padding: 6.12rem 1.47058823rem 0 1.47058823rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -880,7 +874,7 @@
     }
 
     .go_record {
-        width: 81%;
+        width: 77%;
         height: 5.9rem;
         background: #fff;
         border-radius: 5px;
