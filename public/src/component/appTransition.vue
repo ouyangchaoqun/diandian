@@ -131,7 +131,7 @@
             //处理页面跳转逻辑
             if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
 
-                this.$router.go(0 - window.history.length + 1);
+                this.$router.go(0 - window.history.length + 2);
                 next(false);
                 return false;
             }
