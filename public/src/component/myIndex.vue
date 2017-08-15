@@ -36,7 +36,7 @@
                                             <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
                                         </div>
                                         <template v-if="canEdit(item)">
-                                            <router-link :to="item.editLink" class="editMood">
+                                            <router-link :to="item.editLink" class="editMood" replace>
                                                 20分钟内可以补充文字和图片
                                                 <img src="../images/bianji.png" alt="">
                                             </router-link>

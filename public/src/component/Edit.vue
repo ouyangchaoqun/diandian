@@ -374,7 +374,7 @@
                     .then(function (bt) {
                         console.log(postdata)
                     if (bt.data && bt.data.status == 1) {
-                        that.$router.push({path:'/myCenter/myIndex'});
+                        that.$router.replace({path:'/myCenter/myIndex'});
                     }
                 });
             },
