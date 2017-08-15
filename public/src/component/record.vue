@@ -40,7 +40,7 @@
                                 <div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>
                             </div>
                         </a>
-                            <a class="weui-tabbar__item" @click="addMood">
+                            <a class="weui-tabbar__item" @click="dailyRecord">
                                 <div class="go_record record_everyDay"  >
                                     <div class="record_cover"></div>
                                     <div class="img"></div>
@@ -187,6 +187,7 @@
                 isGetUp: false,
                 isGoBed: false,
                 isRecordMood:false,
+                isDailyRecord:false,
                 goBedId:0,
                 getUpId:0,
                 result: {
@@ -453,6 +454,25 @@
                     }
                 });
 
+            },
+            dailyRecord:function () {
+                let _this=this;
+                if(_this.isDailyRecord==true){
+                _this.isDailyRecord=false;
+                    // 获取当前日期对象
+                    var curDate = new Date();
+                    // 获取当前日期对应的时间戳
+                    var curTime = curDate.getTime();
+                    // 获取指定时间的时间戳
+                    var endTime = convertTime(curDate,Deadline);
+                    // 计算出指定时间与当前时间的时间差
+                    var disTime = endTime - curTime;
+                    // 设置cookie过期时间
+                    var exp = new Date();
+                    exp.setTime(endTime);//过期时间
+               document.cookie="dailyRecord="+_this.isDailyRecord+';expires=' + exp.toGMTString();
+                }
+                console.log( document.cookie(''))
             }
         },
 
@@ -511,10 +531,8 @@
                 type: "json",
                 url: web.API_PATH + "mood/find/userlast/_userId_",
             }).then(function (data) {
-                console.log("ssssssssssssssss")
                 if(data.body.data!=null){
                     _this.isRecordMood=true;
-                    console.log("11111111111")
                 }
 
             });
