@@ -123,7 +123,7 @@
             //处理页面跳转逻辑
             if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
 
-                this.$router.go(0 - this.pagesIn.length);
+                _this.$router.go(-1);
 
                 next(false);
                 return false;
