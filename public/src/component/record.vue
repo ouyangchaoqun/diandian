@@ -12,62 +12,78 @@
             <div class="main_record">
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
-                        <a  class="weui-tabbar__item " @click="morning">
-                            <div class="go_record record_morning " :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}" >              <div class="record_cover"></div>
+                        <a class="weui-tabbar__item " @click="morning">
+                            <div class="go_record record_morning "
+                                 :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}">
+                                <div class="record_cover"></div>
                                 <div class="img"></div>
-                                <div class="morning" >早起<template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">打卡</template><template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">排行</template></div>
+                                <div class="morning">早起
+                                    <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">打卡
+                                    </template>
+                                    <template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">排行
+                                    </template>
+                                </div>
                             </div>
                         </a>
                         <a class="weui-tabbar__item" @click="addMood">
-                            <div class="go_record record_mid" :class="{recorded:isRecordMood}" >
+                            <div class="go_record record_mid" :class="{recorded:isRecordMood}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="any">记录心情</div>
                             </div>
                         </a>
                         <!--<a  class="weui-tabbar__item">-->
-                            <!--<div class="go_record record_right" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  @click="night">-->
-                                <!--<div class="img"></div>-->
-                                <!--<div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>-->
-                            <!--</div>-->
+                        <!--<div class="go_record record_right" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  @click="night">-->
+                        <!--<div class="img"></div>-->
+                        <!--<div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>-->
+                        <!--</div>-->
                         <!--</a>-->
                     </div>
                     <div class="notes2">
-                        <a  class="weui-tabbar__item" @click="night">
-                            <div class="go_record record_night" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  >
+                        <a class="weui-tabbar__item" @click="night">
+                            <div class="go_record record_night"
+                                 :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
-                                <div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>
+                                <div class="night">早睡
+                                    <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡
+                                    </template>
+                                    <template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行
+                                    </template>
+                                </div>
                             </div>
                         </a>
-                            <a class="weui-tabbar__item" @click="dailyRecord">
-                                <div class="go_record record_everyDay"  >
-                                    <div class="record_cover"></div>
-                                    <div class="img"></div>
-                                    <div class="any">每日一签</div>
-                                </div>
-                            </a>
+                        <a class="weui-tabbar__item" @click="dailyRecord">
+                            <div class="go_record record_everyDay" :class="{recorded:isDailyRecord}">
+                                <div class="record_cover"></div>
+                                <div class="img"></div>
+                                <div class="any">每日一签</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                </div>
-
 
 
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
-                        <div class="next"><span  :class="{ok_night:result.data.type==3}">连续早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
+                        <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template
+                                v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
-                        <div class="record_compare" >
-                            共有{{result.allCount}}人陪我早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>，当前总排行第{{result.rank}}名
+                        <div class="record_compare">
+                            共有{{result.allCount}}人陪我早
+                            <template v-if="result.data.type==2">起</template>
+                            <template v-if="result.data.type==3">睡</template>
+                            ，当前总排行第{{result.rank}}名
                         </div>
                         <!--<div class="record_fx">-->
-                            <!--<div class="record_inmid">-->
-                                <!--<div class="record_share" :class="{night_share:result.data.type==3}" @click="share">分享成就</div>-->
-                                <!--<div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>-->
-                            <!--</div>-->
+                        <!--<div class="record_inmid">-->
+                        <!--<div class="record_share" :class="{night_share:result.data.type==3}" @click="share">分享成就</div>-->
+                        <!--<div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>-->
+                        <!--</div>-->
                         <!--</div>-->
                         <div class="midLine" v-if="result.data.type==2"></div>
-                        <div class="record_bottom" @click="share"v-if="result.data.type==2">
+                        <div class="record_bottom" @click="share" v-if="result.data.type==2">
                             <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
                         </div>
                         <div class="record_bottom2" @click="writeOrRank">
@@ -79,7 +95,9 @@
                 <div class="night_action">
                     <div style="height:1px;"></div>
                     <div class="record_action_go_bed" @click="checkIn(3)"><span>睡觉</span>睡觉之前戳一下（不要耍赖哦）</div>
-                    <div class="record_text2" @click="writeOrRank"> <div class="doRecord">早睡排行榜</div></div>
+                    <div class="record_text2" @click="writeOrRank">
+                        <div class="doRecord">早睡排行榜</div>
+                    </div>
                 </div>
 
                 <div class="timeout" :class="{night_time_out:outNightTime}">
@@ -92,18 +110,19 @@
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
 
                     <div class="midLine" v-if="isGetUp&&outMorningTime"></div>
-                    <div class="record_bottom" @click="share"v-if="isGetUp">
+                    <div class="record_bottom" @click="share" v-if="isGetUp">
                         <div class="doRecord">获取成就卡</div>
                     </div>
-                    <div :class="{record_text2:outNightTime||(!isGetUp&&outMorningTime),record_bottom2:!outNightTime&&(isGetUp&&outMorningTime)}" @click="writeOrRank">
+                    <div :class="{record_text2:outNightTime||(!isGetUp&&outMorningTime),record_bottom2:!outNightTime&&(isGetUp&&outMorningTime)}"
+                         @click="writeOrRank">
                         <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
                         <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
                     </div>
                     <!--<div class="record_text2" @click="writeOrRank">-->
-                        <!--&lt;!&ndash;<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>&ndash;&gt;-->
-                        <!--<div class="doRecord" v-if="outMorningTime">早起排行榜</div>-->
-                        <!--<div class="doRecord" v-if="outNightTime">早睡排行榜</div>-->
-                        <!--<div style="clear: both;"></div>-->
+                    <!--&lt;!&ndash;<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>&ndash;&gt;-->
+                    <!--<div class="doRecord" v-if="outMorningTime">早起排行榜</div>-->
+                    <!--<div class="doRecord" v-if="outNightTime">早睡排行榜</div>-->
+                    <!--<div style="clear: both;"></div>-->
                     <!--</div>-->
                     <!--<div class="finish" @click="back" v-if="outMorningTime">我知道了</div>-->
                     <!--<div class="finish" @click="back" v-if="outNightTime">早点睡啦</div>-->
@@ -124,8 +143,10 @@
                         <p>{{weather.temperature}}</p>
                     </div>
                     <div class="weather_pic">
-                        <img v-if="(hour>=6&&hour<=18)&&!isNight&&weather.weather!=undefined" :src="weather.dayPictureUrl"/>
-                        <img v-if="(hour<6||hour>18)||isNight&&weather.weather!=undefined" :src="weather.nightPictureUrl"/>
+                        <img v-if="(hour>=6&&hour<=18)&&!isNight&&weather.weather!=undefined"
+                             :src="weather.dayPictureUrl"/>
+                        <img v-if="(hour<6||hour>18)||isNight&&weather.weather!=undefined"
+                             :src="weather.nightPictureUrl"/>
                     </div>
                 </div>
                 <div class="weather" v-show="false">
@@ -151,17 +172,18 @@
 <script>
     import banner from "./banner.vue";
     import showLoad from './showLoad.vue';
+
     let record = {
         template: '#record'
     };
     export default {
         components: {
-            "v-banner": banner,'v-showLoad':showLoad
+            "v-banner": banner, 'v-showLoad': showLoad
         },
-        data(){
+        data() {
             return {
                 linkTo: "#",
-                showLoad:false,
+                showLoad: false,
                 day: 30,
                 month: 12,
                 year: 2017,
@@ -186,51 +208,51 @@
                 outNightTime: false,
                 isGetUp: false,
                 isGoBed: false,
-                isRecordMood:false,
-                isDailyRecord:false,
-                goBedId:0,
-                getUpId:0,
+                isRecordMood: false,
+                isDailyRecord: false,
+                goBedId: 0,
+                getUpId: 0,
                 result: {
                     allCount: 0,
                     earlyPer: 0,
-                    rank:0,
+                    rank: 0,
                     data: {hour: 0, minute: 0, id: 0, type: 2}
                 },
                 record: '',
                 isShowResult: false,
-                doRecordText:'',
-                isDoNight:false
+                doRecordText: '',
+                isDoNight: false
 
             }
         },
-        props:{
-            user:{
-                type:Object
+        props: {
+            user: {
+                type: Object
             }
         },
         methods: {
-            share:function () {
-                let _this=this;
-                _this.showLoad=true;
+            share: function () {
+                let _this = this;
+                _this.showLoad = true;
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/'+_this.result.data.type
+                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/' + _this.result.data.type
                 }).then(function (bt) {
-                    if(bt.body.status==1){
+                    if (bt.body.status == 1) {
                         xqzs.weui.dialog({
-                            title:'成就卡已经发送',
-                            msg:'前往公众号查看，留住每次早起回忆',
-                            submitText:'查看',
-                            submitFun:function () {
+                            title: '成就卡已经发送',
+                            msg: '前往公众号查看，留住每次早起回忆',
+                            submitText: '查看',
+                            submitFun: function () {
                                 try {
                                     WeixinJSBridge.call('closeWindow');
-                                }catch (e){
+                                } catch (e) {
                                 }
                             }
                         })
                     }
-                    _this.showLoad=false;
+                    _this.showLoad = false;
                 })
 
             },
@@ -247,10 +269,10 @@
             finish: function () {
                 this.$router.push("/sleepRank?type=" + this.result.data.type)
             },
-            writeOrRank:function () {
-                if(this.isNight){
+            writeOrRank: function () {
+                if (this.isNight) {
                     this.$router.push("/sleepRank?type=3")
-                }else{
+                } else {
                     this.$router.push("/sleepRank?type=2")
                 }
             },
@@ -269,9 +291,9 @@
                 console.log("morning")
 
                 let _this = this;
-                if (_this.isGetUp&&_this.isRecordTime(_this.MORNING_FROM_TIME,_this.MORNING_END_TIME)) {
+                if (_this.isGetUp && _this.isRecordTime(_this.MORNING_FROM_TIME, _this.MORNING_END_TIME)) {
                     _this.showResult(_this.getUpId);
-                    return ;
+                    return;
                 }
                 if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
                     this.checkIn(2);
@@ -280,7 +302,6 @@
                     _this.animateIn();
                     _this.outMorningTime = true;
                     $(".timeout").show().animate({"opacity": 1}, 200, function () {
-
                     });
 
                 }
@@ -288,8 +309,8 @@
             },
             night: function () {
                 let _this = this;
-                if (_this.isGoBed &&_this.isRecordTime(_this.NIGHT_FROM_TIME,_this.NIGHT_END_TIME)) {
-                   _this.showResult(_this.goBedId);
+                if (_this.isGoBed && _this.isRecordTime(_this.NIGHT_FROM_TIME, _this.NIGHT_END_TIME)) {
+                    _this.showResult(_this.goBedId);
                     return;
                 }
 
@@ -302,7 +323,7 @@
                     let w = $("body").width();
                     $(".night_action").height(w * 753 / 750);
                     _this.isNight = true;
-                    _this.isDoNight=true;
+                    _this.isDoNight = true;
 
                     //this.checkIn(3);
                 } else {
@@ -318,9 +339,9 @@
 
                 }
             },
-            showResult:function (id) {
+            showResult: function (id) {
                 let _this = this;
-                _this.$http.get(web.API_PATH + 'record/sleep/get/detail/'+id).then(response => {
+                _this.$http.get(web.API_PATH + 'record/sleep/get/detail/' + id).then(response => {
                     if (response.data.status === 1) {
                         _this.initResultData(response.data.data)
                     }
@@ -337,11 +358,10 @@
                 }
 
 
-
                 _this.$http.put(web.API_PATH + 'sleep/checkin/' + type + '/_userId_', {"weather": weather}).then(response => {
                     console.log(response);
                     if (response.data.status === 1) {
-                        if(type==3){
+                        if (type == 3) {
                             $(".night_action").stop().animate({"opacity": 0}, 300, function () {
                                 $(this).hide();
                             });
@@ -351,41 +371,42 @@
                     }
                 });
             },
-            initResultData:function (data) {
+            initResultData: function (data) {
 
                 let _this = this;
                 _this.result.data = data;
-                let time = new Date(data.time*1000);
-                let type  = data.type;
-                _this.result.data.hour =time.getHours();
+                let time = new Date(data.time * 1000);
+                let type = data.type;
+                _this.result.data.hour = time.getHours();
                 _this.result.data.minute = time.getMinutes();
-                if(_this.result.data.hour <10){_this.result.data.hour ="0"+_this.result.data.hour}
-                if(_this.result.data.minute <10){_this.result.data.minute ="0"+_this.result.data.minute}
+                if (_this.result.data.hour < 10) {
+                    _this.result.data.hour = "0" + _this.result.data.hour
+                }
+                if (_this.result.data.minute < 10) {
+                    _this.result.data.minute = "0" + _this.result.data.minute
+                }
 
 
-
-
-                _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+type+'').then(data => {
-                    if(data.data.status===1){
-                        _this.result.allCount= data.data.data.userNum;
+                _this.$http.get(web.API_PATH + 'sleep/daily/info/_userId_/' + type + '').then(data => {
+                    if (data.data.status === 1) {
+                        _this.result.allCount = data.data.data.userNum;
 
                     }
                 });
-                _this.$http.get(web.API_PATH+'record/sleep/get/rank/today/_userId_/'+type+'').then(data => {
-                    if(data.data.status===1){
-                        _this.result.rank= data.data.data;
+                _this.$http.get(web.API_PATH + 'record/sleep/get/rank/today/_userId_/' + type + '').then(data => {
+                    if (data.data.status === 1) {
+                        _this.result.rank = data.data.data;
                     }
                 });
-
 
 
                 _this.isShowResult = true;
-                _this.doRecordText='向今天问好';
+                _this.doRecordText = '向今天问好';
                 _this.animateIn();
                 $(".result").show().stop().animate({"opacity": 1}, 200);
                 if (type == 3) {
                     _this.isNight = true;
-                    _this.doRecordText='今日小成就';
+                    _this.doRecordText = '今日小成就';
                 }
             },
             animateIn: function () {
@@ -401,14 +422,14 @@
                 let startTime = parseInt(fromTime.split(":")[0]) * 60 + parseInt(fromTime.split(":")[1]);
                 endTime = parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1]);
                 let mydate = new Date();
-                let nowTime  =mydate.getHours() * 60 + mydate.getMinutes();
+                let nowTime = mydate.getHours() * 60 + mydate.getMinutes();
                 //打卡时间
                 let _r = false;
                 //跨天判断
-                if(startTime>endTime){  //跨天
-                    _r=(startTime <= nowTime && nowTime <= 24*60)||(0<=nowTime&&nowTime<=endTime);
-                }else{ //非跨天
-                    _r =startTime <= nowTime && nowTime <= endTime;
+                if (startTime > endTime) {  //跨天
+                    _r = (startTime <= nowTime && nowTime <= 24 * 60) || (0 <= nowTime && nowTime <= endTime);
+                } else { //非跨天
+                    _r = startTime <= nowTime && nowTime <= endTime;
                 }
                 return _r;
             },
@@ -421,7 +442,7 @@
                 this.$router.replace('/');
             },
 
-            getMoodCount(callback){
+            getMoodCount(callback) {
                 this.$http({
                     method: 'GET',
                     type: "json",
@@ -434,12 +455,12 @@
                     }
                 })
             },
-            goRank:function () {
-                this.$router.push("/sleepRank?type="+this.result.data.type)
+            goRank: function () {
+                this.$router.push("/sleepRank?type=" + this.result.data.type)
 
             },
-            addMood:function () {
-                let _this = this ;
+            addMood: function () {
+                let _this = this;
                 console.log("addMood");
                 _this.getMoodCount(function (moodcount) {
                     if (moodcount < 10) {
@@ -455,24 +476,37 @@
                 });
 
             },
-            dailyRecord:function () {
-                let _this=this;
-                if(_this.isDailyRecord==true){
-                _this.isDailyRecord=false;
-                    // 获取当前日期对象
-                    var curDate = new Date();
-                    // 获取当前日期对应的时间戳
-                    var curTime = curDate.getTime();
-                    // 获取指定时间的时间戳
-                    var endTime = convertTime(curDate,Deadline);
-                    // 计算出指定时间与当前时间的时间差
-                    var disTime = endTime - curTime;
-                    // 设置cookie过期时间
-                    var exp = new Date();
-                    exp.setTime(endTime);//过期时间
-               document.cookie="dailyRecord="+_this.isDailyRecord+';expires=' + exp.toGMTString();
-                }
-                console.log( document.cookie(''))
+            dailyRecord: function () {
+                let _this = this;
+
+                _this.$http.get(web.API_PATH + 'record/daily/sign/card/_userId_' ).then(response => {
+                    console.log(response);
+                    if(response.data.status==1){
+                        xqzs.weui.dialog({
+                            title:'每日一签已经发送',
+                            msg:'前往公众号查看你的每日一签',
+                            submitText:'查看',
+                            submitFun:function () {
+                                try {
+                                    WeixinJSBridge.call('closeWindow');
+                                }catch (e){
+                                }
+                            }
+                        })
+                        _this.isDailyRecord = true;
+                        var date = new Date();
+                        cookie.set("isDailyRecord", true, 1 - date.getHours() / 24);
+
+                    }
+
+                });
+
+
+
+
+
+
+
             }
         },
 
@@ -491,12 +525,12 @@
             var weekNo = mydate.getDay();
             _this.week = _this.weeks[weekNo];
             console.log(_this.week);
-
+            _this.isDailyRecord = cookie.get("isDailyRecord");
 
 
             //获取是否从写点什么页面过来
-            if(cookie.get("withId")!=''&&cookie.get("withId")!=null){
-                _this.$http.get(web.API_PATH + 'record/sleep/get/detail/'+cookie.get("withId")).then(response => {
+            if (cookie.get("withId") != '' && cookie.get("withId") != null) {
+                _this.$http.get(web.API_PATH + 'record/sleep/get/detail/' + cookie.get("withId")).then(response => {
                     console.log(response);
                     cookie.delete("withId")
                     if (response.data.status === 1) {
@@ -531,8 +565,8 @@
                 type: "json",
                 url: web.API_PATH + "mood/find/userlast/_userId_",
             }).then(function (data) {
-                if(data.body.data!=null){
-                    _this.isRecordMood=true;
+                if (data.body.data != null) {
+                    _this.isRecordMood = true;
                 }
 
             });
@@ -559,9 +593,9 @@
                                     _this.weather = data.body.results[0].weather_data[0];
                                     let s = _this.weather.date;
                                     _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
-                                    _this.weather.current =_this.weather.current.replace("℃","°");
+                                    _this.weather.current = _this.weather.current.replace("℃", "°");
                                     _this.weather.temperature = _this.weather.temperature.replace(" ~ ", "-");
-                                     _this.weather.temperature = _this.weather.temperature.replace("℃","°");
+                                    _this.weather.temperature = _this.weather.temperature.replace("℃", "°");
                                     console.log(_this.weather);
                                 }, function (error) {
                                     //error
@@ -578,8 +612,6 @@
             });
 
 
-
-
         },
 
     }
@@ -587,20 +619,48 @@
 
 </script>
 <style>
-    .night_action{
+    .night_action {
 
         /*background: url(../images/nightbg.png) no-repeat;*/
-        background-image:-webkit-linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
-        background-image:linear-gradient(135deg,#756684 0%, #4e4d7a 100%);
-        background-size: 100% 100%; width: 100%; opacity: 0 ; display: none;; position: absolute; top:0;
+        background-image: -webkit-linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
+        background-image: linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
+        background-size: 100% 100%;
+        width: 100%;
+        opacity: 0;
+        display: none;;
+        position: absolute;
+        top: 0;
         background-position: 0 4.11764rem;
-         }
-    .record_action_go_bed{background: url("../images/record_go_bed_btn.png") no-repeat center top; background-size: 6.1764705rem 6.1764705rem; padding-top: 7.1764705rem ; text-align: center; color:#fff; width: 65% ; margin: 0 auto; margin-top: 7.5rem; font-size: 0.7rem;; position: relative }
-    .record_action_go_bed span{ display: inline-block; position: absolute; top:0; width: 100%; text-align: center;left:0; line-height: 6.1764705rem; font-size: 1.0588rem; color:#645b76}
+    }
 
-    .night_do_ac{
-        background-image:-webkit-linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
-        background-image:linear-gradient(135deg,#756684 0%, #4e4d7a 100%);
+    .record_action_go_bed {
+        background: url("../images/record_go_bed_btn.png") no-repeat center top;
+        background-size: 6.1764705rem 6.1764705rem;
+        padding-top: 7.1764705rem;
+        text-align: center;
+        color: #fff;
+        width: 65%;
+        margin: 0 auto;
+        margin-top: 7.5rem;
+        font-size: 0.7rem;;
+        position: relative
+    }
+
+    .record_action_go_bed span {
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        line-height: 6.1764705rem;
+        font-size: 1.0588rem;
+        color: #645b76
+    }
+
+    .night_do_ac {
+        background-image: -webkit-linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
+        background-image: linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
         background-size: 100% 100%;
         background-position: 0 4.11764rem;
     }
@@ -640,9 +700,9 @@
         color: #f4f4f7 !important
     }
 
-    .nightbg .timeout ,.nightbg .result .bottom1 {
-        background-image:-webkit-linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
-        background-image:linear-gradient(135deg,#756684 0%, #4e4d7a 100%);
+    .nightbg .timeout, .nightbg .result .bottom1 {
+        background-image: -webkit-linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
+        background-image: linear-gradient(135deg, #756684 0%, #4e4d7a 100%);
         background-size: 100% 100%;
         height: 100%;
         background-position: 0 4.11764rem;
@@ -651,14 +711,17 @@
     .nightbg .record_time, .nightbg .next, .nightbg .record_compare {
         color: #f4f4f7
     }
-    .nightbg .record_bottom,  .nightbg .timeout .record_text2{
-     background-color: #4e4c73;
- }
-    .nightbg .record_bottom2,  .nightbg .timeout .record_text2,  .nightbg .night_action .record_text2 {
+
+    .nightbg .record_bottom, .nightbg .timeout .record_text2 {
+        background-color: #4e4c73;
+    }
+
+    .nightbg .record_bottom2, .nightbg .timeout .record_text2, .nightbg .night_action .record_text2 {
         background-color: #4e4c73;
         left: 0;
         width: 100%;
     }
+
     .nightbg .date_right, .nightbg .date, .nightbg .weather {
         color: #cececd
     }
@@ -666,8 +729,6 @@
     .record, .record_box {
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
-
-
 
     .ngihttop {
         animation-name: gonight;
@@ -730,15 +791,15 @@
 
     }
 
-    .date_info.morning_time_out{
+    .date_info.morning_time_out {
         background: #f2f3f4;
     }
 
-
-    .bgw .date_info{
+    .bgw .date_info {
         background: #f2f3f4;
     }
-    .nightbg .date_info{
+
+    .nightbg .date_info {
         border-bottom: none;
         background: #4e4c73;
     }
@@ -770,7 +831,7 @@
     }
 
     .weather {
-        float:right;
+        float: right;
         width: 49%;
         font-size: 0.7rem;
         text-align: right;
@@ -812,8 +873,9 @@
         text-align: center;
 
     }
-    .notes2{
-        padding:2rem 1.47058823rem 0 1.47058823rem;
+
+    .notes2 {
+        padding: 2rem 1.47058823rem 0 1.47058823rem;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -829,17 +891,18 @@
         position: relative;
         overflow: hidden;
     }
-    .record_cover{
+
+    .record_cover {
         width: 100%;
         height: 100%;
         position: absolute;
         z-index: 99;
         float: left;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
         display: none;
     }
 
-    .weui-tabbar__item:active  .record_cover{
+    .weui-tabbar__item:active .record_cover {
         display: block;
     }
 
@@ -853,57 +916,77 @@
     .record_left {
         float: left;
     }
-    .record_morning .img{ background: url("../images/record_morning.png") no-repeat center top; background-size: 100% }
-    .record_mid .img{ background: url("../images/record_moods.png") no-repeat center top ; background-size: 100%}
-    .record_night .img{ background: url("../images/record_night.png") no-repeat center top; background-size: 100% }
-    .record_everyDay .img{ background: url("../images/record_everyday.png") no-repeat center top; background-size: 100% }
-    .record_fx{
+
+    .record_morning .img {
+        background: url("../images/record_morning.png") no-repeat center top;
+        background-size: 100%
+    }
+
+    .record_mid .img {
+        background: url("../images/record_moods.png") no-repeat center top;
+        background-size: 100%
+    }
+
+    .record_night .img {
+        background: url("../images/record_night.png") no-repeat center top;
+        background-size: 100%
+    }
+
+    .record_everyDay .img {
+        background: url("../images/record_everyday.png") no-repeat center top;
+        background-size: 100%
+    }
+
+    .record_fx {
         text-align: center;
         margin-top: 2.23rem;
     }
-    .record_rank,.record_share{
+
+    .record_rank, .record_share {
         float: left;
-        background: url("../images/record_share.png") no-repeat; height: 20px;
+        background: url("../images/record_share.png") no-repeat;
+        height: 20px;
         background-size: 20px;
         padding-top: 3px;
         padding-left: 26px;
         margin: 0 10px;
     }
-    .record_rank{
+
+    .record_rank {
         float: right;
         background: url("../images/record_rank.png") no-repeat;
         background-size: 20px;
     }
 
-    .record_share.night_share{
+    .record_share.night_share {
         background: url("../images/record_share1.png") no-repeat;
         background-size: 20px;
         color: #f4f4f7;
     }
-    .record_rank.night_rank{
+
+    .record_rank.night_rank {
         background: url("../images/record_rank1.png") no-repeat;
         background-size: 20px;
         color: #f4f4f7;
     }
 
-
-    .record_inmid{
+    .record_inmid {
         display: inline-block;
         font-size: 14px;
         color: #999;
     }
-    .record_fx img{
+
+    .record_fx img {
         width: 21.5px;
         margin-right: 10px;
     }
 
-    .morning , .any , .night{
+    .morning, .any, .night {
 
         border-radius: 0px 0px 5px 5px;
         font-size: 0.82rem;
         color: #666;
     }
-
 
     .record_mid {
         margin: 0 auto;
@@ -926,7 +1009,6 @@
         text-align: center;
         color: #999;
     }
-
 
     .recorded {
         background: #e3e3e3;
@@ -954,10 +1036,20 @@
         color: rgba(102, 102, 102, 1);
         margin-top: 1.5rem;
     }
-    .next span{ display: inline-block; padding-left: 1.2rem; background: url(../images/daygood.png) no-repeat; background-size: 0.9rem; background-position: 0 3px ;}
 
-    .next .ok_night{background: url(../images/good.png) no-repeat; background-size: 0.9rem; background-position: 0 3px ;}
+    .next span {
+        display: inline-block;
+        padding-left: 1.2rem;
+        background: url(../images/daygood.png) no-repeat;
+        background-size: 0.9rem;
+        background-position: 0 3px;
+    }
 
+    .next .ok_night {
+        background: url(../images/good.png) no-repeat;
+        background-size: 0.9rem;
+        background-position: 0 3px;
+    }
 
     .record_compare {
         text-align: center;
@@ -977,7 +1069,7 @@
         vertical-align: middle;
     }
 
-    .record_bottom,.record_bottom2 {
+    .record_bottom, .record_bottom2 {
         font-size: 0.88rem;
         width: 50%;
         text-align: center;
@@ -985,15 +1077,17 @@
         color: #fff;
         position: absolute;
         bottom: 0;
-        height:2.95rem;
+        height: 2.95rem;
         line-height: 2.8rem;
     }
-    .record_bottom2{
+
+    .record_bottom2 {
         width: 50%;
         left: 50%;
         border: none;
     }
-    .midLine{
+
+    .midLine {
         width: 1px;
         height: 1.5rem;
         position: absolute;
@@ -1002,6 +1096,7 @@
         background-color: #fff;
         z-index: 99;
     }
+
     .doRecord {
         text-align: center;
         display: inline-block;
@@ -1038,14 +1133,17 @@
         background: url("../images/daybg1.png") no-repeat bottom center #fff;
         background-size: 100%;
         height: 100%;
-        display:none
+        display: none
     }
 
     .timeout.night_time_out .re_text1, .timeout.night_time_out .ealy_time, .timeout.night_time_out .re_text2, .timeout.night_time_out .re_text1 {
         color: #ccc;
     }
 
-    .night_time_out{ border-top-left-radius: 8px; border-top-right-radius: 8px;}
+    .night_time_out {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
 
     .re_text1 {
         text-align: center;
