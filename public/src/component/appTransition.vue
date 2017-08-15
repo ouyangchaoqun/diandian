@@ -120,7 +120,7 @@
 
             //处理页面跳转逻辑
             if (from.path === "/myCenter/myIndex"&&  to.path === "/addMood") {
-                window.history.go(-3)
+                window.history.go(-2)
                 next(false);
                 return false;
             }
