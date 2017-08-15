@@ -13,26 +13,41 @@
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
                         <a  class="weui-tabbar__item ">
-                            <div class="go_record record_left " :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}" @click="morning">
+                            <div class="go_record record_morning " :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}" @click="morning">              <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="morning" >早起<template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">打卡</template><template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">排行</template></div>
                             </div>
                         </a>
                         <a class="weui-tabbar__item">
-                            <div class="go_record record_mid"  @click="addMood">
+                            <div class="go_record record_mid" :class="{recorded:isRecordMood}"   @click="addMood">
+                                <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="any">记录心情</div>
                             </div>
                         </a>
+                        <!--<a  class="weui-tabbar__item">-->
+                            <!--<div class="go_record record_right" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  @click="night">-->
+                                <!--<div class="img"></div>-->
+                                <!--<div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>-->
+                            <!--</div>-->
+                        <!--</a>-->
+                    </div>
+                    <div class="notes2">
                         <a  class="weui-tabbar__item">
-                            <div class="go_record record_right" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  @click="night">
+                            <div class="go_record record_night" :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}"  @click="night">
+                                <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="night">早睡<template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">排行</template></div>
                             </div>
                         </a>
-                    </div>
-                    <div class="record_tx1">坚持21天A计划</div>
-                    <div class="record_tx2">遇见更好的自己</div>
+                            <a class="weui-tabbar__item">
+                                <div class="go_record record_everyDay"  @click="addMood">
+                                    <div class="record_cover"></div>
+                                    <div class="img"></div>
+                                    <div class="any">每日一签</div>
+                                </div>
+                            </a>
+                </div>
                 </div>
 
 
@@ -171,6 +186,7 @@
                 outNightTime: false,
                 isGetUp: false,
                 isGoBed: false,
+                isRecordMood:false,
                 goBedId:0,
                 getUpId:0,
                 result: {
@@ -487,7 +503,19 @@
             }, function (error) {
 
             });
+            //是否记录
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + "mood/find/userlast/_userId_",
+            }).then(function (data) {
+                console.log("ssssssssssssssss")
+                if(data.body.data!=null){
+                    _this.isRecordMood=true;
+                    console.log("11111111111")
+                }
 
+            });
 
             //获取天气
             wx.ready(function () {
@@ -539,7 +567,6 @@
 
 </script>
 <style>
-
     .night_action{
 
         /*background: url(../images/nightbg.png) no-repeat;*/
@@ -765,16 +792,39 @@
         text-align: center;
 
     }
+    .notes2{
+        padding:2rem 1.47058823rem 0 1.47058823rem;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        text-align: center;
+    }
 
     .go_record {
         width: 81%;
-        height: 7.2rem;
+        height: 5.9rem;
         background: #fff;
         border-radius: 5px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    .record_cover{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 99;
+        float: left;
+        background: rgba(0,0,0,0.3);
+        display: none;
+    }
+
+    .weui-tabbar__item:active  .record_cover{
+        display: block;
     }
 
     .go_record .img {
-        height: 83%;
+        height: 78%;
         background-color: #0ba98e;
         width: 100%;
         border-radius: 5px 5px 0px 0px;
@@ -783,9 +833,10 @@
     .record_left {
         float: left;
     }
-    .record_left .img{ background: url("../images/record_get_up.png") no-repeat center top; background-size: 100% }
-    .record_mid .img{ background: url("../images/record_mood.png") no-repeat center top ; background-size: 100%}
-    .record_right .img{ background: url("../images/record_go_bed.png") no-repeat center top; background-size: 100% }
+    .record_morning .img{ background: url("../images/record_morning.png") no-repeat center top; background-size: 100% }
+    .record_mid .img{ background: url("../images/record_moods.png") no-repeat center top ; background-size: 100%}
+    .record_night .img{ background: url("../images/record_night.png") no-repeat center top; background-size: 100% }
+    .record_everyDay .img{ background: url("../images/record_everyday.png") no-repeat center top; background-size: 100% }
     .record_fx{
         text-align: center;
         margin-top: 2.23rem;
@@ -831,7 +882,6 @@
         border-radius: 0px 0px 5px 5px;
         font-size: 0.82rem;
         color: #666;
-        line-height: 16px
     }
 
 
