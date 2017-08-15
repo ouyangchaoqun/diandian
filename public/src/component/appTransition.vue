@@ -122,9 +122,7 @@
             console.log(this.pagesIn);
             //处理页面跳转逻辑
             if ((from.path === "/sleepRank" || from.path === "/friendsMoods") && to.path === "/write"||(from.path === "/myCenter/myIndex"&&  to.path === "/addMood")) {
-                console.log(_this.$router.history);
                 _this.$router.go(-2);
-
                 next(false);
                 return false;
             }
