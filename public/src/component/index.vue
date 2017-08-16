@@ -4,7 +4,7 @@
 
 
         <audio  autoplay preload loop controls id="music1" style="">
-            <source src="/dist/6.MP3" type="audio/mp3" >
+            <source src="http://oj1hxt5z0.bkt.clouddn.com/123.mp3" type="audio/mp3" >
          </audio>
         <div  @click="playOrPause()">播放或者暂停</div>
         <div v-title>心情指数</div>
