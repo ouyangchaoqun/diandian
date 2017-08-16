@@ -3,7 +3,7 @@
 
 
 
-        <audio  autoplay preload loop controls id="music1" style="">
+        <audio  preload loop controls id="music1" style="">
             <source src="http://oj1hxt5z0.bkt.clouddn.com/123.mp3" type="audio/mp3" >
          </audio>
         <div  @click="playOrPause()">播放或者暂停</div>
@@ -218,13 +218,7 @@
 
             playOrPause: function () {
                 var audio = document.getElementById('music1');
-                if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
-                    WeixinJSBridge.invoke('getNetworkType', {}, function (res) {
-                        // 在这里拿到 e.err_msg, 这里面就包含了所有的网络类型
-                        // alert(res.err_msg);
-                        audio.play();
-                    });
-                }
+
 
                 if (audio !== null) {
                     //检测播放是否已暂停.audio.paused 在播放器播放时返回false.
@@ -381,10 +375,6 @@
 
             let _this = this;
             xqzs.wx.setConfig(_this);
-
-            wx.ready(function() {
-                document.getElementById('music1').play();
-            });
 
 
             $(".weui-tab__panel").scroll(function () {
