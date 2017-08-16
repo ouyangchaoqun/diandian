@@ -1,48 +1,42 @@
 <template id="myCenter">
-    <div style="height: 100%">
+    <div style="height: 100%" >
 
-
-
-        <audio  preload loop controls id="music1" style="">
-            <source src="http://oj1hxt5z0.bkt.clouddn.com/123.mp3" type="audio/mp3" >
-         </audio>
-        <div  @click="playOrPause()">播放或者暂停</div>
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
-            <a @click="record()" class="weui-tabbar__item  tab">
-                <span class="recordImg tab_icon"></span>
+            <a   @click="record()" class="weui-tabbar__item  tab">
+                <span  class="recordImg tab_icon"></span>
                 <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录打卡</p>
             </a>
 
-            <a @click="calendar()" class="weui-tabbar__item tab ">
-                <span class="calendarImg tab_icon"></span>
-                <p class="weui-tabbar__label" :class="{tabOn:calendarOn}">本周排行</p>
+            <a  @click="calendar()" class="weui-tabbar__item tab " >
+                <span  class="calendarImg tab_icon"></span>
+                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">本周排行</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
-                <span class="friendsImg tab_icon"></span>
-                <p class="weui-tabbar__label" :class="{tabOn:friendsOn}">小树洞</p>
+                <span   class="friendsImg tab_icon"></span>
+                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小树洞</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
-                <span class="meImg tab_icon"></span>
-                <p class="weui-tabbar__label" :class="{tabOn:meOn}">我的</p>
+                <span  class="meImg tab_icon"></span>
+                <p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>
                 <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
             </a>
 
         </div>
-        <div class="weui-tab__panel">
+        <div class="weui-tab__panel" >
             <div class="banner">
                 <v-banner></v-banner>
             </div>
             <!--banner end -->
             <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
                 <div class="notice_box notice_box_p">
-                    <div class="notice">
-                        <img class="notice_friend" :src="wxFaceUrl(notice.lastuser.faceUrl)"/>
+                    <div class="notice" >
+                        <img class="notice_friend"  :src="wxFaceUrl(notice.lastuser.faceUrl)" />
                         <div>{{notice.count}} 条新消息</div>
-                        <img class="goNotice" src="../images/iconjt.png" alt="">
+                        <img  class="goNotice" src="../images/iconjt.png" alt="">
                     </div>
                 </div>
             </router-link>
@@ -51,7 +45,7 @@
             <div class="mycenter_list">
                 <!--mycenter start-->
                 <div class="mycenter">
-                    <a @click="link('/myCenter/myIndex')">
+                    <a   @click="link('/myCenter/myIndex')">
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                             <template v-if="myLastMood">
@@ -97,30 +91,24 @@
                             <div class="list_left">
                                 <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                                 <div class="friend">
-                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName |
-                                        shortName(8)}}</p>
-                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName |
-                                        shortName(8)}}</p>
+                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}</p>
+                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}</p>
                                     <p class="time">{{friendMood.outTime}}</p>
                                 </div>
                             </div>
 
                             <div class="list_right">
                                 <img class="moodimg" :src="friendMood.moodValueUrl"/>
-                                <div class="interaction" @click.stop="care(friendMood.id)">
+                                <div class="interaction" @click.stop="care(friendMood.id)" >
                                     <div>{{ friendMood.careCount }}</div>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
+                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
                                          src="../images/list_icon_dianz_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
+                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
                                          src="../images/list_baob_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
+                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
                                          src="../images/list_icon_dianz_pre.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                         src="../images/list_baob_pre.png" alt=""/>
+                                    <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
+                                          src="../images/list_baob_pre.png" alt=""/>
                                 </div>
                             </div>
                         </a>
@@ -131,10 +119,8 @@
                             <div class="list_left">
                                 <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                                 <div class="friend">
-                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName |
-                                        shortName(8) }}</p>
-                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName |
-                                        shortName(8) }}</p>
+                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8) }}</p>
+                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8) }}</p>
 
                                     <p class="time">{{friendMood.outTime}}</p>
                                 </div>
@@ -142,20 +128,16 @@
 
                             <div class="list_right">
                                 <img class="moodimg" :src="friendMood.moodValueUrl"/>
-                                <div class="interaction" @click.stop="care(friendMood.id)">
+                                <div class="interaction" @click.stop="care(friendMood.id)" >
                                     <div>{{ friendMood.careCount }}</div>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
+                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
                                          src="../images/list_icon_dianz_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
+                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
                                          src="../images/list_baob_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
+                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
                                          src="../images/list_icon_dianz_pre.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}"
-                                         v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                         src="../images/list_baob_pre.png" alt=""/>
+                                    <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
+                                          src="../images/list_baob_pre.png" alt=""/>
                                 </div>
                             </div>
                         </a>
@@ -174,7 +156,6 @@
 <script type="es6">
     import banner from "./banner.vue";
     import Bus from './bus.js';
-
     let myCenter = {
         template: '#myCenter'
     };
@@ -182,88 +163,71 @@
     export default {
         data() {
             return {
-                myLastMood: null,
-                notice: {count: 0},
-                linkTo: "#",
-                noticeLink: '/notice',
-                fillFlag: false,
-                hasNewFirendMood: false,
-                newFirendMoodStyle: '',
-                hasNewPerfect: false,
-                newPerfectStyle: '',
-                scrollTop: 0
+                myLastMood:null,
+                notice:{count:0},
+                linkTo:"#",
+                noticeLink:'/notice',
+                fillFlag:false,
+                hasNewFirendMood:false,
+                newFirendMoodStyle:'',
+                hasNewPerfect:false,
+                newPerfectStyle:'',
+                scrollTop:0
             }
         },
-        filters: {
-            shortName: function (value, len) {
+        filters:{
+            shortName:function(value,len){
 
-                return xqzs.shortname(value, len);
+                return xqzs.shortname(value,len);
 
             }
         },
-        props: {
-            user: {
-                type: Object
-            }, friendMoodsSpe: {
-                type: Object
+        props:{
+            user:{
+                type:Object
+            },friendMoodsSpe: {
+                type:Object
             },
             friendMoods: {
-                type: Object
+                type:Object
             },
-            myLastMood: {
-                type: Object
+            myLastMood:{
+                type:Object
             }
         },
         methods: {
-
-            playOrPause: function () {
-                var audio = document.getElementById('music1');
-
-
-                if (audio !== null) {
-                    //检测播放是否已暂停.audio.paused 在播放器播放时返回false.
-                    alert(audio.paused);
-                    if (audio.paused) {
-                        audio.play();//audio.play();// 这个就是播放
-                    } else {
-                        audio.pause();// 这个就是暂停
-                    }
-                }
-            },
-
-
-            record: function () {
-                var _this = this;
-                Bus.$emit("goIndex", false);
+            record:function () {
+                var  _this=this;
+                Bus.$emit("goIndex",false);
                 setTimeout(function () {
                     _this.$router.push("/record")
-                }, 2)
+                },2)
             },
-            calendar: function () {
-                var _this = this;
+            calendar:function () {
+                var  _this=this;
                 setTimeout(function () {
                     let date = new Date();
-                    _this.$router.push("/ranklist/w/" + date.getFullYear() + "-" + now_week);
-                }, 2)
+                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+ now_week );
+                },2)
             },
             care: function (id) {
                 let _this = this;
                 _this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
                     if (data.data.status === 1) {
-                        for (var i = 0; i < _this.friendMoodsSpe.length; i++) {
-                            if (_this.friendMoodsSpe[i].id === id) {
-                                _this.friendMoodsSpe[i].careCount = data.data.data;
-                                _this.friendMoodsSpe[i].hit = true;
-                                _this.friendMoodsSpe[i].isCare = true;
+                        for(var i = 0; i<_this.friendMoodsSpe.length;i++){
+                            if(_this.friendMoodsSpe[i].id===id){
+                                _this.friendMoodsSpe[i].careCount =data.data.data;
+                                _this.friendMoodsSpe[i].hit=true;
+                                _this.friendMoodsSpe[i].isCare=true;
                             }
 
 
                         }
-                        for (i = 0; i < _this.friendMoods.length; i++) {
-                            if (_this.friendMoods[i].id === id) {
-                                _this.friendMoods[i].hit = true;
-                                _this.friendMoods[i].careCount = data.data.data;
-                                _this.friendMoods[i].isCare = true;
+                        for( i = 0; i<_this.friendMoods.length;i++){
+                            if(_this.friendMoods[i].id===id){
+                                _this.friendMoods[i].hit=true;
+                                _this.friendMoods[i].careCount =data.data.data;
+                                _this.friendMoods[i].isCare=true;
 
                             }
                         }
@@ -279,10 +243,10 @@
             link: function (url) {
                 this.$router.push(url)
             },
-            friendLink: function (userId) {
-                this.$router.push({name: 'friendUrl', params: {Id: userId}})
+            friendLink:function (userId) {
+                this.$router.push({name: 'friendUrl', params: {Id:userId}})
             },
-            _createinvite: function (type, callback) {
+            _createinvite:function (type,callback) {
                 this.$http({
                     method: 'GET',
                     type: "json",
@@ -295,94 +259,94 @@
                     }
                 })
             },
-            createinvite: function () {
+            createinvite:function () {
                 let that = this;
-                that._createinvite('link', function () {
-                    that._createinvite('card', function () {
-                    });
+                that._createinvite('link',function () {
+                    that._createinvite('card',function () {});
                     xqzs.weui.dialog({
-                        title: '邀请卡已经发送',
-                        msg: '前往公众号查看你的专属名片',
-                        submitText: '查看',
-                        submitFun: function () {
+                        title:'邀请卡已经发送',
+                        msg:'前往公众号查看你的专属名片',
+                        submitText:'查看',
+                        submitFun:function () {
                             try {
                                 WeixinJSBridge.call('closeWindow');
-                            } catch (e) {
+                            }catch (e){
                             }
                         }
                     })
                 });
             },
-            canWriteMood: function () {
+            canWriteMood:function () {
 
             },
 
-            getFriendLastMood: function () {
+            getFriendLastMood:function () {
                 var that = this;
                 //好友是否有新心情
                 var lastfriendmoodid = xqzs.friendmood.getlast();
-                if (lastfriendmoodid != '') {
+                if(lastfriendmoodid!=''){
                     that.$http.get(web.API_PATH + "mood/find/friendlast/_userId_")
                         .then(function (bt) {
-                            if (bt && bt.data.status == 1) {
+                            if(bt && bt.data.status == 1){
                                 var data = bt.data.data;
                                 var newId = data.id;
-                                console.info(newId + '   ' + lastfriendmoodid)
-                                if (newId > parseFloat(lastfriendmoodid)) {
-                                    that.hasNewFirendMood = true;
+                                console.info(newId+'   '+lastfriendmoodid)
+                                if(newId > parseFloat(lastfriendmoodid)){
+                                    that.hasNewFirendMood=true;
                                     var container = $('#tabs .tab:eq(0)');
                                     var right = (container.width() - 32) / 2;
-                                    that.newFirendMoodStyle = 'right:' + right + 'px';
+                                    that.newFirendMoodStyle = 'right:'+right+'px';
                                 }
                             }
                         })
                 }
             },
-            getNewPerfect: function () {
+            getNewPerfect:function () {
                 var infokey = 'perfectinfo';
-                if (xqzs.version.isshow(infokey)) {
-                    this.hasNewPerfect = true;
+                if(xqzs.version.isshow(infokey)){
+                    this.hasNewPerfect=true;
                     var container = $('#tabs .tab:eq(0)');
                     var right = (container.width() - 32) / 2;
-                    this.newPerfectStyle = 'right:' + right + 'px';
+                    this.newPerfectStyle = 'right:'+right+'px';
                 }
             },
-            hideNewCircle: function (key, url) {
-                var _this = this;
-                if (key == 'mood') {
+            hideNewCircle:function (key,url) {
+                var _this =this ;
+                if(key == 'mood'){
                     this.hasNewFirendMood = false;
                 }
-                if (key == 'perfect') {
+                if(key == 'perfect'){
                     this.hasNewPerfect = false;
                 }
                 setTimeout(function () {
                     _this.$router.push(url)
-                }, 2)
+                },2)
 
             },
-            wxFaceUrl: function (faceUrl) {
+            wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             }
         },
-        computed: {
-            hasLine: function () {
-                return this.friendMoodsSpe != null && this.friendMoodsSpe.length > 0
-                    && this.friendMoods != null && this.friendMoods.length > 0;
+        computed:{
+            hasLine:function () {
+                return this.friendMoodsSpe!=null && this.friendMoodsSpe.length > 0
+                    && this.friendMoods!=null && this.friendMoods.length > 0 ;
             }
         },
 
         mounted: function () {
 
-            let _this = this;
+            let _this =this;
             xqzs.wx.setConfig(_this);
 
-
             $(".weui-tab__panel").scroll(function () {
-                xqzs.localdb.set("indexScrollTop", $(this).scrollTop())
+                xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
             });
 
 
-            _this.noticeLink = _this.noticeLink + "/?time=" + xqzs.dateTime.getTimeStamp();
+            _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
+
+
 
 
             Bus.$emit('initHomeData');
@@ -402,12 +366,12 @@
             });
 
 
-            if (window.screen.height == $(window).height()) {
-                if (window.screen.width == 320 && window.screen.availHeight == 548) {
-                    var style = "<style id='iphone5style'>.transitionBox .child-view{height:504px !important;}</style>";
+            if(window.screen.height==$(window).height()){
+                if(window.screen.width==320&& window.screen.availHeight==548){
+                    var style ="<style id='iphone5style'>.transitionBox .child-view{height:504px !important;}</style>";
                     $(".child-view").append(style);
                 }
-            } else {
+            }else{
                 $("#iphone5style").remove();
             }
 
@@ -416,11 +380,11 @@
 //           },100)
 
         },
-        updated: function () {
-            var obj = $(".mycenter>a ,.addBorder>a")
+        updated:function () {
+            var obj =  $(".mycenter>a ,.addBorder>a")
             xqzs.weui.active(obj);
 
-            $(".interaction").on("touchstart", function () {
+            $(".interaction").on("touchstart",function () {
                 event.stopPropagation();
             })
 
@@ -434,90 +398,41 @@
 
 </script>
 <style>
-    .tab {
-        position: relative;
-        padding-top: 0 !important;
-    }
+    .tab{position: relative; padding-top: 0 !important;}
+    #tabs a .tab_icon{ background: url(../images/tab_icons.png) no-repeat; background-size: 116px; height: 27px; width: 29px; display: inline-block; margin-top: 1px;}
+    #tabs a .tab_icon.recordImg{ background-position: 0 0px}
+    #tabs a .tab_icon.calendarImg{ background-position: -29px 0px}
+    #tabs a .tab_icon.friendsImg{ background-position: -58px 0px}
+    #tabs a .tab_icon.meImg{ background-position: -87px 0px}
 
-    #tabs a .tab_icon {
-        background: url(../images/tab_icons.png) no-repeat;
-        background-size: 116px;
-        height: 27px;
-        width: 29px;
-        display: inline-block;
-        margin-top: 1px;
-    }
+    #tabs a:active span.recordImg{ background-position: 0  -29px}
+    #tabs a:active span.calendarImg{ background-position: -29px -29px}
+    #tabs a:active span.friendsImg{ background-position: -58px -29px}
+    #tabs a:active span.meImg{ background-position: -87px -29px}
+    #tabs a:active .weui-tabbar__label{ color:#00bd00}
 
-    #tabs a .tab_icon.recordImg {
-        background-position: 0 0px
-    }
 
-    #tabs a .tab_icon.calendarImg {
-        background-position: -29px 0px
+    .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px !important;width: 8px!important;}
+    .tab img{
+        height: 24px;  width:24px;
     }
-
-    #tabs a .tab_icon.friendsImg {
-        background-position: -58px 0px
-    }
-
-    #tabs a .tab_icon.meImg {
-        background-position: -87px 0px
-    }
-
-    #tabs a:active span.recordImg {
-        background-position: 0 -29px
-    }
-
-    #tabs a:active span.calendarImg {
-        background-position: -29px -29px
-    }
-
-    #tabs a:active span.friendsImg {
-        background-position: -58px -29px
-    }
-
-    #tabs a:active span.meImg {
-        background-position: -87px -29px
-    }
-
-    #tabs a:active .weui-tabbar__label {
-        color: #00bd00
-    }
-
-    .tab .hasnew {
-        position: absolute;
-        background-color: #ff0000;
-        border-radius: 50%;
-        position: absolute;
-        top: 1px;
-        height: 8px !important;
-        width: 8px !important;
-    }
-
-    .tab img {
-        height: 24px;
-        width: 24px;
-    }
-
-    .friendCenter .addBorder {
+    .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
     }
 
     #tabs {
-        z-index: 10000;
+        z-index:10000;
         background: #fff;
         height: 47px;
-        border-top: 1px solid #ddd;
-        padding-top: 1px;
+        border-top:1px solid #ddd;padding-top:1px;
     }
+    #tabs:before{  display: none }
+    #tabs .weui-tabbar__label{ color:#777}
 
-    #tabs:before {
-        display: none
-    }
 
-    #tabs .weui-tabbar__label {
-        color: #777
-    }
+
+
+
 
     body, html {
         width: 100%;
@@ -538,15 +453,9 @@
         list-style: none;
     }
 
-    .addMoodBg {
-        background: rgba(0, 0, 0, 0.6);
-        height: 100%;
-        width: 100%;
-        z-index: 0;
-        position: fixed;
-        top: 0;
-        display: none
-    }
+
+    .addMoodBg{ background: rgba(0,0,0,0.6); height: 100%; width: 100%; z-index: 0; position: fixed;top:0; display: none}
+
 
     .mycenter {
         background: #ffffff;
@@ -573,7 +482,7 @@
     .friendName {
         font-size: 16px;
         color: #333;
-        width: 144px;
+        width:144px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -616,9 +525,8 @@
         font-size: 15px;
         line-height: 72px;
     }
-
-    .list_right span.noRecord {
-        margin-right: 24px
+    .list_right span.noRecord{
+        margin-right:24px
     }
 
     .moodimg {
@@ -641,22 +549,19 @@
         color: #aeaeae;
         overflow: hidden;
     }
-
-    .interaction div {
+    .interaction div{
         line-height: 14px;
     }
 
     .interaction img {
-        display: block;
-        margin-top: 2px;
+        display:block; margin-top: 2px;
         width: 20px;
         height: 20px;
     }
+    .interaction a{
 
-    .interaction a {
-
-        height: 20px;
-        padding: 0;
+        height:20px;
+        padding:0;
     }
 
     .mycenterFill {
@@ -666,7 +571,7 @@
     }
 
     .friendCenter {
-        padding: 0;
+        padding:0;
     }
 
     .share {
@@ -682,21 +587,15 @@
         text-align: center;
 
     }
-
-    .share:active {
+    .share:active{
         background: #ECECEC;
     }
-
-    .notice_box {
+    .notice_box{
         background: #ffffff;
         border-bottom: 1px solid #eee;
     }
-
-    .notice_box_p {
-        padding: 16px 0
-    }
-
-    .notice {
+    .notice_box_p{ padding: 16px 0}
+    .notice{
         height: 40px;
         width: 180px;
         background: #393939;
@@ -704,41 +603,34 @@
         margin: 0 auto;
 
     }
-
-    .notice:active {
-        background: #1f1f1f
-    }
-
-    .notice_friend {
-        height: 32px;
+    .notice:active{ background: #1f1f1f}
+    .notice_friend{
+        height:32px;
         width: 32px;
         float: left;
-        margin-left: 5px;
-        margin-top: 5px;
+        margin-left:5px;
+        margin-top:5px;
         display: block;
     }
-
-    .notice div {
+    .notice div{
         float: left;
-        height: 40px;
+        height:40px;
         line-height: 40px;
         color: #fff;
-        margin-left: 32px;
+        margin-left:32px;
         font-size: 13px;
     }
-
-    .notice .goNotice {
-        width: 16px;
-        height: 16px;
+    .notice .goNotice{
+        width:16px;
+        height:16px;
         display: block;
         float: right;
         margin-right: 14px;
-        margin-top: 12px;
+        margin-top:12px;
     }
-
-    .notice img {
+    .notice img{
         height: 30px;
-        width: 30px;
+        width:30px;
     }
 
 </style>

@@ -49,7 +49,8 @@ let routers =
                 require('./routes/write'),
                 require('./routes/luck'),
                 require('./routes/constellationLuck'),
-                require('./routes/getUpStatistics')
+                require('./routes/getUpStatistics'),
+                require('./routes/music')
 
             ]
         }
