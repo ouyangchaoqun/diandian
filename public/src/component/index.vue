@@ -1,8 +1,10 @@
 <template id="myCenter">
     <div style="height: 100%">
 
-        <audio  controls="controls" preload id="music1" style="">
-            <source src="/dist/6.MP3" type="audio/mp3" hidden>
+
+
+        <audio  autoplay preload loop controls id="music1" style="">
+            <source src="/dist/6.MP3" type="audio/mp3" >
          </audio>
         <div  @click="playOrPause()">播放或者暂停</div>
         <div v-title>心情指数</div>
@@ -216,6 +218,14 @@
 
             playOrPause: function () {
                 var audio = document.getElementById('music1');
+                if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+                    WeixinJSBridge.invoke('getNetworkType', {}, function (res) {
+                        // 在这里拿到 e.err_msg, 这里面就包含了所有的网络类型
+                        // alert(res.err_msg);
+                        audio.play();
+                    });
+                }
+
                 if (audio !== null) {
                     //检测播放是否已暂停.audio.paused 在播放器播放时返回false.
                     alert(audio.paused);
@@ -371,6 +381,11 @@
 
             let _this = this;
             xqzs.wx.setConfig(_this);
+
+            wx.ready(function() {
+                document.getElementById('music1').play();
+            });
+
 
             $(".weui-tab__panel").scroll(function () {
                 xqzs.localdb.set("indexScrollTop", $(this).scrollTop())
