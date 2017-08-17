@@ -184,7 +184,8 @@
                 console.log(this.time)
                 if( this.time >= this.autoCloseTime*60||(this.audio!=null&&this.audio.paused) ){
                     if(this.audio!=null){
-                       this.play()
+                        this.audio.pause();// 这个就是暂停
+                        this.isPlay=false;
                         this.noteTime="已经停止播放";
                         if(this.timeout!=null)clearTimeout(this.timeout);
                     }
