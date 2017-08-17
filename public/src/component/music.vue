@@ -29,7 +29,7 @@
     var propaganda = {
         template: '#music'
     };
-    var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music2/";
+    var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music/";
     export default {
         data() {
             return {
