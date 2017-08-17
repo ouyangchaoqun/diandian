@@ -169,7 +169,7 @@
                 console.log(this.time)
                 if( this.time >= this.autoCloseTime*60 ){
                     if(this.audio!=null){
-                       this.audio.pause()
+                       this.play()
                         this.noteTime="已经停止播放";
                         if(this.timeout!=null)clearTimeout(this.timeout);
                     }
