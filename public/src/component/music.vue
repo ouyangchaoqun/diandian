@@ -203,6 +203,7 @@
             this.audio.autobuffer=true;
             this.audio.src=this.url;
 
+            this.play();
         },
         beforeDestroy:function () {
             if(this.audio!=null){
