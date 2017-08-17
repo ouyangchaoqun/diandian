@@ -79,7 +79,7 @@
                                 <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
                             </div>
                             <div class="record_bottom" @click="music" v-if="result.data.type==3">
-                                <div class="doRecord" v-if="result.data.type==3">早睡音乐</div>
+                                <div class="doRecord" v-if="result.data.type==3">晚安音乐</div>
                             </div>
                             <div class="record_bottom" @click="writeOrRank">
                                 <div class="doRecord" v-if="result.data.type==2">早起排行榜</div>

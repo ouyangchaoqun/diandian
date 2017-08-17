@@ -236,9 +236,9 @@
     }
 
     .music_list li {
-        width: 43%;
+        width: 60%;
         clear: both;
-        margin: 0 auto;
+        margin-left: 30%;
         padding: 2.367647rem 0
     }
 
@@ -258,7 +258,7 @@
         font-size: 0.8823529rem;
         margin-left: 1.2rem;
         height: 2.6470588rem;
-        width: 5.4470588rem;
+        width: 5.8470588rem;
         line-height: 2.6470588rem;
         display: inline-block
     }
