@@ -28,7 +28,7 @@
                 timeout:null,
                 audio:null,
                 isPlay:false,
-                url:"http://m8.music.126.net/20170816182208/b95452ed2da4c626a1efb550b4624091/ymusic/269b/4222/e2ad/cb000239b0ae4afcf8f92e07d90da2d7.mp3",
+                url:web.IMG_PATH+"music/1.mp3",
                 autoCloseTime: 20,
                 musicList: [
                     {
@@ -36,49 +36,49 @@
                         picOn: web.IMG_PATH + '/music/music_1_on.png',
                         name: '大海',
                         on:true,
-                        url: 'http://m8.music.126.net/20170816182208/b95452ed2da4c626a1efb550b4624091/ymusic/269b/4222/e2ad/cb000239b0ae4afcf8f92e07d90da2d7.mp3'
+                        url:"http://moodindex.oss-cn-shanghai.aliyuncs.com/music/1.mp3"
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_2.png',
                         picOn: web.IMG_PATH + '/music/music_2_on.png',
                         name: '火焰燃烧',
-                        url: 'http://m7.music.126.net/20170816183147/53452f3657ba68b1965d70744875356b/ymusic/55dd/8c7e/21b1/f6c7fde240458c3d4277d5d57ee00a95.mp3'
+                        url:"http://moodindex.oss-cn-shanghai.aliyuncs.com/music/2.mp3"
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_3.png',
                         picOn: web.IMG_PATH + '/music/music_3_on.png',
                         name: '下雨的声音',
-                        url: 'http://m8.music.126.net/20170816171211/c4ff1f1e39e94ee91798c820f1e5c5e1/ymusic/5023/4044/0ef2/1768fb9fc869ffa4fc52c3680869a6f3.mp3'
+                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/3.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_4.png',
                         picOn: web.IMG_PATH + '/music/music_4_on.png',
                         name: '空灵冥想',
-                        url: 'http://m10.music.126.net/20170816171245/a00049f6b892e0472b13e9e11e3dd240/ymusic/94b4/b597/1ab3/5d70d587d8e9ac4ee9f70a5db02ad243.mp3'
+                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/4.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_5.png',
                         picOn: web.IMG_PATH + '/music/music_5_on.png',
                         name: '森林',
-                        url: 'http://m7.music.126.net/20170816171410/e453bdfa6aabb1e1c207d3dd089efb00/ymusic/477f/493d/6448/4c0a689cbd2de697de10e4c72204dd0e.mp3'
+                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/5.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_6.png',
                         picOn: web.IMG_PATH + '/music/music_6_on.png',
                         name: '风吹草地',
-                        url: 'http://m8.music.126.net/20170816171428/7c349ecd308300d81f8054ee41b9ff28/ymusic/ee37/79ec/b2ec/8c6f74be691711d063db3d3be6f2d2cf.mp3'
+                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/6.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_7.png',
                         picOn: web.IMG_PATH + '/music/music_7_on.png',
                         name: '鸟叫空谷回响',
-                        url: 'http://m8.music.126.net/20170816171451/bdd58ba80ca6cf5c3ebca3ee741d3a10/ymusic/0c43/fe31/da9b/8a364b61342e2f171034cba8c2595bf1.mp3'
+                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/7.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_8.png',
                         picOn: web.IMG_PATH + '/music/music_8_on.png',
                         name: '小溪流水',
-                        url: 'http://m8.music.126.net/20170816171541/4b4549c2987605ea22880b6a1a74dd9e/ymusic/28ba/00f4/c499/4f769e39e414963414ac8f3533389eb4.mp3'
+                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/8.mp3'
                     }
                 ]
             }
@@ -97,6 +97,7 @@
                     this.audio.pause()
                 }
                 this.audio=document.createElement("audio");
+                this.audio.loop="loop";
                 this.audio.src=this.url;//路径
                 this.isPlay=false;
             },
@@ -146,6 +147,7 @@
         mounted: function () {
             this.audio=document.createElement("audio");
             this.audio.src=this.url;
+            this.audio.loop="loop";
 
         }
     }
