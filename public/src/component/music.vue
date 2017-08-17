@@ -205,12 +205,6 @@
             this.audio.autobuffer=true;
             this.audio.src=this.url;
 
-            var worker =new Worker("../src/js/worker.js"); //创建一个Worker对象并向它传递将在新线程中执行的脚本的URL
-            worker.postMessage("hello world");     //向worker发送数据
-            worker.onmessage =function(evt){     //接收worker传过来的数据函数
-                console.log(evt.data);              //输出worker发送来的数据
-            }
-
         },
         beforeDestroy:function () {
             if(this.audio!=null){
