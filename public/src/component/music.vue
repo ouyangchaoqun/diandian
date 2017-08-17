@@ -182,7 +182,7 @@
 
                 this.noteTime= lastMin+":"+lastSen+"后停止";
                 console.log(this.time)
-                if( this.time >= this.autoCloseTime*60 ){
+                if( this.time >= this.autoCloseTime*60||(this.audio!=null&&this.audio.paused) ){
                     if(this.audio!=null){
                        this.play()
                         this.noteTime="已经停止播放";
