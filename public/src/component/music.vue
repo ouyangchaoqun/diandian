@@ -21,6 +21,7 @@
     var propaganda = {
         template: '#music'
     };
+    var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music2/";
     export default {
         data() {
             return {
@@ -28,7 +29,7 @@
                 timeout:null,
                 audio:null,
                 isPlay:false,
-                url:web.IMG_PATH+"music/1.mp3",
+                url:musicPath+"1.mp3",
                 autoCloseTime: 20,
                 musicList: [
                     {
@@ -36,49 +37,49 @@
                         picOn: web.IMG_PATH + '/music/music_1_on.png',
                         name: '大海',
                         on:true,
-                        url:"http://moodindex.oss-cn-shanghai.aliyuncs.com/music/1.mp3"
+                        url:musicPath+"1.mp3"
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_2.png',
                         picOn: web.IMG_PATH + '/music/music_2_on.png',
                         name: '火焰燃烧',
-                        url:"http://moodindex.oss-cn-shanghai.aliyuncs.com/music/2.mp3"
+                        url:musicPath+"2.mp3"
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_3.png',
                         picOn: web.IMG_PATH + '/music/music_3_on.png',
                         name: '下雨的声音',
-                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/3.mp3'
+                        url: musicPath+'3.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_4.png',
                         picOn: web.IMG_PATH + '/music/music_4_on.png',
                         name: '空灵冥想',
-                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/4.mp3'
+                        url: musicPath+'4.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_5.png',
                         picOn: web.IMG_PATH + '/music/music_5_on.png',
                         name: '森林',
-                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/5.mp3'
+                        url: musicPath+'5.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_6.png',
                         picOn: web.IMG_PATH + '/music/music_6_on.png',
                         name: '风吹草地',
-                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/6.mp3'
+                        url: musicPath+'6.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_7.png',
                         picOn: web.IMG_PATH + '/music/music_7_on.png',
                         name: '鸟叫空谷回响',
-                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/7.mp3'
+                        url: musicPath+'7.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_8.png',
                         picOn: web.IMG_PATH + '/music/music_8_on.png',
                         name: '小溪流水',
-                        url: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/music/8.mp3'
+                        url:musicPath+'8.mp3'
                     }
                 ]
             }
