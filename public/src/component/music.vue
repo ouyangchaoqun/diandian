@@ -111,6 +111,7 @@
                 this.audio.loop="loop";
                 this.audio.src=this.url;//路径
                 this.isPlay=false;
+                this.audio.autobuffer=true;
                 this.play()
             },
             play:function () {
@@ -186,6 +187,7 @@
             this.audio=document.createElement("audio");
             this.audio.src=this.url;
             this.audio.loop="loop";
+            this.audio.autobuffer=true;
             this.play();
         }
     }
