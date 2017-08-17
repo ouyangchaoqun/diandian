@@ -165,6 +165,15 @@
                     lastSen="00";
                 }
 
+                if(this.audio!=null) {
+
+                    // 获取已缓冲部分的 TimeRanges 对象
+                    var timeRanges = this.audio.buffered;// 获取以缓存的时间
+                  //  var timeBuffered = timeRanges.end(timeRanges.length - 1);// 获取缓存进度，值为0到1
+                  //  var bufferPercent = timeBuffered / this.audio.duration;
+                    console.log(timeRanges)
+                }
+
 
                 this.noteTime= lastMin+":"+lastSen+"后停止";
                 console.log(this.time)
