@@ -1,5 +1,6 @@
 <template id="music">
     <div class="music_bg">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <ul class="music_list">
             <li v-for="(music,index) in musicList"  :key="index" @click="select(index)">
                 <img class="icon" :src="music.picOn" v-if="music.on"/>
@@ -30,9 +31,12 @@
         template: '#music'
     };
     var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music2/";
+
+    import showLoad from "./showLoad.vue"
     export default {
         data() {
             return {
+                showLoad:false,
                 time:0,
                 timeout:null,
                 audio:null,
@@ -172,6 +176,7 @@
                   //  var timeBuffered = timeRanges.end(timeRanges.length - 1);// 获取缓存进度，值为0到1
                   //  var bufferPercent = timeBuffered / this.audio.duration;
                     console.log(timeRanges)
+                    if(timeRanges.length!=1){this.showLoad=true}else{this.showLoad=false}
                 }
 
 
@@ -206,6 +211,9 @@
                     this.play();
                 }
             }
+        },
+        components: {
+            'v-showLoad':showLoad
         }
     }
 
