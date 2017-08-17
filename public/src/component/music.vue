@@ -29,7 +29,7 @@
     var propaganda = {
         template: '#music'
     };
-    var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music/";
+    var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music2/";
     export default {
         data() {
             return {
@@ -189,6 +189,14 @@
             this.audio.loop="loop";
             this.audio.autobuffer=true;
             this.play();
+        },
+        beforeDestroy:function () {
+            if(this.audio!=null){
+                if (this.audio.paused) {
+                }else{
+                    this.play();
+                }
+            }
         }
     }
 

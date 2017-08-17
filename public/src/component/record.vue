@@ -62,7 +62,7 @@
                     <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
                         <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template
-                                v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
+                                v-show="result.data.type==2">起</template><template v-show="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
                         <div class="record_compare">
                             共有{{result.allCount}}人陪我早
@@ -70,20 +70,24 @@
                             <template v-if="result.data.type==3">睡</template>
                             ，当前总排行第{{result.rank}}名
                         </div>
-                        <!--<div class="record_fx">-->
-                        <!--<div class="record_inmid">-->
-                        <!--<div class="record_share" :class="{night_share:result.data.type==3}" @click="share">分享成就</div>-->
-                        <!--<div class="record_rank" :class="{night_rank:result.data.type==3}" @click="goRank"><template v-if="result.data.type==2">早</template><template v-if="result.data.type==3">晚</template>安排行</div>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <div class="midLine" v-if="result.data.type==2"></div>
-                        <div class="record_bottom" @click="share" v-if="result.data.type==2">
-                            <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
+
+
+
+                        <div class="bottom_btn">
+                            <div class="midLine" ></div>
+                            <div  class="record_bottom" @click="share" v-if="result.data.type==2">
+                                <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
+                            </div>
+                            <div class="record_bottom" @click="music" v-if="result.data.type==3">
+                                <div class="doRecord" v-if="result.data.type==3">早睡音乐</div>
+                            </div>
+                            <div class="record_bottom" @click="writeOrRank">
+                                <div class="doRecord" v-if="result.data.type==2">早起排行榜</div>
+                                <div class="doRecord" v-if="result.data.type==3">早睡排行榜</div>
+                            </div>
+
                         </div>
-                        <div class="record_bottom2" @click="writeOrRank">
-                            <div class="doRecord" v-if="result.data.type==2">早起排行榜</div>
-                            <div class="doRecord" v-if="result.data.type==3">早睡排行榜</div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="night_action">
@@ -102,6 +106,8 @@
                     <div class="ealy_time" v-if="outNightTime">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</div>
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
+
+
 
                     <div class="midLine" v-if="isGetUp&&outMorningTime"></div>
                     <div class="record_bottom" @click="share" v-if="isGetUp">
@@ -225,6 +231,9 @@
             }
         },
         methods: {
+            music:function () {
+              this.$router.push("/music")
+            },
             share: function () {
                 let _this = this;
                 _this.showLoad = true;
@@ -613,6 +622,35 @@
 
 </script>
 <style>
+
+
+    .bottom_btn{
+        position: absolute;
+        bottom: 0;
+        height: 2.95rem;
+        line-height: 2.95rem;
+        display: flex;
+        display: -webkit-box;
+        width: 100%;
+        background-color: rgba(137, 181, 250, 1);
+    }
+    .bottom_btn .record_bottom{
+        display: flex;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+
+        font-size: 0.88rem;
+        text-align: center;
+        color: #fff;
+    }
+
     .night_action {
 
         /*background: url(../images/nightbg.png) no-repeat;*/
@@ -1059,17 +1097,6 @@
         vertical-align: middle;
     }
 
-    .record_bottom, .record_bottom2 {
-        font-size: 0.88rem;
-        width: 50%;
-        text-align: center;
-        background-color: rgba(137, 181, 250, 1);
-        color: #fff;
-        position: absolute;
-        bottom: 0;
-        height: 2.95rem;
-        line-height: 2.8rem;
-    }
 
     .record_bottom2 {
         width: 50%;
