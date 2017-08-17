@@ -3,8 +3,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <ul class="music_list">
             <li v-for="(music,index) in musicList"  :key="index" @click="select(index)">
-                <img class="icon" :src="music.picOn" v-if="music.on"/>
-                <img class="icon" :src="music.pic" v-if="!music.on"/>
+                 <div class="icon" :class="{ on:music.on}" ></div>
                 <span class="name" :class="{txt_on:music.on}">{{music.name}}</span>
             </li>
         </ul>
@@ -240,27 +239,76 @@
         width: 60%;
         clear: both;
         margin-left: 30%;
-        padding: 2.367647rem 0
+        padding: 2rem 0
     }
 
     .music_list li:last-child {
         padding-bottom: 5rem;
     }
 
+    .music_list .icon{ background: url(../../dist/music/icons.png); background-size:14.11764705882353rem }
     .music_list .icon {
-        height: 2.6470588rem;
-        width: 2.6470588rem;
+        height: 3.529411764705882rem;
+        width: 3.529411764705882rem;
         float: left
     }
+    .music_list li:nth-child(1) .icon{
+        background-position: 0 0;
+    }
+    .music_list li:nth-child(1) .icon.on{
+        background-position: 0 -3.529411764705882rem;
+    }
+    .music_list li:nth-child(2) .icon{
+        background-position: -3.529411764705882rem 0;
+    }
+    .music_list li:nth-child(2) .icon.on{
+        background-position: -3.529411764705882rem -3.529411764705882rem;
+    }
+    .music_list li:nth-child(3) .icon{
+        background-position: -7.058823529411764rem 0;
+    }
+    .music_list li:nth-child(3) .icon.on{
+        background-position: -7.058823529411764rem -3.529411764705882rem;
+    }
+    .music_list li:nth-child(4) .icon{
+        background-position: -10.58823529411765rem 0;
+    }
+    .music_list li:nth-child(4) .icon.on{
+        background-position: -10.58823529411765rem -3.529411764705882rem;
+    }
 
+    .music_list li:nth-child(5) .icon{
+        background-position: 0 -7.058823529411764rem;
+    }
+    .music_list li:nth-child(5) .icon.on{
+        background-position: 0 -10.58823529411765rem;
+    }
+    .music_list li:nth-child(6) .icon{
+        background-position: -3.529411764705882rem -7.058823529411764rem;
+    }
+    .music_list li:nth-child(6) .icon.on{
+        background-position: -3.529411764705882rem -10.58823529411765rem;
+    }
+    .music_list li:nth-child(7) .icon{
+        background-position: -7.058823529411764rem -7.058823529411764rem;
+    }
+    .music_list li:nth-child(7) .icon.on{
+        background-position: -7.058823529411764rem -10.58823529411765rem;
+    }
+    .music_list li:nth-child(8) .icon{
+        background-position: -10.58823529411765rem -7.058823529411764rem;
+    }
+    .music_list li:nth-child(8) .icon.on{
+        background-position: -10.58823529411765rem -10.58823529411765rem;
+    }
     .music_list .name {
         color: #8382a8;
         float: left;
         font-size: 0.8823529rem;
         margin-left: 1.2rem;
-        height: 2.6470588rem;
+        height:3.529411764705882rem;
         width: 5.8470588rem;
-        line-height: 2.6470588rem;
+        line-height: 3.529411764705882rem;
         display: inline-block
     }
 
