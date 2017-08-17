@@ -199,10 +199,10 @@
         },
         mounted: function () {
             this.audio=document.createElement("audio");
-            this.audio.src=this.url;
             this.audio.loop="loop";
             this.audio.autobuffer=true;
-            this.play();
+            this.audio.src=this.url;
+
         },
         beforeDestroy:function () {
             if(this.audio!=null){
