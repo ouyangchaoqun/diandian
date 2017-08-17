@@ -30,7 +30,7 @@
     var propaganda = {
         template: '#music'
     };
-    var musicPath= "http://moodindex.oss-cn-shanghai.aliyuncs.com/music2/";
+    var musicPath= "http://oss.xqzs.cn/2017-08/17/";
 
     import showLoad from "./showLoad.vue"
     export default {
@@ -41,7 +41,7 @@
                 timeout:null,
                 audio:null,
                 isPlay:false,
-                url:musicPath+"5.mp3",
+                url:musicPath+"C226C451614BD17FC04AF36FADCF084E.mp3",
                 autoCloseTime: 20,
                 noteTime:"20:00后停止",
                 musicList: [
@@ -49,51 +49,51 @@
                         pic: web.IMG_PATH + '/music/music_1.png',
                         picOn: web.IMG_PATH + '/music/music_1_on.png',
                         name: '大海',
-                        url:musicPath+"1.mp3"
+                        url:musicPath+"36D52D026C189BC32B92AE3E1CA322EE.mp3"
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_2.png',
                         picOn: web.IMG_PATH + '/music/music_2_on.png',
                         name: '火焰燃烧',
-                        url:musicPath+"2.mp3"
+                        url:musicPath+"7680A0402DD1E1CB9C997B32915DD547.mp3"
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_3.png',
                         picOn: web.IMG_PATH + '/music/music_3_on.png',
                         name: '下雨的声音',
-                        url: musicPath+'3.mp3'
+                        url: musicPath+'B1F99E43188CF4265F7EAD68CAB0DB6A.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_4.png',
                         picOn: web.IMG_PATH + '/music/music_4_on.png',
                         name: '空灵冥想',
-                        url: musicPath+'4.mp3'
+                        url: musicPath+'9345B970BBA7FB4AE5C6512243052B12.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_5.png',
                         picOn: web.IMG_PATH + '/music/music_5_on.png',
                         name: '森林',
                         on:true,
-                        url: musicPath+'5.mp3'
+                        url: musicPath+'C226C451614BD17FC04AF36FADCF084E.mp3'
 
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_6.png',
                         picOn: web.IMG_PATH + '/music/music_6_on.png',
                         name: '风吹草地',
-                        url: musicPath+'6.mp3'
+                        url: musicPath+'13AD945A10F80489BAC91112569C1423.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_7.png',
                         picOn: web.IMG_PATH + '/music/music_7_on.png',
                         name: '鸟叫空谷回响',
-                        url: musicPath+'7.mp3'
+                        url: musicPath+'D4D18174DBFD22D095FD1553DF4A032F.mp3'
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_8.png',
                         picOn: web.IMG_PATH + '/music/music_8_on.png',
                         name: '小溪流水',
-                        url:musicPath+'8.mp3'
+                        url:musicPath+'0E53AD917CC49D46C6086526E74E9B93.mp3'
                     }
                 ]
             }
@@ -199,11 +199,17 @@
 
         },
         mounted: function () {
+            xqzs.wx.setConfig(this);
             this.audio=document.createElement("audio");
             this.audio.loop="loop";
             this.audio.autobuffer=true;
             this.audio.src=this.url;
 
+            var worker =new Worker("../src/js/worker.js"); //创建一个Worker对象并向它传递将在新线程中执行的脚本的URL
+            worker.postMessage("hello world");     //向worker发送数据
+            worker.onmessage =function(evt){     //接收worker传过来的数据函数
+                console.log(evt.data);              //输出worker发送来的数据
+            }
 
         },
         beforeDestroy:function () {
