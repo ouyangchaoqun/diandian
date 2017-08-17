@@ -93,9 +93,18 @@
                 <div class="night_action">
                     <div style="height:1px;"></div>
                     <div class="record_action_go_bed" @click="checkIn(3)"><span>睡觉</span>睡觉之前戳一下（不要耍赖哦）</div>
-                    <div class="record_text2" @click="writeOrRank">
-                        <div class="doRecord">早睡排行榜</div>
+
+                    <div class="bottom_btn">
+                        <div class="midLine"></div>
+                        <div class="record_bottom" @click="music">
+                            <div class="doRecord">晚安音乐</div>
+                        </div>
+                        <div class="record_bottom" @click="writeOrRank">
+                            <div class="doRecord">早睡排行榜</div>
+                        </div>
                     </div>
+
+
                 </div>
 
                 <div class="timeout" :class="{night_time_out:outNightTime}">
@@ -107,25 +116,19 @@
                     <div class="re_text2" v-if="outMorningTime">早起，将开启新的一天的最佳状态</div>
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
 
-
-
-                    <div class="midLine" v-if="isGetUp&&outMorningTime"></div>
-                    <div class="record_bottom" @click="share" v-if="isGetUp">
-                        <div class="doRecord">获取成就卡</div>
+                    <div class="bottom_btn">
+                        <div class="midLine"></div>
+                        <div class="record_bottom" @click="share" v-if="isGetUp&&outMorningTime">
+                            <div class="doRecord">获取成就卡</div>
+                        </div>
+                        <div class="record_bottom" @click="music" v-if="outNightTime">
+                            <div class="doRecord" v-if="outNightTime">晚安音乐</div>
+                        </div>
+                        <div class="record_bottom"   @click="writeOrRank">
+                            <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
+                            <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
+                        </div>
                     </div>
-                    <div :class="{record_text2:outNightTime||(!isGetUp&&outMorningTime),record_bottom2:!outNightTime&&(isGetUp&&outMorningTime)}"
-                         @click="writeOrRank">
-                        <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
-                        <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
-                    </div>
-                    <!--<div class="record_text2" @click="writeOrRank">-->
-                    <!--&lt;!&ndash;<div class="record_pic"><img src="../images/record_ss.png" v-if="isNight"><img src="../images/record_record1.png" v-if="!isNight"></div>&ndash;&gt;-->
-                    <!--<div class="doRecord" v-if="outMorningTime">早起排行榜</div>-->
-                    <!--<div class="doRecord" v-if="outNightTime">早睡排行榜</div>-->
-                    <!--<div style="clear: both;"></div>-->
-                    <!--</div>-->
-                    <!--<div class="finish" @click="back" v-if="outMorningTime">我知道了</div>-->
-                    <!--<div class="finish" @click="back" v-if="outNightTime">早点睡啦</div>-->
                 </div>
 
             </div>
