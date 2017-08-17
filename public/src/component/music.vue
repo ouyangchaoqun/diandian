@@ -8,6 +8,14 @@
             </li>
         </ul>
         <div class="music_controller">
+            <div class="playing " :class="{play:isPlay}">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="music_note" >{{noteTime}}</div>
             <div class="music_play" :class="{stop:isPlay}"@click="play()"></div>
             <div class="music_auto_close" @click="changeRTime()">
                 <span class="time">{{autoCloseTime}}</span>
@@ -29,14 +37,14 @@
                 timeout:null,
                 audio:null,
                 isPlay:false,
-                url:musicPath+"1.mp3",
+                url:musicPath+"5.mp3",
                 autoCloseTime: 20,
+                noteTime:"20:00后停止",
                 musicList: [
                     {
                         pic: web.IMG_PATH + '/music/music_1.png',
                         picOn: web.IMG_PATH + '/music/music_1_on.png',
                         name: '大海',
-                        on:true,
                         url:musicPath+"1.mp3"
                     },
                     {
@@ -61,7 +69,9 @@
                         pic: web.IMG_PATH + '/music/music_5.png',
                         picOn: web.IMG_PATH + '/music/music_5_on.png',
                         name: '森林',
+                        on:true,
                         url: musicPath+'5.mp3'
+
                     },
                     {
                         pic: web.IMG_PATH + '/music/music_6.png',
@@ -101,18 +111,19 @@
                 this.audio.loop="loop";
                 this.audio.src=this.url;//路径
                 this.isPlay=false;
+                this.play()
             },
             play:function () {
-
+                if(this.timeout!=null)clearTimeout(this.timeout);
                 if(this.audio!=null){
                     if (this.audio.paused) {
                         this.audio.play();
                         this.isPlay=true;
                         this.time=0;
-                        if(this.timeout!=null)clearTimeout(this.timeout);
                         this.setTimeout();
                     } else {
                         this.audio.pause();// 这个就是暂停
+                        this.noteTime="已经停止播放";
                         this.isPlay=false;
                     }
                 }
@@ -126,15 +137,40 @@
                 }
                 this.time=0;
                 if(this.timeout!=null)clearTimeout(this.timeout);
-                this.setTimeout();
+                if(this.audio!=null){
+                    if (this.audio.paused) {
+                    }else{
+                        this.setTimeout();
+                    }
+                }
+
             },
             setTimeout:function () {
                 let _this=this;
                 this.time ++;
+                let lastTime = this.autoCloseTime*60 - this.time;
+
+                let lastMin=parseInt(lastTime / 60);
+                if(lastMin<10&&lastMin!=0){
+                    lastMin="0"+lastMin;
+                }else if(lastMin==0){
+                    lastMin="00";
+                }
+
+                let lastSen=lastTime % 60;
+                if(lastSen<10&&lastSen!=0){
+                    lastSen="0"+lastSen;
+                }else if(lastSen==0){
+                    lastSen="00";
+                }
+
+
+                this.noteTime= lastMin+":"+lastSen+"后停止";
                 console.log(this.time)
                 if( this.time >= this.autoCloseTime*60 ){
                     if(this.audio!=null){
                        this.audio.pause()
+                        this.noteTime="已经停止播放";
                         if(this.timeout!=null)clearTimeout(this.timeout);
                     }
                 }else{
@@ -143,13 +179,14 @@
                     },1000)
                 }
 
-            }
+            },
+
         },
         mounted: function () {
             this.audio=document.createElement("audio");
             this.audio.src=this.url;
             this.audio.loop="loop";
-
+            this.play();
         }
     }
 
@@ -157,6 +194,7 @@
 </script>
 
 <style>
+
 
     .music_bg {
         height: 100%;
@@ -170,7 +208,7 @@
     }
 
     .music_list li {
-        width: 46%;
+        width: 43%;
         clear: both;
         margin: 0 auto;
         padding: 2.367647rem 0
@@ -192,7 +230,7 @@
         font-size: 0.8823529rem;
         margin-left: 1.2rem;
         height: 2.6470588rem;
-        width: 5.6470588rem;
+        width: 5.4470588rem;
         line-height: 2.6470588rem;
         display: inline-block
     }
@@ -202,6 +240,65 @@
         background: #1b1b33;
         position: relative
     }
+
+
+    .music_note{   left:1.7rem;position: absolute;top: 50%;   margin-top:0.856rem  ;color:#6a6485; font-size: 0.70588rem;}
+
+    .playing{   width:2.5rem;
+        height: 1.3rem; position: absolute; top: 50%;
+        left:2.5rem;
+        margin-top: -0.8rem}
+    .playing div{ width: 0.15rem; height: 100%; position: absolute; bottom:0; left:0; margin: 0 2px; background: #6a6485}
+    .playing.play div{
+
+        animation:playing 1s infinite;
+        -webkit-animation:playing 1s infinite;
+
+    }
+    @keyframes playing {
+        0% {
+            height: 0;
+        }
+        50% {
+            height: 100%;
+        }
+        100% {
+            height: 0;
+        }
+    }
+    .playing div:nth-child(1){
+        left:0%;
+        height: 10%;
+        animation-delay:0.1s;
+        -webkit-animation-delay:0.1s;
+    }
+    .playing div:nth-child(2){
+        left:20%;
+        height: 40%;
+        animation-delay:0.3s;
+        -webkit-animation-delay:0.3s;
+    }
+    .playing div:nth-child(3){
+        left:40%;
+        height: 20%;
+        animation-delay:0.2s;
+        -webkit-animation-delay:0.2s;
+    }
+    .playing div:nth-child(4){
+        left:60%;
+        height: 80%;
+        animation-delay:0.6s;
+        -webkit-animation-delay:0.6s;
+    }
+    .playing div:nth-child(5){
+        left:80%;
+        height: 100%;
+        animation-delay:0.5s;
+        -webkit-animation-delay:0.5s;
+    }
+
+
+
 
     .music_play {
         background: url(../../dist/music/play.png);
