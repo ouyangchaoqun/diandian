@@ -50,7 +50,8 @@ let routers =
                 require('./routes/luck'),
                 require('./routes/constellationLuck'),
                 require('./routes/getUpStatistics'),
-                require('./routes/music')
+                require('./routes/music'),
+                require('./routes/birthday')
 
             ]
         }
