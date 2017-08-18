@@ -425,7 +425,7 @@
                     this.addHeart()
                     return;
                 }
-                if(this.per<100){this.per++;}
+                if(this.per<116){this.per++;}
                 console.log(random);
                 this.random=random;
                 $(".heart_a").append("<div class='a_"+random+"'></div>");
