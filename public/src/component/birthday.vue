@@ -46,6 +46,8 @@
     }
 
     .birthday_box .mid_counts {
+        width: -webkit-max-content;
+        width: -moz-max-content;
         width: max-content;
         position: relative;
         margin: 0 auto;
