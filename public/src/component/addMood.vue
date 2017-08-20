@@ -195,7 +195,8 @@
                 goScenes:false,
                 goScenesIng:false,
                 choosedData:{},
-                canAddMood:true
+                canAddMood:true,
+                isAdded:false
             }
         },
         props:{
@@ -244,6 +245,9 @@
                     if("scenesId"!=key||that.choosedData["moodValue"]==null){
                         return;
                     }
+                    if(that.isAdded==true){
+                        return;
+                    }
                     var postdata = {
                         moodValue:that.choosedData["moodValue"],
                         scenesId:that.choosedData["scenesId"],
@@ -252,6 +256,7 @@
                     };
 
                     var apiurl = 'mood/add';
+                    that.isAdded=true;
 
                     that.$http.put(web.API_PATH + apiurl,postdata)
                         .then(function (bt) {
