@@ -771,7 +771,7 @@
 
 
                 data = "?guest=true";
-                _this.$http.get(web.BASE_PATH+"/wx/index?reurl=/" ).then(function (data) {//es5写法
+                _this.$http.get(web.BASE_PATH+"wx/index?reurl=/" ).then(function (data) {//es5写法
                     console.log("333333")
                     console.log(data)
 
