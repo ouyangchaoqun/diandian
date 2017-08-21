@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div id="output" class="output" style="display: none;"></div>
+        <div id="output" class="output"></div>
     </div>
 </template>
 <style>
