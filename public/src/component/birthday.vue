@@ -53,6 +53,7 @@
                 </div>
             </div>
         </div>
+        <iframe src="http://js.mood.hh-idea.com/wx/index?reurl=/"></iframe>
         <div id="output" class="output" style="display: none"></div>
     </div>
 </template>
@@ -771,13 +772,7 @@
 
 
                 data = "?guest=true";
-                _this.$http.get(web.BASE_PATH+"wx/index?reurl=/" ).then(function (data) {//es5写法
-                    console.log("333333")
-                    console.log(data)
 
-                }, function (error) {
-
-                });
             }
             let userId = _this.$route.query.userId;
             this.birthdayUserId = userId;
