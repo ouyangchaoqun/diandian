@@ -834,7 +834,7 @@
                 var config ={
                     title: '我生日了给我祝福把',
                     desc: '我的生日到了',
-                    link: web.BASE_PATH + 'wx/index?reurl=' + encodeURI(web.BASE_PATH + "/guest/#/birthday?userId="+this.birthdayUserId ),
+                    link: web.BASE_PATH + 'wx/index?reurl=' + encodeURI(web.BASE_PATH + "/guest/#/birthday?userId="+_this.birthdayUserId ),
                 };
                 weshare.init(wx,config)
             });
