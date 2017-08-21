@@ -61,8 +61,7 @@
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
-                        <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template
-                                v-show="result.data.type==2">起</template><template v-show="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
+                        <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
                         <div class="record_compare">
                             共有{{result.allCount}}人陪我早
@@ -314,6 +313,7 @@
 
             },
             night: function () {
+                console.log('night')
                 let _this = this;
                 if (_this.isGoBed && _this.isRecordTime(_this.NIGHT_FROM_TIME, _this.NIGHT_END_TIME)) {
                     _this.showResult(_this.goBedId);
