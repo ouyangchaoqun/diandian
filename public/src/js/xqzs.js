@@ -92,6 +92,21 @@ var xqzs = {
                 }, 300);
             })
         },
+        dialogCustom: function (Html) {
+            var html = "";
+            html += '<div class="js_dialog"  >';
+            html += '   <div class="weui-mask weui-animate-fade-in"></div>';
+            html += Html;
+            html += '</div>';
+            $("body").append(html);
+            $(".js_dialog .weui-mask").click(function () {
+                xqzs.weui.weuiMaskClose();
+                setTimeout(function () {
+                    $(".js_dialog").remove();
+                }, 300);
+
+            });
+        },
         _dialog: function (config) {
             var defaultsize = {
                 title: '提示',

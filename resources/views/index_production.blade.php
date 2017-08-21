@@ -34,6 +34,9 @@
     console.log=function () {
         return false;
     }
+    <?php
+    if(!empty($guest)){echo "web.guest=true;";}
+    ?>
 
 </script>
 <script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>

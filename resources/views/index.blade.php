@@ -32,6 +32,9 @@
     web.IMG_PATH="/dist/";
     var now_week= "<?=date("W")?>";
     web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
+    <?php
+      if(!empty($guest)){echo "web.guest=true;";}
+    ?>
 
 
 

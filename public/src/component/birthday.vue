@@ -1,6 +1,12 @@
 <template id="birthday">
     <div class="birthday_box">
-        <div class="top_info"></div>
+        <div class="top_info">
+            <div class="head"><img :src="birthdayUser.faceUrl"></div>
+            <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
+            <div class="txt2">{{birthdayUser.nickName}}</div>
+            <div class="happy"></div>
+            <div class="happy_top"></div>
+        </div>
         <div class="mid_counts">
             <div class="heart">
                 <div class="over"></div>
@@ -10,6 +16,7 @@
                 </div>
             </div>
             <div class="step" v-for="step in steps">
+                <span class="text" v-if="step.num!=0">{{step.num}}</span>
                 <span class="point_reach" :class="{reach:step.isReach}"></span>
                 <span class="point_small"><i></i><i></i><i></i><i></i></span>
             </div>
@@ -17,19 +24,35 @@
         </div>
         <div class="clear"></div>
         <div class="tip">点赞送生日祝福</div>
-        <div class="count">116</div>
-        <div class="heart_a" >
+        <div class="count">{{count}}</div>
+        <div class="heart_a">
 
         </div>
         <div class="heart_click_btn" @click="addHeart">
 
             <div class="btn">
                 <div class="heart_btn"></div>
-                <div class="text"></div>
+                <div class="text">点赞</div>
             </div>
 
         </div>
-
+        <div class="bottom_tip">
+            <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img src="user.faceUrl"/>您点了15次赞，邀请好友一起点赞
+            </div>
+            <div class="text" @click="follow()"><span></span>关注心情指数，让他知道你在送祝福</div>
+        </div>
+        <div id="follow" style="display: none">
+            <div class="dialog_follow">
+                <div class="img"><img :src="birthdayUser.faceUrl"></div>
+                <div class="ewm">
+                    <div id="output" class="output"></div>
+                </div>
+                <div class="text">
+                    长按关注"{{birthdayUser.nickName}}"<br>
+                    送上生日祝福
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <style>
@@ -37,12 +60,164 @@
         clear: both
     }
 
+    .dialog_follow {
+        width: 72%;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20.47058823529412rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -10.23529411764706rem;
+        left: 14%;
+        z-index: 10001;
+    }
+
+    .dialog_follow img {
+        width: 100%
+    }
+
+    .dialog_follow .img {
+        height: 11.5rem;
+        overflow: hidden
+    }
+
+    .dialog_follow .text {
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+        line-height: 1.5
+    }
+
+    .ewm {
+        width: 4.529411764705882rem;
+        height: 4.529411764705882rem;
+        border: 1px solid red;
+        margin: 1rem auto;
+        margin-bottom: 0.7rem;
+    }
+
+    .ewm .output {
+        width: 100%;
+        height: 100%
+    }
+
+    .bottom_tip {
+        text-align: center;
+    }
+
+    .bottom_tip .text {
+        background: #e8dcbc;
+        height: 1.647058823529412rem;
+        line-height: 1.647058823529412rem;
+        display: inline-block;
+        padding: 0 6px;
+        padding-right: 12px;
+        border-radius: 0.823529411764706rem;
+        font-size: 0.6470588235294118rem;
+        margin-top: 7rem;
+        color: #8e664d
+    }
+
+    .bottom_tip .text img {
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-top: -0.22rem;
+    }
+
+    .bottom_tip .text span {
+        display: inline-block;
+        margin-left: 6px
+    }
+
     .birthday_box {
         background: #fbf6eb
     }
 
     .birthday_box .top_info {
-        height: 17rem;
+        padding-top: 4.8rem;
+        height: 13.2rem;
+        background: url(../../dist/birthday/top_bg.png) top center no-repeat;
+        background-size: 94%;
+        position: relative;
+    }
+
+    .birthday_box .top_info .happy {
+        position: absolute;
+        top: 3.8rem;
+        left: 50%;
+        margin-left: -6.75rem;
+        width: 13.5rem;
+        height: 5.823529411764706rem;
+        background: url(../../dist/birthday/happy_birthday.png) no-repeat;
+        background-size: 100%;
+        z-index: 101
+    }
+
+    .birthday_box .top_info .happy_top {
+        position: absolute;
+        top: 1.4rem;
+        left: 50%;
+        margin-left: -2.426470588235294rem;
+        width: 4.852941176470588rem;
+        height: 4.088235294117647rem;
+        background: url(../../dist/birthday/happy_top.png) no-repeat;
+        background-size: 100%;
+        z-index: 100
+    }
+
+    .birthday_box .top_info .head {
+        border: 2px solid #e3d2b1;
+        height: 7.0588235rem;
+        width: 7.0588235rem;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .birthday_box .top_info .txt {
+        font-size: 0.7058823529411765rem;
+        color: #84726b;
+        text-align: center;
+        margin-top: 0.6rem;
+    }
+
+    .birthday_box .top_info .txt2 {
+        font-size: 1.058823529411765rem;
+        color: #914951;;
+        text-align: center
+    }
+
+    .birthday_box .top_info .head img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .tip {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 0.6470588235294118rem;
+        line-height: 0.7058823529411765rem;
+        color: #836f63;
+    }
+
+    .tip:before {
+        content: " ";
+        display: inline-block;
+        background: url(../../dist/birthday/tip_img.png);
+        height: 0.7058823529411765rem;
+        width: 0.7058823529411765rem;
+        background-size: 100% 100%;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+
+    .count {
+        margin-top: 0.8rem;
+        text-align: center;
+        color: #804a52;
+        font-size: 1.117647058823529rem;
     }
 
     .birthday_box .mid_counts {
@@ -51,6 +226,7 @@
         width: max-content;
         position: relative;
         margin: 0 auto;
+
     }
 
     .birthday_box .mid_counts .step {
@@ -58,6 +234,38 @@
         width: auto;
         float: left;
         text-align: center;
+        position: relative;
+    }
+
+    .birthday_box .mid_counts .step .text {
+        position: absolute;
+        left: 0;
+        top: -26px;
+        font-size: 12px;
+    }
+
+    .birthday_box .mid_counts .step:nth-child(2) .text {
+        left: 2px;
+    }
+
+    .birthday_box .mid_counts .step:nth-child(3) .text {
+        left: -2px;
+    }
+
+    .birthday_box .mid_counts .step:nth-child(4) .text {
+        left: -5px;
+    }
+
+    .birthday_box .mid_counts .step:nth-child(7) .text {
+        left: -5px;
+    }
+
+    .birthday_box .mid_counts .step:nth-child(8) .text {
+        left: -9px;
+    }
+
+    .birthday_box .mid_counts .step:nth-child(9) .text {
+        left: -9px;
     }
 
     .birthday_box .mid_counts .step .point_reach {
@@ -67,6 +275,11 @@
         border: 1px solid #836f63;
         border-radius: 50%;
         float: left;
+    }
+
+    .birthday_box .mid_counts .step .point_reach.reach {
+        border: 1px solid #dc3934;
+        background: #dc3934;
     }
 
     .birthday_box .mid_counts .step .point_small {
@@ -84,9 +297,6 @@
         margin: 0 0.18rem;
         line-height: 1;
         margin-top: 0.15rem;
-    }
-
-    .birthday_box .mid_counts .step {
     }
 
     .mid_counts:after {
@@ -108,7 +318,8 @@
         background-size: 100% 100%;
         left: 50%;
         margin-left: -1.8235294rem;
-        top: -1rem
+        top: -1rem;
+        z-index: 1;
     }
 
     .heart .over {
@@ -174,56 +385,69 @@
         }
     }
 
-
-
-
-    .heart_a div{ position: absolute;   background: url(../../dist/birthday/click_heart.png) no-repeat; height:1.294117647058824rem ; width:1.294117647058824rem ; background-size: 100% 100% }
-    .heart_a .a_1{
-        animation: heart_move1 2s linear ;
-        -webkit-animation: heart_move1 2s  linear;
-        animation-fill-mode:forwards;
-        height: 1rem; width:1rem
+    .heart_a div {
+        position: absolute;
+        background: url(../../dist/birthday/click_heart.png) no-repeat;
+        height: 1.294117647058824rem;
+        width: 1.294117647058824rem;
+        background-size: 100% 100%
     }
 
-    .heart_a .a_2{
-        animation: heart_move2 2.5s linear ;
-        -webkit-animation: heart_move2 2.5s  linear;
-        animation-fill-mode:forwards;
-        height: 1.2rem; width:1.2rem
+    .heart_a .a_1 {
+        animation: heart_move1 2s linear;
+        -webkit-animation: heart_move1 2s linear;
+        animation-fill-mode: forwards;
+        height: 1rem;
+        width: 1rem
     }
-    .heart_a .a_3{
-        animation: heart_move3 3.5s linear ;
-        -webkit-animation: heart_move3 3.5s  linear;
-        animation-fill-mode:forwards;
-        height: 1.3rem; width:1.3rem
+
+    .heart_a .a_2 {
+        animation: heart_move2 2.5s linear;
+        -webkit-animation: heart_move2 2.5s linear;
+        animation-fill-mode: forwards;
+        height: 1.2rem;
+        width: 1.2rem
     }
-    .heart_a .a_4{
-        animation: heart_move4 1.5s linear ;
-        -webkit-animation: heart_move4 1.5s  linear;
-        animation-fill-mode:forwards;
-        height: 1.4rem; width:1.4rem
+
+    .heart_a .a_3 {
+        animation: heart_move3 3.5s linear;
+        -webkit-animation: heart_move3 3.5s linear;
+        animation-fill-mode: forwards;
+        height: 1.3rem;
+        width: 1.3rem
     }
-    .heart_a .a_5{
-        animation: heart_move4 3.5s linear ;
-        -webkit-animation: heart_move4 3.5s  linear;
-        animation-fill-mode:forwards;
-        height: 1.5rem; width:1.5rem
+
+    .heart_a .a_4 {
+        animation: heart_move4 1.5s linear;
+        -webkit-animation: heart_move4 1.5s linear;
+        animation-fill-mode: forwards;
+        height: 1.4rem;
+        width: 1.4rem
     }
+
+    .heart_a .a_5 {
+        animation: heart_move4 3.5s linear;
+        -webkit-animation: heart_move4 3.5s linear;
+        animation-fill-mode: forwards;
+        height: 1.5rem;
+        width: 1.5rem
+    }
+
     @keyframes heart_move1 {
         0% {
 
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0)  rotate(0deg);
-            -webkit-transform: translate3d(1.56rem, 10rem, 0)  rotate(0deg);
+            transform: translate3d(1.56rem, 10rem, 0) rotate(0deg);
+            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(0deg);
 
         }
         20% {
-            transform: translate3d(1rem, 8rem, 0)  rotate(-7deg);
-            -webkit-transform: translate3d(1rem, 8rem, 0)  rotate(-7deg);
+            transform: translate3d(1rem, 8rem, 0) rotate(-7deg);
+            -webkit-transform: translate3d(1rem, 8rem, 0) rotate(-7deg);
         }
         40% {
-            transform: translate3d(0.2rem, 6rem, 0)  rotate(17deg);
-            -webkit-transform: translate3d(0.2rem, 6rem, 0)  rotate(17deg);
+            transform: translate3d(0.2rem, 6rem, 0) rotate(17deg);
+            -webkit-transform: translate3d(0.2rem, 6rem, 0) rotate(17deg);
         }
         60% {
             opacity: 0.7;
@@ -243,6 +467,7 @@
 
         }
     }
+
     @keyframes heart_move2 {
         0% {
             opacity: 1;
@@ -275,6 +500,7 @@
             display: none;
         }
     }
+
     @keyframes heart_move3 {
         0% {
             opacity: 1;
@@ -286,7 +512,7 @@
             -webkit-transform: translate3d(1.1rem, 8rem, 0) rotate(-4deg);
         }
         40% {
-            transform: translate3d(0.8rem, 6rem, 0) rotate(-14deg) ;
+            transform: translate3d(0.8rem, 6rem, 0) rotate(-14deg);
             -webkit-transform: translate3d(0.8rem, 6rem, 0) rotate(-14deg);
         }
         60% {
@@ -306,28 +532,29 @@
             display: none;
         }
     }
+
     @keyframes heart_move4 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0)  rotate(14deg);
-            -webkit-transform: translate3d(1.56rem, 10rem, 0)  rotate(14deg);
+            transform: translate3d(1.56rem, 10rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(14deg);
         }
         20% {
-            transform: translate3d(2.8rem, 8rem, 0)  rotate(14deg);;
-            -webkit-transform: translate3d(2.8rem, 8rem, 0)  rotate(14deg);;
+            transform: translate3d(2.8rem, 8rem, 0) rotate(14deg);;
+            -webkit-transform: translate3d(2.8rem, 8rem, 0) rotate(14deg);;
         }
         40% {
-            transform: translate3d(3.1rem, 6rem, 0)  rotate(-10deg);;
-            -webkit-transform: translate3d(3.1rem, 6rem, 0)  rotate(-10deg);
+            transform: translate3d(3.1rem, 6rem, 0) rotate(-10deg);;
+            -webkit-transform: translate3d(3.1rem, 6rem, 0) rotate(-10deg);
         }
         60% {
             opacity: 0.4;
-            transform: translate3d(1.9rem, 4rem, 0)  rotate(-10deg);
-            -webkit-transform: translate3d(1.9rem, 4rem, 0)  rotate(-10deg);
+            transform: translate3d(1.9rem, 4rem, 0) rotate(-10deg);
+            -webkit-transform: translate3d(1.9rem, 4rem, 0) rotate(-10deg);
         }
         80% {
-            transform: translate3d(1.4rem, 2rem, 0)  rotate(5deg);
-            -webkit-transform: translate3d(1.4rem, 2rem, 0)  rotate(5deg);
+            transform: translate3d(1.4rem, 2rem, 0) rotate(5deg);
+            -webkit-transform: translate3d(1.4rem, 2rem, 0) rotate(5deg);
         }
 
         100% {
@@ -337,28 +564,29 @@
             display: none;
         }
     }
+
     @keyframes heart_move5 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0)  rotate(-14deg);
+            transform: translate3d(1.56rem, 10rem, 0) rotate(-14deg);
             -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(-14deg);
         }
         20% {
-            transform: translate3d(1rem, 8rem, 0)  rotate(-14deg);
-            -webkit-transform: translate3d(1rem, 8rem, 0)  rotate(-14deg);
+            transform: translate3d(1rem, 8rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(1rem, 8rem, 0) rotate(-14deg);
         }
         40% {
-            transform: translate3d(0.2rem, 6rem, 0)  rotate(14deg);
+            transform: translate3d(0.2rem, 6rem, 0) rotate(14deg);
             -webkit-transform: translate3d(0.2rem, 6rem, 0) rotate(14deg);
         }
         60% {
             opacity: 0.3;
             transform: translate3d(1.4rem, 4rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(1.4rem, 4rem, 0)  rotate(14deg);
+            -webkit-transform: translate3d(1.4rem, 4rem, 0) rotate(14deg);
         }
         80% {
             transform: translate3d(1.7rem, 2rem, 0) rotate(-7deg);
-            -webkit-transform: translate3d(1.7rem, 2rem, 0)  rotate(-7deg);
+            -webkit-transform: translate3d(1.7rem, 2rem, 0) rotate(-7deg);
         }
 
         100% {
@@ -368,8 +596,6 @@
             display: none;
         }
     }
-
-
 
     .heart_a {
         height: 10rem;
@@ -391,13 +617,27 @@
         left: 50%;
         margin-left: -2.264705882352941rem
     }
-    .heart_btn{ background: url(../../dist/birthday/heart_w.png) no-repeat; background-size: 1.2941176rem; height: 1.117647058823529rem; width: 1.294117647058824rem; margin: 0 auto; margin-top: 1rem;}
 
+    .heart_click_btn .text {
+        color: #fff;
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+    }
+
+    .heart_btn {
+        background: url(../../dist/birthday/heart_w.png) no-repeat;
+        background-size: 1.2941176rem;
+        height: 1.117647058823529rem;
+        width: 1.294117647058824rem;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
 
 
 </style>
-<script type="es6">
+<script src="../js/qrcode.min.js"></script>
 
+<script type="es6">
     let funny = {
         template: '#birthday'
     };
@@ -406,36 +646,186 @@
         data() {
             return {
                 steps: [
-                    {num: 1, isReach: true},
-                    {num: 99, isReach: true},
-                    {num: 520, isReach: true},
+                    {num: 1, isReach: false},
+                    {num: 99, isReach: false},
+                    {num: 520, isReach: false},
                     {num: 0, isReach: false},
                     {num: 0, isReach: false},
                     {num: 999, isReach: false},
                     {num: 1314, isReach: false},
                     {num: 9999, isReach: false}
                 ],
-                random:1,
-                per:0
+                count: 0,
+                random: 1,
+                per: 0,
+                birthday: null,
+                constellation: {},
+                birthdayTxt: "",
+                birthdayUser: {},
+                user: null,
+                birthdayUserId: 0
             }
         },
-        methods: {
-            addHeart:function () {
 
-                let random= 1+  parseInt(Math.random()*5);
-                if( this.random  == random){
+
+        methods: {
+            follow: function () { //关注
+                let _this = this;
+                xqzs.weui.dialogCustom($("#follow").html())
+
+                _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId).then(function (data) {//es5写法
+
+
+                    var the_text = data.body.data;
+                    the_text = _this.toUtf8(the_text);
+                    //alert(the_text);
+                    jQuery('#output').qrcode({
+                        width:120,
+                        height:120,
+                        render:"canvas", //设置渲染方式 table canvas
+                        typeNumber : -1,  //计算模式
+                        correctLevel  : 0,//纠错等级
+                        background   : "#ffffff",//背景颜色
+                        foreground   : "#000000",//前景颜色
+                        text:the_text
+                    });
+
+//                    console.log(_this.toUtf8( data.body.data))
+//                    $("#output").empty();
+//                    $('#output').qrcode({width: 80, height: 80,	render: "table",
+//                        text:_this.toUtf8( data.body.data), background: "#ffffff",
+//                        foreground: "red"  });
+
+
+                }, function (error) {
+
+                });
+
+
+
+            },
+            toUtf8: function (str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            },
+
+            share: function () {
+                let config = {
+                    title: 'hello world',
+                    desc: '心情，心情指数，日子有大有小，心情能暖共知！关注本微信公众号，心情不好的说说，随时记录、查看自己和朋友的心情！',
+                    link: 'http://m.xqzs.cn/',
+                    imgUrl: ''
+                };
+                weshare.init(wx, config, function () {
+                    //成功
+                }, function () {
+
+                })
+            },
+            addHeart: function () {
+                let random = 1 + parseInt(Math.random() * 5);
+                if (this.random == random) {
                     this.addHeart()
                     return;
                 }
-                if(this.per<116){this.per++;}
-                console.log(random);
-                this.random=random;
-                $(".heart_a").append("<div class='a_"+random+"'></div>");
-                $(".heart .wave").css({top:100-this.per+"%"})
+
+                this.count++;
+
+                this.random = random;
+                $(".heart_a").append("<div class='a_" + random + "'></div>");
+                this.reach();
+                $(".heart .wave").css({top: 100 - (this.per + 16) + "%"});
+
+            },
+            reach: function () {
+                //遍历到达位置
+                for (let i = 0; i < this.steps.length; i++) {
+                    if (this.steps[i].num <= this.count) {
+                        this.steps[i].isReach = true;
+                    }
+                }
+                for (let i = 0; i < this.steps.length; i++) {
+                    if (!this.steps[i].isReach && this.steps[i].num != 0) {
+                        let last = this.count;
+                        let stepLength = this.steps[i].num
+                        if (i != 0) {
+                            last = this.count - this.steps[i - 1].num;
+                            stepLength = this.steps[i].num - this.steps[i - 1].num
+                        }
+                        console.log(last + "reaaaa" + this.steps[i].num)
+
+                        this.per = last / stepLength * 100;
+                        break;
+                    }
+                }
+                console.log(this.per)
             }
         },
 
         mounted: function () {
+            let _this = this;
+
+
+            //当前生日用户
+            let data = '';
+            if (web.guest) {
+                data = "?guest=true";
+            }
+            let userId = _this.$route.query.userId;
+            this.birthdayUserId = userId;
+            if (userId) {
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.birthdayUser = data.data.data;
+                        this.birthday = this.birthdayUser.birthday;
+
+                        if (_this.birthday) {
+                            let date = _this.birthday.split(',');
+                            _this.year = date[0];
+                            _this.month = date[1];
+                            _this.day = date[2];
+                            _this.birthdayTxt = _this.month + "月" + _this.day + "号";
+                            _this.constellation = xqzs.constellation.array[xqzs.constellation.getIndex(_this.month, _this.day)];
+                        }
+                        _this.reach();
+                    }
+                }, function (error) {
+                    //error
+                });
+
+            }
+
+
+            //当前用户
+            _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {//es5写法
+                console.log(data)
+                if (data.body == '') {
+
+                } else {
+                    _this.user = data.data.data;
+                }
+            }, function (error) {
+                console.log("333333")
+            });
 
             xqzs.wx.setConfig(this);
         }

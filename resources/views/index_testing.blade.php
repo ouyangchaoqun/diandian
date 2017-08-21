@@ -32,7 +32,9 @@
     web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
     web.IMG_PATH="/dist/";
     var now_week= "<?=date("W")?>";
-    console.log( web.IPAddress);
+    <?php
+    if(!empty($guest)){echo "web.guest=true;";}
+    ?>
 </script>
 
 <script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
