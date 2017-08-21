@@ -1,5 +1,6 @@
 <template id="birthday">
     <div class="birthday_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="top_info">
             <div class="head"><img :src="birthdayUser.faceUrl"></div>
             <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
@@ -53,14 +54,18 @@
                 </div>
             </div>
         </div>
-        <iframe src="http://js.mood.hh-idea.com/wx/index?reurl=/"></iframe>
         <div id="output" class="output" style="display: none"></div>
+        <div class="myshare"v-show="isShowShareTip" @click="share()">
+
+        </div>
     </div>
 </template>
 <style>
     .clear {
         clear: both
     }
+
+    .myshare{ background: url(../../dist/birthday/share.png) no-repeat center top rgba(0,0,0,0.9) ; background-position: 2.5rem 3.5rem; background-size: 80%; height: 100%; width: 100%; position: absolute; top:0; left:0 ; z-index: 10001; }
 
     .dialog_follow {
         width: 66%;
@@ -645,6 +650,7 @@
         template: '#birthday'
     };
 
+    import showLoad from './showLoad.vue';
     export default {
         data() {
             return {
@@ -658,6 +664,7 @@
                     {num: 1314, isReach: false},
                     {num: 9999, isReach: false}
                 ],
+                showLoad:false,
                 count: 0,
                 random: 1,
                 per: 0,
@@ -666,11 +673,15 @@
                 birthdayTxt: "",
                 birthdayUser: {},
                 user: null,
-                birthdayUserId: 0
+                birthdayUserId: 0,
+                isGuest:false,
+                isShowShareTip:false
             }
         },
 
-
+        components: {
+            'v-showLoad':showLoad
+        },
         methods: {
             follow: function () { //关注
                 let _this = this;
@@ -710,17 +721,7 @@
             },
 
             share: function () {
-                let config = {
-                    title: 'hello world',
-                    desc: '心情，心情指数，日子有大有小，心情能暖共知！关注本微信公众号，心情不好的说说，随时记录、查看自己和朋友的心情！',
-                    link: 'http://m.xqzs.cn/',
-                    imgUrl: ''
-                };
-                weshare.init(wx, config, function () {
-                    //成功
-                }, function () {
-
-                })
+                this.isShowShareTip= !this.isShowShareTip;
             },
             addHeart: function () {
                 let random = 1 + parseInt(Math.random() * 5);
@@ -765,12 +766,11 @@
         mounted: function () {
             let _this = this;
 
-
+              this.showLoad=true;
             //当前生日用户
             let data = '';
             if (web.guest) {
-
-
+                this.isGuest=true;
                 data = "?guest=true";
 
             }
@@ -782,6 +782,7 @@
                     type: "json",
                     url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
                 }).then(function (data) {//es5写法
+
                     if (data.data.data !== null) {
                         _this.birthdayUser = data.data.data;
                         this.birthday = this.birthdayUser.birthday;
@@ -811,8 +812,9 @@
                 } else {
                     _this.user = data.data.data;
                 }
+                this.showLoad=false;
             }, function (error) {
-                console.log("333333")
+
             });
 
             //二维码
@@ -827,7 +829,15 @@
 
             });
 
-            xqzs.wx.setConfig(this);
+            xqzs.wx.setConfig(this,function () {
+                wx.showAllNonBaseMenuItem();
+                var config ={
+                    title: '我生日了给我祝福把',
+                    desc: '我的生日到了',
+                    link: web.BASE_PATH + 'wx/index?reurl=' + encodeURI(web.BASE_PATH + "/guest/#/birthday?userId="+this.birthdayUserId ),
+                };
+                weshare.init(wx,config)
+            });
         }
     }
 </script>
