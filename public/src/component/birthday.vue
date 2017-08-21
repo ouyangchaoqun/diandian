@@ -45,7 +45,7 @@
             <div class="dialog_follow">
                 <div class="img"><img :src="birthdayUser.faceUrl"></div>
                 <div class="ewm">
-                    <div id="output" class="output"></div>
+
                 </div>
                 <div class="text">
                     长按关注"{{birthdayUser.nickName}}"<br>
@@ -53,6 +53,7 @@
                 </div>
             </div>
         </div>
+        <div id="output" class="output" style="display: none;"></div>
     </div>
 </template>
 <style>
@@ -61,7 +62,7 @@
     }
 
     .dialog_follow {
-        width: 72%;
+        width: 66%;
         background: #fff;
         border-radius: 10px;
         overflow: hidden;
@@ -69,7 +70,7 @@
         position: absolute;
         top: 50%;
         margin-top: -10.23529411764706rem;
-        left: 14%;
+        left: 17%;
         z-index: 10001;
     }
 
@@ -78,7 +79,7 @@
     }
 
     .dialog_follow .img {
-        height: 11.5rem;
+        height: 11rem;
         overflow: hidden
     }
 
@@ -89,11 +90,12 @@
     }
 
     .ewm {
-        width: 4.529411764705882rem;
-        height: 4.529411764705882rem;
-        border: 1px solid red;
-        margin: 1rem auto;
-        margin-bottom: 0.7rem;
+        width: 4.329411764705882rem;
+        height: 4.329411764705882rem;
+        border: 1px solid #ffcdcd;
+        margin: 0.8rem auto;
+        margin-bottom: 0.65rem;
+        padding: 2px;
     }
 
     .ewm .output {
@@ -671,31 +673,27 @@
         methods: {
             follow: function () { //关注
                 let _this = this;
+
+
+
+
                 xqzs.weui.dialogCustom($("#follow").html())
-
-                _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId).then(function (data) {//es5写法
-
-
-                    var the_text = data.body.data;
-                    the_text = _this.toUtf8(the_text);
-                    //alert(the_text);
-
-                    jQuery('#output').qrcode({width: 120,height: 120,correctLevel:0,text: the_text});
-
-
-//                    console.log(_this.toUtf8( data.body.data))
-//                    $("#output").empty();
-//                    $('#output').qrcode({width: 80, height: 80,	render: "table",
-//                        text:_this.toUtf8( data.body.data), background: "#ffffff",
-//                        foreground: "red"  });
-
-
-                }, function (error) {
-
-                });
+                var mycanvas1=document.getElementsByTagName('canvas')[0];
+                var img=_this.convertCanvasToImage(mycanvas1);
+                $('.ewm').append(img);
 
 
 
+
+
+            },
+            convertCanvasToImage:function(canvas) {
+                //新Image对象，可以理解为DOM
+                var image = new Image();
+                // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
+                // 指定格式 PNG
+                image.src = canvas.toDataURL("image/png");
+                return image;
             },
             toUtf8: function (str) {
                 var out, i, len, c;
@@ -818,6 +816,17 @@
                 }
             }, function (error) {
                 console.log("333333")
+            });
+
+            //二维码
+            _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId).then(function (data) {//es5写法
+                $("#output").empty();
+                $('#output').qrcode({width: 100, height: 100,
+                    text:_this.toUtf8( data.body.data), background: "#ffffff",
+                    foreground: "red"  });
+
+            }, function (error) {
+
             });
 
             xqzs.wx.setConfig(this);
