@@ -679,16 +679,9 @@
                     var the_text = data.body.data;
                     the_text = _this.toUtf8(the_text);
                     //alert(the_text);
-                    jQuery('#output').qrcode({
-                        width:120,
-                        height:120,
-                        render:"canvas", //设置渲染方式 table canvas
-                        typeNumber : -1,  //计算模式
-                        correctLevel  : 0,//纠错等级
-                        background   : "#ffffff",//背景颜色
-                        foreground   : "#000000",//前景颜色
-                        text:the_text
-                    });
+
+                    jQuery('#output').qrcode({width: 120,height: 120,correctLevel:0,text: the_text});
+
 
 //                    console.log(_this.toUtf8( data.body.data))
 //                    $("#output").empty();
