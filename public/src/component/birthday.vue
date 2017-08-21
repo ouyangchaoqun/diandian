@@ -821,6 +821,7 @@
             //二维码
             _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId).then(function (data) {//es5写法
                 $("#output").empty();
+                console.log(_this.toUtf8( data.body.data));
                 $('#output').qrcode({width: 100, height: 100,
                     text:_this.toUtf8( data.body.data), background: "#ffffff",
                     foreground: "red"  });
