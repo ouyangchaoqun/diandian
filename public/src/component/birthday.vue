@@ -37,9 +37,9 @@
 
         </div>
         <div class="bottom_tip">
-            <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img src="user.faceUrl"/>您点了15次赞，邀请好友一起点赞
-            </div>
-            <div class="text" @click="follow()"><span></span>关注心情指数，让他知道你在送祝福</div>
+            <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img src="user.faceUrl"/>您点了15次赞，邀请好友一起点赞</div>
+            <div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>
+            <div class="text" @click="follow()"  v-if="user==null"  ><span></span>关注心情指数，让他知道你在送祝福</div>
         </div>
         <div id="follow" style="display: none">
             <div class="dialog_follow">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div id="output" class="output"></div>
+        <div id="output" class="output" style="display: none"></div>
     </div>
 </template>
 <style>
@@ -673,18 +673,11 @@
         methods: {
             follow: function () { //关注
                 let _this = this;
-
-
-
-
                 xqzs.weui.dialogCustom($("#follow").html())
                 var mycanvas1=document.getElementsByTagName('canvas')[0];
                 var img=_this.convertCanvasToImage(mycanvas1);
+                $('.ewm').html('')
                 $('.ewm').append(img);
-
-
-
-
 
             },
             convertCanvasToImage:function(canvas) {
@@ -775,7 +768,16 @@
             //当前生日用户
             let data = '';
             if (web.guest) {
+
+
                 data = "?guest=true";
+                _this.$http.get(web.BASE_PATH+"/wx/index?reurl=/" ).then(function (data) {//es5写法
+                    console.log("333333")
+                    console.log(data)
+
+                }, function (error) {
+
+                });
             }
             let userId = _this.$route.query.userId;
             this.birthdayUserId = userId;
