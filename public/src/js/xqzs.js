@@ -710,7 +710,11 @@ var xqzs = {
         },
 
         setConfig: function (vm,callback) {
-            vm.$http.get(web.API_PATH + 'wei/xin/config').then(function (response) {
+
+            let url = window.location.href;
+            url = encodeURIComponent(url);
+
+            vm.$http.get(web.API_PATH + 'wei/xin/config?url='+url).then(function (response) {
                 wx.config(response.body);
                 wx.ready(function () {
                     wx.hideAllNonBaseMenuItem();
