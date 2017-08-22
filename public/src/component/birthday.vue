@@ -811,8 +811,12 @@
                     userId=that.user.id;
 
                 }
+                let data = {}
+                if (web.guest) {
+                    data={guest:true}
+                }
                 $(".heart_a").append("<div class='a_" + random + "'></div>");
-                    that.$http.put(web.API_PATH + "birthday/add/care/"+that.birthdayUserId+"/"+userId, {})
+                    that.$http.put(web.API_PATH + "birthday/add/care/"+that.birthdayUserId+"/"+userId, data)
                         .then(function (bt) {
                             if (bt.data && bt.data.status == 1) {
                                 that.count++;
@@ -937,8 +941,13 @@
 
 
 
+            let data2 = '';
+            if (web.guest) {
+                data2= '?guest=true'
+            }
+
             //二维码
-            _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId).then(function (data) {//es5写法
+            _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId+data2).then(function (data) {//es5写法
                 $("#output").empty();
                 console.log(_this.toUtf8( data.body.data));
                 $('#output').qrcode({width: 100, height: 100,
