@@ -24,7 +24,7 @@ class WeixinController extends Controller
             $backurl = urlencode(urldecode($backurl));
         }
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri=" . urlencode($callback)
-            . "&response_type=code&scope=snsapi_base&state={$backurl}#wechat_redirect";
+            . "&response_type=code&scope=snsapi_userinfo&state={$backurl}#wechat_redirect";
 
         return redirect($url);
     }
