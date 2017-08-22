@@ -840,6 +840,9 @@
 
                             last = this.count - before;
                             stepLength = this.steps[i].num - before
+                            if(this.count==this.steps[i - 1].num){
+                                last= stepLength;
+                            }
                         }
                         console.log(last + "reaaaa" + stepLength)
 
