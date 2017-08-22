@@ -350,6 +350,11 @@
 
             let _this =this;
             xqzs.wx.setConfig(_this);
+             if( xqzs.localdb.get("isBirthday")==="1"){
+                 _this.isBirthday=true;
+             }else{
+                 _this.isBirthday=false;
+             }
 
 
             let date=new Date();
@@ -361,11 +366,18 @@
                 console.log(data)
                 if(data.body.status==1){
                     _this.birthdayList=data.body.data;
+                    let isbirthday=false;
                     for(let i=0;i<_this.birthdayList.length;i++){
                         if(_this.birthdayList[i].myself==1){
                             _this.isBirthday=true;
+                            isbirthday=true;
                             break;
                         }
+                    }
+                    if(isbirthday){
+                        xqzs.localdb.set("isBirthday",1);
+                    }else{
+                        xqzs.localdb.set("isBirthday",0);
                     }
                 }
 
