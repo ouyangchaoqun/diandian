@@ -21,7 +21,7 @@
                         </div>
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'dateSelectView' : '']"
-                             @click="showSwiper(item.index)">
+                             @click="showSwiper(index)">
                             <a href="javascript:;">
                                 <div class="datesView">{{item.index+1}}
                                     <div class="dateEmptyView_right"></div>
@@ -59,6 +59,8 @@
                 isb: true,
                 swiper_box: true,
                 dayMoods: [],
+                dayMoods2: [],
+                dayMoods3: [],
                 mySwiper: null,
                 maxMonthNum: 4,
                 nowMonth: null,
@@ -114,23 +116,30 @@
                 $('.content-slide').height(itemHeight*lines+hh+10);
             },
             showSwiper: function (index) {
-
                 let _this = this;
+                let calendarCount=0;
+                for(var i=0;i<=index;i++){
+                    calendarCount += _this.days[i].moods.length;
+                }
+                if(_this.dayMoods3=[]){//获取当月所有数据
+                    for(var i=0;i<_this.days.length;i++){
+                        _this.dayMoods3 = _this.dayMoods3.concat(_this.days[i].moods)
+                    }
+                }
                 if (_this.days[index].moods.length > 0) {
                     //植入当天数据
                     _this.dayMoods = [];
-                    _this.dayMoods = _this.days[index].moods;
+                    _this.dayMoods = _this.dayMoods3;//_this.days[index].moods;
                     for (let i = 0; i < _this.dayMoods.length; i++) {
-                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "bg_mood_0" + _this.dayMoods[i].moodValue + ".png";
-                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.substring(5);
+                        _this.dayMoods[i].bgUrl = web.IMG_PATH + "list_mood_0" + _this.dayMoods[i].moodValue + ".png";
+                        _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "年")
                         _this.dayMoods[i].dt = _this.dayMoods[i].dt.replace("-", "月");
                         _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
                     }
-                    console.log(_this.dayMoods);
                     //日期点击事件
                     this.isa = true;
                     this.isb = false
-                    Bus.$emit("dataClick",{_isa:this.isa,_isb:this.isb,_dayMoods:_this.dayMoods});
+                    Bus.$emit("dataClick",{_isa:this.isa,_isb:this.isb,index:calendarCount-1,_dayMoods:_this.dayMoods});
 
                 }
             },
@@ -177,9 +186,7 @@
                 this.days = days;
                 days = [];
                 _this.$http.get(web.API_PATH + 'mood/query/calendar/list/'+this.$route.params.Id+'?date=' + year + '-' + monthchange + '-01').then(response => {
-                    console.log(this.$route.params.Id)
                     if (response.data.status === 1) {
-
                         if (thisMonthDays > 0) {
                             for (let i = 1; i <= thisMonthDays; i++) {
                                 let dayChange = i;
@@ -561,16 +568,8 @@
         width: 100%;
         text-align: center;
         z-index: 100;
-        border-radius: 10px;
         position: absolute;
-        top: 30%;
-        font-size: 18px;
-        color: #666666;
-        height: auto;
-    }
-
-    .clickBox img {
-        width: 90%;
+        top: 15%;
         height: auto;
     }
 
@@ -590,17 +589,10 @@
         line-height: 22px;;
     }
 
-    .clickBox_bottom {
-        font-size: 13px;
-        color: #333333;
-        line-height: 20px;
-        padding: 0 36px;
-        overflow: auto;
-        height: 36px;
-    }
 
     .swiper-slide {
         height: auto;
     }
+
 
 </style>
