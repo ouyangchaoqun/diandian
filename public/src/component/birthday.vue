@@ -352,15 +352,16 @@
 
     .heart {
         position: absolute;
-        width: 3.6470588rem;
-        height: 3.176470588rem;
+        width: 4rem;
+        height: 3.4rem;
         overflow: hidden;
         background: url(../../dist/birthday/heart_bg.png);
         background-size: 100% 100%;
         left: 50%;
-        margin-left: -1.8235294rem;
-        top: -1rem;
+        margin-left: -2rem;
+        top: -1.1rem;
         z-index: 1;
+
     }
 
     .heart .over {
@@ -386,16 +387,16 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: url(../../dist/birthday/wave.png);
+        background: url(../../dist/birthday/wave.png) top center repeat-x;
         height: 4.352941176470588rem;
         width: 78235.29411764706rem; background-size:44px; ;
     }
     .heart .wave .img1{
-        background: url(../../dist/birthday/wave.png);
+        background: url(../../dist/birthday/wave.png) top center repeat-x;
         background-size:38px; ;
     }
     .heart .wave .img3{
-        background: url(../../dist/birthday/wave.png);
+        background: url(../../dist/birthday/wave.png) top center repeat-x;
         background-size:18px;
         opacity: 0.3;
         animation: wave_move2 37600s linear;
@@ -496,7 +497,7 @@
             -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);
 
         }
-        20% {
+        10% {
 
             transform: translate3d(1rem, 7.2rem, 0) rotate(-7deg);
             -webkit-transform: translate3d(1rem, 7.2rem, 0) rotate(-7deg);
@@ -531,7 +532,7 @@
             -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);;
         }
 
-        20% {
+        11% {
 
             transform: translate3d(2rem, 7.2rem, 0) rotate(10deg);
             -webkit-transform: translate3d(2rem, 7.2rem, 0) rotate(10deg);
@@ -564,7 +565,7 @@
             transform: translate3d(1.56rem, 9rem, 0) rotate(-4deg);
             -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(-4deg);
         }
-        20% {
+        12% {
 
             transform: translate3d(1.1rem, 7.2rem, 0) rotate(-4deg);
             -webkit-transform: translate3d(1.1rem, 7.2rem, 0) rotate(-4deg);
@@ -596,7 +597,7 @@
             transform: translate3d(1.56rem, 9rem, 0) rotate(14deg);
             -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(14deg);
         }
-        20% {
+        12% {
 
             transform: translate3d(2.8rem, 7.2rem, 0) rotate(14deg);;
             -webkit-transform: translate3d(2.8rem, 7.2rem, 0) rotate(14deg);;
@@ -629,7 +630,7 @@
             transform: translate3d(1.56rem, 9rem, 0) rotate(-14deg);
             -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(-14deg);
         }
-        20% {
+        14% {
 
             transform: translate3d(1rem, 7.2rem, 0) rotate(-14deg);
             -webkit-transform: translate3d(1rem, 7.2rem, 0) rotate(-14deg);
