@@ -18,10 +18,13 @@ class ApiController extends Controller
 
     public function url(Request $request, Response $response)
     {
+
         $userId = $this->getUserId($request);
-        if(empty($request->input("guest"))){
-            if($userId==0) return "";
+        if(empty($request->input("guest"))){ //不是guest
+            if($userId==0||$userId==null||$userId==''||empty($userId)) return "";
         }
+
+
         return $this->apiService->exec($request,$userId);
     }
 }

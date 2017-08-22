@@ -32,7 +32,9 @@
     web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
     web.IMG_PATH="/dist/";
     var now_week= "<?=date("W")?>";
-    console.log( web.IPAddress);
+    <?php
+    if(!empty($guest)){echo "web.guest=true;";}
+    ?>
 </script>
 
 <script src="/src/js/cookie.js?v=<?=STATIC_XQZS_VERSION?>"></script>
@@ -42,5 +44,6 @@
 <script src="/src/js/weshare.js"></script>
 <script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="https://cdn.staticfile.org/highcharts/5.0.9/highcharts.js"></script>
+<script src="https://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 </body>
 </html>

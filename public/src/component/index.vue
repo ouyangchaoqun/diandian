@@ -28,7 +28,14 @@
         </div>
         <div class="weui-tab__panel" >
             <div class="banner">
-                <v-banner></v-banner>
+                <ul class="birthdays">
+                    <li @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0&&index<4"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
+                </ul>
+                <ul class="birthdays b_right">
+                    <li  @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>5&&index>=4" ><template v-if="item.myself==1"> <img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
+                </ul>
+                <div v-show="isBirthday"><img src="/dist/top_img/birthday.jpg"/></div>
+                <v-banner v-show="!isBirthday"></v-banner>
             </div>
             <!--banner end -->
             <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
@@ -172,7 +179,9 @@
                 newFirendMoodStyle:'',
                 hasNewPerfect:false,
                 newPerfectStyle:'',
-                scrollTop:0
+                scrollTop:0,
+                birthdayList:[],
+                isBirthday:false
             }
         },
         filters:{
@@ -196,6 +205,9 @@
             }
         },
         methods: {
+            birthday:function (userId) {
+                this.$router.push("/birthday?userId="+userId)
+            },
             record:function () {
                 var  _this=this;
                 Bus.$emit("goIndex",false);
@@ -338,6 +350,41 @@
 
             let _this =this;
             xqzs.wx.setConfig(_this);
+             if( xqzs.localdb.get("isBirthday")==="1"){
+                 _this.isBirthday=true;
+             }else{
+                 _this.isBirthday=false;
+             }
+
+
+            let date=new Date();
+            let year=date.getFullYear();
+            let month=date.getMonth()+1;
+            let day=date.getDate()
+            //好友生日/api/v1/birthday/get/list/{year}/{month}/{day}/{userId}
+            _this.$http.get(web.API_PATH + 'birthday/get/list/'+year+'/'+month+'/'+day+'/_userId_').then(function (data) {//es5写法
+                console.log(data)
+                if(data.body.status==1){
+                    _this.birthdayList=data.body.data;
+                    let isbirthday=false;
+                    for(let i=0;i<_this.birthdayList.length;i++){
+                        if(_this.birthdayList[i].myself==1){
+                            _this.isBirthday=true;
+                            isbirthday=true;
+                            break;
+                        }
+                    }
+                    if(isbirthday){
+                        xqzs.localdb.set("isBirthday",1);
+                    }else{
+                        xqzs.localdb.set("isBirthday",0);
+                    }
+                }
+
+
+            }, function (error) {
+
+            });
 
             $(".weui-tab__panel").scroll(function () {
                 xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
@@ -398,6 +445,16 @@
 
 </script>
 <style>
+    .birthdays{  position: absolute; top:4%;left:0}
+    .birthdays li{ background: rgba(7,7,7,0.5); border-radius: 1.058823529411765rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.117647058823529rem; font-size: 0.7058823529411765rem; color:#fff; width: 6.6rem; line-height:  2.117647058823529rem; margin-bottom: 1rem }
+    .birthdays li img{ width: 1.529411764705882rem ; height: 1.529411764705882rem; border-radius: 50%; float:left; margin-top: 0.2941176470588235rem; margin-left: 0.2rem;margin-right: 0.3rem; }
+    .birthdays li i{ display: inline-block;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.56rem; margin-right: 0.5rem;}
+
+    .birthdays.b_right{left:inherit; right:0;}
+    .birthdays.b_right li{border-radius: 1.058823529411765rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+    .birthdays.b_right li img{margin-left: 0.4rem;}
+    .birthdays.b_right li i{ margin-right: 0.2rem;}
+
     .tab{position: relative; padding-top: 0 !important;}
     #tabs a .tab_icon{ background: url(../images/tab_icons.png) no-repeat; background-size: 116px; height: 27px; width: 29px; display: inline-block; margin-top: 1px;}
     #tabs a .tab_icon.recordImg{ background-position: 0 0px}
