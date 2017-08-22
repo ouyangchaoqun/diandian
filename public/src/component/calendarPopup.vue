@@ -1,7 +1,7 @@
 <template id="calendarPopup">
     <div style="height: 100%;width: 100%;" @click="hideSwiper()">
-        <div class="weui-mask weui-animate-fade-in" v-if="isa"></div>
-        <div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >
+        <div class="weui-mask weui-animate-fade-in" v-if="isShow"></div>
+        <div id="bg_back" :class="[{show_box_cal:isShow,hidden_box:isHidden}]" >
             <div class="swiper-container1 clickBox">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="mood in dayMoods">
@@ -40,8 +40,8 @@
         data() {
             return {
                 topImg: xqzs.mood.getTopImg(),
-                isa: false,
-                isb: true,
+                isShow: false,
+                isHidden: true,
                 swiper_box: true,
                 dayMoods: [],
                 mySwiper: null,
@@ -66,8 +66,8 @@
                 let _this= this;
                 xqzs.weui.weuiMaskClose();
                 setTimeout(function () {
-                    _this.isa = false;
-                    _this.isb = true;
+                    _this.isShow = false;
+                    _this.isHidden = true;
 
                 },200)
 
@@ -85,10 +85,9 @@
         created: function () {
             var popup = this;
             Bus.$on('dataClick',function (_is) {
-                console.log(_is)
                 popup.index = _is.index
-                popup.isa = _is._isa
-                popup.isb = _is._isb
+                popup.isShow = _is.isShow
+                popup.isHidden = _is.isHidden
                 popup.dayMoods = _is._dayMoods
                 this.$nextTick(function () {
                     if (popup.mySwiper !== null) {
@@ -105,19 +104,18 @@
 </script>
 <style>
     .addPopup{
-        border-radius:0 0 5px 5px;
+        border-radius:5px;
         height: 27.1rem;
         width: 18.26rem;
         background: #fff;
         margin: 0 auto;
         position: relative;
-        overflow: hidden;
     }
     .addPopupBg{
         width: 100%;
         height:12.59rem;
         display: block;
-        border-radius: 5px 5px 0 0;
+        border-radius:5px 5px 0 0;
     }
     .addPopupMood{
         height: 3.53rem;

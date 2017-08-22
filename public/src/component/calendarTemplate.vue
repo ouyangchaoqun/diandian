@@ -55,8 +55,8 @@
                 _month: '',
                 today: '',
                 index: '',
-                isa: false,
-                isb: true,
+                isShow: false,
+                isHidden: true,
                 swiper_box: true,
                 dayMoods: [],
                 dayMoods2: [],
@@ -137,9 +137,9 @@
                         _this.dayMoods[i].weekCn = _this.weeks_ch[_this.dayMoods[i].weekix];
                     }
                     //日期点击事件
-                    this.isa = true;
-                    this.isb = false
-                    Bus.$emit("dataClick",{_isa:this.isa,_isb:this.isb,index:calendarCount-1,_dayMoods:_this.dayMoods});
+                    this.isShow = true;
+                    this.isHidden = false
+                    Bus.$emit("dataClick",{isShow:this.isShow,isHidden:this.isHidden,index:calendarCount-1,_dayMoods:_this.dayMoods});
 
                 }
             },
