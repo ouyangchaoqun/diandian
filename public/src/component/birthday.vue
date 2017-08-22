@@ -27,7 +27,7 @@
         <div class="clear"></div>
         <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()" >
             <template v-if="friendList[0].userId==0" >微信好友送上祝福</template>
-            <template v-else="">{{friendList[0].nickName}}..好友送上祝福</template>
+            <template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>
         </div>
         <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0"  >邀请好友送上祝福</div>
         <div class="tip" v-if="user!=null&&user.id!=birthdayUserId" >点赞送生日祝福</div>
@@ -643,7 +643,7 @@
         position: absolute;
         left: 50%;
         margin-left: -2.25rem;
-        top: 17rem;
+        top: 18rem;
         z-index: 1001;
     }
 
@@ -653,7 +653,7 @@
         border-radius: 50%;
         background: #dd3c3b;
         position: absolute;
-        top: 26rem;
+        top: 27rem;
         left: 50%;
         margin-left: -2.264705882352941rem
     }
@@ -723,6 +723,13 @@
         },
         methods: {
             friends:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH + 'birthday/get/care/users/'+ _this.birthdayUserId).then(function (data) {//es5写法
+                    if(data.body.status==1){
+                        _this.friendList= data.body.data;
+                    }
+                }, function (error) {
+                });
                 xqzs.weui.dialogCustom($("#friends").html())
             },
             follow: function () { //关注
@@ -808,10 +815,14 @@
                         let last = this.count;
                         let stepLength = this.steps[i].num
                         if (i != 0) {
-                            last = this.count - this.steps[i - 1].num;
-                            stepLength = this.steps[i].num - this.steps[i - 1].num
+                            let before = this.steps[i - 1].num;
+                            if(before==0) before =  this.steps[i - 2].num;
+                            if(before==0) before =  this.steps[i - 3].num;
+
+                            last = this.count - before;
+                            stepLength = this.steps[i].num - before
                         }
-                        console.log(last + "reaaaa" + this.steps[i].num)
+                        console.log(last + "reaaaa" + stepLength)
 
                         this.per = last / stepLength * 100;
                         break;
