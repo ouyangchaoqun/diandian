@@ -154,7 +154,7 @@
         border-radius: 0.823529411764706rem;
         font-size: 0.6470588235294118rem;
         margin-top: 7rem;
-        color: #8e664d
+        color: #8e664d;margin-bottom: 2rem;
     }
 
     .bottom_tip .text img {
