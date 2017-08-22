@@ -835,7 +835,7 @@
                     imgUrl:web.IMG_PATH+"/happy_top.png",
                     title: '我生日了给我祝福把',
                     desc: '我的生日到了',
-                    link: encodeURI(window.location.href),
+                    link: window.location.href,
                 };
                 weshare.init(wx,config)
             });
