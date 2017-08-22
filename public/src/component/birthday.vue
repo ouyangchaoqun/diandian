@@ -884,6 +884,17 @@
                         _this.birthdayUser = data.data.data;
                         this.birthday = this.birthdayUser.birthday;
 
+                        xqzs.wx.setConfig(this,function () {
+                            wx.showAllNonBaseMenuItem();
+                            var config ={
+                                imgUrl:web.BASE_PATH+web.IMG_PATH+"/birthday/birthday_share.jpg",
+                                title: '生日祝福',
+                                desc:  _this.birthdayUser.nickName+'今天生日，进来送个祝福吧！',
+                                link: web.BASE_PATH+"/guest/#/birthday?userId="+_this.birthdayUserId,
+                            };
+                            weshare.init(wx,config)
+                        });
+
                         if (_this.birthday) {
                             let date = _this.birthday.split(',');
                             _this.year = date[0];
@@ -938,16 +949,9 @@
 
             });
 
-            xqzs.wx.setConfig(this,function () {
-                wx.showAllNonBaseMenuItem();
-                var config ={
-                    imgUrl:web.BASE_PATH+web.IMG_PATH+"/happy_top.png",
-                    title: '我生日了给我祝福把',
-                    desc: '我的生日到了',
-                    link: web.BASE_PATH+"/guest/#/birthday?userId="+_this.birthdayUserId,
-                };
-                weshare.init(wx,config)
-            });
+
+
+
 
             //点赞好友列表 +总数
             _this.$http.get(web.API_PATH + 'birthday/get/care/users/'+ _this.birthdayUserId).then(function (data) {//es5写法
