@@ -15,6 +15,7 @@
                 <div class="wave">
                     <div class="img1"></div>
                     <div class="img2"></div>
+                    <div class="img3"></div>
                 </div>
             </div>
             <div class="step" v-for="step in steps">
@@ -381,16 +382,30 @@
         width: 100%
     }
 
-    .heart .wave .img1, .heart .wave .img2 {
+    .heart .wave .img1, .heart .wave .img2,.heart .wave .img3 {
         position: absolute;
         top: 0;
         left: 0;
         background: url(../../dist/birthday/wave.png);
         height: 4.352941176470588rem;
-        width: 78235.29411764706rem
+        width: 78235.29411764706rem; background-size:20px; ;
+    }
+    .heart .wave .img1{
+        background: url(../../dist/birthday/wave.png);
+        background-size:38px; ;
+    }
+    .heart .wave .img3{
+        background: url(../../dist/birthday/wave.png);
+        background-size:18px;
+        opacity: 0.3;
+        animation: wave_move2 8800s infinite;
+        -webkit-animation: wave_move2 8800s infinite;;
+        margin-left: -60px;
+        margin-top: 3px;
     }
 
     .heart .wave .img2 {
+        margin-top: 2px;
         opacity: 0.5;
         animation: wave_move2 8200s infinite;
         -webkit-animation: wave_move2 8200s infinite;;
