@@ -4,6 +4,7 @@
         <div class="top_info">
             <div class="head"><img :src="birthdayUser.faceUrl"></div>
             <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
+            <div class="txt2"  v-if="user==null">{{birthdayUser.nickName | shortName(8)}}</div>
             <div class="txt2"  v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}</div>
             <div class="txt2"  v-if="user!=null&&user.id==birthdayUserId">亲爱的 {{birthdayUser.nickName  | shortName(8)}}<br>祝你生日快乐，天天开心！</div>
             <div class="happy"></div>
