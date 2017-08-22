@@ -15,7 +15,7 @@
                 <div class="wave">
                     <div class="img1"></div>
                     <div class="img2"></div>
-                    <div class="img3"></div>
+
                 </div>
             </div>
             <div class="step" v-for="step in steps">
@@ -30,7 +30,7 @@
             <template v-if="friendList[0].userId==0" >微信好友送上祝福</template>
             <template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>
         </div>
-        <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0"  >邀请好友送上祝福</div>
+        <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0"   @click="friends()" >邀请好友送上祝福</div>
         <div class="tip" v-if="user!=null&&user.id!=birthdayUserId" >点赞送生日祝福</div>
         <div class="count">{{count}}</div>
         <div class="heart_a">
@@ -388,7 +388,7 @@
         left: 0;
         background: url(../../dist/birthday/wave.png);
         height: 4.352941176470588rem;
-        width: 78235.29411764706rem; background-size:20px; ;
+        width: 78235.29411764706rem; background-size:44px; ;
     }
     .heart .wave .img1{
         background: url(../../dist/birthday/wave.png);
@@ -398,23 +398,24 @@
         background: url(../../dist/birthday/wave.png);
         background-size:18px;
         opacity: 0.3;
-        animation: wave_move2 8800s infinite;
-        -webkit-animation: wave_move2 8800s infinite;;
+        animation: wave_move2 37600s linear;
+        -webkit-animation: wave_move2 37600s linear;;
         margin-left: -60px;
         margin-top: 3px;
     }
 
     .heart .wave .img2 {
         margin-top: 2px;
-        opacity: 0.5;
-        animation: wave_move2 8200s infinite;
-        -webkit-animation: wave_move2 8200s infinite;;
+        opacity: 0.6;
+        animation: wave_move2 36400s linear;
+        -webkit-animation: wave_move2 36400s linear;;
         margin-left: -100px;
     }
 
     .heart .wave .img1 {
-        animation: wave_move 8000s infinite;
-        -webkit-animation: wave_move 8000s infinite;
+        opacity: 0.6;
+        animation: wave_move 36000s linear;
+        -webkit-animation: wave_move 36000s linear;
     }
 
     @keyframes wave_move {
@@ -484,34 +485,34 @@
         animation: heart_move4 3.5s linear;
         -webkit-animation: heart_move4 3.5s linear;
         animation-fill-mode: forwards;
-        height: 1.5rem;
-        width: 1.5rem
+        height: 1.6rem;
+        width: 1.6rem
     }
 
     @keyframes heart_move1 {
         0% {
-
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0) rotate(0deg);
-            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(0deg);
+            transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);
+            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);
 
         }
         20% {
-            transform: translate3d(1rem, 8rem, 0) rotate(-7deg);
-            -webkit-transform: translate3d(1rem, 8rem, 0) rotate(-7deg);
+
+            transform: translate3d(1rem, 7.2rem, 0) rotate(-7deg);
+            -webkit-transform: translate3d(1rem, 7.2rem, 0) rotate(-7deg);
         }
         40% {
-            transform: translate3d(0.2rem, 6rem, 0) rotate(17deg);
-            -webkit-transform: translate3d(0.2rem, 6rem, 0) rotate(17deg);
+            transform: translate3d(0.2rem, 5.4rem, 0) rotate(17deg);
+            -webkit-transform: translate3d(0.2rem, 5.4rem, 0) rotate(17deg);
         }
         60% {
             opacity: 0.7;
-            transform: translate3d(1.3rem, 4rem, 0) rotate(-4deg);
-            -webkit-transform: translate3d(1.3rem, 4rem, 0) rotate(-4deg);
+            transform: translate3d(1.3rem, 3.6rem, 0) rotate(-4deg);
+            -webkit-transform: translate3d(1.3rem, 3.6rem, 0) rotate(-4deg);
         }
         80% {
-            transform: translate3d(0.8rem, 2rem, 0) rotate(18deg);
-            -webkit-transform: translate3d(0.8rem, 2rem, 0) rotate(18deg);
+            transform: translate3d(0.8rem, 1.8rem, 0) rotate(18deg);
+            -webkit-transform: translate3d(0.8rem, 1.8rem, 0) rotate(18deg);
         }
 
         100% {
@@ -526,26 +527,27 @@
     @keyframes heart_move2 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0) rotate(0deg);;
-            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(0deg);;
+            transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);;
+            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);;
         }
 
         20% {
-            transform: translate3d(2rem, 8rem, 0) rotate(10deg);
-            -webkit-transform: translate3d(2rem, 8rem, 0) rotate(10deg);
+
+            transform: translate3d(2rem, 7.2rem, 0) rotate(10deg);
+            -webkit-transform: translate3d(2rem, 7.2rem, 0) rotate(10deg);
         }
         40% {
-            transform: translate3d(2.2rem, 6rem, 0) rotate(12deg);
-            -webkit-transform: translate3d(2.2rem, 6rem, 0) rotate(12deg);
+            transform: translate3d(2.2rem, 5.4rem, 0) rotate(12deg);
+            -webkit-transform: translate3d(2.2rem, 5.4rem, 0) rotate(12deg);
         }
         60% {
             opacity: 0.4;
-            transform: translate3d(2.3rem, 4rem, 0) rotate(13deg);
-            -webkit-transform: translate3d(2.3rem, 4rem, 0) rotate(13deg);
+            transform: translate3d(2.3rem, 3.6rem, 0) rotate(13deg);
+            -webkit-transform: translate3d(2.3rem, 3.6rem, 0) rotate(13deg);
         }
         80% {
-            transform: translate3d(2.8rem, 2rem, 0) rotate(-18deg);
-            -webkit-transform: translate3d(2.8rem, 2rem, 0) rotate(-18deg);
+            transform: translate3d(2.8rem, 1.8rem, 0) rotate(-18deg);
+            -webkit-transform: translate3d(2.8rem, 1.8rem, 0) rotate(-18deg);
         }
 
         100% {
@@ -559,25 +561,26 @@
     @keyframes heart_move3 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0) rotate(-4deg);
-            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(-4deg);
+            transform: translate3d(1.56rem, 9rem, 0) rotate(-4deg);
+            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(-4deg);
         }
         20% {
-            transform: translate3d(1.1rem, 8rem, 0) rotate(-4deg);
-            -webkit-transform: translate3d(1.1rem, 8rem, 0) rotate(-4deg);
+
+            transform: translate3d(1.1rem, 7.2rem, 0) rotate(-4deg);
+            -webkit-transform: translate3d(1.1rem, 7.2rem, 0) rotate(-4deg);
         }
         40% {
-            transform: translate3d(0.8rem, 6rem, 0) rotate(-14deg);
-            -webkit-transform: translate3d(0.8rem, 6rem, 0) rotate(-14deg);
+            transform: translate3d(0.8rem, 5.4rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(0.8rem, 5.4rem, 0) rotate(-14deg);
         }
         60% {
             opacity: 0.6;
-            transform: translate3d(0.3rem, 4rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(0.3rem, 4rem, 0) rotate(14deg);
+            transform: translate3d(0.3rem, 3.6rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(0.3rem, 3.6rem, 0) rotate(14deg);
         }
         80% {
-            transform: translate3d(1.7rem, 2rem, 0) rotate(-10deg);
-            -webkit-transform: translate3d(1.7rem, 2rem, 0) rotate(-10deg);
+            transform: translate3d(1.7rem, 1.8rem, 0) rotate(-10deg);
+            -webkit-transform: translate3d(1.7rem, 1.8rem, 0) rotate(-10deg);
         }
 
         100% {
@@ -590,26 +593,26 @@
 
     @keyframes heart_move4 {
         0% {
-            opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(14deg);
+            transform: translate3d(1.56rem, 9rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(14deg);
         }
         20% {
-            transform: translate3d(2.8rem, 8rem, 0) rotate(14deg);;
-            -webkit-transform: translate3d(2.8rem, 8rem, 0) rotate(14deg);;
+
+            transform: translate3d(2.8rem, 7.2rem, 0) rotate(14deg);;
+            -webkit-transform: translate3d(2.8rem, 7.2rem, 0) rotate(14deg);;
         }
         40% {
-            transform: translate3d(3.1rem, 6rem, 0) rotate(-10deg);;
-            -webkit-transform: translate3d(3.1rem, 6rem, 0) rotate(-10deg);
+            transform: translate3d(3.1rem, 5.4rem, 0) rotate(-10deg);;
+            -webkit-transform: translate3d(3.1rem, 5.4rem, 0) rotate(-10deg);
         }
         60% {
             opacity: 0.4;
-            transform: translate3d(1.9rem, 4rem, 0) rotate(-10deg);
-            -webkit-transform: translate3d(1.9rem, 4rem, 0) rotate(-10deg);
+            transform: translate3d(1.9rem, 3.6rem, 0) rotate(-10deg);
+            -webkit-transform: translate3d(1.9rem, 3.6rem, 0) rotate(-10deg);
         }
         80% {
-            transform: translate3d(1.4rem, 2rem, 0) rotate(5deg);
-            -webkit-transform: translate3d(1.4rem, 2rem, 0) rotate(5deg);
+            transform: translate3d(1.4rem, 1.8rem, 0) rotate(5deg);
+            -webkit-transform: translate3d(1.4rem, 1.8rem, 0) rotate(5deg);
         }
 
         100% {
@@ -623,25 +626,26 @@
     @keyframes heart_move5 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 10rem, 0) rotate(-14deg);
-            -webkit-transform: translate3d(1.56rem, 10rem, 0) rotate(-14deg);
+            transform: translate3d(1.56rem, 9rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(-14deg);
         }
         20% {
-            transform: translate3d(1rem, 8rem, 0) rotate(-14deg);
-            -webkit-transform: translate3d(1rem, 8rem, 0) rotate(-14deg);
+
+            transform: translate3d(1rem, 7.2rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(1rem, 7.2rem, 0) rotate(-14deg);
         }
         40% {
-            transform: translate3d(0.2rem, 6rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(0.2rem, 6rem, 0) rotate(14deg);
+            transform: translate3d(0.2rem, 5.4rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(0.2rem, 5.4rem, 0) rotate(14deg);
         }
         60% {
             opacity: 0.3;
-            transform: translate3d(1.4rem, 4rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(1.4rem, 4rem, 0) rotate(14deg);
+            transform: translate3d(1.4rem, 3.6rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(1.4rem, 3.6rem, 0) rotate(14deg);
         }
         80% {
-            transform: translate3d(1.7rem, 2rem, 0) rotate(-7deg);
-            -webkit-transform: translate3d(1.7rem, 2rem, 0) rotate(-7deg);
+            transform: translate3d(1.7rem, 1.8rem, 0) rotate(-7deg);
+            -webkit-transform: translate3d(1.7rem, 1.8rem, 0) rotate(-7deg);
         }
 
         100% {
@@ -653,7 +657,7 @@
     }
 
     .heart_a {
-        height: 10rem;
+        height: 8rem;
         width: 4.5rem;
         position: absolute;
         left: 50%;
