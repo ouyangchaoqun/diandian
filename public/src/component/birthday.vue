@@ -4,7 +4,8 @@
         <div class="top_info">
             <div class="head"><img :src="birthdayUser.faceUrl"></div>
             <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
-            <div class="txt2">{{birthdayUser.nickName}}</div>
+            <div class="txt2"  v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}</div>
+            <div class="txt2"  v-if="user!=null&&user.id==birthdayUserId">亲爱的 {{birthdayUser.nickName  | shortName(8)}}<br>祝你生日快乐，天天开心！</div>
             <div class="happy"></div>
             <div class="happy_top"></div>
         </div>
@@ -24,7 +25,12 @@
 
         </div>
         <div class="clear"></div>
-        <div class="tip">点赞送生日祝福</div>
+        <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()" >
+            <template v-if="friendList[0].userId==0" >微信好友送上祝福</template>
+            <template v-else="">{{friendList[0].nickName}}..好友送上祝福</template>
+        </div>
+        <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0"  >邀请好友送上祝福</div>
+        <div class="tip" v-if="user!=null&&user.id!=birthdayUserId" >点赞送生日祝福</div>
         <div class="count">{{count}}</div>
         <div class="heart_a">
 
@@ -38,7 +44,7 @@
 
         </div>
         <div class="bottom_tip">
-            <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img src="user.faceUrl"/>您点了15次赞，邀请好友一起点赞</div>
+            <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/> 您点了{{myCareCount}}次赞，邀请好友一起点赞</div>
             <div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>
             <div class="text" @click="follow()"  v-if="user==null"  ><span></span>关注心情指数，让他知道你在送祝福</div>
         </div>
@@ -58,6 +64,19 @@
         <div class="myshare"v-show="isShowShareTip" @click="share()">
 
         </div>
+        <div id="friends"  style="display: none">
+            <div class="friend_list">
+                <div class="top"></div>
+                <ul>
+                    <li v-for="item in  friendList">
+                        <template v-if="item.userId!=0"><img   :src="item.faceUrl" />{{item.nickName  | shortName(8)}}<span >{{item.count}}个赞</span></template>
+                        <template v-else=""><img  src="/dist/birthday/wxfriend.png" />微信好友<span >{{item.count}}个赞</span></template>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
     </div>
 </template>
 <style>
@@ -65,6 +84,16 @@
         clear: both
     }
 
+    .friend_list{ background: #fff; border-radius: 6px; overflow: hidden; height: 60%; position: absolute; top:20%; width: 80%;
+        left: 10% ; z-index: 100001}
+    .friend_list .top{ background: url(../../dist/birthday/friend_list_top.png) no-repeat #ff6965  ; background-size: 60%; background-position:50% 30%; height: 30%; }
+    .friend_list ul{ height: 70%;
+        overflow-y: auto; width: 100% ;}
+    .friend_list ul li{ width: 100% ; height:2.705882352941176rem;line-height:2.705882352941176rem; border-bottom: 0.0588235294117647rem solid #eee; color:#333; font-size: 0.8823529411764706rem; clear:both;  }
+    .friend_list ul li:first-child{ margin-top: 8px;}
+    .friend_list ul li:last-child{margin-bottom: 8px; border-bottom: none}
+    .friend_list ul li img{ display: block; float:left;  width:2rem; height: 2rem; margin: 0.3529411764705882rem; margin-left: 15px; border-radius: 50%;}
+    .friend_list ul li span{font-size:0.8235294117647059rem; text-align: right; display: inline-block; float:right; margin-right: 15px; color:#914951}
     .myshare{ background: url(../../dist/birthday/share.png) no-repeat center top rgba(0,0,0,0.9) ; background-position: 2.5rem 3.5rem; background-size: 80%; height: 100%; width: 100%; position: absolute; top:0; left:0 ; z-index: 10001; }
 
     .dialog_follow {
@@ -145,7 +174,7 @@
 
     .birthday_box .top_info {
         padding-top: 4.8rem;
-        height: 13.2rem;
+        height: 14.2rem;
         background: url(../../dist/birthday/top_bg.png) top center no-repeat;
         background-size: 94%;
         position: relative;
@@ -202,12 +231,15 @@
         height: 100%;
     }
 
+
     .tip {
         text-align: center;
-        margin-top: 2rem;
+        margin-top: 2.5rem;
         font-size: 0.6470588235294118rem;
         line-height: 0.7058823529411765rem;
         color: #836f63;
+        z-index: 1002;
+        position: absolute; width: 100%;
     }
 
     .tip:before {
@@ -222,7 +254,7 @@
     }
 
     .count {
-        margin-top: 0.8rem;
+        margin-top:3.87rem;
         text-align: center;
         color: #804a52;
         font-size: 1.117647058823529rem;
@@ -675,14 +707,24 @@
                 user: null,
                 birthdayUserId: 0,
                 isGuest:false,
-                isShowShareTip:false
+                isShowShareTip:false,
+                friendList:[],
+                isFriendListShow:false,
+                myCareCount:0
             }
         },
-
+        filters:{
+            shortName:function(value,len){
+                return xqzs.shortname(value,len);
+            }
+        },
         components: {
             'v-showLoad':showLoad
         },
         methods: {
+            friends:function () {
+                xqzs.weui.dialogCustom($("#friends").html())
+            },
             follow: function () { //关注
                 let _this = this;
                 xqzs.weui.dialogCustom($("#follow").html())
@@ -729,13 +771,29 @@
                     this.addHeart()
                     return;
                 }
+                let that=this;
 
-                this.count++;
+               // http://api.m.xqzs.cn/api/v1/birthday/add/care/1275/1273
+                let userId=0;
+                if(that.user){
+                    userId=that.user.id;
 
-                this.random = random;
+                }
                 $(".heart_a").append("<div class='a_" + random + "'></div>");
-                this.reach();
-                $(".heart .wave").css({top: 100 - (this.per + 16) + "%"});
+                    that.$http.put(web.API_PATH + "birthday/add/care/"+that.birthdayUserId+"/"+userId, {})
+                        .then(function (bt) {
+                            if (bt.data && bt.data.status == 1) {
+                                that.count++;
+                                that.myCareCount ++;
+                                that.random = random;
+                                that.reach();
+                            }
+                        });
+
+
+
+
+
 
             },
             reach: function () {
@@ -759,14 +817,14 @@
                         break;
                     }
                 }
+                $(".heart .wave").css({top: 100 - (this.per + 16) + "%"});
                 console.log(this.per)
             }
         },
 
         mounted: function () {
             let _this = this;
-
-              this.showLoad=true;
+            this.showLoad=true;
             //当前生日用户
             let data = '';
             if (web.guest) {
@@ -795,7 +853,7 @@
                             _this.birthdayTxt = _this.month + "月" + _this.day + "号";
                             _this.constellation = xqzs.constellation.array[xqzs.constellation.getIndex(_this.month, _this.day)];
                         }
-                        _this.reach();
+
                     }
                 }, function (error) {
                     //error
@@ -806,16 +864,28 @@
 
             //当前用户
             _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {//es5写法
-                console.log(data)
+
                 if (data.body == '') {
 
                 } else {
                     _this.user = data.data.data;
+                    //我的点赞数量
+                    if(_this.user&&_this.birthdayUserId!=_this.user.userId){
+                        _this.$http.get(web.API_PATH + 'birthday/get/care/count/'+ _this.birthdayUserId +"/_userId_").then(function (data) {//es5写法
+                            console.log(data)
+                            if(data.body.status==1){
+                                _this.myCareCount=data.body.data.count;
+                            }
+                        }, function (error) {
+                        });
+                    }
                 }
                 this.showLoad=false;
             }, function (error) {
 
             });
+
+
 
             //二维码
             _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId).then(function (data) {//es5写法
@@ -838,6 +908,24 @@
                     link: web.BASE_PATH+"/guest/#/birthday?userId="+_this.birthdayUserId,
                 };
                 weshare.init(wx,config)
+            });
+
+            //点赞好友列表 +总数
+            _this.$http.get(web.API_PATH + 'birthday/get/care/users/'+ _this.birthdayUserId).then(function (data) {//es5写法
+                if(data.body.status==1){
+                    let count=0;
+                    for(let i =0;i<data.body.data.length;i++){
+                        count += data.body.data[i].count;
+                    }
+                    _this.count=count;
+                    _this.friendList= data.body.data;
+                    _this.showLoad=true;
+                    setTimeout(function () {
+                        _this.reach();
+                        _this.showLoad=false;
+                    },800)
+                }
+            }, function (error) {
             });
         }
     }
