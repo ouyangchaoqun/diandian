@@ -666,6 +666,7 @@
         z-index: 1001;
     }
 
+
     .heart_click_btn {
         height: 4.529411764705882rem;
         width: 4.529411764705882rem;
@@ -676,6 +677,10 @@
         left: 50%;
         margin-left: -2.264705882352941rem
     }
+    .heart_click_btn:active{
+        background: rgba(221,60,59,0.8);
+    }
+    .heart_click_btn:active .heart_btn{ opacity: 0.6}
 
     .heart_click_btn .text {
         color: #fff;
