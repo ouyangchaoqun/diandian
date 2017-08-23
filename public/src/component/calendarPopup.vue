@@ -110,17 +110,20 @@
 <style>
     .addPopup{
         border-radius:5px;
-        height: 27.1rem;
+        height: 13.2rem;
         width: 18.26rem;
         background: #fff;
         margin: 0 auto;
         position: relative;
+        padding-top: 12.59rem;
     }
     .addPopupBg{
         width: 100%;
         height:12.59rem;
         display: block;
         border-radius:5px 5px 0 0;
+        position: absolute;
+        top:0;
     }
     .addPopupMood{
         height: 3.53rem;
