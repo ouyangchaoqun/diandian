@@ -11,7 +11,7 @@
                             <!--<div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>-->
                         <!--</div>-->
                         <div class="addPopup">
-                            <img class="addPopupBg" :src="topImg" alt=""/>
+                            <img class="addPopupBg" :src="mood.topImage" alt=""/>
                             <img class="addPopupMood" :src="mood.bgUrl" alt="" />
                             <div class="addPopupField">【在生活方面】</div>
                             <div class="clickBox_bottom" v-html="formatContent(mood.content)" v-if="formatContent(mood.content)!=''"></div>
@@ -39,7 +39,6 @@
     export default {
         data() {
             return {
-                topImg: xqzs.mood.getTopImg(),
                 isShow: false,
                 isHidden: true,
                 swiper_box: true,
@@ -78,6 +77,9 @@
                 }
                 return xqzs.face.parse(c);
             },
+            getCalendarTopImg: function (date) {
+                return web.IMG_PATH + "top_img/" + date.replace(/[年|月]/g, "/") + ".jpg";
+            }
         },
         updated:function () {
             xqzs.weui.active($(".dateView a"))
@@ -89,6 +91,10 @@
                 popup.isShow = _is.isShow
                 popup.isHidden = _is.isHidden
                 popup.dayMoods = _is._dayMoods
+
+                for(var i=0;i<popup.dayMoods.length;i++){
+                    popup.dayMoods[i].topImage = popup.getCalendarTopImg(popup.dayMoods[i].dt);
+                }
                 this.$nextTick(function () {
                     if (popup.mySwiper !== null) {
                         popup.mySwiper.update()
