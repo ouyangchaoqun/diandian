@@ -1,6 +1,6 @@
 <template id="calendarPopup">
     <div style="height: 100%;width: 100%;" @click="hideSwiper()">
-        <div class="weui-mask weui-animate-fade-in" v-if="isShow"></div>
+        <div class="weui-mask weui-animate-fade-in" v-if="isShow" style="background:rgba(0,0,0,0.8);"></div>
         <div id="bg_back" :class="[{show_box_cal:isShow,hidden_box:isHidden}]" >
             <div class="swiper-container1 clickBox">
                 <div class="swiper-wrapper">
@@ -15,8 +15,7 @@
                             <img class="addPopupMood" :src="mood.bgUrl" alt="" />
                             <div class="addPopupField">【在生活方面】</div>
                             <div class="clickBox_bottom" v-html="formatContent(mood.content)" v-if="formatContent(mood.content)!=''"></div>
-                            <div class="clickBox_bottom" v-if="formatContent(mood.content)==''">今天没有文字记录，在记录心情之后可以补充
-                                文字和图片，让回忆更清晰！</div>
+                            <div class="clickBox_bottom" v-if="formatContent(mood.content)==''">今天没有文字记录,在记录心情之后可以补充文字和图片,让回忆更清晰！</div>
                         </div>
                         <img src="../images/caendarBottom.png" alt="" style="width: 100%;display: block;margin-top: 0.3rem">
                         <div class="addPopupBottom">
