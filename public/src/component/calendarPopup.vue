@@ -1,14 +1,29 @@
 <template id="calendarPopup">
     <div style="height: 100%;width: 100%;" @click="hideSwiper()">
-        <div class="weui-mask weui-animate-fade-in" v-if="isa"></div>
-        <div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >
+        <div class="weui-mask weui-animate-fade-in" v-if="isShow" style="background:rgba(0,0,0,0.8);"></div>
+        <div id="bg_back" :class="[{show_box_cal:isShow,hidden_box:isHidden}]" >
             <div class="swiper-container1 clickBox">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="mood in dayMoods">
-                        <img :src="mood.bgUrl" alt=""/>
-                        <div class="clickBox_time">
-                            <span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>
-                            <div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>
+                        <!--<img :src="mood.bgUrl" alt=""/>-->
+                        <!--<div class="clickBox_time">-->
+                            <!--<span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>-->
+                            <!--<div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>-->
+                        <!--</div>-->
+                        <div class="addPopup">
+                            <img class="addPopupBg" :src="mood.topImage" alt=""/>
+                            <img class="addPopupMood" :src="mood.bgUrl" alt="" />
+                            <div style="height: 13.21rem;background: #fff;padding-top: 2.35rem;border-radius: 0 0 5px 5px">
+                                <div class="addPopupField">【在生活方面】</div>
+                                <div class="clickBox_bottom" v-html="formatContent(mood.content)" v-if="formatContent(mood.content)!=''"></div>
+                                <div class="clickBox_bottom" v-if="formatContent(mood.content)==''">今天没有文字记录,在记录心情之后可以补充文字和图片,让回忆更清晰！</div>
+                            </div>
+
+                        </div>
+                        <img src="../images/caendarBottom.png" alt="" style="width: 100%;display: block;margin-top: 0.3rem">
+                        <div class="addPopupBottom">
+                            <span>{{mood.dt}}</span>
+                            <span>{{mood.time}}</span>
                         </div>
                     </div>
 
@@ -26,13 +41,14 @@
     export default {
         data() {
             return {
-                isa: false,
-                isb: true,
+                isShow: false,
+                isHidden: true,
                 swiper_box: true,
                 dayMoods: [],
                 mySwiper: null,
                 nowMonth: null,
-                nowYear: null
+                nowYear: null,
+                index:''
             }
         },
 
@@ -42,82 +58,29 @@
             let _this = this;
             _this.mySwiper = new Swiper('.clickBox', {
 
-                onSlideChangeStart: function(){
-                    console.log(_this.mySwiper.activeIndex);
-                }
-
 
             });
             xqzs.wx.setConfig(_this);
-//
         },
         methods: {
-            calculateDays(year, month) {
-                let defaultImgUrl = web.IMG_PATH + "list_mood_0" + 0 + ".png";
-                let _this = this;
-                let days = [];
-                let thisMonthDays = this.getThisMonthDays(year, month);
-                let monthchange = month;
-                if (month < 10) monthchange = "0" + monthchange;
-
-
-                for (let i = 1; i <= thisMonthDays; i++) {
-                    days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
-                }
-
-                this.days = days;
-                days = [];
-                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/_userId_?date=' + year + '-' + monthchange + '-01').then(response => {
-                    if (response.data.status === 1) {
-
-                        if (thisMonthDays > 0) {
-                            for (let i = 1; i <= thisMonthDays; i++) {
-                                let dayChange = i;
-                                if (i < 10) dayChange = "0" + i;
-                                let dateStr = year + "-" + monthchange + "-" + dayChange;
-                                let faceIndex = 0;
-                                let moods = [];
-                                for (let j = 0; j < response.data.data.length; j++) {
-                                    if (dateStr === response.data.data[j].dt) {
-                                        faceIndex = response.data.data[j].moodValue;
-                                        moods.push(response.data.data[j]);
-                                    }
-                                }
-                                let smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
-                                days.push({index: i - 1, date: dateStr, smailUrl: smailUrl, moods: moods});
-                            }
-                        }
-
-                        this.days = days
-
-                    } else {
-                        for (let i = 1; i <= thisMonthDays; i++) {
-                            days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
-                        }
-                    }
-                }, response => {
-                    for (let i = 1; i <= thisMonthDays; i++) {
-                        days.push({index: i - 1, date: "", smailUrl: defaultImgUrl, moods: []});
-                    }
-                });
-
-                //
-            },
-
             hideSwiper: function () {                                 //轮播隐藏事件
                 let _this= this;
                 xqzs.weui.weuiMaskClose();
                 setTimeout(function () {
-                    _this.isa = false;
-                    _this.isb = true;
+                    _this.isShow = false;
+                    _this.isHidden = true;
 
                 },200)
 
             },
-
-
             formatContent:function (c) {
+                if(c){
+                    c = c.replace(/[\n]+/g,"");
+                }
                 return xqzs.face.parse(c);
+            },
+            getCalendarTopImg: function (date) {
+                return web.IMG_PATH + "top_img/" + date.replace(/[年|月]/g, "/") + ".jpg";
             }
         },
         updated:function () {
@@ -126,17 +89,20 @@
         created: function () {
             var popup = this;
             Bus.$on('dataClick',function (_is) {
-                popup.isa = _is._isa
-                popup.isb = _is._isb
+                popup.index = _is.index
+                popup.isShow = _is.isShow
+                popup.isHidden = _is.isHidden
                 popup.dayMoods = _is._dayMoods
 
-                console.log(popup.dayMoods.length)
+                for(var i=0;i<popup.dayMoods.length;i++){
+                    popup.dayMoods[i].topImage = popup.getCalendarTopImg(popup.dayMoods[i].dt);
+                }
                 this.$nextTick(function () {
                     if (popup.mySwiper !== null) {
                         popup.mySwiper.update()
 
                     }
-                    popup.mySwiper.slideTo(popup.dayMoods.length - 1, 0, false);//切换到第一个slide
+                    popup.mySwiper.slideTo(popup.index, 0, false);//切换到第一个slide
                 });
             })
             $(".calendar_box").click()
@@ -144,3 +110,49 @@
 
     }
 </script>
+<style>
+    .addPopup{
+        border-radius:5px;
+        height: 27.1rem;
+        width: 18.26rem;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    .addPopupBg{
+        width: 100%;
+        height:12.59rem;
+        display: block;
+        /*border-radius:5px 5px 0 0;*/
+    }
+    .addPopupMood{
+        height: 3.53rem;
+        width: 3.53rem;
+        display: block;
+        margin-top: -1.765rem;
+        left: 50%;
+        position: absolute;
+        margin-left: -1.765rem;
+    }
+    .addPopupField{
+        color: #363636;
+        font-size:0.88235rem;
+        /*margin-top:2.35rem;*/
+        margin-bottom: 0.5rem;
+    }
+    .clickBox_bottom {
+        font-size: 0.765rem;
+        color: #525151;
+        line-height: 1.2rem;
+        padding: 0 1.176rem;
+        text-align: left;
+        letter-spacing:0.118rem;
+        height:8.4rem;
+        overflow: auto;
+    }
+    .addPopupBottom span{
+        color: #fff;
+        font-size: 0.65rem;
+        line-height: 1.2;
+    }
+</style>
