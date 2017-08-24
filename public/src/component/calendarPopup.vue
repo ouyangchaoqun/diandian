@@ -13,8 +13,8 @@
                         <div class="addPopup">
                             <img class="addPopupBg" :src="mood.topImage" alt=""/>
                             <img class="addPopupMood" :src="mood.bgUrl" alt="" />
-                            <div style="height: 13.21rem;background: #fff;padding-top: 2.35rem;border-radius: 0 0 5px 5px">
-                                <div class="addPopupField">【在生活方面】</div>
+                            <div class="addContent">
+                                <div class="addPopupField">【在{{mood.field}}方面】</div>
                                 <div class="clickBox_bottom" v-html="formatContent(mood.content)" v-if="formatContent(mood.content)!=''"></div>
                                 <div class="clickBox_bottom" v-if="formatContent(mood.content)==''">今天没有文字记录,在记录心情之后可以补充文字和图片,让回忆更清晰！</div>
                             </div>
@@ -94,8 +94,11 @@
                 popup.isHidden = _is.isHidden
                 popup.dayMoods = _is._dayMoods
 
+
                 for(var i=0;i<popup.dayMoods.length;i++){
                     popup.dayMoods[i].topImage = popup.getCalendarTopImg(popup.dayMoods[i].dt);
+                    popup.dayMoods[i].field = xqzs.mood.getCjImg(popup.dayMoods[i].scenesId).text
+
                 }
                 this.$nextTick(function () {
                     if (popup.mySwiper !== null) {
@@ -113,7 +116,6 @@
 <style>
     .addPopup{
         border-radius:5px;
-        height: 27.1rem;
         width: 18.26rem;
         margin: 0 auto;
         position: relative;
@@ -121,7 +123,7 @@
     }
     .addPopupBg{
         width: 100%;
-        height:12.59rem;
+        height:12.35rem;
         display: block;
         /*border-radius:5px 5px 0 0;*/
     }
@@ -133,11 +135,18 @@
         left: 50%;
         position: absolute;
         margin-left: -1.765rem;
+        z-index: 100;
+    }
+    .addContent{
+        height:12.35rem;
+        background: #fff;
+        position: relative;
+        padding-top: 2.35rem;
+        border-radius: 0 0 5px 5px;
     }
     .addPopupField{
         color: #363636;
         font-size:0.88235rem;
-        /*margin-top:2.35rem;*/
         margin-bottom: 0.5rem;
     }
     .clickBox_bottom {
