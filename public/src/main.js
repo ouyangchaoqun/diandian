@@ -51,7 +51,8 @@ let routers =
                 require('./routes/constellationLuck'),
                 require('./routes/getUpStatistics'),
                 require('./routes/music'),
-                require('./routes/birthday')
+                require('./routes/birthday'),
+                require('./routes/moodCountPie')
 
             ]
         }
