@@ -221,6 +221,7 @@
             },
             chooseData:function (key,v) {
                 this.choosedData[key] = v;
+                console.log(v)
                 //
                 if(this.canAddMood==false&&'moodValue'==key){
                     this.$router.push('/me/personal/validate');
