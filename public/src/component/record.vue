@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="weui-tabbar__item" @touchstart="addMood">
+                        <a class="weui-tabbar__item" @click="addMood">
                             <div class="go_record record_mid" :class="{recorded:isRecordMood}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
@@ -934,7 +934,10 @@
     }
 
     .weui-tabbar__item:active .record_cover {
-        display: block;
+    }
+
+    .weui-tabbar__item .go_record{
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.8);
     }
 
     .go_record .img {
