@@ -351,6 +351,7 @@
         display: block;
     }
 
+
     .next {
         right: 15px;
         transform: rotate(180deg);
@@ -360,6 +361,7 @@
         position: absolute;
         top: 8px;
         display: block;
+        margin-top: 0 !important
     }
 
     .week_day text {

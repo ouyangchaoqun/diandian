@@ -484,10 +484,11 @@
             },
             dailyRecord: function () {
                 let _this = this;
-
+                _this.showLoad=true;
                 _this.$http.get(web.API_PATH + 'record/daily/sign/card/_userId_' ).then(response => {
                     console.log(response);
                     if(response.data.status==1){
+                        _this.showLoad=false;
                         xqzs.weui.dialog({
                             title:'每日一签已经发送',
                             msg:'前往公众号查看你的每日一签',
@@ -505,6 +506,8 @@
 
                     }
 
+                },function (error) {
+                    _this.showLoad=false;
                 });
 
 
