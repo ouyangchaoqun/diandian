@@ -15,12 +15,14 @@
                    <img src="../images/pieLine2.jpg" alt="">
                </div>
            </div>
+            <div style="margin-top: -20px;">
+                <div class="moodCountDay">你比较关注工作事业方面 记录了<span>5</span>天；在健康运动方面你最开心；在感情感悟方面你不开心。</div>
+                <div class="moodCountDay">总体来说，你比<span>58%</span>的人都要开心！</div>
+                <div class="moodCountDay">相比于上个月，你（没有）有更开心，希望你在下个月继续保持开心快乐！</div>
+                <div class="moodCountDay">日子有大小，心情冷暖共知；加入我们一起记录美好时光。</div>
+                <div class="moodCountBtn">过去的日子请翻看：心情日历</div>
+            </div>
 
-            <div class="moodCountDay">你比较关注工作事业方面 记录了<span>5</span>天；在健康运动方面你最开心；在感情感悟方面你不开心。</div>
-            <div class="moodCountDay">总体来说，你比<span>58%</span>的人都要开心！</div>
-            <div class="moodCountDay">相比于上个月，你（没有）有更开心，希望你在下个月继续保持开心快乐！</div>
-            <div class="moodCountDay">日子有大小，心情冷暖共知；加入我们一起记录美好时光。</div>
-            <div class="moodCountBtn">过去的日子请翻看：心情日历</div>
         </div>
 
     </div>
@@ -42,6 +44,7 @@
         methods:{
             setPie:function () {
                 var chart = null;
+
                 $('#setPie').highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -119,6 +122,8 @@
                     });
                     chart = c;
                 });
+                console.log($('.highcharts-background').attr('fill'))
+                $('.highcharts-background').attr('fill','none')
             }
         }
 
@@ -141,6 +146,7 @@
         height:16.5rem;
         width:17.65rem;
         margin:0 auto;
+        margin-top:-5px;
     }
     .moodCountDay{
         color:#504e4e;
@@ -159,10 +165,11 @@
         text-align: center;
         background: rgba(254,108,1,0.1);
         border-radius: 0.6rem;
-        margin-top:0.6rem;
+        margin-top:1.3rem;
     }
     .setPieBox{
         position: relative;
+        margin-top:-15px;
     }
     .pieDiv{
         position: absolute;
