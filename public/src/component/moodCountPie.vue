@@ -2,23 +2,22 @@
     <div class="moodCountPie">
         <div v-title>记录心情统计</div>
         <div class="moodCountPie_box">
-            <div class="moodCountName">嗨，ZORO</div>
-            <div class="moodCountDay">本月你在这里共记录了<span>20</span>天心情，<span>15</span>天开心，<span>5</span>天不开心。</div>
+            <div class="moodCountName">嗨，{{user.nickName}}</div>
+            <div class="moodCountDay">本月你在这里共记录了<span>{{moodCount}}</span>天心情，<span>{{happyDays}}</span>天开心，<span>{{unhappyDays}}</span>天不开心。</div>
            <div class="setPieBox">
                <div id="setPie"></div>
                <div class="pieDiv pietopImg">
-                   <div class="pieLeft">5天不开心</div>
+                   <div class="pieLeft">{{unhappyProportion}}不开心</div>
                    <img src="../images/pieLine1.jpg" alt="">
                </div>
                <div class="pieDiv pietbottomImg" >
-                   <div class="pieRight">15天开心</div>
+                   <div class="pieRight">{{happyProportion}}开心</div>
                    <img src="../images/pieLine2.jpg" alt="">
                </div>
            </div>
             <div style="margin-top: -20px;">
-                <div class="moodCountDay">你比较关注工作事业方面 记录了<span>5</span>天；在健康运动方面你最开心；在感情感悟方面你不开心。</div>
-                <div class="moodCountDay">总体来说，你比<span>58%</span>的人都要开心！</div>
-                <div class="moodCountDay">相比于上个月，你（没有）有更开心，希望你在下个月继续保持开心快乐！</div>
+                <div class="moodCountDay">你比较关注工作事业方面 <img :src="followScenes" alt="">记录了<span>{{followScenesDays}}</span>天；在健康运动方面<img :src="happyScenes" alt="">你最开心；在感情感悟方面<img :src="unHappyScenes" alt="">你不开心。</div>
+                <div class="moodCountDay">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比于上个月，你（没有）有更开心，希望你在下个月继续保持开心快乐！</div>
                 <div class="moodCountDay">日子有大小，心情冷暖共知；加入我们一起记录美好时光。</div>
                 <div class="moodCountBtn">过去的日子请翻看：心情日历</div>
             </div>
@@ -35,16 +34,51 @@
     export default {
         data() {
             return {
-
+                moodCount:'',
+                unhappyDays:'',
+                happyDays:'',
+                happyProportion:'',
+                unhappyProportion:'',
+                followScenes:'',
+                happyScenes:'',
+                unHappyScenes:'',
+                happyThan:'',
+                followScenesDays:''
+            }
+        },
+        props:{
+            user:{
+                type:Object
             }
         },
         mounted:function(){
-            this.setPie()
+            var countDate = new Date();
+            var countYear = this.$route.year||countDate.getFullYear();
+            var countMonth = this.$route.month||countDate.getMonth();
+            this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+countYear+'/'+countMonth+'').then(function (res) {
+                console.log(res.data)
+                var response = res.data.data
+                if(res.data.status==1){
+                    this.moodCount=response.moodCount
+                    this.happyDays=response.happyDays
+                    this.unhappyDays=response.unhappyDays
+                    this.unhappyProportion = Math.round(this.unhappyDays/this.moodCount*100)+'%'
+                    this.happyProportion = Math.round(this.happyDays/this.moodCount*100)+'%'
+                    this.followScenes = xqzs.mood.getCjImg(response.followScenes).src
+                    this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src
+                    this.unHappyScenes = xqzs.mood.getCjImg(response.unHappyScenes).src
+                    this.followScenesDays = response.followScenesDays
+                    this.happyThan = Math.round(response.happyThan*100)
+                    this.setPie(this.happyDays,this.unhappyDays)
+                }
+
+            })
+
         },
         methods:{
-            setPie:function () {
+            setPie:function (happyDay,unhappyDay) {
                 var chart = null;
-
+                var _this = this;
                 $('#setPie').highcharts({
                     chart: {
                         plotBackgroundColor: null,
@@ -109,8 +143,8 @@
                             '#0eb80e'
                         ],
                         data: [
-                            {name:'开心',  y: 15},
-                            {name: '不开心', y: 5}
+                            {name:'开心',  y: happyDay},
+                            {name: '不开心', y: unhappyDay}
                         ]
                     }]
                 }, function(c) {
@@ -153,6 +187,13 @@
         font-size: 0.88rem;
         line-height: 1.65rem;
         text-indent: 1.2rem;
+    }
+    .moodCountDay img{
+        height: 18px;
+        width:18px;
+        display: inline-block;
+        vertical-align:middle;
+        margin-top:-3px;
     }
     .moodCountPie_box span{
         color:#fe6c01;
