@@ -16,8 +16,9 @@
                </div>
            </div>
             <div style="margin-top: -20px;">
-                <div class="moodCountDay">你比较关注工作事业方面 <img :src="followScenes" alt="">记录了<span>{{followScenesDays}}</span>天；在健康运动方面<img :src="happyScenes" alt="">你最开心；在感情感悟方面<img :src="unHappyScenes" alt="">你不开心。</div>
-                <div class="moodCountDay">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比于上个月，你（没有）有更开心，希望你在下个月继续保持开心快乐！</div>
+                <div class="moodCountDay" v-if="moodCount>=10">你比较关注{{followText}}方面 <img :src="followScenes" alt="">记录了<span>{{followScenesDays}}</span>天；在{{happyText}}方面<img :src="happyScenes" alt="">你最开心；在{{unhappyText}}方面<img :src="unHappyScenes" alt="">你不开心。</div>
+                <div class="moodCountDay " v-if="moodCount>=10">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望八月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
+                <div class="moodCountDay" v-if="moodCount<10">由于记录的太少，无法判断你{{countMonth}}月份过得是否开心。从{{nextMonth}}月份开始，你可以通过记录，留住生活中出现过的颜色。</div>
                 <div class="moodCountDay">日子有大小，心情冷暖共知；加入我们一起记录美好时光。</div>
                 <div class="moodCountBtn">过去的日子请翻看：心情日历</div>
             </div>
@@ -43,7 +44,15 @@
                 happyScenes:'',
                 unHappyScenes:'',
                 happyThan:'',
-                followScenesDays:''
+                followScenesDays:'',
+                followText:'',
+                happyText:'',
+                unhappyText:'',
+                countMonth:'',
+                nextMonth:'',
+                oldMonth:'',
+                moodValue:'',
+                lastMonthMoodValue:''
             }
         },
         props:{
@@ -53,23 +62,47 @@
         },
         mounted:function(){
             var countDate = new Date();
-            var countYear = this.$route.year||countDate.getFullYear();
-            var countMonth = this.$route.month||countDate.getMonth();
-            this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+countYear+'/'+countMonth+'').then(function (res) {
+            var _countYear = this.$route.year||countDate.getFullYear();
+            var _countMonth = this.$route.month||countDate.getMonth();
+            this.countMonth = _countMonth;
+            if(this.countMonth==12){
+                this.nextMonth=1
+            }else {
+                this.nextMonth=this.countMonth+1
+            }
+            if(this.countMonth==1){
+                this.oldMonth=12
+            }else {
+                this.oldMonth=this.countMonth-1
+            }
+            this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+_countYear+'/'+_countMonth+'').then(function (res) {
                 console.log(res.data)
-                var response = res.data.data
+                var response = res.data.data;
                 if(res.data.status==1){
-                    this.moodCount=response.moodCount
-                    this.happyDays=response.happyDays
-                    this.unhappyDays=response.unhappyDays
-                    this.unhappyProportion = Math.round(this.unhappyDays/this.moodCount*100)+'%'
-                    this.happyProportion = Math.round(this.happyDays/this.moodCount*100)+'%'
-                    this.followScenes = xqzs.mood.getCjImg(response.followScenes).src
-                    this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src
-                    this.unHappyScenes = xqzs.mood.getCjImg(response.unHappyScenes).src
-                    this.followScenesDays = response.followScenesDays
-                    this.happyThan = Math.round(response.happyThan*100)
-                    this.setPie(this.happyDays,this.unhappyDays)
+
+                    this.moodCount=response.moodCount;
+                    this.happyDays=response.happyDays;
+                    this.unhappyDays= response.unhappyDays;
+                    if(response.moodCount==0){
+                        this.setPie(1,1)
+                        this.unhappyProportion='50%'
+                        this.happyProportion='50%'
+                        return
+                    }
+                    this.unhappyProportion = Math.round(this.unhappyDays/this.moodCount*100)+'%';
+                    this.happyProportion = Math.round(this.happyDays/this.moodCount*100)+'%';
+
+                    this.followScenes = xqzs.mood.getCjImg(response.followScenes).src;
+                    this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src;
+                    this.unHappyScenes = xqzs.mood.getCjImg(response.unHappyScenes).src;
+                    this.followText = xqzs.mood.getCjImg(response.followScenes).text;
+                    this.happyText = xqzs.mood.getCjImg(response.happyScenes).text;
+                    this.unhappyText = xqzs.mood.getCjImg(response.unHappyScenes).text;
+                    this.followScenesDays = response.followScenesDays;
+                    this.happyThan = Math.round(response.happyThan*100);
+                    this.moodvalue = response.moodValue;
+                    this.lastMonthMoodValue = response.lastMonthMoodValue;
+                    this.setPie(this.happyDays,this.unhappyDays);
                 }
 
             })
@@ -77,6 +110,8 @@
         },
         methods:{
             setPie:function (happyDay,unhappyDay) {
+                //happyDay = happyDay||1;
+                //unhappyDay = unhappyDay||1
                 var chart = null;
                 var _this = this;
                 $('#setPie').highcharts({
@@ -107,8 +142,8 @@
                     },
                     plotOptions: {
                         pie: {
-                            startAngle: -30,//开始角度
-                            endAngle: 390,
+//                            startAngle: -30,//开始角度
+//                            endAngle: 390,
                             allowPointSelect: false,
                             cursor: 'pointer',
                             dataLabels: {
@@ -197,6 +232,9 @@
     }
     .moodCountPie_box span{
         color:#fe6c01;
+    }
+    .moodCountDay .spanColor{
+        color: #504e4e;
     }
     .moodCountBtn{
         height:2.6rem;
