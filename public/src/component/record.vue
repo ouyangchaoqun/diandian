@@ -22,7 +22,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="weui-tabbar__item" @touchend="addMood">
+                        <a class="weui-tabbar__item" @click="addMood">
                             <div class="go_record record_mid" :class="{recorded:isRecordMood}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
