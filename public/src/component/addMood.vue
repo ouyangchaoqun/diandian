@@ -8,7 +8,7 @@
         </div>
 
             <div class="mood_box"  >
-                <div class="mood_left" v-show="!goScenes"   >
+                <div class="mood_left" v-if="!goScenes"   >
                     <div class="moodBox_header">此刻心情</div>
                     <div class="weui-grids grids_box">
                         <a class="weui-grid grid_33" v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
@@ -20,7 +20,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="scene_box sogo-enter-active"  v-show="goScenes" >
+                <div class="scene_box sogo-enter-active"  v-if="goScenes" >
                     <div>
                         <div class="moodBox_header">在哪方面</div>
                         <div class="weui-grids grids_box">
