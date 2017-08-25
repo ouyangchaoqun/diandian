@@ -11,7 +11,7 @@
                 <div class="mood_left" v-show="!goScenes"   >
                     <div class="moodBox_header">此刻心情</div>
                     <div class="weui-grids grids_box">
-                        <a class="weui-grid grid_33" v-for="mood in moodValues" @click="chooseData('moodValue',mood.value)">
+                        <a class="weui-grid grid_33" v-for="mood in moodValues" @click.stop="chooseData('moodValue',mood.value)">
                             <div class="grid_top">
                                 <img :src="moodSrc(mood.src)" alt="">
                             </div>
@@ -24,7 +24,7 @@
                     <div>
                         <div class="moodBox_header">在哪方面</div>
                         <div class="weui-grids grids_box">
-                            <a v-for="scenes in scenesList" class="weui-grid grid_33" @click="chooseData('scenesId',scenes.value)" v-if="!scenes.hide">
+                            <a v-for="scenes in scenesList" class="weui-grid grid_33" @click.stop="chooseData('scenesId',scenes.value)" v-if="!scenes.hide">
                                 <div class="scene_top" v-if="scenes.haspic">
                                     <img :src="moodSrc(scenes.src)">
                                 </div>
@@ -323,10 +323,7 @@
            });
 
 
-           $('.grids_box a').click(function (event) {
-               event.preventDefault();
-               event.stopPropagation();
-           })
+
         },
 
 
