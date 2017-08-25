@@ -16,11 +16,11 @@
                </div>
            </div>
             <div style="margin-top: -20px;">
-                <div class="moodCountDay" v-if="moodCount>=10">你比较关注{{followText}}方面 <img :src="followScenes" alt="">记录了<span>{{followScenesDays}}</span>天；在{{happyText}}方面<img :src="happyScenes" alt="">你最开心；在{{unhappyText}}方面<img :src="unHappyScenes" alt="">你不开心。</div>
-                <div class="moodCountDay " v-if="moodCount>=10">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望八月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
-                <div class="moodCountDay" v-if="moodCount<10">由于记录的太少，无法判断你{{countMonth}}月份过得是否开心。从{{nextMonth}}月份开始，你可以通过记录，留住生活中出现过的颜色。</div>
+                <div class="moodCountDay" v-if="moodCount>10">你比较关注{{followText}}方面 <img :src="followScenes" alt="">记录了<span>{{followScenesDays}}</span>天；在{{happyText}}方面<img :src="happyScenes" alt="">你最开心；在{{unhappyText}}方面<img :src="unHappyScenes" alt="">你不开心。</div>
+                <div class="moodCountDay " v-if="moodCount>10">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望八月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
+                <div class="moodCountDay" v-if="moodCount<=10">由于记录的太少，无法判断你{{countMonth}}月份过得是否开心。从{{nextMonth}}月份开始，你可以通过记录，留住生活中出现过的颜色。</div>
                 <div class="moodCountDay">日子有大小，心情冷暖共知；加入我们一起记录美好时光。</div>
-                <div class="moodCountBtn">过去的日子请翻看：心情日历</div>
+                <a :href="'/#/calendar?month='+countMonth" class="moodCountBtn">过去的日子请翻看：心情日历</a>
             </div>
 
         </div>
@@ -157,13 +157,13 @@
                                 }
                             },
                             point: {
-                                events: {
-                                    click: function(e) { // 同样的可以在点击事件里处理
-                                        chart.setTitle({
-                                            text: e.point.name+ '\t'+ e.point.y+'天'
-                                        });
-                                    }
-                                }
+//                                events: {
+//                                    click: function(e) { // 同样的可以在点击事件里处理
+//                                        chart.setTitle({
+//                                            text: e.point.name+ '\t'+ e.point.y+'天'
+//                                        });
+//                                    }
+//                                }
                             },
                         }
                     },
@@ -245,6 +245,10 @@
         background: rgba(254,108,1,0.1);
         border-radius: 0.6rem;
         margin-top:1.3rem;
+        display: block;
+    }
+    .moodCountBtn:hover{
+        background: rgba(254,108,1,0.3);
     }
     .setPieBox{
         position: relative;
