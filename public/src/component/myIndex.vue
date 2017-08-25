@@ -135,7 +135,7 @@
 
 <script>
 
-
+    import Bus from './bus.js';
     import chart from "./chart.vue"
     import banner from "./banner.vue"
     import showLoad from "./showLoad.vue"
@@ -167,7 +167,8 @@
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [5, 1, 2, 3, 4, 5, 6]}
 
                 ],
-                aaa:''
+                aaa:'',
+                activeIndex:0
             }
         },
         props:{
@@ -438,7 +439,9 @@
 
         },
         mounted: function () {
+
             var _this = this;
+            _this.activeCalendarIndex  = _this.$route.query.activeIndex;
             let scrollFromEdit = _this.$route.query.scroll;
             if(scrollFromEdit==1){
                 setTimeout(function () {
@@ -462,16 +465,28 @@
                     }
                 }
             });
-            $(".addSwiper a").on('touchstart mousedown',function(e){
+
+            $(".addSwiper a").on('touchstart click',function(e){
                 e.preventDefault()
                 $(".addSwiper .AddActive").removeClass('AddActive');
                 $(this).addClass('AddActive');
                 addtabsSwiper.slideTo($(this).index());
                 //console.log($(this).index())
             });
-            $(".addSwiper a").click(function(e){
-                e.preventDefault();
-            });
+            if(_this.activeCalendarIndex==1){
+                setTimeout(function () {
+                    $(".addSwiper a:eq(1)").click();
+                },1)
+            }
+            if(_this.$route.query.month!=undefined) {
+                let date = new Date();
+                let _month = date.getMonth();
+                let count = _month - parseInt(_this.$route.query.month);
+                for(let i=0;i<=count;i++){
+                    Bus.$emit('oldMonthClick')
+                }
+            }
+
             this.getList();
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {

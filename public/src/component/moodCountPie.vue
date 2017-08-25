@@ -20,7 +20,7 @@
                 <div class="moodCountDay " v-if="moodCount>10">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望八月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
                 <div class="moodCountDay" v-if="moodCount<=10">由于记录的太少，无法判断你{{countMonth}}月份过得是否开心。从{{nextMonth}}月份开始，你可以通过记录，留住生活中出现过的颜色。</div>
                 <div class="moodCountDay">日子有大小，心情冷暖共知；加入我们一起记录美好时光。</div>
-                <a :href="'/#/calendar?month='+countMonth" class="moodCountBtn">过去的日子请翻看：心情日历</a>
+                <router-link :to="{path:'/myCenter/myIndex',query:{month:countMonth,activeIndex:1}}" class="moodCountBtn">过去的日子请翻看：心情日历</router-link>
             </div>
 
         </div>

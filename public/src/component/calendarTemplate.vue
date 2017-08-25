@@ -78,6 +78,10 @@
 
             });
             xqzs.wx.setConfig(_this);
+
+            Bus.$on('oldMonthClick',function () {
+                _this.oldMonth()
+            })
         },
         created: function () {
             $(".calendar_box").click()
@@ -112,7 +116,6 @@
                 var lines = Math.ceil(days/7);
                 var hh = $('.canlendarTopView').outerHeight(true)+$('.weekBgView').outerHeight(true);
                 var itemHeight = $('.dateView:eq(0)').height();
-
                 $('.content-slide').height(itemHeight*lines+hh+10);
             },
             showSwiper: function (index) {
