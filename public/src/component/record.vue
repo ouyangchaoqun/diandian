@@ -12,7 +12,7 @@
             <div class="main_record">
                 <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
                     <div class="notes">
-                        <a class="weui-tabbar__item " @touchend="morning">
+                        <a class="weui-tabbar__item " @click="morning">
                             <div class="go_record record_morning "
                                  :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}">
                                 <div class="record_cover"></div>
@@ -37,7 +37,7 @@
                         <!--</a>-->
                     </div>
                     <div class="notes2">
-                        <a class="weui-tabbar__item" @touchend="night">
+                        <a class="weui-tabbar__item" @click="night">
                             <div class="go_record record_night"
                                  :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}">
                                 <div class="record_cover"></div>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a class="weui-tabbar__item" @touchend="dailyRecord">
+                        <a class="weui-tabbar__item" @click="dailyRecord">
                             <div class="go_record record_everyDay" :class="{recorded:isDailyRecord}">
                                 <div class="record_cover" ></div>
                                 <div class="img"></div>
@@ -933,12 +933,14 @@
         display: none;
     }
 
-    .weui-tabbar__item:active .record_cover {
+    .weui-tabbar__item:active .img {
+        opacity: 0.5;
+    }
+    .weui-tabbar__item:active .go_record { background: #d7d7d7
     }
 
-    .weui-tabbar__item .go_record{
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.8);
-    }
+
+
 
     .go_record .img {
         height: 78%;
