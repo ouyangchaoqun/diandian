@@ -246,6 +246,7 @@
         background: rgba(254,108,1,0.1);
         border-radius: 0.6rem;
         margin-top:1.3rem;
+        margin-bottom:1.8rem;
         display: block;
     }
     .moodCountBtn:active{
