@@ -21,15 +21,15 @@
                 <div class="swiper-slide">
                     <ul>
 
-                            <li class="countList">
-                                <router-link v-for="month in months" :to="{ path: '/moodCountPie', query: { year: month.year,month: month.month}}" >
 
+                        <li class="countList" v-for="month in months">
+                            <router-link  :to="{ path: '/moodCountPie', query: { year: month.year,month: month.month}}" >
                                 <p class="count1">{{month.year}}年第{{month.month}}月</p>
                                 <p class="count2">本月你记录了{{month.allDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
                                 <p class="count2">你比{{month.comparison}}%都开心哦~</p>
                                 <img src="../images/me_jt.png" alt="">
-                                </router-link>
-                            </li>
+                            </router-link>
+                        </li>
 
                     </ul>
 
