@@ -22,7 +22,7 @@
                     <ul>
 
 
-                        <li class="countList" v-for="month in months">
+                        <li class="countList active" v-for="month in months">
                             <router-link  :to="{ path: '/moodCountPie', query: { year: month.year,month: month.month}}" >
                                 <p class="count1">{{month.year}}年第{{month.month}}月</p>
                                 <p class="count2">本月你记录了{{month.allDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
@@ -135,6 +135,7 @@
     .tabs a.active:after{ content: " "; height: 2px ;overflow: hidden; width: 100%; display: block; position: absolute; background: #339900; bottom:0;left:0}
    /* .moodCount_box{width:100%;height:100%;}*/
     .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
+
     .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
     .count2{color:#a9a9a9;font-size: 15px}
     .countList img{position:absolute;height:20px;width:20px;display:block;right:10px;top:50%; margin-top:-10px;
