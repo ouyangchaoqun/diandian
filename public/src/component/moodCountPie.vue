@@ -247,7 +247,7 @@
         margin-top:1.3rem;
         display: block;
     }
-    .moodCountBtn:hover{
+    .moodCountBtn:active{
         background: rgba(254,108,1,0.3);
     }
     .setPieBox{
