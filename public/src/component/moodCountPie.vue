@@ -224,11 +224,12 @@
         text-indent: 1.2rem;
     }
     .moodCountDay img{
-        height: 1.06rem;
-        width:1.06rem;
+        height: 1rem;
+        width:1rem;
         display: inline-block;
         vertical-align:middle;
-        margin-top:0.176rem;
+        margin: 0 6px;
+        margin-top:0.01rem;
     }
     .moodCountPie_box span{
         color:#fe6c01;
