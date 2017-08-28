@@ -20,7 +20,7 @@
                 </div>
                 <div class="swiper-slide">
                     <ul>
-                        <router-link :to="{ path: '/moodCountPie', query: { year: month.year,month: month.month}}" v-for="month in months">
+                        <router-link v-for="month in months" :to="{ path: '/moodCountPie', query: { year: month.year,month: month.month}}" >
 
                             <li class="countList">
                                 <p class="count1">{{month.year}}年第{{month.month}}月</p>

@@ -62,18 +62,18 @@
         },
         mounted:function(){
             var countDate = new Date();
-            var _countYear = this.$route.year||countDate.getFullYear();
-            var _countMonth = this.$route.month||countDate.getMonth();
+            var _countYear = this.$route.query.year||countDate.getFullYear();
+            var _countMonth = this.$route.query.month||countDate.getMonth();
             this.countMonth = _countMonth;
             if(this.countMonth==12){
                 this.nextMonth=1
             }else {
-                this.nextMonth=this.countMonth+1
+                this.nextMonth=parseInt(this.countMonth)+1
             }
             if(this.countMonth==1){
                 this.oldMonth=12
             }else {
-                this.oldMonth=this.countMonth-1
+                this.oldMonth=parseInt(this.countMonth)-1
             }
             this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+_countYear+'/'+_countMonth+'').then(function (res) {
                 console.log(res.data)
@@ -215,7 +215,7 @@
         height:16.5rem;
         width:17.65rem;
         margin:0 auto;
-        margin-top:-5px;
+        margin-top:-0.29rem;
     }
     .moodCountDay{
         color:#504e4e;
@@ -224,11 +224,11 @@
         text-indent: 1.2rem;
     }
     .moodCountDay img{
-        height: 18px;
-        width:18px;
+        height: 1.06rem;
+        width:1.06rem;
         display: inline-block;
         vertical-align:middle;
-        margin-top:-3px;
+        margin-top:0.176rem;
     }
     .moodCountPie_box span{
         color:#fe6c01;
@@ -252,7 +252,7 @@
     }
     .setPieBox{
         position: relative;
-        margin-top:-15px;
+        margin-top:-0.8824rem;
     }
     .pieDiv{
         position: absolute;
