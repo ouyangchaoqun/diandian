@@ -835,11 +835,13 @@
             },
             reach: function () {
                 //遍历到达位置
+
                 for (let i = 0; i < this.steps.length; i++) {
                     if (this.steps[i].num <= this.count) {
                         this.steps[i].isReach = true;
                     }
                 }
+
                 for (let i = 0; i < this.steps.length; i++) {
                     if (!this.steps[i].isReach && this.steps[i].num != 0) {
                         let last = this.count;
@@ -850,9 +852,11 @@
                             if(before==0) before =  this.steps[i - 3].num;
 
                             last = this.count - before;
-                            stepLength = this.steps[i].num - before
+                            stepLength = this.steps[i].num - before;
+
                             if(this.count==this.steps[i - 1].num){
                                 last= stepLength;
+                                console.log(this.count + "reaaaa" + stepLength)
                             }
                         }
                         console.log(last + "reaaaa" + stepLength)
@@ -861,6 +865,11 @@
                         break;
                     }
                 }
+
+                if(this.count>=this.steps[this.steps.length - 1].num){
+                    this.per=108;
+                }
+
                 $(".heart .wave").css({top: 100 - (this.per + 16) + "%"});
                 console.log(this.per)
             }
@@ -971,6 +980,7 @@
                         count += data.body.data[i].count;
                     }
                     _this.count=count;
+                    console.log(  _this.count);
                     _this.friendList= data.body.data;
                     _this.showLoad=true;
                     setTimeout(function () {
