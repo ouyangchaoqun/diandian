@@ -28,7 +28,7 @@
         </div>
         <div class="clear"></div>
         <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()" >
-            <template v-if="friendList[0].userId==0" >微信好友送上祝福</template>
+            <template v-if="friendList[0].userId==0" ></template>
             <template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>
         </div>
         <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0"   @click="friends()" >邀请好友送上祝福</div>
@@ -712,15 +712,16 @@
     export default {
         data() {
             return {
+
                 steps: [
                     {num: 1, isReach: false},
                     {num: 99, isReach: false},
+                    {num: 188, isReach: false},
+                    {num: 0, isReach: false},
+                    {num: 0, isReach: false},
                     {num: 520, isReach: false},
-                    {num: 0, isReach: false},
-                    {num: 0, isReach: false},
                     {num: 999, isReach: false},
-                    {num: 1314, isReach: false},
-                    {num: 9999, isReach: false}
+                    {num: 1314, isReach: false}
                 ],
                 showLoad:false,
                 count: 0,
@@ -799,18 +800,29 @@
                 this.isShowShareTip= !this.isShowShareTip;
             },
             addHeart: function () {
+                let that=this;
                 let random = 1 + parseInt(Math.random() * 5);
+                if(that.myCareCount&&that.myCareCount>10){
+                    xqzs.weui.tip("每人最多点10个赞，邀请好友一起点赞",function () {
+                        
+                    });
+
+
+                    return;
+                }
                 if (this.random == random) {
                     this.addHeart()
                     return;
                 }
-                let that=this;
+
 
                // http://api.m.xqzs.cn/api/v1/birthday/add/care/1275/1273
                 let userId=0;
                 if(that.user){
                     userId=that.user.id;
-
+                }else{
+                    this.follow();
+                    return ;
                 }
                 let data = {}
                 if (web.guest) {

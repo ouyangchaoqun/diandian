@@ -40,11 +40,24 @@ var xqzs = {
             if (type === "fail") {
                 html += '<i class="weui-icon-safe-warn weui-icon_toast" style="font-size: 40px;"></i>';
             }
-            if(type==="tip"){
+            if (type === "tip") {
                 html += '<i class="weui-icon_toast" style="height: 1.5rem"></i>';
             }
 
             html += '<p class="weui-toast__content">' + msg + '</p></div></div>';
+            $("body").append(html);
+            setTimeout(function () {
+                $("#toast").animate({opacity: 0}, 200, function () {
+                    $("#toast").remove();
+                    fun();
+                });
+            }, 800);
+        },
+        tip: function (msg, fun) {
+            var html = "";
+            html += '<div id="toast"><div class="weui-mask_transparent"></div>';
+            var len= msg.length;
+            html += '<p class="weui-toast__content weui_tip" style="margin-left:-'+((msg.length*13+20)/2)+'px">' + msg + '</p></div>';
             $("body").append(html);
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
@@ -244,48 +257,48 @@ var xqzs = {
 
 
         },
-        lunarMonthName:[{label:"正月",value:"1"},
-            {label:"二月",value:"2"},
-            {label:"三月",value:"3"},
-            {label:"四月",value:"4"},
-            {label:"五月",value:"5"},
-            {label:"六月",value:"6"},
-            {label:"七月",value:"7"},
-            {label:"八月",value:"8"},
-            {label:"九月",value:"9"},
-            {label:"十月",value:"10"},
-            {label:"冬月",value:"11"},
-            {label:"腊月",value:"12"}],
-        lunarDayName:[{label:"初一",value:"1"},
-            {label:"初二",value:"2"},
-            {label:"初三",value:"3"},
-            {label:"初四",value:"4"},
-            {label:"初五",value:"5"},
-            {label:"初六",value:"6"},
-            {label:"初七",value:"7"},
-            {label:"初八",value:"8"},
-            {label:"初九",value:"9"},
-            {label:"初十",value:"10"},
-            {label:"十一",value:"11"},
-            {label:"十二",value:"12"},
-            {label:"十三",value:"13"},
-            {label:"十四",value:"14"},
-            {label:"十五",value:"15"},
-            {label:"十六",value:"16"},
-            {label:"十七",value:"17"},
-            {label:"十八",value:"18"},
-            {label:"十九",value:"19"},
-            {label:"二十",value:"20"},
-            {label:"廿一",value:"21"},
-            {label:"廿二",value:"22"},
-            {label:"廿三",value:"23"},
-            {label:"廿四",value:"24"},
-            {label:"廿五",value:"25"},
-            {label:"廿六",value:"26"},
-            {label:"廿七",value:"27"},
-            {label:"廿八",value:"28"},
-            {label:"廿九",value:"29"},
-            {label:"三十",value:"30"},
+        lunarMonthName: [{label: "正月", value: "1"},
+            {label: "二月", value: "2"},
+            {label: "三月", value: "3"},
+            {label: "四月", value: "4"},
+            {label: "五月", value: "5"},
+            {label: "六月", value: "6"},
+            {label: "七月", value: "7"},
+            {label: "八月", value: "8"},
+            {label: "九月", value: "9"},
+            {label: "十月", value: "10"},
+            {label: "冬月", value: "11"},
+            {label: "腊月", value: "12"}],
+        lunarDayName: [{label: "初一", value: "1"},
+            {label: "初二", value: "2"},
+            {label: "初三", value: "3"},
+            {label: "初四", value: "4"},
+            {label: "初五", value: "5"},
+            {label: "初六", value: "6"},
+            {label: "初七", value: "7"},
+            {label: "初八", value: "8"},
+            {label: "初九", value: "9"},
+            {label: "初十", value: "10"},
+            {label: "十一", value: "11"},
+            {label: "十二", value: "12"},
+            {label: "十三", value: "13"},
+            {label: "十四", value: "14"},
+            {label: "十五", value: "15"},
+            {label: "十六", value: "16"},
+            {label: "十七", value: "17"},
+            {label: "十八", value: "18"},
+            {label: "十九", value: "19"},
+            {label: "二十", value: "20"},
+            {label: "廿一", value: "21"},
+            {label: "廿二", value: "22"},
+            {label: "廿三", value: "23"},
+            {label: "廿四", value: "24"},
+            {label: "廿五", value: "25"},
+            {label: "廿六", value: "26"},
+            {label: "廿七", value: "27"},
+            {label: "廿八", value: "28"},
+            {label: "廿九", value: "29"},
+            {label: "三十", value: "30"},
         ]
     },
 
@@ -374,21 +387,21 @@ var xqzs = {
             "超级开心"//10
         ],
         moodScenes: [
-            '', '学习教育', '工作事业', '生活娱乐', '健康运动', '小孩家庭', '感情感悟', '经济收支', '人际社交', '天气及其他','','','综合'
+            '', '学习教育', '工作事业', '生活娱乐', '健康运动', '小孩家庭', '感情感悟', '经济收支', '人际社交', '天气及其他', '', '', '综合'
         ],
         moodScenesList: [
-           /* {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
-            {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
-            {value: 3, src: 'economics.png', haspic: true, text: '经济'},
-            {value: 4, src: 'healthy.png', haspic: true, text: '健康'},
-            {value: 5, src: 'home.png', haspic: true, text: '家庭'},
-            {value: 6, src: 'love.png', haspic: true, text: '恋爱婚姻'},
-            {value: 7, src: 'arder.png', haspic: true, text: '娱乐休闲'},
-            {value: 8, src: 'interpersonal.png', haspic: true, text: '人际关系'},
-            {value: 9, src: 'weather.png', haspic: true, text: '天气'},
-            {value: 10, src: 'life.png', haspic: true, text: '生活'},
-            {value: 11, src: 'sport.png', haspic: true, text: '运动'},
-            {value: 12, src: 'other.png', haspic: true, text: '其他'}*/
+            /* {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
+             {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
+             {value: 3, src: 'economics.png', haspic: true, text: '经济'},
+             {value: 4, src: 'healthy.png', haspic: true, text: '健康'},
+             {value: 5, src: 'home.png', haspic: true, text: '家庭'},
+             {value: 6, src: 'love.png', haspic: true, text: '恋爱婚姻'},
+             {value: 7, src: 'arder.png', haspic: true, text: '娱乐休闲'},
+             {value: 8, src: 'interpersonal.png', haspic: true, text: '人际关系'},
+             {value: 9, src: 'weather.png', haspic: true, text: '天气'},
+             {value: 10, src: 'life.png', haspic: true, text: '生活'},
+             {value: 11, src: 'sport.png', haspic: true, text: '运动'},
+             {value: 12, src: 'other.png', haspic: true, text: '其他'}*/
             {value: 1, src: 'study.png', haspic: true, text: '学习教育'},
             {value: 2, src: 'work.png', haspic: true, text: '工作事业'},
             {value: 3, src: 'arder.png', haspic: true, text: '生活娱乐'},
@@ -398,7 +411,7 @@ var xqzs = {
             {value: 7, src: 'economics.png', haspic: true, text: '收入消费'},
             {value: 8, src: 'interpersonal.png', haspic: true, text: '人际社交'},
             {value: 9, src: 'other.png', haspic: true, text: '天气及其他'},
-            {value: 12, src: 'mooddata10.png', haspic: true, text: '综合',hide:true}
+            {value: 12, src: 'mooddata10.png', haspic: true, text: '综合', hide: true}
         ],
         /**
          * 是否可以编辑
@@ -446,7 +459,7 @@ var xqzs = {
                 return before;
             }
         },
-        clickMoodAd:function (id) {
+        clickMoodAd: function (id) {
             $.ajax({
                 url: web.API_PATH + 'mood/ad/click/add/' + id,
                 type: 'PUT',
@@ -454,29 +467,29 @@ var xqzs = {
                 }
             });
         },
-        initSleepText:function (item) {
-            if(item.type==2){
+        initSleepText: function (item) {
+            if (item.type == 2) {
                 // item.typeFaceUrl=web.IMG_PATH+"face_day.png";
                 item.moodValueText = '早安打卡';
-                item.typeFaceColor="color:#5e61a2";
-            } else if(item.type==3){
+                item.typeFaceColor = "color:#5e61a2";
+            } else if (item.type == 3) {
                 // item.typeFaceUrl=web.IMG_PATH+"face_night.png";
                 item.moodValueText = '晚安打卡';
-                item.typeFaceColor="color:#5e61a2";
+                item.typeFaceColor = "color:#5e61a2";
             }
 
         },
-        initMoodAdItemData:function (item) {
-            if(item.id>0){
+        initMoodAdItemData: function (item) {
+            if (item.id > 0) {
                 return;
             }
             var moodadid = item.id;
-            if(moodadid<0){
+            if (moodadid < 0) {
                 moodadid = 0 - moodadid;
             }
             item.moodValueText = '微心情札记';
             var gourl = item.adlink;
-            item.address = '<a class="showOthercom adlink" onclick="xqzs.mood.clickMoodAd(\''+moodadid+'\')" href="'+gourl+'">阅读原文 <span class="link"></span> </a>';
+            item.address = '<a class="showOthercom adlink" onclick="xqzs.mood.clickMoodAd(\'' + moodadid + '\')" href="' + gourl + '">阅读原文 <span class="link"></span> </a>';
         },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
@@ -524,22 +537,22 @@ var xqzs = {
 
 
                 if (data[i].isCare !== undefined && parseInt(userId) !== parseInt(data[i].userId)) {
-                    if ((data[i].moodValue >= 5 ||data[i].moodValue ==0) && data[i].isCare === null) {
+                    if ((data[i].moodValue >= 5 || data[i].moodValue == 0) && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare === null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if ((data[i].moodValue >= 5||data[i].moodValue == 0 ) && data[i].isCare !== null) {
+                    } else if ((data[i].moodValue >= 5 || data[i].moodValue == 0 ) && data[i].isCare !== null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
                     } else if (data[i].moodValue < 5 && data[i].isCare !== null) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
                     }
                 } else {
 
-                    if ((data[i].moodValue >= 5||data[i].moodValue == 0 ) && data[i].careCount == 0) {
+                    if ((data[i].moodValue >= 5 || data[i].moodValue == 0 ) && data[i].careCount == 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
                     } else if (data[i].moodValue < 5 && data[i].careCount == 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
-                    } else if ((data[i].moodValue >= 5||data[i].moodValue == 0 ) && data[i].careCount != 0) {
+                    } else if ((data[i].moodValue >= 5 || data[i].moodValue == 0 ) && data[i].careCount != 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
                     } else if (data[i].moodValue < 5 && data[i].careCount != 0) {
                         data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
@@ -750,16 +763,16 @@ var xqzs = {
             });
         },
 
-        setConfig: function (vm,callback) {
+        setConfig: function (vm, callback) {
 
             var url = window.location.href;
 
-            url= encodeURIComponent(url)
-            vm.$http.get(web.API_PATH + 'wei/xin/config',{params:{url:url}}).then(function (response) {
+            url = encodeURIComponent(url)
+            vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url}}).then(function (response) {
                 wx.config(response.body);
                 wx.ready(function () {
                     wx.hideAllNonBaseMenuItem();
-                    if(callback&&typeof (callback)=="function"){
+                    if (callback && typeof (callback) == "function") {
                         callback()
                     }
                     console.log('wx.ready');
@@ -911,21 +924,21 @@ var xqzs = {
         }
     },
 
-    constellation:{
-        array:[{name:"魔羯座",id:1,pic:web.IMG_PATH+"constellation/1.png",times:"12.22-1.19"},
-            {name:"水瓶座",id:2,pic:web.IMG_PATH+"constellation/2.png",times:"1.20-2.18"},
-            {name:"双鱼座",id:3,pic:web.IMG_PATH+"constellation/3.png",times:"2.19-3.20"},
-            {name:"白羊座",id:4,pic:web.IMG_PATH+"constellation/4.png",times:"3.21-4.19"},
-            {name:"金牛座",id:5,pic:web.IMG_PATH+"constellation/5.png",times:"4.20-5.20"},
-            {name:"双子座",id:6,pic:web.IMG_PATH+"constellation/6.png",times:"5.21-6.21"},
-            {name:"巨蟹座",id:7,pic:web.IMG_PATH+"constellation/7.png",times:"6.22-7.22"},
-            {name:"狮子座",id:8,pic:web.IMG_PATH+"constellation/8.png",times:"7.23-8.22"},
-            {name:"处女座",id:9,pic:web.IMG_PATH+"constellation/9.png",times:"8.23-9.22"},
-            {name:"天秤座",id:10,pic:web.IMG_PATH+"constellation/10.png",times:"9.23-10.23"},
-            {name:"天蝎座",id:11,pic:web.IMG_PATH+"constellation/11.png",times:"10.24-11.22"},
-            {name:"射手座",id:12,pic:web.IMG_PATH+"constellation/12.png",times:"11.23-12.21"}],
-        getIndex:function(month,day){
-            return  (month-(day<"102223444433".charAt(month-1)- -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
+    constellation: {
+        array: [{name: "魔羯座", id: 1, pic: web.IMG_PATH + "constellation/1.png", times: "12.22-1.19"},
+            {name: "水瓶座", id: 2, pic: web.IMG_PATH + "constellation/2.png", times: "1.20-2.18"},
+            {name: "双鱼座", id: 3, pic: web.IMG_PATH + "constellation/3.png", times: "2.19-3.20"},
+            {name: "白羊座", id: 4, pic: web.IMG_PATH + "constellation/4.png", times: "3.21-4.19"},
+            {name: "金牛座", id: 5, pic: web.IMG_PATH + "constellation/5.png", times: "4.20-5.20"},
+            {name: "双子座", id: 6, pic: web.IMG_PATH + "constellation/6.png", times: "5.21-6.21"},
+            {name: "巨蟹座", id: 7, pic: web.IMG_PATH + "constellation/7.png", times: "6.22-7.22"},
+            {name: "狮子座", id: 8, pic: web.IMG_PATH + "constellation/8.png", times: "7.23-8.22"},
+            {name: "处女座", id: 9, pic: web.IMG_PATH + "constellation/9.png", times: "8.23-9.22"},
+            {name: "天秤座", id: 10, pic: web.IMG_PATH + "constellation/10.png", times: "9.23-10.23"},
+            {name: "天蝎座", id: 11, pic: web.IMG_PATH + "constellation/11.png", times: "10.24-11.22"},
+            {name: "射手座", id: 12, pic: web.IMG_PATH + "constellation/12.png", times: "11.23-12.21"}],
+        getIndex: function (month, day) {
+            return (month - (day < "102223444433".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
         }
     }
 };
@@ -1127,7 +1140,7 @@ var _timer = setInterval(function () {
             }
         }
         for (i = 0; i < notRemoveClass.length; i++) {
-            if ($(this).hasClass(notRemoveClass[i])||$(this).find(".weui-mask").length>0) {
+            if ($(this).hasClass(notRemoveClass[i]) || $(this).find(".weui-mask").length > 0) {
                 isRemove = false;
                 break;
             }
@@ -1136,8 +1149,8 @@ var _timer = setInterval(function () {
     });
     $("body>:not(div,script),html>:not(body,head)").each(function () {
         var isRemove = true;
-        if ($(this).attr("id") != "ping_iframe"||$(this).attr("id").indexOf("__WeixinJSBridgeIframe")>=0) {
-            isRemove=false;
+        if ($(this).attr("id") != "ping_iframe" || $(this).attr("id").indexOf("__WeixinJSBridgeIframe") >= 0) {
+            isRemove = false;
         }
         if (isRemove) $(this).remove();
     });
