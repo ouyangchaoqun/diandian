@@ -190,6 +190,7 @@
                     }
                     weui.picker(years, xqzs.dateTime.lunarMonthName, xqzs.dateTime.lunarDayName, {
                         defaultValue: defaultValue,
+                        id:"id"+Math.random(),
                         onChange: function (result) {
                         },
                         onConfirm: function (result) {
@@ -211,7 +212,7 @@
                         start: 1949,
                         defaultValue: defaultValue,
                         end: new Date().getFullYear(),
-
+                        id:"id"+Math.random(),
                         onChange: function (result) {
                         },
                         onConfirm: function (result) {
