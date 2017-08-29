@@ -7,8 +7,8 @@
                     <div class="swiper-slide" v-for="mood in dayMoods">
                         <!--<img :src="mood.bgUrl" alt=""/>-->
                         <!--<div class="clickBox_time">-->
-                            <!--<span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>-->
-                            <!--<div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>-->
+                        <!--<span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>-->
+                        <!--<div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>-->
                         <!--</div>-->
                         <div class="addPopup">
                             <img class="addPopupBg" :src="mood.topImage" alt=""/>
@@ -56,11 +56,13 @@
             //this.setNowDate();
             //轮播配置
             let _this = this;
-            _this.mySwiper = new Swiper('.clickBox', {
 
+            _this.mySwiper = new Swiper('.clickBox', {
 
             });
             xqzs.wx.setConfig(_this);
+
+
         },
         methods: {
             hideSwiper: function () {                                 //轮播隐藏事件
@@ -89,11 +91,12 @@
         created: function () {
             var popup = this;
             Bus.$on('dataClick',function (_is) {
+
+
                 popup.index = _is.index
                 popup.isShow = _is.isShow
                 popup.isHidden = _is.isHidden
                 popup.dayMoods = _is._dayMoods
-
 
                 for(var i=0;i<popup.dayMoods.length;i++){
                     popup.dayMoods[i].topImage = popup.getCalendarTopImg(popup.dayMoods[i].dt);
@@ -105,9 +108,16 @@
                         popup.mySwiper.update()
 
                     }
+                    setTimeout(function () {
+                        var clickBoxHeight = $('.clickBox').outerHeight(true);
+                        var bodyHeight = $(window).height();
+                        var clickBoxTop = (bodyHeight-clickBoxHeight)/2+'px';
+                        $('.clickBox').css('top',clickBoxTop)
+                    },10);
                     popup.mySwiper.slideTo(popup.index, 0, false);//切换到第一个slide
                 });
             })
+
             $(".calendar_box").click()
         },
 

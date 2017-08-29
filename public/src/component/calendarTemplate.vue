@@ -576,6 +576,7 @@
         position: absolute;
         top: 2.52rem;
         height: auto;
+        transition: top 1s;
     }
 
     .clickBox_time {
