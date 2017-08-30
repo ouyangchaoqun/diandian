@@ -34,7 +34,14 @@
                 <ul class="birthdays b_right">
                     <li  @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>5&&index>=4" ><template v-if="item.myself==1"> <img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
                 </ul>
-                <div v-show="isBirthday"><img src="/dist/top_img/birthday.jpg"/></div>
+                <div v-show="isBirthday" class="brithBox">
+                    <!--<img src="/dist/top_img/birthday.jpg"/>-->
+                    <img src="/dist/top_img/bribg.jpg" alt="">
+                    <img src="/dist/top_img/bribg.png" alt="" style="position: absolute;bottom: 0">
+                    <img class="briCake" src="/dist/top_img/briCake.png" alt="">
+                    <img class="brithText" src="/dist/top_img/brithText.png" alt="">
+                    <img class="brithDayBg" src="/dist/top_img/brithDayBg.png" alt="">
+                </div>
                 <v-banner v-show="!isBirthday"></v-banner>
             </div>
             <!--banner end -->
@@ -467,6 +474,72 @@
     #tabs a:active span.friendsImg{ background-position: -58px -29px}
     #tabs a:active span.meImg{ background-position: -87px -29px}
     #tabs a:active .weui-tabbar__label{ color:#00bd00}
+    .brithBox{
+        position: relative;
+        overflow: hidden;
+    }
+    .brithBox img{
+        display: block;
+    }
+    .brithBox .briCake{
+        position: absolute;width:5.88rem;right: 1.76rem;
+        height:5.71rem;
+        animation: mybriCake 1s ease 1s forwards ;
+        -webkit-animation:mybriCake 1s ease 1s forwards ;
+    }
+    .brithBox .brithText{
+        position: absolute;left: 3.88rem;width: 10.6rem;bottom:5.88rem;
+        animation: mybrithText 1.5s ease;
+        -webkit-animation:mybrithText 1.5s ease
+    }
+    .brithBox .brithDayBg{
+        position: absolute;top:-35rem;
+        animation: mybrithDayBg 3s linear;
+        -webkit-animation:mybrithDayBg 3s linear
+    }
+    @keyframes mybriCake
+    {
+        0%  {bottom: -5.88rem;}
+        50% {bottom:2rem;height:6.47rem;}
+        70% {bottom:1.76rem;height:5.71rem;}
+        100%{bottom:1.76rem;}
+    }
+    @-webkit-keyframes mybriCake
+    {
+        0%  {bottom: -5.88rem;}
+        50% {bottom:2rem;height:6.47rem;}
+        70% {bottom:1.76rem;height:5.71rem;}
+        100%{bottom:1.76rem;}
+    }
+
+    @keyframes mybrithText
+    {
+        0%   {left: -3.88rem;}
+        100% {left: 3.88rem;}
+    }
+    @-webkit-keyframes mybrithText
+    {
+        0%   {left: -3.88rem;}
+        100% {left: 3.88rem;}
+    }
+    @keyframes mybrithDayBg
+    {
+        0%   {top: -35rem;}
+        20%   {top: -23.5rem;}
+        40%   {top: -11.76rem;}
+        60%   {top: 0px;}
+        80%   {top: 11.76rem;}
+        100% {top: 35rem;}
+    }
+    @-webkit-keyframes mybrithDayBg
+    {
+        0%   {top: -35rem;}
+        20%   {top: -23.5rem;}
+        40%   {top: -11.76rem;}
+        60%   {top: 0px;}
+        80%   {top: 11.76rem;}
+        100% {top: 35rem;}
+    }
 
 
     .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px !important;width: 8px!important;}
