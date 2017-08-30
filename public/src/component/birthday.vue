@@ -886,7 +886,8 @@
                 isShowShareTip: false,
                 friendList: [],
                 isFriendListShow: false,
-                myCareCount: 0
+                myCareCount: 0,
+                adding:false
             }
         },
         filters: {
@@ -970,7 +971,7 @@
             addHeart: function () {
                 let that = this;
                 let random = 1 + parseInt(Math.random() * 5);
-                if (that.myCareCount && that.myCareCount > 10) {
+                if (that.myCareCount && that.myCareCount >= 10) {
                     xqzs.weui.tip("每人最多点10个赞，邀请好友一起点赞", function () {
 
                     });
@@ -980,7 +981,11 @@
                     this.addHeart()
                     return;
                 }
-
+                $(".heart_a").append("<div class='a_" + random + "'></div>");
+                if (this.adding||this.showLoad) {
+                    return;
+                }
+                this.adding=true;
 
                 // http://api.m.xqzs.cn/api/v1/birthday/add/care/1275/1273
                 let userId = 0;
@@ -990,17 +995,18 @@
                     this.follow();
                     return;
                 }
-                let data = {}
+                let data = {};
                 if (web.guest) {
                     data = {guest: true}
                 }
-                $(".heart_a").append("<div class='a_" + random + "'></div>");
+
                 that.$http.put(web.API_PATH + "birthday/add/care/" + that.birthdayUserId + "/" + userId, data)
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
                             that.count++;
                             that.myCareCount++;
                             that.random = random;
+                            that.adding=false;
                             that.reach();
                         }
                     });
