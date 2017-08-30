@@ -495,7 +495,7 @@
     .brithBox .brithDayBg{
         position: absolute;top:-35rem;
         animation: mybrithDayBg 4s linear 1.2s;
-        -webkit-animation:mybrithDayBg 4s linear 1.2s
+        -webkit-animation:mybrithDayBg 4s linear 1.2s;
     }
     @keyframes mybriCake
     {
@@ -525,19 +525,13 @@
     @keyframes mybrithDayBg
     {
         0%   {top: -35rem;}
-        20%   {top: -23.5rem;}
-        40%   {top: -11.76rem;}
-        60%   {top: 0px;}
-        80%   {top: 11.76rem;}
+        50%   {top: 0px;}
         100% {top: 35rem;}
     }
     @-webkit-keyframes mybrithDayBg
     {
         0%   {top: -35rem;}
-        20%   {top: -23.5rem;}
-        40%   {top: -11.76rem;}
-        60%   {top: 0px;}
-        80%   {top: 11.76rem;}
+        50%   {top: 0px;}
         100% {top: 35rem;}
     }
 
