@@ -110,7 +110,7 @@
     }
 
 
-    .down {
+    .birthday_box .down {
         background: url(../images/down.png) no-repeat;
         height: 0.7352941176470588rem;
         width: 1.176470588235294rem;
