@@ -111,6 +111,9 @@
     </div>
 </template>
 <style>
+    .swiper-slide {
+        overflow: auto;
+    }
     .down {
         background: url(../images/down.png) no-repeat;
         height: 0.7352941176470588rem;
@@ -1061,7 +1064,7 @@
             console.log(winWidth)
             $('.swiper-slide').css({'width':winWidth})
             var propagandaSwiper = new Swiper ('.propagandaBox', {
-                direction: 'vertical'
+                direction: 'vertical',autoHeight:true
             });
 
 
