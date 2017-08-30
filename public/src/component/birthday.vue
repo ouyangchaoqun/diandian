@@ -534,14 +534,14 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: url(../../dist/birthday/wave.png) top center  no-repeat;
+        background: url(../../dist/birthday/wave.png) top center  repeat-x;
         height: 4.352941176470588rem;
         width: 78235.29411764706rem;
         background-size: 2.588235294117647rem;;
     }
 
     .heart .wave .img1 {
-        background: url(../../dist/birthday/wave.png) top center no-repeat;
+        background: url(../../dist/birthday/wave.png) top center repeat-x;
         background-size: 2.235294117647059rem;
     }
 
