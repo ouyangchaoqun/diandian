@@ -488,14 +488,14 @@
         -webkit-animation:mybriCake 1s ease 1s forwards ;
     }
     .brithBox .brithText{
-        position: absolute;left: 3.88rem;width: 10.6rem;bottom:5.88rem;
-        animation: mybrithText 1.5s ease;
-        -webkit-animation:mybrithText 1.5s ease
+        position: absolute;width: 10.6rem;bottom:5.88rem;opacity: 0;left:3.88rem;
+        animation: mybrithText 2s linear .5s forwards;
+        -webkit-animation:mybrithText 2s linear .5s forwards;
     }
     .brithBox .brithDayBg{
         position: absolute;top:-35rem;
-        animation: mybrithDayBg 4s linear;
-        -webkit-animation:mybrithDayBg 4s linear
+        animation: mybrithDayBg 4s linear 1.2s;
+        -webkit-animation:mybrithDayBg 4s linear 1.2s
     }
     @keyframes mybriCake
     {
@@ -514,13 +514,13 @@
 
     @keyframes mybrithText
     {
-        0%   {left: -3.88rem;}
-        100% {left: 3.88rem;}
+        0%   {opacity: 0;}
+        100% {opacity: 1;}
     }
     @-webkit-keyframes mybrithText
     {
-        0%   {left: -3.88rem;}
-        100% {left: 3.88rem;}
+        0%   {opacity: 0;}
+        100% {opacity: 1;}
     }
     @keyframes mybrithDayBg
     {
