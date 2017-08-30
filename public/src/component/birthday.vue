@@ -526,7 +526,8 @@
         top: 100%;
         left: 0;
         height: 100%;
-        width: 100%
+        width: 100%;
+        z-index: 10;
     }
 
     .heart .wave .img1, .heart .wave .img2, .heart .wave .img3 {
