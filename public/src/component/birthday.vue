@@ -6,87 +6,89 @@
         <div class="swiper-container propagandaBox" style="height: 100%">
             <div class="swiper-wrapper">
                 <div class="swiper-slide ">
-                    <div class="top_info">
-                        <div class="head"><img :src="birthdayUser.faceUrl"></div>
-                        <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
-                        <div class="txt2" v-if="user==null">{{birthdayUser.nickName | shortName(8)}}</div>
-                        <div class="txt2" v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}</div>
-                        <div class="txt2" v-if="user!=null&&user.id==birthdayUserId">亲爱的 {{birthdayUser.nickName |
-                            shortName(8)}}<br>祝你生日快乐，天天开心！
+                    <div class="fififi-content">
+                        <div class="top_info">
+                            <div class="head"><img :src="birthdayUser.faceUrl"></div>
+                            <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
+                            <div class="txt2" v-if="user==null">{{birthdayUser.nickName | shortName(8)}}</div>
+                            <div class="txt2" v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}</div>
+                            <div class="txt2" v-if="user!=null&&user.id==birthdayUserId">亲爱的 {{birthdayUser.nickName |
+                                shortName(8)}}<br>祝你生日快乐，天天开心！
+                            </div>
+                            <div class="happy"></div>
+                            <div class="happy_top"></div>
                         </div>
-                        <div class="happy"></div>
-                        <div class="happy_top"></div>
-                    </div>
-                    <div class="mid_counts">
-                        <div class="heart">
-                            <div class="over"></div>
-                            <div class="wave">
-                                <div class="img1"></div>
-                                <div class="img2"></div>
+                        <div class="mid_counts">
+                            <div class="heart">
+                                <div class="over"></div>
+                                <div class="wave">
+                                    <div class="img1"></div>
+                                    <div class="img2"></div>
 
+                                </div>
+                            </div>
+                            <div class="step" v-for="step in steps">
+                                <span class="text" v-if="step.num!=0">{{step.num}}</span>
+                                <span class="point_reach" :class="{reach:step.isReach}"></span>
+                                <span class="point_small"><i></i><i></i><i></i><i></i></span>
+                            </div>
+
+                        </div>
+                        <div class="clear"></div>
+                        <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()">
+                            <template v-if="friendList[0].userId==0"></template>
+                            <template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>
+                        </div>
+                        <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0" @click="friends()">邀请好友送上祝福
+                        </div>
+                        <div class="tip" v-if="user!=null&&user.id!=birthdayUserId">点赞送生日祝福</div>
+                        <div class="count">{{count}}</div>
+                        <div class="heart_a">
+
+                        </div>
+                        <div class="heart_click_btn" @click="addHeart">
+
+                            <div class="btn">
+                                <div class="heart_btn"></div>
+                                <div class="text">点赞</div>
+                            </div>
+
+                        </div>
+                        <div class="bottom_tip">
+                            <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
+                                您点了{{myCareCount}}次赞，邀请好友一起点赞
+                            </div>
+                            <div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>
+                            <div class="text" @click="follow()" v-if="user==null"><span></span>关注心情指数，让他知道你在送祝福</div>
+                        </div>
+                        <div id="follow" style="display: none">
+                            <div class="dialog_follow">
+                                <div class="img"><img :src="birthdayUser.faceUrl"></div>
+                                <div class="ewm">
+
+                                </div>
+                                <div class="text">
+                                    长按关注"{{birthdayUser.nickName}}"<br>
+                                    送上生日祝福
+                                </div>
                             </div>
                         </div>
-                        <div class="step" v-for="step in steps">
-                            <span class="text" v-if="step.num!=0">{{step.num}}</span>
-                            <span class="point_reach" :class="{reach:step.isReach}"></span>
-                            <span class="point_small"><i></i><i></i><i></i><i></i></span>
-                        </div>
+                        <div id="follow2" style="display: none">
+                            <div class="dialog_follow">
+                                <div class="img smill"><img src="../images/smill.jpg" ></div>
+                                <div class="ewm">
 
-                    </div>
-                    <div class="clear"></div>
-                    <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()">
-                        <template v-if="friendList[0].userId==0"></template>
-                        <template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>
-                    </div>
-                    <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0" @click="friends()">邀请好友送上祝福
-                    </div>
-                    <div class="tip" v-if="user!=null&&user.id!=birthdayUserId">点赞送生日祝福</div>
-                    <div class="count">{{count}}</div>
-                    <div class="heart_a">
-
-                    </div>
-                    <div class="heart_click_btn" @click="addHeart">
-
-                        <div class="btn">
-                            <div class="heart_btn"></div>
-                            <div class="text">点赞</div>
-                        </div>
-
-                    </div>
-                    <div class="bottom_tip">
-                        <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
-                            您点了{{myCareCount}}次赞，邀请好友一起点赞
-                        </div>
-                        <div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>
-                        <div class="text" @click="follow()" v-if="user==null"><span></span>关注心情指数，让他知道你在送祝福</div>
-                    </div>
-                    <div id="follow" style="display: none">
-                        <div class="dialog_follow">
-                            <div class="img"><img :src="birthdayUser.faceUrl"></div>
-                            <div class="ewm">
-
-                            </div>
-                            <div class="text">
-                                长按关注"{{birthdayUser.nickName}}"<br>
-                                送上生日祝福
+                                </div>
+                                <div class="text">
+                                    长按关注“心情指数”<br>记录生日，记录心情
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="follow2" style="display: none">
-                        <div class="dialog_follow">
-                            <div class="img smill"><img src="../images/smill.jpg" ></div>
-                            <div class="ewm">
-
-                            </div>
-                            <div class="text">
-                                长按关注“心情指数”<br>记录生日，记录心情
-                            </div>
+                        <div id="output" class="output" style="display: none"></div>
+                        <div class="myshare" v-show="isShowShareTip" @click="share()">
                         </div>
+                        <div class="down"></div>
                     </div>
-                    <div id="output" class="output" style="display: none"></div>
-                    <div class="myshare" v-show="isShowShareTip" @click="share()">
-                    </div>
-                    <div class="down"></div>
                 </div>
 
                 <div class="swiper-slide ">
@@ -111,6 +113,8 @@
     </div>
 </template>
 <style>
+    .fififi-content{ width: 100%; height: 100%}
+
     .swiper-slide {
         overflow: auto;
     }
