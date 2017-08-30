@@ -1063,6 +1063,31 @@
             var propagandaSwiper = new Swiper ('.propagandaBox', {
                 direction: 'vertical'
             });
+
+
+            var startScroll, touchStart, touchCurrent;
+            propagandaSwiper.slides.on('touchstart', function (e) {
+                startScroll = this.scrollTop;
+                touchStart = e.targetTouches[0].pageY;
+            }, true);
+            propagandaSwiper.slides.on('touchmove', function (e) {
+                touchCurrent = e.targetTouches[0].pageY;
+                var touchesDiff = touchCurrent - touchStart;
+                var slide = this;
+                var onlyScrolling =
+                    ( slide.scrollHeight > slide.offsetHeight ) && //allow only when slide is scrollable
+                    (
+                        ( touchesDiff < 0 && startScroll === 0 ) || //start from top edge to scroll bottom
+                        ( touchesDiff > 0 && startScroll === ( slide.scrollHeight - slide.offsetHeight ) ) || //start from bottom edge to scroll top
+                        ( startScroll > 0 && startScroll < ( slide.scrollHeight - slide.offsetHeight ) ) //start from the middle
+                    );
+                if (onlyScrolling) {
+                    e.stopPropagation();
+                }
+            }, true);
+
+
+
             let _this = this;
             this.showLoad = true;
             //当前生日用户
