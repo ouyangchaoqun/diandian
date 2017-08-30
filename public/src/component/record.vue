@@ -3,7 +3,15 @@
         <div v-title>每日打卡</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="banner">
-            <v-banner></v-banner>
+            <div v-show="isBirthday" class="RecordbrithBox">
+                <!--<img src="/dist/top_img/birthday.jpg"/>-->
+                <img src="/dist/top_img/bribg.jpg" alt="">
+                <img src="/dist/top_img/bribg.png" alt="" style="position: absolute;bottom: 0">
+                <img class="briCake" src="/dist/top_img/briCake.png" alt="">
+                <img class="brithText" src="/dist/top_img/brithText.png" alt="">
+                <img class="brithDayBg" src="/dist/top_img/brithDayBg.png" alt="">
+            </div>
+            <v-banner v-show="!isBirthday"></v-banner>
         </div>
         <div class="moodBox_bg" @click="goIndex()">
         </div>
@@ -223,7 +231,8 @@
                 record: '',
                 isShowResult: false,
                 doRecordText: '',
-                isDoNight: false
+                isDoNight: false,
+                isBirthday:false
 
             }
         },
@@ -522,6 +531,12 @@
         mounted: function () {
             let _this = this;
             xqzs.wx.setConfig(_this);
+            if( xqzs.localdb.get("isBirthday")==="1"){
+                _this.isBirthday=true;
+            }else{
+                _this.isBirthday=false;
+            }
+
             let w = $("body").width();
             $(".record_box ,.night_action").height(w * 753 / 750);
 
@@ -628,7 +643,23 @@
 
 </script>
 <style>
-
+    .RecordbrithBox{
+        position: relative;
+        overflow: hidden;
+    }
+    .RecordbrithBox img{
+        display: block;
+    }
+    .RecordbrithBox .briCake{
+        position: absolute;width:5.88rem;right: 1.76rem;bottom:1.76rem;
+        height:5.71rem;
+    }
+    .RecordbrithBox .brithText{
+        position: absolute;left: 3.88rem;width: 10.6rem;bottom:5.88rem;
+    }
+    .RecordbrithBox .brithDayBg{
+        position: absolute;top:-35rem;
+    }
 
     .bottom_btn{
         position: absolute;
