@@ -151,7 +151,7 @@
     .friend_list {
         border-radius: 6px;
         overflow: hidden;
-        height: 60%;
+        height: 100%;
         margin: 0 auto;
          width: 80%;
         margin-bottom: 1rem;
@@ -189,7 +189,7 @@
     }
 
     .friend_list ul {
-        height: 70%;
+        height: 100%;
         overflow-y: auto;
         width: 100%;
     }
@@ -847,7 +847,7 @@
         margin-top: 1rem;
     }
 
-
+    #friends{ height: 90%   }
 </style>
 <script src="../js/qrcode.min.js"></script>
 
