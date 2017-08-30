@@ -524,15 +524,19 @@
     }
     @keyframes mybrithDayBg
     {
-        0%   {top: -35rem;}
-        50% {top:0}
-        100% {top: 35rem;}
+        0%   {top: -32rem;}
+        25%   {top: -16rem;}
+        50%   {top:0}
+        75%   {top: 16rem;}
+        100% {top: 32rem;}
     }
     @-webkit-keyframes mybrithDayBg
     {
-        0%   {top: -35rem;}
-        50% {top:0}
-        100% {top: 35rem;}
+        0%   {top: -32rem;}
+        25%   {top: -16rem;}
+        50%   {top:0}
+        75%   {top: 16rem;}
+        100% {top: 32rem;}
     }
 
 
