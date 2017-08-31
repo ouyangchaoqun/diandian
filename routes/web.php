@@ -16,6 +16,7 @@ $app->get('befriend','Controller@befriend');
 $app->group(['prefix'=>'wx'],function () use($app){
     $app->get('/index','WeixinController@index');
     $app->get('jump','WeixinController@jump');
+    $app->get('pub','WeixinController@pub');
 });
 $app->get('/wxjump','WeixinController@jump');
 

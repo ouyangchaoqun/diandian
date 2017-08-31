@@ -29,6 +29,22 @@ class WeixinController extends Controller
         return redirect($url);
     }
 
+    public function pub(Request $request)
+    {
+        $appid = env('WECHAT_APPID');
+        $callback = env('WECHAT_CALL_BACK_URL');
+        $backurl = $request->input('reurl');
+        if (empty($backurl)) {
+            $backurl = 'index';
+        }else{
+            $backurl = urlencode(urldecode($backurl));
+        }
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri=" . urlencode($callback)
+            . "&response_type=code&scope=snsapi_userinfo&state={$backurl}#wechat_redirect";
+
+        return redirect($url);
+    }
+
     /**
      * 微信授权中转页
      */
