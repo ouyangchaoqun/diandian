@@ -768,7 +768,7 @@ var xqzs = {
         setConfig: function (vm, callback) {
 
             var url = window.location.href;
-            let guest="";
+            var guest="";
             if(web.guest){
                 guest="true"
             }
