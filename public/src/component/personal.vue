@@ -87,8 +87,9 @@
                 provinceId: '',
                 cityId: '',
                 areaId: '',
-                isLunar: false
-
+                isLunar: 0,
+                lunarDateData:[],
+                isLeapMonth:false
             }
         },
         mounted: function () {
@@ -110,11 +111,15 @@
                         _this.year = date[0];
                         _this.month = date[1];
                         _this.day = date[2];
-                        if( _this.user.isLunar==1){
+                        if( _this.user.isLunar==1||_this.user.isLunar==2){
                             _this.isLunar=true;
                             _this.yearN = date[0]+'年';
-                            _this.monthN = xqzs.dateTime.lunarMonthName[parseInt(date[1])-1].label;
-                            _this.dayN =  xqzs.dateTime.lunarDayName[parseInt(date[2])-1].label;
+                            _this.monthN =  calendar.toChinaMonth(date[1]);
+                            if(_this.user.isLunar==2) {
+                                _this.isLeapMonth=true;
+                                _this.monthN= "闰"+ _this.monthN;
+                            }
+                            _this.dayN = calendar.toChinaDay(date[2]);
                         }
 
                     }
@@ -131,6 +136,7 @@
             });
             xqzs.wx.setConfig(_this);
 
+            this.lunarDateData=this.getLunarData(1949,2017)
 
         },
         filters: {
@@ -139,20 +145,51 @@
             }
         },
         methods: {
+            getLunarData:function (beginYear,endYear) {
+                let data=[];
+                for(let i=beginYear;i<=endYear;i++){
+                    let leapMonth= calendar.leapMonth(i); //第几个月是闰月 没有返回0
+                    let months=[];
+                    let leapDays=0;
+                    if(leapMonth!=0){
+                        leapDays=calendar.leapDays(i)  //闰月天数
+                    }
+                    for(let mi=1;mi<=12;mi++){
+                        //正常月
+                        let days=[];
+                        let    daycount= calendar.monthDays(i,mi);
+                        for(let di=1;di<=daycount;di++){
+                            days.push({value:di,label:calendar.toChinaDay(di)})
+                        }
+                        months.push({value:mi,label:calendar.toChinaMonth(mi),children:days});
+                        //增加一个闰月
+                        if(leapMonth==mi){
+                            days=[];
+                            for(let di=1;di<=leapDays;di++){
+                                days.push({value:di,label:calendar.toChinaDay(di)})
+                            }
+                            months.push({value:mi+"_1",label:"闰"+calendar.toChinaMonth(mi),children:days})
+                        }
+                    }
+                    data.push({value:i,label:i+"年",children:months})
+                }
+                return data;
+            },
             lutSelect:function (v) {
                 let _this= this;
                 if(v==0){
                     if( !this.isLunar) return ;
-                    this.isLunar=false;
+
                     if(this.birthday&&this.birthday!=''){
                         let date = this.birthday.split(',');
-                         let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2])); //阳历
+                         let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2]),_this.isLeapMonth); //阳历
                         this.birthday= solar.cYear+","+solar.cMonth+"," +solar.cDay ; //阳历
                         console.log(solar)
                         _this.year = solar.cYear;
                         _this.month = solar.cMonth;
                         _this.day = solar.cDay;
                      }
+                    this.isLunar=false;
 
                 }else if(v==1){
                     if( this.isLunar) return ;
@@ -160,15 +197,18 @@
                     if(this.birthday&&this.birthday!=''){
                         let date = this.birthday.split(',');
                         let lunar=  calendar.solar2lunar(date[0],date[1],date[2]); //农历
+                        console.log(lunar)
                          this.birthday= lunar.lYear+","+lunar.lMonth+"," +lunar.lDay  //农历
-
+                        _this.isLeapMonth=lunar.isLeap;
                         _this.yearN =  lunar.lYear+"年";
                         _this.monthN = lunar.IMonthCn;
                         _this.dayN =lunar.IDayCn;
                         _this.year = lunar.lYear;
                         _this.month = lunar.lMonth;
                         _this.day = lunar.lDay;
-
+                        if(lunar.isLeap){
+                            _this.month = lunar.lMonth+"_1";
+                        }
                     }
 
 
@@ -184,26 +224,41 @@
                 console.log(defaultValue)
 
                 if (this.isLunar) {
-                    let years = [];
-                    for (let i = 1949; i < 2017; i++) {
-                        years.push({label: i + "年", value: i})
-                    }
-                    weui.picker(years, xqzs.dateTime.lunarMonthName, xqzs.dateTime.lunarDayName, {
+
+                     weui.picker(  this.lunarDateData, {
+                        depth: 3,
                         defaultValue: defaultValue,
                         id:"id"+Math.random(),
                         onChange: function (result) {
+                            console.log(result);
                         },
                         onConfirm: function (result) {
-                            _this.year = result[0].value;
-                            _this.month = result[1].value;
-                            _this.day = result[2].value;
+
 
                             _this.yearN = result[0].label;
                             _this.monthN = result[1].label;
                             _this.dayN = result[2].label;
 
+                            console.log(  _this.monthN);
 
-                            _this.birthday = result[0].value + ',' + result[1].value + ',' + result[2].value;
+                             //闰月
+                            let monthValue =  result[1].value;
+
+
+                            if(typeof(monthValue)=="string"&&monthValue.indexOf("_")){
+                                _this.isLeapMonth=true;
+                                monthValue=result[1].value.split("_")[0];
+                            }else{
+                                _this.isLeapMonth=false;
+                            }
+
+
+                            _this.year = result[0].value;
+                            _this.month = result[1].value;
+                            _this.day = result[2].value;
+
+
+                            _this.birthday = result[0].value + ',' +monthValue + ',' + result[2].value;
                         },
                     });
 
@@ -290,7 +345,7 @@
                     "cityId": _this.cityId,
                     "areaId": _this.areaId,
                     "address": address,
-                    "isLunar":_this.isLunar?1:0
+                    "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0
                 };
                 console.log(msg);
                 _this.$http.post(web.API_PATH + 'user/update', msg)
