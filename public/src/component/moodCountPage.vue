@@ -1,5 +1,6 @@
 <template id="moodCountPage">
     <div style="height: 100%;font-family: STHeitiSC-Light">
+        <div v-title>8月心情统计</div>
         <div class="swiper-container  swarppp  bggggg" style="height: 100%">
             <div class="swiper-wrapper ">
                 <div class="swiper-slide page1">
@@ -40,12 +41,12 @@
                         <div class="thhd1"></div>
 
                         <template v-if="moodCount>10">
-                            <div class="title23">你比{{happyThan}}%的人都要开心！</div>
-                            <div class="content3211">总体来说，你比<span>{{happyThan}}%</span>的人都要开心！相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望{{nextMonth}}月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
+                            <div class="title23">比<span>{{happyThan}}%</span>的人都要开心！</div>
+                            <div class="content3211">相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望{{nextMonth}}月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
                         </template>
                         <template v-if="moodCount<=10">
                             <div class="title23">记录的太少</div>
-                            <div class="content3211"> 由于记录数据太少，无法判断你{{countMonth}}月过得是否开心？<br>
+                            <div class="content3211"> 由于记录数据太少，无法判断你{{countMonth}}月过得是否开心？<br><br>
                                 金秋{{nextMonth}}月，愿你成为一个全新的自己，不蹉跎，不虚度。</div>
                         </template>
 
@@ -118,6 +119,11 @@
                         _this.setround()
                     }
 
+                    if(index==2){
+                        $(".propagandaJt").hide()
+                    }else{
+                        $(".propagandaJt").show()
+                    }
 
                 }
 
@@ -326,13 +332,15 @@
     .boxboxbox div h4{ font-size: 13px; font-weight: normal; color:rgba(255,255,255,0.8);}
     .boxboxbox div span{ font-size: 13px; font-weight: normal; color: #ff6c00;}
 
-    .box22222{ background:url(../images/box22222_bg.png) ; background-size:  14.76470588235294rem;height: 19.67647058823529rem; ; width: 14.76470588235294rem; margin: 0 auto; margin-top: 15%; }
+    .box22222{ background:url(../images/box22222_bg.png) ; background-size:  14.76470588235294rem;height: 19.67647058823529rem; ; width: 14.76470588235294rem; margin: 0 auto; margin-top: 10%; }
 
-.title23{ color:#ff6c00; font-size: 1rem; text-align: center; width: 100%; margin-top: 4.235294117647059rem;}
+.title23{ color:#fff; font-size: 1rem; text-align: center; width: 100%; margin-top: 4.935294117647059rem;}
+    .title23 span{ font-size: 1.6rem; margin: 0 4px;  color:#ff6c00   }
 .thhd1{ height: 1px }
 .content3211{ text-align: left; margin-top: 10%; font-size: 0.78rem;  color:#fff; padding: 0 28px; line-height: 1.8; }
 .width_text{ color:#fff; width: 100%; text-align: center; font-size: 0.78rem; margin-top: 2.5rem;}
 
+.h222{ height: 16px;}
 
     .moodCountPie{
         height:100%;
