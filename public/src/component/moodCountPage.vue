@@ -53,7 +53,7 @@
                     </div>
                     <div class="width_text">日子有大有小，心情冷暖共知；<br>加入我们，一起记录美好时光！</div>
 
-                    <div class="name_box_bottom name_box_bottom2 " @click="follow" v-if="user==null"><span>长按关注“心情指数”</span></div>
+                    <div class="name_box_bottom name_box_bottom2 " @click="follow" v-if="user==null"><span>我也要记录心情</span></div>
                     <div class="name_box_bottom name_box_bottom2 " @click="record" v-if="user!=null&&theUser!=null&&user.id!=theUser.id"><span>我也要记录心情</span></div>
                     <div class="name_box_bottom name_box_bottom2" @click="goMonthAll" v-if="user!=null&&theUser!=null&&user.id==theUser.id"><span>翻看心情日历</span></div>
                 </div>
