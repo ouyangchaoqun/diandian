@@ -57,8 +57,8 @@
 
                     </div>
                     <div class="width_text">日子有大有小，心情冷暖共知；<br>加入我们，一起记录美好时光！</div>
-                    <div class="name_box_bottom" @click="record" v-if="user!=null&&theUser!=null&&user.id!=theUser.id"><span>我也要记录心情</span></div>
-                    <div class="name_box_bottom" @click="goMonthAll" v-if="user!=null&&theUser!=null&&user.id==theUser.id"><span>翻看心情日历</span></div>
+                    <div class="name_box_bottom name_box_bottom2 " @click="record" v-if="user!=null&&theUser!=null&&user.id!=theUser.id"><span>我也要记录心情</span></div>
+                    <div class="name_box_bottom name_box_bottom2" @click="goMonthAll" v-if="user!=null&&theUser!=null&&user.id==theUser.id"><span>翻看心情日历</span></div>
                 </div>
             </div>
             <img class="propagandaJt" src="../images/propagandaJt.png" alt="">
@@ -175,7 +175,7 @@
             xqzs.wx.setConfig(this, function () {
                 wx.showAllNonBaseMenuItem();
                 var config = {
-                    imgUrl: _this.user.faceUrl,
+                    imgUrl: _this.theUser.faceUrl,
                     title: '我的8月很开心，你呢？',
                     desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
                     link: web.BASE_PATH + "wx/pub?reurl=http%3a%2f%2fm.xqzs.cn%2f%23%2fmoodCountPage%3fyear%3d2017%26month%3d8%26userid%3d"+_this.theUserId,
@@ -349,6 +349,7 @@
     .name_box_bottom span{ font-size: 0.8823529411764706rem;
         height: 32px;line-height: 32px; border: 1px solid #fff; text-align: center;display: inline-block; padding: 0 30px; color:#fff;
     }
+    .name_box_bottom2 span{ border-radius: 16px}
     .swiper-slide{ position: relative}
     .bggggg{ background: url("../images/mood_count_month_bg.png") no-repeat; background-size: 100% 100%; position: relative}
 
