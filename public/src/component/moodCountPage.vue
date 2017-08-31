@@ -141,7 +141,7 @@
                             desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
                             link: web.BASE_PATH + "guest/#/moodCountPage?year=2017&month=8&userid="+_this.theUserId,
                         };
-                        weshare.init(wx, config,function () {
+                        weshare.init(wx, config,function(){},function () {
 
                         },"title")
                     });
