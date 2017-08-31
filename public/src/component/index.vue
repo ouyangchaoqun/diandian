@@ -34,7 +34,14 @@
                 <ul class="birthdays b_right">
                     <li  @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>5&&index>=4" ><template v-if="item.myself==1"> <img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
                 </ul>
-                <div v-show="isBirthday"><img src="/dist/top_img/birthday.jpg"/></div>
+                <div v-show="isBirthday" class="brithBox">
+                    <!--<img src="/dist/top_img/birthday.jpg"/>-->
+                    <img src="/dist/top_img/bribg.jpg" alt="">
+                    <img src="/dist/top_img/bribg.png" alt="" style="position: absolute;bottom: 0">
+                    <img class="briCake" src="/dist/top_img/briCake.png" alt="">
+                    <img class="brithText" src="/dist/top_img/brithText.png" alt="">
+                    <img class="brithDayBg" src="/dist/top_img/brithDayBg.png" alt="">
+                </div>
                 <v-banner v-show="!isBirthday"></v-banner>
             </div>
             <!--banner end -->
@@ -445,7 +452,7 @@
 
 </script>
 <style>
-    .birthdays{  position: absolute; top:4%;left:0}
+    .birthdays{  position: absolute; top:4%;left:0;z-index: 1001}
     .birthdays li{ background: rgba(7,7,7,0.5); border-radius: 1.058823529411765rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.117647058823529rem; font-size: 0.7058823529411765rem; color:#fff; width: 6.6rem; line-height:  2.117647058823529rem; margin-bottom: 1rem }
     .birthdays li img{ width: 1.529411764705882rem ; height: 1.529411764705882rem; border-radius: 50%; float:left; margin-top: 0.2941176470588235rem; margin-left: 0.2rem;margin-right: 0.3rem; }
     .birthdays li i{ display: inline-block;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.56rem; margin-right: 0.5rem;}
@@ -467,6 +474,70 @@
     #tabs a:active span.friendsImg{ background-position: -58px -29px}
     #tabs a:active span.meImg{ background-position: -87px -29px}
     #tabs a:active .weui-tabbar__label{ color:#00bd00}
+    .brithBox{
+        position: relative;
+        overflow: hidden;
+    }
+    .brithBox img{
+        display: block;
+    }
+    .brithBox .briCake{
+        position: absolute;width:5.88rem;right: 1.76rem;
+        height:5.71rem;
+        animation: mybriCake 1s ease 1s forwards ;
+        -webkit-animation:mybriCake 1s ease 1s forwards ;
+    }
+    .brithBox .brithText{
+        position: absolute;width: 10.6rem;bottom:5.88rem;opacity: 0;left:3.88rem;
+        animation: mybrithText 2s linear .5s forwards;
+        -webkit-animation:mybrithText 2s linear .5s forwards;
+    }
+    .brithBox .brithDayBg{
+        position: absolute;
+        animation: mybrithDayBg 4s linear 1.2s;
+        -webkit-animation:mybrithDayBg 4s linear 1.2s;
+    }
+    @keyframes mybriCake
+    {
+        0%  {bottom: -5.88rem;}
+        50% {bottom:2rem;height:6.47rem;}
+        70% {bottom:1.76rem;height:5.71rem;}
+        100%{bottom:1.76rem;}
+    }
+    @-webkit-keyframes mybriCake
+    {
+        0%  {bottom: -5.88rem;}
+        50% {bottom:2rem;height:6.47rem;}
+        70% {bottom:1.76rem;height:5.71rem;}
+        100%{bottom:1.76rem;}
+    }
+
+    @keyframes mybrithText
+    {
+        0%   {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    @-webkit-keyframes mybrithText
+    {
+        0%   {opacity: 0;}
+        100% {opacity: 1;}
+    }
+    @keyframes mybrithDayBg
+    {
+        0%   {top: -32rem;}
+        25%   {top: -16rem;}
+        50%   {top:0}
+        75%   {top: 16rem;}
+        100% {top: 32rem;}
+    }
+    @-webkit-keyframes mybrithDayBg
+    {
+        0%   {top: -32rem;}
+        25%   {top: -16rem;}
+        50%   {top:0}
+        75%   {top: 16rem;}
+        100% {top: 32rem;}
+    }
 
 
     .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px !important;width: 8px!important;}
