@@ -934,7 +934,7 @@
                 if (this.user) {
                     this.$router.push("/me/personal");
                 } else {
-                    this.follow();
+                    this.follow2();
                 }
             },
             follow2: function () {
@@ -1005,7 +1005,7 @@
                 if (this.adding || this.showLoad) {
                     return;
                 }
-                this.adding = true;
+
 
                 // http://api.m.xqzs.cn/api/v1/birthday/add/care/1275/1273
                 let userId = 0;
@@ -1015,11 +1015,13 @@
                     this.follow();
                     return;
                 }
+
                 let data = {};
                 if (web.guest) {
                     data = {guest: true}
                 }
 
+                this.adding = true;
                 that.$http.put(web.API_PATH + "birthday/add/care/" + that.birthdayUserId + "/" + userId, data)
                     .then(function (bt) {
                         if (bt.data && bt.data.status == 1) {
