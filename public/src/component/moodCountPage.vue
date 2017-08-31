@@ -350,7 +350,9 @@
         height: 32px;line-height: 32px; border: 1px solid #fff; text-align: center;display: inline-block; padding: 0 30px; color:#fff;
     }
     .swiper-slide{ position: relative}
-    .bggggg{ background: url("../images/mood_count_month_bg.png") no-repeat; background-size: 100% 100%}
+    .bggggg{ background: url("../images/mood_count_month_bg.png") no-repeat; background-size: 100% 100%; position: relative}
+
+    .bggggg:before{ content: " " ; display: block; height: 100%; width: 100%; background: rgba(0,0,0,0.3); position: absolute;}
 
     .propagandaJt{
         position: absolute;
