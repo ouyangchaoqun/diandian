@@ -376,11 +376,12 @@
                     let isbirthday=false;
                     for(let i=0;i<_this.birthdayList.length;i++){
                         if(_this.birthdayList[i].myself==1){
-                            _this.isBirthday=true;
+
                             isbirthday=true;
                             break;
                         }
                     }
+                    _this.isBirthday=isbirthday;
                     if(isbirthday){
                         xqzs.localdb.set("isBirthday",1);
                     }else{
