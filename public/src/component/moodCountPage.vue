@@ -352,7 +352,7 @@
     .swiper-slide{ position: relative}
     .bggggg{ background: url("../images/mood_count_month_bg.png") no-repeat; background-size: 100% 100%; position: relative}
 
-    .bggggg:before{ content: " " ; display: block; height: 100%; width: 100%; background: rgba(0,0,0,0.3); position: absolute;}
+    .bggggg:before{ content: " " ; display: block; height: 100%; width: 100%; background: rgba(0,0,0,0.2); position: absolute;}
 
     .propagandaJt{
         position: absolute;
