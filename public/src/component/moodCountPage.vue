@@ -487,11 +487,13 @@
     }
 
     .setPieBox{ margin-top: 26%}
-    .boxboxbox{    margin: 0 auto;  background: url(../images/boxoboxobo.png) no-repeat;   background-size: 13.95238095238095rem; width: 13.95238095238095rem; height:4.547619047619048rem;      display: flex;  padding-top: .417647058823529rem;
+    .boxboxbox{overflow: hidden;}
+    .boxboxbox{   margin: 0 auto;  background: url(../images/boxoboxobo.png) no-repeat;   background-size: 13.95238095238095rem; width: 13.95238095238095rem; height:4.547619047619048rem;      display: flex;  padding-top: .417647058823529rem;
         display: -webkit-box;
-        display: -webkit-flex; margin-top: 1%}
+        display: -webkit-flex; margin-top: 1%;
+    }
     .boxboxbox div{ flex: 1; text-align: center;
-            line-height:30px;
+            line-height:1.764705882352941rem;
 
 
     }
