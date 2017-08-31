@@ -768,9 +768,12 @@ var xqzs = {
         setConfig: function (vm, callback) {
 
             var url = window.location.href;
-
+            let guest="";
+            if(web.guest){
+                guest="true"
+            }
             url = encodeURIComponent(url)
-            vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url}}).then(function (response) {
+            vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url,guest:guest}}).then(function (response) {
                 wx.config(response.body);
                 wx.ready(function () {
                     wx.hideAllNonBaseMenuItem();
