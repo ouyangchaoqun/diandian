@@ -28,7 +28,7 @@
         <div class="list0 list02 list_bottom" @click="showDate()">
             <span>生日</span>
             <div class="lut" :class="{on:!isLunar}" @click.stop="lutSelect(0)">阳历</div>
-            <div class="lut" :class="{on:isLunar}"  @click.stop="lutSelect(1)">农历</div>
+            <div class="lut" :class="{on:isLunar}"  @click.stop="lutSelect(1)">阴历</div>
             <div class="showdL" v-if="birthday">
                 <template v-if="!isLunar">
                     <span>{{year}}年 </span>
