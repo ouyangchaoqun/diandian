@@ -24,13 +24,13 @@ var xqzs = {
             })
         },
         removeWhenPageChange: function () {
+            $(".weui-mask").click();
             $(".weui-mask").remove();
             $("#toast").remove();
             $(".js_dialog").remove();
             $(".actionSheet_wrap").remove();
             $("#action_sheet_edit").remove();
-            $(".weui-picker").remove();
-            // $("#weui-picker-confirm").click();
+
         //
         },
         toast: function (type, msg, fun) {
