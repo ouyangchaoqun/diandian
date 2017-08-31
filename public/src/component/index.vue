@@ -32,7 +32,7 @@
                     <li @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0&&index<4"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
                 </ul>
                 <ul class="birthdays b_right">
-                    <li  @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>5&&index>=4" ><template v-if="item.myself==1"> <img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
+                    <li  @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>=5&&index>=4" ><template v-if="item.myself==1"> <img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
                 </ul>
                 <div v-show="isBirthday" class="brithBox">
                     <!--<img src="/dist/top_img/birthday.jpg"/>-->
