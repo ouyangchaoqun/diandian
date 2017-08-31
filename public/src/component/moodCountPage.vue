@@ -116,8 +116,8 @@
                 wx.showAllNonBaseMenuItem();
                 var config = {
                     imgUrl: _this.user.faceUrl,
-                    title: '心情统计',
-                    desc: '心情统计',
+                    title: '我的8月很开心，你呢？',
+                    desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
                     link: web.BASE_PATH + "wx/pub?reurl=http%3a%2f%2fm.xqzs.cn%2f%23%2fmoodCountPage%3fyear%3d2017%26month%3d8",
                 };
                 weshare.init(wx, config)
