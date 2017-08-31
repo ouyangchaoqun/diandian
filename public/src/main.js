@@ -52,7 +52,8 @@ let routers =
                 require('./routes/getUpStatistics'),
                 require('./routes/music'),
                 require('./routes/birthday'),
-                require('./routes/moodCountPie')
+                require('./routes/moodCountPie'),
+                require('./routes/moodCountPage')
 
             ]
         }
