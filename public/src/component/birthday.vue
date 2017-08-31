@@ -922,7 +922,7 @@
         methods: {
             friends: function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId+'/'+_userId_).then(function (data) {//es5写法
+                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId+'/_userId_').then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         _this.friendList = data.body.data;
                     }
@@ -1185,7 +1185,7 @@
 
 
             //点赞好友列表 +总数
-            _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + data2).then(function (data) {//es5写法
+            _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + "/_userId_" + data2).then(function (data) {//es5写法
                 if (data.body.status == 1) {
                     let count = 0;
                     for (let i = 0; i < data.body.data.length; i++) {
