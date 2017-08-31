@@ -5,8 +5,8 @@
             <div class="swiper-wrapper ">
                 <div class="swiper-slide page1">
                     <div class="toping"></div>
-                    <div class="face_bg"><img :src="user.faceUrl"/> </div>
-                    <div class="name_box_bottom"><span>{{user.nickName}}</span></div>
+                    <div class="face_bg"><img  v-if="theUser" :src="theUser.faceUrl"/> </div>
+                    <div class="name_box_bottom"  v-if="theUser"><span>{{theUser.nickName}}</span></div>
                 </div>
                 <div class="swiper-slide page2">
                     <div class="setPieBox">
@@ -45,7 +45,7 @@
                             <div class="content3211">相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望{{nextMonth}}月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
                         </template>
                         <template v-if="moodCount<=10">
-                            <div class="title23">记录的太少</div>
+                            <div class="title23">记录得太少</div>
                             <div class="content3211"> 由于记录数据太少，无法判断你{{countMonth}}月过得是否开心？<br><br>
                                 金秋{{nextMonth}}月，愿你成为一个全新的自己，不蹉跎，不虚度。</div>
                         </template>
@@ -56,8 +56,9 @@
 
 
                     </div>
-                    <div class="width_text">日子有大小，心情冷暖共知<br>加入我们一起记录美好时光</div>
-                    <div class="name_box_bottom" @click="record"><span>我也要记录心情</span></div>
+                    <div class="width_text">日子有大有小，心情冷暖共知；<br>加入我们，一起记录美好时光！</div>
+                    <div class="name_box_bottom" @click="record" v-if="user!=null&&theUser!=null&&user.id!=theUser.id"><span>我也要记录心情</span></div>
+                    <div class="name_box_bottom" @click="goMonthAll" v-if="user!=null&&theUser!=null&&user.id==theUser.id"><span>翻看心情日历</span></div>
                 </div>
             </div>
             <img class="propagandaJt" src="../images/propagandaJt.png" alt="">
@@ -95,16 +96,57 @@
                 nextMonth:'',
                 oldMonth:'',
                 moodValue:'',
-                lastMonthMoodValue:''
+                lastMonthMoodValue:'',
+                theUserId:0,
+                theUser:null,user:null
             }
         },
-        props:{
-            user:{
-                type:Object
-            }
-        },
+
         mounted:function(){
             let _this=this;
+            if(this.$route.query.userid){
+                _this.theUserId=this.$route.query.userid
+            }else{
+                _this.theUserId="_userId_";
+            }
+
+
+            let data = '';
+            if (web.guest) {
+                this.isGuest = true;
+                data = "?guest=true";
+
+            }
+            let userId = _this.$route.query.userid;
+             _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.theUser = data.data.data;
+                }
+            }, function (error) {
+                //error
+            });
+
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_'  + data,
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user = data.data.data;
+                }
+            }, function (error) {
+                //error
+            });
+
+
+
+
+
+
             var winWidth = $(window).width();
             var winHeight = $(window).height();
             console.log(winWidth)
@@ -136,7 +178,7 @@
                     imgUrl: _this.user.faceUrl,
                     title: '我的8月很开心，你呢？',
                     desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
-                    link: web.BASE_PATH + "wx/pub?reurl=http%3a%2f%2fm.xqzs.cn%2f%23%2fmoodCountPage%3fyear%3d2017%26month%3d8",
+                    link: web.BASE_PATH + "wx/pub?reurl=http%3a%2f%2fm.xqzs.cn%2f%23%2fmoodCountPage%3fyear%3d2017%26month%3d8%26userid%3d"+_this.theUserId,
                 };
                 weshare.init(wx, config)
             });
@@ -163,8 +205,8 @@
                 }else {
                     this.oldMonth=parseInt(this.countMonth)-1
                 }
-
-                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+_countYear+'/'+_countMonth+'').then(function (res) {
+                let _this=this;
+                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/'+_this.theUserId+'/'+_countYear+'/'+_countMonth+'').then(function (res) {
                     console.log(res.data)
                     var response = res.data.data;
                     if(res.data.status==1){
@@ -201,6 +243,10 @@
             record:function () {
               this.$router.push("/record")
             },
+            goMonthAll:function () {
+                this.$router.push("/myCenter/myIndex?month=8&activeIndex=1")
+
+            },
             setPie:function (happyDay,unhappyDay) {
                 //happyDay = happyDay||1;
                 //unhappyDay = unhappyDay||1
@@ -218,7 +264,7 @@
                         text: "共"+_this.moodCount+"天",
                         style:{
                             color:"#fff",
-                            fontSize:'0.9rem'
+                            fontSize:'1.05rem'
                         }
                     },
                     credits:{
@@ -402,7 +448,7 @@
     .pieDiv{
         position: absolute;
         left:50%;
-        font-size: 0.71rem;
+        font-size: 0.9rem;
         color: #fff ;
     }
     .pieDiv img{
@@ -421,7 +467,7 @@
 
     }
     .pietbottomImg{
-        bottom:18%;
+        bottom:16%
     }
 </style>
 
