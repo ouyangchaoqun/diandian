@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list " :class="{rank_listNight:isNight}" v-show="rankList.userId!=user.id" v-for="(rankList,index) in myInFriendRank">
+                        <li class="rank_list " :class="{rank_listNight:isNight}" v-for="(rankList,index) in myInFriendRank"><!--v-show="rankList.userId!=user.id" -->
 
                             <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list" :class="{rank_listNight:isNight}" v-show="allRannList.userId!=user.id" v-for="(allRannList,index) in allRankList">
+                        <li class="rank_list" :class="{rank_listNight:isNight}" v-for="(allRannList,index) in allRankList"><!--v-show="allRannList.userId!=user.id"-->
 
                             <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
