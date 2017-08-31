@@ -109,8 +109,20 @@
             console.log(winWidth)
             $('.swiper-slide').css({'width':winWidth})
             var propagandaSwiper = new Swiper ('.swarppp', {
-                direction: 'vertical'
+                direction: 'vertical',
+                onSlideChangeStart: function (swiper) {
+                    //alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+                    var index = swiper.activeIndex;
+
+                    if(index==1){
+                        _this.setround()
+                    }
+
+
+                }
+
             });
+
 
             xqzs.wx.setConfig(this, function () {
                 wx.showAllNonBaseMenuItem();
@@ -123,59 +135,63 @@
                 weshare.init(wx, config)
             });
 
-            var countDate = new Date();
-            var _countYear = this.$route.query.year||countDate.getFullYear();
-            var _countMonth = this.$route.query.month||countDate.getMonth();
-            this.countMonth = _countMonth;
-            if(this.countMonth==12){
-                this.nextMonth=1
-            }else {
-                this.nextMonth=parseInt(this.countMonth)+1
-            }
-            if(this.countMonth==1){
-                this.oldMonth=12
 
-            }else {
-                this.oldMonth=parseInt(this.countMonth)-1
-            }
-            this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+_countYear+'/'+_countMonth+'').then(function (res) {
-                console.log(res.data)
-                var response = res.data.data;
-                if(res.data.status==1){
-
-                    this.moodCount=response.moodCount;
-                    this.happyDays=response.happyDays;
-                    this.unhappyDays= response.unhappyDays;
-
-
-                    if(response.moodCount==0){
-                        this.setPie(1,1)
-                        this.unhappyProportion='50%'
-                        this.happyProportion='50%'
-                        return
-                    }
-                    this.unhappyProportion = Math.round(this.unhappyDays/this.moodCount*100)+'%';
-                    this.happyProportion = Math.round(this.happyDays/this.moodCount*100)+'%';
-
-                    this.followScenes = xqzs.mood.getCjImg(response.followScenes).src;
-                    this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src;
-                    this.unHappyScenes = xqzs.mood.getCjImg(response.unHappyScenes).src;
-                    this.followText = xqzs.mood.getCjImg(response.followScenes).text;
-                    this.happyText = xqzs.mood.getCjImg(response.happyScenes).text;
-                    this.unhappyText = xqzs.mood.getCjImg(response.unHappyScenes).text;
-                    this.followScenesDays = response.followScenesDays;
-                    this.happyThan = Math.round(response.happyThan*100);
-                    this.moodvalue = response.moodValue;
-                    this.lastMonthMoodValue = response.lastMonthMoodValue;
-                    this.setPie(this.happyDays,this.unhappyDays);
-                }
-
-            })
 
         },
         methods:{
 
-            //http://m.xqzs.cn/wx/pub?reurl=http%3A%2F%2Fm.xqzs.cn%2F%23%2Fme%2Fpersonal
+
+            setround:function () {
+                var countDate = new Date();
+                var _countYear = this.$route.query.year||countDate.getFullYear();
+                var _countMonth = this.$route.query.month||countDate.getMonth();
+                this.countMonth = _countMonth;
+                if(this.countMonth==12){
+                    this.nextMonth=1
+                }else {
+                    this.nextMonth=parseInt(this.countMonth)+1
+                }
+                if(this.countMonth==1){
+                    this.oldMonth=12
+
+                }else {
+                    this.oldMonth=parseInt(this.countMonth)-1
+                }
+
+                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/_userId_/'+_countYear+'/'+_countMonth+'').then(function (res) {
+                    console.log(res.data)
+                    var response = res.data.data;
+                    if(res.data.status==1){
+
+                        this.moodCount=response.moodCount;
+                        this.happyDays=response.happyDays;
+                        this.unhappyDays= response.unhappyDays;
+
+
+                        if(response.moodCount==0){
+                            this.setPie(1,1)
+                            this.unhappyProportion='50%'
+                            this.happyProportion='50%'
+                            return
+                        }
+                        this.unhappyProportion = Math.round(this.unhappyDays/this.moodCount*100)+'%';
+                        this.happyProportion = Math.round(this.happyDays/this.moodCount*100)+'%';
+
+                        this.followScenes = xqzs.mood.getCjImg(response.followScenes).src;
+                        this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src;
+                        this.unHappyScenes = xqzs.mood.getCjImg(response.unHappyScenes).src;
+                        this.followText = xqzs.mood.getCjImg(response.followScenes).text;
+                        this.happyText = xqzs.mood.getCjImg(response.happyScenes).text;
+                        this.unhappyText = xqzs.mood.getCjImg(response.unHappyScenes).text;
+                        this.followScenesDays = response.followScenesDays;
+                        this.happyThan = Math.round(response.happyThan*100);
+                        this.moodvalue = response.moodValue;
+                        this.lastMonthMoodValue = response.lastMonthMoodValue;
+                        this.setPie(this.happyDays,this.unhappyDays);
+                    }
+
+                })
+            },
             record:function () {
               this.$router.push("/record")
             },
@@ -196,7 +212,7 @@
                         text: "共"+_this.moodCount+"天",
                         style:{
                             color:"#fff",
-                            fontSize:'0.71rem'
+                            fontSize:'0.9rem'
                         }
                     },
                     credits:{
@@ -298,7 +314,7 @@
         to {bottom: 40px;}
     }
 
-    .setPieBox{ margin-top: 40%}
+    .setPieBox{ margin-top: 26%}
     .boxboxbox{    margin: 0 auto;  background: url(../images/boxoboxobo.png) no-repeat;   background-size: 13.95238095238095rem; width: 13.95238095238095rem; height:4.547619047619048rem;      display: flex;  padding-top: .417647058823529rem;
         display: -webkit-box;
         display: -webkit-flex; margin-top: 1%}
@@ -314,7 +330,7 @@
 
 .title23{ color:#ff6c00; font-size: 1rem; text-align: center; width: 100%; margin-top: 4.235294117647059rem;}
 .thhd1{ height: 1px }
-.content3211{ text-align: left; margin-top: 10%; font-size: 0.78rem;  color:#fff; padding: 0 28px; }
+.content3211{ text-align: left; margin-top: 10%; font-size: 0.78rem;  color:#fff; padding: 0 28px; line-height: 1.8; }
 .width_text{ color:#fff; width: 100%; text-align: center; font-size: 0.78rem; margin-top: 2.5rem;}
 
 
