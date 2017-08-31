@@ -1108,9 +1108,9 @@
                         xqzs.wx.setConfig(this, function () {
                             wx.showAllNonBaseMenuItem();
                             var config = {
-                                imgUrl: web.BASE_PATH + web.IMG_PATH + "/birthday/birthday_share2.jpg",
+                                imgUrl: web.BASE_PATH + web.IMG_PATH + "/birthday/birthday_share3.jpg",
                                 title: '生日祝福',
-                                desc: "今天是“"+_this.birthdayUser.nickName + '”生日，快来送个祝福吧！',
+                                    desc: "今天是“"+_this.birthdayUser.nickName + '”生日，快来送个祝福吧！',
                                 link: web.BASE_PATH + "/guest/#/birthday?userId=" + _this.birthdayUserId,
                             };
                             weshare.init(wx, config)
