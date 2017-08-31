@@ -1123,7 +1123,8 @@
                             _this.day = date[2];
                             _this.birthdayTxt = "阳历 " + _this.month + "月" + _this.day + "号";
                             if (_this.birthdayUser.isLunar == 1) {
-                                _this.birthdayTxt = "农历 " + calendar.nStr1[_this.month] + "月" + calendar.toChinaDay(_this.day);
+
+                                _this.birthdayTxt = "农历 " + calendar.toChinaMonth(parseInt(_this.month)) + calendar.toChinaDay(_this.day);
                             }
 
 

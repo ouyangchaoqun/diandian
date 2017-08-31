@@ -344,6 +344,8 @@ var calendar = {
      * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='廿一'
      */
     toChinaDay:function(d){ //日 => \u65e5
+        console.log(d)
+        d=parseInt(d)
         var s;
         switch (d) {
             case 10:
@@ -358,6 +360,7 @@ var calendar = {
                 s = calendar.nStr2[Math.floor(d/10)];
                 s += calendar.nStr1[d%10];
         }
+        console.log(s)
         return(s);
     },
 
