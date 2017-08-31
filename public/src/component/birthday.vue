@@ -1,5 +1,6 @@
 <template id="birthday">
     <div class="birthday_box">
+        <div v-title>生日祝福</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
 
         <div class="page_one">
@@ -31,12 +32,12 @@
 
             </div>
             <div class="clear"></div>
-            <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()">
-                <template v-if="friendList[0].userId==0"></template>
-                <template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>
-            </div>
-            <div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0" @click="friends()">邀请好友送上祝福
-            </div>
+            <!--<div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()">-->
+                <!--<template v-if="friendList[0].userId==0"></template>-->
+                <!--<template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>-->
+            <!--</div>-->
+            <!--<div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0" @click="friends()">邀请好友送上祝福-->
+            <!--</div>-->
             <div class="tip" v-if="user!=null&&user.id!=birthdayUserId">点赞送生日祝福</div>
             <div class="count">{{count}}</div>
             <div class="heart_a">
@@ -51,11 +52,11 @@
 
             </div>
             <div class="bottom_tip">
-                <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
+                <div class="text" @click="share()" v-if="user!=null"><img :src="user.faceUrl"/>
                     您点了{{myCareCount}}次赞，邀请好友一起点赞
                 </div>
-                <div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>
-                <div class="text" @click="follow()" v-if="user==null"><span></span>关注心情指数，让他知道你在送祝福</div>
+                <!--<div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>-->
+                <!--<div class="text" @click="follow()" v-if="user==null"><span></span>关注心情指数，让他知道你在送祝福</div>-->
             </div>
             <div id="follow" style="display: none">
                 <div class="dialog_follow">
@@ -100,7 +101,7 @@
             </div>
 
         </div>
-        <div class="goInfo" @click="goInfo">我也要记录生日</div>
+        <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
     </div>
 </template>
 <style>
@@ -921,7 +922,7 @@
         methods: {
             friends: function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId).then(function (data) {//es5写法
+                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId+'/'+_userId_).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         _this.friendList = data.body.data;
                     }
@@ -1142,7 +1143,7 @@
             //当前用户
             _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {//es5写法
 
-                if (data.body == '') {
+                if (data.body == ''|| data.data.status!=1) {
 
                 } else {
                     _this.user = data.data.data;

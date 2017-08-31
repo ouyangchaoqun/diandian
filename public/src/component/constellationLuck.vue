@@ -17,8 +17,7 @@
                     <div class="xz_content">{{item.content}}</div>
                 </div>
             </div>
-            <div class="xz_introduce">说明：本站测试项目主要根据中华传统周易学或者民间流传的占
-                卜法制定，测试结果仅够娱乐参考</div>
+            <div class="xz_introduce">说明：广泛的星座运势并不会具体针对关联到个人运势,仅供娱乐参考!</div>
         </div>
         <div v-if="!hasBirthday&&hasBirthday!=null">
             <div class="title"></div>
@@ -388,7 +387,6 @@
                                     __.attr("color"), //'#f51ca6',
                                     function (data) {
                                         __.attr("src",data)
-                                        console.log(data);
                                     }
                                 )
                             })
