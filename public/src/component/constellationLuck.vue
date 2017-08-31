@@ -347,10 +347,20 @@
                 _this.birthday = _this.user.birthday;
                 if (_this.birthday) {
                     let date = _this.birthday.split(',');
-                    _this.year = date[0];
-                    _this.month = date[1];
-                    _this.day = date[2];
+
+                    if( _this.user.isLunar==1){
+                        let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2])); //阳历
+                        console.log(date);
+                        _this.year = solar.cYear;
+                        _this.month = solar.cMonth;
+                        _this.day = solar.cDay;
+                    }else{
+                        _this.year = date[0];
+                        _this.month = date[1];
+                        _this.day = date[2];
+                    }
                 }
+
                 let date = new Date();
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;

@@ -27,7 +27,7 @@
 
         </div>
         <div class="weui-tab__panel" >
-            <div class="banner">
+            <div class="banner" style="position: relative;">
                 <ul class="birthdays">
                     <li @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0&&index<4"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
                 </ul>
