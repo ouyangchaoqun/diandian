@@ -291,9 +291,9 @@
                         this.followScenes = xqzs.mood.getCjImg(response.followScenes).src;
                         this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src;
                         this.unHappyScenes = xqzs.mood.getCjImg(response.unHappyScenes).src;
-                        this.followText = xqzs.mood.getCjImg(response.followScenes).text;
-                        this.happyText = xqzs.mood.getCjImg(response.happyScenes).text;
-                        this.unhappyText = xqzs.mood.getCjImg(response.unHappyScenes).text;
+                        this.followText = xqzs.mood.getCjImg(response.followScenes).text.substring(0,4);
+                        this.happyText = xqzs.mood.getCjImg(response.happyScenes).text.substring(0,4);
+                        this.unhappyText = xqzs.mood.getCjImg(response.unHappyScenes).text.substring(0,4);
                         this.followScenesDays = response.followScenesDays;
                         this.happyThan = Math.round(response.happyThan*100);
                         this.moodvalue = response.moodValue;
