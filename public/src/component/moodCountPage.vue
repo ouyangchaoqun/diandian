@@ -206,7 +206,13 @@
                     this.oldMonth=parseInt(this.countMonth)-1
                 }
                 let _this=this;
-                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/'+_this.theUserId+'/'+_countYear+'/'+_countMonth+'').then(function (res) {
+                let data="";
+                if (web.guest) {
+                    this.isGuest = true;
+                    data = "?guest=true";
+
+                }
+                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/'+_this.theUserId+'/'+_countYear+'/'+_countMonth+data).then(function (res) {
                     console.log(res.data)
                     var response = res.data.data;
                     if(res.data.status==1){
