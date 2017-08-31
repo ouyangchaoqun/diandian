@@ -57,19 +57,32 @@
 
                     </div>
                     <div class="width_text">日子有大有小，心情冷暖共知；<br>加入我们，一起记录美好时光！</div>
+
+                    <div class="name_box_bottom name_box_bottom2 " @click="follow" v-if="user==null"><span>长按关注“心情指数”</span></div>
                     <div class="name_box_bottom name_box_bottom2 " @click="record" v-if="user!=null&&theUser!=null&&user.id!=theUser.id"><span>我也要记录心情</span></div>
                     <div class="name_box_bottom name_box_bottom2" @click="goMonthAll" v-if="user!=null&&theUser!=null&&user.id==theUser.id"><span>翻看心情日历</span></div>
                 </div>
             </div>
             <img class="propagandaJt" src="../images/propagandaJt.png" alt="">
         </div>
+        <div id="follow2" style="display: none">
+            <div class="dialog_follow">
+                <div class="img" v-if="theUser"><img :src="theUser.faceUrl"></div>
+                <div class="ewm">
 
+                </div>
+                <div class="text" v-if="theUser">
+                    长按关注“{{theUser.nickName}}”<br>记录你的心情
+                </div>
+            </div>
+        </div>
+        <div id="output" class="output" style="display: none"></div>
 
     </div>
 </template>
 
 
-
+<script src="../js/qrcode.min.js"></script>
 
 <script type="text/javascript">
 
@@ -125,6 +138,16 @@
             }).then(function (data) {//es5写法
                 if (data.data.data !== null) {
                     _this.theUser = data.data.data;
+                    xqzs.wx.setConfig(this, function () {
+                        wx.showAllNonBaseMenuItem();
+                        var config = {
+                            imgUrl: _this.theUser.faceUrl,
+                            title: '我的8月很开心，你呢？',
+                            desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
+                            link: web.BASE_PATH + "guest/#/moodCountPage?year=2017&month=8&userid="+_this.theUserId,
+                        };
+                        weshare.init(wx, config)
+                    });
                 }
             }, function (error) {
                 //error
@@ -141,10 +164,6 @@
             }, function (error) {
                 //error
             });
-
-
-
-
 
 
             var winWidth = $(window).width();
@@ -172,23 +191,64 @@
             });
 
 
-            xqzs.wx.setConfig(this, function () {
-                wx.showAllNonBaseMenuItem();
-                var config = {
-                    imgUrl: _this.theUser.faceUrl,
-                    title: '我的8月很开心，你呢？',
-                    desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
-                    link: web.BASE_PATH + "guest/#/moodCountPage?year=2017&month=8&userid="+_this.theUserId,
-                };
-                weshare.init(wx, config)
+
+
+
+            //二维码
+            _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.theUserId + data).then(function (data) {//es5写法
+                $("#output").empty();
+                console.log(_this.toUtf8(data.body.data));
+                $('#output').qrcode({
+                    width: 100, height: 100,
+                    text: _this.toUtf8(data.body.data), background: "#ffffff",
+                    foreground: "red"
+                });
+
+            }, function (error) {
+
             });
 
 
 
         },
         methods:{
+            convertCanvasToImage: function (canvas) {
+                //新Image对象，可以理解为DOM
+                var image = new Image();
+                // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
+                // 指定格式 PNG
+                image.src = canvas.toDataURL("image/png");
+                return image;
+            },
+            toUtf8: function (str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            },
 
-
+            follow:function () {
+                let _this = this;
+                xqzs.weui.dialogCustom($("#follow2").html())
+                var mycanvas2 = document.getElementsByTagName('canvas')[0];
+                console.log(mycanvas2) ;
+                var img = _this.convertCanvasToImage(mycanvas2);
+                $('.ewm').html('')
+                $('.ewm').append(img);
+            },
             setround:function () {
                 var countDate = new Date();
                 var _countYear = this.$route.query.year||countDate.getFullYear();
@@ -360,6 +420,60 @@
     .bggggg{ background: url("../images/mood_count_month_bg.png") no-repeat; background-size: 100% 100%; position: relative}
 
     .bggggg:before{ content: " " ; display: block; height: 100%; width: 100%; background: rgba(0,0,0,0.2); position: absolute;}
+
+
+
+    .dialog_follow {
+        width: 66%;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20.47058823529412rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -10.23529411764706rem;
+        left: 17%;
+        z-index: 10001;
+    }
+    .dialog_follow img {
+        width: 100%
+    }
+
+    .dialog_follow .img {
+        height: 11rem;
+        overflow: hidden
+    }
+
+    .dialog_follow .text {
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+        line-height: 1.5
+    }
+    .img.smill img {
+        width: 10rem;
+        height: 10rem;
+        margin: 0 auto
+    }
+    .dialog_follow .img.smill {
+        background: #01af00;
+        text-align: center;
+        height: 10rem;
+    }
+    .ewm {
+        width: 4.329411764705882rem;
+        height: 4.329411764705882rem;
+        border: 1px solid #ffcdcd;
+        margin: 0.8rem auto;
+        margin-bottom: 0.65rem;
+        padding: 2px;
+    }
+
+    .ewm .output {
+        width: 100%;
+        height: 100%
+    }
+
+
 
     .propagandaJt{
         position: absolute;
