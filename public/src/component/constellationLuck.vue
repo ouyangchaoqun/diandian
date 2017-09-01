@@ -86,7 +86,6 @@
 
     </div>
 </template>
-<script src="/src/js/vconsole.min.js"></script>
 <style>
     .addTitle_top{
         color: #fff;
@@ -747,10 +746,18 @@
 
                 let constellation = xqzs.constellation.array[xqzs.constellation.getIndex(_this.month, _this.day)];
 
+
+                let data = '';
+                if (web.guest) {
+                    this.isGuest = true;
+                    data = "?guest=true";
+
+                }
+
                 this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'constellation/get/' + year + '/' + month + '/' + constellation.id,
+                    url: web.API_PATH + 'constellation/get/' + year + '/' + month + '/' + constellation.id +data ,
                 }).then(function (data) {//es5写法
                     console.log(data)
                     if (data.data.status == 1) {
