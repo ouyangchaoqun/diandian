@@ -3,17 +3,19 @@
         <div v-title>本月运势</div>
         <div v-if="hasBirthday">
             <div class="title">
-                <div class="title_header">{{nowYear}}年{{nowMonth}}月1日-{{nowMonth}}月{{lastDay}}日的运势</div>
+
                 <div class="addTitleBox">
                     <div class="xs_pic">
                         <img :src="constellation.pic">
                     </div>
                     <div class="addInfo">
-                        <div class="info">{{constellation.name}}</div>
-                        <div class="main_txt">({{constellation.times}})</div>
+                        <div class="info">{{constellation.name}}  <div class="main_txt">({{constellation.times}})</div></div>
                     </div>
                 </div>
-
+                <div class="title_header">
+                    <div class="addTitle_top">本月运势</div>
+                    ({{nowYear}}.{{nowMonth}}.1-{{nowMonth}}.{{lastDay}})
+                </div>
             </div>
             <div class="addMainbg">
                 <img class="startMoveBg" src="../images/startMove.png" alt="">
@@ -30,7 +32,7 @@
                 </div>
                 <div class="xz_introduce">说明：广泛的星座运势并不会具体针对关联到个人运势，仅够娱乐参考）</div>
             </div>
-            <div class="addEwmBox">
+            <div class="addEwmBox" v-if="!user||(user&&theUser&&user.id!=theUser.id)">
                 <img src="../images/addEwm_top.png" alt="">
                 <div class="addEwmtext">长按二维码关注“心情指数”后,<br/>回复“运势”查看本月星座运势</div>
                 <div class="ewm"></div>
@@ -85,6 +87,10 @@
     </div>
 </template>
 <style>
+    .addTitle_top{
+        color: #fff;
+        font-size: 13px;
+    }
     .form_birthday{
         height:100%;
         width:100%;
@@ -163,7 +169,7 @@
     .addTitleBox{
         position: absolute;
         left:50%;
-        top:40%;
+        top:0.88rem;
         width:140px;
         margin-left:-70px;
     }
@@ -332,11 +338,11 @@
     .luck .title {
         background: url(../images/startHeader.jpg) no-repeat;
         background-size: 100% 100%;
-        height: 7.88rem;
-        padding-top: 1rem;
+        height: 4.23rem;
         width: 100%;
         margin: 0 auto;
         position: relative;
+        padding-top: 4.65rem;
     }
 
     .luck .info {
@@ -596,6 +602,8 @@
                 if (data.data.data !== null) {
                     _this.theUser = data.data.data;
 
+
+
                     _this.birthday = _this.theUser.birthday;
                     if (_this.birthday) {
                         let date = _this.birthday.split(',');
@@ -621,9 +629,10 @@
                     xqzs.wx.setConfig(this, function () {
                         wx.showAllNonBaseMenuItem();
                         var config = {
+
                             imgUrl:_this.constellation.pic,
-                            title: _this.constellation.name+'运势',
-                            desc: ''+_this.constellation.name+'的'+_this.theUser.nickName+'，'+ _this.nowYear+'年'+ _this.nowMonth+'月1日-'+_this.lastDay+'日运势指南！',
+                            title: _this.constellation.name+'本月运势',
+                            desc: _this.constellation.name+'本月（'+_this.nowMonth+'.1-'+_this.nowMonth+'.'+_this.lastDay+'）运势已新鲜出炉，快来围观吧~',
                             link: web.BASE_PATH + "guest/#/constellationLuck?year="+_this.nowYear+"&month="+_this.nowMonth+"&userid="+_this.theUserId,
                         };
                         weshare.init(wx, config,function(){},function () {
@@ -653,23 +662,17 @@
             }, function (error) {
 
             });
-
-            if (_this.user.birthday != null) {
-                _this.initBD();
-            } else {
-                this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
-                }).then(function (data) {//es5写法
-                    if (data.data.data !== null) {
-                        _this.user=data.data.data;
-                    }
-                }, function (error) {
-                    //error
-                });
-            }
-
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+            }).then(function (data) {//es5写法
+                if (data.data.data !== null) {
+                    _this.user=data.data.data;
+                }
+            }, function (error) {
+                //error
+            });
             xqzs.wx.setConfig(_this);
         },
         filters: {
@@ -695,6 +698,14 @@
 
             initBD: function () {
                 let _this = this;
+
+                if (_this.theUser.birthday != null && _this.theUser.birthday != '') {
+                    _this.hasBirthday = true;
+
+                } else {
+
+                    _this.hasBirthday = false;
+                }
 
                 _this.birthday = _this.theUser.birthday;
                 if (_this.birthday) {
@@ -763,13 +774,7 @@
                 });
 
 
-                if (_this.user.birthday != null && _this.user.birthday != '') {
-                    _this.hasBirthday = true;
 
-                } else {
-
-                    _this.hasBirthday = false;
-                }
             },
 
             lutSelect:function (v) {
@@ -883,14 +888,13 @@
                 let _this = this;
                 let realName = $('.realName').val();
 
-                if (_this.birthday == '' || _this.birthday == null || realName == '') {
-                    xqzs.weui.toast("fail", "请填写姓名及生日");
+                if (_this.birthday == '' || _this.birthday == null) {
+                    xqzs.weui.toast("fail", "请填写生日");
                     return;
                 }
 
                 let msg = {
                     "id": _this.user.id,
-                    "realName": realName,
                     "birthday": _this.birthday,
                     "isLunar":_this.isLunar?_this.isLeapMonth?2:1:0
                 };
@@ -898,8 +902,25 @@
                 _this.$http.post(web.API_PATH + 'user/update', msg)
                     .then(
                         (response) => {
-                            _this.user.birthday = _this.birthday;
-                            _this.user.realName = realName;
+                            console.log( _this.birthday)
+                            _this.theUser.birthday = _this.birthday;
+
+
+                            //转阳历
+                            if(_this.theUser.isLunar){
+                                let date = _this.birthday.split(',');
+                                let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2]),_this.isLeapMonth); //阳历
+                                _this.birthday= solar.cYear+","+solar.cMonth+"," +solar.cDay ; //阳历
+                                _this.year = solar.cYear;
+                                _this.month = solar.cMonth;
+                                _this.day = solar.cDay;
+
+
+
+                            }
+
+
+
                             _this.initBD();
                         }
                     );
