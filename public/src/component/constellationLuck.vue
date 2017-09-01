@@ -18,8 +18,22 @@
                 </div>
             </div>
             <div class="xz_introduce">说明：广泛的星座运势并不会具体针对关联到个人运势,仅供娱乐参考!</div>
+            <div class="goInfo" v-if="user!=null" @click="share()">分享我的星座运势</div>
+            <div class="goInfo"  @click="follow()">分享（未关注）</div>
+            <div class="myshare" v-show="isShowShareTip" @click="share()"></div>
+            <div id="follow2" style="display: none">
+                <div class="dialog_follow">
+                    <div class="img" v-if="theUser"><img :src="theUser.faceUrl"></div>
+                    <div class="ewm">
+                    </div>
+                    <div class="text" v-if="theUser">
+                        长按关注“{{theUser.nickName}}”<br>记录你的心情
+                    </div>
+                </div>
+            </div>
+            <div id="output" class="output" style="display: none"></div>
         </div>
-        <div v-if="!hasBirthday&&hasBirthday!=null">
+        <div v-if="!hasBirthday">
             <div class="title"></div>
             <div class="input_top">输入姓名和出生年月，立即测算本月运程</div>
             <div class="input_box">
@@ -43,11 +57,119 @@
                 </div>
             </div>
             <div class="btn_action" @click="lookLuck()">查看运势</div>
+
         </div>
 
     </div>
 </template>
 <style>
+    .dialog_follow {
+        width: 66%;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20.47058823529412rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -10.23529411764706rem;
+        left: 17%;
+        z-index: 10001;
+    }
+    .dialog_follow img {
+        width: 100%
+    }
+
+    .dialog_follow .img {
+        height: 11rem;
+        overflow: hidden
+    }
+
+    .dialog_follow .text {
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+        line-height: 1.5
+    }
+    .img.smill img {
+        width: 10rem;
+        height: 10rem;
+        margin: 0 auto
+    }
+    .dialog_follow .img.smill {
+        background: #01af00;
+        text-align: center;
+        height: 10rem;
+    }
+    .ewm {
+        width: 4.329411764705882rem;
+        height: 4.329411764705882rem;
+        border: 1px solid #ffcdcd;
+        margin: 0.8rem auto;
+        margin-bottom: 0.65rem;
+        padding: 2px;
+    }
+
+    .ewm .output {
+        width: 100%;
+        height: 100%
+    }
+    .myshare {
+        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background-position: 2.5rem 3.5rem;
+        background-size: 80%;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10001;
+    }
+    .goInfo{
+        background: #0BB20C;
+        color: #fff;
+        text-align: center;
+        padding: 4px 12px;
+        width: 60%;
+        display: block;
+        margin: 12px auto;
+        font-size: 0.8823529411764706rem;
+        margin-bottom: 26px;
+        border-radius: 8px;
+    }
+    .dialog_follow {
+        width: 66%;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20.47058823529412rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -10.23529411764706rem;
+        left: 17%;
+        z-index: 10001;
+    }
+
+    .dialog_follow img {
+        width: 100%
+    }
+
+    .dialog_follow .img {
+        height: 11rem;
+        overflow: hidden
+    }
+
+    .dialog_follow .text {
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+        line-height: 1.5
+    }
+    .ewm {
+        width: 4.329411764705882rem;
+        height: 4.329411764705882rem;
+        border: 1px solid #ffcdcd;
+        margin: 0.8rem auto;
+        margin-bottom: 0.65rem;
+        padding: 2px;
+    }
     .xs_pic {
         position: absolute;
         left: 50%;
@@ -275,7 +397,7 @@
     }
 </style>
 
-
+<script src="../js/qrcode.min.js"></script>
 <script type="text/javascript">
     var luck = {
         template: '#luck'
@@ -284,7 +406,6 @@
         data() {
             return {
                 birthday: '',
-                user: '',
                 year: '',
                 month: '',
                 day: '',
@@ -293,7 +414,10 @@
                 MIN_YEAR: 1891,
                 MAX_YEAR: 2100,
                 constellation: {data: []},
-                time: {year: 2017, month: 8}
+                time: {year: 2017, month: 8},
+                isShowShareTip:false,
+                theUserId:0,
+                theUser:null,user:null
 
             }
         },
@@ -303,8 +427,58 @@
             }
         },
         mounted: function () {
+            let _this=this;
+            if(this.$route.query.userid){
+                _this.theUserId=this.$route.query.userid
+            }else{
+                _this.theUserId="_userId_";
+            }
 
-            let _this = this;
+
+            let data = '';
+            if (web.guest) {
+                this.isGuest = true;
+                data = "?guest=true";
+
+            }
+            let userId = _this.$route.query.userid;
+            _this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
+            }).then(function (data) {//es5写法
+                console.log(data)
+                if (data.data.data !== null) {
+                    _this.theUser = data.data.data;
+                    xqzs.wx.setConfig(this, function () {
+                        wx.showAllNonBaseMenuItem();
+                        var config = {
+                            imgUrl: _this.theUser.faceUrl,
+                            title: '星座运势',
+                            desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
+                            link: web.BASE_PATH + "guest/#/constellationluck?year=2017&month=9&userid="+_this.theUserId,
+                        };
+                        weshare.init(wx, config,function(){},function () {
+
+                        },"title")
+                    });
+                }
+            }, function (error) {
+                //error
+            });
+            _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.theUserId + data).then(function (data) {//es5写法
+                console.log(data)
+                $("#output").empty();
+                $('#output').qrcode({
+                    width: 100, height: 100,
+                    text: _this.toUtf8(data.data.data), background: "#ffffff",
+                    foreground: "red"
+                });
+
+            }, function (error) {
+
+            });
+
 
             if (_this.user.birthday != null) {
                 _this.initBD();
@@ -331,6 +505,47 @@
             }
         },
         methods: {
+            share: function () {
+                this.isShowShareTip = !this.isShowShareTip;
+            },
+            convertCanvasToImage: function (canvas) {
+                //新Image对象，可以理解为DOM
+                var image = new Image();
+                // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
+                // 指定格式 PNG
+                image.src = canvas.toDataURL("image/png");
+                return image;
+            },
+            toUtf8: function (str) {
+                var out, i, len, c;
+                out = "";
+                len = str.length;
+                for (i = 0; i < len; i++) {
+                    c = str.charCodeAt(i);
+                    if ((c >= 0x0001) && (c <= 0x007F)) {
+                        out += str.charAt(i);
+                    } else if (c > 0x07FF) {
+                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    } else {
+                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                    }
+                }
+                return out;
+            },
+
+            follow:function () {
+                let _this = this;
+                xqzs.weui.dialogCustom($("#follow2").html())
+                var mycanvas2 = document.getElementsByTagName('canvas')[0];
+                console.log(mycanvas2) ;
+                var img = _this.convertCanvasToImage(mycanvas2);
+                $('.ewm').html('')
+                $('.ewm').append(img);
+            },
+
             solarMonthDays: function (year, month) {
                 let FebDays = this.isLeapYear(year) ? 29 : 28;
                 let monthHash = ['', 31, FebDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -346,24 +561,17 @@
                 _this.birthday = _this.user.birthday;
                 if (_this.birthday) {
                     let date = _this.birthday.split(',');
-
-                    if( _this.user.isLunar==1){
-                        let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2])); //阳历
-                        console.log(date);
-                        _this.year = solar.cYear;
-                        _this.month = solar.cMonth;
-                        _this.day = solar.cDay;
-                    }else{
-                        _this.year = date[0];
-                        _this.month = date[1];
-                        _this.day = date[2];
-                    }
+                    _this.year = date[0];
+                    _this.month = date[1];
+                    _this.day = date[2];
                 }
-
                 let date = new Date();
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
                 _this.time = {year: year, month: month, solarMonthDays: _this.solarMonthDays(year, month)};
+
+
+                if(_this.month==""||_this.day==""){return }
 
                 let constellation = xqzs.constellation.array[xqzs.constellation.getIndex(_this.month, _this.day)];
 
