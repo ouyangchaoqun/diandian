@@ -97,7 +97,20 @@
             console.log(winWidth)
             $('.swiper-slide').css({'width':winWidth})
             var propagandaSwiper = new Swiper ('.propagandaBox', {
-                direction: 'vertical'
+                direction: 'vertical',
+                onSlideChangeStart: function (swiper) {
+                    //alert(swiper.activeIndex) //切换结束时，告诉我现在是第几个slide
+                    var index = swiper.activeIndex;
+
+
+
+                    if(index==4){
+                        $(".propagandaJt").hide()
+                    }else{
+                        $(".propagandaJt").show()
+                    }
+
+                }
             })
         }
     }
