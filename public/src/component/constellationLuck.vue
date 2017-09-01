@@ -1,6 +1,6 @@
 <template id="luck">
     <div class="luck">
-        <div v-title>{{constellation.name}}运势</div>
+        <div v-title>星座运势</div>
         <div v-if="hasBirthday">
             <div class="title">
 
@@ -9,12 +9,12 @@
                         <img :src="constellation.pic">
                     </div>
                     <div class="addInfo">
-                        <div class="info">{{constellation.name}}<i class="main_txt">({{constellation.times}})</i></div>
+                        <div class="info">{{constellation.name}}<i class="main_txt">（{{constellation.times}}）</i></div>
                     </div>
                 </div>
                 <div class="title_header">
                     <div class="addTitle_top">本月运势</div>
-                    <div class="addTime">({{nowYear}}.{{nowMonth}}.1-{{nowMonth}}.{{lastDay}})</div>
+                    <div class="addTime">（{{nowYear}}.{{nowMonth}}.1-{{nowMonth}}.{{lastDay}}）</div>
                 </div>
             </div>
             <div class="addMainbg">
