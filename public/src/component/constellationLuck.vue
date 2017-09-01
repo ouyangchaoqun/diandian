@@ -86,6 +86,7 @@
 
     </div>
 </template>
+<script src="/src/js/vconsole.min.js"></script>
 <style>
     .addTitle_top{
         color: #fff;
