@@ -34,8 +34,9 @@
             </div>
             <div class="addEwmBox" v-if="!user||(user&&theUser&&user.id!=theUser.id)">
                 <img src="../images/addEwm_top.png" alt="">
-                <div class="addEwmtext">长按二维码关注“心情指数”后,<br/>回复“运势”查看本月星座运势</div>
-                <div class="ewm"></div>
+                <div class="addEwmtext">长按二维码关注“心情指数”后,<br/>回复“星座运势”查看本月运势</div>
+                <div class="ewm"></div><br>
+                <br>
             </div>
 
             <!--<div class="goInfo" v-if="user!=null" @click="share()">分享我的星座运势</div>-->
@@ -152,6 +153,7 @@
         height: 9.83rem;
         width:100%;
         padding-top: 1.47rem;
+        padding-bottom: 1.47rem;
         position: relative;
     }
     .addEwmBox img{
@@ -167,7 +169,8 @@
         position: absolute;
         top:0.6rem;
         left:50%;
-        margin-left:-85px;
+        margin-left:-100px;
+        width: 200px;
     }
     .addTitleBox{
         position: absolute;
@@ -757,7 +760,7 @@
                             wx.showAllNonBaseMenuItem();
                             var config = {
 
-                                imgUrl:_this.constellation.pic,
+                                imgUrl:web.BASE_PATH+_this.constellation.pic,
                                 title: _this.constellation.name+'本月运势',
                                 desc: _this.constellation.name+'本月（'+_this.nowMonth+'.1-'+_this.nowMonth+'.'+_this.lastDay+'）运势已新鲜出炉，快来围观吧~',
                                 link: web.BASE_PATH + "guest/#/constellationLuck?year="+_this.nowYear+"&month="+_this.nowMonth+"&userid="+_this.theUserId,
