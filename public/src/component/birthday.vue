@@ -882,7 +882,7 @@
     export default {
         data() {
             return {
-
+                MAX_CARE_COUNT:10,
                 steps: [
                     {num: 1, isReach: false},
                     {num: 99, isReach: false},
@@ -992,8 +992,8 @@
             addHeart: function () {
                 let that = this;
                 let random = 1 + parseInt(Math.random() * 5);
-                if (that.myCareCount && that.myCareCount >= 10) {
-                    xqzs.weui.tip("每人最多点10个赞，邀请好友一起点赞", function () {
+                if (that.myCareCount && that.myCareCount >= that.MAX_CARE_COUNT) {
+                    xqzs.weui.tip("每人最多点"+that.MAX_CARE_COUNT+"个赞，邀请好友一起点赞", function () {
 
                     });
                     return;
@@ -1063,16 +1063,19 @@
                         }
                         console.log(last + "reaaaa" + stepLength)
 
-                        this.per = last / stepLength * 100;
+                       // this.per = last / stepLength * 100;
                         break;
                     }
                 }
 
                 if (this.count >= this.steps[this.steps.length - 1].num) {
-                    this.per = 108;
+                  //  this.per = 108;
                 }
 
-                $(".heart .wave").css({top: 100 - (this.per + 16) + "%"});
+                this.per = this.myCareCount / this.MAX_CARE_COUNT  * 100;
+
+
+                $(".heart .wave").css({top: 100 - (this.per) + "%"});
                 console.log(this.per)
             }
         }
