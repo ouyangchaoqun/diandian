@@ -42,7 +42,7 @@
 
                         <template v-if="moodCount>10">
                             <div class="title23">比<span>{{happyThan}}%</span>的人都要开心！</div>
-                            <div class="content3211">相比{{oldMonth}}月份，你<span class="spanColor" v-if="moodValue<lastMonthMoodValue">没有</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">比</span>上个月过得开心，我们希望{{nextMonth}}月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
+                            <div class="content3211">相比{{oldMonth}}月份，你<span class="spanColor" v-if="!moodDifference">没有</span><span class="spanColor" v-if="moodDifference">比</span>上个月过得开心，我们希望{{nextMonth}}月份你能<span class="spanColor" v-if="moodValue<lastMonthMoodValue">过得开心快乐一点</span><span class="spanColor" v-if="moodValue>=lastMonthMoodValue">继续保持开心快乐</span>。</div>
                         </template>
                         <template v-if="moodCount<=10">
                             <div class="title23">记录得太少</div>
@@ -107,7 +107,8 @@
                 moodValue:'',
                 lastMonthMoodValue:'',
                 theUserId:0,
-                theUser:null,user:null
+                theUser:null,user:null,
+                moodDifference:false
             }
         },
 
@@ -270,6 +271,11 @@
                         this.happyThan = Math.round(response.happyThan*100);
                         this.moodvalue = response.moodValue;
                         this.lastMonthMoodValue = response.lastMonthMoodValue;
+                        if(this.moodvalue>=this.lastMonthMoodValue){
+                            this.moodDifference = true
+                        }else {
+                            this.moodDifference = false
+                        }
                         this.setPie(this.happyDays,this.unhappyDays);
                     }
 

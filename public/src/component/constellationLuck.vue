@@ -18,6 +18,7 @@
             </div>
             <div class="xz_introduce">说明：广泛的星座运势并不会具体针对关联到个人运势,仅供娱乐参考!</div>
             <div class="goInfo" v-if="user!=null" @click="share()">分享我的星座运势</div>
+            <div class="goInfo" v-if="user!=null">我的星座运势（已关注查自己）</div>
             <div class="goInfo"  @click="follow()">分享（未关注）</div>
             <div class="myshare" v-show="isShowShareTip" @click="share()"></div>
             <div id="follow2" style="display: none">
@@ -34,25 +35,29 @@
         </div>
         <div v-if="!hasBirthday">
             <div class="title"></div>
-            <div class="input_top">输入姓名和出生年月，立即测算本月运程</div>
+            <div class="input_top">输入出生年月，立即测算本月运程</div>
             <div class="input_box">
-                <div class="inputItem">
-                    <div class="left">您的姓名：</div>
-                    <div class="inputName right">
-                        <input class="realName" v-model="user.realName" placeholder="还未填写（如张三）">
-                    </div>
-                </div>
+                <!--<div class="inputItem">-->
+                    <!--<div class="left">您的姓名：</div>-->
+                    <!--<div class="inputName right">-->
+                        <!--<input class="realName" v-model="user.realName" placeholder="还未填写（如张三）">-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="inputItem" @click="showDate()">
-                    <div class="left">出生年月：</div>
-                    <div class="showdL right" v-show="hasBirthday">
-                        <span>{{year}}年 </span>
-                        <span>{{month}}月 </span>
-                        <span>{{day}}日 </span>
+                    <div>
+                        <div class="left">出生年月：</div>
+                        <div class="showdL right">
+                            {{year}}年{{month}}月{{day}}日
+                        </div>
+                        <div class="down"></div>
                     </div>
-                    <div class="showdL right" v-show="!hasBirthday">
-                        年／月／日
+                    <div>
+                        <div class="left">对应阳历：</div>
+                        <div class="showdL right">
+                            {{yearN}}年{{monthN}}月{{dayN}}日
+                        </div>
+                        <div class="down"></div>
                     </div>
-                    <div class="down"></div>
                 </div>
             </div>
             <div class="btn_action" @click="lookLuck()">查看运势</div>
@@ -406,8 +411,8 @@
             return {
                 birthday: '',
                 year: '',
-                month: '',
-                day: '',
+                month: '/',
+                day: '/',
                 hasBirthday: null,
                 index: 0,
                 MIN_YEAR: 1891,
@@ -441,6 +446,7 @@
 
             }
             let userId = _this.$route.query.userid;
+            console.log(userId)
             _this.$http({
                 method: 'GET',
                 type: "json",
@@ -489,6 +495,26 @@
                 }).then(function (data) {//es5写法
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
+                        _this.birthday = _this.user.birthday;
+                        if (_this.birthday) {
+                            let date = _this.birthday.split(',');
+                            console.log(date)
+                            console.log(_this.user.isLunar)
+                            _this.year = date[0];
+                            _this.month = date[1];
+                            _this.day = date[2];
+                            if( _this.user.isLunar==1||_this.user.isLunar==2){
+                                _this.isLunar=true;
+                                _this.yearN = date[0]+'年';
+                                _this.monthN =  calendar.toChinaMonth(date[1]);
+                                if(_this.user.isLunar==2) {
+                                    _this.isLeapMonth=true;
+                                    _this.monthN= "闰"+ _this.monthN;
+                                }
+                                _this.dayN = calendar.toChinaDay(date[2]);
+                            }
+
+                        }
                         _this.initBD();
                     }
                 }, function (error) {
@@ -529,6 +555,10 @@
                     _this.month = date[1];
                     _this.day = date[2];
                 }
+
+
+
+
                 let date = new Date();
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
@@ -581,6 +611,46 @@
                 }
             },
 
+            lutSelect:function (v) {
+                let _this= this;
+                if(v==0){
+                    if( !this.isLunar) return ;
+
+                    if(this.birthday&&this.birthday!=''){
+                        let date = this.birthday.split(',');
+                        let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2]),_this.isLeapMonth); //阳历
+                        this.birthday= solar.cYear+","+solar.cMonth+"," +solar.cDay ; //阳历
+                        console.log(solar)
+                        _this.year = solar.cYear;
+                        _this.month = solar.cMonth;
+                        _this.day = solar.cDay;
+                    }
+                    this.isLunar=false;
+
+                }else if(v==1){
+                    if( this.isLunar) return ;
+                    this.isLunar=true;
+                    if(this.birthday&&this.birthday!=''){
+                        let date = this.birthday.split(',');
+                        let lunar=  calendar.solar2lunar(date[0],date[1],date[2]); //农历
+                        console.log(lunar)
+                        this.birthday= lunar.lYear+","+lunar.lMonth+"," +lunar.lDay  //农历
+                        _this.isLeapMonth=lunar.isLeap;
+                        _this.yearN =  lunar.lYear+"年";
+                        _this.monthN = lunar.IMonthCn;
+                        _this.dayN =lunar.IDayCn;
+                        _this.year = lunar.lYear;
+                        _this.month = lunar.lMonth;
+                        _this.day = lunar.lDay;
+                        if(lunar.isLeap){
+                            _this.month = lunar.lMonth+"_1";
+                        }
+                    }
+
+
+                }
+            },
+
             showDate: function () {
                 let _this = this;
                 let defaultValue = [1988, 1, 1];
@@ -596,6 +666,7 @@
                     onChange: function (result) {
                     },
                     onConfirm: function (result) {
+                        console.log(result)
                         _this.year = result[0].value;
                         _this.month = result[1].value;
                         _this.day = result[2].value;
