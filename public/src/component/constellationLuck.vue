@@ -909,23 +909,7 @@
                         (response) => {
                             console.log( _this.birthday)
                             _this.theUser.birthday = _this.birthday;
-
-
-                            //转阳历
-                            if(_this.theUser.isLunar){
-                                let date = _this.birthday.split(',');
-                                let solar=  calendar.lunar2solar(parseInt(date[0]),parseInt(date[1]),parseInt(date[2]),_this.isLeapMonth); //阳历
-                                _this.birthday= solar.cYear+","+solar.cMonth+"," +solar.cDay ; //阳历
-                                _this.year = solar.cYear;
-                                _this.month = solar.cMonth;
-                                _this.day = solar.cDay;
-
-
-
-                            }
-
-
-
+                            _this.theUser.isLunar = _this.isLunar;
                             _this.initBD();
                         }
                     );
