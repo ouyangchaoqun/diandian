@@ -1,6 +1,6 @@
 <template id="moodCountPage">
     <div style="height: 100%;font-family: STHeitiSC-Light">
-        <div v-title>8月心情统计</div>
+        <div v-title>{{countMonth}}月心情统计</div>
         <div class="swiper-container  swarppp  bggggg" style="height: 100%">
             <div class="swiper-wrapper ">
                 <div class="swiper-slide page1">
@@ -100,6 +100,7 @@
                 followText:'',
                 happyText:'',
                 unhappyText:'',
+                countYear:'',
                 countMonth:'',
                 nextMonth:'',
                 oldMonth:'',
@@ -111,6 +112,23 @@
         },
 
         mounted:function(){
+
+            var countDate = new Date();
+            var _countYear = this.$route.query.year||countDate.getFullYear();
+            var _countMonth = this.$route.query.month||countDate.getMonth();
+            this.countMonth = _countMonth;
+            this.countYear = _countYear;
+            if(this.countMonth==12){
+                this.nextMonth=1
+            }else {
+                this.nextMonth=parseInt(this.countMonth)+1
+            }
+            if(this.countMonth==1){
+                this.oldMonth=12
+
+            }else {
+                this.oldMonth=parseInt(this.countMonth)-1
+            }
             let _this=this;
             if(this.$route.query.userid){
                 _this.theUserId=this.$route.query.userid
@@ -137,9 +155,9 @@
                         wx.showAllNonBaseMenuItem();
                         var config = {
                             imgUrl: _this.theUser.faceUrl,
-                            title: '我的8月很开心，你呢？',
+                            title: '我的'+_this.countMonth+'月很开心，你呢？',
                             desc: '日子有大有小，心情冷暖共知；加入我们，一起记录美好时光。',
-                            link: web.BASE_PATH + "guest/#/moodCountPage?year=2017&month=8&userid="+_this.theUserId,
+                            link: web.BASE_PATH + "guest/#/moodCountPage?year="+_this.countYear+"&month="+_this.countMonth+"&userid="+_this.theUserId,
                         };
                         weshare.init(wx, config,function(){},function () {
 
@@ -247,21 +265,7 @@
                 $('.ewm').append(img);
             },
             setround:function () {
-                var countDate = new Date();
-                var _countYear = this.$route.query.year||countDate.getFullYear();
-                var _countMonth = this.$route.query.month||countDate.getMonth();
-                this.countMonth = _countMonth;
-                if(this.countMonth==12){
-                    this.nextMonth=1
-                }else {
-                    this.nextMonth=parseInt(this.countMonth)+1
-                }
-                if(this.countMonth==1){
-                    this.oldMonth=12
 
-                }else {
-                    this.oldMonth=parseInt(this.countMonth)-1
-                }
                 let _this=this;
                 let data="";
                 if (web.guest) {
@@ -269,7 +273,7 @@
                     data = "?guest=true";
 
                 }
-                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/'+_this.theUserId+'/'+_countYear+'/'+_countMonth+data).then(function (res) {
+                this.$http.get(web.API_PATH+'mood/get/user/month/statistics/'+_this.theUserId+'/'+ _this.countYear+'/'+ _this.countMonth+data).then(function (res) {
                     console.log(res.data)
                     var response = res.data.data;
                     if(res.data.status==1){
@@ -307,7 +311,7 @@
               this.$router.push("/record")
             },
             goMonthAll:function () {
-                this.$router.push("/myCenter/myIndex?month=8&activeIndex=1")
+                this.$router.push("/myCenter/myIndex?month="+this.countMonth+"&activeIndex=1")
 
             },
             setPie:function (happyDay,unhappyDay) {
