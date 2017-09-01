@@ -89,10 +89,10 @@
 <style>
     .addTitle_top{
         color: #fff;
-        font-size: 13px;
+        font-size: 14px;
     }
     .addTime{
-        font-size: 11px;
+        font-size: 12px;
     }
     .form_birthday{
         height:100%;
@@ -359,7 +359,7 @@
 
     .luck .main_txt {
         line-height: 1;
-        font-size: 9px;
+        font-size: 11px;
         font-style: normal;
         margin-left: 0.4rem;
     }
