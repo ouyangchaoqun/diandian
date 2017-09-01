@@ -631,19 +631,7 @@
 
 
 
-                    xqzs.wx.setConfig(this, function () {
-                        wx.showAllNonBaseMenuItem();
-                        var config = {
 
-                            imgUrl:_this.constellation.pic,
-                            title: _this.constellation.name+'本月运势',
-                            desc: _this.constellation.name+'本月（'+_this.nowMonth+'.1-'+_this.nowMonth+'.'+_this.lastDay+'）运势已新鲜出炉，快来围观吧~',
-                            link: web.BASE_PATH + "guest/#/constellationLuck?year="+_this.nowYear+"&month="+_this.nowMonth+"&userid="+_this.theUserId,
-                        };
-                        weshare.init(wx, config,function(){},function () {
-
-                        },"title")
-                    });
                 }
             }, function (error) {
                 //error
@@ -763,6 +751,23 @@
                     if (data.data.status == 1) {
                         constellation.data = data.data.data;
                         _this.constellation = constellation;
+
+
+                        xqzs.wx.setConfig(this, function () {
+                            wx.showAllNonBaseMenuItem();
+                            var config = {
+
+                                imgUrl:_this.constellation.pic,
+                                title: _this.constellation.name+'本月运势',
+                                desc: _this.constellation.name+'本月（'+_this.nowMonth+'.1-'+_this.nowMonth+'.'+_this.lastDay+'）运势已新鲜出炉，快来围观吧~',
+                                link: web.BASE_PATH + "guest/#/constellationLuck?year="+_this.nowYear+"&month="+_this.nowMonth+"&userid="+_this.theUserId,
+                            };
+                            weshare.init(wx, config,function(){},function () {
+
+                            })
+                        });
+
+
 
 
                         _this.$nextTick(function () {
