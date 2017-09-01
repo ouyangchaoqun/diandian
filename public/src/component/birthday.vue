@@ -943,7 +943,7 @@
                 let _this = this;
                 xqzs.weui.dialogCustom($("#follow2").html())
                 var mycanvas2 = document.getElementsByTagName('canvas')[0];
-                var img = _this.convertCanvasToImage(mycanvas2);
+                var img = xqzs.image.convertCanvasToImage(mycanvas2);
                 $('.ewm').html('')
                 $('.ewm').append(img);
 
@@ -953,7 +953,7 @@
                 let _this = this;
                 xqzs.weui.dialogCustom($("#follow").html())
                 var mycanvas1 = document.getElementsByTagName('canvas')[0];
-                var img = _this.convertCanvasToImage(mycanvas1);
+                var img = xqzs.image.convertCanvasToImage(mycanvas1);
                 $('.ewm').html('')
                 $('.ewm').append(img);
 

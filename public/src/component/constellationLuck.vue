@@ -5,7 +5,6 @@
             <div class="title"><img class="xs_pic" :src="constellation.pic"></div>
             <div class="info">{{constellation.name}}</div>
             <div class="main_txt">{{constellation.times}}</div>
-            <!--<div class="main_txt"><span>{{time.year}}-{{time.month}}-01 - {{time.year}}-{{time.month}}-{{time.solarMonthDays}}</span></div>-->
             <div class="main_content" v-for="item in  constellation.data">
                 <div style="background: #fff;">
                     <div class="xz">
@@ -471,7 +470,7 @@
                 $("#output").empty();
                 $('#output').qrcode({
                     width: 100, height: 100,
-                    text: _this.toUtf8(data.data.data), background: "#ffffff",
+                    text: xqzs.string.toUtf8(data.data.data), background: "#ffffff",
                     foreground: "red"
                 });
 
@@ -508,53 +507,18 @@
             share: function () {
                 this.isShowShareTip = !this.isShowShareTip;
             },
-            convertCanvasToImage: function (canvas) {
-                //新Image对象，可以理解为DOM
-                var image = new Image();
-                // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
-                // 指定格式 PNG
-                image.src = canvas.toDataURL("image/png");
-                return image;
-            },
-            toUtf8: function (str) {
-                var out, i, len, c;
-                out = "";
-                len = str.length;
-                for (i = 0; i < len; i++) {
-                    c = str.charCodeAt(i);
-                    if ((c >= 0x0001) && (c <= 0x007F)) {
-                        out += str.charAt(i);
-                    } else if (c > 0x07FF) {
-                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
-                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
-                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-                    } else {
-                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
-                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-                    }
-                }
-                return out;
-            },
+
 
             follow:function () {
                 let _this = this;
                 xqzs.weui.dialogCustom($("#follow2").html())
                 var mycanvas2 = document.getElementsByTagName('canvas')[0];
                 console.log(mycanvas2) ;
-                var img = _this.convertCanvasToImage(mycanvas2);
+                var img = xqzs.image.convertCanvasToImage(mycanvas2);
                 $('.ewm').html('')
                 $('.ewm').append(img);
             },
 
-            solarMonthDays: function (year, month) {
-                let FebDays = this.isLeapYear(year) ? 29 : 28;
-                let monthHash = ['', 31, FebDays, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                return monthHash[month];
-            },
-            //是否闰年
-            isLeapYear: function (year) {
-                return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
-            },
             initBD: function () {
                 let _this = this;
 
@@ -568,7 +532,7 @@
                 let date = new Date();
                 let year = date.getFullYear();
                 let month = date.getMonth() + 1;
-                _this.time = {year: year, month: month, solarMonthDays: _this.solarMonthDays(year, month)};
+                _this.time = {year: year, month: month};
 
 
                 if(_this.month==""||_this.day==""){return }

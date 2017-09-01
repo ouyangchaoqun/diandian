@@ -259,49 +259,36 @@ var xqzs = {
 
 
         },
-        lunarMonthName: [{label: "正月", value: "1"},
-            {label: "二月", value: "2"},
-            {label: "三月", value: "3"},
-            {label: "四月", value: "4"},
-            {label: "五月", value: "5"},
-            {label: "六月", value: "6"},
-            {label: "七月", value: "7"},
-            {label: "八月", value: "8"},
-            {label: "九月", value: "9"},
-            {label: "十月", value: "10"},
-            {label: "冬月", value: "11"},
-            {label: "腊月", value: "12"}],
-        lunarDayName: [{label: "初一", value: "1"},
-            {label: "初二", value: "2"},
-            {label: "初三", value: "3"},
-            {label: "初四", value: "4"},
-            {label: "初五", value: "5"},
-            {label: "初六", value: "6"},
-            {label: "初七", value: "7"},
-            {label: "初八", value: "8"},
-            {label: "初九", value: "9"},
-            {label: "初十", value: "10"},
-            {label: "十一", value: "11"},
-            {label: "十二", value: "12"},
-            {label: "十三", value: "13"},
-            {label: "十四", value: "14"},
-            {label: "十五", value: "15"},
-            {label: "十六", value: "16"},
-            {label: "十七", value: "17"},
-            {label: "十八", value: "18"},
-            {label: "十九", value: "19"},
-            {label: "二十", value: "20"},
-            {label: "廿一", value: "21"},
-            {label: "廿二", value: "22"},
-            {label: "廿三", value: "23"},
-            {label: "廿四", value: "24"},
-            {label: "廿五", value: "25"},
-            {label: "廿六", value: "26"},
-            {label: "廿七", value: "27"},
-            {label: "廿八", value: "28"},
-            {label: "廿九", value: "29"},
-            {label: "三十", value: "30"},
-        ]
+        getLunarData:function (beginYear,endYear) {
+            let data=[];
+            for(let i=beginYear;i<=endYear;i++){
+                let leapMonth= calendar.leapMonth(i); //第几个月是闰月 没有返回0
+                let months=[];
+                let leapDays=0;
+                if(leapMonth!=0){
+                    leapDays=calendar.leapDays(i)  //闰月天数
+                }
+                for(let mi=1;mi<=12;mi++){
+                    //正常月
+                    let days=[];
+                    let    daycount= calendar.monthDays(i,mi);
+                    for(let di=1;di<=daycount;di++){
+                        days.push({value:di,label:calendar.toChinaDay(di)})
+                    }
+                    months.push({value:mi,label:calendar.toChinaMonth(mi),children:days});
+                    //增加一个闰月
+                    if(leapMonth==mi){
+                        days=[];
+                        for(let di=1;di<=leapDays;di++){
+                            days.push({value:di,label:calendar.toChinaDay(di)})
+                        }
+                        months.push({value:mi+"_1",label:"闰"+calendar.toChinaMonth(mi),children:days})
+                    }
+                }
+                data.push({value:i,label:i+"年",children:months})
+            }
+            return data;
+        }
     },
 
 
@@ -926,6 +913,25 @@ var xqzs = {
                     guid += glue;
             }
             return guid;
+        },
+        toUtf8: function (str) {
+            var out, i, len, c;
+            out = "";
+            len = str.length;
+            for (i = 0; i < len; i++) {
+                c = str.charCodeAt(i);
+                if ((c >= 0x0001) && (c <= 0x007F)) {
+                    out += str.charAt(i);
+                } else if (c > 0x07FF) {
+                    out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                    out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                    out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                } else {
+                    out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                    out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                }
+            }
+            return out;
         }
     },
 
@@ -945,6 +951,17 @@ var xqzs = {
         getIndex: function (month, day) {
             return (month - (day < "102223444433".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
         }
+    },
+    image:{
+        convertCanvasToImage: function (canvas) {
+            //新Image对象，可以理解为DOM
+            var image = new Image();
+            // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
+            // 指定格式 PNG
+            image.src = canvas.toDataURL("image/png");
+            return image;
+        },
+
     }
 };
 

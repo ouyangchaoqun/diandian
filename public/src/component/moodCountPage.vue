@@ -205,17 +205,12 @@
 
             });
 
-
-
-
-
             //二维码
             _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.theUserId + data).then(function (data) {//es5写法
                 $("#output").empty();
-                console.log(_this.toUtf8(data.body.data));
                 $('#output').qrcode({
                     width: 100, height: 100,
-                    text: _this.toUtf8(data.body.data), background: "#ffffff",
+                    text: xqzs.string.toUtf8(data.body.data), background: "#ffffff",
                     foreground: "red"
                 });
 
@@ -227,40 +222,13 @@
 
         },
         methods:{
-            convertCanvasToImage: function (canvas) {
-                //新Image对象，可以理解为DOM
-                var image = new Image();
-                // canvas.toDataURL 返回的是一串Base64编码的URL，当然,浏览器自己肯定支持
-                // 指定格式 PNG
-                image.src = canvas.toDataURL("image/png");
-                return image;
-            },
-            toUtf8: function (str) {
-                var out, i, len, c;
-                out = "";
-                len = str.length;
-                for (i = 0; i < len; i++) {
-                    c = str.charCodeAt(i);
-                    if ((c >= 0x0001) && (c <= 0x007F)) {
-                        out += str.charAt(i);
-                    } else if (c > 0x07FF) {
-                        out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
-                        out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
-                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-                    } else {
-                        out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
-                        out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
-                    }
-                }
-                return out;
-            },
 
             follow:function () {
                 let _this = this;
                 xqzs.weui.dialogCustom($("#follow2").html())
                 var mycanvas2 = document.getElementsByTagName('canvas')[0];
                 console.log(mycanvas2) ;
-                var img = _this.convertCanvasToImage(mycanvas2);
+                var img = xqzs.image.convertCanvasToImage(mycanvas2);
                 $('.ewm').html('')
                 $('.ewm').append(img);
             },
