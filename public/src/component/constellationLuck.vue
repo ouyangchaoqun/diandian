@@ -1,6 +1,6 @@
 <template id="luck">
     <div class="luck">
-        <div v-title>本月运势</div>
+        <div v-title>{{constellation.name}}运势</div>
         <div v-if="hasBirthday">
             <div class="title">
 
@@ -9,12 +9,12 @@
                         <img :src="constellation.pic">
                     </div>
                     <div class="addInfo">
-                        <div class="info">{{constellation.name}}  <div class="main_txt">({{constellation.times}})</div></div>
+                        <div class="info">{{constellation.name}}<i class="main_txt">({{constellation.times}})</i></div>
                     </div>
                 </div>
                 <div class="title_header">
                     <div class="addTitle_top">本月运势</div>
-                    ({{nowYear}}.{{nowMonth}}.1-{{nowMonth}}.{{lastDay}})
+                    <div class="addTime">({{nowYear}}.{{nowMonth}}.1-{{nowMonth}}.{{lastDay}})</div>
                 </div>
             </div>
             <div class="addMainbg">
@@ -90,6 +90,9 @@
     .addTitle_top{
         color: #fff;
         font-size: 13px;
+    }
+    .addTime{
+        font-size: 11px;
     }
     .form_birthday{
         height:100%;
@@ -170,13 +173,13 @@
         position: absolute;
         left:50%;
         top:0.88rem;
-        width:140px;
         margin-left:-70px;
     }
     .addInfo{
         color: #fff;
         float: left;
         margin-left: 10px;
+        margin-top: 0.88rem;
     }
     .addMainbg{
         background: url("../images/startBg.png") no-repeat;
@@ -357,6 +360,8 @@
     .luck .main_txt {
         line-height: 1;
         font-size: 9px;
+        font-style: normal;
+        margin-left: 0.4rem;
     }
 
     .luck .main_txt span {
@@ -473,7 +478,7 @@
 
     .xz {
         position: relative;
-        height: 3.235rem;
+        height: 3rem;
     }
 
     .xz div {
