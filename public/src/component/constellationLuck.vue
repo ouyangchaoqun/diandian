@@ -1,7 +1,8 @@
 <template id="luck">
     <div class="luck">
-        <div v-title>星座运势</div>
-        <div v-if="hasBirthday">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-title class="hide_title">星座运势</div>
+        <div v-show="hasBirthday">
             <div class="title">
 
                 <div class="addTitleBox">
@@ -10,12 +11,10 @@
                     </div>
                     <div class="addInfo">
                         <div class="info">{{constellation.name}}<i class="main_txt">（{{constellation.times}}）</i></div>
+                        <div class="info">本月运势<i class="main_txt">（{{nowMonth}}.1-{{nowMonth}}.{{lastDay}}）</i></div>
                     </div>
                 </div>
-                <div class="title_header">
-                    <div class="addTitle_top">本月运势</div>
-                    <div class="addTime">（{{nowYear}}.{{nowMonth}}.1-{{nowMonth}}.{{lastDay}}）</div>
-                </div>
+
             </div>
             <div class="addMainbg">
                 <img class="startMoveBg" src="../images/startMove.png" alt="">
@@ -55,7 +54,7 @@
             </div>
             <div id="output" class="output" style="display: none"></div>
         </div>
-        <div v-if="!hasBirthday" class="form_birthday">
+        <div  v-show="hasBirthday===false" class="form_birthday">
             <img class="Bstart" src="../images/Bstart.png" alt="">
             <div class="form_input">
                 <div class="input_top">输入出生年月，立即测算本月运程</div>
@@ -66,13 +65,13 @@
 
                 </ul>
                 <div class="inputItem" v-if="isLunar" @click="showDate()">
-                        <div class="left">出生年月：</div>
-                        <div class="showdL right" v-if="birthday!=''">
-                            {{yearN}}{{monthN}}{{dayN}}
-                        </div>
-                        <div class="showdL right" v-if="birthday==''">
-                            年/月/日
-                        </div>
+                    <div class="left">出生年月：</div>
+                    <div class="showdL right" v-if="birthday!=''">
+                        {{yearN}}{{monthN}}{{dayN}}
+                    </div>
+                    <div class="showdL right" v-if="birthday==''">
+                        年/月/日
+                    </div>
                 </div>
                 <div class="inputItem" v-if="!isLunar" @click="showDate()">
                     <div class="left">出生年月：</div>
@@ -176,13 +175,14 @@
         position: absolute;
         left:50%;
         top:0.88rem;
-        margin-left:-70px;
+        margin-left:-105px;
+        width: 210px
     }
     .addInfo{
         color: #fff;
         float: left;
-        margin-left: 10px;
-        margin-top: 0.88rem;
+        margin-left: 12px;
+        margin-top: 1.4rem;
     }
     .addMainbg{
         background: url("../images/startBg.png") no-repeat;
@@ -314,24 +314,25 @@
     }
     .xs_pic {
         position: relative;
-        height:2.94rem;
-        width:2.94rem;
+        height:3.94rem;
+        width:3.94rem;
         border-radius: 50%;
         border:1.5px solid #bc75f9;
         overflow: hidden;
         background: #fff;
         float: left;
+        margin-top: 14px;
     }
     .xs_pic img{
         display: block;
-        width:1.76rem;
-        height:2rem;
+        width:2rem;
+        height:2.2rem;
         display: block;
         position: absolute;
         top: 50%;
         margin-top:-1rem;
         left:50%;
-        margin-left:-0.88rem;
+        margin-left:-1rem;
     }
 
     .luck {
@@ -352,7 +353,7 @@
     }
 
     .luck .info {
-        font-size: 18px;
+        font-size: 1.1rem;
     }
 
     .luck .info span {
@@ -550,12 +551,14 @@
 
 <script src="../js/qrcode.min.js"></script>
 <script type="text/javascript">
+    import showLoad from './showLoad.vue';
     var luck = {
         template: '#luck'
     };
     export default {
         data() {
             return {
+                showLoad: false,
                 birthday: '',
                 year: '',
                 month: '/',
@@ -579,6 +582,9 @@
 
             }
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         mounted: function () {
             let _this=this;
             var nowDate = new Date();
@@ -601,6 +607,7 @@
             }
             let userId = _this.$route.query.userid;
             console.log(userId)
+            _this.showLoad=true;
             _this.$http({
                 method: 'GET',
                 type: "json",
@@ -630,14 +637,17 @@
                         }
 
                     }
+
+
                     _this.initBD();
 
 
 
 
                 }
+
             }, function (error) {
-                //error
+                _this.showLoad=false;
             });
             _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.theUserId + data).then(function (data) {//es5写法
                 console.log(data)
@@ -694,12 +704,9 @@
 
             initBD: function () {
                 let _this = this;
-
                 if (_this.theUser.birthday != null && _this.theUser.birthday != '') {
                     _this.hasBirthday = true;
-
                 } else {
-
                     _this.hasBirthday = false;
                 }
 
@@ -733,7 +740,10 @@
                 _this.time = {year: year, month: month};
 
 
-                if(_this.month==""||_this.day==""){return }
+                if(_this.month==""||_this.day==""||_this.month=="/"||_this.day=="/"){
+                    _this.showLoad=false;
+                    return
+                }
 
                 let constellation = xqzs.constellation.array[xqzs.constellation.getIndex(_this.month, _this.day)];
 
@@ -750,6 +760,8 @@
                     type: "json",
                     url: web.API_PATH + 'constellation/get/' + year + '/' + month + '/' + constellation.id +data ,
                 }).then(function (data) {//es5写法
+                    _this.showLoad=false;
+
                     console.log(data)
                     if (data.data.status == 1) {
                         constellation.data = data.data.data;
@@ -791,7 +803,8 @@
 
                     }
                 }, function (error) {
-                    //error
+
+                    _this.showLoad=false;
                 });
 
 
