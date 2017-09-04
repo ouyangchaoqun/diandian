@@ -245,26 +245,30 @@
             music:function () {
               this.$router.push("/music")
             },
-            share: function () {
+            share: function (isNotShowLoad) {
                 let _this = this;
-                _this.showLoad = true;
+                if(!isNotShowLoad){
+                    _this.showLoad = true;
+                }
                 this.$http({
                     method: 'GET',
                     type: "json",
                     url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/' + _this.result.data.type
                 }).then(function (bt) {
                     if (bt.body.status == 1) {
-                        xqzs.weui.dialog({
-                            title: '成就卡已经发送',
-                            msg: '前往公众号查看，留住每次早起回忆',
-                            submitText: '查看',
-                            submitFun: function () {
-                                try {
-                                    WeixinJSBridge.call('closeWindow');
-                                } catch (e) {
+                        if(!isNotShowLoad){
+                            xqzs.weui.dialog({
+                                title: '成就卡已经发送',
+                                msg: '前往公众号查看，留住每次早起回忆',
+                                submitText: '查看',
+                                submitFun: function () {
+                                    try {
+                                        WeixinJSBridge.call('closeWindow');
+                                    } catch (e) {
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
                     _this.showLoad = false;
                 })
@@ -411,6 +415,9 @@
                 _this.$http.get(web.API_PATH + 'record/sleep/get/rank/today/_userId_/' + type + '').then(data => {
                     if (data.data.status === 1) {
                         _this.result.rank = data.data.data;
+                        if(data.data.data<100){
+                            _this.share(true)
+                        }
                     }
                 });
 
