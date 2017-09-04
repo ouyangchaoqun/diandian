@@ -82,7 +82,7 @@
 
                         <div class="bottom_btn">
                             <div class="midLine" ></div>
-                            <div  class="record_bottom" @click="share" v-if="result.data.type==2">
+                            <div  class="record_bottom" @click="share(false)" v-if="result.data.type==2">
                                 <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
                             </div>
                             <div class="record_bottom" @click="music" v-if="result.data.type==3">
