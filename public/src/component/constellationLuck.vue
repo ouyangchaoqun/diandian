@@ -176,7 +176,7 @@
         left:50%;
         top:0.88rem;
         margin-left:-105px;
-        width: 210px
+        width: 280px
     }
     .addInfo{
         color: #fff;
