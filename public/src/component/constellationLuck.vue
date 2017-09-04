@@ -321,7 +321,7 @@
         overflow: hidden;
         background: #fff;
         float: left;
-        margin-top: 14px;
+        margin-top: 1rem;
     }
     .xs_pic img{
         display: block;
@@ -489,9 +489,7 @@
         float: left;
     }
 
-    .xz_content {
 
-    }
 
     .luck .down {
         width: 16px;
@@ -540,7 +538,7 @@
     .xz_content {
         padding: 0.4rem 1.18rem 1.3rem 1.18rem;
         color: #fff;
-        font-size: 0.82rem;
+        font-size: 0.88rem;
     }
     .xz_introduce{
         padding: 1.7rem 1.18rem 1.88rem 1.18rem;
