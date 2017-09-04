@@ -385,12 +385,12 @@
                                 $(this).hide();
                             });
                         }
-                        _this.initResultData(response.data.data)
+                        _this.initResultData(response.data.data,true)
 
                     }
                 });
             },
-            initResultData: function (data) {
+            initResultData: function (data,isCheckIn) {
 
                 let _this = this;
                 _this.result.data = data;
@@ -415,9 +415,12 @@
                 _this.$http.get(web.API_PATH + 'record/sleep/get/rank/today/_userId_/' + type + '').then(data => {
                     if (data.data.status === 1) {
                         _this.result.rank = data.data.data;
-                        if(data.data.data<=100){
-                            _this.share(true)
+                        if(isCheckIn){
+                            if(data.data.data<=100){
+                                _this.share(true)
+                            }
                         }
+
                     }
                 });
 
