@@ -1102,13 +1102,13 @@
                 _this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
+                    url: web.API_PATH + 'user/find/by/user/Id/' + userId +"/_userId_" + data,
                 }).then(function (data) {//es5写法
 
                     if (data.data.data !== null) {
+
                         _this.birthdayUser = data.data.data;
                         _this.birthday = _this.birthdayUser.birthday;
-
                         xqzs.wx.setConfig(this, function () {
                             wx.showAllNonBaseMenuItem();
                             var config = {
