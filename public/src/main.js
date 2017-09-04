@@ -53,7 +53,8 @@ let routers =
                 require('./routes/music'),
                 require('./routes/birthday'),
                 require('./routes/moodCountPie'),
-                require('./routes/moodCountPage')
+                require('./routes/moodCountPage'),
+                require('./routes/testPay')
 
             ]
         }
