@@ -110,17 +110,18 @@
                 onSlideChangeStart: function(){
                     $(".tabs .active").removeClass('active');
                     $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+                    $('.moodCount_box').css('height','auto')
+                },
+                onSlideChangeEnd:function () {
+                    $('.moodCount_box').height($('.swiper-slide:eq('+tabsSwiper.activeIndex+')').outerHeight(true))
                 }
             });
-            $(".tabs a").on('touchstart mousedown',function(e){
+            $(".tabs a").on('click',function(e){
                 e.preventDefault()
                 $(".tabs .active").removeClass('active');
                 $(this).addClass('active');
                 tabsSwiper.slideTo($(this).index());
-            });
-
-            $(".tabs a").click(function(e){
-                e.preventDefault();
+                $('.moodCount_box').height($('.swiper-slide:eq('+tabsSwiper.activeIndex+')').outerHeight(true))
             });
             xqzs.wx.setConfig(_this);
         }
