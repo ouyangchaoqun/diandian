@@ -46,12 +46,12 @@
 
 
                     let config ={
-                        "appId": res.data.appid,     //公众号名称，由商户传入
-                        "timeStamp": res.data.time,        //时间戳，自1970年以来的秒数
-                        "nonceStr": res.data.nonce_str, //随机串
-                        "package": "prepay_id=" + res.data.prepay_id + "",
+                        "appId": res.data.data.appid,     //公众号名称，由商户传入
+                        "timeStamp": res.data.data.time,        //时间戳，自1970年以来的秒数
+                        "nonceStr": res.data.data.nonce_str, //随机串
+                        "package": "prepay_id=" + res.data.data.prepay_id + "",
                         "signType": "MD5",         //微信签名方式：
-                        "paySign": res.data.sign //微信签名
+                        "paySign": res.data.data.sign //微信签名
                     };
 
 
