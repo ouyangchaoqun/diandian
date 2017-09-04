@@ -126,10 +126,6 @@
                 }
             });
             $(".tabs a").on('click',function(e){
-                _this.showLoad=true
-                setTimeout(function () {
-                    _this.showLoad=false
-                },600)
                 e.preventDefault()
                 $(".tabs .active").removeClass('active');
                 $(this).addClass('active');
