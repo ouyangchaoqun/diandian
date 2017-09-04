@@ -415,7 +415,7 @@
                 _this.$http.get(web.API_PATH + 'record/sleep/get/rank/today/_userId_/' + type + '').then(data => {
                     if (data.data.status === 1) {
                         _this.result.rank = data.data.data;
-                        if(data.data.data<100){
+                        if(data.data.data<=100){
                             _this.share(true)
                         }
                     }
