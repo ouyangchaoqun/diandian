@@ -1,6 +1,7 @@
 <template id="moodCount">
     <div class="moodCount_bgbox">
         <div v-title>我的心情指数</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="tabs">
             <a href="#" hidefocus="true" class="active">每周心情指数</a>
             <a href="#" hidefocus="true">每月心情指数</a>
@@ -51,7 +52,7 @@
     </div>
 </template>
 <script type="text/javascript">
-
+    import showLoad from './showLoad.vue';
     var moodCount={
         template:'#moodCount'
     }
@@ -60,8 +61,12 @@
             return {
                 weeks:[],
                 months:[],
-                years:[]
+                years:[],
+                showLoad: true
             }
+        },
+        components: {
+            'v-showLoad': showLoad
         },
         mounted:function () {
             let _this=this;
@@ -73,9 +78,11 @@
                         _this.weeks[i].allDay = parseInt(_this.weeks[i].happyDay ) + parseInt(_this.weeks[i].unHappyDay ) ;
                         _this.$set(_this.weeks,i,_this.weeks[i]);
                     }
+                    _this.showLoad=false
                 }
             }, response => {
                 // error
+                _this.showLoad=true
             });
 
 
@@ -87,6 +94,7 @@
                         _this.months[i].allDay = parseInt(_this.months[i].happyDay ) + parseInt(_this.months[i].unHappyDay ) ;
                         _this.$set(_this.months,i,_this.months[i]);
                     }
+                    _this.showLoad=false
                 }
             }, response => {
                 // error
@@ -101,6 +109,7 @@
                         _this.years[i].allDay = parseInt(_this.years[i].happyDay ) + parseInt(_this.years[i].unHappyDay ) ;
                         _this.$set(_this.years,i,_this.years[i]);
                     }
+                    _this.showLoad=false
                 }
             }, response => {
                 // error
@@ -117,6 +126,10 @@
                 }
             });
             $(".tabs a").on('click',function(e){
+                _this.showLoad=true
+                setTimeout(function () {
+                    _this.showLoad=false
+                },600)
                 e.preventDefault()
                 $(".tabs .active").removeClass('active');
                 $(this).addClass('active');
