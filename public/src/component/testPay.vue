@@ -22,6 +22,12 @@
         },
         methods: {
             onBridgeReady:function(config) {
+                alert(config.appId)
+                alert(config.timeStamp)
+                alert(config.nonceStr)
+                alert(config.package)
+                alert(config.signType)
+                alert(config.paySign)
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', config,
                     function (res) {
