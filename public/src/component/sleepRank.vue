@@ -100,7 +100,7 @@
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
                             <div class="rank_name addMessage">
                                 {{cutNickName(user.nickName)}}
-                                <div>留言</div>
+                                <div @click="addComment">留言</div>
                             </div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time" v-if="allRank.rank!=''":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
@@ -134,9 +134,9 @@
                 </div>
             </div>
         </div>
-        <div style=" position: fixed;bottom: 0;background: #ccc;width: 100%;height: 40px;">
-            <input type="text" placeholder="最多显示19个字" style="height: 36px;width: 90%;margin:2px 5%;outline: none">
-        </div>
+        <!--<div style=" position: fixed;bottom: 0;background: #ccc;width: 100%;height: 40px;">-->
+            <!--<input type="text" placeholder="最多显示19个字" style="height: 36px;width: 90%;margin:2px 5%;outline: none">-->
+        <!--</div>-->
     </div>
 </template>
 <script type="text/javascript">
@@ -185,10 +185,6 @@
             var clockDay = time.getDate();
             var clockMonth =time.getMonth()+1;
             var clockYear = time.getFullYear();
-
-
-
-
             _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+typeId+'').then(data => {
                 if(data.data.status===1){
                     _this.allDay= data.data.data.allDays;
@@ -287,6 +283,21 @@
 
         },
         methods:{
+            addComment:function () {
+                let vm = this;
+                xqzs.mood.actionSheetEdit("取消","发送",function (v) {
+                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":replyId,"content":v}).then(response => {
+
+                    }, response => {
+                        // error
+                    });
+                    console.log(v)
+
+                },function (v) {
+
+                    //取消
+                },'最多19个字')
+            },
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             },
