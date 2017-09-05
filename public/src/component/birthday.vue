@@ -1197,7 +1197,7 @@
             //当前生日用户
 
 
-            let data = '?userId=_userId_';
+            let data = '?friendId=_userId_';
             if (web.guest) {
                 this.isGuest = true;
                 data = data + '&guest=true'
@@ -1274,6 +1274,11 @@
                 _this.friends();
             });
 
+              data = '?userId=_userId_';
+            if (web.guest) {
+                this.isGuest = true;
+                data = data + '&guest=true'
+            }
 
 
             //二维码
