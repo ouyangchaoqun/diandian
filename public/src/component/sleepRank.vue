@@ -2,6 +2,7 @@
     <div class="clock_box" :class="{clock_boxNight:isNight}">
         <div v-title>{{sleepRank_title}}</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
+
         <div  class="clock_top" :class="{clock_topNight:isNight}">
             <div class="clock_head">
                 <img @click="goRecordCount()" :src="user.faceUrl" alt="">
@@ -51,7 +52,7 @@
         <div class="rank_Bgbox">
             <div class="rank_box goleft">
                 <div class="clock_rank clock_rank1">
-                    <div  class="rank_list me_rank" :class="{rank_listNight:isNight}" @click="goRecordCount()">
+                    <div  class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
@@ -92,12 +93,15 @@
                 </div>
                 <!--总排行-->
                 <div class="clock_rank clock_rank2 ">
-                    <div class="rank_list me_rank" :class="{rank_listNight:isNight}" @click="goRecordCount()">
+                    <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
-                            <div class="rank_name">{{cutNickName(user.nickName)}}</div>
+                            <div class="rank_name addMessage">
+                                {{cutNickName(user.nickName)}}
+                                <div>留言</div>
+                            </div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
                                 <div class="clock_time" v-if="allRank.rank!=''":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
                                 <div class="clock_time" v-if="allRank.rank==''" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
@@ -129,6 +133,9 @@
                     </ul>
                 </div>
             </div>
+        </div>
+        <div style=" position: fixed;bottom: 0;background: #ccc;width: 100%;height: 40px;">
+            <input type="text" placeholder="最多显示19个字" style="height: 36px;width: 90%;margin:2px 5%;outline: none">
         </div>
     </div>
 </template>
@@ -244,7 +251,9 @@
             }else{
                 this.sleepRank_title="早起排行";
             }
-
+           setInterval(function () {
+               $('#query_ticket').click()
+           },10000)
 
 
             $('.clock_tab .tab_title').on('touchstart mousedown',function () {
@@ -364,6 +373,13 @@
     }
 </script>
 <style>
+    .addMessage{
+        line-height: 1;
+        padding-top:12px;
+    }
+    .addMessage div{
+        margin-top: 8px;
+    }
     .clock_rank{
         width:50%;
         float: left;
