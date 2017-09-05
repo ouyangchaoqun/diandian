@@ -89,6 +89,7 @@
                 areaId: '',
                 isLunar: 0,
                 lunarDateData:[],
+                solarDateDate:[],
                 isLeapMonth:false
             }
         },
@@ -136,8 +137,8 @@
             });
             xqzs.wx.setConfig(_this);
 
-            this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017)
-
+            this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
+            this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
         },
         filters: {
             shortName: function (value, len) {
@@ -234,14 +235,16 @@
                     });
 
                 } else {
-                    weui.datePicker({
-                        start: 1949,
+
+                    weui.picker(  this.solarDateDate, {
+                        depth: 3,
                         defaultValue: defaultValue,
-                        end: new Date().getFullYear(),
                         id:"id"+Math.random(),
                         onChange: function (result) {
+                            console.log(result);
                         },
                         onConfirm: function (result) {
+
                             _this.year = result[0].value;
                             _this.month = result[1].value;
                             _this.day = result[2].value;
@@ -249,8 +252,10 @@
 
                             _this.birthday = result[0].value + ',' + result[1].value + ',' + result[2].value;
 
-                        }
+                        },
                     });
+
+
                 }
             },
             areaPicker: function () {

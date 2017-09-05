@@ -259,6 +259,24 @@ var xqzs = {
 
 
         },
+        getSolarData:function (beginYear,endYear) {
+            var data=[];
+            for(var i=beginYear;i<=endYear;i++){
+                var months=[];
+                for(var mi=1;mi<=12;mi++){
+                    //正常月
+                    var days=[];
+                    var  daycount= calendar.solarDays(i,mi);
+                    for(var di=1;di<=daycount;di++){
+                        days.push({value:di,label:di+"日"})
+                    }
+                    months.push({value:mi,label:mi+"月",children:days});
+
+                }
+                data.push({value:i,label:i+"年",children:months})
+            }
+            return data;
+        },
         getLunarData:function (beginYear,endYear) {
             var data=[];
             for(var i=beginYear;i<=endYear;i++){
