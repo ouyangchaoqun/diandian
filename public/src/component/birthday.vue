@@ -270,6 +270,8 @@
         width: 80%;
         color: #777;
         margin-bottom: 0.3529411764705882rem;
+        line-height: 1rem;
+        margin-top: 4px;
     }
 
     .submitContent {
@@ -990,7 +992,7 @@
 
                 }, function () {
 
-                }, "送上你的祝福,19个字内", 19)
+                }, "送上你的祝福（20个字内）", 20)
             },
 
             friends: function () {
