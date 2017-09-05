@@ -57,15 +57,20 @@
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
-                            <div class="rank_name">{{cutNickName(user.nickName)}}</div>
-                            <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                <div class="clock_time" v-if="myRank.rank!=''" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
-                                <div class="clock_time" v-if="myRank.rank==''" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
-                                <div  class="care_icon" v-if="myRank.careCount!=null" @click.stop="">
-                                    <span>{{myRank.careCount||0}}</span>
-                                    <img v-show="myRank.careCount==0||myRank.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
-                                    <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
-                                </div>
+                            <div class="rank_name">
+                                <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
+                                <div @click="addComment(myRank.id)" class="addLy" v-if="myRank.content==null">留言</div>
+                                <div class="addMessage" v-if="myRank.content!=null">{{allRank.content}}</div>
+                                <div></div>
+                            </div>
+                            <div class="clock_time" v-if="myRank.rank!=''" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
+                            <div class="clock_time" v-if="myRank.rank==''" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
+                        </div>
+                        <div class="rank_right" :class="{rank_rightNight:isNight}">
+                            <div  class="care_icon" v-if="myRank.careCount!=null" @click.stop="">
+                                <span>{{myRank.careCount||0}}</span>
+                                <img v-show="myRank.careCount==0||myRank.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
+                                <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -75,19 +80,20 @@
                             <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
                                 <img class="rank_headImg" :src="rankList.faceUrl" alt="">
-                                <div class="rank_name">{{cutNickName(rankList.nickName)}}</div>
-                                <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                    <div class="clock_time">{{rankList.time}}</div>
-                                    <div @click.stop="addCare(rankList)" class="care_icon">
-                                        <span>{{rankList.careCount||0}}</span>
-                                        <img v-show="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="rankList.caremy>0" :class="{heartUp:rankList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
-                                    </div>
+                                <div class="rank_name">
+                                    <div class="rank_NickName">{{cutNickName(rankList.nickName)}}</div>
+                                    <div class="addMessage">{{rankList.content}}</div>
+                                </div>
+                                <div class="clock_time">{{rankList.time}}</div>
+                            </div>
+                            <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                <div @click.stop="addCare(rankList)" class="care_icon">
+                                    <span>{{rankList.careCount||0}}</span>
+                                    <img v-show="rankList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-show="rankList.caremy>0" :class="{heartUp:rankList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </li>
-
-
                     </ul>
 
                 </div>
@@ -98,18 +104,20 @@
                         <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
                         <div class="rank_main" style="border: 0;">
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
-                            <div class="rank_name addMessage">
-                                {{cutNickName(user.nickName)}}
-                                <div @click="addComment">留言</div>
-                            </div>
-                            <div class="rank_right" :class="{rank_rightNight:isNight}">
+                            <div class="rank_name">
+                                <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
+
+                                <div @click="addComment(allRank.id)" class="addLy" v-if="allRank.content==null">留言</div>
+                                <div class="addMessage" v-if="allRank.content!=null">{{allRank.content}}</div>
                                 <div class="clock_time" v-if="allRank.rank!=''":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
                                 <div class="clock_time" v-if="allRank.rank==''" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
-                                <div class="care_icon" v-if="allRank.careCount!=null" @click.stop="">
-                                    <span>{{allRank.careCount||0}}</span>
-                                    <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                    <img v-show="allRank.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
-                                </div>
+                            </div>
+                        </div>
+                        <div class="rank_right" :class="{rank_rightNight:isNight}">
+                            <div class="care_icon" v-if="allRank.careCount!=null" @click="fabulousList()">
+                                <span>{{allRank.careCount||0}}</span>
+                                <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                <img v-show="allRank.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -119,14 +127,17 @@
                             <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
                                 <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
-                                <div class="rank_name">{{cutNickName(allRannList.nickName)}}</div>
-                                <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                    <div  class="clock_time">{{allRannList.time}}</div>
-                                    <div class="care_icon" @click="addCare(allRannList)">
-                                        <span>{{allRannList.careCount||0}}</span>
-                                        <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
-                                    </div>
+                                <div class="rank_name">
+                                    <div class="rank_NickName">{{cutNickName(allRannList.nickName)}}</div>
+                                    <div class="addMessage">{{allRannList.content}}</div>
+                                </div>
+                                <div  class="clock_time">{{allRannList.time}}</div>
+                            </div>
+                            <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                <div class="care_icon" @click="addCare(allRannList)">
+                                    <span>{{allRannList.careCount||0}}</span>
+                                    <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
                         </li>
@@ -134,9 +145,6 @@
                 </div>
             </div>
         </div>
-        <!--<div style=" position: fixed;bottom: 0;background: #ccc;width: 100%;height: 40px;">-->
-            <!--<input type="text" placeholder="最多显示19个字" style="height: 36px;width: 90%;margin:2px 5%;outline: none">-->
-        <!--</div>-->
     </div>
 </template>
 <script type="text/javascript">
@@ -283,19 +291,23 @@
 
         },
         methods:{
-            addComment:function () {
+            addComment:function (sleepId) {
                 let vm = this;
                 xqzs.mood.actionSheetEdit("取消","发送",function (v) {
-                    vm.$http.put(web.API_PATH+'mood/reply/add',{"moodId":vm.downdata[index].id,"userId":null,"replyId":replyId,"content":v}).then(response => {
+                    console.log(v)
+                    vm.$http.put(web.API_PATH+'sleep/reply/_userId_/'+sleepId,{content:v}).then(response => {
+                        if(response.data.status===1){
+                           location.reload()
+                        }
+
 
                     }, response => {
-                        // error
+
                     });
                     console.log(v)
 
                 },function (v) {
 
-                    //取消
                 },'最多19个字')
             },
             wxFaceUrl:function (faceUrl) {
@@ -378,19 +390,15 @@
                     return nickName;
                 }
                 return nickName.substr(0,8)+'...';
+            },
+            fabulousList:function () {
+                this.$router.push('/fabulous')
             }
         }
 
     }
 </script>
 <style>
-    .addMessage{
-        line-height: 1;
-        padding-top:12px;
-    }
-    .addMessage div{
-        margin-top: 8px;
-    }
     .clock_rank{
         width:50%;
         float: left;
@@ -519,25 +527,25 @@
         border-bottom: 0;
     }
     .clock_box .rank_list{
-        height:3.53rem;
         background: #fff;
-        padding-left:2.70589rem;
-        position: relative;
+        display: flex;
         border-bottom: 0.06rem solid #eee;
+        padding:0.765rem 0;
+        width:100%;
+        position: relative;
     }
     .rank_listNight{
         /*background: rgba(255,255,255,0.2);*/
     }
     .rank_cup{
-        position: absolute;
-        top:50%;
-        margin-top:-12px;
-        left:0.88235rem;
         width:1rem;
         font-family: PingFangSC-Regular;
         font-size: 0.94118rem;
         color: #666;
         text-align: center;
+        height:0.71rem;
+        line-height: 0.71rem;
+        margin:0.88235rem 0.88235rem 0 0.88235rem;
     }
     .rank_cupNight{
         color:#333;
@@ -546,10 +554,26 @@
         margin-bottom: 0.88235rem;
     }
     .rank_main{
-        height:3.53rem;
+         display: flex;
+        line-height: 1;
+        width: 76.4%;
         position: relative;
-        line-height: 3.53rem;
+    }
 
+    .rank_NickName{
+        margin-top:0.176rem;
+        font-size: 0.94rem;
+        color: #333;
+        margin-bottom: 0.70588rem;
+
+    }
+    .addLy{
+        font-size: 0.70588rem;
+        color: #066EA4;
+    }
+    .addMessage{
+        font-size: 0.70588rem;
+        color: #7C7B7B;
     }
     .rank_border{
 
@@ -561,29 +585,24 @@
         height:2.35rem;
         width:2.35rem;
         display: block;
-        float: left;
-        margin-top:0.588rem;
         border-radius: 0.294rem;
-    }
-    .clock_box .rank_name{
-        font-size: 0.8235rem;
-        color: #333;
-        float: left;
-        margin-left:0.9412rem;
+        margin-right:0.88235rem;
     }
     .clock_box .rank_right{
-        float: right;
-    }
-    .clock_box .rank_right>div{
-        float: left;
+       position: absolute;
+        right:0;
+        top:0;
     }
     .clock_time{
-        margin-right:0.5412rem;
         font-size: 0.88235rem;
         color: #666;
+        line-height: 1;
+        position: absolute;
+        right:0;
+        top:0;
     }
     .no_record{ margin-right:1.41176rem;}
-    .care_icon{ padding-left: 1.2rem;  height: 3.53rem;    padding-right: 0.88235rem;}
+    .care_icon{padding: 0.8rem 0.88235rem 0.8rem 1.2rem}
     .clock_box .rank_right img{
         display: block;
         width:0.9412rem;
@@ -595,7 +614,6 @@
         color: #999;
         display: block;
         text-align: center;
-        margin-top: 0.8rem;
         margin-bottom: 0.2941rem;
     }
     .rank_rightNight span{

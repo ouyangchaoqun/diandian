@@ -363,9 +363,8 @@
 
     .luck .main_txt {
         line-height: 1;
-        font-size: 11px;
+        font-size: 0.88rem;
         font-style: normal;
-        margin-left: 0.4rem;
     }
 
     .luck .main_txt span {
