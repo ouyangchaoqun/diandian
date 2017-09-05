@@ -1195,19 +1195,21 @@
             let _this = this;
             this.showLoad = true;
             //当前生日用户
-            let data = '';
+
+
+            let data = '?userId=_userId_';
             if (web.guest) {
                 this.isGuest = true;
-                data = "?guest=true";
-
+                data = data + '&guest=true'
             }
+
             let userId = _this.$route.query.userId;
             this.birthdayUserId = userId;
             if (userId) {
                 _this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/' + userId + "/_userId_" + data,
+                    url: web.API_PATH + 'user/find/by/user/Id/' + userId  + data,
                 }).then(function (data) {//es5写法
 
                     if (data.data.data !== null) {
@@ -1273,13 +1275,9 @@
             });
 
 
-            let data2 = '?userId=_userId_';
-            if (web.guest) {
-                data2 = data2 + '&guest=true'
-            }
 
             //二维码
-            _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId + data2).then(function (data) {//es5写法
+            _this.$http.get(web.API_PATH + 'birthday/get/qr/code/' + this.birthdayUserId + data).then(function (data) {//es5写法
                 $("#output").empty();
                 console.log(_this.toUtf8(data.body.data));
                 $('#output').qrcode({
