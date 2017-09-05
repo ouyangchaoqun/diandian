@@ -163,7 +163,8 @@
         </div>
 
         <div class="addMoodBg"></div>
-        <input type="text" placeholder="请输入" @keyup.13="input($event)">
+        <form><input type="text" placeholder="请输入" @keyup.13="input($event)"></form>
+
     </div>
 </template>
 
