@@ -1,6 +1,6 @@
 <template id="subscribe">
     <div class="subscribe_box">
-        <div v-title>精选订阅</div>
+        <div v-title>设置提醒</div>
         <!--<div class="subtabs">
             <div class="tabHeader">
                 <a href="#" hidefocus="true" class="active">订阅推荐</a>
@@ -9,7 +9,7 @@
         </div>-->
         <div class="moodCount_box">
             <div v-if="subArray.length>0">
-                <div class="subscribe_dy"><span>我的订阅</span></div>
+                <div class="subscribe_dy"><span>我的提醒</span></div>
                 <ul class="subscribeLists">
                     <router-link :to="urlDetail+data.id" v-for="data in subArray"
                                  v-if="subArray.length>0||data.issubscribe==1">

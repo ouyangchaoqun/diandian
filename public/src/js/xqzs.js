@@ -592,7 +592,10 @@ var xqzs = {
             if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
             xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
-        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder) {
+        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
+            if(!maxLength){
+                maxLength=1000;
+            }
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
@@ -603,7 +606,7 @@ var xqzs = {
             html += '   <div class="weui-mask cancel weui-animate-fade-in"   ></div>';
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
-            html += '<div class="box"><textarea contenteditable="true"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
+            html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
             html += '  </div>';
             html += '  </div>';
 

@@ -8,7 +8,8 @@
                 <div class="head"><img :src="birthdayUser.faceUrl"></div>
                 <div class="txt">{{birthdayTxt}} | {{constellation.name}}</div>
                 <div class="txt2" v-if="user==null">{{birthdayUser.nickName | shortName(8)}}</div>
-                <div class="txt2" v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}</div>
+                <div class="txt2" v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}
+                </div>
                 <div class="txt2" v-if="user!=null&&user.id==birthdayUserId">亲爱的 {{birthdayUser.nickName |
                     shortName(8)}}<br>祝你生日快乐，天天开心！
                 </div>
@@ -32,13 +33,8 @@
 
             </div>
             <div class="clear"></div>
-            <!--<div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length>0" @click="friends()">-->
-                <!--<template v-if="friendList[0].userId==0"></template>-->
-                <!--<template v-else="">{{friendList[0].nickName | shortName(8)}}..好友送上祝福</template>-->
-            <!--</div>-->
-            <!--<div class="tip" v-if="user!=null&&user.id==birthdayUserId&&friendList.length==0" @click="friends()">邀请好友送上祝福-->
-            <!--</div>-->
-            <div class="tip" >点赞送生日祝福</div>
+
+            <div class="tip">点赞送生日祝福</div>
             <div class="count">{{count}}</div>
             <div class="heart_a">
 
@@ -55,8 +51,6 @@
                 <div class="text" @click="share()" v-if="user!=null"><img :src="user.faceUrl"/>
                     您点了{{myCareCount}}次赞，邀请好友一起点赞
                 </div>
-                <!--<div class="text" @click="share()" v-if="user!=null&&user.id==birthdayUserId"><span></span>分享生日的快乐</div>-->
-                <!--<div class="text" @click="follow()" v-if="user==null"><span></span>关注心情指数，让他知道你在送祝福</div>-->
             </div>
             <div id="follow" style="display: none">
                 <div class="dialog_follow">
@@ -91,8 +85,24 @@
             <div class="friend_list">
                 <div class="top">点赞的人</div>
                 <ul>
-                    <li v-for="item in  friendList" v-if="item.userId!=0">
-                        <template v-if="item.userId!=0"><img :src="item.faceUrl"/>{{item.nickName | shortName(8)}}<span>{{item.count}}个赞</span>
+                    <li v-for="item in  friendList" v-if="item.userId!=0"
+                        :class="{has_content:item.content&&item.content!=null||(user!=null&&user.id==item.userId)}">
+                        <template v-if="item.userId!=0">
+                            <img :src="item.faceUrl"/>
+                            <div class="info">
+                                <div class="name">{{item.nickName | shortName(8)}}</div>
+                                <div class="content" v-show="item.content&&item.content!=null&&item.content!=''">
+                                    {{item.content}}
+                                </div>
+                                <div class="content submitContent" @click="submitContent"
+                                     v-show="!(item.content&&item.content!=null&&item.content!='')&&user.id==item.userId">
+                                    送祝福
+                                </div>
+                            </div>
+
+                            <span>{{item.count}}个赞</span>
+                            <div class="clear"></div>
+
                         </template>
                         <template v-else=""><img src="/dist/birthday/wxfriend.png"/>微信好友<span>{{item.count}}个赞</span>
                         </template>
@@ -109,7 +119,6 @@
         width: 100%;
         height: 100%
     }
-
 
     .birthday_box .down {
         background: url(../images/down.png) no-repeat;
@@ -173,7 +182,7 @@
         overflow: hidden;
         height: 100%;
         margin: 0 auto;
-        width: 80%;
+        width: 90%;
         margin-bottom: 1rem;
     }
 
@@ -209,19 +218,23 @@
     }
 
     .friend_list ul {
-        height: 100%;
-        overflow-y: auto;
+
         width: 100%;
     }
 
     .friend_list ul li {
         width: 100%;
-        height: 3.5rem;
+        min-height: 3.5rem;
         line-height: 3.5rem;
         border-bottom: 0.0588235294117647rem solid #eee;
         color: #333;
         font-size: 0.8823529411764706rem;
         clear: both;
+        position: relative;
+    }
+
+    .clear {
+        clear: both
     }
 
     .friend_list ul li:last-child {
@@ -238,13 +251,43 @@
         border-radius: 0.4rem;
     }
 
+    .friend_list .info {
+        display: inline-block;
+        float: left;
+        width: 80%
+    }
+
+    .friend_list .has_content {
+        line-height: 22px !important
+    }
+
+    .friend_list .has_content .info {
+        margin-top: 0.5rem;
+    }
+
+    .friend_list .content {
+        font-size: 0.72rem;
+        width: 80%;
+        color: #777;
+        margin-bottom: 0.3529411764705882rem;
+    }
+
+    .submitContent {
+        color: dodgerblue !important;
+    }
+
     .friend_list ul li span {
         font-size: 0.8235294117647059rem;
         text-align: right;
         display: inline-block;
-        float: right;
-        margin-right: 15px;
-        color: #914951
+        color: #914951;
+        position: absolute;
+        right: 15px;
+        top: 0px;
+    }
+
+    .friend_list .has_content span {
+        top: 16px;
     }
 
     .myshare {
@@ -882,7 +925,7 @@
     export default {
         data() {
             return {
-                MAX_CARE_COUNT:10,
+                MAX_CARE_COUNT: 10,
                 steps: [
                     {num: 1, isReach: false},
                     {num: 99, isReach: false},
@@ -908,6 +951,8 @@
                 friendList: [],
                 isFriendListShow: false,
                 myCareCount: 0,
+                myCareId: 0,
+                hasMyContent: false,
                 adding: false
             }
         },
@@ -920,11 +965,67 @@
             'v-showLoad': showLoad
         },
         methods: {
+            submitContent: function () {
+                let _this = this;
+                if (_this.hasMyContent) {
+                    xqzs.weui.tip("每人最多点" + _this.MAX_CARE_COUNT + "个赞，邀请好友一起点赞", function () {
+
+                    });
+                    return;
+                }
+                console.log(this.myCareId)
+                xqzs.mood.actionSheetEdit("", "确定", function (v) {
+
+                    //添加祝福
+                    _this.$http.put(web.API_PATH + 'birthday/reply/_userId_/' + _this.myCareId, {"content": v}).then(response => {
+                        if (response.data.status === 1) {
+                            xqzs.weui.toast("success", "祝福成功！", function () {
+
+                            })
+                            _this.friends();
+
+                        }
+                    });
+
+
+                }, function () {
+
+                }, "送上你的祝福,19个字内", 19)
+            },
+
             friends: function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId+'?userId=_userId_').then(function (data) {//es5写法
+                let data2 = '?userId=_userId_';
+                if (web.guest) {
+                    data2 = data2 + '&guest=true'
+                }
+
+
+                //点赞好友列表 +总数
+
+
+                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + '?userId=_userId_').then(function (data) {//es5写法
                     if (data.body.status == 1) {
+                        let count = 0;
+                        for (let i = 0; i < data.body.data.length; i++) {
+                            count += data.body.data[i].count;
+                        }
+                        _this.count = count;
+                        console.log(_this.count);
                         _this.friendList = data.body.data;
+                        for (let i = 0; i < _this.friendList.length; i++) {
+                            if (_this.user && _this.user != null && _this.friendList[i].userId == _this.user.id) {
+                                _this.myCareId = _this.friendList[i].birthdayCareId;
+                                _this.myCareCount = _this.friendList[i].count;
+                                if (_this.friendList[i].content && _this.friendList[i].content != null && _this.friendList[i].content != '') {
+                                    _this.hasMyContent = true;
+                                }
+                                console.log(_this.friendList[i])
+                            }
+
+                        }
+                        _this.reach();
+
                     }
                 }, function (error) {
                 });
@@ -993,9 +1094,7 @@
                 let that = this;
                 let random = 1 + parseInt(Math.random() * 5);
                 if (that.myCareCount && that.myCareCount >= that.MAX_CARE_COUNT) {
-                    xqzs.weui.tip("每人最多点"+that.MAX_CARE_COUNT+"个赞，邀请好友一起点赞", function () {
-
-                    });
+                    that.submitContent()
                     return;
                 }
                 if (this.random == random) {
@@ -1031,6 +1130,12 @@
                             that.random = random;
                             that.adding = false;
                             that.reach();
+                            if (that.myCareCount && that.myCareCount == that.MAX_CARE_COUNT) {
+                                xqzs.weui.tip("再点一次你就可以送祝福了", function () {
+                                });
+                            }
+
+                            that.friends();
                         }
                     });
 
@@ -1063,16 +1168,16 @@
                         }
                         console.log(last + "reaaaa" + stepLength)
 
-                       // this.per = last / stepLength * 100;
+                        // this.per = last / stepLength * 100;
                         break;
                     }
                 }
 
                 if (this.count >= this.steps[this.steps.length - 1].num) {
-                  //  this.per = 108;
+                    //  this.per = 108;
                 }
 
-                this.per = this.myCareCount / this.MAX_CARE_COUNT  * 100;
+                this.per = this.myCareCount / this.MAX_CARE_COUNT * 100;
 
 
                 $(".heart .wave").css({top: 100 - (this.per) + "%"});
@@ -1102,7 +1207,7 @@
                 _this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/' + userId +"/_userId_" + data,
+                    url: web.API_PATH + 'user/find/by/user/Id/' + userId + "/_userId_" + data,
                 }).then(function (data) {//es5写法
 
                     if (data.data.data !== null) {
@@ -1114,7 +1219,7 @@
                             var config = {
                                 imgUrl: web.BASE_PATH + web.IMG_PATH + "/birthday/birthday_share3.jpg",
                                 title: '生日祝福',
-                                    desc: "今天是“"+_this.birthdayUser.nickName + '”生日，快来送个祝福吧！',
+                                desc: "今天是“" + _this.birthdayUser.nickName + '”生日，快来送个祝福吧！',
                                 link: web.BASE_PATH + "/guest/#/birthday?userId=" + _this.birthdayUserId,
                             };
                             weshare.init(wx, config)
@@ -1146,7 +1251,7 @@
             //当前用户
             _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {//es5写法
 
-                if (data.body == ''|| data.data.status!=1) {
+                if (data.body == '' || data.data.status != 1) {
 
                 } else {
                     _this.user = data.data.data;
@@ -1160,16 +1265,17 @@
                         }, function (error) {
                         });
                     }
+                    _this.friends();
                 }
                 this.showLoad = false;
             }, function (error) {
-
+                _this.friends();
             });
 
 
             let data2 = '?userId=_userId_';
             if (web.guest) {
-                data2 = data2+ '&guest=true'
+                data2 = data2 + '&guest=true'
             }
 
             //二维码
@@ -1187,24 +1293,6 @@
             });
 
 
-            //点赞好友列表 +总数
-            _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId  + data2).then(function (data) {//es5写法
-                if (data.body.status == 1) {
-                    let count = 0;
-                    for (let i = 0; i < data.body.data.length; i++) {
-                        count += data.body.data[i].count;
-                    }
-                    _this.count = count;
-                    console.log(_this.count);
-                    _this.friendList = data.body.data;
-                    _this.showLoad = true;
-                    setTimeout(function () {
-                        _this.reach();
-                        _this.showLoad = false;
-                    }, 800)
-                }
-            }, function (error) {
-            });
         }
     }
 </script>

@@ -212,11 +212,6 @@
             }
         },
         methods: {
-            input:function (ev) {
-                if(ev.keyCode == 13){
-                    alert('你按回车键了');
-                }
-            },
             birthday:function (userId) {
                 this.$router.push("/birthday?userId="+userId)
             },
