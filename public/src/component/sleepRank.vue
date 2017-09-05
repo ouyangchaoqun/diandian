@@ -195,7 +195,7 @@
             //好友排行
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/280/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 console.log(data)
                 if(data.data.status==1){
@@ -217,7 +217,7 @@
             _this.showLoad=true;
             this.$http({
                 method: 'GET',
-                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/280/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
             }).then(function (data) {
                 if(data.data.status==1){
                     _this.allRank = data.data.data.userRank|| _this.allRank ;
