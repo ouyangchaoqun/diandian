@@ -1018,9 +1018,10 @@
                         for (let i = 0; i < _this.friendList.length; i++) {
 
                             if (_this.friendList[i].content && _this.friendList[i].content != null && _this.friendList[i].content != '') {
-                                _this.friendList[i].content =   xqzs.face.parseEmoji(  _this.friendList[i].content )
+                                _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
                             }
 
+                            _this.$set(_this.friendList,i ,_this.friendList[i]);
 
                             if (_this.user && _this.user != null && _this.friendList[i].userId == _this.user.id) {
                                 _this.myCareId = _this.friendList[i].birthdayCareId;
