@@ -974,7 +974,7 @@
                     return;
                 }
                 console.log(this.myCareId)
-                xqzs.mood.actionSheetEdit("", "确定", function (v) {
+                xqzs.mood.actionSheetEdit("", "发送", function (v) {
 
                     //添加祝福
                     _this.$http.put(web.API_PATH + 'birthday/reply/_userId_/' + _this.myCareId, {"content": v}).then(response => {
