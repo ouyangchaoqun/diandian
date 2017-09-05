@@ -1209,7 +1209,7 @@
                 _this.$http({
                     method: 'GET',
                     type: "json",
-                    url: web.API_PATH + 'user/find/by/user/Id/' + userId  + data,
+                    url: web.API_PATH + 'user/find/by/user/Id/memo' + userId  + data,
                 }).then(function (data) {//es5写法
 
                     if (data.data.data !== null) {
