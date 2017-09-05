@@ -40,23 +40,16 @@
                 _this.$http.put(web.API_PATH + 'power/plan/_userId_/' + 1 + '/' + 1 + '').then(function (res) {
 
 
+
+
                     let config = res.data.data;
 
 
-
-                    if (typeof WeixinJSBridge == "undefined") {
-                        if (document.addEventListener) {
-                            document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady(config), false);
-                        } else if (document.attachEvent) {
-                            document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady(config));
-                            document.attachEvent('onWeixinJSBridgeReady', _this.onBridgeReady(config));
-                        }
-                    } else {
-                        _this.onBridgeReady(config);
-                    }
+                    let url  =web.BASE_PATH +"wxpay.php?appId="+config.appId+"&timeStamp="+config.timeStamp+"&nonceStr="+config.nonceStr+"&package="+config.package+"&signType="+config.signType+"&paySign="+config.paySign+"&reurl="+  window.location.href
 
 
-                    console.log(res)
+                    console.log(url)
+                    window.location.href= url
                 })
             }
 
