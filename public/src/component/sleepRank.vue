@@ -374,7 +374,7 @@
                                 }
 
                                 let title = "坚持"+sleepName+"，遇见更好自己";
-                                let desc = "我已连续"+_this.continueDay+"天"+sleepName+"，今日排名全国第 "+data.data.data.rank+" 名！";
+                                let desc = "我已经连续"+_this.continueDay+"天"+sleepName+"，今日"+sleepName+"排行全国第 "+data.data.data.rank+" 名！";
 
                                 wx.showAllNonBaseMenuItem();
                                 var config = {
