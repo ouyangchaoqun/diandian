@@ -958,7 +958,6 @@
     }
     .ranks_boxl  .notice_box{
         background: none ;
-        border-bottom: 1px solid #eee;
     }
     .notice_box_p{ padding: 16px 0 ; padding-bottom: 0}
     .notice{

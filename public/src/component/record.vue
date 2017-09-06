@@ -125,7 +125,7 @@
 
                     <div class="bottom_btn">
                         <div class="midLine" v-if="outNightTime||(isGetUp&&outMorningTime)"></div>
-                        <div class="record_bottom" @click="share" v-if="isGetUp&&outMorningTime">
+                        <div class="record_bottom" @click="share(false)" v-if="isGetUp&&outMorningTime">
                             <div class="doRecord">获取成就卡</div>
                         </div>
                         <div class="record_bottom" @click="music" v-if="outNightTime">
