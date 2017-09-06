@@ -439,6 +439,7 @@
                 let _this= this;
                 _this.num= _this.FIRST_PAGE_NUM;
                 _this.isPageEnd=false;
+                _this.isShowMoreText=true;
                 _this.counter=1;
                 let url1 = web.API_PATH + "sleep/daily/relation/rank/page/" + _this.typeId + "/_userId_/"+ _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/";
                 let url2 = web.API_PATH + "sleep/daily/rank/page/" + _this.typeId + "/_userId_/" + _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/" ;
