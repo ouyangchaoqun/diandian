@@ -18,7 +18,7 @@
             <slot></slot>
             <footer class="load-more">
                 <slot name="load-more">
-                    <span class="loadFont" v-show="!infiniteLoading">下拉加载更多</span>
+                    <span class="loadFont" v-show="!infiniteLoading">上拉加载更多</span>
                     <span class="loadFont" v-show="infiniteLoading">数据加载中..</span>
                 </slot>
             </footer>

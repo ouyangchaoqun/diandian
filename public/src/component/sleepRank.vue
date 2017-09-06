@@ -65,7 +65,7 @@
                 <div class="rank_Bgbox">
                     <div class="rank_box goleft">
                         <div   class="clock_rank clock_rank1">
-                            <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
+                            <div class="rank_list me_rank" :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
                                 <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
                                 <div class="rank_main">
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <ul>
-                                <li class="rank_list " :class="{rank_listNight:isNight}"
+                                <li class="rank_list " :class="{rank_listNight:isNight,has_content:rankList.content!=null&&rankList.content!=''}"
                                     v-for="(rankList,index) in rankLists"><!--v-show="rankList.userId!=user.id" -->
 
                                     <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
@@ -120,7 +120,7 @@
                         </div>
                         <!--总排行-->
                         <div class="clock_rank clock_rank2 ">
-                            <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
+                            <div class="rank_list me_rank" :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
                                 <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
                                 <div class="rank_main" style="border: 0;">
@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                             <ul class="addRankLists">
-                                <li class="rank_list" :class="{rank_listNight:isNight,isMatch:allRannList.isMatch}"
+                                <li class="rank_list" :class="{rank_listNight:isNight,isMatch:allRannList.isMatch,has_content:allRannList.content!=null&&allRannList.content!=''}"
                                     v-for="(allRannList,index) in rankLists"><!--v-show="allRannList.userId!=user.id"-->
 
                                     <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
@@ -599,7 +599,7 @@
 
                 }, function (v) {
 
-                }, '最多19个字')
+                }, '最多20个字',20)
             },
             wxFaceUrl: function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
@@ -839,10 +839,13 @@
         background: #fff;
         display: flex;
         border-bottom: 0.06rem solid #eee;
-        padding: 0.765rem 0;
+        padding: 0.565rem 0;
         width: 100%;
         position: relative;
+        line-height: 2.35rem;
     }
+
+    .has_content.rank_list{ line-height: 1.2rem;}
 
     .rank_listNight {
         /*background: rgba(255,255,255,0.2);*/
@@ -869,16 +872,14 @@
 
     .rank_main {
         display: flex;
-        line-height: 1;
+
         width: 76.4%;
         position: relative;
     }
 
     .rank_NickName {
-        margin-top: 0.176rem;
-        font-size: 0.94rem;
+         font-size: 0.8235rem;
         color: #333;
-        margin-bottom: 0.70588rem;
 
     }
 
@@ -917,9 +918,9 @@
     .clock_time {
         font-size: 0.88235rem;
         color: #666;
-        line-height: 1;
+
         position: absolute;
-        right: 0;
+        right: 5px;
         top: 0;
     }
 

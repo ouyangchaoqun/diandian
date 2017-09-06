@@ -4,7 +4,7 @@
             <img class="noZanImg" src="../images/noZan.png" alt="">
             <div>还没有人点赞</div>
         </div>
-        <v-scroll class="fabulous_scroll" v-if="fabulousLists"  :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
+        <v-scroll class="fabulous_scroll" v-if="fabulousLists"  :isNotRefresh="true"  :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div v-title>赞我的人</div>
             <ul class="fabulousLists" >
                 <v-showLoad v-if="showLoad"></v-showLoad>
