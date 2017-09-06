@@ -72,7 +72,7 @@
                                     <img class="rank_headImg" :src="user.faceUrl" alt="">
                                     <div class="rank_name">
                                         <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
-                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="myFirst.content==null||myFirst.content==''">留言
+                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')">留言
                                         </div>
                                         <div class="addMessage" v-if="myFirst.content!=null&&myFirst.content!=''">{{myFirst.content}}</div>
                                         <div></div>
@@ -128,8 +128,9 @@
                                     <div class="rank_name">
                                         <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
 
-                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="myFirst.content==null">留言
+                                        <div @click="addComment(myFirst.id)" class="addLy" v-show="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')">留言
                                         </div>
+
                                         <div class="addMessage" v-if="myFirst.content!=null">{{myFirst.content}}</div>
                                         <div class="clock_time" v-if="myFirst.rank!=''"
                                              :class="{no_record:myFirst.careCount==null}">{{myFirst.time}}
