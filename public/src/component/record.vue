@@ -72,10 +72,7 @@
                         <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
                         <div class="record_compare">
-                            共有{{result.allCount}}人陪我早
-                            <template v-if="result.data.type==2">起</template>
-                            <template v-if="result.data.type==3">睡</template>
-                            ，当前总排行第{{result.rank}}名
+                            共有{{result.allCount}}人陪我早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>，当前总排行第{{result.rank}}名
                         </div>
 
 
