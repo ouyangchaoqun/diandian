@@ -485,6 +485,11 @@
                     vm.isLoading=false;
                     console.log(response)
 
+
+                    if(response.data.data.userRank){
+                        response.data.data.userRank.content = xqzs.face.parseEmoji(response.data.data.userRank.content);
+                    }
+
                     vm.myFirst=response.data.data.userRank||vm.myFirst;
 
 
@@ -506,6 +511,9 @@
                         vm.isShowMoreText=false
                     }
                     if(arr.length==0)return ;
+                    for(let i =0;i<arr.length;i++){
+                        arr[i].content = xqzs.face.parseEmoji(arr[i].content);
+                    }
                      if(vm.counter==1){
                         vm.rankLists = arr;
                         vm.num=vm.STEP_PAGE_NUM;
