@@ -1,7 +1,7 @@
 <template id="sleepRank">
     <div class="clock_box" :class="{clock_boxNight:isNight}" style="position: relative;">
         <div v-title>{{sleepRank_title}}</div>
-        <v-scroll :on-refresh="onRefresh"  :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="true">
+        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="true">
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
@@ -210,7 +210,8 @@
                 rankUrl: "",
                 rankType:2,
                 isLoading:false,
-                careUserId:0 //通过连接点击过来 跳到指定的用户
+                careUserId:0 ,//通过连接点击过来 跳到指定的用户
+                sleepId:''
 
             }
         },
@@ -328,7 +329,7 @@
                     console.log(response)
 
                     vm.myFirst=response.data.data.userRank;
-
+                    vm.sleepId = vm.myFirst.id
 
                     let arr = response.data.data.allRank;
                     if(arr.length==0)return ;
@@ -475,9 +476,10 @@
                 }
                 return nickName.substr(0, 8) + '...';
             },
-            fabulousList: function () {
-                this.$router.push('/fabulous')
-            }
+            fabulousList:function () {
+                var _this = this;
+                this.$router.push('/fabulous?sleepId='+_this.sleepId+'&type='+_this.typeId)
+            },
 
 
         }
