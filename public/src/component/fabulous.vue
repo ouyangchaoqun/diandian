@@ -34,7 +34,8 @@
                 isPageEnd:false,
                 sleepId:'',
                 type:'',
-                showLoad:false
+                showLoad:false,
+                isShowMoreText:true
             }
         },
         components: {
@@ -45,24 +46,28 @@
             this.sleepId = this.$route.query.sleepId;
             this.type = this.$route.query.type;
             this.showLoad = true;
-           this.$http({
-               method: 'GET',
-               url:web.API_PATH +'sleep/query/cares/'+this.sleepId+'/'+this.type+'/'+this.counter+'/'+this.num+'/_userId_',
-           }).then(function (data) {
-               this.counter++;
-               console.log(data)
-               if(data.data.status==1){
-                 this.fabulousLists = data.data.data.rows;
-                   this.showLoad = false;
-               }
-           })
+            this.getFabulousList()
         },
         methods:{
+            getFabulousList:function () {
+                let _this = this;
+                _this.showLoad = true;
+                _this.$http({
+                    method: 'GET',
+                    url:web.API_PATH +'sleep/query/cares/'+_this.sleepId+'/'+_this.type+'/'+_this.counter+'/'+_this.num+'/_userId_',
+                }).then(function (data) {
+                    if(data.data.status==1){
+                        _this.fabulousLists = data.data.data.rows;
+                    }
+                    _this.showLoad = false;
+                    if (_this.fabulousLists.length <_this.num) {
+                        _this.isPageEnd=true;
+                    }
+                })
+            },
             onInfinite(done) {
                 let vm = this;
-                vm.$http.get(web.API_PATH +'sleep/query/cares/'+vm.sleepId+'/'+vm.type+'/'+vm.counter+'/'+vm.num+'/_userId_').then((response) => {
-                    console.log(response)
-                    console.log('加载')
+                vm.$http.get(web.API_PATH +'sleep/query/cares/'+vm.sleepId+'/'+vm.type+'/'+(vm.counter + 1)+'/'+vm.num+'/_userId_').then((response) => {
                     vm.counter++;
                     vm.pageEnd = vm.num * vm.counter;
                     vm.pageStart = vm.pageEnd - vm.num;
