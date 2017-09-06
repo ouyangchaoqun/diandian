@@ -143,8 +143,8 @@
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
                                     <div class="care_icon" v-if="myFirst.careCount!=null" @click="fabulousList()">
                                         <span>{{myFirst.careCount||0}}</span>
-                                        <img v-show="myFirst.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="myFirst.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="myFirst.careCount==0||isGuest" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-show="myFirst.careCount>0&&!isGuest" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -164,9 +164,9 @@
                                     <div class="rank_right" :class="{rank_rightNight:isNight}">
                                         <div class="care_icon" @click="addCare(allRannList)">
                                             <span>{{allRannList.careCount||0}}</span>
-                                            <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png"
+                                            <img v-show="allRannList.caremy==0||isGuest" src="../images/mood_icon_dianz_nor.png"
                                                  alt="">
-                                            <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}"
+                                            <img v-show="allRannList.caremy>0&&!isGuest" :class="{heartUp:allRannList.hit}"
                                                  src="../images/mood_icon_dianz_pre.png" alt="">
                                         </div>
                                     </div>
@@ -654,8 +654,12 @@
                 return nickName.substr(0, 8) + '...';
             },
             fabulousList:function () {
+
                 var _this = this;
-                this.$router.push('/fabulous?sleepId='+_this.sleepId+'&type='+_this.typeId)
+                if( !this.isGuest&&this.user&&this.currUser&&this.user.id==this.currUser.id){
+                    this.$router.push('/fabulous?sleepId='+_this.sleepId+'&type='+_this.typeId)
+                }
+
             },
 
 
