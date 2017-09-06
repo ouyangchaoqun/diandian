@@ -54,7 +54,8 @@ let routers =
                 require('./routes/birthday'),
                 require('./routes/moodCountPie'),
                 require('./routes/moodCountPage'),
-                require('./routes/testPay')
+                require('./routes/testPay'),
+                require('./routes/fabulous')
 
             ]
         }

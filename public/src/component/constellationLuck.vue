@@ -175,8 +175,8 @@
         position: absolute;
         left:50%;
         top:0.88rem;
-        margin-left:-105px;
-        width: 280px
+        margin-left:-112px;
+        width: 290px
     }
     .addInfo{
         color: #fff;
@@ -365,7 +365,6 @@
         line-height: 1;
         font-size: 0.88rem;
         font-style: normal;
-        margin-left: 0.4rem;
     }
 
     .luck .main_txt span {

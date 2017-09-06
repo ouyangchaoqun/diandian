@@ -256,8 +256,6 @@ var xqzs = {
             }
             _timestamp = parseInt(_timestamp / 1000);
             return _timestamp;
-
-
         },
         getSolarData:function (beginYear,endYear) {
             var data=[];

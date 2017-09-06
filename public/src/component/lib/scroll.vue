@@ -74,6 +74,7 @@
         },
         mounted:function () {
              this.height="height:"+(document.body.clientHeight)+"px";
+             this.loadMoreText();
 //            console.log(this.isPageEnd)
             ;
         },
