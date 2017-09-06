@@ -189,10 +189,11 @@
                 </div>
                 <div class="text" v-if="user">
                     长按关注"{{user.nickName}}"<br>
-                    参与排行榜
+                    开启{{sleepName}}健康生活
                 </div>
             </div>
         </div>
+        <div class="join_rank" @click="followOrRecord"  v-show="isGuest">加入{{sleepName}}计划</div>
     </div>
 </template>
 <script type="text/javascript">
@@ -209,6 +210,7 @@
         },
         data() {
             return {
+                sleepName:"早起",
                 notice:{count:0},
                 FIRST_PAGE_NUM:100,
                 STEP_PAGE_NUM:20,
@@ -279,6 +281,10 @@
                 guestUrl ="?guest=true"
             }
 
+
+            if(_this.typeId==3){
+                _this.sleepName="早睡"
+            }
 
 
 
@@ -411,6 +417,14 @@
                 var img = xqzs.image.convertCanvasToImage(mycanvas1);
                 $('.ewm').html('')
                 $('.ewm').append(img);
+            },
+            followOrRecord:function () {
+
+                 if(this.currUser!=undefined&&this.currUser!=null&&this.currUser!={}){
+                    this.$router.push("/record")
+                }else{
+                    this.follow()
+                }
             },
             share: function () {
                 this.isShowShareTip = !this.isShowShareTip;
@@ -650,6 +664,11 @@
     }
 </script>
 <style>
+
+    .join_rank{ position: fixed; bottom:0; left:0; height: 2.588235294117647rem; width: 100%; display: block; line-height: 2.588235294117647rem; background: #0BB20C; color:#fff; text-align: center; font-size: 0.88rem;}
+    .join_rank:active{ background: #0b9c0c
+    }
+
     .yo-scroll{ background: none !important}
     .isMatch{ background: #eee !important;}
     .clock_rank {
