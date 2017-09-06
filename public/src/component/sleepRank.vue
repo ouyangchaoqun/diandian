@@ -1,8 +1,8 @@
 <template id="sleepRank">
     <div class="clock_box" :class="{clock_boxNight:isNight}">
+        <v-scroll  :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
         <div v-title>{{sleepRank_title}}</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-
         <div  class="clock_top" :class="{clock_topNight:isNight}">
             <div class="clock_head">
                 <img @click="goRecordCount()" :src="user.faceUrl" alt="">
@@ -11,7 +11,7 @@
                 <div class="clock_lists" >
                     <div>
                         <p >起床时间</p>
-                        <div>{{myRank.time}}</div>
+                        <div>{{myFirst.time}}</div>
                     </div>
                     <div>
                         <p >连续早起</p>
@@ -22,13 +22,13 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早起，收获{{myRank.careCount||0}}个点赞</div>
+                <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早起，收获{{myFirst.careCount||0}}个点赞</div>
             </div>
             <div class="clock_count clock_countNight"   v-show="isNight">
                 <div class="clock_lists clock_listsNight">
                     <div>
                         <p >睡觉时间</p>
-                        <div>{{myRank.time}}</div>
+                        <div>{{myFirst.time}}</div>
                     </div>
                     <div>
                         <p>连续早睡</p>
@@ -39,7 +39,7 @@
                         <div>{{allDay}}<span class="clock_listsDay">天</span> </div>
                     </div>
                 </div>
-                <div class="clock_ratio" >{{date}}共有{{allCount}}人陪我早睡，收获{{myRank.careCount||0}}个点赞</div>
+                <div class="clock_ratio" >{{date}}共有{{allCount}}人陪我早睡，收获{{myFirst.careCount||0}}个点赞</div>
             </div>
         </div>
 
@@ -54,28 +54,28 @@
                 <div class="clock_rank clock_rank1">
                     <div  class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
-                        <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myRank.rank}}</span>
+                        <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
                         <div class="rank_main">
                             <img class="rank_headImg" :src="user.faceUrl" alt="">
                             <div class="rank_name">
                                 <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
-                                <div @click="addComment(myRank.id)" class="addLy" v-if="myRank.content==null">留言</div>
-                                <div class="addMessage" v-if="myRank.content!=null">{{allRank.content}}</div>
+                                <div @click="addComment(myFirst.id)" class="addLy" v-if="myFirst.content==null">留言</div>
+                                <div class="addMessage" v-if="myFirst.content!=null">{{myFirst.content}}</div>
                                 <div></div>
                             </div>
-                            <div class="clock_time" v-if="myRank.rank!=''" :class="{no_record:myRank.careCount==null}">{{myRank.time}}</div>
-                            <div class="clock_time" v-if="myRank.rank==''" :class="{no_record:myRank.careCount==null}">{{myRank.notRecordTxt}}</div>
+                            <div class="clock_time" v-if="myFirst.rank!=''" :class="{no_record:myFirst.careCount==null}">{{myFirst.time}}</div>
+                            <div class="clock_time" v-if="myFirst.rank==''" :class="{no_record:myFirst.careCount==null}">{{myFirst.notRecordTxt}}</div>
                         </div>
                         <div class="rank_right" :class="{rank_rightNight:isNight}">
-                            <div  class="care_icon" v-if="myRank.careCount!=null" @click.stop="">
-                                <span>{{myRank.careCount||0}}</span>
-                                <img v-show="myRank.careCount==0||myRank.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
-                                <img v-show="myRank.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
+                            <div  class="care_icon" v-if="myFirst.careCount!=null" @click.stop="">
+                                <span>{{myFirst.careCount||0}}</span>
+                                <img v-show="myFirst.careCount==0||myFirst.careCount==null" src="../images/mood_icon_dianz_nor.png" alt="">
+                                <img v-show="myFirst.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                             </div>
                         </div>
                     </div>
                     <ul>
-                        <li class="rank_list " :class="{rank_listNight:isNight}" v-for="(rankList,index) in myInFriendRank"><!--v-show="rankList.userId!=user.id" -->
+                        <li class="rank_list " :class="{rank_listNight:isNight}" v-for="(rankList,index) in rankLists"><!--v-show="rankList.userId!=user.id" -->
 
                             <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                             <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
@@ -98,63 +98,68 @@
 
                 </div>
                 <!--总排行-->
-                <div class="clock_rank clock_rank2 ">
-                    <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
-                        <span class="rank_cup" :class="{rank_cupNight:isNight}">{{allRank.rank}}</span>
-                        <div class="rank_main" style="border: 0;">
-                            <img class="rank_headImg" :src="user.faceUrl" alt="">
-                            <div class="rank_name">
-                                <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
+                    <div class="clock_rank clock_rank2 ">
+                        <div class="rank_list me_rank" :class="{rank_listNight:isNight}">
 
-                                <div @click="addComment(allRank.id)" class="addLy" v-if="allRank.content==null">留言</div>
-                                <div class="addMessage" v-if="allRank.content!=null">{{allRank.content}}</div>
-                                <div class="clock_time" v-if="allRank.rank!=''":class="{no_record:allRank.careCount==null}">{{allRank.time}}</div>
-                                <div class="clock_time" v-if="allRank.rank==''" :class="{no_record:allRank.careCount==null}">{{allRank.notRecordTxt}}</div>
-                            </div>
-                        </div>
-                        <div class="rank_right" :class="{rank_rightNight:isNight}">
-                            <div class="care_icon" v-if="allRank.careCount!=null" @click="fabulousList()">
-                                <span>{{allRank.careCount||0}}</span>
-                                <img v-show="allRank.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                <img v-show="allRank.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <ul>
-                        <li class="rank_list" :class="{rank_listNight:isNight}" v-for="(allRannList,index) in allRankList"><!--v-show="allRannList.userId!=user.id"-->
-
-                            <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
-                            <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
-                                <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
+                            <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
+                            <div class="rank_main" style="border: 0;">
+                                <img class="rank_headImg" :src="user.faceUrl" alt="">
                                 <div class="rank_name">
-                                    <div class="rank_NickName">{{cutNickName(allRannList.nickName)}}</div>
-                                    <div class="addMessage">{{allRannList.content}}</div>
+                                    <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
+
+                                    <div @click="addComment(myFirst.id)" class="addLy" v-if="myFirst.content==null">留言</div>
+                                    <div class="addMessage" v-if="myFirst.content!=null">{{myFirst.content}}</div>
+                                    <div class="clock_time" v-if="myFirst.rank!=''":class="{no_record:myFirst.careCount==null}">{{myFirst.time}}</div>
+                                    <div class="clock_time" v-if="myFirst.rank==''" :class="{no_record:myFirst.careCount==null}">{{myFirst.notRecordTxt}}</div>
                                 </div>
-                                <div  class="clock_time">{{allRannList.time}}</div>
                             </div>
                             <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                <div class="care_icon" @click="addCare(allRannList)">
-                                    <span>{{allRannList.careCount||0}}</span>
-                                    <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
-                                    <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
+                                <div class="care_icon" v-if="myFirst.careCount!=null" @click="fabulousList()">
+                                    <span>{{myFirst.careCount||0}}</span>
+                                    <img v-show="myFirst.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                    <img v-show="myFirst.careCount>0"  src="../images/mood_icon_dianz_pre.png" alt="">
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                        <ul class="addRankLists">
+                            <li class="rank_list" :class="{rank_listNight:isNight}" v-for="(allRannList,index) in rankLists"><!--v-show="allRannList.userId!=user.id"-->
+
+                                <span  class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
+                                <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
+                                    <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
+                                    <div class="rank_name">
+                                        <div class="rank_NickName">{{cutNickName(allRannList.nickName)}}</div>
+                                        <div class="addMessage">{{allRannList.content}}</div>
+                                    </div>
+                                    <div  class="clock_time">{{allRannList.time}}</div>
+                                </div>
+                                <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                    <div class="care_icon" @click="addCare(allRannList)">
+                                        <span>{{allRannList.careCount||0}}</span>
+                                        <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}" src="../images/mood_icon_dianz_pre.png" alt="">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
             </div>
         </div>
+        </v-scroll>
     </div>
 </template>
 <script type="text/javascript">
     import showLoad from './showLoad.vue';
+    import scroll from './lib/scroll.vue';
     var sleepRank = {
         template: '#sleepRank'
     }
     export default {
         components: {
-           'v-showLoad':showLoad
+           'v-showLoad':showLoad,
+            'v-scroll': scroll
         },
         data() {
             return {
@@ -162,6 +167,8 @@
                 myInFriendRank:[],
                 allRank: {rank:"",time:"--:--",notRecordTxt:"还未打卡"},
                 allRankList:[],
+                myFirst:{rank:"",time:"--:--",notRecordTxt:"还未打卡"},
+                rankLists:[],
                 isNight:false,
                 continueDay:0,
                 allDay:0,
@@ -171,7 +178,18 @@
                 sleepRank_title:'',
                 swipersettime:null,
                 showLoad:false,
-                date:""
+                date:"",
+                counter:1,
+                pageStart: 0, // 开始页数
+                pageEnd: 0, // 结束页数
+                isPageEnd:false,
+                num: 8,
+                typeId:'',
+                time:'',
+                clockDay:'',
+                clockMonth:'',
+                clockYear:''
+
             }
         },
         props:{
@@ -188,65 +206,44 @@
             let _this = this;
             xqzs.wx.setConfig(_this);
             //var subsid = _this.$route.params.id;
-            let time=new Date();
-            var typeId = _this.$route.query.type;
-            var clockDay = time.getDate();
-            var clockMonth =time.getMonth()+1;
-            var clockYear = time.getFullYear();
-            _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+typeId+'').then(data => {
+            _this.time = new Date();
+            _this.typeId = _this.$route.query.type;
+            _this.clockDay = _this.time.getDate();
+            _this.clockMonth =_this.time.getMonth()+1;
+            _this.clockYear = _this.time.getFullYear();
+            _this.$http.get(web.API_PATH+'sleep/daily/info/_userId_/'+_this.typeId+'').then(data => {
                 if(data.data.status===1){
                     _this.allDay= data.data.data.allDays;
                     _this.continueDay= data.data.data.continueDays;
                     _this.allCount= data.data.data.userNum;
-                  
                 }
 
             });
+            let url1  = web.API_PATH + "sleep/daily/relation/rank/"+_this.typeId+"/_userId_/100/"+_this.clockDay+"/"+_this.clockMonth+"/"+_this.clockYear+"";
+            let url2 = web.API_PATH + "sleep/daily/rank/page/"+_this.typeId+"/_userId_/"+_this.num+"/"+_this.clockDay+"/"+_this.clockMonth+"/"+_this.clockYear+"/"+_this.counter;
 
-            //好友排行
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-            }).then(function (data) {
-                console.log(data)
-                if(data.data.status==1){
-                    _this.myRank = data.data.data.userRank||_this.myRank;
-                    //console.log(_this.myRank)
-                    _this.myInFriendRank = data.data.data.allRank||[];
-                    for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
-                        _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
-
-                        _this.myInFriendRank[i].faceUrl=_this.wxFaceUrl(_this.myInFriendRank[i].faceUrl)
-                    }
-//                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
-                    console.log( _this.myInFriendRank)
-                }
-            }, function (data) {
-            });
-
+//            //好友排行
+//            this.$http({
+//                method: 'GET',
+//                url: web.API_PATH + "sleep/daily/relation/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
+//            }).then(function (data) {
+//                console.log(data)
+//                if(data.data.status==1){
+//                    _this.myRank = data.data.data.userRank||_this.myRank;
+//                    //console.log(_this.myRank)
+//                    _this.myInFriendRank = data.data.data.allRank||[];
+//                    for(var i=0,l=_this.myInFriendRank.length;i<l;i++){
+//                        _this.myInFriendRank[i].careCount = _this.myInFriendRank[i].careCount||0;
+//
+//                        _this.myInFriendRank[i].faceUrl=_this.wxFaceUrl(_this.myInFriendRank[i].faceUrl)
+//                    }
+////                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
+//                    console.log( _this.myInFriendRank)
+//                }
+//            }, function (data) {
+//            });
             //总排行
-            _this.showLoad=true;
-            this.$http({
-                method: 'GET',
-                url: web.API_PATH + "sleep/daily/rank/"+typeId+"/_userId_/100/"+clockDay+"/"+clockMonth+"/"+clockYear+"",
-            }).then(function (data) {
-                if(data.data.status==1){
-                    _this.allRank = data.data.data.userRank|| _this.allRank ;
-                    _this.allRankList = data.data.data.allRank||[];
-                    for(var i=0,l=_this.allRankList.length;i<l;i++){
-                        _this.allRankList[i].careCount = _this.allRankList[i].careCount||0;
-                        _this.allRankList[i].faceUrl=_this.wxFaceUrl(_this.allRankList[i].faceUrl)
-                    }
-//                    _this.date = data.data.data.date.year+"年"+data.data.data.date.month+"月"+data.data.data.date.day+"日";
-                    console.log( _this.allRankList);
-                }
-
-                _this.showLoad=false;
-            }, function (data) {
-                _this.showLoad=false;
-            });
-
-
+        _this.getRankList(url2)
             var typeId = this.$route.query.type;
 
             if(typeId==3){
@@ -260,7 +257,7 @@
            },10000)
 
 
-            $('.clock_tab .tab_title').on('touchstart mousedown',function () {
+            $('.clock_tab .tab_title').on('click',function () {
                 let  domThis=this;
                 var clock_rank1Width = $('.clock_rank1').height();
                 var clock_rank2Width = $('.clock_rank2').height();
@@ -274,23 +271,49 @@
                 if(_this.swipersettime!=null){
                     clearTimeout(_this.swipersettime);
                 }
+                domThis.allRankList=[];
                 if($(this).index()==1){
                     $('.tabMove').addClass('tab_goRight');
                     $('.rank_box').addClass('goleft')
                     _this.swipersettime = setTimeout(function () {
                             $('.rank_Bgbox').css('height',clock_rank2Width+15);
                         },500)
+                    _this.getRankList(url2);
+
                 }else{
                     $('.tabMove').addClass('tab_goleft');
                     $('.rank_box').addClass('goright')
                     _this.swipersettime = setTimeout(function () {
                         $('.rank_Bgbox').css('height',clock_rank1Width+15);
                     },500)
+                    _this.getRankList(url1);
                 }
             })
 
         },
         methods:{
+            getRankList:function (url) {
+                let _this = this;
+                this.$http({
+                    method: 'GET',
+                    url: url,
+                }).then(function (data) {
+                    if(data.data.status==1){
+                        _this.myFirst = data.data.data.userRank|| _this.allRank ;
+                        _this.rankLists = data.data.data.allRank||[];
+                        for(var i=0,l=_this.rankLists.length;i<l;i++){
+                            _this.rankLists[i].careCount = _this.rankLists[i].careCount||0;
+                            _this.rankLists[i].faceUrl=_this.wxFaceUrl(_this.rankLists[i].faceUrl)
+                        }
+                        _this.counter++;
+                        _this.num = 8;
+
+                    }
+                    _this.showLoad=false;
+                }, function (data) {
+                    _this.showLoad=false;
+                });
+            },
             addComment:function (sleepId) {
                 let vm = this;
                 xqzs.mood.actionSheetEdit("取消","发送",function (v) {
@@ -353,8 +376,6 @@
                     console.info(item)
                     _this.$http.put(web.API_PATH+'mood/care/add',{"moodId":null,"userId":null,'type':item.type,'withId':item.id}).then(response => {
                         if(response.data.status===1){
-
-
                             for(let i=0 ;i<_this.myInFriendRank.length;i++){
                                 if(_this.myInFriendRank[i].id==item.id){
                                     _this.myInFriendRank[i].careCount= response.data.data;
@@ -363,7 +384,6 @@
                                     _this.$set(_this.myInFriendRank, i, _this.myInFriendRank[i]);
                                 }
                             }
-
                             for(let i=0 ;i<_this.allRankList.length;i++){
                                 if(_this.allRankList[i].id==item.id){
                                     _this.allRankList[i].careCount= response.data.data;
@@ -372,11 +392,6 @@
                                     _this.$set(_this.allRankList, i, _this.allRankList[i]);
                                 }
                             }
-
-
-
-
-
                         }
                     });
                 }
@@ -393,6 +408,32 @@
             },
             fabulousList:function () {
                 this.$router.push('/fabulous')
+            },
+
+            onInfinite(done) {
+                let vm = this;
+                vm.$http.get(web.API_PATH + "sleep/daily/rank/page/"+vm.typeId+"/_userId_/"+vm.num+"/"+vm.clockDay+"/"+vm.clockMonth+"/"+vm.clockYear+"/"+vm.counter).then((response) => {
+                    console.log(response)
+
+                    vm.counter++;
+                    vm.pageEnd = vm.num * vm.counter;
+                    vm.pageStart = vm.pageEnd - vm.num;
+                    let arr = response.data.data.allRank;
+                    let i = 0;
+                    let end = vm.pageEnd;
+                    console.log(arr)
+                    for (; i < arr.length; i++) {
+                        vm.allRankList.push(arr[i]);
+                    }
+                    if (arr.length <vm.num) {
+                        vm.isPageEnd=true;
+                    }
+                    console.log(vm.isPageEnd)
+
+                    done() // call done
+                }, (response) => {
+                    console.log('error');
+                });
             }
         }
 
@@ -601,7 +642,6 @@
         right:0;
         top:0;
     }
-    .no_record{ margin-right:1.41176rem;}
     .care_icon{padding: 0.8rem 0.88235rem 0.8rem 1.2rem}
     .clock_box .rank_right img{
         display: block;
