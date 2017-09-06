@@ -6,17 +6,20 @@
          @touchend="touchEnd($event)"
          @scroll="(onInfinite || infiniteLoading) ? onScroll($event) : undefined">
         <section class="inner" :style="{ transform: 'translate3d(0, ' + top + 'px, 0)' }">
-            <header class="pull-refresh">
-                <slot name="pull-refresh">
-                    <span class="down-tip loadFont">下拉更新</span>
-                    <span class="up-tip loadFont">松开更新</span>
-                    <span class="refresh-tip loadFont">更新中</span>
+            <header class="pull-refresh" >
+                <slot name="pull-refresh" >
+                    <div v-show="!isNotRefresh">
+                        <span class="down-tip loadFont">下拉更新</span>
+                        <span class="up-tip loadFont">松开更新</span>
+                        <span class="refresh-tip loadFont">更新中</span>
+                    </div>
                 </slot>
             </header>
             <slot></slot>
             <footer class="load-more">
                 <slot name="load-more">
-                    <span class="loadFont">下拉加载更多</span>
+                    <span class="loadFont" v-show="!infiniteLoading">下拉加载更多</span>
+                    <span class="loadFont" v-show="infiniteLoading">数据加载中..</span>
                 </slot>
             </footer>
             <footer class="load-finish" style="display: none">
@@ -56,7 +59,8 @@
                 require: false
             },
             isPageEnd:false,
-            isShowMoreText:true
+            isShowMoreText:true,
+            isNotRefresh:true
         },
         data() {
             return {
@@ -114,9 +118,16 @@
                 this.loadMoreText();
             },
             refresh() {
-                this.state = 2
+                this.state = 2;
                 this.top = this.offset
-                this.onRefresh(this.refreshDone);
+                if(this.isNotRefresh){
+                    this.refreshDone()
+                }else{
+                    this.onRefresh(this.refreshDone);
+                }
+
+
+
 
             },
             refreshDone() {
