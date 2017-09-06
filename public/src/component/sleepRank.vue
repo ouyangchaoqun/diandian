@@ -52,7 +52,7 @@
                     <div class="tabMove"></div>
                 </div>
 
-                <a @click="fabulousList"  class="weui-tabbar__item tab" style="padding: 0" v-show="notice.count" >
+                <a @click="fabulousList"  class="weui-tabbar__item tab" style="padding: 0" v-show="user&&currUser&&user.id==currUser.id&&notice.count" >
                     <div class="notice_box notice_box_p">
                         <div class="notice" >
                             <img class="notice_friend" v-if="notice.count" :src="wxFaceUrl(notice.user.faceUrl)" />
@@ -295,6 +295,7 @@
 
             //修改排行榜类型
             $('.clock_tab .tab_title').on('click', function () {
+
                 let domThis = this;
 
                 $('.rank_box').removeClass('goleft').removeClass('goright')
@@ -309,6 +310,7 @@
                     $('.tabMove').addClass('tab_goRight');
                     $('.rank_box').addClass('goleft')
                     _this.changeRankType(2);
+
                 } else {
                     $('.tabMove').addClass('tab_goleft');
                     $('.rank_box').addClass('goright')
@@ -433,8 +435,10 @@
                 });
             },
             changeRankType:function (v) {
+
                 let _this= this;
                 _this.num= _this.FIRST_PAGE_NUM;
+                _this.isPageEnd=false;
                 _this.counter=1;
                 let url1 = web.API_PATH + "sleep/daily/relation/rank/page/" + _this.typeId + "/_userId_/"+ _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/";
                 let url2 = web.API_PATH + "sleep/daily/rank/page/" + _this.typeId + "/_userId_/" + _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/" ;
@@ -443,6 +447,8 @@
                 }else{
                     this.rankUrl = url2;
                 }
+
+
                 this.rankType=v;
                 _this.getRankList()
             },
@@ -465,6 +471,8 @@
                 }
 
 
+
+
                 if(vm.isLoading|| vm.isPageEnd ){
                     return;
                 }
@@ -479,7 +487,7 @@
 
                     vm.myFirst=response.data.data.userRank||vm.myFirst;
 
-                    vm.notice={count:0};
+
                     if(vm.myFirst.id!=undefined){
                          vm.getNotice(vm.myFirst.id);
                         vm.sleepId = vm.myFirst.id
