@@ -353,15 +353,20 @@
                             xqzs.wx.setConfig(this, function () {
 
 
-                                let title = "坚持早起，遇见更好自己";
-                                let desc = "我已经连续4天早起，今日排名全国第44，欢迎一起来早起打卡，挑战自己！";
+                                let sleepName ="早起";
+                                if(_this.typeId==3){
+                                    sleepName="早睡"
+                                }
+
+                                let title = "坚持"+sleepName+"，遇见更好自己";
+                                let desc = "我已经连续"+_this.continueDay+"天"+sleepName+"，今日排名全国第44，欢迎一起来"+sleepName+"打卡，挑战自己！";
 
                                 wx.showAllNonBaseMenuItem();
                                 var config = {
-                                    imgUrl:web.BASE_PATH,
-                                    title:'排行榜',
-                                    desc: '排行榜2d3',
-                                    link: web.BASE_PATH + "guest/#/sleepRank?type="+_this.typeId+"&userid="+data.data.data.id,
+                                    imgUrl: _this.user.faceUrl,
+                                    title:title,
+                                    desc: desc,
+                                    link: web.BASE_PATH + "guest/#/sleepRank?type="+_this.typeId+"&userid="+ _this.user.id,
                                 };
                                 weshare.init(wx, config,function(){},function () {
                                 })
