@@ -175,8 +175,8 @@
         position: absolute;
         left:50%;
         top:0.88rem;
-        margin-left:-105px;
-        width: 280px
+        margin-left:-112px;
+        width: 290px
     }
     .addInfo{
         color: #fff;

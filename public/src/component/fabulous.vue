@@ -46,9 +46,21 @@
             this.sleepId = this.$route.query.sleepId;
             this.type = this.$route.query.type;
             this.showLoad = true;
-            this.getFabulousList()
+            this.getFabulousList();
+            this.updateRead();
         },
         methods:{
+            updateRead:function () {
+                let _this= this;
+                ///api/v1/sleep/notice/read/{sleepId}/{type}/{userId}
+                _this.$http.post(web.API_PATH + 'sleep/notice/read/'+this.sleepId+'/'+this.type+'/_userId_', {})
+                    .then(
+                        (response) => {
+
+                        }
+                    );
+
+            },
             getFabulousList:function () {
                 let _this = this;
                 _this.showLoad = true;

@@ -1,7 +1,7 @@
 <template id="sleepRank">
     <div class="clock_box" :class="{clock_boxNight:isNight}" style="position: relative;">
         <div v-title>{{sleepRank_title}}</div>
-        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="true">
+        <v-scroll :on-refresh="onRefresh"  :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
@@ -48,6 +48,17 @@
                     <div class="clock_tabActive tab_title tab_title_right">总排行</div>
                     <div class="tabMove"></div>
                 </div>
+
+                <a @click="fabulousList"  class="weui-tabbar__item tab" style="padding: 0" v-show="notice.count" >
+                    <div class="notice_box notice_box_p">
+                        <div class="notice" >
+                            <img class="notice_friend" v-if="notice.count" :src="wxFaceUrl(notice.user.faceUrl)" />
+                            <div>{{notice.count}} 条新消息</div>
+                            <img  class="goNotice" src="../images/iconjt.png" alt="">
+                        </div>
+                    </div>
+                </a>
+
                 <div class="rank_Bgbox">
                     <div class="rank_box goleft">
                         <div   class="clock_rank clock_rank1">
@@ -181,6 +192,7 @@
         },
         data() {
             return {
+                notice:{count:0},
                 FIRST_PAGE_NUM:100,
                 STEP_PAGE_NUM:20,
                 myRank: {rank: "", time: "--:--", notRecordTxt: "还未打卡"},
@@ -210,7 +222,8 @@
                 rankUrl: "",
                 rankType:2,
                 isLoading:false,
-                careUserId:0 ,//通过连接点击过来 跳到指定的用户
+                careUserId:0, //通过连接点击过来 跳到指定的用户
+                isShowMoreText:true,
                 sleepId:''
 
             }
@@ -259,38 +272,53 @@
             //修改排行榜类型
             $('.clock_tab .tab_title').on('click', function () {
                 let domThis = this;
-                var clock_rank1Width = $('.clock_rank1').height();
-                var clock_rank2Width = $('.clock_rank2').height();
+
                 $('.rank_box').removeClass('goleft').removeClass('goright')
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
                 $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
                 setTimeout(function () {
                     $(domThis).addClass('clock_tabActive')
                 }, 150)
-//                $('.rank_Bgbox').css('height', 'auto');
-                if (_this.swipersettime != null) {
-                    clearTimeout(_this.swipersettime);
-                }
+//
 
                 if ($(this).index() == 1) {
                     $('.tabMove').addClass('tab_goRight');
                     $('.rank_box').addClass('goleft')
-//                    _this.swipersettime = setTimeout(function () {
-//                        $('.rank_Bgbox').css('height', clock_rank2Width + 15);
-//                    }, 500)
                     _this.changeRankType(2);
                 } else {
                     $('.tabMove').addClass('tab_goleft');
                     $('.rank_box').addClass('goright')
-//                    _this.swipersettime = setTimeout(function () {
-//                        $('.rank_Bgbox').css('height', clock_rank1Width + 15);
-//                    }, 500)
+//
                     _this.changeRankType(1);
                 }
             })
+            _this.noticeLink="/?time="+ xqzs.dateTime.getTimeStamp();
+
+
+
 
         },
         methods: {
+
+            getNotice:function (sleepId) {
+
+                let _this= this ;
+
+                //关心提醒
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'sleep/query/new/notice/'+sleepId+'/'+_this.typeId+'/_userId_',
+                }).then(function (data) {
+                    console.log(data)
+                    if (data.data.status == 1) {
+                        _this.notice =  data.data.data;
+
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             changeRankType:function (v) {
                 let _this= this;
                 _this.num= _this.FIRST_PAGE_NUM;
@@ -316,7 +344,7 @@
                     this.rankUrl = url2;
                 }
 
-                if(vm.isLoading==true){
+                if(vm.isLoading|| vm.isPageEnd ){
                     return;
                 }
                 if(vm.counter==1){
@@ -329,9 +357,25 @@
                     console.log(response)
 
                     vm.myFirst=response.data.data.userRank;
-                    vm.sleepId = vm.myFirst.id
+
+                    vm.notice={count:0};
+                    if(vm.myFirst.id!=undefined){
+                         vm.getNotice(vm.myFirst.id);
+                        vm.sleepId = vm.myFirst.id
+                    }else{
+                        console.log("undefined")
+                    }
+
+
+
 
                     let arr = response.data.data.allRank;
+                    console.log("console.log(arr.length)")
+                    console.log(vm.num)
+                    if (arr.length < vm.num) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText=false
+                    }
                     if(arr.length==0)return ;
                      if(vm.counter==1){
                         vm.rankLists = arr;
@@ -342,7 +386,7 @@
 
 
                     //判断是否从提醒页面到 那么定位到 这个用户
-                    if(vm.careUserId!=0){
+                    if(vm.careUserId!=0&&vm.careUserId!=null&&vm.careUserId!=undefined){
                         let isMatch=false;
                         for(let i=0 ;i< vm.rankLists.length;i++){
                             if(vm.rankLists[i].userId==parseInt(vm.careUserId)){
@@ -361,7 +405,7 @@
                                 console.log(top);
 
                                 $('.yo-scroll').animate({
-                                    scrollTop: top -($(document).height()-$(".isMatch").height())+20
+                                    scrollTop: top -($(document).height()-$(".isMatch").height())+29
                                 }, 1000);
                             })
 
@@ -371,12 +415,11 @@
                         }
 
                     }
-
+                    if(vm.counter==1){
+                        vm.counter=5
+                    }
                     vm.counter=vm.counter+1;
 
-                    if (arr.length < vm.num) {
-                        vm.isPageEnd = true;
-                    }
                  }, (response) => {
                     vm.isLoading=false;
                     vm.showLoad=false;
@@ -487,6 +530,7 @@
     }
 </script>
 <style>
+    .yo-scroll{ background: none !important}
     .isMatch{ background: #eee !important;}
     .clock_rank {
         width: 50%;
@@ -797,6 +841,49 @@
     .rank3Color {
         color: #c27502;
     }
+    .ranks_boxl  .notice_box{
+        background: none ;
+        border-bottom: 1px solid #eee;
+    }
+    .notice_box_p{ padding: 16px 0 ; padding-bottom: 0}
+    .notice{
+        height: 40px;
+        width: 180px;
+        background: #393939;
+        border-radius: 5px;
+        margin: 0 auto;
+
+    }
+    .notice:active{ background: #1f1f1f}
+    .notice_friend{
+        height:32px;
+        width: 32px;
+        float: left;
+        margin-left:5px;
+        margin-top:5px;
+        display: block;
+    }
+    .notice div{
+        float: left;
+        height:40px;
+        line-height: 40px;
+        color: #fff;
+        margin-left:32px;
+        font-size: 13px;
+    }
+    .notice .goNotice{
+        width:16px;
+        height:16px;
+        display: block;
+        float: right;
+        margin-right: 14px;
+        margin-top:12px;
+    }
+    .notice img{
+        height: 30px;
+        width:30px;
+    }
+
 </style>
 
 
