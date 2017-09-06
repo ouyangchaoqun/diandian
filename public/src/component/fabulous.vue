@@ -135,28 +135,28 @@
     .fabulousLists li{
         display: flex;
         border-bottom: 1px solid #eee;
-        padding:10px 15px;
+        padding:0.588rem 0.88235rem;
         position: relative;
         line-height: 1;
     }
     .fabulousLists img{
         display: block;
-        height:44px;
-        width:44px;
-        border-radius: 5px;
+        height:2.588rem;
+        width:2.588rem;
+        border-radius: 0.3rem;
     }
     .fabulousName{
-        font-size: 15px;
+        font-size: 0.88235rem;
         color: #333;
-        margin-left:15px;
-        margin-top:15px;
+        margin-left: 0.88235rem;
+        margin-top: 0.88235rem;
     }
     .fabulousTime{
-        font-size: 13px;
+        font-size: 0.765rem;
         color: #999;
         position: absolute;
-        right:15px;
-        margin-top:16px;
+        right:0.88235rem;
+        margin-top:0.94rem;
     }
 </style>
 
