@@ -26,7 +26,7 @@
                                 <div>{{allDay}}<span class="clock_listsDay">天</span></div>
                             </div>
                         </div>
-                        <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早起，收获{{myFirst.careCount||0}}个点赞</div>
+                        <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早起</div>
                     </div>
                     <div class="clock_count clock_countNight" v-show="isNight">
                         <div class="clock_lists clock_listsNight">
@@ -43,7 +43,7 @@
                                 <div>{{allDay}}<span class="clock_listsDay">天</span></div>
                             </div>
                         </div>
-                        <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早睡，收获{{myFirst.careCount||0}}个点赞</div>
+                        <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早睡</div>
                     </div>
                 </div>
                 <div class="clock_tab"  v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
@@ -72,7 +72,7 @@
                                     <img class="rank_headImg" :src="user.faceUrl" alt="">
                                     <div class="rank_name">
                                         <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
-                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">留言
+                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">早安心语
                                         </div>
                                         <div class="addMessage" v-if="myFirst.content!=null&&myFirst.content!=''">{{myFirst.content}}</div>
                                         <div></div>
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                    <div class="care_icon" v-if="myFirst.careCount!=null" @click.stop="">
+                                    <div class="care_icon" v-if="myFirst.careCount!=null" @click.stop="fabulousList()">
                                         <span>{{myFirst.careCount||0}}</span>
                                         <img v-show="myFirst.careCount==0||myFirst.careCount==null"
                                              src="../images/mood_icon_dianz_nor.png" alt="">
@@ -128,7 +128,7 @@
                                     <div class="rank_name">
                                         <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
 
-                                        <div @click="addComment(myFirst.id)" class="addLy" v-show="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">留言
+                                        <div @click="addComment(myFirst.id)" class="addLy" v-show="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">早安心语
                                         </div>
 
                                         <div class="addMessage" v-if="myFirst.content!=null">{{myFirst.content}}</div>
@@ -248,7 +248,8 @@
                 isGuest:false,
                 user:{},
                 currUser:{},
-                isShowShareTip:false
+                isShowShareTip:false,
+
 
             }
         },
@@ -261,6 +262,11 @@
 
             let _this = this;
             if(web.guest) _this.isGuest=true;
+
+            let date= new Date();
+            _this.date= date.getFullYear() +"年"+(  date.getMonth()+1)+"月"+  date.getDate()+"日，"
+
+
 
             _this.careUserId = _this.$route.query.careUserId;
             if(_this.$route.query.userid){
@@ -669,6 +675,7 @@
 </script>
 <style>
 
+    .clock_time.no_record{ right:-10px}
     .join_rank{ position: fixed; bottom:0; left:0; height: 2.588235294117647rem; width: 100%; display: block; line-height: 2.588235294117647rem; background: #0BB20C; color:#fff; text-align: center; font-size: 0.88rem;}
     .join_rank:active{ background: #0b9c0c
     }

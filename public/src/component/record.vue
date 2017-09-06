@@ -413,7 +413,7 @@
                     if (data.data.status === 1) {
                         _this.result.rank = data.data.data;
                         if(isCheckIn){
-                            if(data.data.data<=100){
+                            if(data.data.data<=10000){
                                 _this.share(true)
                             }
                         }

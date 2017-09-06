@@ -4,8 +4,7 @@
             <img class="noZanImg" src="../images/noZan.png" alt="">
             <div>还没有人点赞</div>
         </div>
-        <v-scroll class="fabulous_scroll" v-if="fabulousLists"  :isNotRefresh="true"  :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
-            <div v-title>赞我的人</div>
+             <div v-title>赞我的人</div>
             <ul class="fabulousLists" >
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <li v-for="fabulousList in fabulousLists">
@@ -14,7 +13,7 @@
                     <div class="fabulousTime">{{fabulousList.friendTime}}</div>
                 </li>
             </ul>
-        </v-scroll>
+
     </div>
 </template>
 <script type="text/javascript">
@@ -27,7 +26,7 @@
         data() {
             return {
                 fabulousLists:[],
-                num:20,
+                num:10000,
                 counter:1,
                 pageStart: 0, // 开始页数
                 pageEnd: 0, // 结束页数
