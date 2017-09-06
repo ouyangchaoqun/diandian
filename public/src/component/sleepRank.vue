@@ -356,7 +356,7 @@
                     vm.isLoading=false;
                     console.log(response)
 
-                    vm.myFirst=response.data.data.userRank;
+                    vm.myFirst=response.data.data.userRank||vm.myFirst;
 
                     vm.notice={count:0};
                     if(vm.myFirst.id!=undefined){
