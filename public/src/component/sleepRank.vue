@@ -72,7 +72,7 @@
                                     <img class="rank_headImg" :src="user.faceUrl" alt="">
                                     <div class="rank_name">
                                         <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
-                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">早安心语
+                                        <div @click="addComment(myFirst.id)" class="addLy" v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">{{sleepNameShort}}安心语
                                         </div>
                                         <div class="addMessage" v-if="myFirst.content!=null&&myFirst.content!=''">{{myFirst.content}}</div>
                                         <div></div>
@@ -128,7 +128,7 @@
                                     <div class="rank_name">
                                         <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
 
-                                        <div @click="addComment(myFirst.id)" class="addLy" v-show="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">早安心语
+                                        <div @click="addComment(myFirst.id)" class="addLy" v-show="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">{{sleepNameShort}}安心语
                                         </div>
 
                                         <div class="addMessage" v-if="myFirst.content!=null">{{myFirst.content}}</div>
@@ -210,6 +210,7 @@
         },
         data() {
             return {
+                sleepNameShort:"早",
                 sleepName:"早起",
                 notice:{count:0},
                 FIRST_PAGE_NUM:100,
@@ -290,6 +291,7 @@
 
             if(_this.typeId==3){
                 _this.sleepName="早睡"
+                _this.sleepNameShort="晚"
             }
 
 
