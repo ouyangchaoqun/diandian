@@ -1,10 +1,13 @@
 <template id="sleepRank">
     <div class="clock_box" :class="{clock_boxNight:isNight}" style="position: relative;">
         <div v-title>{{sleepRank_title}}</div>
+        <div class="myshare" v-show="isShowShareTip" @click="share()">
+        </div>
         <v-scroll :on-refresh="onRefresh"  :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
+                    <div class="share2" @click="share">分享</div>
                     <div class="clock_head">
                         <img @click="goRecordCount()" :src="user.faceUrl" alt="">
                     </div>
@@ -43,7 +46,7 @@
                         <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早睡，收获{{myFirst.careCount||0}}个点赞</div>
                     </div>
                 </div>
-                <div class="clock_tab" :class="{clock_tabNight:isNight}" style="position: relative;">
+                <div class="clock_tab"  v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
                     <div class="tab_title">好友排行</div>
                     <div class="clock_tabActive tab_title tab_title_right">总排行</div>
                     <div class="tabMove"></div>
@@ -176,6 +179,19 @@
 
 
         </v-scroll>
+        <div id="output" class="output" style="display: none"></div>
+        <div id="follow" style="display: none">
+            <div class="dialog_follow">
+                <div class="img"><img v-if="user" :src="user.faceUrl"></div>
+                <div class="ewm">
+
+                </div>
+                <div class="text" v-if="user">
+                    长按关注"{{user.nickName}}"<br>
+                    参与排行榜
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script type="text/javascript">
@@ -224,15 +240,16 @@
                 isLoading:false,
                 careUserId:0, //通过连接点击过来 跳到指定的用户
                 isShowMoreText:true,
-                sleepId:''
+                sleepId:'',
+                userid:0,
+                isGuest:false,
+                user:{},
+                currUser:{},
+                isShowShareTip:false
 
             }
         },
-        props: {
-            user: {
-                type: Object
-            }
-        },
+
         beforeCreate: function () {
             console.log("beforeCreate")
 
@@ -240,23 +257,29 @@
         mounted: function () {
 
             let _this = this;
-            xqzs.wx.setConfig(_this);
+            if(web.guest) _this.isGuest=true;
+
             _this.careUserId = _this.$route.query.careUserId;
+            if(_this.$route.query.userid){
+                _this.userid = _this.$route.query.userid;
+            }
+            let userIdStr =  "_userId_";
+            if(_this.userid){
+                userIdStr =_this.userid;
+            }
+
             _this.time = new Date();
             _this.typeId = _this.$route.query.type;
             _this.clockDay = _this.time.getDate();
             _this.clockMonth = _this.time.getMonth() + 1;
             _this.clockYear = _this.time.getFullYear();
-            _this.$http.get(web.API_PATH + 'sleep/daily/info/_userId_/' + _this.typeId + '').then(data => {
-                if (data.data.status === 1) {
-                    _this.allDay = data.data.data.allDays;
-                    _this.continueDay = data.data.data.continueDays;
-                    _this.allCount = data.data.data.userNum;
-                }
+            let guestUrl= "";
+            if(web.guest){
+                guestUrl ="?guest=true"
+            }
 
-            });
 
-            this.rankUrl = web.API_PATH + "sleep/daily/rank/page/" + _this.typeId + "/_userId_/" + _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/";
+
 
             //总排行
             var typeId = this.$route.query.type;
@@ -292,14 +315,98 @@
                     _this.changeRankType(1);
                 }
             })
-            _this.noticeLink="/?time="+ xqzs.dateTime.getTimeStamp();
+
+
+
+
+            //获取查询用户信息
+
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/'+userIdStr+''+guestUrl,
+            }).then(function (data) {//es5写法
+
+                if (data.data.data !== null) {
+                    _this.user=data.data.data;
+                    //二维码
+                        _this.$http.get(web.API_PATH + 'user/get/qr/code/' +   _this.user.id + guestUrl).then(function (data) {//es5写法
+                        $("#output").empty();
+                        console.log(xqzs.string.toUtf8(data.body.data));
+                        $('#output').qrcode({
+                            width: 100, height: 100,
+                            text: xqzs.string.toUtf8(data.body.data), background: "#ffffff",
+                            foreground: "red"
+                        });
+
+                    }, function (error) {
+
+                    });
+
+                    _this.$http.get(web.API_PATH + 'sleep/daily/info/'+_this.user.id+'/' + _this.typeId + guestUrl).then(data => {
+                        if (data.data.status === 1) {
+                            _this.allDay = data.data.data.allDays;
+                            _this.continueDay = data.data.data.continueDays;
+                            _this.allCount = data.data.data.userNum;
+
+
+                            xqzs.wx.setConfig(this, function () {
+
+
+                                let title = "坚持早起，遇见更好自己";
+                                let desc = "我已经连续4天早起，今日排名全国第44，欢迎一起来早起打卡，挑战自己！";
+
+                                wx.showAllNonBaseMenuItem();
+                                var config = {
+                                    imgUrl:web.BASE_PATH,
+                                    title:'排行榜',
+                                    desc: '排行榜2d3',
+                                    link: web.BASE_PATH + "guest/#/sleepRank?type="+_this.typeId+"&userid="+data.data.data.id,
+                                };
+                                weshare.init(wx, config,function(){},function () {
+                                })
+                            });
+                        }
+                    });
+
+
+                }
+            }, function (error) {
+                //error
+            });
+
+
+            //获取当前用户
+            this.$http({
+                method: 'GET',
+                type: "json",
+                url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+            }).then(function (data) {//es5写法
+
+                if (data.data.data !== null) {
+                    _this.currUser=data.data.data;
+
+                }
+            }, function (error) {
+                //error
+            });
 
 
 
 
         },
         methods: {
-
+            follow: function () { //关注
+                let _this = this;
+                xqzs.weui.dialogCustom($("#follow").html())
+                var mycanvas1 = document.getElementsByTagName('canvas')[0];
+                var img = xqzs.image.convertCanvasToImage(mycanvas1);
+                $('.ewm').html('')
+                $('.ewm').append(img);
+            },
+            share: function () {
+                this.isShowShareTip = !this.isShowShareTip;
+            },
             getNotice:function (sleepId) {
 
                 let _this= this ;
@@ -336,13 +443,21 @@
             getRankList: function () {
 
                 let vm = this;
-                let url1 = web.API_PATH + "sleep/daily/relation/rank/page/" + vm.typeId + "/_userId_/"+ vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/";
-                let url2 = web.API_PATH + "sleep/daily/rank/page/" + vm.typeId + "/_userId_/" + vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" ;
+                let userIdStr =  "_userId_";
+                if(vm.userid){
+                    userIdStr =vm.userid;
+                }
+                let url1 = web.API_PATH + "sleep/daily/relation/rank/page/" + vm.typeId + "/"+userIdStr+"/"+ vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" + vm.counter;
+                let url2 = web.API_PATH + "sleep/daily/rank/page/" + vm.typeId + "/"+userIdStr+"/" + vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" + vm.counter;
                 if(vm.rankType==1){
                     this.rankUrl = url1;
                 }else{
                     this.rankUrl = url2;
                 }
+                if(web.guest){
+                    this.rankUrl =  this.rankUrl+"?guest=true"
+                }
+
 
                 if(vm.isLoading|| vm.isPageEnd ){
                     return;
@@ -351,7 +466,7 @@
                     vm.showLoad=true;
                 }
                 vm.isLoading=true;
-                vm.$http.get(vm.rankUrl+ vm.counter).then((response) => {
+                vm.$http.get(vm.rankUrl).then((response) => {
                     vm.showLoad=false;
                     vm.isLoading=false;
                     console.log(response)
@@ -452,44 +567,26 @@
             wxFaceUrl: function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             },
-            share: function () {
-                let _this = this;
-                var typeId = _this.$route.query.type;
-                _this.showLoad = true;
-                this.$http({
-                    method: 'GET',
-                    type: "json",
-                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/' + typeId
-                }).then(function (bt) {
-                    if (bt.body.status == 1) {
-                        xqzs.weui.dialog({
-                            title: '成就卡已经发送',
-                            msg: '前往公众号查看，留住每次早起回忆',
-                            submitText: '查看',
-                            submitFun: function () {
-                                try {
-                                    WeixinJSBridge.call('closeWindow');
-                                } catch (e) {
-                                }
-                            }
-                        })
-                    }
-                    _this.showLoad = false;
-                })
 
-            },
             //页面跳转
             goRecordCount: function () {
                 if (!this.isNight)
                     this.$router.push("/getUpStatistics");
 
             },
-
-
             addCare: function (item) {
                 let _this = this;
+                //如果没有关注公众号则弹出二维码
+                if(!_this.currUser){
+                    console.log("notuser")
+                    _this.follow()
+
+
+                    return;
+                }
+
+
                 if ( item.caremy == 0) {
-                    console.info(item)
                     _this.$http.put(web.API_PATH + 'mood/care/add', {
                         "moodId": null,
                         "userId": null,
@@ -550,7 +647,11 @@
         padding: 2.471rem 0.88235rem 0 0.88235rem;
         position: relative;
         color: #666666;
+
     }
+    .clock_top .share2{ position: absolute; right:1.25rem ; top:2.66rem ; width: 3.6rem; height: 1.6rem; line-height: 1.6rem;  background: #0BB20C; color:#fff; border-bottom-left-radius: 0.8rem; text-align: center; z-index: 1000; font-size: 0.8rem
+    }
+
 
     .clock_topNight {
         color: #f4f4f7;
@@ -883,6 +984,61 @@
         height: 30px;
         width:30px;
     }
+
+    .dialog_follow {
+        width: 66%;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20.47058823529412rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -10.23529411764706rem;
+        left: 17%;
+        z-index: 10001;
+    }
+
+    .dialog_follow img {
+        width: 100%
+    }
+
+    .dialog_follow .img {
+        height: 11rem;
+        overflow: hidden
+    }
+
+    .dialog_follow .text {
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+        line-height: 1.5
+    }
+
+    .ewm {
+        width: 4.329411764705882rem;
+        height: 4.329411764705882rem;
+        border: 1px solid #ffcdcd;
+        margin: 0.8rem auto;
+        margin-bottom: 0.65rem;
+        padding: 2px;
+    }
+
+    .ewm .output {
+        width: 100%;
+        height: 100%
+    }
+
+    .myshare {
+        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background-position: 2.5rem 3.5rem;
+        background-size: 80%;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10001;
+    }
+
 
 </style>
 
