@@ -25,14 +25,14 @@
                 </ul>
             </div>
             <div v-if="isTrue">
-                <div class="subscribe_tj"><span>订阅推荐</span></div>
+                <div class="subscribe_tj"><span>推荐提醒</span></div>
                 <ul class="subscribeLists">
                     <router-link :to="urlDetail+data.id" v-for="data in dataArray" v-if="data.issubscribe==0">
                         <li class="subscribeList subscribeHeight">
                             <div>
                                 <h3>{{data.title}}</h3>
                                 <p class="description" v-html="subText(data.description)"></p>
-                                <span>{{data.subscribecount}}人已订阅</span>
+                                <span>{{data.subscribecount}}人已设置</span>
                             </div>
                             <img class="addSubscribe" src="../images/add.png" alt="" v-if="!data.issubscribe==1">
                             <img class="addSubscribe" src="../images/checked.png" alt="" v-if="data.issubscribe==1">

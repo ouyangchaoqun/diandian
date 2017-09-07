@@ -250,14 +250,14 @@
                 user:{},
                 currUser:{},
                 isShowShareTip:false,
-
+                sss:true
 
             }
         },
 
         beforeCreate: function () {
             console.log("beforeCreate")
-
+            console.log(document.cookie)
         },
         mounted: function () {
 
@@ -615,8 +615,8 @@
 
             //页面跳转
             goRecordCount: function () {
-                if (!this.isNight)
-                    this.$router.push("/getUpStatistics");
+//                if (!this.isNight)
+                    this.$router.push("/getUpStatistics?type="+this.typeId);
 
             },
             addCare: function (item) {
@@ -730,22 +730,23 @@
     }
 
     .clock_count {
-        background: url("../images/clockDay2.png") no-repeat;
+        background: url("../images/zaoqi.jpg") no-repeat;
         background-size: 100% 100%;
         height: 11.03rem;
         position: relative;
+        box-shadow: 0px 5px 10px 0 rgba(51,51,51,0.6);
     }
 
     .clock_countNight {
-        background: url("../images/clockNight2.png") no-repeat;
+        background: url("../images/zaoshui.jpg") no-repeat;
         background-size: 100% 100%;
+        box-shadow: 0px 5px 10px 0px rgba(51,51,51,1);
     }
 
     .clock_head {
         width: 3.53rem;
         height: 3.53rem;
         border-radius: 50%;
-        overflow: hidden;
         position: absolute;
         top: 0.88235rem;
         left: 50%;
@@ -757,6 +758,8 @@
     .clock_head img {
         width: 3.53rem;
         height: 3.53rem;
+        display: block;
+        border-radius: 50%;
     }
 
     .clock_lists {

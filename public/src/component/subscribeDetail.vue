@@ -6,13 +6,13 @@
                 <img :src="detail.icon" alt="">
             </div>
             <div class="subscribeListMiddle">
-                <p>{{detail.subscribecount}}人已订阅</p>
+                <p>{{detail.subscribecount}}人已设置</p>
                 <h3>{{detail.title}}</h3>
                 <div>{{detail.description}}</div>
             </div>
             <div class="subscribeListBottom">
                 <div>推送设置</div>
-                <div class="timeSet" @click="showTime()">时间设定
+                <div class="timeSet" @click="showTime()">提醒时间
                     <img src="../images/me_jt.png" alt="">
                     <div class="timeSetRight">
                         <span class="hours showPicker">{{hour}}</span>
@@ -23,8 +23,8 @@
                 </div>
             </div>
             <div class="subscribeListSet">
-                <button @click="setRemindTime()" v-if="!detail.issubscribe==1" class="weui-btn weui-btn_primary">订阅</button>
-                <button class="weui-btn subBtn" @click="show_unsubscribeBox" v-if="detail.issubscribe==1">取消订阅</button>
+                <button v-if="!detail.issubscribe==1" class="weui-btn weui-btn_primary">设置提醒</button>
+                <button class="weui-btn subBtn" @click="show_unsubscribeBox" v-if="detail.issubscribe==1">取消提醒</button>
             </div>
 
         </div>
@@ -38,15 +38,16 @@
     export default {
         data() {
             return {
-                hour:'',
-                minute:'',
+                hour:'--',
+                minute:'--',
                 isSub:false,
                 unsubscribe_box:false,
                 dataArray:[],
                 issubscribe:'',
                 detail:{},
                 minHour:0,
-                maxHour:24
+                maxHour:24,
+                defaultArray:[]
             }
         },
         beforeCreate: function () {
@@ -60,14 +61,26 @@
             }).then(function (data) {
                 console.log(data)
                 _this.detail = data.data.data
-                _this.detail.remindtime = _this.detail.remindtime || '08:00';
+                _this.detail.remindtime = _this.detail.remindtime||'--:--';
+                _this.detail.defaulttime = _this.detail.defaulttime;
+                console.log(_this.detail.defaulttime)
                 var timies = _this.detail.remindtime.split(':');
+                var defaulttime = _this.detail.defaulttime.toString().split('')
+                if(defaulttime.length<4){
+                    defaulttime.unshift('0')
+                }
+                _this.defaultArray[0] = defaulttime[0]+defaulttime[1]
+                _this.defaultArray[1] = defaulttime[2]+defaulttime[3]
+                console.log(_this.defaultArray)
                 _this.hour = timies[0];
                 _this.minute = timies[1];
                 _this.minHour= parseInt(_this.detail.mintime /100);
                 _this.maxHour= parseInt(_this.detail.maxtime /100);
             }, function (data) {
             });
+        },
+        mounted:function () {
+
         },
         methods:{
             showTime: function () {
@@ -106,6 +119,7 @@
                 }
                 weui.picker(
                     hours, minutes, {
+                        defaultValue:_this.defaultArray,
                         onConfirm: function (result) {
                             _this.hour = result[0].value;
                             _this.minute = result[1].value;
@@ -116,6 +130,7 @@
                                 .then(function (res) {
                                     console.log(res)
                                     xqzs.weui.toast("success", "设置成功", function () {
+                                        _this.setRemindTime()
                                     })
                                 });
                         }
@@ -123,7 +138,7 @@
             },
             show_unsubscribeBox:function () {
                 let _this = this;
-                xqzs.weui.actionSheet("确定要取消订阅该内容吗？","取消订阅",function () {
+                xqzs.weui.actionSheet("确定要取消提醒吗？","取消提醒",function () {
 
                     var postdata = {subscriptionId:_this.$route.params.id,userId:''};
                     _this.$http.put(web.API_PATH + 'subscribe/unsubscribe',postdata)
@@ -148,9 +163,7 @@
                 _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
                         .then(function (res) {
                             console.log(res)
-                            xqzs.weui.toast("success", "订阅成功", function () {
-                                _this.$router.go(-1);
-                            })
+                            _this.$router.go(-1);
                         });
             }
 

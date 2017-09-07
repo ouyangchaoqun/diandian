@@ -3,7 +3,6 @@
         <div v-title>早起统计</div>
         <div class="get_header">
             <div class="getupBgView">
-
                     <div class="canlendarTopView">
                         <div class="leftBgView" @click="oldMonth">
                             <img class="get_old" src="../images/back.png" />
@@ -37,7 +36,7 @@
             </div>
         </div>
         <div class="getUpSlice" v-if="monthCount!=''">
-            <div class="getUpTitle">早起时间段分布</div>
+            <div class="getUpTitle">早<span v-if="!isNight">起</span><span v-if="isNight">睡</span>时间段分布</div>
             <div class="getUpMain">
                 <div class="get_value" v-for="index in monthCount">
                     <div class="getUp_time">{{index.min}}-{{index.max}}</div>
@@ -52,31 +51,9 @@
                 </div>
             </div>
             <div class="getUpCount">
-                <p>本月共早起打卡{{monthInfo.total}}天，平均起床时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
+                <p>本月共早<span v-if="!isNight">起</span><span v-if="isNight">睡</span>打卡{{monthInfo.total}}天，平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
             </div>
-
-
-            </div>
-        <!--<div  @click="hideSwiper()">-->
-            <!--<div class="weui-mask weui-animate-fade-in  "   v-if="isa" ></div>-->
-            <!--<div id="bg_back" :class="[{show_box_cal:isa,hidden_box:isb}]" >-->
-                <!--<div class="swiper-container clickBox">-->
-                    <!--<div class="swiper-wrapper">-->
-                        <!--<div class="swiper-slide" v-for="mood in dayMoods">-->
-                            <!--<img :src="mood.bgUrl" alt=""/>-->
-                            <!--<div class="clickBox_time">-->
-                                <!--<span>{{mood.dt}}</span><span>星期{{mood.weekCn}}</span><span>{{mood.time}}</span>-->
-                                <!--<div class="clickBox_bottom" v-html="formatContent(mood.content)"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
-                <!--</div>-->
-
-            <!--</div>-->
-
-        <!--</div>-->
-
+        </div>
     </div>
 </template>
 <script type="text/javascript">
@@ -114,13 +91,18 @@
                 cur_day:null,
                 monthCount:'',
                 allInfo:'',
-                monthInfo:''
+                monthInfo:'',
+                isNight:false
             }
         },
 
         mounted: function () {
-
-
+            console.log(this.$route.query.type)
+            if(this.$route.query.type==2){
+                this.isNight = false
+            }else{
+                this.isNight = true
+            }
 
             this.setNowDate();
             //轮播配置
@@ -227,7 +209,7 @@
                     console.log(this.days)
                 this.days = days;
                 days = [];
-                _this.$http.get(web.API_PATH + 'record/sleep/get/statistics/month/_userId_/2/'+year+'/'+month).then(response => {
+                _this.$http.get(web.API_PATH + 'record/sleep/get/statistics/month/_userId_/'+_this.$route.query.type+'/'+year+'/'+month).then(response => {
                     if (response.data.status === 1) {
                         console.log("22222222222222222")
                         console.log(response.data.data)

@@ -91,8 +91,8 @@
                         this.happyProportion='50%'
                         return
                     }
-                    this.unhappyProportion = Math.round(this.unhappyDays/this.moodCount*100)+'%';
-                    this.happyProportion = Math.round(this.happyDays/this.moodCount*100)+'%';
+                    this.unhappyProportion = parseInt(this.unhappyDays/this.moodCount*100)+'%';
+                    this.happyProportion = (100-parseInt(this.unhappyDays/this.moodCount*100))+'%';
 
                     this.followScenes = xqzs.mood.getCjImg(response.followScenes).src;
                     this.happyScenes = xqzs.mood.getCjImg(response.happyScenes).src;
