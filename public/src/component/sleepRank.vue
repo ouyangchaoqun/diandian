@@ -8,7 +8,7 @@
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
-                    <div class="hot" v-if="!isClickFace"></div>
+                    <div class="hot" v-if="!isClickFace&&!isGuest"></div>
                     <div class="share2" @click="share">分享</div>
                     <div class="clock_head">
 

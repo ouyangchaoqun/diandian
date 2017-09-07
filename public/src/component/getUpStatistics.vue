@@ -1,6 +1,6 @@
 <template id="getUpStatistics">
     <div class="getUpStatistics_box">
-        <div v-title>早起统计</div>
+        <div v-title>{{sleepTypeName}}统计</div>
         <div class="get_header">
             <div class="getupBgView">
                     <div class="canlendarTopView">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="getUpSlice" v-if="monthCount!=''">
-            <div class="getUpTitle">早<span v-if="!isNight">起</span><span v-if="isNight">睡</span>时间段分布</div>
+            <div class="getUpTitle">{{sleepTypeName}}时间段分布</div>
             <div class="getUpMain">
                 <div class="get_value" v-for="index in monthCount">
                     <div class="getUp_time">{{index.min}}-{{index.max}}</div>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="getUpCount">
-                <p>本月共早<span v-if="!isNight">起</span><span v-if="isNight">睡</span>打卡{{monthInfo.total}}天，平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
+                <p>本月共{{sleepTypeName}}打卡{{monthInfo.total}}天，平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
             </div>
         </div>
     </div>
@@ -92,16 +92,19 @@
                 monthCount:'',
                 allInfo:'',
                 monthInfo:'',
-                isNight:false
+                isNight:false,
+                sleepTypeName:"早起"
             }
         },
 
         mounted: function () {
             console.log(this.$route.query.type)
             if(this.$route.query.type==2){
-                this.isNight = false
+                this.isNight = false;
+                this.sleepTypeName="早起";
             }else{
                 this.isNight = true
+                this.sleepTypeName="早睡";
             }
 
             this.setNowDate();
