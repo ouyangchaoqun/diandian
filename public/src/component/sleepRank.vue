@@ -143,8 +143,8 @@
                                 <div class="rank_right" :class="{rank_rightNight:isNight}">
                                     <div class="care_icon" v-if="myFirst.careCount!=null" @click="fabulousList()">
                                         <span>{{myFirst.careCount||0}}</span>
-                                        <img v-show="myFirst.careCount==0||isGuest" src="../images/mood_icon_dianz_nor.png" alt="">
-                                        <img v-show="myFirst.careCount>0&&!isGuest" src="../images/mood_icon_dianz_pre.png" alt="">
+                                        <img v-show="myFirst.careCount==0" src="../images/mood_icon_dianz_nor.png" alt="">
+                                        <img v-show="myFirst.careCount>0" src="../images/mood_icon_dianz_pre.png" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -164,9 +164,9 @@
                                     <div class="rank_right" :class="{rank_rightNight:isNight}">
                                         <div class="care_icon" @click="addCare(allRannList)">
                                             <span>{{allRannList.careCount||0}}</span>
-                                            <img v-show="allRannList.caremy==0||isGuest" src="../images/mood_icon_dianz_nor.png"
+                                            <img v-show="allRannList.caremy==0" src="../images/mood_icon_dianz_nor.png"
                                                  alt="">
-                                            <img v-show="allRannList.caremy>0&&!isGuest" :class="{heartUp:allRannList.hit}"
+                                            <img v-show="allRannList.caremy>0" :class="{heartUp:allRannList.hit}"
                                                  src="../images/mood_icon_dianz_pre.png" alt="">
                                         </div>
                                     </div>
@@ -625,13 +625,11 @@
                 if(!_this.currUser){
                     console.log("notuser")
                     _this.follow()
-
-
                     return;
                 }
 
-
-                if ( item.caremy == 0) {
+                if ( item.caremy == 0||item.caremy==undefined) {
+                    console.log("notu2233332222ser")
                     _this.$http.put(web.API_PATH + 'mood/care/add', {
                         "moodId": null,
                         "userId": null,
@@ -645,6 +643,17 @@
                                     _this.rankLists[i].caremy = 1;
                                     _this.rankLists[i].hit = true;
                                     _this.$set(_this.rankLists, i, _this.rankLists[i]);
+                                    //更新顶部信息
+                                    console.log("start")
+                                    console.log(_this.myFirst.id)
+                                    console.log(_this.rankLists[i].id)
+                                    console.log("end")
+                                    if(_this.rankLists[i].id==_this.myFirst.id){
+                                        _this.myFirst.caremy = 1;
+                                        _this.myFirst.hit = true;
+                                    }
+                                    break;
+
                                 }
                             }
                         }
@@ -662,11 +671,19 @@
                 return nickName.substr(0, 8) + '...';
             },
             fabulousList:function () {
-
+                console.log("fabulousList")
                 var _this = this;
                 if( !this.isGuest&&this.user&&this.currUser&&this.user.id==this.currUser.id){
+                    console.log("phur")
                     this.$router.push('/fabulous?sleepId='+_this.sleepId+'&type='+_this.typeId)
+                }else if(this.isGuest&&this.currUser){
+                    if(!this.myFirst.type){
+                        this.myFirst.type= this.typeId;
+                    }
+                    console.log("fabulousLisaddCaret")
+                    _this.addCare(this.myFirst)
                 }
+                console.log("end")
 
             },
 
