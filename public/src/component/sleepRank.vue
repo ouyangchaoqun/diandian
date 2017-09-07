@@ -208,7 +208,7 @@
 <script type="text/javascript">
     import showLoad from './showLoad.vue';
     import scroll from './lib/scroll.vue';
-
+    import Bus from './bus.js';
     var sleepRank = {
         template: '#sleepRank'
     }
@@ -353,7 +353,7 @@
                     //二维码
                     _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.user.id + guestUrl).then(function (data) {//es5写法
                         $("#output").empty();
-                        console.log(xqzs.string.toUtf8(data.body.data));
+//                        console.log(xqzs.string.toUtf8(data.body.data));
                         $('#output').qrcode({
                             width: 100, height: 100,
                             text: xqzs.string.toUtf8(data.body.data), background: "#ffffff",
@@ -387,7 +387,7 @@
                                 let title = "坚持" + sleepName + "，遇见更好自己";
                                 let desc = "我已经连续" + _this.continueDay + "天" + sleepName + "，" + _this.date + sleepName + "排行全国第 " + data.data.data.rank + " 名！";
                                 if (data.data.data.time == null) {
-                                    desc = "我要从明天开始，加入21天早起计划，挑战自己！";
+                                    desc = "我要从明天开始，加入21天"+sleepName+"计划，挑战自己！";
                                 }
 
 
@@ -428,31 +428,68 @@
                         _this.isLogin = true;
                     }
 
-                    //是否显示底部按钮逻辑
-                    let showButtomBtn = 0;
-                    console.log("rrrrrrrrrrr")
-                    console.log(_this.currUser)
-                    if (web.guest) {
-                        if (_this.currUser && _this.user) {
-                            if (_this.currUser.id == _this.user.id) {//本人不显示
-                                showButtomBtn = 0;
-                            } else { //他人显示
-                                showButtomBtn = 1;
+
+                    this.$http.get(web.API_PATH + "user/get/judge/relation/" + this.currUser.id + "/" + this.user.id).then((response) => {
+                        let isFriend = false;
+                        if (response.data.status == 1) {
+                            if (response.data.data == 1) {
+                                isFriend = true;
                             }
-                        } else if (!_this.currUser) {   //未关注显示
-                            showButtomBtn = 2;
                         }
-                    }
-                    _this.showBottomBtnType = showButtomBtn;
-                    let sleepName = "早起";
-                    if (_this.typeId == 3) {
-                        sleepName = "早睡"
-                    }
-                    if (showButtomBtn == 1) {
-                        _this.showBottomBtnText = "我的" + sleepName + "计划"
-                    } else if (showButtomBtn == 2) {
-                        _this.showBottomBtnText = "我也加入" + sleepName + "计划"
-                    }
+
+
+
+                        //是否显示底部按钮逻辑
+                        let showButtomBtn = 0;
+                        if (web.guest) {
+                            if (_this.currUser && _this.user) {
+                                if (_this.currUser.id == _this.user.id) {//本人不显示
+                                    showButtomBtn = 0;
+                                } else { //他人显示
+                                    if(isFriend){  //好友关系显示
+                                        showButtomBtn = 1;
+                                    }else{//非好友关系显示
+                                        showButtomBtn = 3;
+                                    }
+                                }
+                            } else if (!_this.currUser) {   //未关注显示
+                                showButtomBtn = 2;
+                            }
+                        }
+                        _this.showBottomBtnType = showButtomBtn;
+                        let sleepName = "早起";
+                        if (_this.typeId == 3) {
+                            sleepName = "早睡"
+                        }
+                        if (showButtomBtn == 1) {
+                            _this.showBottomBtnText = "我的" + sleepName + "计划"
+                        } else if (showButtomBtn == 2) {
+                            _this.showBottomBtnText = "我也加入" + sleepName + "计划"
+                        }else if(showButtomBtn == 3) {
+                            _this.showBottomBtnText = "一起参与" + sleepName + "计划"
+                        }
+
+
+                    }, (response) => {
+
+                    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     _this.getRankList();
                 }, function (error) {
                     _this.getRankList();
@@ -462,12 +499,12 @@
             initCareImg: function (item) {
                 let isRedHeart = false;
                 if (!this.isLogin) {  //未登录直接判断关心数量
-                    console.log("notlogin")
+//                    console.log("notlogin")
                     if (item.careCount && item.careCount > 0) {
                         isRedHeart = true;
                     }
                 } else { //登录判断自己是否关心过
-                    console.log("login")
+//                    console.log("login")
                     if (item.caremy && item.caremy > 0) {
                         isRedHeart = true;
                     }
@@ -477,7 +514,7 @@
                 } else {
                     item.careImg = web.IMG_PATH + "/mood_icon_dianz_nor.png";
                 }
-                console.log(item);
+//                console.log(item);
                 return item;
             },
 
@@ -493,7 +530,6 @@
 
                 if (this.currUser && this.currUser != undefined && this.currUser != null && this.currUser != {}) {
                     //登录但不是好友
-                    //user/get/judge/relation
                     this.$http.get(web.API_PATH + "user/get/judge/relation/" + this.currUser.id + "/" + this.user.id).then((response) => {
                         let isFriend = false;
                         if (response.data.status == 1) {
@@ -527,7 +563,7 @@
                     type: "json",
                     url: web.API_PATH + 'sleep/query/new/notice/' + sleepId + '/' + _this.typeId + '/_userId_',
                 }).then(function (data) {
-                    console.log(data)
+//                    console.log(data)
                     if (data.data.status == 1) {
                         _this.notice = data.data.data;
 
@@ -590,7 +626,7 @@
                 vm.$http.get(vm.rankUrl).then((response) => {
                     vm.showLoad = false;
                     vm.isLoading = false;
-                    console.log(response)
+//                    console.log(response)
 
 
                     if (response.data.data.userRank && response.data.data.userRank.content != null) {
@@ -605,17 +641,18 @@
                         vm.getNotice(vm.myFirst.id);
                         vm.sleepId = vm.myFirst.id
                     } else {
-                        console.log("undefined")
+//                        console.log("undefined")
                     }
 
 
                     let arr = response.data.data.allRank;
-                    console.log("console.log(arr.length)")
-                    console.log(vm.num)
+//                    console.log("console.log(arr.length)")
+//                    console.log(vm.num)
                     if (arr.length < vm.num) {
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
                     }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText );
                     if (arr.length == 0) return;
                     for (let i = 0; i < arr.length; i++) {
                         arr[i] = vm.initCareImg(arr[i]);
@@ -626,8 +663,6 @@
 
                     }
 
-                    console.log("arr")
-                    console.log(arr)
 
                     if (vm.counter == 1) {
                         vm.rankLists = arr;
@@ -654,7 +689,7 @@
 
                             vm.$nextTick(function () {
                                 let top = $(".isMatch").offset().top;
-                                console.log(top);
+
 
                                 $('.yo-scroll').animate({
                                     scrollTop: top - ($(document).height() - $(".isMatch").height()) + 29
@@ -685,7 +720,7 @@
             addComment: function (sleepId) {
                 let vm = this;
                 xqzs.mood.actionSheetEdit("取消", "发送", function (v) {
-                    console.log(v)
+//                    console.log(v)
                     vm.$http.put(web.API_PATH + 'sleep/reply/_userId_/' + sleepId, {content: v}).then(response => {
                         if (response.data.status === 1) {
                             vm.myFirst.content = v
@@ -695,7 +730,7 @@
                     }, response => {
 
                     });
-                    console.log(v)
+
 
                 }, function (v) {
 
@@ -707,8 +742,10 @@
 
             //页面跳转
             goRecordCount: function () {
-                xqzs.localdb.set("rank_click_head_face", "true")
-                this.$router.push("/getUpStatistics?type=" + this.typeId);
+                if(web.guest==true){}else{
+                    xqzs.localdb.set("rank_click_head_face", "true")
+                    this.$router.push("/getUpStatistics?type=" + this.typeId);
+                }
 
             },
             addCare: function (item) {
@@ -765,7 +802,7 @@
 
                 var _this = this;
                 if (this.user && this.currUser && this.user.id == this.currUser.id) {
-                    console.log("phur")
+
                     this.$router.push('/fabulous?sleepId=' + _this.sleepId + '&type=' + _this.typeId)
                 } else if (this.isGuest && this.currUser) {
                     if (!this.myFirst.type) {

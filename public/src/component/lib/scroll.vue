@@ -6,8 +6,8 @@
          @touchend="touchEnd($event)"
          @scroll="(onInfinite || infiniteLoading) ? onScroll($event) : undefined">
         <section class="inner" :style="{ transform: 'translate3d(0, ' + top + 'px, 0)' }">
-            <header class="pull-refresh" >
-                <slot name="pull-refresh" >
+            <header class="pull-refresh">
+                <slot name="pull-refresh">
                     <div v-show="!isNotRefresh">
                         <span class="down-tip loadFont">下拉更新</span>
                         <span class="up-tip loadFont">松开更新</span>
@@ -34,6 +34,8 @@
 </template>
 
 <script type="es6">
+    import Bus from './../bus.js';
+
     export default {
         props: {
             offset: {
@@ -58,9 +60,9 @@
                 default: undefined,
                 require: false
             },
-            isPageEnd:false,
-            isShowMoreText:true,
-            isNotRefresh:true
+            isPageEnd: false,
+            isShowMoreText: true,
+            isNotRefresh: true
         },
         data() {
             return {
@@ -69,14 +71,19 @@
                 startY: 0,
                 touching: false,
                 infiniteLoading: false,
-                height:"height:100px"
+                height: "height:100px"
             }
         },
-        mounted:function () {
-             this.height="height:"+(document.body.clientHeight)+"px";
-             this.loadMoreText();
-//            console.log(this.isPageEnd)
-            ;
+        mounted: function () {
+            let _this=this;
+            this.height = "height:" + (document.body.clientHeight) + "px";
+            this.loadMoreText();
+            Bus.$on("scrollMoreTextInit", function (isShowMoreText) {
+//                console.log("scrollMoreTextInit")
+                _this.isShowMoreText=isShowMoreText;
+                _this.loadMoreText();
+            });
+//
         },
         methods: {
             touchStart(e) {
@@ -103,6 +110,7 @@
                 }
             },
             touchEnd(e) {
+
                 if (!this.enableRefresh) return
                 this.touching = false
                 if (this.state === 2) { // in refreshing
@@ -121,13 +129,11 @@
             refresh() {
                 this.state = 2;
                 this.top = this.offset
-                if(this.isNotRefresh){
+                if (this.isNotRefresh) {
                     this.refreshDone()
-                }else{
+                } else {
                     this.onRefresh(this.refreshDone);
                 }
-
-
 
 
             },
@@ -135,15 +141,16 @@
                 this.state = 0
                 this.top = 0
             },
-            loadMoreText:function () {
-                if(!this.isShowMoreText){
+            loadMoreText: function () {
+
+                if (!this.isShowMoreText) {
                     $(".load-more").hide();
                     $(".load-finish").hide();
-                }else{
-                    if(this.isPageEnd){
+                } else {
+                    if (this.isPageEnd) {
                         $(".load-more").hide();
                         $(".load-finish").show();
-                    }else{
+                    } else {
                         $(".load-finish").hide();
                         $(".load-more").show();
                     }
@@ -182,7 +189,10 @@
     }
 </script>
 <style>
-    html,body{ height: 100%}
+    html, body {
+        height: 100%
+    }
+
     .yo-scroll {
         position: absolute;
         top: 0;
@@ -194,12 +204,14 @@
         background: #f5f5f5;
 
     }
+
     .yo-scroll .inner {
         position: absolute;
         top: -2rem;
         width: 100%;
         transition-duration: 300ms;
     }
+
     .yo-scroll .pull-refresh {
         position: relative;
         left: 0;
@@ -210,23 +222,29 @@
         align-items: center;
         justify-content: center;
     }
+
     .yo-scroll.touch .inner {
         transition-duration: 0ms;
     }
+
     .yo-scroll.down .down-tip {
         display: block;
     }
+
     .yo-scroll.up .up-tip {
         display: block;
     }
+
     .yo-scroll.refresh .refresh-tip {
         display: block;
     }
+
     .yo-scroll .down-tip,
     .yo-scroll .refresh-tip,
     .yo-scroll .up-tip {
         display: none;
     }
+
     .yo-scroll .load-more {
         height: 3rem;
         display: flex;
@@ -234,11 +252,13 @@
         justify-content: center;
         text-align: center;
     }
+
     .yo-scroll .load-finish {
         height: 2rem;
-      text-align: center;
+        text-align: center;
     }
-    .loadFont{
+
+    .loadFont {
         font-size: 12px;
         color: #999;
     }
