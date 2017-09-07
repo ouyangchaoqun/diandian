@@ -57,7 +57,7 @@
                 </div>
 
                 <!--活跃度排行-->
-                <div class="swiper-slide">
+                <div class="swiper-slide initHeight">
                     <template v-if="useActive.length>0">
                         <div class="my_rank" :class="useActive.addClassName">
                             <div class="rank_index">
@@ -98,7 +98,7 @@
 
                 </div>
                 <!--新增好友排行-->
-                <div class="swiper-slide">
+                <div class="swiper-slide initHeight">
                     <template v-if="useFriend.length>0">
                         <div class="my_rank" :class="useFriend.addClassName">
                             <div class="rank_index">
@@ -183,106 +183,102 @@
                     speed: 500,
                     onSlideChangeStart: function () {
                         $(".tabs .active").removeClass('active');
+                        $(".swiper-slide").removeClass('initHeight')
                         $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
-                        $(".swiper-wrapper").height("auto")
+                        $(".swiper-wrapper").css('height',"auto")
                     },
                     onSlideChangeEnd:function (swiper) {
-                         $(".swiper-slide").each(function (i) {
-                             console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
+                        $(".swiper-slide").each(function (i) {
+                            console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
                             if(swiper.activeIndex==i){
-                                $(".swiper-wrapper").height($(this).height())
+                                $(".swiper-wrapper").css('height',$(this).height())
                             }
 
                         })
-
-
-
                     }
                 });
-                $(".tabs a").on('touchstart mousedown', function (e) {
+                $(".tabs a").on('click', function (e) {
 
+                    $(".swiper-slide").removeClass('initHeight')
                     console.log("touchstart");
+                    console.log($(this).index())
                     e.preventDefault()
                     $(".tabs .active").removeClass('active');
                     $(this).addClass('active');
                     tabsSwiper.slideTo($(this).index());
                 });
-
-                $(".tabs a").click(function (e) {
-                    console.log("click  ");
-                    e.preventDefault();
-                });
             });
 
             //获取活跃排行
             _this.$http.get(web.API_PATH + "rank/get/record/mood/_userId_/100/" + _this.type + "?times=" + _this.value)
-                    .then(function (response) {
-                        if (response.body.status == 1) {
-                            //获取自己的排行
-                            _this.useActive = response.body.data.userRank;
-                            console.log("1111111111")
-                            if (response.body.data.userRank.length > 0) {
-                               // _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
-                            }
-
-                            //获取所有排行
-                            _this.activePerson = response.body.data.allUserRank;
-                            for (let i = 0; i < _this.activePerson.length; i++) {
-                               // _this.activePerson[i].addClassName = "first_" + (i + 1);
-
-                                _this.$set(_this.activePerson, i, _this.activePerson[i])
-                            }
+                .then(function (response) {
+                    if (response.body.status == 1) {
+                        //获取自己的排行
+                        _this.useActive = response.body.data.userRank;
+                        console.log("1111111111")
+                        if (response.body.data.userRank.length > 0) {
+                            // _this.useActive.addClassName = "first_" + response.body.data.userRank[0].row;
                         }
-                    })
+
+                        //获取所有排行
+                        _this.activePerson = response.body.data.allUserRank;
+                        for (let i = 0; i < _this.activePerson.length; i++) {
+                            // _this.activePerson[i].addClassName = "first_" + (i + 1);
+
+                            _this.$set(_this.activePerson, i, _this.activePerson[i])
+                        }
+
+                    }
+                })
             //获取关注排行
             ///http://api.m.xqzs.cn/api/v1/rank/get/care/mood/1267/10/w/2017-28
             _this.$http.get(web.API_PATH + "rank/get/care/mood/_userId_/100/" + _this.type + "/" + _this.value)
-                    .then(function (data) {
-                        if (data.body.status == 1) {
-                            //获取自己的排行
-                            _this.useCare = data.body.data.myCareRank;
-                            console.log(data.body.data.myCareRank);
-                            console.log("2222222222222")
-                            if (data.body.data.myCareRank.length > 0) {
-                               // _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
-                            }
-
-                            //获取所有排行
-
-                            _this.cares = data.body.data.allCareRank;
-                            for (let i = 0; i < _this.cares.length; i++) {
-                                //_this.cares[i].addClassName = "first_" + (i + 1);
-                                _this.$set(_this.cares, i, _this.cares[i])
-                            }
-                            console.log(_this.cares)
+                .then(function (data) {
+                    if (data.body.status == 1) {
+                        //获取自己的排行
+                        _this.useCare = data.body.data.myCareRank;
+                        console.log(data.body.data.myCareRank);
+                        console.log("2222222222222")
+                        if (data.body.data.myCareRank.length > 0) {
+                            // _this.useCare.addClassName = "first_" + data.body.data.myCareRank[0].row;
                         }
-                    })
+
+                        //获取所有排行
+
+                        _this.cares = data.body.data.allCareRank;
+                        for (let i = 0; i < _this.cares.length; i++) {
+                            //_this.cares[i].addClassName = "first_" + (i + 1);
+                            _this.$set(_this.cares, i, _this.cares[i])
+                        }
+                        console.log(_this.cares)
+                    }
+                })
             //获取新增好友的排名
             //http://api.m.xqzs.cn/api/v1/rank/get/relation/1267/10/w/2017-28
             //api/v1/rank/get/relation/1267/10/w/2017-28
 
 
             _this.$http.get(web.API_PATH + "rank/get/relation/_userId_/100/" + _this.type + "/" + _this.value)
-                    .then(function (response) {
-                        if (response.body.status == 1) {
-                            //获取自己的排行
-                            _this.useFriend = response.body.data.myNewFriendRank;
+                .then(function (response) {
+                    if (response.body.status == 1) {
+                        //获取自己的排行
+                        _this.useFriend = response.body.data.myNewFriendRank;
 
 
-                            console.log(_this.useFriend[0])
-                            if (response.body.data.myNewFriendRank.length > 0) {
-                                //_this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
-                            }
-
-                            //获取所有排行
-                            _this.friends = response.body.data.allNewFriendRank;
-                            for (let i = 0; i < _this.friends.length; i++) {
-                               // _this.friends[i].addClassName = "first_" + (i + 1);
-
-                                _this.$set(_this.friends, i, _this.friends[i])
-                            }
+                        console.log(_this.useFriend[0])
+                        if (response.body.data.myNewFriendRank.length > 0) {
+                            //_this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                         }
-                    })
+
+                        //获取所有排行
+                        _this.friends = response.body.data.allNewFriendRank;
+                        for (let i = 0; i < _this.friends.length; i++) {
+                            // _this.friends[i].addClassName = "first_" + (i + 1);
+
+                            _this.$set(_this.friends, i, _this.friends[i])
+                        }
+                    }
+                })
 
 
             xqzs.wx.setConfig(_this);
@@ -295,6 +291,10 @@
     }
 </script>
 <style>
+    .initHeight{
+        height:1px;
+        overflow: hidden;
+    }
     .rankList_box {
         width: 100%;
         height: 100%;
@@ -376,7 +376,7 @@
         position: relative;
     }
 
-   .rankList_box  .rank_list {
+    .rankList_box  .rank_list {
         width: 100%;
         background-color: #ffffff;
         height: 59px;
