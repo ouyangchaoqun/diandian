@@ -9,10 +9,10 @@
             <div class="pay_li" style="font-size: 20px">
                 <div class="pay_user">用户名</div>
                 <div class="pay_money">支付金额</div>
-                <div class="payTime">支付时间</div>
-                <div class="payState">支付状态</div>
+                <div class="pay_Time">支付时间</div>
+                <div class="pay_State">支付状态</div>
             </div>
-            <div class="pay_li" v-for="item in pay_list">
+            <div class="pay_li" v-for="item in payList">
                 <div class="pay_user">{{item.nickName | shortName(5)}}</div>
                 <div class="pay_money">{{item.amount}}</div>
                 <div class="pay_time">{{item.time}}</div>
@@ -35,7 +35,7 @@
         data() {
             return {
                 counts:'',
-                pay_list:[]
+                payList:[]
             }
         },
         filters:{
@@ -79,7 +79,7 @@
                this.$http.get(web.API_PATH+'pay/flow/'+_this.counts).then(function (data) {
 
                             if(data.body.status==1){
-                                _this.pay_list=data.body.data;
+                                _this.payList=data.body.data;
                             }
                 })
             }
@@ -121,10 +121,10 @@
     .pay_state{
         width: 15%;
     }
-    .payState{
+    .pay_State{
         width: 20%;
     }
-    .payTime{
+    .pay_Time{
         width: 35%;
     }
 </style>
