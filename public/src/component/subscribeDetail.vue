@@ -62,8 +62,6 @@
                 console.log(data)
                 _this.detail = data.data.data
                 _this.detail.remindtime = _this.detail.remindtime||'--:--';
-                _this.detail.defaulttime = _this.detail.defaulttime;
-                console.log(_this.detail.defaulttime)
                 var timies = _this.detail.remindtime.split(':');
                 var defaulttime = _this.detail.defaulttime.toString().split('')
                 if(defaulttime.length<4){
@@ -71,7 +69,12 @@
                 }
                 _this.defaultArray[0] = defaulttime[0]+defaulttime[1]
                 _this.defaultArray[1] = defaulttime[2]+defaulttime[3]
-                console.log(_this.defaultArray)
+                if(timies[0]&&timies[0]!='--'){
+                    _this.defaultArray[0]=timies[0]
+                }
+                if(timies[1]&&timies[1]!='--'){
+                    _this.defaultArray[1]=timies[1]
+                }
                 _this.hour = timies[0];
                 _this.minute = timies[1];
                 _this.minHour= parseInt(_this.detail.mintime /100);
@@ -117,6 +120,7 @@
                     }
                     minutes.push(obj)
                 }
+                console.log(_this.defaultArray)
                 weui.picker(
                     hours, minutes, {
                         defaultValue:_this.defaultArray,
