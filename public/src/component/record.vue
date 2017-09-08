@@ -171,8 +171,7 @@
                     </div>
                 </div>
             </div>
-
-
+            <img src="../images/record_go_bed_btn_on.png" alt="" style="display: none">
         </div>
     </div>
 </template>
@@ -211,6 +210,8 @@
                 MORNING_END_TIME: '10:00',
                 NIGHT_FROM_TIME: '20:00',
                 NIGHT_END_TIME: '23:59',
+                MORNING_TYPE:2,
+                NIGHT_TYPE:3,
                 outMorningTime: false,
                 outNightTime: false,
                 isGetUp: false,
@@ -286,9 +287,9 @@
             },
             writeOrRank: function () {
                 if (this.isNight) {
-                    this.$router.push("/sleepRank?type=3")
+                    this.$router.push("/sleepRank?type="+this.NIGHT_TYPE)
                 } else {
-                    this.$router.push("/sleepRank?type=2")
+                    this.$router.push("/sleepRank?type="+this.MORNING_TYPE)
                 }
             },
             write: function () {
@@ -307,7 +308,8 @@
 
                 let _this = this;
                 if (_this.isGetUp && _this.isRecordTime(_this.MORNING_FROM_TIME, _this.MORNING_END_TIME)) {
-                    _this.showResult(_this.getUpId);
+                    _this.$router.push("sleepRank?type="+this.MORNING_TYPE)
+//                    _this.showResult(_this.getUpId);
                     return;
                 }
                 if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
@@ -377,12 +379,18 @@
                 _this.$http.put(web.API_PATH + 'sleep/checkin/' + type + '/_userId_', {"weather": weather}).then(response => {
                     console.log(response);
                     if (response.data.status === 1) {
-                        if (type == 3) {
-                            $(".night_action").stop().animate({"opacity": 0}, 300, function () {
-                                $(this).hide();
-                            });
-                        }
-                        _this.initResultData(response.data.data,true)
+
+                        //显示结果页面
+//                        if (type == 3) {
+//                            $(".night_action").stop().animate({"opacity": 0}, 300, function () {
+//                                $(this).hide();
+//                            });
+//                        }
+//                        _this.initResultData(response.data.data,true)
+
+                        //直接跳转到排行榜
+                        _this.$router.push("sleepRank?type="+type)
+
 
                     }
                 });
@@ -720,6 +728,10 @@
         margin-top: 7.5rem;
         font-size: 0.7rem;;
         position: relative
+    }
+    .record_action_go_bed:active{
+        background: url("../images/record_go_bed_btn_on.png") no-repeat center top;
+        background-size: 6.1764705rem 6.1764705rem;
     }
 
     .record_action_go_bed span {
