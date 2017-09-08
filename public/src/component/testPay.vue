@@ -1,10 +1,12 @@
 <template id="testPay">
     <div class="testPay_box">
         <div class="btn"
-             style="background:red; text-align: center; color:#fff; height: 55px; line-height: 55px; margin-top: 60px;"
+             style="background:red; text-align: center; color:#fff; height: 55px; line-height: 55px; margin-top: 20px;"
              @click="pay">支付
         </div>
-        <div class="list_count"><input type="text" v-model="counts"><button @click="showlist" >显示</button></div>
+        <div class="list_count"><input type="text" v-model="counts" placeholder="输入查询数量">
+            <button @click="showlist">显示</button>
+        </div>
         <div class="pay_list">
             <div class="pay_li" style="font-size: 20px">
                 <div class="pay_user">用户名</div>
@@ -34,17 +36,17 @@
 
         data() {
             return {
-                counts:'',
-                pay_list:[]
+                counts: 50,
+                pay_list: []
             }
         },
-        filters:{
-            shortName:function(value,len){
-                return xqzs.shortname(value,len);
+        filters: {
+            shortName: function (value, len) {
+                return xqzs.shortname(value, len);
             }
         },
         methods: {
-            onBridgeReady:function(config) {
+            onBridgeReady: function (config) {
                 alert(config)
                 WeixinJSBridge.invoke(
                     'getBrandWCPayRequest', config,
@@ -63,31 +65,27 @@
                 _this.$http.put(web.API_PATH + 'power/plan/_userId_/' + 1 + '/' + 1 + '').then(function (res) {
 
 
-
-
                     let config = res.data.data;
 
-                    let url  =web.BASE_PATH +"wxpay.php?appId="+config.appId+"&timeStamp="+config.timeStamp+"&nonceStr="+config.nonceStr+"&package="+config.package+"&signType="+config.signType+"&paySign="+config.paySign+"&reurl="+  window.location.href
+                    let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + window.location.href
 
-
-                    console.log(url)
-                    window.location.href= url
+                    window.location.href = url
                 })
             },
-            showlist:function () {
-                let _this=this
-               this.$http.get(web.API_PATH+'pay/flow/'+_this.counts).then(function (data) {
+            showlist: function () {
+                let _this = this
+                this.$http.get(web.API_PATH + 'pay/flow/' + _this.counts).then(function (data) {
 
-                            if(data.body.status==1){
-                                _this.pay_list=data.body.data;
-                            }
+                    if (data.body.status == 1) {
+                        _this.pay_list = data.body.data;
+                    }
                 })
             }
 
         },
 
         mounted: function () {
-
+            this.showlist()
         }
     }
 </script>
@@ -96,35 +94,43 @@
         width: 100%;
         margin-top: 20px;
     }
-    .pay_li{
+
+    .pay_li {
         height: 30px;
         width: 100%;
     }
-    .pay_li div{
-        float:left;
+
+    .pay_li div {
+        float: left;
         font-size: 15px;
         text-align: center;
         height: 24px;
     }
-    .pay_user{
+
+    .pay_user {
 
         width: 20%;
     }
-    .pay_money{
+
+    .pay_money {
 
         width: 25%;
     }
-    .pay_time{
+
+    .pay_time {
 
         width: 40%;
     }
-    .pay_state{
+
+    .pay_state {
         width: 15%;
     }
-    .payState{
+
+    .payState {
         width: 20%;
     }
-    .payTime{
+
+    .payTime {
         width: 35%;
     }
 </style>
