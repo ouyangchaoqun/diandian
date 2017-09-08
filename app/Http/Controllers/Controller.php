@@ -48,7 +48,7 @@ class Controller extends BaseController
 
 //            return redirect("/wx/index?reurl=".urlencode($fullurl));
         }
-        $this->apiService->login($userId);
+         $this->apiService->login($userId);
         if (env("APP_ENV") == "production") {
             return view('index_production');
         }
