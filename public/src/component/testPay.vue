@@ -16,7 +16,8 @@
                 <div class="pay_user">{{item.nickName | shortName(5)}}</div>
                 <div class="pay_money">{{item.amount}}</div>
                 <div class="pay_time">{{item.time}}</div>
-                <div class="pay_state">{{item.type}}</div>
+                <div class="pay_state" v-if="item.type==1">成功</div>
+                <div class="pay_state" v-if="item.type==0">失败</div>
             </div>
         </div>
     </div>
