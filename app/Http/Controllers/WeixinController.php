@@ -50,6 +50,8 @@ class WeixinController extends Controller
                 if ($obj !== false) {
                     if ($obj['status'] == 1) {
                         $this->setUserInfo($obj['data']);
+                        var_dump($obj['data']['id']);
+                        $apiService->login($obj['data']['id']);
                     }
                 }
             }

@@ -26,14 +26,15 @@ class Controller extends BaseController
     }
 
 
-    public function  guest(Request $request){
+    public function guest(Request $request)
+    {
         if (env("APP_ENV") == "production") {
-            return view('index_production')->with("guest",true);
+            return view('index_production')->with("guest", true);
         }
         if (env("APP_ENV") == "testing") {
-            return view('index_testing')->with("guest",true);
+            return view('index_testing')->with("guest", true);
         }
-        return view('index')->with("guest",true);
+        return view('index')->with("guest", true);
     }
 
     public function index(Request $request)
@@ -43,10 +44,11 @@ class Controller extends BaseController
         if ($userId == 0) {
             $fullurl = $request->fullUrl();
 
-            return  "<script>window.location.href = '/wx/index?reurl='+encodeURIComponent(window.location.href);</script>";
+            return "<script>window.location.href = '/wx/index?reurl='+encodeURIComponent(window.location.href);</script>";
 
 //            return redirect("/wx/index?reurl=".urlencode($fullurl));
         }
+         $this->apiService->login($userId);
         if (env("APP_ENV") == "production") {
             return view('index_production');
         }

@@ -55,7 +55,11 @@ class ApiService
         }
         return $this->geturl($url, $header);
     }
-
+    function login($uid=0){
+        $url = $this->API_URL . "/user/set/login/time/".$uid;
+        $header = $this->getTokenHeader();
+        $this->posturl($url, array(), $header);
+    }
 
     function geturl($url,$headerArray)
     {
