@@ -403,7 +403,10 @@
                             _this.share(true)
 
                         }
-                        _this.$router.push("sleepRank?type=" + type)
+                        setTimeout(function () {
+                            _this.$router.push("sleepRank?type=" + type)
+                        },200);
+
 
 
                     }
