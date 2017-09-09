@@ -496,7 +496,7 @@
                 });
             },
 
-            initCareImg: function (item) {
+            initCareImg: function (item,firstTop) {
                 let isRedHeart = false;
                 if (!this.isLogin) {  //未登录直接判断关心数量
 //                    console.log("notlogin")
@@ -505,7 +505,12 @@
                     }
                 } else { //登录判断自己是否关心过
 //                    console.log("login")
-                    if (item.caremy && item.caremy > 0||(item.careCount && item.careCount > 0&&this.user&&this.currUser&&this.user.id==this.currUser.id)) {
+                    if (item.caremy && item.caremy > 0) {
+                        isRedHeart = true;
+                    }
+                }
+                if(firstTop){
+                    if(item.careCount && item.careCount > 0&&this.user&&this.currUser&&this.user.id==this.currUser.id){
                         isRedHeart = true;
                     }
                 }
@@ -634,7 +639,7 @@
                     }
 
                     vm.myFirst = response.data.data.userRank || vm.myFirst;
-                    vm.myFirst = vm.initCareImg(vm.myFirst);
+                    vm.myFirst = vm.initCareImg(vm.myFirst,true);
 
 
                     if (vm.myFirst.id != undefined) {
@@ -777,7 +782,7 @@
 
                                         _this.myFirst.caremy = 1;
                                         _this.myFirst.hit = true;
-                                        _this.myFirst = _this.initCareImg(_this.myFirst);
+                                        _this.myFirst = _this.initCareImg(_this.myFirst,true);
                                         _this.myFirst.careCount = response.data.data;
                                     }
                                     break;
