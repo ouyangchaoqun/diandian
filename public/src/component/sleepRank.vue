@@ -71,7 +71,7 @@
                     <div class="rank_box goleft">
                         <div class="clock_rank clock_rank1">
                             <div class="rank_list me_rank"
-                                 :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
+                                 :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id&&myFirst.rank!=''||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
                                 <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
                                 <div class="rank_main">
