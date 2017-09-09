@@ -26,7 +26,10 @@
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="morning">
-                                    <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起打卡</template><template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起排行</template>
+                                    <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起打卡
+                                    </template>
+                                    <template v-if="isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起排行
+                                    </template>
                                 </div>
                             </div>
                         </a>
@@ -51,13 +54,16 @@
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="night">
-                                    <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡打卡</template><template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡排行</template>
+                                    <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡打卡
+                                    </template>
+                                    <template v-if="isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡排行
+                                    </template>
                                 </div>
                             </div>
                         </a>
                         <a class="weui-tabbar__item" @click="dailyRecord">
                             <div class="go_record record_everyDay" :class="{recorded:isDailyRecord}">
-                                <div class="record_cover" ></div>
+                                <div class="record_cover"></div>
                                 <div class="img"></div>
                                 <div class="any">每日一签</div>
                             </div>
@@ -69,17 +75,20 @@
                 <div class="result" :class="{goShow:isShowResult}">
                     <div class="bottom1">
                         <div class="record_time">{{result.data.hour}}:{{result.data.minute}}</div>
-                        <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
+                        <div class="next"><span :class="{ok_night:result.data.type==3}">连续早<template
+                                v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>{{result.data.continuousDays}}天</span>
                         </div>
                         <div class="record_compare">
-                            共有{{result.allCount}}人陪我早<template v-if="result.data.type==2">起</template><template v-if="result.data.type==3">睡</template>，当前总排行第{{result.rank}}名
+                            共有{{result.allCount}}人陪我早
+                            <template v-if="result.data.type==2">起</template>
+                            <template v-if="result.data.type==3">睡</template>
+                            ，当前总排行第{{result.rank}}名
                         </div>
-
 
 
                         <div class="bottom_btn">
-                            <div class="midLine" ></div>
-                            <div  class="record_bottom" @click="share(false)" v-if="result.data.type==2">
+                            <div class="midLine"></div>
+                            <div class="record_bottom" @click="share(false)" v-if="result.data.type==2">
                                 <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
                             </div>
                             <div class="record_bottom" @click="music" v-if="result.data.type==3">
@@ -128,7 +137,7 @@
                         <div class="record_bottom" @click="music" v-if="outNightTime">
                             <div class="doRecord" v-if="outNightTime">晚安音乐</div>
                         </div>
-                        <div class="record_bottom"   @click="writeOrRank">
+                        <div class="record_bottom" @click="writeOrRank">
                             <div class="doRecord" v-if="outMorningTime">早起排行榜</div>
                             <div class="doRecord" v-if="outNightTime">早睡排行榜</div>
                         </div>
@@ -210,8 +219,8 @@
                 MORNING_END_TIME: '10:00',
                 NIGHT_FROM_TIME: '20:00',
                 NIGHT_END_TIME: '23:59',
-                MORNING_TYPE:2,
-                NIGHT_TYPE:3,
+                MORNING_TYPE: 2,
+                NIGHT_TYPE: 3,
                 outMorningTime: false,
                 outNightTime: false,
                 isGetUp: false,
@@ -230,7 +239,7 @@
                 isShowResult: false,
                 doRecordText: '',
                 isDoNight: false,
-                isBirthday:false
+                isBirthday: false
 
             }
         },
@@ -240,12 +249,12 @@
             }
         },
         methods: {
-            music:function () {
-              this.$router.push("/music")
+            music: function () {
+                this.$router.push("/music")
             },
             share: function (isNotShowLoad) {
                 let _this = this;
-                if(!isNotShowLoad){
+                if (!isNotShowLoad) {
                     _this.showLoad = true;
                 }
                 this.$http({
@@ -254,7 +263,7 @@
                     url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/' + _this.result.data.type
                 }).then(function (bt) {
                     if (bt.body.status == 1) {
-                        if(!isNotShowLoad){
+                        if (!isNotShowLoad) {
                             xqzs.weui.dialog({
                                 title: '成就卡已经发送',
                                 msg: '前往公众号查看，留住每次早起回忆',
@@ -287,9 +296,9 @@
             },
             writeOrRank: function () {
                 if (this.isNight) {
-                    this.$router.push("/sleepRank?type="+this.NIGHT_TYPE)
+                    this.$router.push("/sleepRank?type=" + this.NIGHT_TYPE)
                 } else {
-                    this.$router.push("/sleepRank?type="+this.MORNING_TYPE)
+                    this.$router.push("/sleepRank?type=" + this.MORNING_TYPE)
                 }
             },
             write: function () {
@@ -308,7 +317,7 @@
 
                 let _this = this;
                 if (_this.isGetUp && _this.isRecordTime(_this.MORNING_FROM_TIME, _this.MORNING_END_TIME)) {
-                    _this.$router.push("sleepRank?type="+this.MORNING_TYPE)
+                    _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
 //                    _this.showResult(_this.getUpId);
                     return;
                 }
@@ -389,13 +398,18 @@
 //                        _this.initResultData(response.data.data,true)
 
                         //直接跳转到排行榜
-                        _this.$router.push("sleepRank?type="+type)
+                        //早上发送成就卡
+                        if (type == _this.MORNING_TYPE) {
+                            _this.share(true)
+
+                        }
+                        _this.$router.push("sleepRank?type=" + type)
 
 
                     }
                 });
             },
-            initResultData: function (data,isCheckIn) {
+            initResultData: function (data, isCheckIn) {
 
                 let _this = this;
                 _this.result.data = data;
@@ -420,8 +434,8 @@
                 _this.$http.get(web.API_PATH + 'record/sleep/get/rank/today/_userId_/' + type + '').then(data => {
                     if (data.data.status === 1) {
                         _this.result.rank = data.data.data;
-                        if(isCheckIn){
-                            if(data.data.data<=10000){
+                        if (isCheckIn) {
+                            if (data.data.data <= 10000) {
                                 _this.share(true)
                             }
                         }
@@ -508,19 +522,19 @@
             },
             dailyRecord: function () {
                 let _this = this;
-                _this.showLoad=true;
-                _this.$http.get(web.API_PATH + 'record/daily/sign/card/_userId_' ).then(response => {
+                _this.showLoad = true;
+                _this.$http.get(web.API_PATH + 'record/daily/sign/card/_userId_').then(response => {
                     console.log(response);
-                    if(response.data.status==1){
-                        _this.showLoad=false;
+                    if (response.data.status == 1) {
+                        _this.showLoad = false;
                         xqzs.weui.dialog({
-                            title:'每日一签已经发送',
-                            msg:'前往公众号查看你的每日一签',
-                            submitText:'查看',
-                            submitFun:function () {
+                            title: '每日一签已经发送',
+                            msg: '前往公众号查看你的每日一签',
+                            submitText: '查看',
+                            submitFun: function () {
                                 try {
                                     WeixinJSBridge.call('closeWindow');
-                                }catch (e){
+                                } catch (e) {
                                 }
                             }
                         })
@@ -530,14 +544,9 @@
 
                     }
 
-                },function (error) {
-                    _this.showLoad=false;
+                }, function (error) {
+                    _this.showLoad = false;
                 });
-
-
-
-
-
 
 
             }
@@ -546,10 +555,10 @@
         mounted: function () {
             let _this = this;
             xqzs.wx.setConfig(_this);
-            if( xqzs.localdb.get("isBirthday")==="1"){
-                _this.isBirthday=true;
-            }else{
-                _this.isBirthday=false;
+            if (xqzs.localdb.get("isBirthday") === "1") {
+                _this.isBirthday = true;
+            } else {
+                _this.isBirthday = false;
             }
 
             let w = $("body").width();
@@ -658,25 +667,36 @@
 
 </script>
 <style>
-    .RecordbrithBox{
+    .RecordbrithBox {
         position: relative;
         overflow: hidden;
     }
-    .RecordbrithBox img{
+
+    .RecordbrithBox img {
         display: block;
     }
-    .RecordbrithBox .briCake{
-        position: absolute;width:5.88rem;right: 1.76rem;bottom:1.76rem;
-        height:5.71rem;
-    }
-    .RecordbrithBox .brithText{
-        position: absolute;left: 3.88rem;width: 10.6rem;bottom:5.88rem;
-    }
-    .RecordbrithBox .brithDayBg{
-        position: absolute;top:-35rem;
+
+    .RecordbrithBox .briCake {
+        position: absolute;
+        width: 5.88rem;
+        right: 1.76rem;
+        bottom: 1.76rem;
+        height: 5.71rem;
     }
 
-    .bottom_btn{
+    .RecordbrithBox .brithText {
+        position: absolute;
+        left: 3.88rem;
+        width: 10.6rem;
+        bottom: 5.88rem;
+    }
+
+    .RecordbrithBox .brithDayBg {
+        position: absolute;
+        top: -35rem;
+    }
+
+    .bottom_btn {
         position: absolute;
         bottom: 0;
         height: 2.95rem;
@@ -686,7 +706,8 @@
         width: 100%;
         background-color: rgba(137, 181, 250, 1);
     }
-    .bottom_btn .record_bottom{
+
+    .bottom_btn .record_bottom {
         display: flex;
         -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -729,7 +750,8 @@
         font-size: 0.7rem;;
         position: relative
     }
-    .record_action_go_bed:active{
+
+    .record_action_go_bed:active {
         background: url("../images/record_go_bed_btn_on.png") no-repeat center top;
         background-size: 6.1764705rem 6.1764705rem;
     }
@@ -752,7 +774,6 @@
         background-size: 100% 100%;
         background-position: 0 4.11764rem;
     }
-
 
     .main_record {
         position: relative
@@ -989,11 +1010,10 @@
     .weui-tabbar__item:active .img {
         opacity: 0.5;
     }
-    .weui-tabbar__item:active .go_record { background: #d7d7d7
+
+    .weui-tabbar__item:active .go_record {
+        background: #d7d7d7
     }
-
-
-
 
     .go_record .img {
         height: 78%;
@@ -1157,7 +1177,6 @@
         width: 100%;
         vertical-align: middle;
     }
-
 
     .record_bottom2 {
         width: 50%;

@@ -505,7 +505,7 @@
                     }
                 } else { //登录判断自己是否关心过
 //                    console.log("login")
-                    if (item.caremy && item.caremy > 0) {
+                    if (item.caremy && item.caremy > 0||(item.careCount && item.careCount > 0&&user&&currUser&&user.id==currUser.id)) {
                         isRedHeart = true;
                     }
                 }
