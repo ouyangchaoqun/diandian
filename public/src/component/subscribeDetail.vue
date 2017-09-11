@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="subscribeListSet">
-                <button v-if="!detail.issubscribe==1" class="weui-btn weui-btn_primary">设置提醒</button>
+                <button v-if="!detail.issubscribe==1" class="weui-btn weui-btn_primary" @click="setRemindTime">设置提醒</button>
                 <button class="weui-btn subBtn" @click="show_unsubscribeBox" v-if="detail.issubscribe==1">取消提醒</button>
             </div>
 
@@ -75,8 +75,15 @@
                 if(timies[1]&&timies[1]!='--'){
                     _this.defaultArray[1]=timies[1]
                 }
-                _this.hour = timies[0];
-                _this.minute = timies[1];
+                if(timies[0]=="--"&& timies[1]=="--"){
+                    _this.hour = _this.defaultArray[0];
+                    _this.minute = _this.defaultArray[1];
+
+                }else{
+                    _this.hour = timies[0];
+                    _this.minute = timies[1];
+                }
+
                 _this.minHour= parseInt(_this.detail.mintime /100);
                 _this.maxHour= parseInt(_this.detail.maxtime /100);
             }, function (data) {
@@ -127,16 +134,8 @@
                         onConfirm: function (result) {
                             _this.hour = result[0].value;
                             _this.minute = result[1].value;
-                            var postdata = {subscriptionId:_this.detail.id,userId:'',remindTime:_this.hour+':'+_this.minute};
-                            console.log(postdata)
+                            _this.setRemindTime();
 
-                            _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
-                                .then(function (res) {
-                                    console.log(res)
-                                    xqzs.weui.toast("success", "设置成功", function () {
-                                        _this.setRemindTime()
-                                    })
-                                });
                         }
                     });
             },
@@ -159,7 +158,7 @@
 
  
             },
-            setRemindTime: function () {
+             setRemindTime: function () {
                 let _this = this;
                 //用户信息
                 var postdata = {subscriptionId:this.$route.params.id,userId:'',remindTime:this.hour+':'+this.minute};
@@ -167,7 +166,10 @@
                 _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
                         .then(function (res) {
                             console.log(res)
-                            _this.$router.go(-1);
+                            xqzs.weui.toast("success", "设置成功", function () {
+                                _this.$router.go(-1);
+                            });
+
                         });
             }
 
