@@ -24,6 +24,7 @@
                             <div class="go_record record_morning "
                                  :class="{recorded:isGetUp||!isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)}">
                                 <div class="record_cover"></div>
+                                <div class="record_hot" v-show="isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)&&!isGetUp" ></div>
                                 <div class="img"></div>
                                 <div class="morning">
                                     <template v-if="!isGetUp&&isRecordTime(MORNING_FROM_TIME,MORNING_END_TIME)">早起打卡
@@ -52,6 +53,7 @@
                             <div class="go_record record_night"
                                  :class="{recorded:isGoBed||!isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)}">
                                 <div class="record_cover"></div>
+                                <div class="record_hot" v-show="isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)&&!isGoBed" ></div>
                                 <div class="img"></div>
                                 <div class="night">
                                     <template v-if="!isGoBed&&isRecordTime(NIGHT_FROM_TIME,NIGHT_END_TIME)">早睡打卡
@@ -130,9 +132,12 @@
                     <div class="re_text2" v-if="outNightTime">早睡，为了在第二天遇见全新的自己</div>
 
                     <div class="bottom_btn">
-                        <div class="midLine" v-if="outNightTime||(isGetUp&&outMorningTime)"></div>
+                        <div class="midLine" v-if="outNightTime||(isGetUp&&outMorningTime)||(!isGetUp&&outMorningTime)"></div>
                         <div class="record_bottom" @click="share(false)" v-if="isGetUp&&outMorningTime">
                             <div class="doRecord">获取成就卡</div>
+                        </div>
+                        <div class="record_bottom" @click="joinMornings()" v-if="!isGetUp&&outMorningTime">
+                            <div class="doRecord">加入早起计划</div>
                         </div>
                         <div class="record_bottom" @click="music" v-if="outNightTime">
                             <div class="doRecord" v-if="outNightTime">晚安音乐</div>
@@ -249,6 +254,10 @@
             }
         },
         methods: {
+
+            joinMornings:function () {
+                this.$router.push("/me/subscribe")
+            },
             music: function () {
                 this.$router.push("/music")
             },
@@ -670,6 +679,8 @@
 
 </script>
 <style>
+    .record_hot{ height: 0.7rem; width: 0.7rem;
+        border-radius: 50%; position: absolute; right:-0.1rem; top:-0.1rem; background: red}
     .RecordbrithBox {
         position: relative;
         overflow: hidden;
@@ -998,8 +1009,7 @@
         border-radius: 5px;
         margin: 0 auto;
         position: relative;
-        overflow: hidden;
-    }
+     }
 
     .record_cover {
         width: 100%;
