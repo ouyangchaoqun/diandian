@@ -1119,7 +1119,7 @@
     .addMessage {
         font-size: 0.70588rem;
         color: #7C7B7B;
-        width: 12.11764705882353rem
+        width: 13.5rem
     }
 
     .rank_border {
