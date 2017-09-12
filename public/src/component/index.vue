@@ -158,6 +158,8 @@
                     </div>
                 </div>
                 <a class="share" @click="createinvite()">点击生成邀请卡</a>
+                <div class="qun_qrcode">     <img src="http://oss.xqzs.cn/xqzs/qun_qrcode.png"  width="60%"></div>
+
             </div>
             <!--friendcenter end-->
         </div>
@@ -453,6 +455,7 @@
 
 </script>
 <style>
+    .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
     .birthdays{  position: absolute; top:4%;left:0;z-index: 1001}
     .birthdays li{ background: rgba(7,7,7,0.5); border-radius: 1.058823529411765rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.117647058823529rem; font-size: 0.7058823529411765rem; color:#fff; width: 6.6rem; line-height:  2.117647058823529rem; margin-bottom: 1rem }
     .birthdays li:active{background: rgba(7,7,7,0.8);}
