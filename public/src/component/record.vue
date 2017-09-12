@@ -91,7 +91,7 @@
                         <div class="bottom_btn">
                             <div class="midLine"></div>
                             <div class="record_bottom" @click="share(false)" v-if="result.data.type==2">
-                                <div class="doRecord" v-if="result.data.type==2">获取成就卡</div>
+                                <div class="doRecord" v-if="result.data.type==2">邀请好友</div>
                             </div>
                             <div class="record_bottom" @click="music" v-if="result.data.type==3">
                                 <div class="doRecord" v-if="result.data.type==3">晚安音乐</div>
@@ -134,7 +134,7 @@
                     <div class="bottom_btn">
                         <div class="midLine" v-if="outNightTime||(isGetUp&&outMorningTime)||(!isGetUp&&outMorningTime)"></div>
                         <div class="record_bottom" @click="share(false)" v-if="isGetUp&&outMorningTime">
-                            <div class="doRecord">获取成就卡</div>
+                            <div class="doRecord">邀请好友</div>
                         </div>
                         <div class="record_bottom" @click="joinMornings()" v-if="!isGetUp&&outMorningTime">
                             <div class="doRecord">加入早起计划</div>
@@ -274,7 +274,7 @@
                     if (bt.body.status == 1) {
                         if (!isNotShowLoad) {
                             xqzs.weui.dialog({
-                                title: '成就卡已经发送',
+                                title: '邀请卡已经发送',
                                 msg: '前往公众号查看，留住每次早起回忆',
                                 submitText: '查看',
                                 submitFun: function () {
