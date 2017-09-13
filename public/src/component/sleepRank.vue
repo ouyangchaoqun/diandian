@@ -84,7 +84,7 @@
                                         <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
                                         <div @click="addComment(myFirst.id)" class="addLy"
                                              v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">
-                                            互道{{sleepNameShort}}安
+                                            互道{{sleepNameShort}}安或留言
                                         </div>
                                         <div class="addMessage" v-if="myFirst.content!=null&&myFirst.content!=''">
                                             {{myFirst.content}}
