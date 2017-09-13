@@ -602,9 +602,7 @@
 
                     vm.myFirst = response.data.data.userRank || vm.myFirst;
                     vm.myFirst = vm.initCareImg(vm.myFirst,true);
-                    if(vm.rankType==3&& response.data.data.userRank==null){
-                        vm.myFirst.rank =' '
-                    }
+
 
 
                     if (vm.myFirst.id != undefined) {
