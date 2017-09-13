@@ -51,7 +51,8 @@
                 </div>
                 <div class="clock_tab" v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
                     <div class="tab_title">好友排行</div>
-                    <div class="clock_tabActive tab_title tab_title_right">总排行</div>
+                    <div class="clock_tabActive tab_title tab_title_middle">总排行</div>
+                    <div class=" tab_title tab_title_right">留言榜</div>
                     <div class="tabMove"></div>
                 </div>
 
@@ -68,12 +69,15 @@
                 </a>
 
                 <div class="rank_Bgbox" :class="{box_padding_bottom:showBottomBtnType}">
-                    <div class="rank_box goleft">
-                        <div class="clock_rank clock_rank1">
+                    <div class="rank_box gomiddle">
+                        <div class="clock_rank" :class="'clock_rank'+boxid" v-for="boxid in [1,2,3]">
                             <div class="rank_list me_rank"
                                  :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id&&myFirst.rank!=''||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
-                                <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
+                                <span class="rank_cup" :class="{rank_cupNight:isNight}">
+                                    <template v-if="boxid!=3">{{myFirst.rank}}</template>
+                                    <template  v-if="boxid==3&&myFirst.content!=null&&myFirst.content!=''">{{myFirst.rank}}</template>
+                                </span>
                                 <div class="rank_main">
                                     <img class="rank_headImg" :src="user.faceUrl" alt="">
                                     <div class="rank_name">
@@ -126,62 +130,7 @@
                             </ul>
 
                         </div>
-                        <!--总排行-->
-                        <div class="clock_rank clock_rank2 ">
-                            <div class="rank_list me_rank"
-                                 :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id&&myFirst.rank!=''||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
-                                <span class="rank_cup" :class="{rank_cupNight:isNight}">{{myFirst.rank}}</span>
-                                <div class="rank_main" style="border: 0;">
-                                    <img class="rank_headImg" :src="user.faceUrl" alt="">
-                                    <div class="rank_name">
-                                        <div class="rank_NickName"> {{cutNickName(user.nickName)}}</div>
-
-                                        <div @click="addComment(myFirst.id)" class="addLy"
-                                             v-show="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">
-                                            互道{{sleepNameShort}}安
-                                        </div>
-
-                                        <div class="addMessage" v-if="myFirst.content!=null">{{myFirst.content}}</div>
-                                        <div class="clock_time" v-if="myFirst.rank!=''"
-                                             :class="{no_record:myFirst.careCount==null}">{{myFirst.time}}
-                                        </div>
-                                        <div class="clock_time" v-if="myFirst.rank==''"
-                                             :class="{no_record:myFirst.careCount==null}">{{myFirst.notRecordTxt}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                    <div class="care_icon" :class="{care_active:user&&currUser&&user.id==currUser.id}"
-                                         v-if="myFirst.careCount!=null" @click="fabulousList()">
-                                        <span>{{myFirst.careCount||0}}</span>
-                                        <img :src="myFirst.careImg" alt="" :class="{heartUp:myFirst.hit}">
-                                    </div>
-                                </div>
-                            </div>
-                            <ul class="addRankLists">
-                                <li class="rank_list"
-                                    :class="{rank_listNight:isNight,isMatch:allRannList.isMatch,has_content:allRannList.content!=null&&allRannList.content!=''}"
-                                    v-for="(allRannList,index) in rankLists"><!--v-show="allRannList.userId!=user.id"-->
-
-                                    <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
-                                    <div class="rank_main rank_border " :class="{rank_borderNight:isNight}">
-                                        <img class="rank_headImg" :src="allRannList.faceUrl" alt="">
-                                        <div class="rank_name">
-                                            <div class="rank_NickName">{{cutNickName(allRannList.nickName)}}</div>
-                                            <div class="addMessage">{{allRannList.content}}</div>
-                                        </div>
-                                        <div class="clock_time">{{allRannList.time}}</div>
-                                    </div>
-                                    <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                        <div class="care_icon" @click="addCare(allRannList)">
-                                            <span>{{allRannList.careCount||0}}</span>
-                                            <img :src="allRannList.careImg" alt="" :class="{heartUp:allRannList.hit}">
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
 
                     </div>
                 </div>
@@ -320,24 +269,41 @@
 
                 let domThis = this;
 
-                $('.rank_box').removeClass('goleft').removeClass('goright')
-                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight');
+                $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");
+
+
+
                 $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
                 setTimeout(function () {
                     $(domThis).addClass('clock_tabActive')
                 }, 150)
 //
 
-                if ($(this).index() == 1) {
-                    $('.tabMove').addClass('tab_goRight');
-                    $('.rank_box').addClass('goleft')
-                    _this.changeRankType(2);
 
-                } else {
-                    $('.tabMove').addClass('tab_goleft');
-                    $('.rank_box').addClass('goright')
-                    _this.changeRankType(1);
+
+
+
+                switch ($(this).index()){
+                    case 0:  //左边
+                        $('.tabMove').addClass('tab_goleft');
+                        $('.rank_box').addClass('goleft')
+                        _this.changeRankType(1);
+                        break;
+                    case 1: //中间
+                        $('.tabMove').addClass('tab_goMiddle');
+                        $('.rank_box').addClass('gomiddle')
+                        _this.changeRankType(2);
+                        break;
+                    case 2:    //右边
+                        $('.tabMove').addClass('tab_goRight');
+                        $('.rank_box').addClass('goright')
+                        _this.changeRankType(3);
+                        break
                 }
+
+
+
             })
 
 
@@ -476,20 +442,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     _this.getRankList();
                 }, function (error) {
                     _this.getRankList();
@@ -584,14 +536,6 @@
                 _this.isPageEnd = false;
                 _this.isShowMoreText = true;
                 _this.counter = 1;
-                let url1 = web.API_PATH + "sleep/daily/relation/rank/page/" + _this.typeId + "/_userId_/" + _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/";
-                let url2 = web.API_PATH + "sleep/daily/rank/page/" + _this.typeId + "/_userId_/" + _this.num + "/" + _this.clockDay + "/" + _this.clockMonth + "/" + _this.clockYear + "/";
-                if (v == 1) {
-                    this.rankUrl = url1;
-                } else {
-                    this.rankUrl = url2;
-                }
-
 
                 this.rankType = v;
                 _this.getRankList()
@@ -600,16 +544,28 @@
 
                 let vm = this;
                 let userIdStr = "_userId_";
+
                 if (vm.userid) {
                     userIdStr = vm.userid;
                 }
                 let url1 = web.API_PATH + "sleep/daily/relation/rank/page/" + vm.typeId + "/" + userIdStr + "/" + vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" + vm.counter;
                 let url2 = web.API_PATH + "sleep/daily/rank/page/" + vm.typeId + "/" + userIdStr + "/" + vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" + vm.counter;
-                if (vm.rankType == 1) {
-                    this.rankUrl = url1;
-                } else {
-                    this.rankUrl = url2;
+                let url3 = web.API_PATH + "sleep/daily/rank/page/comment/" + vm.typeId + "/" + userIdStr + "/" + vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" + vm.counter;
+
+
+                switch(vm.rankType){
+                    case 1:
+                        this.rankUrl = url1;
+                        break;
+                    case 2:
+                        this.rankUrl = url2;
+                        break;
+                    case 3:
+                        this.rankUrl = url3;
+                        break;
                 }
+
+
                 this.rankUrl = this.rankUrl + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
@@ -621,12 +577,18 @@
                 }
 
 
+
+
+                console.log(vm.isLoading )
+                console.log(vm.isPageEnd )
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
+
                 if (vm.counter == 1) {
                     vm.showLoad = true;
                 }
+
                 vm.isLoading = true;
                 vm.$http.get(vm.rankUrl).then((response) => {
                     vm.showLoad = false;
@@ -640,6 +602,9 @@
 
                     vm.myFirst = response.data.data.userRank || vm.myFirst;
                     vm.myFirst = vm.initCareImg(vm.myFirst,true);
+                    if(vm.rankType==3&& response.data.data.userRank==null){
+                        vm.myFirst.rank =' '
+                    }
 
 
                     if (vm.myFirst.id != undefined) {
@@ -728,7 +693,19 @@
 //                    console.log(v)
                     vm.$http.put(web.API_PATH + 'sleep/reply/_userId_/' + sleepId, {content: v}).then(response => {
                         if (response.data.status === 1) {
-                            vm.myFirst.content = v
+                            vm.myFirst.content = v;
+//                            console.log(vm.rankType);
+                            if(vm.rankType==3){
+                                vm.showLoad=false;
+                                vm.isPageEnd=false;
+                                vm.isLoading=false;
+                                vm.num = vm.FIRST_PAGE_NUM;
+                                vm.isShowMoreText = true;
+                                vm.counter = 1;
+                                 vm.getRankList();
+                            }
+
+
                         }
 
 
@@ -862,7 +839,7 @@
     }
 
     .clock_rank {
-        width: 50%;
+        width: 33.333%;
         float: left;
     }
 
@@ -995,7 +972,7 @@
     }
 
     .clock_tab {
-        width: 12rem;
+        width: 16rem;
         height: 2rem;
         margin: 0 auto;
         margin-top: 1.1765rem;
@@ -1010,12 +987,15 @@
     .clock_tab .tab_title {
         z-index: 100;
         position: absolute;
-        width: 50%;
+        width: 33.3333%;
         height: 2rem;
     }
 
     .clock_tab .tab_title_right {
-        left: 50%;
+        left: 66.6666%;
+    }
+    .clock_tab .tab_title_middle {
+        left: 33.33333%;
     }
 
     .clock_tabNight > div {
@@ -1024,11 +1004,11 @@
 
     .tabMove {
         height: 100%;
-        width: 50%;
+        width: 33.3333%;
         background: #fff;
         border-radius: 1rem;
         position: absolute;
-        left: 50%;
+        left: 33.333%;
         top: -1px;
         z-index: 1;
         border: 1px solid #fff;
@@ -1042,9 +1022,14 @@
         -webkit-transform: translate3d(-100%, 0, 0);
     }
 
-    .tab_goRight {
+    .tab_goMiddle {
         transform: translate3d(0, 0, 0);
         -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    .tab_goRight {
+        transform: translate3d(100%, 0, 0);
+        -webkit-transform: translate3d(100%, 0, 0);
     }
 
     .clock_tabNight .clock_tabActive {
@@ -1180,16 +1165,25 @@
         -webkit-transition: transform .5s;
         transition: transform .5s;
         /*margin-left: -100%;*/
-        -webkit-transform: translate3d(-50%, 0, 0);
-        transform: translate3d(-50%, 0, 0)
+        -webkit-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0)
+    }
+
+
+    .gomiddle{
+        -webkit-transition: transform .5s;
+        transition: transform .5s;
+        /*margin-left: -100%;*/
+        -webkit-transform: translate3d(-33.333%, 0, 0);
+        transform: translate3d(-33.333%, 0, 0)
     }
 
     .goright {
         -webkit-transition: transform .5s;
         transition: transform .5s;
         /* margin-left: 0%;*/
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0)
+        -webkit-transform: translate3d(-66.666%, 0, 0);
+        transform: translate3d(-66.666%, 0, 0)
     }
 
     .rank_Bgbox {
@@ -1203,7 +1197,7 @@
     }
 
     .rank_box {
-        width: 200%;
+        width: 300%;
         margin-top: 0.88235rem
     }
 
