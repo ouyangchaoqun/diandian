@@ -62,7 +62,7 @@
 
             pay: function () {
                 let _this = this;
-                _this.$http.put(web.API_PATH + 'create/order/_userId_/1').then(function (res) {
+                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/1').then(function (res) {
                 //_this.$http.put(web.API_PATH + 'power/plan/_userId_/' + 1 + '/' + 1 + '').then(function (res) {
 
                     let config = res.data.data;
