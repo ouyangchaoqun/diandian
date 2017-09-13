@@ -2,84 +2,35 @@
     <div class="testQuestions">
         <div class="weui-progress testQuestions_top">
             <div class="weui-progress__bar">
-                <div class="weui-progress__inner-bar js_progress" style="width: 50%"></div>
+                <div class="weui-progress__inner-bar js_progress initWidth"></div>
             </div>
         </div>
-        <div class="testQuestions_process">1/10</div>
+        <div class="testQuestions_process">{{activeIndex}}/{{allNum}}</div>
         <div class="swiper-container question_box">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
+                <div class="swiper-slide" v-for="(quest,questIndex) in questLists">
                     <div>
-                        <div class="question_content">生活压力越来越重，都市人得忧郁症越来越普遍，你忧郁了吗？请依据一周以来身体，情绪的感觉选择与自己最相符的一项。</div>
+                        <div class="question_content">{{quest.title}}</div>
                         <ul class="question_option">
-                            <li class="nextOption">
-                                <span class="optionItem">A</span><span>会，怕失望，怕付出和得到不成正比</span>
+                            <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
+                                <span class="optionItem">{{item}}</span><span>{{quest['item'+item]}}</span>
                                 <label class="questLabel">
-                                    <input class="questRadio" type="radio" name="questRadio">
+                                    <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
+                                    <input class="questRadio" type="radio" v-if="quest.checkIndex!=index"  :name="'questRadio'+quest.id">
                                     <span class="questRadioInput"></span>
                                 </label>
                             </li>
-                            <li class="nextOption">
-                                <span class="optionItem">B</span><span>不会，时间是必然要付出的</span>
-                                <label class="questLabel">
-                                    <input class="questRadio" type="radio" name="questRadio">
-                                    <span class="questRadioInput"></span>
-                                </label>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div>
-                        <div class="question_content">生活压力越来越重，都市人得忧郁症越来越普遍，你忧郁了吗？请依据一周以来身体，情绪的感觉选择与自己最相符的一项。</div>
-                        <ul class="question_option">
-                            <li class="nextOption">
-                                <span class="optionItem">A</span><span>会，怕失望，怕付出和得到不成正比</span>
-                                <label class="questLabel">
-                                    <input class="questRadio" type="radio" name="questRadio">
-                                    <span class="questRadioInput"></span>
-                                </label>
-                            </li>
-                            <li class="nextOption">
-                                <span class="optionItem">B</span><span>不会，时间是必然要付出的</span>
-                                <label class="questLabel">
-                                    <input class="questRadio" type="radio" name="questRadio">
-                                    <span class="questRadioInput"></span>
-                                </label>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div>
-                        <div class="question_content">生活压力越来越重，都市人得忧郁症越来越普遍，你忧郁了吗？请依据一周以来身体，情绪的感觉选择与自己最相符的一项。</div>
-                        <ul class="question_option">
-                            <li class="nextOption">
-                                <span class="optionItem">A</span><span>会，怕失望，怕付出和得到不成正比</span>
-                                <label class="questLabel">
-                                    <input class="questRadio" type="radio" name="questRadio">
-                                    <span class="questRadioInput"></span>
-                                </label>
-                            </li>
-                            <li class="nextOption">
-                                <span class="optionItem">B</span><span>不会，时间是必然要付出的</span>
-                                <label class="questLabel">
-                                    <input class="questRadio" type="radio" name="questRadio">
-                                    <span class="questRadioInput"></span>
-                                </label>
-                            </li>
-
+                            <div class="testQuestions_btn">
+                                <div class="weui-btn weui-btn_primary prevOption" @click="prevOption()" v-if="isFrist">上一题</div>
+                                <div class="weui-btn weui-btn_primary prevOption" @click="textResult()" v-if="questIndex==questLists.length-1">查看结果</div>
+                            </div>
                         </ul>
                     </div>
                 </div>
             </div>
+
         </div>
 
-
-
-        <div class="weui-btn weui-btn_primary prevOption">上一题</div>
 
     </div>
 </template>
@@ -90,24 +41,99 @@
     export default {
         data() {
             return {
-
+                textId:'',
+                questLists:[],
+                allNum:'',
+                questSwiper:{},
+                optionItem:'ABCDEFGH'.split(''),
+                activeIndex:'1',
+                isFrist:false,
+                scoreCount:[]
             }
         },
         mounted: function () {
-            var questSwiper = new Swiper ('.question_box', {
-                direction: 'horizontal',
-                // 如果需要前进后退按钮
-                nextButton: '.nextOption',
-                prevButton: '.prevOption'
-            })
-            $('.nextOption').on('click',function () {
-                $(this).siblings().find('input').removeAttr('checked')
-                $(this).find('input').attr('checked','checked')
+            let _this = this;
+            _this.textId = _this.$route.query.textId
+            console.log(_this.textId)
+            _this.$http.get(web.API_PATH+'test/get/allquestion/1/1303').then(response => {
+                console.log(response)
+                _this.questLists = response.data.data;
 
-            })
+                _this.allNum =  _this.questLists.length
+                $('.initWidth').css('width',100/_this.allNum+'%')
+                _this.questSwiper = new Swiper ('.question_box', {
+                    direction : 'horizontal',
+                    observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                    onSlideChangeStart:function () {
+                        _this.activeIndex= _this.questSwiper.activeIndex+1
+                        $('.initWidth').css('width',100/_this.allNum*_this.activeIndex+'%')
+                        if(_this.activeIndex==1){
+                            _this.isFrist = false
+                        }else {
+                            _this.isFrist = true
+                        }
+                    }
+                })
+            }, response => {
+                // error
+
+            });
+
+
+
         },
         methods: {
+            nextOption:function (id,index) {
+                let _this = this;
+                console.log(id,index+1);
+               _this.updateScore(id,index)
+                console.log(_this.scoreCount)
+                _this.questSwiper.slideNext();
+            },
+            updateScore:function (id,answerIndex) {
+                var flag=false;
+                for(var i=0,l=this.questLists.length;i<l;i++){
+                    if(this.questLists[i].id == id){
+                        this.questLists[i].answer = this.optionItem[answerIndex];
+                        this.questLists[i].checkIndex = answerIndex;
+                        this.$set(this.questLists,i,this.questLists[i])
+                        flag = true;
+                        break;
+                    }
+                }
+            },
+            prevOption:function () {
+                let _this = this;
+                _this.questSwiper.slidePrev();
+            },
+            textResult:function () {
+                let _this = this;
+                xqzs.weui.dialog(
+                    '提示',
+                    '是否提交',
 
+                    function () {
+
+                    },function () {
+                        var answers='';
+                        for(var i=0,l=_this.questLists.length;i<l;i++){
+
+                            answers+= "\""+_this.questLists[i].id+"\":\""+_this.questLists[i].answer+"\","
+                        }
+                        answers='{'+answers.substr(0,answers.length-1)+'}';
+                        answers = JSON.parse(answers);
+                        _this.$http.put(web.API_PATH + 'test/get/score/'+ _this.textId+'/_userId_', answers)
+                            .then(function (bt) {
+                                console.log(bt)
+
+                                //成功跳转到结果也
+
+                            });
+                    }
+                )
+
+
+            }
         }
 
     }
@@ -177,5 +203,9 @@
         width:150px;
         font-size: 16px;
         margin-top: 35px;
+        display: inline-block;
+    }
+    .testQuestions_btn{
+        text-align: center;
     }
 </style>

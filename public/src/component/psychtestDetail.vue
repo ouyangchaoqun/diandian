@@ -1,15 +1,15 @@
 <template id="psychtestDetail">
     <div class="psychtestDetail">
-       <h2 class="psychtestDetail_title">测测你的忧郁感程度？</h2>
-        <div class="psychtestDetail_count">555人测过</div>
-        <img src="../images/psyDetail.jpg" alt="">
-        <div class="psychtestDetail_content">生活压力越来越重，都市人得忧郁症越来越普遍，你忧郁了吗？请依据一周以来身体，情绪的感觉选择与自己最相符的一项。</div>
-        <div class="psychtestDetail_Price"><span class="nowPrice">￥9.94</span><span class="oldPrice">￥19.9</span></div>
+       <h2 class="psychtestDetail_title">{{textDetail.title}}</h2>
+        <div class="psychtestDetail_count">{{textDetail.count}}人测过</div>
+        <img :src="textDetail.pic" alt="">
+        <div class="psychtestDetail_content">{{textDetail.des}}</div>
+        <div class="psychtestDetail_Price"><span class="nowPrice">￥{{textDetail.price}}</span><span class="oldPrice">￥{{textDetail.old_price}}</span></div>
         <div class="psychtestDetail_item">
-            <div>20道精选问题</div>
-            <div>555人已经测试</div>
+            <div>{{textDetail.question_count}}道精选问题</div>
+            <div>{{textDetail.count}}人已经测试</div>
         </div>
-        <div class="psychtestDetail_btn">立即测试</div>
+        <div class="weui-btn weui-btn_primary psychtestDetail_btn" @click="startText()">立即测试</div>
     </div>
 </template>
 <script type="text/javascript">
@@ -19,14 +19,31 @@
     export default {
         data() {
             return {
-
+                textId:'',
+                textDetail:{},
+                payed:''
             }
         },
         mounted: function () {
+            let _this = this;
+            _this.textId = _this.$route.query.textId;
+            _this.$http.get(web.API_PATH+'test/get/'+_this.textId+'/'+1303).then(response => {
+                if(response.data.status===1){
+                    console.log(response.data.data)
+                    _this.textDetail = response.data.data
+                    _this.payed = response.data.data.payed
+                    console.log(_this.payed)
+                }
+            }, response => {
+                // error
 
+            });
         },
         methods: {
-
+            startText:function () {
+                let _this = this;
+                _this.$router.push('/testQuestions?textId='+_this.textId)
+            }
         }
 
     }
@@ -95,13 +112,10 @@
     }
     .psychtestDetail_btn{
         height:43px;
-        background: #1AAC19;
-        color: #fff;
-        font-size: 18px;
-        text-align: center;
         position: absolute;
         bottom: 0;
         width: 100%;
         line-height: 43px;
+        border-radius: 0;
     }
 </style>

@@ -8,63 +8,33 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <ul>
-                        <li>
-                            <h2 class="textList_title">你有爱情恐惧症吗？</h2>
-                            <div class="textList_content">爱情就像一场赌博，你越恐惧越得不到幸福。你会因为曾今的伤害而不敢接受新的恋情吗？</div>
-                            <div class="textList_info">
-                                <span class="textList_cost">免费</span>
-                                <span class="textList_count">555人收听过</span>
-                            </div>
-                            <img class="psychImg" src="../images/psychtext1.jpg" alt="">
-                        </li>
-                        <li>
-                            <h2 class="textList_title">你有爱情恐惧症吗？</h2>
-                            <div class="textList_content">爱情就像一场赌博，你越恐惧越得不到幸福。你会因为曾今的伤害而不敢接受新的恋情吗？</div>
-                            <div class="textList_info">
-                                <span class="textList_cost">免费</span>
-                                <span class="textList_count">555人收听过</span>
-                            </div>
-                            <img class="psychImg" src="../images/psychtext1.jpg" alt="">
-                        </li>
-                        <li>
-                            <h2 class="textList_title">你有爱情恐惧症吗？</h2>
-                            <div class="textList_content">爱情就像一场赌博，你越恐惧越得不到幸福。你会因为曾今的伤害而不敢接受新的恋情吗？</div>
-                            <div class="textList_info">
-                                <span class="textList_cost">免费</span>
-                                <span class="textList_count">555人收听过</span>
-                            </div>
-                            <img class="psychImg" src="../images/psychtext1.jpg" alt="">
+                        <li v-for="psyItem in psyLists">
+                            <router-link :to="{ path: '/psychtestDetail', query: { textId: psyItem.id}}">
+                                <h2 class="textList_title">{{psyItem.title}}</h2>
+                                <div class="textList_content">{{psyItem.des}}</div>
+                                <div class="textList_info">
+                                    <span class="textList_cost">{{psyItem.price}}</span>
+                                    <span class="textList_count">{{psyItem.count}}人收听过</span>
+                                </div>
+                                <img class="psychImg" :src="psyItem.pic" alt="">
+                            </router-link>
+
                         </li>
                     </ul>
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide initHeight">
                     <ul>
-                        <li>
-                            <h2 class="textList_title">你有爱情恐惧症吗？</h2>
-                            <div class="textList_content">爱情就像一场赌博，你越恐惧越得不到幸福。你会因为曾今的伤害而不敢接受新的恋情吗？</div>
-                            <div class="textList_info">
-                                <span class="textList_cost">免费</span>
-                                <span class="textList_count">555人收听过</span>
-                            </div>
-                            <img class="psychImg" src="../images/psychtext1.jpg" alt="">
-                        </li>
-                        <li>
-                            <h2 class="textList_title">你有爱情恐惧症吗？</h2>
-                            <div class="textList_content">爱情就像一场赌博，你越恐惧越得不到幸福。你会因为曾今的伤害而不敢接受新的恋情吗？</div>
-                            <div class="textList_info">
-                                <span class="textList_cost">免费</span>
-                                <span class="textList_count">555人收听过</span>
-                            </div>
-                            <img class="psychImg" src="../images/psychtext1.jpg" alt="">
-                        </li>
-                        <li>
-                            <h2 class="textList_title">你有爱情恐惧症吗？</h2>
-                            <div class="textList_content">爱情就像一场赌博，你越恐惧越得不到幸福。你会因为曾今的伤害而不敢接受新的恋情吗？</div>
-                            <div class="textList_info">
-                                <span class="textList_cost">免费</span>
-                                <span class="textList_count">555人收听过</span>
-                            </div>
-                            <img class="psychImg" src="../images/psychtext1.jpg" alt="">
+                        <li v-for="heaItem in heaLists">
+                            <router-link :to="{ path: '/psychtestDetail', query: { textId: heaItem.id}}">
+                                <h2 class="textList_title">{{heaItem.title}}</h2>
+                                <div class="textList_content">{{heaItem.des}}</div>
+                                <div class="textList_info">
+                                    <span class="textList_cost">{{heaItem.price}}</span>
+                                    <span class="textList_count">{{heaItem.count}}人收听过</span>
+                                </div>
+                                <img class="psychImg" :src="heaItem.pic" alt="">
+                            </router-link>
+
                         </li>
                     </ul>
                 </div>
@@ -79,13 +49,17 @@
     export default {
         data() {
             return {
-
+                psyLists:[],
+                heaLists:[]
             }
         },
         mounted: function () {
+            this.getTextList();
+            this.getHeaLists();
             var psychtestSwiper = new Swiper('.textList_box',{
                 speed:500,
                 onSlideChangeStart: function(){
+                    $('.textList_box .initHeight').removeClass('initHeight');
                     $('header div').removeClass('test_active');
                     $('header div').eq(psychtestSwiper.activeIndex).addClass('test_active');
                     $('.textList_box').css('height','auto')
@@ -95,14 +69,36 @@
                 }
             });
             $('header div').on('click',function () {
+                $('.textList_box .initHeight').removeClass('initHeight');
                 $('header div').removeClass('test_active')
                 $(this).addClass('test_active')
                 psychtestSwiper.slideTo($(this).index());
-                $('.textList_box').height($('.swiper-slide:eq('+textList_box.activeIndex+')').outerHeight(true))
-            })
+                $('.textList_box').height($('.swiper-slide:eq('+psychtestSwiper.activeIndex+')').outerHeight(true))
+            });
         },
         methods: {
+            getTextList:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH+'test/get/list/1/1/10').then(response => {
+                    if(response.data.status===1){
+                        _this.psyLists = response.data.data
+                    }
+                }, response => {
+                    // error
 
+                });
+            },
+            getHeaLists:function () {
+                let _this=this;
+                _this.$http.get(web.API_PATH+'test/get/list/2/1/10').then(response => {
+                    if(response.data.status===1){
+                        _this.heaLists = response.data.data
+                    }
+                }, response => {
+                    // error
+
+                });
+            }
         }
 
     }
@@ -174,6 +170,12 @@
         position: absolute;
         right:15px;
         top:20px;
+    }
+    .initHeight{
+        height:1px;
+    }
+    .textList_box li:active{
+        background:#ececec;
     }
 </style>
 

@@ -58,7 +58,8 @@ let routers =
                 require('./routes/fabulous'),
                 require('./routes/psychtest'),
                 require('./routes/psychtestDetail'),
-                require('./routes/testQuestions')
+                require('./routes/testQuestions'),
+                require('./routes/testResult')
             ]
         }
     ];
