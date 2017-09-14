@@ -45,7 +45,7 @@
                     _this.answerId=  response.data.data.answerId;
                     console.log(_this.payed);
                     if(start&&_this.payed){
-                        _this.$router.push('/testQuestions?testId='+_this.testId)
+                        _this.$router.replace('/testQuestions?testId='+_this.testId)
                     }
                 }
             }, response => {
@@ -59,7 +59,7 @@
                 let _this = this;
                 console.log( _this.payed);
                 if( _this.payed==1){
-                    _this.$router.push('/testQuestions?testId='+_this.testId)
+                    _this.$router.replace('/testQuestions?testId='+_this.testId)
                 }else{
                     _this.$http.put(web.API_PATH + 'test/create/order/_userId_/'+_this.testId).then(function (res) {
                             let config = res.data.data;

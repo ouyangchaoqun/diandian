@@ -56,7 +56,7 @@
             let _this = this;
             _this.testId = _this.$route.query.testId
             console.log(_this.testId)
-            _this.$http.get(web.API_PATH+'test/get/allquestion/1/1303').then(response => {
+            _this.$http.get(web.API_PATH+'test/get/allquestion/1/_userId_').then(response => {
                 console.log(response)
                 _this.questLists = response.data.data;
 

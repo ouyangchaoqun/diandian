@@ -76,7 +76,7 @@
 
                                 <span class="rank_cup" :class="{rank_cupNight:isNight}">
                                     <template v-if="boxid!=3">{{myFirst.rank}}</template>
-                                    <template  v-if="boxid==3&&myFirst.content!=null&&myFirst.content!=''">{{myFirst.rank}}</template>
+                                    <template v-if="boxid==3&&myFirst.content!=null&&myFirst.content!=''">{{myFirst.rank}}</template>
                                 </span>
                                 <div class="rank_main">
                                     <img class="rank_headImg" :src="wxFaceUrl(user.faceUrl)" alt="">
@@ -128,7 +128,7 @@
                                     </div>
                                 </li>
                             </ul>
-
+                            <a class="share" @click="createinvite()" v-if="boxid==1&&typeId==2">点击生成好友邀请卡</a>
                         </div>
 
 
@@ -240,13 +240,13 @@
         background-size: 100% 100%;
         height: 11.03rem;
         position: relative;
-        box-shadow: 0px 5px 10px 0 rgba(51,51,51,0.6);
+        box-shadow: 0px 5px 10px 0 rgba(51, 51, 51, 0.6);
     }
 
     .clock_countNight {
         background: url("../images/zaoshui.jpg") no-repeat;
         background-size: 100% 100%;
-        box-shadow: 0px 5px 10px 0px rgba(51,51,51,1);
+        box-shadow: 0px 5px 10px 0px rgba(51, 51, 51, 1);
     }
 
     .clock_head {
@@ -347,6 +347,7 @@
     .clock_tab .tab_title_right {
         left: 66.6666%;
     }
+
     .clock_tab .tab_title_middle {
         left: 33.33333%;
     }
@@ -468,7 +469,6 @@
 
     }
 
-
     .rank_main img.rank_headImg {
         height: 40px !important;
         width: 40px !important;
@@ -523,8 +523,7 @@
         transform: translate3d(0%, 0, 0)
     }
 
-
-    .gomiddle{
+    .gomiddle {
         -webkit-transition: transform .5s;
         transition: transform .5s;
         /*margin-left: -100%;*/
@@ -569,7 +568,7 @@
 
     .ranks_boxl .notice_box {
         background: none;
-        border-bottom:  none;
+        border-bottom: none;
     }
 
     .notice_box_p {
@@ -682,6 +681,7 @@
     import showLoad from './showLoad.vue';
     import scroll from './lib/scroll.vue';
     import Bus from './bus.js';
+
     var sleepRank = {
         template: '#sleepRank'
     }
@@ -797,7 +797,6 @@
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");
 
 
-
                 $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
                 setTimeout(function () {
                     $(domThis).addClass('clock_tabActive')
@@ -805,10 +804,7 @@
 //
 
 
-
-
-
-                switch ($(this).index()){
+                switch ($(this).index()) {
                     case 0:  //左边
                         $('.tabMove').addClass('tab_goleft');
                         $('.rank_box').addClass('goleft')
@@ -825,7 +821,6 @@
                         _this.changeRankType(3);
                         break
                 }
-
 
 
             })
@@ -877,7 +872,7 @@
                                 let title = "坚持" + sleepName + "，遇见更好自己";
                                 let desc = "我已经连续" + _this.continueDay + "天" + sleepName + "，" + _this.date + sleepName + "排行全国第 " + data.data.data.rank + " 名！";
                                 if (data.data.data.time == null) {
-                                    desc = "我要从明天开始，加入21天"+sleepName+"计划，挑战自己！";
+                                    desc = "我要从明天开始，加入21天" + sleepName + "计划，挑战自己！";
                                 }
 
 
@@ -905,6 +900,34 @@
 
         },
         methods: {
+
+            createinvite: function () {
+                let _this = this;
+                _this.showLoad = true;
+
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/' + _this.typeId
+                }).then(function (bt) {
+                    if (bt.body.status == 1) {
+                        xqzs.weui.dialog({
+                            title: '邀请卡已经发送',
+                            msg: '前往公众号查看，邀请好友一起参加早起计划',
+                            submitText: '查看',
+                            submitFun: function () {
+                                try {
+                                    WeixinJSBridge.call('closeWindow');
+                                } catch (e) {
+                                }
+                            }
+                        })
+
+                    }
+                    _this.showLoad = false;
+                })
+            },
+
             getCurrUser: function () {
                 let _this = this;
                 //获取当前用户
@@ -928,7 +951,6 @@
                         }
 
 
-
                         //是否显示底部按钮逻辑
                         let showButtomBtn = 0;
                         if (web.guest) {
@@ -936,9 +958,9 @@
                                 if (_this.currUser.id == _this.user.id) {//本人不显示
                                     showButtomBtn = 0;
                                 } else { //他人显示
-                                    if(isFriend){  //好友关系显示
+                                    if (isFriend) {  //好友关系显示
                                         showButtomBtn = 1;
-                                    }else{//非好友关系显示
+                                    } else {//非好友关系显示
                                         showButtomBtn = 3;
                                     }
                                 }
@@ -955,7 +977,7 @@
                             _this.showBottomBtnText = "我的" + sleepName + "计划"
                         } else if (showButtomBtn == 2) {
                             _this.showBottomBtnText = "我也加入" + sleepName + "计划"
-                        }else if(showButtomBtn == 3) {
+                        } else if (showButtomBtn == 3) {
                             _this.showBottomBtnText = "一起参与" + sleepName + "计划"
                         }
 
@@ -965,14 +987,13 @@
                     });
 
 
-
                     _this.getRankList();
                 }, function (error) {
                     _this.getRankList();
                 });
             },
 
-            initCareImg: function (item,firstTop) {
+            initCareImg: function (item, firstTop) {
                 let isRedHeart = false;
                 if (!this.isLogin) {  //未登录直接判断关心数量
 //                    console.log("notlogin")
@@ -985,8 +1006,8 @@
                         isRedHeart = true;
                     }
                 }
-                if(firstTop){
-                    if(item.careCount && item.careCount > 0&&this.user&&this.currUser&&this.user.id==this.currUser.id){
+                if (firstTop) {
+                    if (item.careCount && item.careCount > 0 && this.user && this.currUser && this.user.id == this.currUser.id) {
                         isRedHeart = true;
                     }
                 }
@@ -1077,7 +1098,7 @@
                 let url3 = web.API_PATH + "sleep/daily/rank/page/comment/" + vm.typeId + "/" + userIdStr + "/" + vm.num + "/" + vm.clockDay + "/" + vm.clockMonth + "/" + vm.clockYear + "/" + vm.counter;
 
 
-                switch(vm.rankType){
+                switch (vm.rankType) {
                     case 1:
                         this.rankUrl = url1;
                         break;
@@ -1101,10 +1122,8 @@
                 }
 
 
-
-
-                console.log(vm.isLoading )
-                console.log(vm.isPageEnd )
+                console.log(vm.isLoading)
+                console.log(vm.isPageEnd)
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -1125,8 +1144,7 @@
                     }
 
                     vm.myFirst = response.data.data.userRank || vm.myFirst;
-                    vm.myFirst = vm.initCareImg(vm.myFirst,true);
-
+                    vm.myFirst = vm.initCareImg(vm.myFirst, true);
 
 
                     if (vm.myFirst.id != undefined) {
@@ -1144,7 +1162,7 @@
                         vm.isPageEnd = true;
                         vm.isShowMoreText = false
                     }
-                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText );
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
                     if (arr.length == 0) return;
                     for (let i = 0; i < arr.length; i++) {
                         arr[i] = vm.initCareImg(arr[i]);
@@ -1217,14 +1235,14 @@
                         if (response.data.status === 1) {
                             vm.myFirst.content = v;
 //                            console.log(vm.rankType);
-                            if(vm.rankType==3){
-                                vm.showLoad=false;
-                                vm.isPageEnd=false;
-                                vm.isLoading=false;
+                            if (vm.rankType == 3) {
+                                vm.showLoad = false;
+                                vm.isPageEnd = false;
+                                vm.isLoading = false;
                                 vm.num = vm.FIRST_PAGE_NUM;
                                 vm.isShowMoreText = true;
                                 vm.counter = 1;
-                                 vm.getRankList();
+                                vm.getRankList();
                             }
 
 
@@ -1246,7 +1264,8 @@
 
             //页面跳转
             goRecordCount: function () {
-                if(web.guest==true){}else{
+                if (web.guest == true) {
+                } else {
                     xqzs.localdb.set("rank_click_head_face", "true")
                     this.$router.push("/getUpStatistics?type=" + this.typeId);
                 }
@@ -1281,7 +1300,7 @@
 
                                         _this.myFirst.caremy = 1;
                                         _this.myFirst.hit = true;
-                                        _this.myFirst = _this.initCareImg(_this.myFirst,true);
+                                        _this.myFirst = _this.initCareImg(_this.myFirst, true);
                                         _this.myFirst.careCount = response.data.data;
                                     }
                                     break;
