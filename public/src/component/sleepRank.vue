@@ -79,7 +79,7 @@
                                     <template  v-if="boxid==3&&myFirst.content!=null&&myFirst.content!=''">{{myFirst.rank}}</template>
                                 </span>
                                 <div class="rank_main">
-                                    <img class="rank_headImg" :src="user.faceUrl" alt="">
+                                    <img class="rank_headImg" :src="wxFaceUrl(user.faceUrl)" alt="">
                                     <div class="rank_name">
                                         <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
                                         <div @click="addComment(myFirst.id)" class="addLy"
@@ -113,7 +113,7 @@
 
                                     <span class="rank_cup" :class="{rank_cupNight:isNight}">{{index+1}}</span>
                                     <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
-                                        <img class="rank_headImg" :src="rankList.faceUrl" alt="">
+                                        <img class="rank_headImg" :src="wxFaceUrl(rankList.faceUrl)" alt="">
                                         <div class="rank_name">
                                             <div class="rank_NickName">{{cutNickName(rankList.nickName)}}</div>
                                             <div class="addMessage">{{rankList.content}}</div>
@@ -1113,9 +1113,10 @@
 
     }
 
-    .rank_headImg {
-        height: 2.35rem;
-        width: 2.35rem;
+
+    .rank_main img.rank_headImg {
+        height: 2.35rem !important;
+        width: 2.35rem !important;
         display: block;
         border-radius: 0.294rem;
         margin-right: 0.88235rem;
