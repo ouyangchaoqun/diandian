@@ -41,19 +41,19 @@
                 </div>
                 <div class="swiper-slide initHeight">
                     <ul>
-                        <li v-for="heaItem in heaLists">
-                            <router-link class="listStyle listNoBorder" :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
-                                <div class="textList_title">{{heaItem.title}}</div>
-                                <div class="textList_content">{{heaItem.des}}</div>
+                        <li v-for="myTestItem in myTestLists">
+                            <div class="listStyle listNoBorder">
+                                <div class="textList_title">{{myTestItem.title}}</div>
+                                <div class="textList_content">{{myTestItem.des}}</div>
                                 <div class="textList_info">
-                                    <span class="textList_cost">{{heaItem.price}}</span>
-                                    <span class="textList_count">{{heaItem.count}}人收听过</span>
+                                    <span class="textList_cost">{{myTestItem.price}}</span>
+                                    <span class="textList_count">{{myTestItem.count}}人收听过</span>
                                 </div>
-                                <img class="psychImg" :src="heaItem.pic" alt="">
-                            </router-link>
+                                <img class="psychImg" :src="myTestItem.pic" alt="">
+                            </div>
                             <div class="addMeTest">
-                                完成时间: 2017.09.13
-                                <div class="weui-btn weui-btn_primary addTestBtn">查看报告</div>
+                                完成时间: {{myTestItem.add_time}}
+                                <div class="weui-btn weui-btn_primary addTestBtn" @click="seeMyResult()">查看报告</div>
                             </div>
                         </li>
                     </ul>
@@ -70,12 +70,14 @@
         data() {
             return {
                 psyLists:[],
-                heaLists:[]
+                heaLists:[],
+                myTestLists:[]
             }
         },
         mounted: function () {
             this.getTextList();
             this.getHeaLists();
+            this.getMyTestLists();
             var psychtestSwiper = new Swiper('.textList_box',{
                 speed:500,
                 onSlideChangeStart: function(){
@@ -118,6 +120,26 @@
                     // error
 
                 });
+            },
+            getMyTestLists:function () {
+                let _this=this;
+                var time;
+                _this.$http.get(web.API_PATH+'test/get/tested/_userId_').then(response => {
+                    console.log(response)
+                    if(response.data.status===1){
+                        _this.myTestLists = response.data.data;
+                        for(var i=0;i<_this.myTestLists.length;i++){
+                            _this.myTestLists[i].add_time =  xqzs.dateTime.formatDateTime(_this.myTestLists[i].add_time).substring(0,10).replace(/\-/g,'.')
+                        }
+                        console.log(_this.myTestLists)
+                    }
+                }, response => {
+                    // error
+
+                });
+            },
+            seeMyResult:function () {
+
             }
         }
 
