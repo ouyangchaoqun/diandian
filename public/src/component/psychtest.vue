@@ -179,8 +179,11 @@
         font-size: 0.7647rem;
         line-height: 1.1rem;
         width: 12.235rem;
-        height:3.3rem;
         overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:3;
+        -webkit-box-orient:vertical;
     }
 
     .textList_cost{
