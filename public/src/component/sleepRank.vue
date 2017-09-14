@@ -154,6 +154,530 @@
         <div class="join_rank" @click="followOrRecord" v-show="showBottomBtnType">{{showBottomBtnText}}</div>
     </div>
 </template>
+<style>
+
+
+    .care_active:active {
+        background: #f1f1f1
+    }
+
+    .clock_time.no_record {
+        right: -10px
+    }
+
+    .join_rank {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 2.588235294117647rem;
+        width: 100%;
+        display: block;
+        line-height: 2.588235294117647rem;
+        background: #0BB20C;
+        color: #fff;
+        text-align: center;
+        font-size: 0.88rem;
+    }
+
+    .join_rank:active {
+        background: #0b9c0c
+    }
+
+    .yo-scroll {
+        background: none !important
+    }
+
+    .isMatch {
+        background: #eee !important;
+    }
+
+    .clock_rank {
+        width: 33.333%;
+        float: left;
+    }
+
+    .clock_box {
+        height: 100%;
+        background: #e2f4fe;
+    }
+
+    .clock_boxNight {
+        background: #5f5975;
+    }
+
+    .clock_top {
+        padding: 2.471rem 0.88235rem 0 0.88235rem;
+        position: relative;
+        color: #666666;
+
+    }
+
+    .clock_top .share2 {
+        position: absolute;
+        right: 0.9rem;
+        top: 2.48rem;
+        width: 3.6rem;
+        height: 1.6rem;
+        line-height: 1.6rem;
+        background: #0BB20C;
+        color: #fff;
+        border-bottom-left-radius: 0.8rem;
+        text-align: center;
+        z-index: 1000;
+        font-size: 0.8rem
+    }
+
+    .clock_top .share2:active {
+        background: #0b8d0c;
+    }
+
+    .clock_topNight {
+        color: #f4f4f7;
+    }
+
+    .clock_count {
+        background: url("../images/zaoqi.jpg") no-repeat;
+        background-size: 100% 100%;
+        height: 11.03rem;
+        position: relative;
+        box-shadow: 0px 5px 10px 0 rgba(51,51,51,0.6);
+    }
+
+    .clock_countNight {
+        background: url("../images/zaoshui.jpg") no-repeat;
+        background-size: 100% 100%;
+        box-shadow: 0px 5px 10px 0px rgba(51,51,51,1);
+    }
+
+    .clock_head {
+        width: 3.53rem;
+        height: 3.53rem;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 0.88235rem;
+        left: 50%;
+        margin-left: -30px;
+        box-shadow: rgba(24, 24, 24, 0.38) 0px 2.5px 5px;
+        z-index: 1;
+    }
+
+    .clock_top .hot {
+        height: 10px;
+        width: 10px;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+        left: 50%;
+        top: 1.2rem;
+        margin-left: 1.2rem;
+        z-index: 10000;
+    }
+
+    .clock_head img {
+        width: 3.53rem;
+        height: 3.53rem;
+    }
+
+    .clock_lists {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        position: absolute;
+        top: 3.8235rem;
+        width: 100%;
+        font-size: 1.235rem;
+        line-height: 1.294rem;
+    }
+
+    .clock_lists > div {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        text-align: center;
+    }
+
+    .clock_lists p {
+        font-size: 0.8235rem;
+        color: #807e7e;
+        line-height: 0.88235rem;
+        margin-bottom: 1rem;
+    }
+
+    .clock_lists > div, .clock_lists p, .clock_ratio {
+        color: #fff
+    }
+
+    .clock_listsDay {
+        font-size: 0.88235rem;
+    }
+
+    .clock_listsNight p {
+        color: #e9e9ec;
+    }
+
+    .clock_ratio {
+        width: 100%;
+        text-align: center;
+        font-size: 0.7059rem;
+        position: absolute;
+        bottom: 1.7647rem;
+    }
+
+    .clock_tab {
+        width: 16rem;
+        height: 2rem;
+        margin: 0 auto;
+        margin-top: 1.1765rem;
+        border-radius: 1rem;
+        text-align: center;
+        font-size: 0.8235rem;
+        line-height: 2rem;
+        border: 1px solid #fff;
+        color: #333;
+    }
+
+    .clock_tab .tab_title {
+        z-index: 100;
+        position: absolute;
+        width: 33.3333%;
+        height: 2rem;
+    }
+
+    .clock_tab .tab_title_right {
+        left: 66.6666%;
+    }
+    .clock_tab .tab_title_middle {
+        left: 33.33333%;
+    }
+
+    .clock_tabNight > div {
+        color: #fff;
+    }
+
+    .tabMove {
+        height: 100%;
+        width: 33.3333%;
+        background: #fff;
+        border-radius: 1rem;
+        position: absolute;
+        left: 33.333%;
+        top: -1px;
+        z-index: 1;
+        border: 1px solid #fff;
+        transition: transform .5s;
+        -webkit-transition: transform .5s;
+    }
+
+    .tab_goleft {
+
+        transform: translate3d(-100%, 0, 0);
+        -webkit-transform: translate3d(-100%, 0, 0);
+    }
+
+    .tab_goMiddle {
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+
+    .tab_goRight {
+        transform: translate3d(100%, 0, 0);
+        -webkit-transform: translate3d(100%, 0, 0);
+    }
+
+    .clock_tabNight .clock_tabActive {
+        color: #333;
+    }
+
+    .clock_box .rank_list:last-of-type {
+        border-bottom: 0;
+    }
+
+    .clock_box .rank_list {
+        background: #fff;
+        display: flex;
+        border-bottom: 0.06rem solid #eee;
+        padding: 0.565rem 0;
+        width: 100%;
+        position: relative;
+        line-height: 2.35rem;
+    }
+
+    .has_content.rank_list {
+        line-height: 1.2rem;
+    }
+
+    .rank_listNight {
+        /*background: rgba(255,255,255,0.2);*/
+    }
+
+    .rank_cup {
+        width: 1rem;
+        font-family: PingFangSC-Regular;
+        font-size: 0.94118rem;
+        color: #666;
+        text-align: center;
+        height: 0.71rem;
+        line-height: 0.71rem;
+        margin: 0.88235rem 0.88235rem 0 0.88235rem;
+    }
+
+    .rank_cupNight {
+        color: #333;
+    }
+
+    .me_rank {
+        margin-bottom: 0.88235rem;
+    }
+
+    .rank_main {
+        display: flex;
+
+        width: 76.4%;
+        position: relative;
+    }
+
+    .rank_NickName {
+        font-size: 0.8235rem;
+        color: #333;
+
+    }
+
+    .addLy {
+        font-size: 0.70588rem;
+        color: #066EA4;
+        display: inline;
+    }
+
+    .addLy:active {
+        background: #eee;
+
+    }
+
+    .addMessage {
+        font-size: 0.70588rem;
+        color: #7C7B7B;
+        width: 13.5rem
+    }
+
+    .rank_border {
+
+    }
+
+    .rank_borderNight {
+
+    }
+
+
+    .rank_main img.rank_headImg {
+        height: 40px !important;
+        width: 40px !important;
+        display: block;
+        border-radius: 0.294rem;
+        margin-right: 0.88235rem;
+    }
+
+    .clock_box .rank_right {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .clock_time {
+        font-size: 0.88235rem;
+        color: #666;
+
+        position: absolute;
+        right: 18px;
+        top: 0;
+    }
+
+    .care_icon {
+        padding: 0.8rem 0.88235rem 0.85rem 1.2rem
+    }
+
+    .clock_box .rank_right img {
+        display: block;
+        width: 0.9412rem;
+        height: 0.88235rem;
+    }
+
+    .clock_box .rank_right span {
+        line-height: 0.7647rem;
+        font-size: 0.7059rem;
+        color: #999;
+        display: block;
+        text-align: center;
+        margin-bottom: 0.2941rem;
+    }
+
+    .rank_rightNight span {
+        color: #ccc;
+    }
+
+    .goleft {
+        -webkit-transition: transform .5s;
+        transition: transform .5s;
+        /*margin-left: -100%;*/
+        -webkit-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0)
+    }
+
+
+    .gomiddle{
+        -webkit-transition: transform .5s;
+        transition: transform .5s;
+        /*margin-left: -100%;*/
+        -webkit-transform: translate3d(-33.333%, 0, 0);
+        transform: translate3d(-33.333%, 0, 0)
+    }
+
+    .goright {
+        -webkit-transition: transform .5s;
+        transition: transform .5s;
+        /* margin-left: 0%;*/
+        -webkit-transform: translate3d(-66.666%, 0, 0);
+        transform: translate3d(-66.666%, 0, 0)
+    }
+
+    .rank_Bgbox {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 0.88235rem;
+    }
+
+    .rank_Bgbox.box_padding_bottom {
+        margin-bottom: 2.88235rem;
+    }
+
+    .rank_box {
+        width: 300%;
+        margin-top: 0.88235rem
+    }
+
+    .rank1Color {
+        color: #ffc800;
+    }
+
+    .rank2Color {
+        color: #c3c1c1;
+    }
+
+    .rank3Color {
+        color: #c27502;
+    }
+
+    .ranks_boxl .notice_box {
+        background: none;
+        border-bottom:  none;
+    }
+
+    .notice_box_p {
+        padding: 16px 0;
+        padding-bottom: 0
+    }
+
+    .notice {
+        height: 40px;
+        width: 180px;
+        background: #393939;
+        border-radius: 5px;
+        margin: 0 auto;
+
+    }
+
+    .notice:active {
+        background: #1f1f1f
+    }
+
+    .notice_friend {
+        height: 32px;
+        width: 32px;
+        float: left;
+        margin-left: 5px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .notice div {
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        color: #fff;
+        margin-left: 32px;
+        font-size: 13px;
+    }
+
+    .notice .goNotice {
+        width: 16px;
+        height: 16px;
+        display: block;
+        float: right;
+        margin-right: 14px;
+        margin-top: 12px;
+    }
+
+    .notice img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .dialog_follow {
+        width: 66%;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 20.47058823529412rem;
+        position: absolute;
+        top: 50%;
+        margin-top: -10.23529411764706rem;
+        left: 17%;
+        z-index: 10001;
+    }
+
+    .dialog_follow img {
+        width: 100%
+    }
+
+    .dialog_follow .img {
+        height: 11rem;
+        overflow: hidden
+    }
+
+    .dialog_follow .text {
+        text-align: center;
+        font-size: 0.8235294117647059rem;
+        line-height: 1.5
+    }
+
+    .ewm {
+        width: 4.329411764705882rem;
+        height: 4.329411764705882rem;
+        border: 1px solid #ffcdcd;
+        margin: 0.8rem auto;
+        margin-bottom: 0.65rem;
+        padding: 2px;
+    }
+
+    .ewm .output {
+        width: 100%;
+        height: 100%
+    }
+
+    .myshare {
+        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background-position: 2.5rem 3.5rem;
+        background-size: 80%;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10001;
+    }
+
+
+</style>
 <script type="text/javascript">
     import showLoad from './showLoad.vue';
     import scroll from './lib/scroll.vue';
@@ -799,529 +1323,6 @@
 
     }
 </script>
-<style>
 
-
-    .care_active:active {
-        background: #f1f1f1
-    }
-
-    .clock_time.no_record {
-        right: -10px
-    }
-
-    .join_rank {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 2.588235294117647rem;
-        width: 100%;
-        display: block;
-        line-height: 2.588235294117647rem;
-        background: #0BB20C;
-        color: #fff;
-        text-align: center;
-        font-size: 0.88rem;
-    }
-
-    .join_rank:active {
-        background: #0b9c0c
-    }
-
-    .yo-scroll {
-        background: none !important
-    }
-
-    .isMatch {
-        background: #eee !important;
-    }
-
-    .clock_rank {
-        width: 33.333%;
-        float: left;
-    }
-
-    .clock_box {
-        height: 100%;
-        background: #e2f4fe;
-    }
-
-    .clock_boxNight {
-        background: #5f5975;
-    }
-
-    .clock_top {
-        padding: 2.471rem 0.88235rem 0 0.88235rem;
-        position: relative;
-        color: #666666;
-
-    }
-
-    .clock_top .share2 {
-        position: absolute;
-        right: 0.9rem;
-        top: 2.48rem;
-        width: 3.6rem;
-        height: 1.6rem;
-        line-height: 1.6rem;
-        background: #0BB20C;
-        color: #fff;
-        border-bottom-left-radius: 0.8rem;
-        text-align: center;
-        z-index: 1000;
-        font-size: 0.8rem
-    }
-
-    .clock_top .share2:active {
-        background: #0b8d0c;
-    }
-
-    .clock_topNight {
-        color: #f4f4f7;
-    }
-
-    .clock_count {
-        background: url("../images/zaoqi.jpg") no-repeat;
-        background-size: 100% 100%;
-        height: 11.03rem;
-        position: relative;
-        box-shadow: 0px 5px 10px 0 rgba(51,51,51,0.6);
-    }
-
-    .clock_countNight {
-        background: url("../images/zaoshui.jpg") no-repeat;
-        background-size: 100% 100%;
-        box-shadow: 0px 5px 10px 0px rgba(51,51,51,1);
-    }
-
-    .clock_head {
-        width: 3.53rem;
-        height: 3.53rem;
-        border-radius: 50%;
-        overflow: hidden;
-        position: absolute;
-        top: 0.88235rem;
-        left: 50%;
-        margin-left: -30px;
-        box-shadow: rgba(24, 24, 24, 0.38) 0px 2.5px 5px;
-        z-index: 1;
-    }
-
-    .clock_top .hot {
-        height: 10px;
-        width: 10px;
-        background: red;
-        border-radius: 50%;
-        position: absolute;
-        left: 50%;
-        top: 1.2rem;
-        margin-left: 1.2rem;
-        z-index: 10000;
-    }
-
-    .clock_head img {
-        width: 3.53rem;
-        height: 3.53rem;
-    }
-
-    .clock_lists {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        position: absolute;
-        top: 3.8235rem;
-        width: 100%;
-        font-size: 1.235rem;
-        line-height: 1.294rem;
-    }
-
-    .clock_lists > div {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        text-align: center;
-    }
-
-    .clock_lists p {
-        font-size: 0.8235rem;
-        color: #807e7e;
-        line-height: 0.88235rem;
-        margin-bottom: 1rem;
-    }
-
-    .clock_lists > div, .clock_lists p, .clock_ratio {
-        color: #fff
-    }
-
-    .clock_listsDay {
-        font-size: 0.88235rem;
-    }
-
-    .clock_listsNight p {
-        color: #e9e9ec;
-    }
-
-    .clock_ratio {
-        width: 100%;
-        text-align: center;
-        font-size: 0.7059rem;
-        position: absolute;
-        bottom: 1.7647rem;
-    }
-
-    .clock_tab {
-        width: 16rem;
-        height: 2rem;
-        margin: 0 auto;
-        margin-top: 1.1765rem;
-        border-radius: 1rem;
-        text-align: center;
-        font-size: 0.8235rem;
-        line-height: 2rem;
-        border: 1px solid #fff;
-        color: #333;
-    }
-
-    .clock_tab .tab_title {
-        z-index: 100;
-        position: absolute;
-        width: 33.3333%;
-        height: 2rem;
-    }
-
-    .clock_tab .tab_title_right {
-        left: 66.6666%;
-    }
-    .clock_tab .tab_title_middle {
-        left: 33.33333%;
-    }
-
-    .clock_tabNight > div {
-        color: #fff;
-    }
-
-    .tabMove {
-        height: 100%;
-        width: 33.3333%;
-        background: #fff;
-        border-radius: 1rem;
-        position: absolute;
-        left: 33.333%;
-        top: -1px;
-        z-index: 1;
-        border: 1px solid #fff;
-        transition: transform .5s;
-        -webkit-transition: transform .5s;
-    }
-
-    .tab_goleft {
-
-        transform: translate3d(-100%, 0, 0);
-        -webkit-transform: translate3d(-100%, 0, 0);
-    }
-
-    .tab_goMiddle {
-        transform: translate3d(0, 0, 0);
-        -webkit-transform: translate3d(0, 0, 0);
-    }
-
-    .tab_goRight {
-        transform: translate3d(100%, 0, 0);
-        -webkit-transform: translate3d(100%, 0, 0);
-    }
-
-    .clock_tabNight .clock_tabActive {
-        color: #333;
-    }
-
-    .clock_box .rank_list:last-of-type {
-        border-bottom: 0;
-    }
-
-    .clock_box .rank_list {
-        background: #fff;
-        display: flex;
-        border-bottom: 0.06rem solid #eee;
-        padding: 0.565rem 0;
-        width: 100%;
-        position: relative;
-        line-height: 2.35rem;
-    }
-
-    .has_content.rank_list {
-        line-height: 1.2rem;
-    }
-
-    .rank_listNight {
-        /*background: rgba(255,255,255,0.2);*/
-    }
-
-    .rank_cup {
-        width: 1rem;
-        font-family: PingFangSC-Regular;
-        font-size: 0.94118rem;
-        color: #666;
-        text-align: center;
-        height: 0.71rem;
-        line-height: 0.71rem;
-        margin: 0.88235rem 0.88235rem 0 0.88235rem;
-    }
-
-    .rank_cupNight {
-        color: #333;
-    }
-
-    .me_rank {
-        margin-bottom: 0.88235rem;
-    }
-
-    .rank_main {
-        display: flex;
-
-        width: 76.4%;
-        position: relative;
-    }
-
-    .rank_NickName {
-        font-size: 0.8235rem;
-        color: #333;
-
-    }
-
-    .addLy {
-        font-size: 0.70588rem;
-        color: #066EA4;
-        display: inline;
-    }
-
-    .addLy:active {
-        background: #eee;
-
-    }
-
-    .addMessage {
-        font-size: 0.70588rem;
-        color: #7C7B7B;
-        width: 13.5rem
-    }
-
-    .rank_border {
-
-    }
-
-    .rank_borderNight {
-
-    }
-
-
-    .rank_main img.rank_headImg {
-        height: 40px !important;
-        width: 40px !important;
-        display: block;
-        border-radius: 0.294rem;
-        margin-right: 0.88235rem;
-    }
-
-    .clock_box .rank_right {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
-    .clock_time {
-        font-size: 0.88235rem;
-        color: #666;
-
-        position: absolute;
-        right: 18px;
-        top: 0;
-    }
-
-    .care_icon {
-        padding: 0.8rem 0.88235rem 0.85rem 1.2rem
-    }
-
-    .clock_box .rank_right img {
-        display: block;
-        width: 0.9412rem;
-        height: 0.88235rem;
-    }
-
-    .clock_box .rank_right span {
-        line-height: 0.7647rem;
-        font-size: 0.7059rem;
-        color: #999;
-        display: block;
-        text-align: center;
-        margin-bottom: 0.2941rem;
-    }
-
-    .rank_rightNight span {
-        color: #ccc;
-    }
-
-    .goleft {
-        -webkit-transition: transform .5s;
-        transition: transform .5s;
-        /*margin-left: -100%;*/
-        -webkit-transform: translate3d(0%, 0, 0);
-        transform: translate3d(0%, 0, 0)
-    }
-
-
-    .gomiddle{
-        -webkit-transition: transform .5s;
-        transition: transform .5s;
-        /*margin-left: -100%;*/
-        -webkit-transform: translate3d(-33.333%, 0, 0);
-        transform: translate3d(-33.333%, 0, 0)
-    }
-
-    .goright {
-        -webkit-transition: transform .5s;
-        transition: transform .5s;
-        /* margin-left: 0%;*/
-        -webkit-transform: translate3d(-66.666%, 0, 0);
-        transform: translate3d(-66.666%, 0, 0)
-    }
-
-    .rank_Bgbox {
-        width: 100%;
-        overflow: hidden;
-        margin-bottom: 0.88235rem;
-    }
-
-    .rank_Bgbox.box_padding_bottom {
-        margin-bottom: 2.88235rem;
-    }
-
-    .rank_box {
-        width: 300%;
-        margin-top: 0.88235rem
-    }
-
-    .rank1Color {
-        color: #ffc800;
-    }
-
-    .rank2Color {
-        color: #c3c1c1;
-    }
-
-    .rank3Color {
-        color: #c27502;
-    }
-
-    .ranks_boxl .notice_box {
-        background: none;
-        border-bottom:  none;
-    }
-
-    .notice_box_p {
-        padding: 16px 0;
-        padding-bottom: 0
-    }
-
-    .notice {
-        height: 40px;
-        width: 180px;
-        background: #393939;
-        border-radius: 5px;
-        margin: 0 auto;
-
-    }
-
-    .notice:active {
-        background: #1f1f1f
-    }
-
-    .notice_friend {
-        height: 32px;
-        width: 32px;
-        float: left;
-        margin-left: 5px;
-        margin-top: 5px;
-        display: block;
-    }
-
-    .notice div {
-        float: left;
-        height: 40px;
-        line-height: 40px;
-        color: #fff;
-        margin-left: 32px;
-        font-size: 13px;
-    }
-
-    .notice .goNotice {
-        width: 16px;
-        height: 16px;
-        display: block;
-        float: right;
-        margin-right: 14px;
-        margin-top: 12px;
-    }
-
-    .notice img {
-        height: 30px;
-        width: 30px;
-    }
-
-    .dialog_follow {
-        width: 66%;
-        background: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        height: 20.47058823529412rem;
-        position: absolute;
-        top: 50%;
-        margin-top: -10.23529411764706rem;
-        left: 17%;
-        z-index: 10001;
-    }
-
-    .dialog_follow img {
-        width: 100%
-    }
-
-    .dialog_follow .img {
-        height: 11rem;
-        overflow: hidden
-    }
-
-    .dialog_follow .text {
-        text-align: center;
-        font-size: 0.8235294117647059rem;
-        line-height: 1.5
-    }
-
-    .ewm {
-        width: 4.329411764705882rem;
-        height: 4.329411764705882rem;
-        border: 1px solid #ffcdcd;
-        margin: 0.8rem auto;
-        margin-bottom: 0.65rem;
-        padding: 2px;
-    }
-
-    .ewm .output {
-        width: 100%;
-        height: 100%
-    }
-
-    .myshare {
-        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
-        background-position: 2.5rem 3.5rem;
-        background-size: 80%;
-        height: 100%;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 10001;
-    }
-
-
-</style>
 
 
