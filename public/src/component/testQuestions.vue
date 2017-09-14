@@ -59,7 +59,6 @@
             _this.$http.get(web.API_PATH+'test/get/allquestion/'+_this.testId+'/_userId_').then(response => {
                 console.log(response)
                 _this.questLists = response.data.data;
-
                 _this.allNum =  _this.questLists.length
                 $('.initWidth').css('width',100/_this.allNum+'%')
                 _this.questSwiper = new Swiper ('.question_box', {

@@ -19,7 +19,7 @@
                       </li>
                   </ul>
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide initHeight">
                     <ul>
 
 
@@ -35,7 +35,7 @@
                     </ul>
 
                 </div>
-                <div class="swiper-slide">
+                <div class="swiper-slide initHeight">
 
                     <ul>
                         <li class="countList" v-for="year in years">
@@ -114,20 +114,28 @@
             }, response => {
                 // error
             });
-            var tabsSwiper = new Swiper('.swiper-container',{
+            var tabsSwiper = new Swiper('.moodCount_box',{
                 speed:500,
                 onSlideChangeStart: function(){
                     $(".tabs .active").removeClass('active');
+                    $(".swiper-slide").removeClass('initHeight')
                     $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
                     $('.moodCount_box').css('height','auto')
                 },
-                onSlideChangeEnd:function () {
-                    $('.moodCount_box').height($('.swiper-slide:eq('+tabsSwiper.activeIndex+')').outerHeight(true))
+                onSlideChangeEnd:function (swiper) {
+                    $(".swiper-slide").each(function (i) {
+                        console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
+                        if(swiper.activeIndex==i){
+                            $(".moodCount_box").css('height',$(this).height())
+                        }
+
+                    })
                 }
             });
             $(".tabs a").on('click',function(e){
                 e.preventDefault()
                 $(".tabs .active").removeClass('active');
+                $(".swiper-slide").removeClass('initHeight')
                 $(this).addClass('active');
                 tabsSwiper.slideTo($(this).index());
                 $('.moodCount_box').height($('.swiper-slide:eq('+tabsSwiper.activeIndex+')').outerHeight(true))
@@ -149,6 +157,10 @@
     .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
     .count2{color:#a9a9a9;font-size: 15px}
     .countList img{position:absolute;height:20px;width:20px;display:block;right:10px;top:50%; margin-top:-10px;
+    }
+    .initHeight{
+        height:1px;
+        overflow: hidden;
     }
 </style>
 

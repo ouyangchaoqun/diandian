@@ -84,21 +84,25 @@
             var psychtestSwiper = new Swiper('.textList_box',{
                 speed:500,
                 onSlideChangeStart: function(){
-                    $('.textList_box .initHeight').removeClass('initHeight');
                     $('header div').removeClass('test_active');
+                    $(".swiper-slide").removeClass('initHeight')
                     $('header div').eq(psychtestSwiper.activeIndex).addClass('test_active');
                     $('.textList_box').css('height','auto')
                 },
-                onSlideChangeEnd:function () {
-                    $('.textList_box').height($('.swiper-slide:eq('+psychtestSwiper.activeIndex+')').outerHeight(true))
+                onSlideChangeEnd:function (swiper) {
+                    $(".swiper-slide").each(function (i) {
+                        if(swiper.activeIndex==i){
+                            $(".textList_box").css('height',$(this).height())
+                        }
+
+                    })
                 }
             });
             $('header div').on('click',function () {
-                $('.textList_box .initHeight').removeClass('initHeight');
+                $(".swiper-slide").removeClass('initHeight')
                 $('header div').removeClass('test_active')
                 $(this).addClass('test_active')
                 psychtestSwiper.slideTo($(this).index());
-                $('.textList_box').height($('.swiper-slide:eq('+psychtestSwiper.activeIndex+')').outerHeight(true))
             });
         },
         methods: {
@@ -245,6 +249,7 @@
     }
     .initHeight{
         height:1px;
+        overflow: hidden;
     }
     .listStyle:active{
         background:#ececec;
