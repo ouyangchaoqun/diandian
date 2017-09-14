@@ -1,15 +1,24 @@
 <template id="psychtestDetail">
     <div class="psychtestDetail">
-       <h2 class="psychtestDetail_title">{{textDetail.title}}</h2>
-        <div class="psychtestDetail_count">{{textDetail.count}}人测过</div>
-        <img :src="textDetail.pic" alt="">
-        <div class="psychtestDetail_content">{{textDetail.des}}</div>
-        <div class="psychtestDetail_Price"><span class="nowPrice">￥{{textDetail.price}}</span><span class="oldPrice">￥{{textDetail.old_price}}</span></div>
+       <h2 class="psychtestDetail_title">{{testDetail.title}}</h2>
+        <div class="psychtestDetail_count">{{testDetail.count}}人测过</div>
+        <img :src="testDetail.pic" alt="">
+        <div class="psychtestDetail_content">{{testDetail.des}}</div>
+        <div class="psychtestDetail_Price"><span class="nowPrice">￥{{testDetail.price}}</span><span class="oldPrice">￥{{testDetail.old_price}}</span></div>
         <div class="psychtestDetail_item">
-            <div>{{textDetail.question_count}}道精选问题</div>
-            <div>{{textDetail.count}}人已经测试</div>
+            <div>{{testDetail.question_count}}道精选问题</div>
+            <div>{{testDetail.count}}人已经测试</div>
         </div>
-        <div class="weui-btn weui-btn_primary psychtestDetail_btn" @click="startText()">立即测试</div>
+        <div class="psych_test_btn_box">
+        <template v-if="testDetail.answerId!=null">
+                <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
+                <div class="psychtestDetail_btn" @click="startTest()">重新测试</div>
+        </template>
+        <template v-if="testDetail.answerId==null">
+            <div class="psychtestDetail_btn" @click="startTest()">立即测试</div>
+        </template>
+        </div>
+
     </div>
 </template>
 <script type="text/javascript">
@@ -20,19 +29,24 @@
         data() {
             return {
                 testId:'',
-                textDetail:{},
+                testDetail:{},
                 payed:''
             }
         },
         mounted: function () {
             let _this = this;
             _this.testId = _this.$route.query.testId;
-            _this.$http.get(web.API_PATH+'test/get/'+_this.testId+'/'+1303).then(response => {
+            let start  = _this.$route.query.start;
+            _this.$http.get(web.API_PATH+'test/get/'+_this.testId+'/_userId_').then(response => {
                 if(response.data.status===1){
-                    console.log(response.data.data)
-                    _this.textDetail = response.data.data
-                    _this.payed = response.data.data.payed
-                    console.log(_this.payed)
+                    console.log(response.data.data);
+                    _this.testDetail = response.data.data;
+                    _this.payed = response.data.data.payed;
+                    _this.answerId=  response.data.data.answerId;
+                    console.log(_this.payed);
+                    if(start&&_this.payed){
+                        _this.$router.push('/testQuestions?testId='+_this.testId)
+                    }
                 }
             }, response => {
                 // error
@@ -40,9 +54,24 @@
             });
         },
         methods: {
-            startText:function () {
+            startTest:function () {
+
                 let _this = this;
-                _this.$router.push('/testQuestions?testId='+_this.testId)
+                if( _this.payed==1){
+                    _this.$router.push('/testQuestions?testId='+_this.testId)
+                }else{
+                    _this.$http.put(web.API_PATH + 'test/create/order/_userId_/'+_this.testId).then(function (res) {
+                            let config = res.data.data;
+                            let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href+"&start=1");
+                            window.location.href = url
+                        })
+                }
+
+            },
+            viewResult:function () {
+                let _this= this ;
+                if(_this.answerId!=null)
+                _this.$router.push('/testResult?answerId='+_this.answerId)
             }
         }
 
@@ -111,11 +140,28 @@
         flex: 1;
     }
     .psychtestDetail_btn{
+        background: #1AAD19;
+        text-align: center; color:#fff;
+    }
+.psych_test_btn_view{
+    background: #E4E4E4;
+    text-align: center; color:#666;
+}
+    .psych_test_btn_box{
         height:43px;
         position: absolute;
         bottom: 0;
         width: 100%;
         line-height: 43px;
         border-radius: 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+
+    }
+    .psych_test_btn_box div{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
     }
 </style>
