@@ -19,15 +19,15 @@
     export default {
         data() {
             return {
-                textId:'',
+                testId:'',
                 textDetail:{},
                 payed:''
             }
         },
         mounted: function () {
             let _this = this;
-            _this.textId = _this.$route.query.textId;
-            _this.$http.get(web.API_PATH+'test/get/'+_this.textId+'/'+1303).then(response => {
+            _this.testId = _this.$route.query.testId;
+            _this.$http.get(web.API_PATH+'test/get/'+_this.testId+'/'+1303).then(response => {
                 if(response.data.status===1){
                     console.log(response.data.data)
                     _this.textDetail = response.data.data
@@ -42,7 +42,7 @@
         methods: {
             startText:function () {
                 let _this = this;
-                _this.$router.push('/testQuestions?textId='+_this.textId)
+                _this.$router.push('/testQuestions?testId='+_this.testId)
             }
         }
 

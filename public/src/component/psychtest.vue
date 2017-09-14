@@ -3,14 +3,15 @@
         <header>
             <div class="test_active">心理测试</div>
             <div>健康测试</div>
+            <div>我的测试</div>
         </header>
         <div class="swiper-container textList_box">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <ul>
                         <li v-for="psyItem in psyLists">
-                            <router-link :to="{ path: '/psychtestDetail', query: { textId: psyItem.id}}">
-                                <h2 class="textList_title">{{psyItem.title}}</h2>
+                            <router-link :to="{ path: '/psychtestDetail', query: { testId: psyItem.id}}">
+                                <div class="textList_title">{{psyItem.title}}</div>
                                 <div class="textList_content">{{psyItem.des}}</div>
                                 <div class="textList_info">
                                     <span class="textList_cost">{{psyItem.price}}</span>
@@ -25,8 +26,24 @@
                 <div class="swiper-slide initHeight">
                     <ul>
                         <li v-for="heaItem in heaLists">
-                            <router-link :to="{ path: '/psychtestDetail', query: { textId: heaItem.id}}">
-                                <h2 class="textList_title">{{heaItem.title}}</h2>
+                            <router-link :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
+                                <div class="textList_title">{{heaItem.title}}</div>
+                                <div class="textList_content">{{heaItem.des}}</div>
+                                <div class="textList_info">
+                                    <span class="textList_cost">{{heaItem.price}}</span>
+                                    <span class="textList_count">{{heaItem.count}}人收听过</span>
+                                </div>
+                                <img class="psychImg" :src="heaItem.pic" alt="">
+                            </router-link>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="swiper-slide initHeight">
+                    <ul>
+                        <li v-for="heaItem in heaLists">
+                            <router-link :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
+                                <div class="textList_title">{{heaItem.title}}</div>
                                 <div class="textList_content">{{heaItem.des}}</div>
                                 <div class="textList_info">
                                     <span class="textList_cost">{{heaItem.price}}</span>
@@ -109,29 +126,28 @@
     }
     header{
         height:44px;
-        background: #ECECEC;
+        background: #fff;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         text-align: center;
         line-height: 44px;
-        color: #C4C2C2;
+        color: #7F7D7D;
         font-size: 15px;
+        border-bottom: 1px solid #eee;
     }
     header div{
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         height: 42px;
-        border-bottom: 2px solid #ECECEC;
     }
     .test_active{
-        border-color: #1AAC19;
-        background: #fff;
-        color: #1AAC19;
+        border-bottom: 2px solid #1AAC19;
+        color: #333;
     }
     .textList_box li{
-        padding:24px 15px;
+        padding:23px 15px 15px 15px;
         border-bottom: 1px solid #eee;
         position: relative;
     }
@@ -144,14 +160,13 @@
         color: #333;
         font-size: 16px;
         line-height: 1;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
     .textList_content{
         color: #666;
         font-size: 13px;
         line-height: 18px;
         width: 208px;
-        margin-bottom: 12px;
     }
 
     .textList_cost{

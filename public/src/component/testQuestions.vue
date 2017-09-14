@@ -22,7 +22,7 @@
                             </li>
                             <div class="testQuestions_btn">
                                 <div class="weui-btn weui-btn_primary prevOption" @click="prevOption()" v-if="isFrist">上一题</div>
-                                <div class="weui-btn weui-btn_primary prevOption" @click="textResult()" v-if="questIndex==questLists.length-1">查看结果</div>
+                                <div class="weui-btn weui-btn_primary prevOption" @click="textResult()" v-if="questIndex==questLists.length-1&&quest.checkIndex!=index">查看结果</div>
                             </div>
                         </ul>
                     </div>
@@ -41,20 +41,21 @@
     export default {
         data() {
             return {
-                textId:'',
+                testId:'',
                 questLists:[],
                 allNum:'',
                 questSwiper:{},
                 optionItem:'ABCDEFGH'.split(''),
                 activeIndex:'1',
                 isFrist:false,
-                scoreCount:[]
+                scoreCount:[],
+                answerId:''
             }
         },
         mounted: function () {
             let _this = this;
-            _this.textId = _this.$route.query.textId
-            console.log(_this.textId)
+            _this.testId = _this.$route.query.testId
+            console.log(_this.testId)
             _this.$http.get(web.API_PATH+'test/get/allquestion/1/1303').then(response => {
                 console.log(response)
                 _this.questLists = response.data.data;
@@ -101,6 +102,7 @@
                         break;
                     }
                 }
+                console.log(this.questLists)
             },
             prevOption:function () {
                 let _this = this;
@@ -120,13 +122,20 @@
 
                             answers+= "\""+_this.questLists[i].id+"\":\""+_this.questLists[i].answer+"\","
                         }
+                        console.log(answers)
                         answers='{'+answers.substr(0,answers.length-1)+'}';
+                        console.log(answers)
                         answers = JSON.parse(answers);
-                        _this.$http.put(web.API_PATH + 'test/get/score/'+ _this.textId+'/_userId_', answers)
+                        console.log(answers)
+                        _this.$http.put(web.API_PATH + 'test/get/score/'+ _this.testId+'/_userId_', answers)
                             .then(function (bt) {
-                                console.log(bt)
+                                console.log(bt.data.data)
+                                if(bt.data.status==1){
+                                    _this.answerId = bt.data.data.id
+                                    _this.$router.push('/testResult?answerId='+_this.answerId)
+                                }
+                                //成功跳转到结果页
 
-                                //成功跳转到结果也
 
                             });
                     }

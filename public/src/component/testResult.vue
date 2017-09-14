@@ -1,17 +1,17 @@
 <template id="testResult">
     <div class="testResult">
         <div class="testResult_top">
-            测测你的忧郁感程度？
+            {{testResult_top}}
         </div>
-        <div class="textResult_option">
+        <div class="textResult_option" v-if="result.result!=null">
             <div class="textResulth1"><img src="../images/textdg.png" alt="">测试结果</div>
-            <div class="textResulth2">A.爱情恐惧指数30%</div>
+            <div class="textResulth2">{{result.result}}</div>
         </div>
-        <div class="textResult_des">
+        <div class="textResult_des" v-if="result.content!=null">
             <div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>
-            <div class="textResult_main">生活压力越来越重，都市人得忧郁症越来越普遍，你忧郁了吗？请依据一周以来身体，情绪的感觉选择与自己最相符的一项。生活压力越来越重，都市人得忧郁症越来越普遍，你忧郁了吗？请依据一周以来身体，情绪的感觉选择与自己最相符的一项。</div>
+            <div class="textResult_main">{{result.content}}</div>
         </div>
-        <div class="weui-btn weui-btn_primary textResult_btn">重新测试</div>
+        <div class="weui-btn weui-btn_primary textResult_btn" @click="testAgain()">重新测试</div>
     </div>
 </template>
 <script type="text/javascript">
@@ -21,14 +21,34 @@
     export default {
         data() {
             return {
-
+                answerId:'',
+                result:{},
+                testResult_top:''
             }
         },
         mounted: function () {
+            let _this = this;
+            _this.answerId = _this.$route.query.answerId;
+            _this.$http.get(web.API_PATH+'test/get/scoreonly/'+_this.answerId+'').then(response => {
+                if(response.data.status==1){
+                    _this.result = response.data.data
+                    _this.$http.get(web.API_PATH+'test/get/'+_this.result.testId+'/_userId_').then(response => {
+                        _this.testResult_top = response.data.data.title;
+                    }, response => {
+                        // error
+                    });
+                }
+            }, response => {
+                // error
+            });
+
 
         },
         methods: {
-
+            testAgain:function () {
+                let _this = this;
+                _this.$router.push('/testQuestions?testId='+_this.result.testId)
+            }
         }
 
     }
