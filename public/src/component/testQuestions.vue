@@ -150,25 +150,25 @@
 <style>
     .questLabel{
         float: right;
-        margin-right: 5px   ;
+        margin-right: 0.3rem ;
     }
     .questRadio{display:none}
     .questRadioInput{background-color:#fff;
         border:1px solid #1AAC19;
         border-radius:50%;
         display:inline-block;
-        height:15px;
+        height:0.88235rem;
         margin-top:-3px;
         vertical-align:middle;
-        width:15px;
+        width:0.88235rem;
         line-height:1
     }
     .questRadio:checked + .questRadioInput:after{
         background-color:#1AAC19;
         border-radius:50%;content:"";
         display:inline-block;
-        height:11px;
-        width:11px;
+        height:0.65rem;
+        width:0.65rem;
         margin:2px;
         text-align: center;
     }
@@ -176,27 +176,27 @@
         background: #fff;
     }
     .testQuestions_top{
-        padding:30px 20px 12px 20px;
+        padding:1.7647rem 1.17647rem 0.70588rem 1.17647rem;
     }
     .testQuestions_process{
         text-align: center;
         color: #666;
-        font-size: 14px;
+        font-size: 0.8235rem;
         line-height: 1;
     }
     .question_content{
-       padding: 48px 35px 40px 19px;
+       padding: 2.8235rem 2.0588rem 2.3529rem 1.117647rem;
         color: #333;
-        font-size: 15px;
-        line-height: 24px;
+        font-size: 0.88235rem;
+        line-height: 1.4117647rem;
 
     }
     .question_option{
         color: #666;
-        font-size: 13px;
+        font-size: 0.7647rem;
     }
     .nextOption{
-        padding:15px 20px;
+        padding:0.88235rem 1.17647rem;
         border-bottom: 1px solid #eee;
     }
     .nextOption:active{
@@ -206,12 +206,12 @@
         border-bottom: 0;
     }
     .optionItem{
-        margin-right: 15px;
+        margin-right: 0.88235rem;
     }
     .prevOption{
-        width:150px;
-        font-size: 16px;
-        margin-top: 35px;
+        width:8.8235rem;
+        font-size: 0.94117647rem;
+        margin-top: 2.0588rem;
         display: inline-block;
     }
     .testQuestions_btn{
