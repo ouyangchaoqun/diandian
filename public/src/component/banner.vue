@@ -1,15 +1,20 @@
 <template id="banner">
-<img :src="topImg"/>
+    <img :src="topImg" :height="h"/>
 </template>
 <script>
-    var banner={
-        template:'#banner'
+    var banner = {
+        template: '#banner'
     };
     export default {
         data() {
             return {
-                topImg: xqzs.mood.getTopImg()
+                topImg: xqzs.mood.getTopImg(),
+                h: 320
             }
+        },
+        mounted: function () {
+            let w =  $(window).width();
+            this.h=  w * 500 / 750
         }
     }
 
@@ -26,7 +31,7 @@
         width: 100%;
     }
 
-    .index_banner{
+    .index_banner {
         position: relative;
     }
 </style>

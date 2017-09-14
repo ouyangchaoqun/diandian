@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <a class="share" @click="createinvite()">点击生成邀请卡</a>
-                <div class="qun_qrcode">     <img src="http://oss.xqzs.cn/xqzs/qun_qrcode.png"  width="60%"></div>
+                <div class="qun_qrcode">     <img src="http://oss.xqzs.cn/xqzs/qun_qrc111ode.png"  width="60%" :height="qunImgHeight"></div>
 
             </div>
             <!--friendcenter end-->
@@ -190,7 +190,8 @@
                 newPerfectStyle:'',
                 scrollTop:0,
                 birthdayList:[],
-                isBirthday:false
+                isBirthday:false,
+                qunImgHeight:300
             }
         },
         filters:{
@@ -364,6 +365,8 @@
              }else{
                  _this.isBirthday=false;
              }
+
+             this.qunImgHeight =  $(window).width() * 400 *0.6 / 300
 
 
             let date=new Date();
