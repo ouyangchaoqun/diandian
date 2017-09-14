@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <a class="share" @click="createinvite()">点击生成邀请卡</a>
-                <div class="qun_qrcode">     <img src="http://oss.xqzs.cn/xqzs/qun_qrc111ode.png"  width="60%" :height="qunImgHeight"></div>
+                <div class="qun_qrcode">     <img src="http://oss.xqzs.cn/xqzs/qun_qrcode.png"  width="60%" :height="qunImgHeight"></div>
 
             </div>
             <!--friendcenter end-->
