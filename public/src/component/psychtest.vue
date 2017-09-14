@@ -57,54 +57,6 @@
                                 <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
                             </div>
                         </li>
-                        <li v-for="(myTestItem,testIndex) in myTestLists">
-                            <div class="listStyle listNoBorder">
-                                <div class="textList_title">{{myTestItem.title}}</div>
-                                <div class="textList_content">{{myTestItem.des}}</div>
-                                <div class="textList_info">
-                                    <span class="textList_cost">{{myTestItem.price}}</span>
-                                    <span class="textList_count">{{myTestItem.count}}人收听过</span>
-                                </div>
-                                <img class="psychImg" :src="myTestItem.pic" alt="">
-                            </div>
-                            <div class="addMeTest">
-                                完成时间: {{myTestItem.addTime}}
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
-                            </div>
-                        </li>
-                        <li v-for="(myTestItem,testIndex) in myTestLists">
-                            <div class="listStyle listNoBorder">
-                                <div class="textList_title">{{myTestItem.title}}</div>
-                                <div class="textList_content">{{myTestItem.des}}</div>
-                                <div class="textList_info">
-                                    <span class="textList_cost">{{myTestItem.price}}</span>
-                                    <span class="textList_count">{{myTestItem.count}}人收听过</span>
-                                </div>
-                                <img class="psychImg" :src="myTestItem.pic" alt="">
-                            </div>
-                            <div class="addMeTest">
-                                完成时间: {{myTestItem.addTime}}
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
-                            </div>
-                        </li>
-                        <li v-for="(myTestItem,testIndex) in myTestLists">
-                            <div class="listStyle listNoBorder">
-                                <div class="textList_title">{{myTestItem.title}}</div>
-                                <div class="textList_content">{{myTestItem.des}}</div>
-                                <div class="textList_info">
-                                    <span class="textList_cost">{{myTestItem.price}}</span>
-                                    <span class="textList_count">{{myTestItem.count}}人收听过</span>
-                                </div>
-                                <img class="psychImg" :src="myTestItem.pic" alt="">
-                            </div>
-                            <div class="addMeTest">
-                                完成时间: {{myTestItem.addTime}}
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -206,9 +158,6 @@
     }
 </script>
 <style>
-    .psychtest_box{
-        background: #fff;
-    }
     header{
         height:2.588rem;
         background: #fff;
@@ -237,6 +186,7 @@
     }
     .textList_box{
         margin-top: 2.588rem;
+        margin-bottom: 10px;
     }
     .listStyle{
         padding:1.35rem 0.88235rem 0.8235rem 0.88235rem;
@@ -244,6 +194,7 @@
         position: relative;
         height:6rem;
         display: block;
+        background: #fff;
     }
     .textList_info{
         font-size: 0.70588rem;
