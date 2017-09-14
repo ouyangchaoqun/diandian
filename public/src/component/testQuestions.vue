@@ -8,7 +8,7 @@
         <div class="testQuestions_process">{{activeIndex}}/{{allNum}}</div>
         <div class="swiper-container question_box">
             <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(quest,questIndex) in questLists">
+                <div class="swiper-slide swiper-no-swiping" v-for="(quest,questIndex) in questLists" >
                     <div>
                         <div class="question_content">{{quest.title}}</div>
                         <ul class="question_option">
@@ -64,6 +64,7 @@
                 $('.initWidth').css('width',100/_this.allNum+'%')
                 _this.questSwiper = new Swiper ('.question_box', {
                     direction : 'horizontal',
+                    noSwiping : true,
                     observer:true,//修改swiper自己或子元素时，自动初始化swiper
                     onSlideChangeStart:function () {
                         _this.activeIndex= _this.questSwiper.activeIndex+1
@@ -132,7 +133,7 @@
                                 console.log(bt.data.data)
                                 if(bt.data.status==1){
                                     _this.answerId = bt.data.data.id;
-                                    _this.$router.push('/testResult?answerId='+_this.answerId)
+                                    _this.$router.replace('/testResult?answerId='+_this.answerId)
                                 }
                                 //成功跳转到结果页
 
