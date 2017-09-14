@@ -85,42 +85,42 @@
     }
     .psychtestDetail_title{
         color:#333;
-        font-size: 20px;
+        font-size: 1.17647rem;
         line-height: 1;
-        margin-top: 30px;
-        margin-bottom: 15px;
+        margin-top: 1.7647rem;
+        margin-bottom: 0.88235rem;
         text-align: center;
     }
     .psychtestDetail_count{
         color: #666;
-        font-size: 12px;
+        font-size: 0.70588rem;
         line-height: 1;
         text-align: center;
     }
     .psychtestDetail img{
-        width:345px;
+        width:20.294117647rem;
         display: block;
-        margin:15px auto;
+        margin:0.88235rem auto;
     }
     .psychtestDetail_content{
-        padding:0 15px;
+        padding:0 0.88235rem;
         color: #333;
-        font-size: 14px;
+        font-size: 0.8235rem;
         line-height: 18px;
-        margin-bottom: 35px;
+        margin-bottom: 2.0588rem;
     }
     .psychtestDetail_Price{
         text-align: center;
         line-height: 1;
-        margin-bottom: 31px;
+        margin-bottom: 1.8235rem;
     }
     .nowPrice{
         color: #D55C03;
-        font-size: 24px;
+        font-size: 1.41176rem;
     }
     .oldPrice{
         color: #666;
-        font-size: 15px;
+        font-size: 0.88235rem;
         text-decoration: line-through;
     }
     .psychtestDetail_item{
@@ -128,9 +128,9 @@
         display: -webkit-flex;
         display: flex;
         text-align: center;
-        font-size: 12px;
+        font-size: 0.70588rem;
         color: #666;
-        padding-top: 13px;
+        padding-top: 0.7647rem;
         border-top: 1px solid #eee;
         line-height: 1;
     }
@@ -140,6 +140,7 @@
         flex: 1;
     }
     .psychtestDetail_btn{
+        height:2.5294rem;
         background: #1AAD19;
         text-align: center; color:#fff;
     }
@@ -148,11 +149,11 @@
     text-align: center; color:#666;
 }
     .psych_test_btn_box{
-        height:43px;
+        height:2.5294rem;
         position: absolute;
         bottom: 0;
         width: 100%;
-        line-height: 43px;
+        line-height: 2.5294rem;
         border-radius: 0;
         display: -webkit-box;
         display: -webkit-flex;

@@ -10,7 +10,7 @@
                 <div class="swiper-slide">
                     <ul>
                         <li v-for="psyItem in psyLists">
-                            <router-link :to="{ path: '/psychtestDetail', query: { testId: psyItem.id}}">
+                            <router-link class="listStyle" :to="{ path: '/psychtestDetail', query: { testId: psyItem.id}}">
                                 <div class="textList_title">{{psyItem.title}}</div>
                                 <div class="textList_content">{{psyItem.des}}</div>
                                 <div class="textList_info">
@@ -26,7 +26,7 @@
                 <div class="swiper-slide initHeight">
                     <ul>
                         <li v-for="heaItem in heaLists">
-                            <router-link :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
+                            <router-link class="listStyle" :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
                                 <div class="textList_title">{{heaItem.title}}</div>
                                 <div class="textList_content">{{heaItem.des}}</div>
                                 <div class="textList_info">
@@ -42,7 +42,7 @@
                 <div class="swiper-slide initHeight">
                     <ul>
                         <li v-for="heaItem in heaLists">
-                            <router-link :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
+                            <router-link class="listStyle listNoBorder" :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
                                 <div class="textList_title">{{heaItem.title}}</div>
                                 <div class="textList_content">{{heaItem.des}}</div>
                                 <div class="textList_info">
@@ -51,7 +51,10 @@
                                 </div>
                                 <img class="psychImg" :src="heaItem.pic" alt="">
                             </router-link>
-
+                            <div class="addMeTest">
+                                完成时间: 2017.09.13
+                                <div class="weui-btn weui-btn_primary addTestBtn">查看报告</div>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -125,72 +128,106 @@
         background: #fff;
     }
     header{
-        height:44px;
+        height:2.588rem;
         background: #fff;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
         text-align: center;
-        line-height: 44px;
+        line-height: 2.588rem;
         color: #7F7D7D;
-        font-size: 15px;
+        font-size: 0.88235rem;
         border-bottom: 1px solid #eee;
     }
     header div{
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        height: 42px;
+        height: 2.471rem;
     }
     .test_active{
         border-bottom: 2px solid #1AAC19;
         color: #333;
     }
-    .textList_box li{
-        padding:23px 15px 15px 15px;
+    .listStyle{
+        padding:1.35rem 0.88235rem 0.8235rem 0.88235rem;
         border-bottom: 1px solid #eee;
         position: relative;
+        height:6rem;
+        display: block;
     }
     .textList_info{
-        font-size: 12px;
-        line-height: 1;
-        height:12px;
+        font-size: 0.70588rem;
+        line-height: 1.1;
+        height:0.70588rem;
+        position: absolute;
+        bottom:0.8235rem;
+        left:0.88235rem;
     }
     .textList_title{
         color: #333;
-        font-size: 16px;
-        line-height: 1;
-        margin-bottom: 10px;
+        font-size: 0.941176rem;
+        line-height: 1.1;
+        margin-bottom: 0.588235rem;
+        width:11.7647rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .textList_content{
         color: #666;
-        font-size: 13px;
-        line-height: 18px;
-        width: 208px;
+        font-size: 0.7647rem;
+        line-height: 1.1rem;
+        width: 12.235rem;
+        height:3.3rem;
+        overflow: hidden;
     }
 
     .textList_cost{
         float: left;
         color: #FF6600;
-        margin-right:128px;
+        margin-right:7rem;
     }
     .textList_count{
         float: left;
         color: #000;
     }
     .psychImg{
-        width:110px;
-        height: 110px;
+        width:6.470588rem;
+        height: 6.470588rem;
         display: block;
         position: absolute;
-        right:15px;
-        top:20px;
+        right:0.88235rem;
+        top:1.17647rem;
     }
     .initHeight{
         height:1px;
     }
-    .textList_box li:active{
+    .listStyle:active{
         background:#ececec;
+    }
+    .addMeTest{
+        height:2.3529rem;
+        background: #f4f4f4;
+        padding:0 0.88235rem;
+        line-height:2.3529rem;
+        color: #333;
+        font-size: 0.70588rem;
+        position: relative;
+    }
+    .listNoBorder{
+        border:0;
+    }
+    .addTestBtn{
+        width:5.5294rem;
+        height:1.42rem;
+        font-size: 0.70588rem;
+        position: absolute;
+        top:50%;
+        margin-top:-0.71rem;
+        right:0.88235rem;
+        line-height: 1.42rem;
+        border-radius: 5px;
     }
 </style>
 
