@@ -55,8 +55,11 @@ let routers =
                 require('./routes/moodCountPie'),
                 require('./routes/moodCountPage'),
                 require('./routes/testPay'),
-                require('./routes/fabulous')
-
+                require('./routes/fabulous'),
+                require('./routes/psychtest'),
+                require('./routes/psychtestDetail'),
+                require('./routes/testQuestions'),
+                require('./routes/testResult')
             ]
         }
     ];
