@@ -769,4 +769,8 @@
         width:30px;
     }
 
+
+    .weui-tab__panel {
+        -webkit-overflow-scrolling:auto
+    }
 </style>
