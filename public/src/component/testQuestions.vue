@@ -13,7 +13,7 @@
                         <div class="question_content">{{quest.title}}</div>
                         <ul class="question_option">
                             <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
-                                <span class="optionItem">{{item}}</span><span>{{quest['item'+item]}}</span>
+                               <span class="optionItem">{{item}}</span><span class="optionHtml">{{quest['item'+item]}}</span>
                                 <label class="questLabel">
                                     <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
                                     <input class="questRadio" type="radio" v-if="quest.checkIndex!=index"  :name="'questRadio'+quest.id">
@@ -56,7 +56,7 @@
             let _this = this;
             _this.testId = _this.$route.query.testId
             console.log(_this.testId)
-            _this.$http.get(web.API_PATH+'test/get/allquestion/'+ _this.testId+'/_userId_').then(response => {
+            _this.$http.get(web.API_PATH+'test/get/allquestion/'+_this.testId+'/_userId_').then(response => {
                 console.log(response)
                 _this.questLists = response.data.data;
 
@@ -149,8 +149,8 @@
 </script>
 <style>
     .questLabel{
-        float: right;
-        margin-right: 0.3rem ;
+        position: absolute;
+        right:0.88235rem;
     }
     .questRadio{display:none}
     .questRadioInput{background-color:#fff;
@@ -198,9 +198,16 @@
     .nextOption{
         padding:0.88235rem 1.17647rem;
         border-bottom: 1px solid #eee;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        position: relative;
     }
     .nextOption:active{
         background: #ECECEC;
+    }
+    .optionHtml{
+        width:85%;
     }
     .question_option li:last-of-type{
         border-bottom: 0;
