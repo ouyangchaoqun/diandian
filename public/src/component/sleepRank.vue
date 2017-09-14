@@ -1115,8 +1115,8 @@
 
 
     .rank_main img.rank_headImg {
-        height: 2.35rem !important;
-        width: 2.35rem !important;
+        height: 40px !important;
+        width: 40px !important;
         display: block;
         border-radius: 0.294rem;
         margin-right: 0.88235rem;
