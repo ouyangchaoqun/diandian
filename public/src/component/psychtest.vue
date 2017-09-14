@@ -41,7 +41,7 @@
                 </div>
                 <div class="swiper-slide initHeight">
                     <ul>
-                        <li v-for="myTestItem in myTestLists">
+                        <li v-for="(myTestItem,testIndex) in myTestLists">
                             <div class="listStyle listNoBorder">
                                 <div class="textList_title">{{myTestItem.title}}</div>
                                 <div class="textList_content">{{myTestItem.des}}</div>
@@ -53,7 +53,8 @@
                             </div>
                             <div class="addMeTest">
                                 完成时间: {{myTestItem.add_time}}
-                                <div class="weui-btn weui-btn_primary addTestBtn" @click="seeMyResult()">查看报告</div>
+                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
+                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
                             </div>
                         </li>
                     </ul>
@@ -71,7 +72,9 @@
             return {
                 psyLists:[],
                 heaLists:[],
-                myTestLists:[]
+                myTestLists:[],
+                answerId:'',
+                testId:''
             }
         },
         mounted: function () {
@@ -138,9 +141,18 @@
 
                 });
             },
-            seeMyResult:function () {
+            seeMyResult:function (index) {
+                let _this = this;
+                _this.answerId = _this.myTestLists[index].answerId
+                _this.$router.push('/testResult?answerId='+_this.answerId)
 
+            },
+            finishTest:function (index) {
+                let _this = this;
+                _this.testId = _this.myTestLists[index].id
+                _this.$router.push('/testQuestions?testId='+_this.testId)
             }
+
         }
 
     }
