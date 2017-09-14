@@ -56,7 +56,7 @@
             let _this = this;
             _this.testId = _this.$route.query.testId
             console.log(_this.testId)
-            _this.$http.get(web.API_PATH+'test/get/allquestion/1/_userId_').then(response => {
+            _this.$http.get(web.API_PATH+'test/get/allquestion/'+ _this.testId+'/_userId_').then(response => {
                 console.log(response)
                 _this.questLists = response.data.data;
 
@@ -131,7 +131,7 @@
                             .then(function (bt) {
                                 console.log(bt.data.data)
                                 if(bt.data.status==1){
-                                    _this.answerId = bt.data.data.id
+                                    _this.answerId = bt.data.data.id;
                                     _this.$router.push('/testResult?answerId='+_this.answerId)
                                 }
                                 //成功跳转到结果页
