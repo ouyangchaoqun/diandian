@@ -30,7 +30,7 @@
             return {
                 testId:'',
                 testDetail:{},
-                payed:''
+                payed:0
             }
         },
         mounted: function () {
@@ -57,6 +57,7 @@
             startTest:function () {
 
                 let _this = this;
+                console.log( _this.payed);
                 if( _this.payed==1){
                     _this.$router.push('/testQuestions?testId='+_this.testId)
                 }else{
