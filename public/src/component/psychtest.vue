@@ -52,7 +52,7 @@
                                 <img class="psychImg" :src="myTestItem.pic" alt="">
                             </div>
                             <div class="addMeTest">
-                                完成时间: {{myTestItem.add_time}}
+                                完成时间: {{myTestItem.addTime}}
                                 <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
                                 <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
                             </div>
@@ -131,9 +131,9 @@
                     console.log(response)
                     if(response.data.status===1){
                         _this.myTestLists = response.data.data;
-                        for(var i=0;i<_this.myTestLists.length;i++){
-                            _this.myTestLists[i].add_time =  xqzs.dateTime.formatDateTime(_this.myTestLists[i].add_time).substring(0,10).replace(/\-/g,'.')
-                        }
+//                        for(var i=0;i<_this.myTestLists.length;i++){
+//                            _this.myTestLists[i].add_time =  xqzs.dateTime.formatDateTime(_this.myTestLists[i].add_time).substring(0,10).replace(/\-/g,'.')
+//                        }
                         console.log(_this.myTestLists)
                     }
                 }, response => {
@@ -256,14 +256,14 @@
         border:0;
     }
     .addTestBtn{
-        width:5.5294rem;
-        height:1.42rem;
+        width:5.88rem;
+        height:1.764rem;
         font-size: 0.70588rem;
         position: absolute;
         top:50%;
-        margin-top:-0.71rem;
+        margin-top:-0.882rem;
         right:0.88235rem;
-        line-height: 1.42rem;
+        line-height: 1.764rem;
         border-radius: 5px;
     }
 </style>
