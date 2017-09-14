@@ -366,7 +366,10 @@
                  _this.isBirthday=false;
              }
 
-             this.qunImgHeight =  $(window).width() * 400 *0.6 / 300
+             this.qunImgHeight =  $(window).width() * 400 *0.6 / 300;
+             $(".weui-tab__panel").height($(window).height()-50);
+
+
 
 
             let date=new Date();
@@ -770,7 +773,5 @@
     }
 
 
-    .weui-tab__panel {
-        -webkit-overflow-scrolling:auto
-    }
+
 </style>
