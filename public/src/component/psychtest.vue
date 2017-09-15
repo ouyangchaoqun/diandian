@@ -40,7 +40,7 @@
                     </ul>
                 </div>
                 <div class="swiper-slide initHeight">
-                    <ul>
+                    <ul v-if="myTestLists">
                         <li v-for="(myTestItem,testIndex) in myTestLists">
                             <div class="listStyle listNoBorder">
                                 <div class="textList_title">{{myTestItem.title}}</div>
@@ -58,6 +58,10 @@
                             </div>
                         </li>
                     </ul>
+                    <div class="myTest_no" v-if="!myTestLists">
+                        <img src="../images/myTest_no.png" alt="">
+                        <div>您还没有相关测试~~</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -198,6 +202,7 @@
     .textList_box{
         margin-top: 2.588rem;
         margin-bottom: 10px;
+        width:100%;
     }
     .listStyle{
         padding:1.35rem 0.88235rem 0.8235rem 0.88235rem;
@@ -284,6 +289,17 @@
         line-height: 1.764rem;
         border-radius: 5px;
     }
+    .myTest_no{
+        font-size: 14px;
+        color: #9D9A9A ;
+        text-align: center;
+    }
+    .myTest_no img{
+        display: block;
+        height:121px;
+        margin:60px auto 25px auto;
+    }
+
 </style>
 
 

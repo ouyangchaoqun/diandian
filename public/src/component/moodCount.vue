@@ -154,7 +154,7 @@
     .moodCount_tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:46px;font-size:15px;text-decoration:none;}
     .moodCount_tabs a.moodCount_tabs_active{color:#339900;position: relative}
     .moodCount_tabs a.moodCount_tabs_active:after{ content: " "; height: 2px ;overflow: hidden; width: 100%; display: block; position: absolute; background: #339900; bottom:0;left:0}
-   /* .moodCount_box{width:100%;height:100%;}*/
+    .moodCount_box{width:100%;}
     .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
 
     .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
