@@ -166,6 +166,9 @@
     }
 </script>
 <style>
+    .textList_box li:last-of-type{
+        margin-bottom: 15px;
+    }
     header{
         height:2.588rem;
         background: #fff;
