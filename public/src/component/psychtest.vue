@@ -23,7 +23,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide">
                     <ul>
                         <li v-for="heaItem in heaLists">
                             <router-link class="listStyle" :to="{ path: '/psychtestDetail', query: { testId: heaItem.id}}">
@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide">
                     <ul v-if="myTestLists">
                         <li v-for="(myTestItem,testIndex) in myTestLists">
                             <div class="listStyle listNoBorder">
@@ -86,26 +86,16 @@
             this.getHeaLists();
             this.getMyTestLists();
             var minHeight = $(window).height()-$('header').height();
-            $(".textList_box").css('min-height',minHeight-15)
+            $(".swiper-slide").css('height',minHeight)
             console.log(minHeight)
             this.$nextTick(function () {
                 var psychtestSwiper = new Swiper('.textList_box',{
                     speed:500,
                     onSlideChangeStart: function(){
                         $('header div').removeClass('test_active');
-                        $(".swiper-slide").removeClass('initHeight')
                         $('header div').eq(psychtestSwiper.activeIndex).addClass('test_active');
                         $('.textList_box').css('height','auto')
                         console.log('触发.........')
-                    },
-                    onSlideChangeEnd:function (swiper) {
-                        $(".swiper-slide").each(function (i) {
-                            if(swiper.activeIndex==i){
-                                $(".textList_box").css('height',$(this).height())
-                                console.log($(".textList_box").height())
-                            }
-
-                        })
                     }
                 });
                 $('header div').on('click',function () {
@@ -259,10 +249,6 @@
         right:0.88235rem;
         top:1.17647rem;
     }
-    .initHeight{
-        height:1px;
-        overflow: hidden;
-    }
     .listStyle:active{
         background:#ececec;
     }
@@ -299,6 +285,7 @@
         height:121px;
         margin:60px auto 25px auto;
     }
+    .swiper-slide{ overflow: auto}
 
 </style>
 

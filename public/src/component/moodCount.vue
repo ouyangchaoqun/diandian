@@ -19,7 +19,7 @@
                       </li>
                   </ul>
                 </div>
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide">
                     <ul>
 
 
@@ -35,7 +35,7 @@
                     </ul>
 
                 </div>
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide">
 
                     <ul>
                         <li class="countList" v-for="year in years">
@@ -71,7 +71,7 @@
         mounted:function () {
             let _this=this;
             var minHeight = $(window).height()-$('.moodCount_tabs').height();
-            $(".swiper-slide").css('height',minHeight-15)
+            $(".swiper-slide").css('height',minHeight)
             _this.$http.get(web.API_PATH+'mood/query/statistics/weeks/_userId_').then(response => {
                 if(response.data.status===1){
                     _this.weeks=response.data.data;
@@ -121,20 +121,9 @@
                     speed:500,
                     onSlideChangeStart: function(){
                         $(".moodCount_tabs .moodCount_tabs_active").removeClass('moodCount_tabs_active');
-                        $(".swiper-slide").removeClass('initHeight')
                         $(".moodCount_tabs a").eq(tabsSwiper.activeIndex).addClass('moodCount_tabs_active');
                         $('.moodCount_box').css('height','auto')
                         console.log('触发.....')
-                    },
-                    onSlideChangeEnd:function (swiper) {
-                        $(".swiper-slide").each(function (i) {
-                            if(swiper.activeIndex==i){
-
-//                                $(".moodCount_box").css('height',$(this).height())
-                                console.log('end'+$(".moodCount_box").height())
-                            }
-
-                        })
                     }
                 });
                 $(".moodCount_tabs a").on('click',function(e){
@@ -162,10 +151,6 @@
     .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
     .count2{color:#a9a9a9;font-size: 15px}
     .countList img{position:absolute;height:20px;width:20px;display:block;right:10px;top:50%; margin-top:-10px;
-    }
-    .initHeight{
-        height:1px;
-        overflow: hidden;
     }
 </style>
 
