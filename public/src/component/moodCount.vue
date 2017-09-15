@@ -71,7 +71,7 @@
         mounted:function () {
             let _this=this;
             var minHeight = $(window).height()-$('.moodCount_tabs').height();
-            $(".moodCount_box").css('min-height',minHeight-15)
+            $(".swiper-slide").css('height',minHeight-15)
             _this.$http.get(web.API_PATH+'mood/query/statistics/weeks/_userId_').then(response => {
                 if(response.data.status===1){
                     _this.weeks=response.data.data;
@@ -129,7 +129,8 @@
                     onSlideChangeEnd:function (swiper) {
                         $(".swiper-slide").each(function (i) {
                             if(swiper.activeIndex==i){
-                                $(".moodCount_box").css('height',$(this).height())
+
+//                                $(".moodCount_box").css('height',$(this).height())
                                 console.log('end'+$(".moodCount_box").height())
                             }
 
@@ -149,6 +150,7 @@
     }
 </script>
 <style>
+    .swiper-slide{ overflow: auto}
     .moodCount_bgbox{width: 100%;height: 100%;background: #ffffff !important;}
     .moodCount_tabs{height:45px;width: 100%;background:#f8f8f8;border-bottom: 1px solid #e5e5e5}
     .moodCount_tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:46px;font-size:15px;text-decoration:none;}
