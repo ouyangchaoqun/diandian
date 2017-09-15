@@ -135,10 +135,8 @@
             $(".tabs a").on('click',function(e){
                 e.preventDefault()
                 $(".tabs .active").removeClass('active');
-                $(".swiper-slide").removeClass('initHeight')
                 $(this).addClass('active');
                 tabsSwiper.slideTo($(this).index());
-                $('.moodCount_box').height($('.swiper-slide:eq('+tabsSwiper.activeIndex+')').outerHeight(true))
             });
             xqzs.wx.setConfig(_this);
         }

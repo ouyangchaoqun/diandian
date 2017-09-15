@@ -99,7 +99,6 @@
                 }
             });
             $('header div').on('click',function () {
-                $(".swiper-slide").removeClass('initHeight')
                 $('header div').removeClass('test_active')
                 $(this).addClass('test_active')
                 psychtestSwiper.slideTo($(this).index());

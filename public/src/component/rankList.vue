@@ -186,21 +186,20 @@
                         $(".swiper-slide").removeClass('initHeight')
                         $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
                         $(".swiper-wrapper").css('height',"auto")
+                        console.log('触发.....')
                     },
                     onSlideChangeEnd:function (swiper) {
                         $(".swiper-slide").each(function (i) {
-                            console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
                             if(swiper.activeIndex==i){
                                 $(".swiper-wrapper").css('height',$(this).height())
+                                console.log($(".swiper-wrapper").height())
                             }
 
                         })
                     }
                 });
                 $(".tabs a").on('click', function (e) {
-
-                    $(".swiper-slide").removeClass('initHeight')
-                    console.log("touchstart");
+                    console.log('click'+$(".swiper-wrapper").height())
                     console.log($(this).index())
                     e.preventDefault()
                     $(".tabs .active").removeClass('active');
