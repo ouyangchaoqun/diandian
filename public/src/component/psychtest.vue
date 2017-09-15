@@ -81,6 +81,9 @@
             this.getTextList();
             this.getHeaLists();
             this.getMyTestLists();
+            var minHeight = $(window).height()-$('header').height();
+            $(".textList_box").css('min-height',minHeight-15)
+            console.log(minHeight)
             var psychtestSwiper = new Swiper('.textList_box',{
                 speed:500,
                 onSlideChangeStart: function(){
@@ -88,11 +91,13 @@
                     $(".swiper-slide").removeClass('initHeight')
                     $('header div').eq(psychtestSwiper.activeIndex).addClass('test_active');
                     $('.textList_box').css('height','auto')
+                    console.log('触发.........')
                 },
                 onSlideChangeEnd:function (swiper) {
                     $(".swiper-slide").each(function (i) {
                         if(swiper.activeIndex==i){
                             $(".textList_box").css('height',$(this).height())
+                            console.log($(".textList_box").height())
                         }
 
                     })

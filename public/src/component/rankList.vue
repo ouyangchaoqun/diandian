@@ -8,7 +8,7 @@
             <a hidefocus="true" class="yyyyyy">心情记录</a>
             <a hidefocus="true">新增好友</a>
         </div>
-        <div class="swiper-container moodCount_box" style="width: 100%">
+        <div class="swiper-container rankSwiper" style="width: 100%">
             <div class="swiper-wrapper">
 
                 <!--关心排行-->
@@ -176,35 +176,35 @@
             let _this = this;
             _this.type = this.$route.params.Type;
             _this.value = this.$route.params.Value;
+            var minHeight = $(window).height()-$('.tabs').height();
+            $(".rankSwiper").css('min-height',minHeight-15)
             console.log(_this.type)
             console.log(_this.value)
             _this.$nextTick(function () {
-                var tabsSwiper = new Swiper('.moodCount_box', {
+                var rankSwiper = new Swiper('.rankSwiper', {
                     speed: 500,
                     onSlideChangeStart: function () {
                         $(".tabs .active").removeClass('active');
                         $(".swiper-slide").removeClass('initHeight')
-                        $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
-                        $(".swiper-wrapper").css('height',"auto")
+                        $(".tabs a").eq(rankSwiper.activeIndex).addClass('active');
+                        $(".rankSwiper").css('height',"auto")
                         console.log('触发.....')
                     },
                     onSlideChangeEnd:function (swiper) {
                         $(".swiper-slide").each(function (i) {
                             if(swiper.activeIndex==i){
-                                $(".swiper-wrapper").css('height',$(this).height())
-                                console.log($(".swiper-wrapper").height())
+                                $(".rankSwiper").css('height',$(this).height())
+                                console.log('end'+$(".rankSwiper").height())
                             }
 
                         })
                     }
                 });
                 $(".tabs a").on('click', function (e) {
-                    console.log('click'+$(".swiper-wrapper").height())
-                    console.log($(this).index())
                     e.preventDefault()
                     $(".tabs .active").removeClass('active');
                     $(this).addClass('active');
-                    tabsSwiper.slideTo($(this).index());
+                    rankSwiper.slideTo($(this).index());
                 });
             });
 
@@ -262,9 +262,6 @@
                     if (response.body.status == 1) {
                         //获取自己的排行
                         _this.useFriend = response.body.data.myNewFriendRank;
-
-
-                        console.log(_this.useFriend[0])
                         if (response.body.data.myNewFriendRank.length > 0) {
                             //_this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                         }

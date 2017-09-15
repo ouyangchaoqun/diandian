@@ -70,6 +70,8 @@
         },
         mounted:function () {
             let _this=this;
+            var minHeight = $(window).height()-$('.tabs').height();
+            $(".moodCount_box").css('min-height',minHeight-15)
             _this.$http.get(web.API_PATH+'mood/query/statistics/weeks/_userId_').then(response => {
                 if(response.data.status===1){
                     _this.weeks=response.data.data;
@@ -121,12 +123,13 @@
                     $(".swiper-slide").removeClass('initHeight')
                     $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
                     $('.moodCount_box').css('height','auto')
+                    console.log('触发.....')
                 },
                 onSlideChangeEnd:function (swiper) {
                     $(".swiper-slide").each(function (i) {
-                        console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
                         if(swiper.activeIndex==i){
                             $(".moodCount_box").css('height',$(this).height())
+                            console.log('end'+$(".moodCount_box").height())
                         }
 
                     })
