@@ -80,8 +80,6 @@
 
             });
 
-
-
         },
         methods: {
             nextOption:function (id,index) {
@@ -218,6 +216,7 @@
         font-size: 0.94117647rem;
         margin-top: 2.0588rem;
         display: inline-block;
+        height:2.353rem;
     }
     .testQuestions_btn{
         text-align: center;

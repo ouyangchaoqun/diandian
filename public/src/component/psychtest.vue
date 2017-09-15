@@ -15,7 +15,7 @@
                                 <div class="textList_content">{{psyItem.des}}</div>
                                 <div class="textList_info">
                                     <span class="textList_cost">{{psyItem.price}}</span>
-                                    <span class="textList_count">{{psyItem.count}}人收听过</span>
+                                    <span class="textList_count">{{psyItem.count}}人测试过</span>
                                 </div>
                                 <img class="psychImg" :src="psyItem.pic" alt="">
                             </router-link>
@@ -41,22 +41,25 @@
                 </div>
                 <div class="swiper-slide">
                     <ul v-if="myTestLists&&myTestLists.length!=0">
-                        <li v-for="(myTestItem,testIndex) in myTestLists">
-                            <div class="listStyle listNoBorder">
-                                <div class="textList_title">{{myTestItem.title}}</div>
-                                <div class="textList_content">{{myTestItem.des}}</div>
-                                <div class="textList_info">
-                                    <span class="textList_cost">{{myTestItem.price}}</span>
-                                    <span class="textList_count">{{myTestItem.count}}人收听过</span>
+                            <li v-for="(myTestItem,testIndex) in myTestLists">
+                                <router-link :to="{ path: '/psychtestDetail', query: { testId: myTestItem.id}}">
+                                <div class="listStyle listNoBorder">
+                                    <div class="textList_title">{{myTestItem.title}}</div>
+                                    <div class="textList_content">{{myTestItem.des}}</div>
+                                    <div class="textList_info">
+                                        <span class="textList_cost">{{myTestItem.price}}</span>
+                                        <span class="textList_count">{{myTestItem.count}}人测试过</span>
+                                    </div>
+                                    <img class="psychImg" :src="myTestItem.pic" alt="">
                                 </div>
-                                <img class="psychImg" :src="myTestItem.pic" alt="">
-                            </div>
-                            <div class="addMeTest">
-                                完成时间: {{myTestItem.addTime}}
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
-                                <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
-                            </div>
-                        </li>
+                                <div class="addMeTest">
+                                    完成时间: {{myTestItem.addTime}}
+                                    <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
+                                    <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
+                                </div>
+                                </router-link>
+                            </li>
+
                     </ul>
                     <div class="myTest_no" v-if="myTestLists&&myTestLists.length==0">
                         <img src="../images/myTest_no.png" alt="">
