@@ -14,7 +14,7 @@
                                 <div class="textList_title">{{psyItem.title}}</div>
                                 <div class="textList_content">{{psyItem.des}}</div>
                                 <div class="textList_info">
-                                    <span class="textList_cost">{{psyItem.price}}</span>
+                                    <span class="textList_cost">￥{{psyItem.price}}</span>
                                     <span class="textList_count">{{psyItem.count}}人测试过</span>
                                 </div>
                                 <img class="psychImg" :src="psyItem.pic" alt="">
@@ -30,7 +30,7 @@
                                 <div class="textList_title">{{heaItem.title}}</div>
                                 <div class="textList_content">{{heaItem.des}}</div>
                                 <div class="textList_info">
-                                    <span class="textList_cost">{{heaItem.price}}</span>
+                                    <span class="textList_cost">￥{{heaItem.price}}</span>
                                     <span class="textList_count">{{heaItem.count}}人收听过</span>
                                 </div>
                                 <img class="psychImg" :src="heaItem.pic" alt="">
@@ -47,7 +47,7 @@
                                     <div class="textList_title">{{myTestItem.title}}</div>
                                     <div class="textList_content">{{myTestItem.des}}</div>
                                     <div class="textList_info">
-                                        <span class="textList_cost">{{myTestItem.price}}</span>
+                                        <span class="textList_cost">￥{{myTestItem.price}}</span>
                                         <span class="textList_count">{{myTestItem.count}}人测试过</span>
                                     </div>
                                     <img class="psychImg" :src="myTestItem.pic" alt="">
