@@ -738,6 +738,9 @@
         color: #fff;
     }
 
+
+    .bottom_btn .record_bottom:active{ opacity: 0.8; background:rgba(0,0,0,0.3)}
+
     .night_action {
 
         /*background: url(../images/nightbg.png) no-repeat;*/
@@ -832,7 +835,9 @@
         color: #f4f4f7
     }
 
-    .nightbg .record_bottom, .nightbg .timeout .record_text2 {
+
+
+    .nightbg  .bottom_btn, .nightbg .timeout .record_text2 {
         background-color: #4e4c73;
     }
 

@@ -156,7 +156,9 @@
 </template>
 <style>
 
-
+    .share:active{
+        background: #ECECEC;
+    }
     .care_active:active {
         background: #f1f1f1
     }
@@ -261,6 +263,7 @@
         box-shadow: rgba(24, 24, 24, 0.38) 0px 2.5px 5px;
         z-index: 1;
     }
+    .clock_head:active{ opacity: 0.8}
 
     .clock_top .hot {
         height: 10px;
