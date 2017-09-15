@@ -3,9 +3,9 @@
         <div v-title>本周Top100</div>
         <div class="mid_line1"></div>
         <div class="mid_line2"></div>
-        <div class="tabs">
-            <a hidefocus="true" class="active">好友互动</a>
-            <a hidefocus="true" class="yyyyyy">心情记录</a>
+        <div class="rankList_tabs">
+            <a hidefocus="true" class="rankList_tabs_active">好友互动</a>
+            <a hidefocus="true">心情记录</a>
             <a hidefocus="true">新增好友</a>
         </div>
         <div class="swiper-container rankSwiper" style="width: 100%">
@@ -176,7 +176,7 @@
             let _this = this;
             _this.type = this.$route.params.Type;
             _this.value = this.$route.params.Value;
-            var minHeight = $(window).height()-$('.tabs').height();
+            var minHeight = $(window).height()-$('.rankList_tabs').height();
             $(".rankSwiper").css('min-height',minHeight-15)
             console.log(_this.type)
             console.log(_this.value)
@@ -184,9 +184,9 @@
                 var rankSwiper = new Swiper('.rankSwiper', {
                     speed: 500,
                     onSlideChangeStart: function () {
-                        $(".tabs .active").removeClass('active');
+                        $(".rankList_tabs .rankList_tabs_active").removeClass('rankList_tabs_active');
                         $(".swiper-slide").removeClass('initHeight')
-                        $(".tabs a").eq(rankSwiper.activeIndex).addClass('active');
+                        $(".rankList_tabs a").eq(rankSwiper.activeIndex).addClass('rankList_tabs_active');
                         $(".rankSwiper").css('height',"auto")
                         console.log('触发.....')
                     },
@@ -200,10 +200,10 @@
                         })
                     }
                 });
-                $(".tabs a").on('click', function (e) {
+                $(".rankList_tabs a").on('click', function (e) {
                     e.preventDefault()
-                    $(".tabs .active").removeClass('active');
-                    $(this).addClass('active');
+                    $(".rankList_tabs .rankList_tabs_active").removeClass('rankList_tabs_active');
+                    $(this).addClass('rankList_tabs_active');
                     rankSwiper.slideTo($(this).index());
                 });
             });
@@ -297,12 +297,6 @@
         background-color: #f4f4f8;
     }
 
-    .tabs {
-        height: 50px;
-        width: 100%;
-        background: #f8f8f8;
-        border-bottom: 1px solid #e5e5e5;
-    }
 
     .mid_line1 {
         position: absolute;
@@ -322,7 +316,7 @@
         position: absolute;
     }
 
-    .tabs {
+    .rankList_tabs {
         height: 50px;
         width: 100%;
         background: #f4f4f8;
@@ -335,7 +329,7 @@
     }
     .memo{ font-size: 13px; color:#333;  margin: 15px;  text-align: left;}
 
-    .tabs a {
+    .rankList_tabs a {
         display: block;
         float: left;
         width: 33.33%;
@@ -346,12 +340,12 @@
         text-decoration: none;
     }
 
-    .tabs a.active {
+    .rankList_tabs a.rankList_tabs_active {
         color: #09bb07;
         position: relative
     }
 
-    .tabs a.active:after {
+    .rankList_tabs a.rankList_tabs_active:after {
         content: " ";
         height: 2.5px;
         overflow: hidden;

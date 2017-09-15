@@ -2,8 +2,8 @@
     <div class="moodCount_bgbox">
         <div v-title>我的心情指数</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="tabs">
-            <a href="#" hidefocus="true" class="active">每周心情指数</a>
+        <div class="moodCount_tabs">
+            <a href="#" hidefocus="true" class="moodCount_tabs_active">每周心情指数</a>
             <a href="#" hidefocus="true">每月心情指数</a>
             <a href="#" hidefocus="true">每年心情指数</a>
         </div>
@@ -70,7 +70,7 @@
         },
         mounted:function () {
             let _this=this;
-            var minHeight = $(window).height()-$('.tabs').height();
+            var minHeight = $(window).height()-$('.moodCount_tabs').height();
             $(".moodCount_box").css('min-height',minHeight-15)
             _this.$http.get(web.API_PATH+'mood/query/statistics/weeks/_userId_').then(response => {
                 if(response.data.status===1){
@@ -116,31 +116,33 @@
             }, response => {
                 // error
             });
-            var tabsSwiper = new Swiper('.moodCount_box',{
-                speed:500,
-                onSlideChangeStart: function(){
-                    $(".tabs .active").removeClass('active');
-                    $(".swiper-slide").removeClass('initHeight')
-                    $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
-                    $('.moodCount_box').css('height','auto')
-                    console.log('触发.....')
-                },
-                onSlideChangeEnd:function (swiper) {
-                    $(".swiper-slide").each(function (i) {
-                        if(swiper.activeIndex==i){
-                            $(".moodCount_box").css('height',$(this).height())
-                            console.log('end'+$(".moodCount_box").height())
-                        }
+            _this.$nextTick(function () {
+                var tabsSwiper = new Swiper('.moodCount_box',{
+                    speed:500,
+                    onSlideChangeStart: function(){
+                        $(".moodCount_tabs .moodCount_tabs_active").removeClass('moodCount_tabs_active');
+                        $(".swiper-slide").removeClass('initHeight')
+                        $(".moodCount_tabs a").eq(tabsSwiper.activeIndex).addClass('moodCount_tabs_active');
+                        $('.moodCount_box').css('height','auto')
+                        console.log('触发.....')
+                    },
+                    onSlideChangeEnd:function (swiper) {
+                        $(".swiper-slide").each(function (i) {
+                            if(swiper.activeIndex==i){
+                                $(".moodCount_box").css('height',$(this).height())
+                                console.log('end'+$(".moodCount_box").height())
+                            }
 
-                    })
-                }
-            });
-            $(".tabs a").on('click',function(e){
-                e.preventDefault()
-                $(".tabs .active").removeClass('active');
-                $(this).addClass('active');
-                tabsSwiper.slideTo($(this).index());
-            });
+                        })
+                    }
+                });
+                $(".moodCount_tabs a").on('click',function(e){
+                    e.preventDefault()
+                    $(".moodCount_tabs .moodCount_tabs_active").removeClass('moodCount_tabs_active');
+                    $(this).addClass('moodCount_tabs_active');
+                    tabsSwiper.slideTo($(this).index());
+                });
+            })
             xqzs.wx.setConfig(_this);
         }
 
@@ -148,10 +150,10 @@
 </script>
 <style>
     .moodCount_bgbox{width: 100%;height: 100%;background: #ffffff !important;}
-    .tabs{height:45px;width: 100%;background:#f8f8f8;border-bottom: 1px solid #e5e5e5}
-    .tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:46px;font-size:15px;text-decoration:none;}
-    .tabs a.active{color:#339900;position: relative}
-    .tabs a.active:after{ content: " "; height: 2px ;overflow: hidden; width: 100%; display: block; position: absolute; background: #339900; bottom:0;left:0}
+    .moodCount_tabs{height:45px;width: 100%;background:#f8f8f8;border-bottom: 1px solid #e5e5e5}
+    .moodCount_tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:46px;font-size:15px;text-decoration:none;}
+    .moodCount_tabs a.moodCount_tabs_active{color:#339900;position: relative}
+    .moodCount_tabs a.moodCount_tabs_active:after{ content: " "; height: 2px ;overflow: hidden; width: 100%; display: block; position: absolute; background: #339900; bottom:0;left:0}
    /* .moodCount_box{width:100%;height:100%;}*/
     .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
 
