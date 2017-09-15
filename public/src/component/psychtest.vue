@@ -40,7 +40,7 @@
                     </ul>
                 </div>
                 <div class="swiper-slide">
-                    <ul v-if="myTestLists">
+                    <ul v-if="myTestLists&&myTestLists.length!=0">
                         <li v-for="(myTestItem,testIndex) in myTestLists">
                             <div class="listStyle listNoBorder">
                                 <div class="textList_title">{{myTestItem.title}}</div>
@@ -58,7 +58,7 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="myTest_no" v-if="!myTestLists">
+                    <div class="myTest_no" v-if="myTestLists&&myTestLists.length==0">
                         <img src="../images/myTest_no.png" alt="">
                         <div>您还没有相关测试~~</div>
                     </div>
