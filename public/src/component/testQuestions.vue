@@ -17,7 +17,7 @@
                                 <label class="questLabel">
                                     <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
                                     <input class="questRadio" type="radio" v-if="quest.checkIndex!=index"  :name="'questRadio'+quest.id">
-                                    <span class="questRadioInput"></span>
+                                    <span class="questRadioInput" @click.stop></span>
                                 </label>
                             </li>
                             <div class="testQuestions_btn">
@@ -86,9 +86,7 @@
         methods: {
             nextOption:function (id,index) {
                 let _this = this;
-                console.log(id,index+1);
                _this.updateScore(id,index)
-                console.log(_this.scoreCount)
                 _this.questSwiper.slideNext();
             },
             updateScore:function (id,answerIndex) {
