@@ -55,9 +55,8 @@
                     </ul>
                     <div class="memo">备注：好友互动数 = 好友对我心情的点赞/拥抱数 + 我对好友心情的点赞/拥抱数</div>
                 </div>
-
                 <!--活跃度排行-->
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide ">
                     <template v-if="useActive.length>0">
                         <div class="my_rank" :class="useActive.addClassName">
                             <div class="rank_index">
@@ -98,7 +97,7 @@
 
                 </div>
                 <!--新增好友排行-->
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide ">
                     <template v-if="useFriend.length>0">
                         <div class="my_rank" :class="useFriend.addClassName">
                             <div class="rank_index">
@@ -174,6 +173,8 @@
         },
         mounted: function () {
             let _this = this;
+            var minHeight = $(window).height()-$('.rankList_tabs').height();
+            $(".swiper-slide").css('height',minHeight)
             _this.type = this.$route.params.Type;
             _this.value = this.$route.params.Value;
             var minHeight = $(window).height()-$('.rankList_tabs').height();
@@ -185,10 +186,9 @@
                     speed: 500,
                     onSlideChangeStart: function () {
                         $(".rankList_tabs .rankList_tabs_active").removeClass('rankList_tabs_active');
-                        $(".swiper-slide").removeClass('initHeight')
                         $(".rankList_tabs a").eq(rankSwiper.activeIndex).addClass('rankList_tabs_active');
-                        $(".rankSwiper").css('height',"auto")
-                        console.log('触发.....')
+
+
                     },
                     onSlideChangeEnd:function (swiper) {
                         $(".swiper-slide").each(function (i) {
@@ -287,10 +287,7 @@
     }
 </script>
 <style>
-    .initHeight{
-        height:1px;
-        overflow: hidden;
-    }
+    .swiper-slide{ overflow: auto}
     .rankList_box {
         width: 100%;
         height: 100%;
