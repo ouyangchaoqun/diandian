@@ -29,7 +29,7 @@
                         <div class="xz_content">{{item.content}}</div>
                     </div>
                 </div>
-                <div class="xz_introduce">说明：广泛的星座运势并不会具体针对关联到个人运势，仅够娱乐参考）</div>
+                <div class="xz_introduce">说明：广泛的星座运势并不会具体针对关联到个人运势，仅供娱乐参考</div>
             </div>
             <div class="addEwmBox" v-if="!user||(user&&theUser&&user.id!=theUser.id)">
                 <img src="../images/addEwm_top.png" alt="">

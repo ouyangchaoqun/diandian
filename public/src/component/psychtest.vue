@@ -31,7 +31,7 @@
                                 <div class="textList_content">{{heaItem.des}}</div>
                                 <div class="textList_info">
                                     <span class="textList_cost">￥{{heaItem.price}}</span>
-                                    <span class="textList_count">{{heaItem.count}}人收听过</span>
+                                    <span class="textList_count">{{heaItem.count}}人测试过</span>
                                 </div>
                                 <img class="psychImg" :src="heaItem.pic" alt="">
                             </router-link>
