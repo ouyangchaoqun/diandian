@@ -969,7 +969,7 @@ var xqzs = {
             {name: "天蝎座", id: 11, pic: web.IMG_PATH + "constellation/11.png", times: "10.24-11.22"},
             {name: "射手座", id: 12, pic: web.IMG_PATH + "constellation/12.png", times: "11.23-12.21"}],
         getIndex: function (month, day) {
-            return (month - (day < "102223444433".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
+            return (month - (day < "102123444543".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
         }
     },
     image:{
