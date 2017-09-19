@@ -5,5 +5,4 @@ const psychtest = resolve => require(['../component/psychtest.vue'], resolve)
 module.exports = {
     path: '/psychtest',
     component: psychtest,
-
 }

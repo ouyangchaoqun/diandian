@@ -70,7 +70,9 @@
         </div>
     </div>
 </template>
+
 <script type="text/javascript">
+    import Bus from '../component/bus.js';
     var psychtest = {
         template: '#psychtest'
     }
@@ -81,40 +83,69 @@
                 heaLists:[],
                 myTestLists:[],
                 answerId:'',
-                testId:''
+                testId:'',
+                activeIndex:0,
+                psychtestSwiper:null
             }
         },
         mounted: function () {
+            var _this = this;
             this.getTextList();
             this.getHeaLists();
             this.getMyTestLists();
             var minHeight = $(window).height()-$('header').height();
             $(".swiper-slide").css('height',minHeight)
             console.log(minHeight)
+
             this.$nextTick(function () {
-                var psychtestSwiper = new Swiper('.textList_box',{
-                    speed:500,
-                    onSlideChangeStart: function(){
+                _this.psychtestSwiper = new Swiper('.textList_box', {
+                    speed: 500,
+                    onSlideChangeStart: function () {
                         $('header div').removeClass('test_active');
-                        $('header div').eq(psychtestSwiper.activeIndex).addClass('test_active');
-                        $('.textList_box').css('height','auto')
+                        $('header div').eq(_this.psychtestSwiper.activeIndex).addClass('test_active');
+                        $('.textList_box').css('height', 'auto')
                         console.log('触发.........')
                     }
-                });
+
+                })
+
+                let  actionIndex  = cookie.get('activeIndex')
+
+                if(actionIndex){
+                    _this.psychtestSwiper.slideTo(actionIndex);
+                    cookie.set('activeIndex',0)
+                }
+            })
+
                 $('header div').on('click',function () {
                     $('header div').removeClass('test_active')
                     $(this).addClass('test_active')
-                    psychtestSwiper.slideTo($(this).index());
+                    _this.psychtestSwiper.slideTo($(this).index());
+                    cookie.setNoexpires('activeIndex',$(this).index())
                 });
-            })
+
+
+
+
+//            Bus.$on('fromDetail',function () {
+//
+//
+//            })
+
+
+
 
         },
         methods: {
+
             getTextList:function () {
                 let _this=this;
                 _this.$http.get(web.API_PATH+'test/get/list/1/1/10').then(response => {
                     if(response.data.status===1){
                         _this.psyLists = response.data.data
+
+
+                        //console.
                     }
                 }, response => {
                     // error
@@ -215,6 +246,7 @@
         position: absolute;
         bottom:0.8235rem;
         left:0.88235rem;
+        width:12.235rem;
     }
     .textList_title{
         color: #333;
@@ -241,10 +273,9 @@
     .textList_cost{
         float: left;
         color: #FF6600;
-        margin-right:7rem;
     }
     .textList_count{
-        float: left;
+        float: right;
         color: #000;
     }
     .psychImg{

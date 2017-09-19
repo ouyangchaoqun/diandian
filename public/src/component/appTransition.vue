@@ -179,6 +179,8 @@
             } else {
                 this.transitionName = 'page-xqzs-left'
             }
+
+
             this.$nextTick(function () {
                 setTimeout(function () {
                     next()

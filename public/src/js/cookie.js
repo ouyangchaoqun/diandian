@@ -7,6 +7,9 @@ var cookie = {
         d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
         window.document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
     },
+    setNoexpires:function (name, value) {
+        window.document.cookie = name + "=" + value + ";path=/;";
+    },
     get: function (name) {
         var v = window.document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
         return v ? v[2] : null;

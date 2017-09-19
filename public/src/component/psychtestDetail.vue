@@ -13,16 +13,27 @@
         <div class="psych_test_btn_box">
             <template v-if="testDetail.answerId!=null">
                 <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
-                <!--<div class="psychtestDetail_btn" @click="startTest()">重新测试</div>-->
+                <div class="psychtestDetail_btn" @click="startTest()">重新测试</div>
             </template>
             <template v-if="testDetail.answerId==null">
                 <div class="psychtestDetail_btn" @click="startTest()">立即测试</div>
             </template>
         </div>
+        <div class="addBottom">
+            <div>
+                <img src="../images/addpsyDetail.png" alt="">
+                <div class="addBottomLine">测试须知</div>
+            </div>
+            <div class="addBottomText">
+                <p>1.本测试为付费测试</p>
+                <p>2.本测试不能重复测试，答题结束后会生成一份专业的测评报告，请根据自己的实际情况作答</p>
+            </div>
+        </div>
 
     </div>
 </template>
 <script type="text/javascript">
+    import Bus from '../component/bus.js';
     var psychtestDetail = {
         template: '#psychtestDetail'
     }
@@ -31,10 +42,19 @@
             return {
                 testId: '',
                 testDetail: {},
-                payed: 0
+                payed: 0,
             }
         },
+//        beforeRouteLeave(to, from, next){
+//            console.log('离开路由时把位置存起来'+from.path) //离开路由时把位置存起来
+//            console.log('离开路由'+to.path)
+//
+//            Bus.$emit('fromDetail')
+//
+//            next()
+//        },
         mounted: function () {
+
             let _this = this;
             _this.testId = _this.$route.query.testId;
             let start = _this.$route.query.start;
@@ -112,7 +132,6 @@
         padding: 0 0.88235rem;
         color: #333;
         font-size: 0.8235rem;
-        line-height: 18px;
         margin-bottom: 2.0588rem;
     }
 
@@ -173,7 +192,7 @@
 
     .psych_test_btn_box {
         height: 2.5294rem;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
         line-height: 2.5294rem;
@@ -188,5 +207,30 @@
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
+    }
+    .addBottom{
+        border-top: 6px solid #eee;
+        margin-top:15px;
+        padding-top: 15px;
+    }
+    .addBottom img{
+        display: block;
+        width:18px;
+        margin:0 auto;
+        margin-bottom: 9px;
+    }
+    .addBottomLine{
+        width:60px;
+        font-size: 0.70588rem;
+        border-top:1px solid #666;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 5px;
+        color: #666;
+    }
+    .addBottomText{
+        padding:20px 50px 70px 50px;
+        font-size: 0.70588rem;
+        color: #666;
     }
 </style>
