@@ -13,7 +13,7 @@
         <div class="psych_test_btn_box">
             <template v-if="testDetail.answerId!=null">
                 <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
-                <div class="psychtestDetail_btn" @click="startTest()">重新测试</div>
+                <div class="psychtestDetail_btn" @click="goPay()">重新测试</div>
             </template>
             <template v-if="testDetail.answerId==null">
                 <div class="psychtestDetail_btn" @click="startTest()">立即测试</div>
@@ -82,14 +82,20 @@
                 if (_this.payed == 1) {
                     _this.$router.replace('/testQuestions?testId=' + _this.testId)
                 } else {
-                    _this.$http.put(web.API_PATH + 'test/create/order/_userId_/' + _this.testId).then(function (res) {
-                        let config = res.data.data;
-                        let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href + "&start=1");
-                        window.location.href = url
-                    })
+                    _this.goPay();
                 }
 
             },
+
+            goPay:function () {
+                let _this = this;
+                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/' + _this.testId).then(function (res) {
+                    let config = res.data.data;
+                    let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href + "&start=1");
+                    window.location.href = url
+                })
+            },
+
             viewResult: function () {
                 let _this = this;
                 if (_this.answerId != null)
