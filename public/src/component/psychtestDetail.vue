@@ -11,11 +11,11 @@
             <div>{{testDetail.count}}人已经测试</div>
         </div>
         <div class="psych_test_btn_box">
-            <template v-if="testDetail.answerId!=null">
+            <template v-if="testDetail.lastAnswerId!=null">
                 <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
                 <div class="psychtestDetail_btn" @click="goPay()">重新测试</div>
             </template>
-            <template v-if="testDetail.answerId==null">
+            <template v-if="testDetail.lastAnswerId==null">
                 <div class="psychtestDetail_btn" @click="startTest()">立即测试</div>
             </template>
         </div>
