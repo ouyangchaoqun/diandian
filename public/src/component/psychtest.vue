@@ -54,8 +54,8 @@
                                 </div>
                                 <div class="addMeTest">
 
-                                    <template v-if="myTestItem.addTime!=null">完成时间: {{myTestItem.addTime}}</template>
-                                    <template v-if="myTestItem.addTime==null">未完成</template>
+                                    <template v-if="myTestItem.answerId!=null">完成时间: {{myTestItem.addTime}}</template>
+                                    <template v-if="myTestItem.answerId==null">未完成</template>
 
                                     <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click.stop="seeMyResult(testIndex)">查看报告</div>
                                     <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click.stop="finishTest(testIndex)">完成测试</div>
