@@ -63,7 +63,7 @@
                     console.log(response.data.data);
                     _this.testDetail = response.data.data;
                     _this.payed = response.data.data.payed;
-                    _this.answerId = response.data.data.answerId;
+                    _this.answerId = response.data.data.lastAnswerId;
                     console.log(_this.payed);
                     if (start && _this.payed) {
                         _this.$router.replace('/testQuestions?testId=' + _this.testId)
