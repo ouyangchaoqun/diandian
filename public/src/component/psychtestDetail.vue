@@ -13,10 +13,16 @@
         <div class="psych_test_btn_box">
             <template v-if="testDetail.lastAnswerId!=null">
                 <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
-                <div class="psychtestDetail_btn" @click="startTest()">重新测试</div>
+                <div class="psychtestDetail_btn" @click="startTest()">
+                    <template v-if="payed==1">完成测试</template>
+                    <template v-if="payed==0">重新测试</template>
+
+                    </div>
             </template>
             <template v-if="testDetail.lastAnswerId==null">
-                <div class="psychtestDetail_btn" @click="startTest()">立即测试</div>
+                <div class="psychtestDetail_btn" @click="startTest()">
+                    <template v-if="payed==1">完成测试</template>
+                    <template v-if="payed==0">立即测试</template></div>
             </template>
         </div>
         <div class="addBottom">
