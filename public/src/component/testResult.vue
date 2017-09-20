@@ -48,7 +48,7 @@
 
             testAgain: function () {
                 let _this = this;
-                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/' + _this.testId).then(function (res) {
+                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/' + _this.result.testId).then(function (res) {
                     let config = res.data.data;
                     let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href + "&start=1");
                     window.location.href = url
