@@ -3,12 +3,12 @@
         <div v-title>本周Top100</div>
         <div class="mid_line1"></div>
         <div class="mid_line2"></div>
-        <div class="tabs">
-            <a hidefocus="true" class="active">好友互动</a>
-            <a hidefocus="true" class="yyyyyy">心情记录</a>
+        <div class="rankList_tabs">
+            <a hidefocus="true" class="rankList_tabs_active">好友互动</a>
+            <a hidefocus="true">心情记录</a>
             <a hidefocus="true">新增好友</a>
         </div>
-        <div class="swiper-container moodCount_box" style="width: 100%">
+        <div class="swiper-container rankSwiper" style="width: 100%">
             <div class="swiper-wrapper">
 
                 <!--关心排行-->
@@ -55,9 +55,8 @@
                     </ul>
                     <div class="memo">备注：好友互动数 = 好友对我心情的点赞/拥抱数 + 我对好友心情的点赞/拥抱数</div>
                 </div>
-
                 <!--活跃度排行-->
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide ">
                     <template v-if="useActive.length>0">
                         <div class="my_rank" :class="useActive.addClassName">
                             <div class="rank_index">
@@ -98,7 +97,7 @@
 
                 </div>
                 <!--新增好友排行-->
-                <div class="swiper-slide initHeight">
+                <div class="swiper-slide ">
                     <template v-if="useFriend.length>0">
                         <div class="my_rank" :class="useFriend.addClassName">
                             <div class="rank_index">
@@ -174,38 +173,38 @@
         },
         mounted: function () {
             let _this = this;
+            var minHeight = $(window).height()-$('.rankList_tabs').height();
+            $(".swiper-slide").css('height',minHeight)
             _this.type = this.$route.params.Type;
             _this.value = this.$route.params.Value;
+            var minHeight = $(window).height()-$('.rankList_tabs').height();
+            $(".rankSwiper").css('min-height',minHeight-15)
             console.log(_this.type)
             console.log(_this.value)
             _this.$nextTick(function () {
-                var tabsSwiper = new Swiper('.moodCount_box', {
+                var rankSwiper = new Swiper('.rankSwiper', {
                     speed: 500,
                     onSlideChangeStart: function () {
-                        $(".tabs .active").removeClass('active');
-                        $(".swiper-slide").removeClass('initHeight')
-                        $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
-                        $(".swiper-wrapper").css('height',"auto")
+                        $(".rankList_tabs .rankList_tabs_active").removeClass('rankList_tabs_active');
+                        $(".rankList_tabs a").eq(rankSwiper.activeIndex).addClass('rankList_tabs_active');
+
+
                     },
                     onSlideChangeEnd:function (swiper) {
                         $(".swiper-slide").each(function (i) {
-                            console.log("i:"+i+"|swiper.activeIndex"+swiper.activeIndex)
                             if(swiper.activeIndex==i){
-                                $(".swiper-wrapper").css('height',$(this).height())
+                                $(".rankSwiper").css('height',$(this).height())
+                                console.log('end'+$(".rankSwiper").height())
                             }
 
                         })
                     }
                 });
-                $(".tabs a").on('click', function (e) {
-
-                    $(".swiper-slide").removeClass('initHeight')
-                    console.log("touchstart");
-                    console.log($(this).index())
+                $(".rankList_tabs a").on('click', function (e) {
                     e.preventDefault()
-                    $(".tabs .active").removeClass('active');
-                    $(this).addClass('active');
-                    tabsSwiper.slideTo($(this).index());
+                    $(".rankList_tabs .rankList_tabs_active").removeClass('rankList_tabs_active');
+                    $(this).addClass('rankList_tabs_active');
+                    rankSwiper.slideTo($(this).index());
                 });
             });
 
@@ -263,9 +262,6 @@
                     if (response.body.status == 1) {
                         //获取自己的排行
                         _this.useFriend = response.body.data.myNewFriendRank;
-
-
-                        console.log(_this.useFriend[0])
                         if (response.body.data.myNewFriendRank.length > 0) {
                             //_this.useFriend.addClassName = "first_" + response.body.data.myNewFriendRank[0].row;
                         }
@@ -291,22 +287,13 @@
     }
 </script>
 <style>
-    .initHeight{
-        height:1px;
-        overflow: hidden;
-    }
+    .swiper-slide{ overflow: auto}
     .rankList_box {
         width: 100%;
         height: 100%;
         background-color: #f4f4f8;
     }
 
-    .tabs {
-        height: 50px;
-        width: 100%;
-        background: #f8f8f8;
-        border-bottom: 1px solid #e5e5e5;
-    }
 
     .mid_line1 {
         position: absolute;
@@ -326,7 +313,7 @@
         position: absolute;
     }
 
-    .tabs {
+    .rankList_tabs {
         height: 50px;
         width: 100%;
         background: #f4f4f8;
@@ -339,7 +326,7 @@
     }
     .memo{ font-size: 13px; color:#333;  margin: 15px;  text-align: left;}
 
-    .tabs a {
+    .rankList_tabs a {
         display: block;
         float: left;
         width: 33.33%;
@@ -350,12 +337,12 @@
         text-decoration: none;
     }
 
-    .tabs a.active {
+    .rankList_tabs a.rankList_tabs_active {
         color: #09bb07;
         position: relative
     }
 
-    .tabs a.active:after {
+    .rankList_tabs a.rankList_tabs_active:after {
         content: " ";
         height: 2.5px;
         overflow: hidden;

@@ -18,8 +18,7 @@
                 <div class="pay_user">{{item.nickName | shortName(5)}}</div>
                 <div class="pay_money">{{item.amount}}</div>
                 <div class="pay_time">{{item.time}}</div>
-                <div class="pay_state" v-if="item.type==1">成功</div>
-                <div class="pay_state" v-if="item.type==0">失败</div>
+                <div class="pay_state">成功</div>
             </div>
         </div>
     </div>
@@ -62,12 +61,12 @@
 
             pay: function () {
                 let _this = this;
+//                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/1').then(function (res) {
                 _this.$http.put(web.API_PATH + 'power/plan/_userId_/' + 1 + '/' + 1 + '').then(function (res) {
-
 
                     let config = res.data.data;
 
-                    let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + window.location.href
+                    let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href)
 
                     window.location.href = url
                 })

@@ -612,6 +612,7 @@ var xqzs = {
             if(!maxLength){
                 maxLength=1000;
             }
+            //判断是否已经存在输入框
             if ($("#action_sheet_edit") && $("#action_sheet_edit").hasClass("action-sheet-edit")) {
                 return;
             }
@@ -628,15 +629,15 @@ var xqzs = {
 
             $("body").append(html);
 
-
+            var interval ;
             //解决第三方软键盘唤起时底部input输入框被遮挡问题
             var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
-            $(".comment_text").focus(function () {//在这里‘input.inputframe’是我的底部输入栏的输入框，当它获取焦点时触发事件
-                interval = setInterval(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+            $(".comment_text").focus(function () {
+                interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
                     document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                }, 100)
+                }, 180)
             }).blur(function () {//设定输入框失去焦点时的事件
-                clearInterval(interval);//清除计时器
+                clearTimeout(interval);//清除计时器
                 document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
             });
 
@@ -968,7 +969,7 @@ var xqzs = {
             {name: "天蝎座", id: 11, pic: web.IMG_PATH + "constellation/11.png", times: "10.24-11.22"},
             {name: "射手座", id: 12, pic: web.IMG_PATH + "constellation/12.png", times: "11.23-12.21"}],
         getIndex: function (month, day) {
-            return (month - (day < "102223444433".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
+            return (month - (day < "102123444543".charAt(month - 1) - -19)) % 12 //输出0～11的数字，0表示摩羯，1表示水瓶，依此类推，...，11是射手。
         }
     },
     image:{

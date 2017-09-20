@@ -165,7 +165,6 @@
         line-height: 1.2rem;
         padding: 0 1.176rem;
         text-align: left;
-        letter-spacing:0.118rem;
         height:8.4rem;
         overflow: auto;
     }
