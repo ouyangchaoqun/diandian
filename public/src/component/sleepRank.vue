@@ -1285,8 +1285,7 @@
             addCareAll:function () {
                 let _this= this;
                 let list = _this.rankLists;
-                console.log(_this.careAllIndex)
-                console.log(list.length)
+
                 if(parseInt(_this.careAllIndex)> list.length-1){
                     return  '';
                 }
