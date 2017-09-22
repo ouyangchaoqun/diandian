@@ -1173,7 +1173,7 @@
                         vm.isShowMoreText = false
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
-                    if (arr.length == 0) return;
+
                     for (let i = 0; i < arr.length; i++) {
                         arr[i] = vm.initCareImg(arr[i]);
                         if (arr[i].content != null) {
@@ -1190,6 +1190,7 @@
                     } else {
                         vm.rankLists = vm.rankLists.concat(arr);
                     }
+                    if (arr.length == 0) return;
 
 
                     //判断是否从提醒页面到 那么定位到 这个用户
