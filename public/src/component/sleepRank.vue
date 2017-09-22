@@ -121,13 +121,14 @@
                                         <div class="clock_time">{{rankList.time}}</div>
                                     </div>
                                     <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                        <div @click.stop="addCare(rankList)" class="care_icon">
+                                        <div @click.stop="addCare(rankList,index)" class="care_icon">
                                             <span>{{rankList.careCount||0}}</span>
                                             <img :src="rankList.careImg" alt="" :class="{heartUp:rankList.hit}">
                                         </div>
                                     </div>
                                 </li>
                             </ul>
+                            <a class="share" @click="addCareAll()" v-if="canCareAll">关心所有人</a>
                             <a class="share" @click="createinvite()" v-if="boxid==1&&typeId==2">点击生成好友邀请卡</a>
                         </div>
 
@@ -496,7 +497,7 @@
     }
 
     .care_icon {
-        padding: 0.8rem 0.88235rem 0.85rem 1.2rem
+        padding: 0.8rem 0.88235rem 0.85rem  1.8rem
     }
 
     .clock_box .rank_right img {
@@ -695,6 +696,8 @@
         },
         data() {
             return {
+                canCareAll:false,
+                careAllIndex:0,
                 isClickFace: false,
                 sleepNameShort: "早",
                 sleepName: "早起",
@@ -804,7 +807,7 @@
                 setTimeout(function () {
                     $(domThis).addClass('clock_tabActive')
                 }, 150)
-//
+
 
 
                 switch ($(this).index()) {
@@ -944,6 +947,10 @@
                         _this.isLogin = true;
                     }
 
+                    if(_this.currUser.id==25||_this.currUser.id==26||_this.currUser.id==27||_this.currUser.id==1656||_this.currUser.id==818||_this.currUser.id==1658){
+                        _this.canCareAll=true;
+
+                    }
 
                     this.$http.get(web.API_PATH + "user/get/judge/relation/" + this.currUser.id + "/" + this.user.id).then((response) => {
                         let isFriend = false;
@@ -1259,7 +1266,7 @@
 
                 }, function (v) {
 
-                }, '最多20个字', 20)
+                }, '最多35个字', 35)
             },
             wxFaceUrl: function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
@@ -1274,13 +1281,28 @@
                 }
 
             },
-            addCare: function (item) {
+
+            addCareAll:function () {
+                let _this= this;
+                let list = _this.rankLists;
+                console.log(_this.careAllIndex)
+                console.log(list.length)
+                if(parseInt(_this.careAllIndex)> list.length-1){
+                    return  '';
+                }
+                _this.addCare(list[_this.careAllIndex],_this.careAllIndex,true)
+
+
+            },
+            addCare: function (item,index,isCareAll) {
                 let _this = this;
                 //如果没有关注公众号则弹出二维码
                 if (!_this.currUser) {
                     _this.follow()
                     return;
                 }
+                let list = _this.rankLists;
+
                 if (item.caremy == 0 || item.caremy == undefined) {
                     _this.$http.put(web.API_PATH + 'mood/care/add', {
                         "moodId": null,
@@ -1289,30 +1311,37 @@
                         'withId': item.id
                     }).then(response => {
                         if (response.data.status === 1) {
-                            let list = _this.rankLists;
-                            for (let i = 0; i < list.length; i++) {
-                                if (list[i].id == item.id) {
-                                    list[i].careCount = response.data.data;
-                                    list[i].caremy = 1;
-                                    list[i].hit = true;
-                                    list[i] = _this.initCareImg(list[i])
-                                    _this.$set(_this.rankLists, i, list[i]);
-                                    //更新顶部信息
+                            list[index].careCount = response.data.data;
+                            list[index].caremy = 1;
+                            list[index].hit = true;
+                            list[index] = _this.initCareImg(list[index])
+                            _this.$set(_this.rankLists, index, list[index]);
+                            //更新顶部信息
 
-                                    if (list[i].id == _this.myFirst.id) {
+                            if (list[index].id == _this.myFirst.id) {
+                                _this.myFirst.caremy = 1;
+                                _this.myFirst.hit = true;
+                                _this.myFirst = _this.initCareImg(_this.myFirst, true);
+                                _this.myFirst.careCount = response.data.data;
+                            }
+                            if(isCareAll){
+                                _this.careAllIndex=parseInt(_this.careAllIndex)+1;
+                                _this.addCareAll();
 
-                                        _this.myFirst.caremy = 1;
-                                        _this.myFirst.hit = true;
-                                        _this.myFirst = _this.initCareImg(_this.myFirst, true);
-                                        _this.myFirst.careCount = response.data.data;
-                                    }
-                                    break;
-
-                                }
                             }
                         }
                     });
+                }else{
+                    if(isCareAll){
+                        _this.careAllIndex=parseInt(_this.careAllIndex)+1;
+                        _this.addCareAll();
+
+                    }
                 }
+                list[index].caremy = 1;
+                list[index].hit = true;
+                list[index] = _this.initCareImg(list[index])
+                _this.$set(_this.rankLists, index, list[index]);
             },
             cutNickName: function (nickName) {
                 if (!nickName) {
