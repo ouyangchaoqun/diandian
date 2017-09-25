@@ -845,6 +845,7 @@
                     _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.user.id + guestUrl).then(function (data) {//es5写法
                         $("#output").empty();
 //                        console.log(xqzs.string.toUtf8(data.body.data));
+                        if(data.body.data&&data.body.data!='')
                         $('#output').qrcode({
                             width: 100, height: 100,
                             text: xqzs.string.toUtf8(data.body.data), background: "#ffffff",
@@ -1132,8 +1133,8 @@
                 }
 
 
-                console.log(vm.isLoading)
-                console.log(vm.isPageEnd)
+                console.log(vm.isLoading);
+                console.log(vm.isPageEnd);
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -1147,6 +1148,12 @@
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
+                    if(vm.counter==1&&response.data.status==20001){
+                        vm.rankLists = [];
+                    }
+                    if(response.data.status==20001){
+                        return;
+                    }
 
 
                     if (response.data.data.userRank && response.data.data.userRank.content != null) {
