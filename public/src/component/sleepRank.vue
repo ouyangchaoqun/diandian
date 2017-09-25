@@ -115,7 +115,7 @@
                                     <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
                                         <img class="rank_headImg" :src="wxFaceUrl(rankList.faceUrl)" alt="">
                                         <div class="rank_name">
-                                            <div class="rank_NickName">{{cutNickName(rankList.nickName)}}<span class="continue_day addMessage">（+<span>{{rankList.totalDays}}</span>天）</span></div>
+                                            <div class="rank_NickName">{{cutNickName(rankList.nickName)}}<span class="continue_day addMessage">[+<span>{{rankList.totalDays}}</span>天]</span></div>
                                             <!--<div class="continue_day addMessage">累计打卡<span>{{rankList.totalDays}}</span>天</div>-->
                                             <div class="addMessage">{{rankList.content}}</div>
                                         </div>
