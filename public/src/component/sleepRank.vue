@@ -498,8 +498,7 @@
         position: absolute;
         right: 18px;
         top: 0;
-        line-height: 2.35rem !important;
-    }
+     }
 
     .care_icon {
         padding: 0.8rem 0.88235rem 0.85rem  1.8rem
