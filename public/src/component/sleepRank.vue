@@ -455,7 +455,7 @@
         display: inline;
     }
 
-    .continue_day span{   color: #ffaa00; padding: 0  0.2rem; font-weight: bold}
+    .continue_day span{   color: #ffaa00; padding: 0  0.2rem; }
 
     .addLy:active {
         background: #eee;
