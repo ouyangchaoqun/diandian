@@ -116,7 +116,7 @@
                                         <img class="rank_headImg" :src="wxFaceUrl(rankList.faceUrl)" alt="">
                                         <div class="rank_name">
                                             <div class="rank_NickName">{{cutNickName(rankList.nickName)}}</div>
-                                            <div class="continue_day addMessage">{{sleepName}}第{{rankList.continuousDays}}天</div>
+                                            <div class="continue_day addMessage">累计打卡<span>{{rankList.totalDays}}</span>天</div>
                                             <div class="addMessage">{{rankList.content}}</div>
                                         </div>
                                         <div class="clock_time">{{rankList.time}}</div>
@@ -454,6 +454,8 @@
         color: #066EA4;
         display: inline;
     }
+
+    .continue_day span{   color: #ffaa00; padding: 0  0.2rem; font-weight: bold}
 
     .addLy:active {
         background: #eee;
