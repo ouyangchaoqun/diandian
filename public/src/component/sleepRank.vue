@@ -115,8 +115,8 @@
                                     <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
                                         <img class="rank_headImg" :src="wxFaceUrl(rankList.faceUrl)" alt="">
                                         <div class="rank_name">
-                                            <div class="rank_NickName">{{cutNickName(rankList.nickName)}}</div>
-                                            <div class="continue_day addMessage">累计打卡<span>{{rankList.totalDays}}</span>天</div>
+                                            <div class="rank_NickName">{{cutNickName(rankList.nickName)}}（<span class="continue_day">+<span>{{rankList.totalDays}}</span>天</span>）</div>
+                                            <!--<div class="continue_day addMessage">累计打卡<span>{{rankList.totalDays}}</span>天</div>-->
                                             <div class="addMessage">{{rankList.content}}</div>
                                         </div>
                                         <div class="clock_time">{{rankList.time}}</div>
@@ -407,6 +407,7 @@
         padding: 0.565rem 0;
         width: 100%;
         position: relative;
+        line-height: 2.35rem;
     }
 
     .has_content.rank_list {
@@ -1358,11 +1359,11 @@
                 if (!nickName) {
                     return '';
                 }
-                var len = 8;
+                var len = 5;
                 if (nickName.length <= len) {
                     return nickName;
                 }
-                return nickName.substr(0, 8) + '...';
+                return nickName.substr(0, 5) + '..';
             },
             fabulousList: function () {
 
