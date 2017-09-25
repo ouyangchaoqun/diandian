@@ -81,7 +81,7 @@
                                 <div class="rank_main">
                                     <img class="rank_headImg" :src="wxFaceUrl(user.faceUrl)" alt="">
                                     <div class="rank_name">
-                                        <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
+                                        <div class="rank_NickName" :class="{line32:myFirst.rank==''}">{{cutNickName(user.nickName)}}</div>
                                         <div @click="addComment(myFirst.id)" class="addLy"
                                              v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">
                                             互道{{sleepNameShort}}安或留言
@@ -116,6 +116,7 @@
                                         <img class="rank_headImg" :src="wxFaceUrl(rankList.faceUrl)" alt="">
                                         <div class="rank_name">
                                             <div class="rank_NickName">{{cutNickName(rankList.nickName)}}</div>
+                                            <div class="continue_day addMessage">{{sleepName}}第{{rankList.continuousDays}}天</div>
                                             <div class="addMessage">{{rankList.content}}</div>
                                         </div>
                                         <div class="clock_time">{{rankList.time}}</div>
@@ -157,6 +158,7 @@
 </template>
 <style>
 
+    .line32{ line-height: 2.35rem !important;}
     .share:active{
         background: #ECECEC;
     }
@@ -405,7 +407,6 @@
         padding: 0.565rem 0;
         width: 100%;
         position: relative;
-        line-height: 2.35rem;
     }
 
     .has_content.rank_list {
@@ -494,6 +495,7 @@
         position: absolute;
         right: 18px;
         top: 0;
+        line-height: 2.35rem !important;
     }
 
     .care_icon {
