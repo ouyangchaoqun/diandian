@@ -66,7 +66,7 @@
                         <a class="weui-tabbar__item" @click="dailyRecord">
                             <div class="go_record record_everyDay" :class="{recorded:isDailyRecord}">
                                 <div class="record_cover"></div>
-                                <div class="img"></div>
+                                <div class="img"><img :src="topImg"></div>
                                 <div class="any">每日一签</div>
                             </div>
                         </a>
@@ -244,7 +244,8 @@
                 isShowResult: false,
                 doRecordText: '',
                 isDoNight: false,
-                isBirthday: false
+                isBirthday: false,
+                topImg:xqzs.mood.getTopImg()
 
             }
         },
@@ -566,6 +567,7 @@
 
         mounted: function () {
             let _this = this;
+
             xqzs.wx.setConfig(_this);
             if (xqzs.localdb.get("isBirthday") === "1") {
                 _this.isBirthday = true;
@@ -1061,8 +1063,10 @@
 
     .record_everyDay .img {
         background: url("../images/record_everyday.jpg") no-repeat center top;
-        background-size: 100%
+        background-size: 100%;
+        overflow: hidden;
     }
+    .record_everyDay .img img{ width: 100%}
 
     .record_fx {
         text-align: center;
