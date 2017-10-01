@@ -135,7 +135,7 @@
                 let date = new Date();
                 var now = "";
                 now = date.getFullYear() + "-"; //读英文就行了
-                if (date.getMonth() < 11) {
+                if (date.getMonth() < 9) {
                     now = now + "0" + (date.getMonth() + 1) + "-"
                 } else {
                 now = now + (date.getMonth() + 1) + "-";//取月的时候取的是当前月-1如果想取当前月+1就可以了
