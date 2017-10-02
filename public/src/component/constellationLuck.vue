@@ -1,5 +1,5 @@
 <template id="luck">
-    <div class="luck" style="display: none;">
+    <div class="luck">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title class="hide_title">星座运势</div>
         <div v-show="hasBirthday">
