@@ -243,6 +243,9 @@
 
                 });
 
+                setTimeout(function () {
+                    $(".highcharts-root").css({width:o.width,height:o.height});
+                },200)
 
             },
             makeCharts: function (data, width, height) {
