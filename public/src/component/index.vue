@@ -3,20 +3,29 @@
 
         <div v-title>心情指数</div>
         <div class="weui-tabbar" id="tabs">
-            <a   @click="record()" class="weui-tabbar__item  tab">
-                <span  class="recordImg tab_icon"></span>
-                <p class="weui-tabbar__label" :class="{tabOn:recordOn}">记录打卡</p>
-            </a>
-
-            <a  @click="calendar()" class="weui-tabbar__item tab " >
+            <a  @click="rank()" class="weui-tabbar__item tab " >
                 <span  class="calendarImg tab_icon"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">本周排行</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">打卡排行</p>
             </a>
-
             <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
                 <span   class="friendsImg tab_icon"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小树洞</p>
+                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小心情</p>
                 <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
+            </a>
+
+
+
+            <a class="weui-tabbar__item tab "  @click="record()"  style="position: relative">
+                <div class="add_record">
+                    <span>+</span>
+                </div>
+                <span   class="  tab_icon" style="background: none"></span>
+                <p class="weui-tabbar__label"  :class="{tabOn:recordOn}">记录打卡</p>
+            </a>
+
+            <a   @click="more()" class="weui-tabbar__item  tab">
+                <span  class="moreImg tab_icon"></span>
+                <p class="weui-tabbar__label" :class="{tabOn:more}">发现</p>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
@@ -225,12 +234,22 @@
                     _this.$router.push("/record")
                 },2)
             },
-            calendar:function () {
-                var  _this=this;
-                setTimeout(function () {
-                    let date = new Date();
-                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+ now_week );
-                },2)
+            rank:function () {
+
+                let date=new Date();
+                let hour = date.getHours();
+                if(hour>=4&&hour<=19){
+                    this.$router.push("/sleepRank?type=2")
+                }else{
+                    this.$router.push("/sleepRank?type=3")
+                }
+
+                ///以下不要了
+//                var  _this=this;
+//                setTimeout(function () {
+//                    let date = new Date();
+//                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+ now_week );
+//                },2)
             },
             care: function (id) {
                 let _this = this;
@@ -261,6 +280,9 @@
                     //error
                 });
                 return false;
+            },
+            more:function () {
+              this.link("/more")
             },
             link: function (url) {
                 this.$router.push(url)
@@ -461,6 +483,23 @@
 
 </script>
 <style>
+
+    .add_record{ height: 3.3rem; width: 3.3rem ; margin-left: -1.65rem; top:-1.65rem; border-radius: 50% ;position: absolute; font-size: 2.5rem;  left:50%; background: #fff; color:#fff; border: 0.0588235294117647rem solid #ddd;}
+    .add_record:before{ content: " " ; height: 2.8rem; width: 2.8rem;border-radius: 50% ;position: absolute;left:0.25rem; background: #0BB20C; top:0.25rem; z-index: 2  }
+    .add_record:after{ content: " " ; height: 1.76rem; width: 3.5176470588235294rem; position: absolute;left:-0.0588235294117647rem; background: #fff; top:1.6rem; z-index: 1  }
+    .add_record span{display: block;  position: absolute;left:0;
+        top: 0.1rem;; z-index: 3; width: 100%; text-align: center; line-height: 2.8rem;}
+    .add_record:before:active{background: #0b9a0c;}
+    .add_record .weui-tabbar__label {
+
+        z-index: 100000000000;
+        position: absolute;
+        text-align: center;
+        display: block;
+        width: 100%;}
+
+
+
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
     .birthdays{  position: absolute; top:4%;left:0;z-index: 1001}
     .birthdays li{ background: rgba(7,7,7,0.5); border-radius: 1.058823529411765rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.117647058823529rem; font-size: 0.7058823529411765rem; color:#fff; width: 6.6rem; line-height:  2.117647058823529rem; margin-bottom: 1rem }
@@ -474,15 +513,15 @@
     .birthdays.b_right li i{ margin-right: 0.2rem;}
 
     .tab{position: relative; padding-top: 0 !important;}
-    #tabs a .tab_icon{ background: url(../images/tab_icons.png) no-repeat; background-size: 116px; height: 27px; width: 29px; display: inline-block; margin-top: 1px;}
-    #tabs a .tab_icon.recordImg{ background-position: 0 0px}
-    #tabs a .tab_icon.calendarImg{ background-position: -29px 0px}
-    #tabs a .tab_icon.friendsImg{ background-position: -58px 0px}
+    #tabs a .tab_icon{ background: url(../images/tab_icons2.png) no-repeat; background-size: 116px; height: 27px; width: 29px; display: inline-block; margin-top: 1px;}
+    #tabs a .tab_icon.calendarImg { background-position: 0 0px}
+    #tabs a .tab_icon.friendsImg{ background-position: -29px 0px}
+    #tabs a .tab_icon.moreImg{ background-position: -58px 0px}
     #tabs a .tab_icon.meImg{ background-position: -87px 0px}
 
-    #tabs a:active span.recordImg{ background-position: 0  -29px}
-    #tabs a:active span.calendarImg{ background-position: -29px -29px}
-    #tabs a:active span.friendsImg{ background-position: -58px -29px}
+    #tabs a:active span.calendarImg { background-position: 0  -29px}
+    #tabs a:active span.friendsImg{ background-position: -29px -29px}
+    #tabs a:active span.moreImg{ background-position: -58px -29px}
     #tabs a:active span.meImg{ background-position: -87px -29px}
     #tabs a:active .weui-tabbar__label{ color:#00bd00}
     .brithBox{
@@ -551,7 +590,7 @@
     }
 
 
-    .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1px;height: 8px !important;width: 8px!important;}
+    .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;top:1px;height: 8px !important;width: 8px!important;}
     .tab img{
         height: 24px;  width:24px;
     }

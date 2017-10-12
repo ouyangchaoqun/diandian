@@ -5,11 +5,20 @@
         </div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :isShowMoreText="isShowMoreText">
+            <div class="day_or_night">
+                <div class="btn day_rank" @click="goDayRank()">
+                    <span>早起排行</span>
+                </div>
+                <div class="btn night_rank" @click="goNightRank()">
+                    <span>早睡排行</span>
+                </div>
+
+            </div>
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
                     <div class="hot" v-if="!isClickFace&&!isGuest"></div>
-                    <div class="share2" @click="share">分享</div>
+                    <div class="share2" @click="share" style="display: none;">分享</div>
                     <div class="clock_head">
 
                         <img @click="goRecordCount()" :src="user.faceUrl" alt="">
@@ -49,10 +58,11 @@
                         <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早睡</div>
                     </div>
                 </div>
+
+
                 <div class="clock_tab" v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
                     <div class="tab_title">好友排行</div>
                     <div class="clock_tabActive tab_title tab_title_middle">总排行</div>
-                    <div class=" tab_title tab_title_right">留言榜</div>
                     <div class="tabMove"></div>
                 </div>
 
@@ -70,7 +80,7 @@
 
                 <div class="rank_Bgbox" :class="{box_padding_bottom:showBottomBtnType}">
                     <div class="rank_box gomiddle">
-                        <div class="clock_rank" :class="'clock_rank'+boxid" v-for="boxid in [1,2,3]">
+                        <div class="clock_rank" :class="'clock_rank'+boxid" v-for="boxid in [1,2]">
                             <div class="rank_list me_rank"
                                  :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id&&myFirst.rank!=''||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
@@ -158,6 +168,25 @@
 </template>
 <style>
 
+    .day_or_night{ height:2.647058823529412rem; line-height: 2.647058823529412rem; background: #fff; display: -webkit-box;
+        display: -webkit-flex;
+        display: flex; }
+
+    .day_or_night .btn {
+        text-align: center;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        position: relative;
+    }
+    .day_or_night .btn:last-child:after{display: none}
+    .day_or_night .btn:active{ background: #f1f1f1;}
+    .day_or_night .btn:after{ content:' '; display: block; height: 100%; width: 1px; background: #eee; position: absolute;right:0;top:0}
+    .day_or_night .btn span{ display: inline-block; color:#333; font-size: 0.7647058823529412rem; padding-left: 1.9rem;
+      }
+    .day_or_night .btn.day_rank span{ background: url(../images/day_icon.png) no-repeat;   background-size:1.029411764705882rem; background-position: 0.5rem; }
+    .day_or_night .btn.night_rank span{ background: url(../images/night_icon.png) no-repeat;   background-size:0.9117647058823529rem; background-position: 0.5rem; }
+
     .line32{ line-height: 2.35rem !important;}
     .share:active{
         background: #ECECEC;
@@ -197,7 +226,7 @@
     }
 
     .clock_rank {
-        width: 33.333%;
+        width: 50%;
         float: left;
     }
 
@@ -331,7 +360,7 @@
     }
 
     .clock_tab {
-        width: 16rem;
+        width: 10rem;
         height: 2rem;
         margin: 0 auto;
         margin-top: 1.1765rem;
@@ -346,7 +375,7 @@
     .clock_tab .tab_title {
         z-index: 100;
         position: absolute;
-        width: 33.3333%;
+        width:50%;
         height: 2rem;
     }
 
@@ -355,7 +384,7 @@
     }
 
     .clock_tab .tab_title_middle {
-        left: 33.33333%;
+        left: 50%;
     }
 
     .clock_tabNight > div {
@@ -364,11 +393,11 @@
 
     .tabMove {
         height: 100%;
-        width: 33.3333%;
+        width: 50%;
         background: #fff;
         border-radius: 1rem;
         position: absolute;
-        left: 33.333%;
+        left: 50%;
         top: -1px;
         z-index: 1;
         border: 1px solid #fff;
@@ -535,8 +564,8 @@
         -webkit-transition: transform .5s;
         transition: transform .5s;
         /*margin-left: -100%;*/
-        -webkit-transform: translate3d(-33.333%, 0, 0);
-        transform: translate3d(-33.333%, 0, 0)
+        -webkit-transform: translate3d(-50%, 0, 0);
+        transform: translate3d(-50%, 0, 0)
     }
 
     .goright {
@@ -558,7 +587,7 @@
     }
 
     .rank_box {
-        width: 300%;
+        width: 200%;
         margin-top: 0.88235rem
     }
 
@@ -672,7 +701,7 @@
     }
 
     .myshare {
-        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background: url(../images/share.png?v=2) no-repeat center top rgba(0, 0, 0, 0.9);
         background-position: 2.5rem 3.5rem;
         background-size: 80%;
         height: 100%;
@@ -753,6 +782,7 @@
         mounted: function () {
 
             let _this = this;
+
             this.showLoad = true;
             if (web.guest) _this.isGuest = true;
 
@@ -911,7 +941,41 @@
 
         },
         methods: {
+            autoShare:function () {
+                let _this=this;
+                //打卡成功 判断
+                if(this.myFirst.rank!=''){
 
+                }
+
+                //获取cookie 数据
+                let date=new Date();
+                let year= date.getFullYear();
+                let type=_this.$route.query.type;
+                let cookieKey="auto_share_week_one_"+year+"_"+now_week+"_"+type
+                let autoShareCookie= cookie.get(cookieKey);
+                if(autoShareCookie&&autoShareCookie==1){
+                    //本周已经分享过了
+                }else{
+                    cookie.set(cookieKey,1,15);
+                    _this.share();
+                }
+
+
+
+
+            },
+            goDayRank:function(){
+                if (this.typeId == 3) {
+                    this.$router.push({path: '/sleepRank', query: {type: "2"}});
+
+                }
+            },
+            goNightRank:function () {
+                if (this.typeId == 2) {
+                    this.$router.push({path: '/sleepRank', query: {type: "3"}});
+                }
+            },
             createinvite: function () {
                 let _this = this;
                 _this.showLoad = true;
@@ -1165,6 +1229,9 @@
                     }
 
                     vm.myFirst = response.data.data.userRank || vm.myFirst;
+
+                    vm.autoShare();
+
                     vm.myFirst = vm.initCareImg(vm.myFirst, true);
 
 

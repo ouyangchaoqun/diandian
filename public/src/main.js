@@ -59,7 +59,8 @@ let routers =
                 require('./routes/psychtest'),
                 require('./routes/psychtestDetail'),
                 require('./routes/testQuestions'),
-                require('./routes/testResult')
+                require('./routes/testResult'),
+                require('./routes/more')
             ]
         }
     ];

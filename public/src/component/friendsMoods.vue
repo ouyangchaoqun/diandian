@@ -9,13 +9,31 @@
         <div v-title>小树洞</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="friends_box">
-                <div class="friend_header">
-                    <router-link to="/treeHole">你知道“小树洞”的故事吗？</router-link>
-                </div>
+
+                <!--beforeChange-->
+                <!--<div class="friend_header">-->
+                    <!--<router-link to="/treeHole">你知道“小树洞”的故事吗？</router-link>-->
+                <!--</div>-->
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
-                    <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
+
+                    <!--beforeChange-->
+                    <!--<img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">-->
+                    <!--beforeChangeEnd-->
+
+
+                    <!--change-->
+                    <img class="friendHeaderImg" :src="item.randomFaceUrl" v-if="item.isFriend==1||item.isAd==1" alt="">
+                    <img class="friendHeaderImg" :src="item.faceUrl" v-else-if="item.isFriend!=1||item.isMyself==1" alt="">
+                    <!--changeEnd-->
+
                     <div class="friendState">
-                        <span class="mood_state" :class="item.moodValueStyle"><span :class="{bluecolor:item.isAd==1}" :style="item.typeFaceColor">{{item.moodValueText}}</span></span>
+                        <span class="mood_state" :class="item.moodValueStyle"><span :class="{bluecolor:item.isAd==1}" :style="item.typeFaceColor">
+                            <template v-if="item.isAd==1">{{item.moodValueText}}</template>
+                            <template v-else-if="item.isFriend==1"><font class="happy_txt_color">我的朋友</font></template>
+                            <template v-else-if="item.userId==user.id"><font class="unhappy_txt_color">我自己</font></template>
+                            <template v-else  ><font class="bluecolor">陌生人</font></template>
+
+                        </span></span>
                         <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
 
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
@@ -125,7 +143,7 @@
                 //显示loding
                 this.showLoad = true;
 
-                vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
+                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + 1 + "/" + vm.num).then((response) => {  //friend
                     vm.downdata = response.data.data.rows;
                     var maxid = 0;
                     for(var i=0,l=response.data.data.rows.length;i<l;i++){
@@ -158,7 +176,7 @@
             },
             onInfinite(done) {
                 let vm = this;
-                vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
+                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
                     vm.counter++;
                     vm.pageEnd = vm.num * vm.counter;
                     vm.pageStart = vm.pageEnd - vm.num;
