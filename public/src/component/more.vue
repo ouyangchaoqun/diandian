@@ -5,7 +5,7 @@
         <div class="list">
             <a class="item" @click="luck()">
                 <div class="img">
-                    <img src="/src/images/luck/lucky.png">
+                    <img src="../images/luck/lucky.png">
                 </div>
                 <div class="title">十月份星座运势已经新鲜出炉，测一测你的运势!</div>
                 <div class="info">

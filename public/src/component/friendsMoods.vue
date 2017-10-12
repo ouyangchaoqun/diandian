@@ -44,7 +44,7 @@
                                          @click="showBigImg(item.pics,pic)">
                                 </li>
 
-                            <li v-if="item.funnypics.length > 0" class="moodFunnPicList">
+                            <li v-if="item.funnypics&&item.funnypics.length > 0" class="moodFunnPicList">
                                 <div class="moodFunnyPic" v-for="gif in item.funnypics">
                                     <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth" :data-h="gif.picheight"/>
                                 </div>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
 
-                        <div class="commont_box" v-if="item.replies.length>0">
+                        <div class="commont_box" v-if="item.replies&&item.replies.length>0">
                             <div class="arrow"></div>
                             <div class="friend_commont"  v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel&&replyIndex<3">
                                 <a href="javascript:;">
@@ -82,7 +82,7 @@
                                     <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName | shortName(7)}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
-                            <div v-if="item.replies.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
+                            <div v-if="item.replies&&item.replies.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
                         </div>
                     </div>
                 </div>
@@ -190,6 +190,9 @@
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     });
+
+
+
                     if (arr.length <vm.num) {
                         vm.isPageEnd=true;
                     }
