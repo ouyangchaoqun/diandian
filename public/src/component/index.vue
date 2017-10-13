@@ -15,7 +15,7 @@
 
 
 
-            <a class="weui-tabbar__item tab "  @click="record()"  style="position: relative">
+            <a class="weui-tabbar__item tab add_record_box "  @click="record()"  style="position: relative">
                 <div class="add_record">
                     <span>+</span>
                 </div>
@@ -490,9 +490,9 @@
     .add_record span{display: block;  position: absolute;left:0;
         top: 0.1rem;; z-index: 3; width: 100%; text-align: center; line-height: 2.8rem;}
     .add_record:before:active{background: #0b9a0c;}
-    .add_record .weui-tabbar__label {
+    .add_record_box .weui-tabbar__label {
 
-        z-index: 100000000000;
+        z-index: 100000;
         position: absolute;
         text-align: center;
         display: block;
