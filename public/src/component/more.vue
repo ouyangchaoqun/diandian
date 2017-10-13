@@ -48,6 +48,7 @@
                     }).then(function (data) {//es5写法
                         if (data.data.data !== null && data.data.data != undefined) {
                             _this.user = data.data.data;
+                            _this.goLuck();
                          }
 
                      }, function (error) {
