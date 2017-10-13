@@ -31,7 +31,7 @@
                             <template v-if="item.isAd==1">{{item.moodValueText}}</template>
                             <template v-else-if="item.isFriend==1"><font class="happy_txt_color">我的朋友</font></template>
                             <template v-else-if="item.userId==user.id"><font class="unhappy_txt_color">我自己</font></template>
-                            <template v-else  ><font class="bluecolor">陌生人</font></template>
+                            <template v-else  ><font class="bluecolor">朋友的朋友</font></template>
 
                         </span></span>
                         <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
