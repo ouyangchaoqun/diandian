@@ -9,7 +9,7 @@
                 </div>
                 <div class="title">十月份星座运势已经新鲜出炉，测一测你的运势!</div>
                 <div class="info">
-                    <div class="left">100人已测</div>
+                    <div class="left">{{count}}人已测</div>
                     <div class="right">免费</div>
                     <div class="clear"></div>
                 </div>
@@ -25,7 +25,7 @@
     export default {
         data() {
             return {
-
+                count:1100
             }
         },
         props:{
@@ -63,8 +63,9 @@
 
         mounted: function () {
 
-
-            xqzs.wx.setConfig(_this);
+            let date=new Date();
+            this.count = date.getFullYear()*100+date.getMonth()*10+date.getDay()*8+date.getHours()*6+date.getMinutes()*2 ;
+            xqzs.wx.setConfig(this);
 
 
         },

@@ -765,7 +765,7 @@
                         _this.constellation = constellation;
                         for(let i =0;i<constellation.data.length;i++){
                             if(constellation.data[i].name=='跳转链接'&&constellation.data[i].content!=''&&constellation.data[i].content.indexOf("http")>=0){
-                                window.location.href=constellation.data[i].content;
+                                window.location.replace(constellation.data[i].content);
                             }
                         }
 
