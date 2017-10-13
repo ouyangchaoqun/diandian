@@ -2,7 +2,7 @@
     <div class="luck">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title class="hide_title">星座运势</div>
-        <div v-show="hasBirthday&&false">
+        <div v-show="hasBirthday&&isNotGoOtherUrl">
             <div class="title">
 
                 <div class="addTitleBox">
@@ -575,9 +575,8 @@
                 isLunar: 0,
                 lunarDateData:[],
                 solarDateDate:[],
-                isLeapMonth:false
-
-
+                isLeapMonth:false,
+                isNotGoOtherUrl:false
             }
         },
         components: {
@@ -765,8 +764,10 @@
                     if (data.data.status == 1) {
                         constellation.data = data.data.data;
                         _this.constellation = constellation;
+                        _this.isNotGoOtherUrl=true;
                         for(let i =0;i<constellation.data.length;i++){
                             if(constellation.data[i].name=='跳转链接'&&constellation.data[i].content!=''&&constellation.data[i].content.indexOf("http")>=0){
+                                _this.isNotGoOtherUrl=false;
                                 window.location.replace(constellation.data[i].content);
                             }
                         }
