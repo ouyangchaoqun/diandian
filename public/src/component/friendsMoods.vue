@@ -6,7 +6,7 @@
             <p class="weui-toast__content">已完成</p>
         </div>-->
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div v-title>小树洞</div>
+        <div v-title>小心情</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="friends_box">
 

@@ -61,8 +61,8 @@
 
 
                 <div class="clock_tab" v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
-                    <div class="tab_title">好友排行</div>
-                    <div class="clock_tabActive tab_title tab_title_middle">总排行</div>
+                    <div class="tab_title clock_tabActive ">好友排行</div>
+                    <div class="tab_title tab_title_middle">总排行</div>
                     <div class="tabMove"></div>
                 </div>
 
@@ -758,7 +758,7 @@
                 clockMonth: '',
                 clockYear: '',
                 rankUrl: "",
-                rankType: 2,
+                rankType: 1,
                 isLoading: false,
                 careUserId: 0, //通过连接点击过来 跳到指定的用户
                 isShowMoreText: true,
@@ -795,6 +795,14 @@
 
             initData:function () {
                 let _this = this;
+                $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");
+                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                $('.tabMove').addClass('tab_goleft');
+                $('.rank_box').addClass('goleft')
+
+                $(".clock_tab .tab_title:first-child").addClass('clock_tabActive');
+
 
                 _this.canCareAll=false;
                 _this.careAllIndex=0;
@@ -824,7 +832,7 @@
                 _this.clockMonth= '';
                 _this.clockYear= '';
                 _this.rankUrl= "";
-                _this.rankType= 2;
+                _this.rankType= 1;
                 _this.isLoading= false;
                 _this.careUserId= 0; //通过连接点击过来 跳到指定的用户
                 _this.isShowMoreText= true;
@@ -997,23 +1005,24 @@
 
             autoShare:function () {
                 let _this=this;
+                let type=_this.typeId;
                 //打卡成功 判断
-                if(this.myFirst.rank!=''){
+                if(this.myFirst.rank!=''&&type==2){
+                    //获取cookie 数据
+                    let date=new Date();
+                    let year= date.getFullYear();
 
+                    let cookieKey="auto_share_week_one_not_night_"+year+"_"+now_week+"_"+type
+                    let autoShareCookie= cookie.get(cookieKey);
+                    if(autoShareCookie&&autoShareCookie==1){
+                        //本周已经分享过了
+                    }else{
+                        cookie.set(cookieKey,1,15);
+                        _this.share();
+                    }
                 }
 
-                //获取cookie 数据
-                let date=new Date();
-                let year= date.getFullYear();
-                let type=_this.$route.query.type;
-                let cookieKey="auto_share_week_one_"+year+"_"+now_week+"_"+type
-                let autoShareCookie= cookie.get(cookieKey);
-                if(autoShareCookie&&autoShareCookie==1){
-                    //本周已经分享过了
-                }else{
-                    cookie.set(cookieKey,1,15);
-                    _this.share();
-                }
+
 
 
 
