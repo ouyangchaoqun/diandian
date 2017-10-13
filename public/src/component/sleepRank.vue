@@ -63,6 +63,7 @@
                 <div class="clock_tab" v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
                     <div class="tab_title clock_tabActive ">好友排行</div>
                     <div class="tab_title tab_title_middle">总排行</div>
+                    <div class="tab_title tab_title_right" @click="tip()">设置提醒</div>
                     <div class="tabMove"></div>
                 </div>
 
@@ -360,7 +361,7 @@
     }
 
     .clock_tab {
-        width: 10rem;
+        width: 16rem;
         height: 2rem;
         margin: 0 auto;
         margin-top: 1.1765rem;
@@ -375,7 +376,7 @@
     .clock_tab .tab_title {
         z-index: 100;
         position: absolute;
-        width:50%;
+        width:33.333%;
         height: 2rem;
     }
 
@@ -384,7 +385,7 @@
     }
 
     .clock_tab .tab_title_middle {
-        left: 50%;
+        left: 33.333%;
     }
 
     .clock_tabNight > div {
@@ -393,11 +394,11 @@
 
     .tabMove {
         height: 100%;
-        width: 50%;
+        width: 33.333%;
         background: #fff;
         border-radius: 1rem;
         position: absolute;
-        left: 50%;
+        left: 33.333%;
         top: -1px;
         z-index: 1;
         border: 1px solid #fff;
@@ -792,7 +793,9 @@
             }
         },
         methods: {
-
+            tip:function () {
+                this.$router.push('/me/subscribe')
+            },
             initData:function () {
                 let _this = this;
                 $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
