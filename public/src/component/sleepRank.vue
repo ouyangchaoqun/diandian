@@ -1,5 +1,5 @@
 <template id="sleepRank">
-    <div class="clock_box" :class="{clock_boxNight:isNight}" style="position: relative;">
+    <div class="clock_box sleep_rank_box" :class="{clock_boxNight:isNight}" style="position: relative;">
         <div v-title>{{sleepRank_title}}</div>
         <div class="myshare" v-show="isShowShareTip" @click="share()">
         </div>
@@ -608,7 +608,7 @@
         border-bottom: none;
     }
 
-    .notice_box_p {
+   .sleep_rank_box .notice_box_p {
         padding: 16px 0;
         padding-bottom: 0
     }
