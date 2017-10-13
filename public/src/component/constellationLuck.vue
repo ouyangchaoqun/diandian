@@ -2,7 +2,7 @@
     <div class="luck">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title class="hide_title">星座运势</div>
-        <div v-show="hasBirthday">
+        <div v-show="hasBirthday&&false">
             <div class="title">
 
                 <div class="addTitleBox">
