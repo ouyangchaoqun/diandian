@@ -259,16 +259,16 @@
                     var apiurl = 'mood/add';
                     that.isAdded=true;
 
-                    that.$http.put(web.API_PATH + apiurl,postdata)
-                        .then(function (bt) {
-                            console.log(postdata)
-                            if (bt.data && bt.data.status == 1) {
-                                that.$router.replace({path:'/myCenter/myIndex?scroll=1'});
-                            }
-                        });
+//                    that.$http.put(web.API_PATH + apiurl,postdata)
+//                        .then(function (bt) {
+//                            console.log(postdata)
+//                            if (bt.data && bt.data.status == 1) {
+//                                that.$router.replace({path:'/myCenter/myIndex?scroll=1'});
+//                            }
+//                        });
 
 
-                   // this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
+                    this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
                 }
 
             },
