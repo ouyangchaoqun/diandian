@@ -456,10 +456,10 @@ var xqzs = {
         },
         formatContent: function (item) {
             console.log(item.scense);
-            var before = "[ 在" + item.scense.text + "方面 ]";
+            var before = " [ 在" + item.scense.text + "方面 ]";
             var before2 = "在" + item.scense.text + "方面：";
             if (item.content != '' && item.content != null && item.content != undefined) {
-                return before2 + xqzs.face.parse(item.content);
+                return   xqzs.face.parse(item.content) +before;
             } else {
                 return before;
             }
