@@ -138,10 +138,9 @@
     .psychtestDetail_title {
         color: #000;
         font-size: 1.17647rem;
-        line-height: 1;
         margin-top: 1.117647rem;
         margin-bottom: 1rem;
-        text-align: center;
+        padding:0 0.88235rem;
     }
     .psychtestDetail_class{
         font-size: 0.76471rem;
