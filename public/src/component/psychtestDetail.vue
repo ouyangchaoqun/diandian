@@ -3,7 +3,7 @@
         <div class="psychtestDetail_header">
             <img :src="testDetail.pic" alt="">
             <h2 class="psychtestDetail_title">{{testDetail.title}}</h2>
-            <div class="psychtestDetail_class">焦虑倾向评测</div>
+            <div class="psychtestDetail_class">{{testDetail.class_name}}</div>
             <div class="psychtestDetail_flex">
                 <div>{{testDetail.question_count}}道精选问题</div>
                 <div>1页专业报告</div>
@@ -55,9 +55,9 @@
             <!--</template>-->
 
             <template>
-                <div class="psych_test_btn_price">￥{{testDetail.price}} <span>{{testDetail.old_price}}</span></div>
-                <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
-                <div class="psychtestDetail_btn" @click="startTest()">立即购买</div>
+                <div class="psych_test_btn_price" :class="{noTestStyle:testDetail.lastAnswerId!=null}">￥{{testDetail.price}} <span>{{testDetail.old_price}}</span></div>
+                <div class="psych_test_btn_view" v-if="testDetail.lastAnswerId==null" @click="viewResult()">查看报告</div>
+                <div class="psychtestDetail_btn" :class="{noTestStyle:testDetail.lastAnswerId!=null}" @click="startTest()">立即购买</div>
             </template>
         </div>
 
@@ -150,6 +150,10 @@
         margin-bottom: 1.35294rem;
         text-align: center;
     }
+   .psychtestDetail .addBottomText img{
+        max-width:100%;
+       width:auto;
+    }
     .psychtestDetail_flex{
         color:#666;
         font-size: 0.70588235rem;
@@ -174,34 +178,13 @@
         height:13.6471rem;
     }
 
-    .psychtestDetail_content {
-        padding: 0 0.88235rem;
-        color: #333;
-        font-size: 0.8235rem;
-        margin-bottom: 2.0588rem;
-    }
-
-    .psychtestDetail_Price {
-        text-align: center;
-        line-height: 1;
-        margin-bottom: 1.8235rem;
-    }
-
-    .nowPrice {
-        color: #D55C03;
-        font-size: 1.41176rem;
-    }
-
-    .oldPrice {
-        color: #666;
-        font-size: 0.88235rem;
-        text-decoration: line-through;
-    }
-
     .psychtestDetail_btn {
         background: #FD7306;
         color: #fff;
         width:30%;
+    }
+    .psych_test_btn_box .noTestStyle{
+        width:50%;
     }
     .psych_test_btn_price{
         width:45%;
