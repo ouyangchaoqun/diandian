@@ -49,7 +49,7 @@
         methods: {
             getTextList:function () {
                 let _this=this;
-                _this.$http.get(web.API_PATH+'test/get/list/0/1/5').then(response => {
+                _this.$http.get(web.API_PATH+'test/get/list/0/1/20').then(response => {
                     if(response.data.status===1){
                         _this.psyLists = response.data.data
                     }
