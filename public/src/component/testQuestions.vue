@@ -1,15 +1,15 @@
 <template id="testQuestions">
     <div class="testQuestions">
+        <div class="testQuestions_process"><span>{{activeIndex}}</span><span>/{{allNum}}</span></div>
         <div class="weui-progress testQuestions_top">
             <div class="weui-progress__bar">
                 <div class="weui-progress__inner-bar js_progress initWidth"></div>
             </div>
         </div>
-        <div class="testQuestions_process">{{activeIndex}}/{{allNum}}</div>
         <div class="swiper-container question_box">
             <div class="swiper-wrapper">
                 <div class="swiper-slide swiper-no-swiping" v-for="(quest,questIndex) in questLists" >
-                    <div>
+                    <div class="question_style">
                         <div class="question_content">{{quest.title}}</div>
                         <ul class="question_option">
                             <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
@@ -20,11 +20,11 @@
                                     <span class="questRadioInput" @click.stop></span>
                                 </label>
                             </li>
-                            <div class="testQuestions_btn">
-                                <div class="weui-btn weui-btn_primary prevOption" @click="prevOption()" v-if="isFrist">上一题</div>
-                                <div class="weui-btn weui-btn_primary prevOption" @click="textResult()" v-if="questIndex==questLists.length-1&&quest.checkIndex!=index">查看结果</div>
-                            </div>
                         </ul>
+                    </div>
+                    <div class="testQuestions_btn">
+                        <div class="prevOption" :class="{isLastStyle:questIndex==questLists.length-1&&quest.checkIndex!=index}" @click="prevOption()" v-if="isFrist">上一题</div>
+                        <div class="prevOption isResultStyle" @click="textResult()" v-if="questIndex==questLists.length-1&&quest.checkIndex!=index">查看结果</div>
                     </div>
                 </div>
             </div>
@@ -144,13 +144,16 @@
     }
 </script>
 <style>
+    .testQuestions .weui-progress__inner-bar{background: #FE7301 ;border-radius: 0.35rem;}
+    .testQuestions .weui-progress__bar{height:0.35rem;border-radius: 0.35rem;}
     .questLabel{
         position: absolute;
         right:0.88235rem;
     }
+    .testQuestions .question_style{background: #fff;margin:0 0.588235rem;border-radius: 2px;}
     .questRadio{display:none}
     .questRadioInput{background-color:#fff;
-        border:1px solid #1AAC19;
+        border:1px solid #FE7301;
         border-radius:50%;
         display:inline-block;
         height:0.88235rem;
@@ -160,7 +163,7 @@
         line-height:1
     }
     .questRadio:checked + .questRadioInput:after{
-        background-color:#1AAC19;
+        background-color:#FE7301;
         border-radius:50%;content:"";
         display:inline-block;
         height:0.65rem;
@@ -168,32 +171,37 @@
         margin:2px;
         text-align: center;
     }
-    .testQuestions{
-        background: #fff;
-    }
     .testQuestions_top{
-        padding:1.7647rem 1.17647rem 0.70588rem 1.17647rem;
+        padding:0.70588235rem 1.17647rem 1.471rem 1.17647rem;
     }
     .testQuestions_process{
         text-align: center;
-        color: #666;
-        font-size: 0.8235rem;
+        color: #FE7301;
         line-height: 1;
+        padding-top: 1.176471rem;
+    }
+    .testQuestions_process span:nth-of-type(1){
+        font-size: 0.588235rem;
+    }
+    .testQuestions_process span:nth-of-type(2){
+        font-size: 1.0588235rem;
     }
     .question_content{
-       padding: 2.8235rem 2.0588rem 2.3529rem 1.117647rem;
+       padding: 1.62rem 0 1.588235rem 0;
         color: #333;
-        font-size: 0.88235rem;
+        font-size: 1.176471rem;
         line-height: 1.4117647rem;
-
+        text-align: center;
+        font-weight: bold;
     }
     .question_option{
-        color: #666;
-        font-size: 0.7647rem;
+        color: #333;
+        font-size: 0.88235rem;
     }
     .nextOption{
-        padding:0.88235rem 1.17647rem;
-        border-bottom: 1px solid #eee;
+        padding:0.88235rem 0;
+        margin:0 1.17647rem;
+        border-bottom: 1px solid rgba(204,204,204,0.5);
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
@@ -212,13 +220,31 @@
         margin-right: 0.88235rem;
     }
     .prevOption{
-        width:8.8235rem;
         font-size: 0.94117647rem;
-        margin-top: 2.0588rem;
-        display: inline-block;
         height:2.353rem;
+        background: linear-gradient(to right, #FF9E19,#FE7301);
+        border-radius: 2px;
+        line-height: 2.353rem;
+        color:#fff;
+        text-align: center;
     }
     .testQuestions_btn{
         text-align: center;
+        padding:2.0588rem 0.588235rem;
+    }
+    .testQuestions_btn .isLastStyle{
+        background: #fff;
+        color:#FE7301;
+        float: left;
+        width:41.333%;
+        margin-left:0.29rem;
+        border:1px solid #FE7301;
+        height:2.236rem;
+    }
+    .testQuestions_btn .isResultStyle{
+        margin-right: 0.29rem;
+        float: right;
+        width:41.333%;
+        margin-top: 0;
     }
 </style>
