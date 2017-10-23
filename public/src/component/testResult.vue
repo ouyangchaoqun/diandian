@@ -83,14 +83,9 @@
         border-bottom: 1px solid #eee;
     }
 
-    /*.testResult img {*/
-        /*display: inline-block;*/
-        /*height: 0.88235rem;*/
-        /*width: 0.88235rem;*/
-        /*margin-top: -1px;*/
-        /*float: left;*/
-        /*margin-right: 0.588rem;*/
-    /*}*/
+    .testResult img {
+        max-width: 100%;
+    }
 
     .textResulth1 {
         color: #666;
