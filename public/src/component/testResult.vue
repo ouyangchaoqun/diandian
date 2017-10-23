@@ -1,7 +1,7 @@
 <template id="testResult">
     <div class="testResult">
 
-        <div class="addBottomText"   v-html="result.content">
+        <div class="addBottomText"   v-html="result.result">
         </div>
         <!--<div class="testResult_top">-->
             <!--{{testResult_top}}-->
@@ -34,6 +34,7 @@
             _this.$http.get(web.API_PATH + 'test/get/scoreonly/' + _this.answerId + '').then(response => {
                 if (response.data.status == 1) {
                     _this.result = response.data.data
+                    console.log(_this.result)
                     _this.$http.get(web.API_PATH + 'test/get/' + _this.result.testId + '/_userId_').then(response => {
                         _this.testResult_top = response.data.data.title;
                     }, response => {
