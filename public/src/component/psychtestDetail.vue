@@ -28,15 +28,15 @@
                         <div class="addBottomLine">评测须知</div>
                         <div class="bottom_line"></div>
                     </div>
-                    <div class="addBottomText" style="margin-bottom: 2.588rem">
-                        <div>① 本测试为付费测试，付费成功后将自动跳转
-                            到答题页；</div>
-                        <div> ② 为保证准确性，一次付费仅能测试一次，测
-                            试结果一旦生成，想进行二次测试需要再次付
-                            费；</div>
-                        <div> ③ 请根据实际情况作答，答题结束后会生成一
-                            份专业的测评报告，若用户进行多次测试，我们
-                            只保留最近一次的测试结果。</div>
+                    <div class="addBottomText" style="margin-bottom: 2.588rem" v-html="testDetail.notice">
+                        <!--<div>① 本测试为付费测试，付费成功后将自动跳转-->
+                            <!--到答题页；</div>-->
+                        <!--<div> ② 为保证准确性，一次付费仅能测试一次，测-->
+                            <!--试结果一旦生成，想进行二次测试需要再次付-->
+                            <!--费；</div>-->
+                        <!--<div> ③ 请根据实际情况作答，答题结束后会生成一-->
+                            <!--份专业的测评报告，若用户进行多次测试，我们-->
+                            <!--只保留最近一次的测试结果。</div>-->
                     </div>
                 </div>
             </div>
