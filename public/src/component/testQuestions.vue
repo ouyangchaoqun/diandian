@@ -12,7 +12,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide swiper-no-swiping" v-for="(quest,questIndex) in questLists" >
                         <div class="question_style">
-                            <div class="question_content">{{quest.title}}</div>
+                            <div class="question_content">{{questIndex+1}}、{{quest.title}}</div>
                             <ul class="question_option">
                                 <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
                                     <span class="optionItem">{{item}}</span><span class="optionHtml">{{quest['item'+item]}}</span>
@@ -57,9 +57,9 @@
         mounted: function () {
             let _this = this;
             _this.testId = _this.$route.query.testId
-            console.log(_this.testId)
+            //console.log(_this.testId)
             _this.$http.get(web.API_PATH+'test/get/allquestion/'+_this.testId+'/_userId_').then(response => {
-                console.log(response)
+                //console.log(response)
                 _this.questLists = response.data.data;
                 _this.htmlover = true;
                 _this.allNum =  _this.questLists.length
@@ -91,7 +91,7 @@
             nextOption:function (id,index) {
                 let _this = this;
                _this.updateScore(id,index)
-                console.log( _this.questSwiper)
+                //console.log( _this.questSwiper)
                 _this.questSwiper.slideNext();
             },
             updateScore:function (id,answerIndex) {
@@ -105,7 +105,7 @@
                         break;
                     }
                 }
-                console.log(this.questLists)
+               // console.log(this.questLists)
             },
             prevOption:function () {
                 let _this = this;
@@ -113,38 +113,32 @@
             },
             textResult:function () {
                 let _this = this;
-                xqzs.weui.dialog(
-                    '提示',
-                    '是否提交',
-
-                    function () {
-
-                    },function () {
+//                xqzs.weui.dialog(
+//                    '提示',
+//                    '是否提交',
+//                    function () {
+//                    },function () {
                         var answers='';
                         for(var i=0,l=_this.questLists.length;i<l;i++){
 
                             answers+= "\""+_this.questLists[i].id+"\":\""+_this.questLists[i].answer+"\","
                         }
-                        console.log(answers)
+                        //console.log(answers)
                         answers='{'+answers.substr(0,answers.length-1)+'}';
-                        console.log(answers)
+                        //console.log(answers)
                         answers = JSON.parse(answers);
-                        console.log(answers)
+                        //console.log(answers)
                         _this.$http.put(web.API_PATH + 'test/get/score/'+ _this.testId+'/_userId_', answers)
                             .then(function (bt) {
-                                console.log(bt.data.data)
+                                //console.log(bt.data.data)
                                 if(bt.data.status==1){
                                     _this.answerId = bt.data.data.id;
                                     _this.$router.replace('/testResult?answerId='+_this.answerId)
                                 }
                                 //成功跳转到结果页
-
-
                             });
-                    }
-                )
-
-
+                   // }
+               // )
             }
         }
 
