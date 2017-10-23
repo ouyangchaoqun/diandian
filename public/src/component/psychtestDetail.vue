@@ -183,7 +183,7 @@
         width:30%;
     }
     .psych_test_btn_box .noTestStyle{
-        width:50%;
+        width:55%;
     }
     .psych_test_btn_price{
         width:45%;
