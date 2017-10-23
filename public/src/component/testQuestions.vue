@@ -1,40 +1,41 @@
 <template id="testQuestions">
     <div class="testQuestions">
-        <div class="testQuestions_process"><span>{{activeIndex}}</span><span>/{{allNum}}</span></div>
-        <div class="weui-progress testQuestions_top">
-            <div class="weui-progress__bar">
-                <div class="weui-progress__inner-bar js_progress initWidth"></div>
+        <v-showLoad v-if="!htmlover"></v-showLoad>
+        <div v-show="htmlover">
+            <div class="testQuestions_process"><span>{{activeIndex}}</span><span>/{{allNum}}</span></div>
+            <div class="weui-progress testQuestions_top">
+                <div class="weui-progress__bar">
+                    <div class="weui-progress__inner-bar js_progress initWidth"></div>
+                </div>
             </div>
-        </div>
-        <div class="swiper-container question_box">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide swiper-no-swiping" v-for="(quest,questIndex) in questLists" >
-                    <div class="question_style">
-                        <div class="question_content">{{quest.title}}</div>
-                        <ul class="question_option">
-                            <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
-                               <span class="optionItem">{{item}}</span><span class="optionHtml">{{quest['item'+item]}}</span>
-                                <label class="questLabel">
-                                    <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
-                                    <input class="questRadio" type="radio" v-if="quest.checkIndex!=index"  :name="'questRadio'+quest.id">
-                                    <span class="questRadioInput" @click.stop></span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="testQuestions_btn">
-                        <div class="prevOption" :class="{isLastStyle:questIndex==questLists.length-1&&quest.checkIndex!=index}" @click="prevOption()" v-if="isFrist">上一题</div>
-                        <div class="prevOption isResultStyle" @click="textResult()" v-if="questIndex==questLists.length-1&&quest.checkIndex!=index">查看结果</div>
+            <div class="swiper-container question_box">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide swiper-no-swiping" v-for="(quest,questIndex) in questLists" >
+                        <div class="question_style">
+                            <div class="question_content">{{quest.title}}</div>
+                            <ul class="question_option">
+                                <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
+                                    <span class="optionItem">{{item}}</span><span class="optionHtml">{{quest['item'+item]}}</span>
+                                    <label class="questLabel">
+                                        <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
+                                        <input class="questRadio" type="radio" v-if="quest.checkIndex!=index"  :name="'questRadio'+quest.id">
+                                        <span class="questRadioInput" @click.stop></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="testQuestions_btn">
+                            <div class="prevOption" :class="{isLastStyle:questIndex==questLists.length-1&&quest.checkIndex!=index}" @click="prevOption()" v-if="isFrist">上一题</div>
+                            <div class="prevOption isResultStyle" @click="textResult()" v-if="questIndex==questLists.length-1&&quest.checkIndex!=index">查看结果</div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
 </template>
 <script type="text/javascript">
+    import showLoad from './showLoad.vue';
     var testQuestions = {
         template: '#testQuestions'
     }
@@ -49,7 +50,8 @@
                 activeIndex:'1',
                 isFrist:false,
                 scoreCount:[],
-                answerId:''
+                answerId:'',
+                htmlover:false,
             }
         },
         mounted: function () {
@@ -59,6 +61,7 @@
             _this.$http.get(web.API_PATH+'test/get/allquestion/'+_this.testId+'/_userId_').then(response => {
                 console.log(response)
                 _this.questLists = response.data.data;
+                _this.htmlover = true;
                 _this.allNum =  _this.questLists.length
                 $('.initWidth').css('width',100/_this.allNum+'%')
                 _this.questSwiper = new Swiper ('.question_box', {
@@ -81,10 +84,14 @@
             });
 
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         methods: {
             nextOption:function (id,index) {
                 let _this = this;
                _this.updateScore(id,index)
+                console.log( _this.questSwiper)
                 _this.questSwiper.slideNext();
             },
             updateScore:function (id,answerIndex) {

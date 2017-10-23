@@ -184,7 +184,6 @@
         width: 100%;
         display: block;
         margin: 0 auto;
-        height:13.6471rem;
     }
 
     .psychtestDetail_btn {
