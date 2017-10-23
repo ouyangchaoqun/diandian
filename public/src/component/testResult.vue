@@ -11,7 +11,6 @@
             <div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>
             <div class="textResult_main">{{result.content}}</div>
         </div>
-        <!--<div class="weui-btn weui-btn_primary textResult_btn" @click="testAgain()">重新测试</div>-->
     </div>
 </template>
 <script type="text/javascript">

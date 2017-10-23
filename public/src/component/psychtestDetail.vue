@@ -55,7 +55,7 @@
             <!--</template>-->
 
             <template>
-                <div class="psych_test_btn_price" :class="{noTestStyle:testDetail.lastAnswerId!=null}">￥{{testDetail.price}} <span>{{testDetail.old_price}}</span></div>
+                <div class="psych_test_btn_price" :class="{noTestStyle:testDetail.lastAnswerId==null}">￥{{testDetail.price}} <span>{{testDetail.old_price}}</span></div>
                 <div class="psych_test_btn_view" v-if="testDetail.lastAnswerId!=null" @click="viewResult()">查看报告</div>
                 <div class="psychtestDetail_btn" :class="{noTestStyle:testDetail.lastAnswerId==null}" @click="startTest()">立即购买</div>
             </template>
@@ -198,7 +198,7 @@
     }
 
     .psychtestDetail_btn:active {
-
+        background: #d86204;
     }
 
     .psych_test_btn_view {
@@ -208,7 +208,7 @@
         width:25%;
     }
     .psych_test_btn_view:active {
-
+        background: #d39207;
     }
 
     .psych_test_btn_box {
