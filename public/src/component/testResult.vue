@@ -1,6 +1,5 @@
 <template id="testResult">
     <div class="testResult">
-
         <div class="addBottomText"   v-html="result.result">
         </div>
         <!--<div class="testResult_top">-->
@@ -64,6 +63,10 @@
 <style>
     .testResult {
         background: #fff;
+
+    }
+    .addBottomText{
+        padding:1.471rem 0.88235rem;
     }
 
     .testResult_top {
@@ -80,14 +83,14 @@
         border-bottom: 1px solid #eee;
     }
 
-    .testResult img {
-        display: inline-block;
-        height: 0.88235rem;
-        width: 0.88235rem;
-        margin-top: -1px;
-        float: left;
-        margin-right: 0.588rem;
-    }
+    /*.testResult img {*/
+        /*display: inline-block;*/
+        /*height: 0.88235rem;*/
+        /*width: 0.88235rem;*/
+        /*margin-top: -1px;*/
+        /*float: left;*/
+        /*margin-right: 0.588rem;*/
+    /*}*/
 
     .textResulth1 {
         color: #666;
