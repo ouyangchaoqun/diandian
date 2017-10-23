@@ -21,7 +21,7 @@
                 <div class="title">{{psyItem.title}}</div>
                 <div class="info">
                     <div class="left">{{psyItem.count}}人已测</div>
-                    <div class="right">￥{{psyItem.price}} <span>{{psyItem.old_price}}</span> </div>
+                    <div class="right">￥{{psyItem.price.toFixed(2)}}<span>{{psyItem.old_price.toFixed(2)}}</span> </div>
                     <div class="clear"></div>
                 </div>
             </router-link>
@@ -115,6 +115,6 @@
     .list .item .info {  margin-top: 0.3rem ; padding-bottom: 0.6rem;}
     .list .item .info .left{  float:left; background: url(../images/fire.png) no-repeat; padding-left: 1.1rem; height:1.088235294117647rem; line-height: 1.088235294117647rem; background-size: 0.9411764705882353rem; font-size: 0.7058823529411765rem; color:#999; margin-left: 0.88235rem}
     .list .item .info .right{ font-size: 0.9411764705882353rem; color:#FE7301; text-align: right; float:right; width: 200px; margin-right: 0.88235rem; line-height: 1}
-    .list .item .info .right span{font-size: 0.70588235rem;color:#666;text-decoration: line-through}
+    .list .item .info .right span{font-size: 0.70588235rem;color:#666;text-decoration: line-through;margin-left: 0.471rem;}
 
 </style>
