@@ -183,23 +183,23 @@
     }
     .testQuestions_process{
         text-align: center;
-        color: #FE7301;
+        color: #666;
         line-height: 1;
         padding-top: 1.176471rem;
     }
     .testQuestions_process span:nth-of-type(1){
-        font-size: 0.588235rem;
+        font-size: 0.88235rem;
     }
     .testQuestions_process span:nth-of-type(2){
-        font-size: 1.0588235rem;
+        font-size: 0.88235rem;
     }
     .question_content{
        padding: 1.62rem 0 1.588235rem 0;
         color: #333;
-        font-size: 1.176471rem;
+        font-size: 1.0588235rem;
         line-height: 1.4117647rem;
-        text-align: center;
-        font-weight: bold;
+        text-align: left;
+        padding-left: 0.88235rem;
     }
     .question_option{
         color: #333;
