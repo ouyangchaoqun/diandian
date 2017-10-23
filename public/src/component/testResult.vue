@@ -1,16 +1,19 @@
 <template id="testResult">
     <div class="testResult">
-        <div class="testResult_top">
-            {{testResult_top}}
+
+        <div class="addBottomText"   v-html="result.content">
         </div>
-        <div class="textResult_option" v-if="result.result!=null">
-            <div class="textResulth1"><img src="../images/textdg.png" alt="">测试结果</div>
-            <div class="textResulth2">{{result.result}}</div>
-        </div>
-        <div class="textResult_des" v-if="result.content!=null">
-            <div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>
-            <div class="textResult_main">{{result.content}}</div>
-        </div>
+        <!--<div class="testResult_top">-->
+            <!--{{testResult_top}}-->
+        <!--</div>-->
+        <!--<div class="textResult_option" v-if="result.result!=null">-->
+            <!--<div class="textResulth1"><img src="../images/textdg.png" alt="">测试结果</div>-->
+            <!--<div class="textResulth2">{{result.result}}</div>-->
+        <!--</div>-->
+        <!--<div class="textResult_des" v-if="result.content!=null">-->
+            <!--<div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>-->
+            <!--<div class="textResult_main">{{result.content}}</div>-->
+        <!--</div>-->
     </div>
 </template>
 <script type="text/javascript">
