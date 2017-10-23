@@ -1,6 +1,6 @@
 <template >
     <div style="height: 100%"  class="more_box" >
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>发现</div>
         <div class="list">
             <a class="item" @click="luck()">
@@ -32,13 +32,14 @@
 </template>
 
 <script type="es6">
-
+    import showLoad from './showLoad.vue';
 
     export default {
         data() {
             return {
                 count:1100,
-                psyLists:[]
+                psyLists:[],
+                showLoad: false
             }
         },
         props:{
@@ -46,15 +47,20 @@
                 type:Object
             }
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         methods: {
             getTextList:function () {
                 let _this=this;
+                _this.showLoad=true;
                 _this.$http.get(web.API_PATH+'test/get/list/0/1/20').then(response => {
+                    _this.showLoad=false;
                     if(response.data.status===1){
                         _this.psyLists = response.data.data
                     }
                 }, response => {
-                    // error
+                    _this.showLoad=false;
 
                 });
             },
