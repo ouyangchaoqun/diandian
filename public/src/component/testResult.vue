@@ -66,7 +66,7 @@
 
     }
     .addBottomText{
-        padding:1.471rem 0.88235rem;
+        padding:0.88235rem;
     }
 
     .testResult_top {
