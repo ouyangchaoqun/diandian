@@ -107,7 +107,7 @@
                 var flag=false;
                 for(var i=0,l=this.questLists.length;i<l;i++){
                     if(this.questLists[i].id == id){
-                        this.questLists[i].answer = this.optionItem[answerIndex];
+                        this.questLists[i].answer = this.optionItem[answerIndex].val;
                         this.questLists[i].checkIndex = answerIndex;
                         this.$set(this.questLists,i,this.questLists[i])
                         flag = true;
