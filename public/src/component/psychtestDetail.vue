@@ -150,7 +150,6 @@
         font-size: 1.17647rem;
         margin-top: 1.117647rem;
         margin-bottom: 1rem;
-        padding:0 0.88235rem;
         text-align: center;
     }
     .psychtestDetail_class{
