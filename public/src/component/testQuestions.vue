@@ -160,7 +160,7 @@
         position: absolute;
         right:0.88235rem;
     }
-    .testQuestions .question_style{background: #fff;margin:0 0.588235rem;border-radius: 2px;}
+    .testQuestions .question_style{background: #fff;margin:0 0.88235rem;border-radius: 2px;}
     .questRadio{display:none}
     .questRadioInput{background-color:#fff;
         border:1px solid #FE7301;
@@ -243,7 +243,7 @@
     }
     .testQuestions_btn{
         text-align: center;
-        padding:2.0588rem 0.588235rem;
+        padding:2.0588rem 0.88235rem;
     }
     .testQuestions_btn .isLastStyle{
         background: #fff;
