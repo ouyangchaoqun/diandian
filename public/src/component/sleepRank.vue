@@ -796,7 +796,7 @@
             tip:function () {
                 this.$router.push('/me/subscribe')
             },
-            initData:function () {
+              initData:function () {
                 let _this = this;
                 $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
                 $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");

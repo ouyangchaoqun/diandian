@@ -243,10 +243,9 @@
         line-height: 1;
         margin-bottom: 0.588235rem;
     }
-    .addBottomText{
-        font-size: 0.8235rem;
-        line-height: 1.76471rem;
-    }
+    /*.addBottomText{*/
+        /*font-size: 0.88235rem;*/
+    /*}*/
     /*.addBottomText p{margin-bottom: 1rem}*/
     .addBottomText p:last-of-type{margin: 0}
     .addBottom .bottom_line{width:1.8235rem;height:0.176471rem;background: #DDDDDE;border-radius: 1.5px;margin:0 auto;margin-bottom: 1rem}
