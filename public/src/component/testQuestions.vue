@@ -14,8 +14,8 @@
                         <div class="question_style">
                             <div class="question_content">{{questIndex+1}}、{{quest.title}}</div>
                             <ul class="question_option">
-                                <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item]" @click="nextOption(quest.id,index)">
-                                    <span class="optionItem">{{item}}</span><span class="optionHtml">{{quest['item'+item]}}</span>
+                                <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item.val]" @click="nextOption(quest.id,index)">
+                                    <img class="optionItem" :src="item.src" alt=""><span class="optionHtml">{{quest['item'+item.val]}}</span>
                                     <label class="questLabel">
                                         <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
                                         <input class="questRadio" type="radio" v-if="quest.checkIndex!=index"  :name="'questRadio'+quest.id">
@@ -46,7 +46,16 @@
                 questLists:[],
                 allNum:'',
                 questSwiper:{},
-                optionItem:'ABCDEFGH'.split(''),
+                optionItem:[
+                    {val:'A',src:'../../dist/A.png'},
+                    {val:'B',src:'../../dist/B.png'},
+                    {val:'C',src:'../../dist/C.png'},
+                    {val:'D',src:'../../dist/D.png'},
+                    {val:'E',src:'../../dist/E.png'},
+                    {val:'F',src:'../../dist/F.png'},
+                    {val:'G',src:'../../dist/G.png'},
+                    {val:'H',src:'../../dist/H.png'}
+                ],//'ABCDEFGH'.split(''),
                 activeIndex:'1',
                 isFrist:false,
                 scoreCount:[],
@@ -219,6 +228,9 @@
     }
     .optionItem{
         margin-right: 0.88235rem;
+        height:1.176471rem;
+        display: inline-block;
+        margin-top:0.1rem;
     }
     .prevOption{
         font-size: 0.94117647rem;

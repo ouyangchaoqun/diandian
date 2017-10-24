@@ -7,9 +7,18 @@
                 <h2 class="psychtestDetail_title">{{testDetail.title}}</h2>
                 <div class="psychtestDetail_class">{{testDetail.class_name}}</div>
                 <div class="psychtestDetail_flex">
-                    <div>{{testDetail.question_count}}道精选问题</div>
-                    <div>1页专业报告</div>
-                    <div>{{testDetail.count}}+W人测试过</div>
+                    <div>
+                        <span></span>
+                        {{testDetail.question_count}}道精选问题
+                    </div>
+                    <div>
+                        <span></span>
+                        1页专业报告
+                    </div>
+                    <div>
+                        <span></span>
+                        {{testDetail.count}}+W人测试过
+                    </div>
                 </div>
             </div>
             <div class="psychtestDetail_main">
@@ -59,7 +68,10 @@
                 <template>
                     <div class="psych_test_btn_price" :class="{noTestStyle:testDetail.lastAnswerId==null}">￥{{testDetail.price.toFixed(2)}} <span>￥{{testDetail.old_price.toFixed(2)}}</span></div>
                     <div class="psych_test_btn_view" v-if="testDetail.lastAnswerId!=null" @click="viewResult()">查看报告</div>
-                    <div class="psychtestDetail_btn" :class="{noTestStyle:testDetail.lastAnswerId==null}" @click="startTest()">立即购买</div>
+                    <div class="psychtestDetail_btn" :class="{noTestStyle:testDetail.lastAnswerId==null}" @click="startTest()">
+                        <template v-if="payed==1">继续测试</template>
+                        <template v-if="payed==0">立即购买</template>
+                    </div>
                 </template>
             </div>
         </div>
@@ -170,15 +182,30 @@
         display: flex;
         display: -webkit-flex;
         text-align: center;
-        padding:0 1.2rem ;
+        padding:0 1rem ;
         margin-bottom: 1.4rem;
     }
     .psychtestDetail_flex>div{
         flex: 1;
     }
+    .psychtestDetail_flex>div:nth-of-type(1){
+        text-align: left;
+    }
+    .psychtestDetail_flex>div:nth-of-type(3){
+        text-align: right;
+    }
+    .psychtestDetail_flex span{
+        width: 5px;
+        height: 5px;
+        display: inline-block;
+        background: #999;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-top: -3px;
+    }
     .psychtestDetail_main{
         border-top: 0.588235rem solid #F2F2F5;
-        padding:1.76471rem 2.3529411rem;
+        padding:1.76471rem;
     }
     .psychtestDetail img {
         width: 100%;
