@@ -260,4 +260,7 @@
         width:41.333%;
         margin-top: 0;
     }
+    .testQuestions_btn .isResultStyle:active{
+        background: #d86204;
+    }
 </style>
