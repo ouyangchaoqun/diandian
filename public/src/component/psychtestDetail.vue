@@ -13,11 +13,11 @@
                     </div>
                     <div>
                         <span></span>
-                        1页专业报告
+                        1份专业报告
                     </div>
                     <div>
                         <span></span>
-                        {{testDetail.count}}+W人测试过
+                        12W+人测试过
                     </div>
                 </div>
             </div>
