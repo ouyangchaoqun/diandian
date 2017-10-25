@@ -61,6 +61,7 @@
                 scoreCount:[],
                 answerId:'',
                 htmlover:false,
+                canNext:true
             }
         },
         mounted: function () {
@@ -85,6 +86,9 @@
                         }else {
                             _this.isFrist = true
                         }
+                    },
+                    onSlideChangeEnd :function () {
+                        _this.canNext=true;
                     }
                 })
             }, response => {
@@ -99,6 +103,10 @@
         methods: {
             nextOption:function (id,index) {
                 let _this = this;
+                if(!_this.canNext){
+                    return;
+                }
+                _this.canNext = false;
                _this.updateScore(id,index)
                 //console.log( _this.questSwiper)
                 _this.questSwiper.slideNext();

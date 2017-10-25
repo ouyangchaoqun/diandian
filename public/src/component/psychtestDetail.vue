@@ -118,9 +118,7 @@
                         desc: _this.testDetail.share_description,
                         link: web.BASE_PATH + "guest/#/psychtestDetail?testId=" + _this.testId,
                     };
-                    weshare.init(wx, config,function(){},function () {
-
-                    })
+                    weshare.init(wx)
                 });
 
             }, response => {
