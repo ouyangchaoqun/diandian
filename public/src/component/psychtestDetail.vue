@@ -110,15 +110,15 @@
                     }
                 }
                 xqzs.wx.setConfig(this, function () {
-                    wx.showAllNonBaseMenuItem();
-                    var config = {
-
-                        imgUrl:_this.testDetail.share_pic,
-                        title: _this.testDetail.share_title,
-                        desc: _this.testDetail.share_description,
-                        link: web.BASE_PATH + "guest/#/psychtestDetail?testId=" + _this.testId,
-                    };
-                    weshare.init(wx,config)
+//                    wx.showAllNonBaseMenuItem();
+//                    var config = {
+//
+//                        imgUrl:_this.testDetail.share_pic,
+//                        title: _this.testDetail.share_title,
+//                        desc: _this.testDetail.share_description,
+//                        link: web.BASE_PATH + "guest/#/psychtestDetail?testId=" + _this.testId,
+//                    };
+//                    weshare.init(wx,config)
                 });
 
             }, response => {
