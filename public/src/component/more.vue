@@ -3,17 +3,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>发现</div>
         <div class="list">
-            <a class="item" @click="luck()">
-                <div class="img">
-                    <img src="../images/luck/lucky.png">
-                </div>
-                <div class="title">十月份星座运势已经新鲜出炉，测一测你的运势!</div>
-                <div class="info">
-                    <div class="left">20w+人已测</div>
-                    <div class="right">免费</div>
-                    <div class="clear"></div>
-                </div>
-            </a>
+
             <router-link :to="{ path: '/psychtestDetail', query: { testId: psyItem.id}}" class="item" v-for="psyItem in psyLists">
                 <div class="img">
                     <img :src="psyItem.pic">
@@ -25,7 +15,17 @@
                     <div class="clear"></div>
                 </div>
             </router-link>
-
+            <a class="item" @click="luck()">
+                <div class="img">
+                    <img src="../images/luck/lucky.png">
+                </div>
+                <div class="title">十月份星座运势已经新鲜出炉，测一测你的运势!</div>
+                <div class="info">
+                    <div class="left">20w+人已测</div>
+                    <div class="right">免费</div>
+                    <div class="clear"></div>
+                </div>
+            </a>
         </div>
 
     </div>
