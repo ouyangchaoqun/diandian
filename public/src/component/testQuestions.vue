@@ -260,7 +260,13 @@
         width:41.333%;
         margin-top: 0;
     }
+    .prevOption:active{
+        background: #d86204;
+    }
     .testQuestions_btn .isResultStyle:active{
         background: #d86204;
+    }
+    .testQuestions_btn .isLastStyle:active{
+        background: #eee;
     }
 </style>
