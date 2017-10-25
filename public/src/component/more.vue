@@ -9,7 +9,7 @@
                 </div>
                 <div class="title">十月份星座运势已经新鲜出炉，测一测你的运势!</div>
                 <div class="info">
-                    <div class="left">{{count}}人已测</div>
+                    <div class="left">20w+人已测</div>
                     <div class="right">免费</div>
                     <div class="clear"></div>
                 </div>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="title">{{psyItem.title}}</div>
                 <div class="info">
-                    <div class="left">{{psyItem.count}}人已测</div>
+                    <div class="left">12w+人已测</div>
                     <div class="right">￥{{psyItem.price.toFixed(2)}}<span>{{psyItem.old_price.toFixed(2)}}</span> </div>
                     <div class="clear"></div>
                 </div>

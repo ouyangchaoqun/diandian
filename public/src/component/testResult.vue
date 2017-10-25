@@ -67,6 +67,8 @@
     }
     .addBottomText{
         padding:0.88235rem;
+        height: 100%;
+        overflow-y: scroll;
     }
 
     .testResult_top {
