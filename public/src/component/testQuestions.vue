@@ -14,7 +14,7 @@
                         <div class="question_style">
                             <div class="question_content">{{questIndex+1}}、{{quest.title}}</div>
                             <ul class="question_option">
-                                <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item.val]" @click="nextOption(quest.id,index)">
+                                <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item.val]" @click.stop="nextOption(quest.id,index)">
                                     <img class="optionItem" :src="item.src" alt=""><span class="optionHtml">{{quest['item'+item.val]}}</span>
                                     <label class="questLabel">
                                         <input class="questRadio" type="radio" v-if="quest.checkIndex==index" checked :name="'questRadio'+quest.id">
@@ -110,11 +110,12 @@
                         this.questLists[i].answer = this.optionItem[answerIndex].val;
                         this.questLists[i].checkIndex = answerIndex;
                         this.$set(this.questLists,i,this.questLists[i])
+                        console.log(this.questLists[i].answer)
                         flag = true;
                         break;
+
                     }
                 }
-               // console.log(this.questLists)
             },
             prevOption:function () {
                 let _this = this;
