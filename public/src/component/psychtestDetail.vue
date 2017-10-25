@@ -31,21 +31,13 @@
                     </div>
                 </div>
             </div>
-            <div class="psychtestDetail_main">
+            <div class="psychtestDetail_main psychtestDetail_main_addStyle">
                 <div class="addBottom">
                     <div>
                         <div class="addBottomLine">评测须知</div>
                         <div class="bottom_line"></div>
                     </div>
                     <div class="addBottomText" style="margin-bottom: 2.588rem" v-html="testDetail.notice">
-                        <!--<div>① 本测试为付费测试，付费成功后将自动跳转-->
-                            <!--到答题页；</div>-->
-                        <!--<div> ② 为保证准确性，一次付费仅能测试一次，测-->
-                            <!--试结果一旦生成，想进行二次测试需要再次付-->
-                            <!--费；</div>-->
-                        <!--<div> ③ 请根据实际情况作答，答题结束后会生成一-->
-                            <!--份专业的测评报告，若用户进行多次测试，我们-->
-                            <!--只保留最近一次的测试结果。</div>-->
                     </div>
                 </div>
             </div>
@@ -94,11 +86,17 @@
             }
         },
         mounted: function () {
+            let data = ''
+            if (web.guest) {
+                this.isGuest = true;
+                data = "?guest=true";
+            }
             let _this = this;
+            let user = '_userId_'||0
             _this.showLoad=true;
             _this.testId = _this.$route.query.testId;
             let start = _this.$route.query.start;
-            _this.$http.get(web.API_PATH + 'test/get/' + _this.testId + '/_userId_').then(response => {
+            _this.$http.get(web.API_PATH + 'test/get/' + _this.testId + '/'+user+data).then(response => {
                 _this.showLoad=false;
                 _this.htmlover = true
                 if (response.data.status === 1) {
@@ -111,6 +109,20 @@
                         _this.$router.replace('/testQuestions?testId=' + _this.testId)
                     }
                 }
+                xqzs.wx.setConfig(this, function () {
+                    wx.showAllNonBaseMenuItem();
+                    var config = {
+
+                        imgUrl:_this.testDetail.share_pic,
+                        title: _this.testDetail.share_title,
+                        desc: _this.testDetail.share_description,
+                        link: web.BASE_PATH + "guest/#/psychtestDetail?testId=" + _this.testId,
+                    };
+                    weshare.init(wx, config,function(){},function () {
+
+                    })
+                });
+
             }, response => {
                 // error
 
@@ -156,7 +168,9 @@
         height: 100%;
         position: relative;
     }
-
+    .psychtestDetail_header{
+        border-bottom: 0.588235rem solid #F2F2F5;
+    }
     .psychtestDetail_title {
         color: #000;
         font-size: 1.17647rem;
@@ -204,8 +218,13 @@
         margin-top: -3px;
     }
     .psychtestDetail_main{
-        border-top: 0.588235rem solid #F2F2F5;
         padding:1.76471rem;
+    }
+    .psychtestDetail_main_addStyle{
+        background: #f8f8f8;
+        margin:0 1.76471rem;
+        border-radius: 5px;
+        margin-bottom: 3rem;
     }
     .psychtestDetail img {
         width: 100%;
@@ -261,7 +280,7 @@
         text-align: center;
         font-size: 0.88235rem ;
     }
-    .addBottomLine{
+    .psychtestDetail .addBottomLine{
         font-size: 1.0588235rem;
         margin: 0 auto;
         text-align: center;
@@ -269,10 +288,9 @@
         line-height: 1;
         margin-bottom: 0.588235rem;
     }
-    /*.addBottomText{*/
-        /*font-size: 0.88235rem;*/
-    /*}*/
-    /*.addBottomText p{margin-bottom: 1rem}*/
-    .addBottomText p:last-of-type{margin: 0}
+    .psychtestDetail .addBottomText{
+        padding:0
+    }
+    .psychtestDetail .addBottomText p:last-of-type{margin: 0}
     .addBottom .bottom_line{width:1.8235rem;height:0.176471rem;background: #DDDDDE;border-radius: 1.5px;margin:0 auto;margin-bottom: 1rem}
 </style>
