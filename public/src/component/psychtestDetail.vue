@@ -37,7 +37,7 @@
                         <div class="addBottomLine">评测须知</div>
                         <div class="bottom_line"></div>
                     </div>
-                    <div class="addBottomText" style="margin-bottom: 2.588rem" v-html="testDetail.notice">
+                    <div class="addBottomText" v-html="testDetail.notice">
                     </div>
                 </div>
             </div>
@@ -118,9 +118,7 @@
                         desc: _this.testDetail.share_description,
                         link: web.BASE_PATH + "guest/#/psychtestDetail?testId=" + _this.testId,
                     };
-                    weshare.init(wx, config,function(){},function () {
-
-                    })
+                    weshare.init(wx,config)
                 });
 
             }, response => {
@@ -222,9 +220,10 @@
     }
     .psychtestDetail_main_addStyle{
         background: #f8f8f8;
-        margin:0 1.76471rem;
+        margin:0 1.176471rem;
         border-radius: 5px;
         margin-bottom: 3rem;
+        padding:1.76471rem 1.176471rem;
     }
     .psychtestDetail img {
         width: 100%;
