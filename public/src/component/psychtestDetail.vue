@@ -82,49 +82,62 @@
                 testDetail: {},
                 payed: 0,
                 showLoad: false,
-                htmlover:false
+                htmlover:false,
+                theUser:null,
             }
         },
         mounted: function () {
-            let data = ''
-            if (web.guest) {
-                this.isGuest = true;
-                data = "?guest=true";
-            }
+
             let _this = this;
-            let user = '_userId_'||0
             _this.showLoad=true;
             _this.testId = _this.$route.query.testId;
             let start = _this.$route.query.start;
-            _this.$http.get(web.API_PATH + 'test/get/' + _this.testId + '/'+user+data).then(response => {
-                _this.showLoad=false;
-                _this.htmlover = true
-                if (response.data.status === 1) {
-                    console.log(response.data.data);
-                    _this.testDetail = response.data.data;
-                    _this.payed = response.data.data.payed;
-                    _this.answerId = response.data.data.lastAnswerId;
-                    console.log(_this.payed);
-                    if (start && _this.payed) {
-                        _this.$router.replace('/testQuestions?testId=' + _this.testId)
-                    }
+            let guestData = ''
+            if (web.guest) {
+                this.isGuest = true;
+                guestData = "?guest=true";
+            }
+
+            _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {
+                if(data.data.status==1){
+                    _this.theUser = data.data.data.id
+                }else {
+                    _this.theUser = 0
                 }
-                xqzs.wx.setConfig(this, function () {
+                _this.$http.get(web.API_PATH + 'test/get/' + _this.testId +'/'+_this.theUser+guestData).then(response => {
+                    _this.showLoad=false;
+                    _this.htmlover = true
+                    if (response.data.status === 1) {
+                        console.log(response.data.data);
+                        _this.testDetail = response.data.data;
+                        _this.payed = response.data.data.payed;
+                        _this.answerId = response.data.data.lastAnswerId;
+                        //console.log(_this.payed);
+                        if (start && _this.payed) {
+                            _this.$router.replace('/testQuestions?testId=' + _this.testId)
+                        }
+                    }
+                    xqzs.wx.setConfig(this, function () {
 //                    wx.showAllNonBaseMenuItem();
 //                    var config = {
 //
 //                        imgUrl:_this.testDetail.share_pic,
 //                        title: _this.testDetail.share_title,
 //                        desc: _this.testDetail.share_description,
-//                        link: web.BASE_PATH + "guest/#/psychtestDetail?testId=" + _this.testId,
+//                        link: web.BASE_PATH + "wx/pub/#/psychtestDetail?testId=" + _this.testId,
 //                    };
 //                    weshare.init(wx,config)
+                    });
+
+                }, response => {
+                    // error
+
                 });
 
-            }, response => {
-                // error
+            })
 
-            });
+
+
         },
         components: {
             'v-showLoad': showLoad
