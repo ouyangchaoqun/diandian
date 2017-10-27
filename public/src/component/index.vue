@@ -37,12 +37,16 @@
         </div>
         <div class="weui-tab__panel" >
             <div class="banner" style="position: relative;">
-                <ul class="birthdays">
-                    <li @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0&&index<4"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
-                </ul>
-                <ul class="birthdays b_right">
-                    <li  @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>=5&&index>=4" ><template v-if="item.myself==1"> <img :src="item.faceUrl" >我的生日 <i></i></template><template v-else=""><img :src="item.faceUrl" >好友生日 <i></i></template></li>
-                </ul>
+                <div class="birthdays swiper-container">
+
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日</template><template v-else=""><img :src="item.faceUrl" >好友生日</template></div>
+
+                    </div>
+
+                    <i></i>
+                </div>
+
                 <div v-show="isBirthday" class="brithBox">
                     <!--<img src="/dist/top_img/birthday.jpg"/>-->
                     <img src="/dist/top_img/bribg.jpg" alt="">
@@ -424,7 +428,7 @@
             let year=date.getFullYear();
             let month=date.getMonth()+1;
             let day=date.getDate()
-            //好友生日/api/v1/birthday/get/list/{year}/{month}/{day}/{userId}
+            //好友生日 
             _this.$http.get(web.API_PATH + 'birthday/get/list/'+year+'/'+month+'/'+day+'/_userId_').then(function (data) {//es5写法
                 console.log(data)
                 if(data.body.status==1){
@@ -432,7 +436,7 @@
                     let isbirthday=false;
                     for(let i=0;i<_this.birthdayList.length;i++){
                         if(_this.birthdayList[i].myself==1){
-
+    
                             isbirthday=true;
                             break;
                         }
@@ -443,6 +447,24 @@
                     }else{
                         xqzs.localdb.set("isBirthday",0);
                     }
+                    let loop=false;
+                    if(_this.birthdayList>1){loop=true}
+                    _this.$nextTick(function () {
+                        _this.questSwiper = new Swiper ('.birthdays', {
+                            direction : 'vertical',
+                            noSwiping : false,
+                            loop : loop,
+                            autoplay : 3000,
+                            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                            onSlideChangeStart:function () {
+
+                            },
+                            onSlideChangeEnd :function () {
+
+                            }
+                        })
+                    })
+                    
                 }
 
 
@@ -527,11 +549,10 @@
 
 
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
-    .birthdays{  position: absolute; top:4%;left:0;z-index: 1001}
-    .birthdays li{ background: rgba(7,7,7,0.5); border-radius: 1.058823529411765rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.117647058823529rem; font-size: 0.7058823529411765rem; color:#fff; width: 6.6rem; line-height:  2.117647058823529rem; margin-bottom: 1rem }
-    .birthdays li:active{background: rgba(7,7,7,0.8);}
-    .birthdays li img{ width: 1.529411764705882rem ; height: 1.529411764705882rem; border-radius: 50%; float:left; margin-top: 0.2941176470588235rem; margin-left: 0.2rem;margin-right: 0.3rem; }
-    .birthdays li i{ display: inline-block;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.56rem; margin-right: 0.5rem;}
+    .birthdays{  position: absolute; top:5rem;left:0;z-index: 1001; background: rgba(7,7,7,0.5); border-radius: 1.25rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.5rem; font-size: 0.9rem; color:#fff; width: 8rem; line-height:  2.5rem;}
+    .birthdays:active{background: rgba(7,7,7,0.8);}
+    .birthdays .swiper-slide img{ width: 1.8rem ; height: 1.8rem; border-radius: 50%; float:left; margin-top: 0.2941176470588235rem; margin-left: 0.2rem;margin-right: 0.5rem; }
+    .birthdays   i{ display: inline-block;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.78rem; margin-right: 0.5rem; position: absolute; top:0; right:0}
 
     .birthdays.b_right{left:inherit; right:0;}
     .birthdays.b_right li{border-radius: 1.058823529411765rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
