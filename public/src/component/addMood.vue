@@ -268,7 +268,7 @@
 //                        });
 
 
-                    this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
+                    this.$router.replace('/myCenter/myIndex/Edit?'+params.join('&'));
                 }
 
             },
