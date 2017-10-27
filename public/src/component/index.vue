@@ -37,7 +37,7 @@
         </div>
         <div class="weui-tab__panel" >
             <div class="banner" style="position: relative;">
-                <div class="birthdays swiper-container">
+                <div class="birthdays swiper-container" v-if="birthdayList&&birthdayList.length>0">
 
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日</template><template v-else=""><img :src="item.faceUrl" >好友生日</template></div>
