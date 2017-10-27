@@ -549,7 +549,7 @@
 
 
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
-    .birthdays{  position: absolute; top:5rem;left:0;z-index: 1001; background: rgba(7,7,7,0.5); border-radius: 1.25rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.5rem; font-size: 0.9rem; color:#fff; width: 8rem; line-height:  2.5rem;}
+    .birthdays{  position: absolute; top:2.6rem;left:0;z-index: 1001; background: rgba(7,7,7,0.5); border-radius: 1.25rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.5rem; font-size: 0.9rem; color:#fff; width: 8rem; line-height:  2.5rem;}
     .birthdays:active{background: rgba(7,7,7,0.8);}
     .birthdays .swiper-slide img{ width: 1.8rem ; height: 1.8rem; border-radius: 50%; float:left; margin-top: 0.2941176470588235rem; margin-left: 0.2rem;margin-right: 0.5rem; }
     .birthdays   i{ display: inline-block;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.78rem; margin-right: 0.5rem; position: absolute; top:0; right:0}
