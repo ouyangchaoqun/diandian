@@ -112,9 +112,17 @@
 
         </div>
         <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
+        <div class="send_red_packet" @click="sendRedPacket()">发红包</div>
+        <iframe id="send_red_packet" height="0" width="0" style="display: none"></iframe>
     </div>
 </template>
 <style>
+
+    .send_red_packet{
+        background: url(../images/send_red_packet.png) no-repeat #f01d1d ; background-position: 0 0.6rem; background-size: 100%; height:4rem; width: 3rem ; border-radius: 0.8rem; ; font-size: 0.7rem; font-weight: bold; text-align: center; color:#fff; line-height: 6rem; overflow: hidden; position: fixed; right:1rem; bottom:1rem; z-index: 10000;top:68%;
+    }
+    .send_red_packet:active{background: url(../images/send_red_packet.png) no-repeat #bf1a1a; background-size: 100%; background-position: 0 0.6rem;}
+
     .page_one {
         width: 100%;
         height: 100%
@@ -930,13 +938,13 @@
                 MAX_CARE_COUNT: 10,
                 steps: [
                     {num: 1, isReach: false},
-                    {num: 99, isReach: false},
-                    {num: 188, isReach: false},
+                    {num: 21, isReach: false},
+                    {num: 52, isReach: false},
                     {num: 0, isReach: false},
                     {num: 0, isReach: false},
-                    {num: 520, isReach: false},
-                    {num: 999, isReach: false},
-                    {num: 1314, isReach: false}
+                    {num: 88, isReach: false},
+                    {num: 168, isReach: false},
+                    {num: 520, isReach: false}
                 ],
                 showLoad: false,
                 count: 0,
@@ -967,6 +975,13 @@
             'v-showLoad': showLoad
         },
         methods: {
+            sendRedPacket:function () {
+                xqzs.weui.tip("该功能暂未开放！",function () {
+                    
+                })
+
+                $("#send_red_packet").attr("src",window.location.href+"&send_red_packet=true")
+            },
             submitContent: function () {
                 let _this = this;
                 if (_this.hasMyContent) {
