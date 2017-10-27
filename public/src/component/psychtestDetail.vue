@@ -57,7 +57,7 @@
                 <!--<template v-if="payed==0">立即测试</template></div>-->
                 <!--</template>-->
 
-                <template>
+                <template v-if="testDetail.status==1">
                     <div class="psych_test_btn_price" :class="{noTestStyle:testDetail.lastAnswerId==null}">￥{{testDetail.price.toFixed(2)}} <span>￥{{testDetail.old_price.toFixed(2)}}</span></div>
                     <div class="psych_test_btn_view" v-if="testDetail.lastAnswerId!=null" @click="viewResult()">查看报告</div>
                     <div class="psychtestDetail_btn" :class="{noTestStyle:testDetail.lastAnswerId==null}" @click="startTest()">
