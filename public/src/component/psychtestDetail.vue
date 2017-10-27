@@ -17,7 +17,7 @@
                     </div>
                     <div>
                         <span></span>
-                        12W+人测试过
+                        {{testDetail.count}}人测试过
                     </div>
                 </div>
             </div>

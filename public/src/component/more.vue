@@ -10,7 +10,7 @@
                 </div>
                 <div class="title">{{psyItem.title}}</div>
                 <div class="info">
-                    <div class="left">12w+人已测</div>
+                    <div class="left">{{psyItem.count}}人已测</div>
                     <div class="right">￥{{psyItem.price.toFixed(2)}}<span>{{psyItem.old_price.toFixed(2)}}</span> </div>
                     <div class="clear"></div>
                 </div>
