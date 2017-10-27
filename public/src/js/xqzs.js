@@ -66,7 +66,7 @@ var xqzs = {
                     $("#toast").remove();
                     fun();
                 });
-            }, 800);
+            }, 1200);
         },
         loading: function () {
             var id = '_weui_loading_' + new Date().getTime();
