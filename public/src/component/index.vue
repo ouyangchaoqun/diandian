@@ -200,7 +200,9 @@
                 scrollTop:0,
                 birthdayList:[],
                 isBirthday:false,
-                qunImgHeight:300
+                qunImgHeight:300,
+                newMoodCount:0,
+                LOCAL_DB_KEY_MOOD_COUNT:'local_db_key_mood_count'
             }
         },
         filters:{
@@ -325,25 +327,48 @@
             },
 
             getFriendLastMood:function () {
-                var that = this;
-                //好友是否有新心情
-                var lastfriendmoodid = xqzs.friendmood.getlast();
-                if(lastfriendmoodid!=''){
-                    that.$http.get(web.API_PATH + "mood/find/friendlast/_userId_")
-                        .then(function (bt) {
-                            if(bt && bt.data.status == 1){
-                                var data = bt.data.data;
-                                var newId = data.id;
-                                console.info(newId+'   '+lastfriendmoodid)
-                                if(newId > parseFloat(lastfriendmoodid)){
-                                    that.hasNewFirendMood=true;
-                                    var container = $('#tabs .tab:eq(0)');
-                                    var right = (container.width() - 32) / 2;
-                                    that.newFirendMoodStyle = 'right:'+right+'px';
-                                }
+
+                let _this=this;
+
+                //小心情数量发生变化就有红点点
+                let oldMoodCount=xqzs.localdb.get(_this.LOCAL_DB_KEY_MOOD_COUNT);
+                _this.$http.get(web.API_PATH + "mood/query/all/page/0/1/1?lastId=0&lastAdId=0")
+                    .then(function (bt) {
+                        if (bt && bt.data.status == 1) {
+                            let newMoodCount = bt.data.data.total;
+                            _this.newMoodCount=newMoodCount;
+                            if (oldMoodCount != newMoodCount) {
+                                _this.hasNewFirendMood = true;
+                                let container = $('#tabs .tab:eq(0)');
+                                let right = (container.width() - 32) / 2;
+                                _this.newFirendMoodStyle = 'right:' + right + 'px';
                             }
-                        })
-                }
+                        }
+                    })
+
+
+
+
+
+                //好友是否有新心情
+//                var that = this;
+//                var lastfriendmoodid = xqzs.friendmood.getlast();
+//                if(lastfriendmoodid!=''){
+//                    that.$http.get(web.API_PATH + "mood/find/friendlast/_userId_")
+//                        .then(function (bt) {
+//                            if(bt && bt.data.status == 1){
+//                                var data = bt.data.data;
+//                                var newId = data.id;
+//                                console.info(newId+'   '+lastfriendmoodid)
+//                                if(newId > parseFloat(lastfriendmoodid)){
+//                                    that.hasNewFirendMood=true;
+//                                    var container = $('#tabs .tab:eq(0)');
+//                                    var right = (container.width() - 32) / 2;
+//                                    that.newFirendMoodStyle = 'right:'+right+'px';
+//                                }
+//                            }
+//                        })
+//                }
             },
             getNewPerfect:function () {
                 var infokey = 'perfectinfo';
@@ -357,6 +382,7 @@
             hideNewCircle:function (key,url) {
                 var _this =this ;
                 if(key == 'mood'){
+                    xqzs.localdb.set(_this.LOCAL_DB_KEY_MOOD_COUNT,  _this.newMoodCount);
                     this.hasNewFirendMood = false;
                 }
                 if(key == 'perfect'){

@@ -38,7 +38,7 @@
                 <div class="open_box">
                     <div class="wwww">
                     <span class="open_btn" @click.stop="changeOpen(1)" :class="{on:isopen==1}">公开</span>
-                    <span class="open_btn"  @click.stop="changeOpen(0)"  :class="{on:isopen!=1}">不公开</span>
+                    <span class="open_btn"  @click.stop="changeOpen(0)"  :class="{on:isopen!=1}">私密</span>
                     </div>
                 </div>
                 <!--<div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>-->
@@ -717,7 +717,6 @@
     .edit_option  .open_box .open_btn{float:left;display: inline-block; margin-left: 0.3rem;}
     .edit_option  .open_box .open_btn:before{content: ' '; border: 1px solid #999; margin-right: 0.2rem; margin-top: 0.2rem; display: block; height: 0.6rem; width: 0.6rem; border-radius: 50%; float:left;}
     .edit_option  .open_box .open_btn.on:before{ border: 1px solid #0b900c; background: #0BB20C}
-    .edit_option  .open_box  .wwww{ width: 108px}
 
     .addEdit{
         height:65px;
