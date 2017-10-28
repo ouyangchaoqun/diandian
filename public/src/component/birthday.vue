@@ -301,7 +301,7 @@
     }
 
     .myshare {
-        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background: url(../../dist/birthday/birthdayshare.png) no-repeat center top rgba(0, 0, 0, 0.9);
         background-position: 2.5rem 3.5rem;
         background-size: 80%;
         height: 100%;
