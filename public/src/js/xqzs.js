@@ -629,17 +629,20 @@ var xqzs = {
 
             $("body").append(html);
 
-            var interval ;
-            //解决第三方软键盘唤起时底部input输入框被遮挡问题
-            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
-            $(".comment_text").focus(function () {
-                interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
-                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                }, 180)
-            }).blur(function () {//设定输入框失去焦点时的事件
-                clearTimeout(interval);//清除计时器
-                document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
-            });
+
+            //  var interval ;
+            // //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            // var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            //
+            //  $(".comment_text").focus(function () {
+            //     interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+            //         document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+            //
+            //     }, 3000)
+            // }).blur(function () {//设定输入框失去焦点时的事件
+            //     clearTimeout(interval);//清除计时器
+            //      document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+            // });
 
 
             $(".comment_text").focus().keyup(function () {

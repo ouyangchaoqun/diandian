@@ -4,12 +4,11 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="banner">
             <div v-show="isBirthday" class="RecordbrithBox">
-                <!--<img src="/dist/top_img/birthday.jpg"/>-->
-                <img src="/dist/top_img/bribg.jpg" alt="">
-                <img src="/dist/top_img/bribg.png" alt="" style="position: absolute;bottom: 0">
-                <img class="briCake" src="/dist/top_img/briCake.png" alt="">
-                <img class="brithText" src="/dist/top_img/brithText.png" alt="">
-                <img class="brithDayBg" src="/dist/top_img/brithDayBg.png" alt="">
+                <img src="../images/birthday/bribg.jpg" alt="">
+                <img src="../images/birthday/bribg.png" alt="" style="position: absolute;bottom: 0">
+                <img class="briCake" src="../images/birthday/briCake.png" alt="">
+                <img class="brithText" src="../images/birthday/brithText.png" alt="">
+                <img class="brithDayBg" src="../images/birthday/brithDayBg.png" alt="">
             </div>
             <v-banner v-show="!isBirthday"></v-banner>
         </div>

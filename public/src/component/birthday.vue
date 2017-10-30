@@ -104,7 +104,7 @@
                             <div class="clear"></div>
 
                         </template>
-                        <template v-else=""><img src="/dist/birthday/wxfriend.png"/>微信好友<span>{{item.count}}个赞</span>
+                        <template v-else=""><img src="../images/birthday/wxfriend.png"/>微信好友<span>{{item.count}}个赞</span>
                         </template>
                     </li>
                 </ul>
@@ -301,7 +301,7 @@
     }
 
     .myshare {
-        background: url(../../dist/birthday/birthdayshare.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background: url(../images/birthday/birthdayshare.png) no-repeat center top rgba(0, 0, 0, 0.9);
         background-position: 2.5rem 3.5rem;
         background-size: 80%;
         height: 100%;
@@ -392,7 +392,7 @@
     .birthday_box .top_info {
         padding-top: 4.8rem;
         height: 14.2rem;
-        background: url(../../dist/birthday/top_bg.png) top center no-repeat;
+        background: url(../images/birthday/top_bg.png) top center no-repeat;
         background-size: 94%;
         position: relative;
     }
@@ -404,7 +404,7 @@
         margin-left: -6.75rem;
         width: 13.5rem;
         height: 5.823529411764706rem;
-        background: url(../../dist/birthday/happy_birthday.png) no-repeat;
+        background: url(../images/birthday/happy_birthday.png) no-repeat;
         background-size: 100%;
         z-index: 101
     }
@@ -416,7 +416,7 @@
         margin-left: -2.426470588235294rem;
         width: 4.852941176470588rem;
         height: 4.088235294117647rem;
-        background: url(../../dist/birthday/happy_top.png) no-repeat;
+        background: url(../images/birthday/happy_top.png) no-repeat;
         background-size: 100%;
         z-index: 100
     }
@@ -462,7 +462,7 @@
     .tip:before {
         content: " ";
         display: inline-block;
-        background: url(../../dist/birthday/tip_img.png);
+        background: url(../images/birthday/tip_img.png);
         height: 0.7058823529411765rem;
         width: 0.7058823529411765rem;
         background-size: 100% 100%;
@@ -571,7 +571,7 @@
         width: 4rem;
         height: 3.4rem;
         overflow: hidden;
-        background: url(../../dist/birthday/heart_bg.png);
+        background: url(../images/birthday/heart_bg.png);
         background-size: 100% 100%;
         left: 50%;
         margin-left: -2rem;
@@ -581,7 +581,7 @@
     }
 
     .heart .over {
-        background: url(../../dist/birthday/heart_over.png);
+        background: url(../images/birthday/heart_over.png);
         background-size: 100% 100%;
         height: 100%;
         width: 100%;
@@ -604,19 +604,19 @@
         position: absolute;
         top: 0;
         left: 0;
-        background: url(../../dist/birthday/wave.png) top center repeat-x;
+        background: url(../images/birthday/wave.png) top center repeat-x;
         height: 4.352941176470588rem;
         width: 78235.29411764706rem;
         background-size: 2.588235294117647rem;;
     }
 
     .heart .wave .img1 {
-        background: url(../../dist/birthday/wave.png) top center repeat-x;
+        background: url(../images/birthday/wave.png) top center repeat-x;
         background-size: 2.235294117647059rem;
     }
 
     .heart .wave .img3 {
-        background: url(../../dist/birthday/wave.png) top center repeat-x;
+        background: url(../images/birthday/wave.png) top center repeat-x;
         background-size: 18px;
         opacity: 0.3;
         animation: wave_move2 37600s linear;
@@ -664,7 +664,7 @@
 
     .heart_a div {
         position: absolute;
-        background: url(../../dist/birthday/click_heart.png) no-repeat;
+        background: url(../images/birthday/click_heart.png) no-repeat;
         height: 1.294117647058824rem;
         width: 1.294117647058824rem;
         background-size: 100% 100%
@@ -913,7 +913,7 @@
     }
 
     .heart_btn {
-        background: url(../../dist/birthday/heart_w.png) no-repeat;
+        background: url(../images/birthday/heart_w.png) no-repeat;
         background-size: 1.2941176rem;
         height: 1.117647058823529rem;
         width: 1.294117647058824rem;
