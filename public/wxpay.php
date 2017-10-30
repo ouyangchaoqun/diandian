@@ -14,6 +14,13 @@
 <body>
 
 
+<div class="check_pay_red">
+    确认已经付款，点击返回
+</div>
+<style>
+    .check_pay_red{ position: absolute; top:45%; margin-top: -22px; left:10%;font-size: 15px; text-align: center; height: 44px; width: 80%; border-radius: 22px; background: #0BB20C; line-height: 44px; color:#fff;  }
+    .check_pay_red:active{background: #0b8e0c; }
+</style>
 <script>
 
 
@@ -69,6 +76,10 @@
         }
 
     }
+    $(".check_pay_red").click(function () {
+        alert(reurl)
+        window.location.replace(reurl)
+    })
 
     $(document).ready(function () {
         pay.pay();
