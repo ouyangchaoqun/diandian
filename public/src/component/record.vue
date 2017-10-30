@@ -37,7 +37,7 @@
                             <div class="go_record record_mid" :class="{recorded:isRecordMood}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
-                                <div class="any">记录心情</div>
+                                <div class="any">心情说说</div>
                             </div>
                         </a>
                         <!--<a  class="weui-tabbar__item">-->
