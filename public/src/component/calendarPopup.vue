@@ -82,7 +82,7 @@
                 return xqzs.face.parse(c);
             },
             getCalendarTopImg: function (date) {
-                return web.IMG_PATH + "top_img/" + date.replace(/[年|月]/g, "/") + ".jpg";
+                return  "http://oss.xqzs.cn/xqzs/top_img/" + date.replace(/[年|月]/g, "/") + ".jpg";
             }
         },
         updated:function () {
