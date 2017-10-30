@@ -38,7 +38,7 @@
                     if (res.err_msg == "get_brand_wcpay_request:ok") {
                         window.location.replace(reurl)
                     }else{
-
+                        window.location.replace(reurl)
                     }
                 }
             );

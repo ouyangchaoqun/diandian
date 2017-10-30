@@ -46,12 +46,20 @@ class WeixinController extends Controller
 
         try {
             if (!empty($data)) {
+
                 $obj = json_decode($data, true);
                 if ($obj !== false) {
                     if ($obj['status'] == 1) {
-                        $this->setUserInfo($obj['data']);
-                        var_dump($obj['data']['id']);
-                        $apiService->login($obj['data']['id']);
+
+                        if($obj['data']['issubscribe']==0){
+                            $gourl = '/guest#/me/aboutUs';
+                        }else{
+                            $this->setUserInfo($obj['data']);
+                            $apiService->login($obj['data']['id']);
+                        }
+                    } else {
+                        //
+                        $gourl = '/guest#/me/aboutUs';
                     }
                 }
             }
