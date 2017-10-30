@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="getUp_count">{{index.count}}条</div>
+                    <div class="getUp_count">{{index.count}}次</div>
                 </div>
             </div>
             <div class="getUpCount">
