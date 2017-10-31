@@ -113,7 +113,6 @@
         </div>
         <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
         <div class="send_red_packet" @click="sendRedPacket()">发红包</div>
-        <iframe id="send_red_packet" height="0" width="0" style="display: none"></iframe>
     </div>
 </template>
 <style>
@@ -976,11 +975,10 @@
         },
         methods: {
             sendRedPacket:function () {
+                xqzs.eventLog.visit('birthdaysendredpacket')
                 xqzs.weui.tip("该功能暂未开放！",function () {
-                    
-                })
 
-                $("#send_red_packet").attr("src",window.location.href+"&send_red_packet=true")
+                })
             },
             submitContent: function () {
                 let _this = this;

@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......" maxlength="140"></textarea>
+            <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......" :maxlength="maxchars"></textarea>
             <div class="edit_loc" @click = "getLoc()"><img v-bind:src=locImage alt="">{{showAddress}}</div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
@@ -234,8 +234,8 @@
                 moodid:0,
                 moodcontent: '',
                 contminlength: 8,
-                maxchars:140,
-                levelchars:140,
+                maxchars:200,
+                levelchars:200,
                 cansubmit: true,
                 moodValue:0,
                 scenesId:0,
