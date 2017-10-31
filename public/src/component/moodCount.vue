@@ -1,157 +1,205 @@
-<template id="moodCount">
-    <div class="moodCount_bgbox">
+<template id="newMoodCount">
+    <div class="newMoodCount">
         <div v-title>我的心情指数</div>
-        <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="moodCount_tabs">
-            <a href="#" hidefocus="true" class="moodCount_tabs_active">每周心情指数</a>
-            <a href="#" hidefocus="true">每月心情指数</a>
-            <a href="#" hidefocus="true">每年心情指数</a>
-        </div>
-        <div class="swiper-container moodCount_box">
+        <div class="swiper-container newMoodCount_swiper">
+            <div class="addBg"></div>
+            <div class="top_title">心情指数平均值</div>
+            <div class="bottom_center"></div>
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <ul>
-                      <li class="countList" v-for="week in weeks">
-                          <p class="count1">{{week.year}}年第{{week.week}}周</p>
-                          <p class="count2">本周你记录了{{week.allDay}}天，{{week.happyDay}}天开心，{{week.unHappyDay}}天不开心</p>
-                          <p class="count2">你比{{week.comparison}}%都开心哦~</p>
-                          <img src="../images/me_jt.png" alt="">
-                      </li>
-                  </ul>
-                </div>
-                <div class="swiper-slide">
-                    <ul>
-
-
-                        <li class="countList active" v-for="month in months">
-                            <router-link  :to="{ path: '/moodCountPie', query: { year: month.year,month: month.month}}" >
-                                <p class="count1">{{month.year}}年第{{month.month}}月</p>
-                                <p class="count2">本月你记录了{{month.allDay}}天，{{month.happyDay}}天开心，{{month.unHappyDay}}天不开心</p>
-                                <p class="count2">你比{{month.comparison}}%都开心哦~</p>
-                                <img src="../images/me_jt.png" alt="">
-                            </router-link>
-                        </li>
-
-                    </ul>
-
-                </div>
-                <div class="swiper-slide">
-
-                    <ul>
-                        <li class="countList" v-for="year in years">
-                            <p class="count1">{{year.year}}年</p>
-                            <p class="count2">本年你记录了{{year.allDay}}天，{{year.happyDay}}天开心，{{year.unHappyDay}}天不开心</p>
-                            <p class="count2">你比{{year.comparison}}%都开心哦~</p>
-                            <img src="../images/me_jt.png" alt="">
-                        </li>
-
-                    </ul>
+                <div class="swiper-slide" v-for="item in data">
+                    <div class="topBox">
+                        <div class="top_per">{{item.average||0}}</div>
+                        <div class="topBox_bg">
+                            <div class="per"  :style="'height:'+(item.average||0)*100/9+'%'"></div>
+                        </div>
+                    </div>
+                    <div class="bottomBox">
+                        <span>{{item.where}}</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <ul class="countDetail">
+            <li>本月记录 <span class="color_style">{{dataDetail.countDays||0}}天</span></li>
+            <li>开心 <span class="color_style">{{dataDetail.happyDay||0}}天</span></li>
+            <li>最关注 <span >{{dataDetail.gz||'--'}}</span></li>
+            <li>最开心 <span >{{dataDetail.happy||'--'}}</span></li>
+        </ul>
+        <div class="newMoodCount_class">
+            <div><span>年</span></div>
+            <div><span class="countClass_active">月</span></div>
+            <div><span>周</span></div>
+        </div>
     </div>
 </template>
+<style>
+
+
+</style>
+
+
 <script type="text/javascript">
-    import showLoad from './showLoad.vue';
-    var moodCount={
-        template:'#moodCount'
+
+    var newMoodCount = {
+        template: '#newMoodCount'
     }
+
+
     export default {
         data() {
             return {
-                weeks:[],
-                months:[],
-                years:[],
-                showLoad: true
+                data:[],
+                classFlg:true,
+                page:1,
+                typeIndex:1,
+                dataDetail:{},
+                lastIndex:null,
+                mySwiper:null,
+                loading:false,
             }
         },
-        components: {
-            'v-showLoad': showLoad
+        mounted: function () {
+            let _this = this
+            _this.getData(_this.typeIndex)
+
+
         },
-        mounted:function () {
-            let _this=this;
-            var minHeight = $(window).height()-$('.moodCount_tabs').height();
-            $(".swiper-slide").css('height',minHeight)
-            _this.$http.get(web.API_PATH+'mood/query/statistics/weeks/_userId_').then(response => {
-                if(response.data.status===1){
-                    _this.weeks=response.data.data;
-                    for(let i=0;i<_this.weeks.length;i++){
-                        _this.weeks[i].comparison = xqzs.toDecimal(_this.weeks[i].comparison*100);
-                        _this.weeks[i].allDay = parseInt(_this.weeks[i].happyDay ) + parseInt(_this.weeks[i].unHappyDay ) ;
-                        _this.$set(_this.weeks,i,_this.weeks[i]);
-                    }
-                    _this.showLoad=false
+        methods: {
+            getData:function (index) {
+                let _this = this;
+                var countDate = new Date();
+                var _countYear = countDate.getFullYear();
+                var _countMonth =countDate.getMonth();
+                var _countWeek = now_week;
+                var countType = [
+                    {year:_countYear},
+                    {year:_countYear,month:_countMonth},
+                    {year:_countYear,week:_countWeek}
+                ]
+                if(this.loading){
+                    return ;
                 }
-            }, response => {
-                // error
-                _this.showLoad=true
-            });
+                _this.loading=true;
+
+                _this.$http.get(web.API_PATH+'mood/get/user/statistics/info/_userId_/5/'+_this.page,{params:countType[_this.typeIndex]})
+                    .then(function (json) {
+                        _this.loading=false;
+                        if(_this.page==1){
+                            _this.data = json.data.data.reverse();
+                            _this.lastIndex =  _this.data.length
+                        }else{
+
+                            _this.lastIndex = json.data.data.reverse().length
+                            _this.data = json.data.data.concat(_this.data);
+
+                        }
 
 
-            _this.$http.get(web.API_PATH+'mood/query/statistics/months/_userId_').then(response => {
-                if(response.data.status===1){
-                    _this.months=response.data.data;
-                    for(let i=0;i<_this.months.length;i++){
-                        _this.months[i].comparison = xqzs.toDecimal(_this.months[i].comparison*100);
-                        _this.months[i].allDay = parseInt(_this.months[i].happyDay ) + parseInt(_this.months[i].unHappyDay ) ;
-                        _this.$set(_this.months,i,_this.months[i]);
+
+
+
+
+
+                        _this.$nextTick(() => {
+
+
+
+                            console.log(_this.page)
+                            if(_this.page==1){
+                                _this.initSwiper()
+                            }else {
+                                console.log(_this.lastIndex);
+
+                                _this.mySwiper.update()
+                                _this.mySwiper.slideTo(_this.lastIndex, 0, false);//切换到第一个slide，速度为1秒
+                                _this.detail(_this.lastIndex)
+
+
+                            }
+                            _this.page++;
+
+                        })
+
+                    })
+            },
+            initSwiper:function () {
+                let _this = this;
+                console.log(_this.lastIndex)
+                _this.mySwiper = new Swiper('.newMoodCount_swiper',{
+                    slidesPerView :5,
+                    centeredSlides: true,
+                    initialSlide:_this.lastIndex,
+                    onSlideChangeEnd: function(swiper){
+                        $(".swiper-slide span").removeClass('bg_active')
+                        _this.detail(swiper.activeIndex)
+                        if(swiper.activeIndex==0){
+
+                            _this.getData(_this.typeIndex)
+                        }
+
+                    },
+                    onTap: function(swiper){
+                        $(".swiper-slide span").removeClass('bg_active')
+                        swiper.slideTo(swiper.clickedIndex, 800, false);
+                        _this.detail(swiper.activeIndex)
+                        if(swiper.activeIndex==0){
+
+                            _this.getData(_this.typeIndex)
+                        }
                     }
-                    _this.showLoad=false
-                }
-            }, response => {
-                // error
-            });
+
+                })
+                //mySwiper.update()
+                $('.newMoodCount_class div').on('click',function () {
+
+                    $('.newMoodCount_class span').removeClass('countClass_active')
+                    $(this).find('span').addClass('countClass_active')
+                    _this.typeIndex = $(this).index()
+                    _this.page =1
+                    _this.getData(_this.typeIndex)
 
 
-            _this.$http.get(web.API_PATH+'mood/query/statistics/years/_userId_').then(response => {
-                if(response.data.status===1){
-                    _this.years=response.data.data;
-                    for(let i=0;i<_this.years.length;i++){
-                        _this.years[i].comparison = xqzs.toDecimal(_this.years[i].comparison*100);
-                        _this.years[i].allDay = parseInt(_this.years[i].happyDay ) + parseInt(_this.years[i].unHappyDay ) ;
-                        _this.$set(_this.years,i,_this.years[i]);
-                    }
-                    _this.showLoad=false
-                }
-            }, response => {
-                // error
-            });
-            _this.$nextTick(function () {
-                var tabsSwiper = new Swiper('.moodCount_box',{
-                    speed:500,
-                    onSlideChangeStart: function(){
-                        $(".moodCount_tabs .moodCount_tabs_active").removeClass('moodCount_tabs_active');
-                        $(".moodCount_tabs a").eq(tabsSwiper.activeIndex).addClass('moodCount_tabs_active');
-                        $('.moodCount_box').css('height','auto')
-                        console.log('触发.....')
-                    }
-                });
-                $(".moodCount_tabs a").on('click',function(e){
-                    e.preventDefault()
-                    $(".moodCount_tabs .moodCount_tabs_active").removeClass('moodCount_tabs_active');
-                    $(this).addClass('moodCount_tabs_active');
-                    tabsSwiper.slideTo($(this).index());
-                });
-            })
-            xqzs.wx.setConfig(_this);
+                })
+            },
+            detail:function (index) {
+                let _this = this;
+                $(".swiper-slide span:eq("+(index)+")").addClass('bg_active')
+                _this.dataDetail = _this.data[index]
+                _this.dataDetail.gz = xqzs.mood.moodScenes[_this.dataDetail.follow_scenes]
+                _this.dataDetail.happy = xqzs.mood.moodScenes[_this.dataDetail.happy_scenes]
+            }
+
+        },
+        created:function () {
+
         }
 
     }
+
+
 </script>
+
 <style>
-    .swiper-slide{ overflow: auto}
-    .moodCount_bgbox{width: 100%;height: 100%;background: #ffffff !important;}
-    .moodCount_tabs{height:45px;width: 100%;background:#f8f8f8;border-bottom: 1px solid #e5e5e5}
-    .moodCount_tabs a{display:block;float:left;width:33.33%;color:#666666;text-align:center;line-height:46px;font-size:15px;text-decoration:none;}
-    .moodCount_tabs a.moodCount_tabs_active{color:#339900;position: relative}
-    .moodCount_tabs a.moodCount_tabs_active:after{ content: " "; height: 2px ;overflow: hidden; width: 100%; display: block; position: absolute; background: #339900; bottom:0;left:0}
-    .moodCount_box{width:100%;}
-    .countList{border-bottom:1px solid #eeeeee;padding:10px 15px;position: relative;background:#ffffff}
+    .newMoodCount_swiper{background: linear-gradient(to bottom, rgba(24,188,132,1), rgba(20,151,160,1));}
+    .newMoodCount_swiper .top_title{font-size: 0.70588rem;color:rgba(255,255,255,0.5);position: absolute;right:0.70588rem;top:0.70588rem;}
+    .newMoodCount_swiper .addBg{height:3.1176471rem;width:100%;position: absolute;bottom:0;background: #0D7D7F}
+    .bottom_center{width:0.5rem;height:0.5rem;background: #fff;transform:rotate(45deg);position: absolute;bottom:-0.25rem;left:50%;margin-left: -0.25rem;z-index: 3}
+    .newMoodCount_swiper .swiper-slide{text-align: center;}
+    .newMoodCount_swiper .swiper-slide .bottomBox{background: #0D7D7F;height: 3.1176471rem;line-height: 3.1176471rem;color:rgba(81,226,223,1);font-size: 0.88235rem;}
+    .newMoodCount_swiper .swiper-slide .bottomBox span{width:2.0588rem;height:2.0588rem;border-radius: 50%;display: inline-block;line-height: 2.0588rem;}
+    .newMoodCount_swiper .swiper-slide .bottomBox .bg_active{background: rgba(5,69,70,1);color:#fff;}
+    .newMoodCount_swiper .topBox{height:11.5rem;padding-top: 2.8rem;position: relative}
+    .newMoodCount_swiper .topBox_bg{height:10.9rem;border-radius: 0.5rem;background: rgba(229,229,229,0.2);width:0.88235rem;margin:0 auto;position: relative}
+    .newMoodCount_swiper .top_per{position: absolute;top:1.6rem;font-size: 0.76471rem;color:rgba(255,255,255,1);text-align: center;width:100%;}
+    .newMoodCount_swiper .per{background: rgba(155,255,252,1);border-radius: 0.5rem;width:100%;height:0;position: absolute;bottom:0}
+    .newMoodCount_class{display: flex;position: absolute;bottom:1.4rem;width:80%;padding:0 10%;}
+    .newMoodCount_class div{flex:1;}
+    .newMoodCount_class div .countClass_active{background:#09BB07}
+    .newMoodCount_class div:nth-of-type(2){flex:2}
+    .newMoodCount_class span{width:2.35rem;height:2.35rem;border-radius: 50%;background: #ccc;color:#fff;font-size: 1.0588235rem;line-height: 2.35rem;text-align: center;display: block;margin:0 auto}
+    .countDetail li{height:3.0588rem;line-height: 3.0588rem;background: #fff;padding:0 1.6471rem 0 1.471rem;border-bottom: 1px solid #E5E5E5;font-size: 0.941176471rem;color:#333;}
+    .countDetail li span{float: right;color:#999}
+    .countDetail li .color_style{color:#FC9B02}
 
-    .count1{color:#333333;font-size: 15px;margin-bottom:10px;}
-    .count2{color:#a9a9a9;font-size: 15px}
-    .countList img{position:absolute;height:20px;width:20px;display:block;right:10px;top:50%; margin-top:-10px;
-    }
 </style>
-
 
