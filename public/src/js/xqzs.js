@@ -926,6 +926,24 @@ var xqzs = {
         f = Math.round(x * 100) / 100;
         return f;
     },
+    toDecimal1: function (x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return "0.0";
+        }
+        var f = Math.floor(x * 10) / 10;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs +1) {
+            s += '0';
+        }
+        if(!s)return '0.00';
+        return s;
+    },
     string: {
         //封装验证手机号码
         checkUserPhoneReg: function () {

@@ -8,7 +8,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="item in data">
                     <div class="topBox">
-                        <div class="top_per">{{item.average||0}}</div>
+                        <div class="top_per">{{formatAverage(item.average)}}</div>
                         <div class="topBox_bg">
                             <div class="per"  :style="'height:'+(item.average||0)*100/9+'%'"></div>
                         </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <ul class="countDetail">
-            <li>本月记录 <span class="color_style">{{dataDetail.countDays||0}}天</span></li>
+            <li>本{{searchTypes[typeIndex]}}记录 <span class="color_style">{{dataDetail.countDays||0}}天</span></li>
             <li>开心 <span class="color_style">{{dataDetail.happyDay||0}}天</span></li>
             <li>最关注 <span >{{dataDetail.gz||'--'}}</span></li>
             <li>最开心 <span >{{dataDetail.happy||'--'}}</span></li>
@@ -56,6 +56,7 @@
                 lastIndex:null,
                 mySwiper:null,
                 loading:false,
+                searchTypes:['年','月','周']
             }
         },
         mounted: function () {
@@ -65,6 +66,9 @@
 
         },
         methods: {
+            formatAverage:function (v) {
+              return xqzs.toDecimal1(v);
+            },
             getData:function (index) {
                 let _this = this;
                 var countDate = new Date();
@@ -93,31 +97,18 @@
                             _this.data = json.data.data.concat(_this.data);
 
                         }
-
-
-
-
-
-
-
                         _this.$nextTick(() => {
-
-
-
-                            console.log(_this.page)
-                            if(_this.page==1){
-                                _this.initSwiper()
-                            }else {
-                                console.log(_this.lastIndex);
-
-                                _this.mySwiper.update()
-                                _this.mySwiper.slideTo(_this.lastIndex, 0, false);//切换到第一个slide，速度为1秒
-                                _this.detail(_this.lastIndex)
-
-
-                            }
-                            _this.page++;
-
+                            setTimeout(function () {
+                                if(_this.page==1){
+                                    _this.initSwiper()
+                                }else {
+                                    console.log(_this.lastIndex);
+                                    _this.mySwiper.update()
+                                    _this.mySwiper.slideTo(_this.lastIndex, 0, false);//切换到第一个slide，速度为1秒
+                                    _this.detail(_this.lastIndex)
+                                }
+                                _this.page++;
+                            },10)
                         })
 
                     })
