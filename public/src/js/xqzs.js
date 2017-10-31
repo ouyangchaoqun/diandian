@@ -342,6 +342,9 @@ var xqzs = {
         }
     },
     localdb: {
+        keys:{
+            MORE_HOT_POINT_CLICKED_KEY:'more_hot_point_clicked_key'
+        },
         storage: window.localStorage,
         set: function (key, value) {
             this.storage.setItem(key, value);

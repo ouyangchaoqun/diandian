@@ -3,18 +3,6 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>发现</div>
         <div class="list">
-
-            <router-link :to="{ path: '/psychtestDetail', query: { testId: psyItem.id}}" class="item" v-for="psyItem in psyLists">
-                <div class="img">
-                    <img :src="psyItem.pic">
-                </div>
-                <div class="title">{{psyItem.title}}</div>
-                <div class="info">
-                    <div class="left">{{psyItem.count}}人已测</div>
-                    <div class="right">￥{{psyItem.price.toFixed(2)}}<span>{{psyItem.old_price.toFixed(2)}}</span> </div>
-                    <div class="clear"></div>
-                </div>
-            </router-link>
             <a class="item" @click="luck()">
                 <div class="img">
                     <img src="../images/luck/lucky.png">
@@ -26,6 +14,18 @@
                     <div class="clear"></div>
                 </div>
             </a>
+            <router-link :to="{ path: '/psychtestDetail', query: { testId: psyItem.id}}" class="item" v-for="psyItem in psyLists">
+                <div class="img">
+                    <img :src="psyItem.pic">
+                </div>
+                <div class="title">{{psyItem.title}}</div>
+                <div class="info">
+                    <div class="left">{{psyItem.count}}人已测</div>
+                    <div class="right">￥{{psyItem.price.toFixed(2)}}<span>{{psyItem.old_price.toFixed(2)}}</span> </div>
+                    <div class="clear"></div>
+                </div>
+            </router-link>
+
         </div>
 
     </div>
@@ -97,6 +97,8 @@
             let date=new Date();
             this.count = date.getFullYear()*100+date.getMonth()*10+date.getDay()*8+date.getHours()*6+date.getMinutes()*2 ;
             xqzs.wx.setConfig(this);
+
+            xqzs.localdb.set(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY,true);
 
 
         },
