@@ -26,6 +26,7 @@
             <a   @click="more()" class="weui-tabbar__item  tab">
                 <span  class="moreImg tab_icon"></span>
                 <p class="weui-tabbar__label" :class="{tabOn:more}">发现</p>
+                <span v-show="!isMoreHotPointClicked" class="hasnew" :style="newFirendMoodStyle" ></span>
             </a>
 
             <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
@@ -205,7 +206,9 @@
                 isBirthday:false,
                 qunImgHeight:300,
                 newMoodCount:0,
-                LOCAL_DB_KEY_MOOD_COUNT:'local_db_key_mood_count'
+                LOCAL_DB_KEY_MOOD_COUNT:'local_db_key_mood_count',
+                isMoreHotPointClicked:false,
+
             }
         },
         filters:{
@@ -229,6 +232,12 @@
             }
         },
         methods: {
+            checkMoreHot:function () {
+                this.isMoreHotPointClicked=  xqzs.localdb.get(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY);
+                let container = $('#tabs .tab:eq(0)');
+                let right = (container.width() - 32) / 2;
+                this.newFirendMoodStyle = 'right:' + right + 'px';
+            },
             birthday:function (userId) {
                 this.$router.push("/birthday?userId="+userId)
             },
@@ -416,6 +425,7 @@
              }else{
                  _this.isBirthday=false;
              }
+             _this.checkMoreHot();
 
              this.qunImgHeight =  $(window).width() * 400 *0.6 / 300;
              $(".weui-tab__panel").height($(window).height()-50);
