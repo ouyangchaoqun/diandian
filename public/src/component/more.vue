@@ -7,7 +7,7 @@
                 <div class="img">
                     <img src="../images/luck/lucky.png">
                 </div>
-                <div class="title">十月份星座运势已经新鲜出炉，测一测你的运势!</div>
+                <div class="title">十一月星座运势已新鲜出炉，测一测你的运势!</div>
                 <div class="info">
                     <div class="left">20w+人已测</div>
                     <div class="right">免费</div>

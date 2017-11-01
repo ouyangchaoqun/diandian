@@ -14,13 +14,13 @@
                         </div>
                     </div>
                     <div class="bottomBox">
-                        <span>{{item.where}}</span>
+                        <span>{{item.where}}<font v-if="typeIndex!=0">{{searchTypes[typeIndex]}}</font></span>
                     </div>
                 </div>
             </div>
         </div>
         <ul class="countDetail">
-            <li>本{{searchTypes[typeIndex]}}记录 <span class="color_style">{{dataDetail.countDays||0}}天</span></li>
+            <li>{{dataDetail.where}}{{searchTypes[typeIndex]}}记录 <span class="color_style">{{dataDetail.countDays||0}}天</span></li>
             <li>开心 <span class="color_style">{{dataDetail.happyDay||0}}天</span></li>
             <li>最关注 <span >{{dataDetail.gz||'--'}}</span></li>
             <li>最开心 <span >{{dataDetail.happy||'--'}}</span></li>
@@ -131,6 +131,7 @@
                     centeredSlides: true,
                     initialSlide:_this.lastIndex,
                     onSlideChangeEnd: function(swiper){
+                        console.log("onSlideChangeEnd")
                         $(".swiper-slide span").removeClass('bg_active')
                         _this.detail(swiper.activeIndex);
                         if(swiper.activeIndex==0){
@@ -139,12 +140,19 @@
 
                     },
                     onTap: function(swiper){
+                        console.log("onTap")
                         $(".swiper-slide span").removeClass('bg_active')
                         swiper.slideTo(swiper.clickedIndex, 600, false);
                         _this.detail(swiper.activeIndex)
                         if(swiper.activeIndex==0){
                             _this.getData(_this.typeIndex)
                         }
+                    } ,
+                    onSliderMove: function(swiper, event){
+                        console.log("onSliderMove")
+                    },
+                    onTransitionEnd: function(swiper){
+                        console.log("onTransitionEnd")
                     }
 
                 })
@@ -175,7 +183,7 @@
     .newMoodCount_swiper .addBg{height:3.1176471rem;width:100%;position: absolute;bottom:0;background: #0D7D7F}
     .bottom_center{width:0.5rem;height:0.5rem;background: #fff;transform:rotate(45deg);position: absolute;bottom:-0.25rem;left:50%;margin-left: -0.25rem;z-index: 3}
     .newMoodCount_swiper .swiper-slide{text-align: center;}
-    .newMoodCount_swiper .swiper-slide .bottomBox{background: #0D7D7F;height: 3.1176471rem;line-height: 3.1176471rem;color:rgba(81,226,223,1);font-size: 0.88235rem;}
+    .newMoodCount_swiper .swiper-slide .bottomBox{background: #0D7D7F;height: 3.1176471rem;line-height: 3.1176471rem;color:rgba(81,226,223,1);font-size: 0.8235294117647059rem;}
     .newMoodCount_swiper .swiper-slide .bottomBox span{width:2.0588rem;height:2.0588rem;border-radius: 50%;display: inline-block;line-height: 2.0588rem;}
     .newMoodCount_swiper .swiper-slide .bottomBox .bg_active{background: rgba(5,69,70,1);color:#fff;}
     .newMoodCount_swiper .topBox{height:11.5rem;padding-top: 2.8rem;position: relative}
