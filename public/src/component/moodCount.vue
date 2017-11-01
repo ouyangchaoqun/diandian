@@ -20,11 +20,15 @@
             </div>
         </div>
         <ul class="countDetail">
-            <li>{{dataDetail.where}}{{searchTypes[typeIndex]}}记录 <span class="color_style">{{dataDetail.countDays||0}}天</span></li>
+            <li  @click="goMyIndex()" :class="{active_index:typeIndex==1}">{{dataDetail.where}}{{searchTypes[typeIndex]}}记录 <span class="color_style">{{dataDetail.countDays||0}}天</span> <div class="btn_go_detail" v-if="typeIndex==1">
+                心情日历
+            </div></li>
             <li>开心 <span class="color_style">{{dataDetail.happyDay||0}}天</span></li>
             <li>最关注 <span >{{dataDetail.gz||'--'}}</span></li>
             <li>最开心 <span >{{dataDetail.happy||'--'}}</span></li>
         </ul>
+
+
         <div class="newMoodCount_class">
             <div><span>年</span></div>
             <div><span class="countClass_active">月</span></div>
@@ -63,6 +67,25 @@
 
         },
         methods: {
+            goMyIndex:function () {
+                if(this.typeIndex==1){
+                    let parm = '';
+                    if (this.typeIndex == 1&&this.dataDetail) {
+
+                        let countDate = new Date();
+                        let _countMonth =countDate.getMonth();
+                        if(this.dataDetail.where<_countMonth-3){
+                            parm = "";
+                        }else{
+                            parm = "&month="+ this.dataDetail.where
+
+                        }
+                    }else{
+
+                    }
+                    this.$router.push('/myCenter/myIndex?activeIndex=1'+parm);
+                }
+            },
             initBottomAction:function () {
               let _this=this;
                 $('.newMoodCount_class div').on('click',function () {
@@ -191,14 +214,31 @@
     .newMoodCount_swiper .topBox_bg{height:10.9rem;border-radius: 0.5rem;background: rgba(229,229,229,0.2);width:0.88235rem;margin:0 auto;position: relative}
     .newMoodCount_swiper .top_per{position: absolute;top:1.6rem;font-size: 0.76471rem;color:rgba(255,255,255,1);text-align: center;width:100%;}
     .newMoodCount_swiper .per{background: rgba(155,255,252,1);border-radius: 0.5rem;width:100%;height:0;position: absolute;bottom:0}
-    .newMoodCount_class{display: flex;position: absolute;bottom:1.4rem;width:80%;padding:0 10%;}
-    .newMoodCount_class div{flex:1;}
+    .newMoodCount_class{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;width:80%;padding:0 10%; margin-bottom: 1.7rem; margin-top: 1.7rem;}
+    .newMoodCount_class div{flex:1; -webkit-box-flex: 1;
+        -webkit-flex: 1;}
     .newMoodCount_class div .countClass_active{background:#09BB07}
     .newMoodCount_class div:nth-of-type(2){flex:2}
     .newMoodCount_class span{width:2.35rem;height:2.35rem;border-radius: 50%;background: #ccc;color:#fff;font-size: 1.0588235rem;line-height: 2.35rem;text-align: center;display: block;margin:0 auto}
     .countDetail li{height:3.0588rem;line-height: 3.0588rem;background: #fff;padding:0 1.6471rem 0 1.471rem;border-bottom: 1px solid #E5E5E5;font-size: 0.941176471rem;color:#333;}
     .countDetail li span{float: right;color:#999}
     .countDetail li .color_style{color:#FC9B02}
+    .btn_go_detail{
+        height: 1.8rem;
+        line-height:  1.8rem !important;
+        color: #f9f3f3;
+        font-size: 0.8rem;
+        text-align: center;
+        background:#09BB07;
+        border-radius: 0.9rem;
+        display: inline-block;
+        padding:0 0.6rem; margin-left: 0.5rem;
+     }
+    .countDetail .active_index:active   .btn_go_detail{ background: #099107
+    }
 
 </style>
 
