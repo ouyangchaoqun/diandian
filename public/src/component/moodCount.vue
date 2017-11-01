@@ -1,4 +1,4 @@
-<template id="newMoodCount">
+<template>
     <div class="newMoodCount">
         <div v-title>我的心情指数</div>
         <div class="swiper-container newMoodCount_swiper">
@@ -40,9 +40,6 @@
 
 <script type="text/javascript">
 
-    var newMoodCount = {
-        template: '#newMoodCount'
-    }
 
 
     export default {
@@ -60,26 +57,39 @@
             }
         },
         mounted: function () {
-            let _this = this
-            _this.getData(_this.typeIndex)
-
+            let _this = this;
+            _this.getData(_this.typeIndex);
+            _this.initBottomAction();
 
         },
         methods: {
+            initBottomAction:function () {
+              let _this=this;
+                $('.newMoodCount_class div').on('click',function () {
+                    $('.newMoodCount_class span').removeClass('countClass_active');
+                    $(this).find('span').addClass('countClass_active');
+                    _this.typeIndex = $(this).index();
+                    _this.page =1;
+                    _this.mySwiper.destroy();
+                    _this.getData(_this.typeIndex)
+                })
+
+            },
             formatAverage:function (v) {
               return xqzs.toDecimal1(v);
             },
             getData:function (index) {
                 let _this = this;
-                var countDate = new Date();
-                var _countYear = countDate.getFullYear();
-                var _countMonth =countDate.getMonth();
-                var _countWeek = now_week;
-                var countType = [
+                let countDate = new Date();
+                let _countYear = countDate.getFullYear();
+                let _countMonth =countDate.getMonth();
+                let _countWeek = now_week;
+                let countType = [
                     {year:_countYear},
                     {year:_countYear,month:_countMonth},
                     {year:_countYear,week:_countWeek}
-                ]
+                ];
+                //屏蔽加载中继续加载
                 if(this.loading){
                     return ;
                 }
@@ -89,13 +99,12 @@
                     .then(function (json) {
                         _this.loading=false;
                         if(_this.page==1){
+                            //第一页则直接赋值
                             _this.data = json.data.data.reverse();
                             _this.lastIndex =  _this.data.length
                         }else{
-
-                            _this.lastIndex = json.data.data.reverse().length
+                            _this.lastIndex = json.data.data.reverse().length;
                             _this.data = json.data.data.concat(_this.data);
-
                         }
                         _this.$nextTick(() => {
                             setTimeout(function () {
@@ -103,8 +112,10 @@
                                     _this.initSwiper()
                                 }else {
                                     console.log(_this.lastIndex);
-                                    _this.mySwiper.update()
-                                    _this.mySwiper.slideTo(_this.lastIndex, 0, false);//切换到第一个slide，速度为1秒
+                                    _this.mySwiper.update();
+                                   setTimeout(function () {
+                                       _this.mySwiper.slideTo(_this.lastIndex, 0, false);
+                                   },10);
                                     _this.detail(_this.lastIndex)
                                 }
                                 _this.page++;
@@ -115,49 +126,37 @@
             },
             initSwiper:function () {
                 let _this = this;
-                console.log(_this.lastIndex)
                 _this.mySwiper = new Swiper('.newMoodCount_swiper',{
                     slidesPerView :5,
                     centeredSlides: true,
                     initialSlide:_this.lastIndex,
                     onSlideChangeEnd: function(swiper){
                         $(".swiper-slide span").removeClass('bg_active')
-                        _this.detail(swiper.activeIndex)
+                        _this.detail(swiper.activeIndex);
                         if(swiper.activeIndex==0){
-
                             _this.getData(_this.typeIndex)
                         }
 
                     },
                     onTap: function(swiper){
                         $(".swiper-slide span").removeClass('bg_active')
-                        swiper.slideTo(swiper.clickedIndex, 800, false);
+                        swiper.slideTo(swiper.clickedIndex, 600, false);
                         _this.detail(swiper.activeIndex)
                         if(swiper.activeIndex==0){
-
                             _this.getData(_this.typeIndex)
                         }
                     }
 
                 })
                 //mySwiper.update()
-                $('.newMoodCount_class div').on('click',function () {
 
-                    $('.newMoodCount_class span').removeClass('countClass_active')
-                    $(this).find('span').addClass('countClass_active')
-                    _this.typeIndex = $(this).index()
-                    _this.page =1
-                    _this.getData(_this.typeIndex)
-
-
-                })
             },
             detail:function (index) {
                 let _this = this;
-                $(".swiper-slide span:eq("+(index)+")").addClass('bg_active')
-                _this.dataDetail = _this.data[index]
-                _this.dataDetail.gz = xqzs.mood.moodScenes[_this.dataDetail.follow_scenes]
-                _this.dataDetail.happy = xqzs.mood.moodScenes[_this.dataDetail.happy_scenes]
+                $(".swiper-slide span:eq("+(index)+")").addClass('bg_active');
+                _this.dataDetail = _this.data[index];
+                _this.dataDetail.gz = xqzs.mood.moodScenes[_this.dataDetail.follow_scenes];
+                _this.dataDetail.happy = xqzs.mood.moodScenes[_this.dataDetail.happy_scenes];
             }
 
         },
@@ -171,7 +170,7 @@
 </script>
 
 <style>
-    .newMoodCount_swiper{background: linear-gradient(to bottom, rgba(24,188,132,1), rgba(20,151,160,1));}
+    .newMoodCount_swiper{background: linear-gradient(to bottom, rgba(24,188,132,1), rgba(20,151,160,1)); height: 17.4176471rem;}
     .newMoodCount_swiper .top_title{font-size: 0.70588rem;color:rgba(255,255,255,0.5);position: absolute;right:0.70588rem;top:0.70588rem;}
     .newMoodCount_swiper .addBg{height:3.1176471rem;width:100%;position: absolute;bottom:0;background: #0D7D7F}
     .bottom_center{width:0.5rem;height:0.5rem;background: #fff;transform:rotate(45deg);position: absolute;bottom:-0.25rem;left:50%;margin-left: -0.25rem;z-index: 3}
