@@ -227,18 +227,17 @@
     .countDetail li span{float: right;color:#999}
     .countDetail li .color_style{color:#FC9B02}
     .btn_go_detail{
-        height: 1.8rem;
-        line-height:  1.8rem !important;
-        color: #f9f3f3;
+        height: 1.6rem;
+        line-height:  1.6rem !important;
+        color: #09BB07;
         font-size: 0.8rem;
         text-align: center;
-        background:#09BB07;
+        border: 1px solid #09BB07;
         border-radius: 0.9rem;
         display: inline-block;
         padding:0 0.6rem; margin-left: 0.5rem;
      }
-    .countDetail .active_index:active   .btn_go_detail{ background: #099107
-    }
+    .countDetail .active_index:active   .btn_go_detail{ border: 1px solid #099107;color: #099107;}
 
 </style>
 
