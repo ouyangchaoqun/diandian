@@ -498,6 +498,7 @@
         left: 0;
         top: -26px;
         font-size: 12px;
+        color:#444
     }
 
     .birthday_box .mid_counts .step:nth-child(2) .text {
