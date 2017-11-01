@@ -3,7 +3,7 @@
         <div v-title>我的心情指数</div>
         <div class="swiper-container newMoodCount_swiper">
             <div class="addBg"></div>
-            <div class="top_title">心情指数平均值</div>
+            <div class="top_title">开心值</div>
             <div class="bottom_center"></div>
             <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="item in data">
