@@ -322,7 +322,7 @@
     }
     .psychtestDetail .message_right span{font-size: 0.70588235rem;color:rgba(81,101,145,1);display: block;line-height: 1;padding-top:0.471rem;margin-bottom: 0.5rem}
 
-    .psychtestDetail .moreClass{width:5.88rem;height:1.4rem;line-height: 1.4rem;color:#0BB20C;border:1px solid #0BB20C;text-align: center;font-size: 0.8235rem;border-radius: 1rem;margin:0 auto;margin-top: 0.88235rem;}
+    .psychtestDetail .moreClass{width:9rem;line-height: 2rem;color:#0BB20C;border:1px solid #0BB20C;text-align: center;font-size: 0.8235rem;border-radius: 1rem;margin:0 auto;margin-top: 0.88235rem;}
     .psychtestDetail .moreClass:active{background: #eee;}
     .psychtestDetail_btn {
         background: #FD7306;
