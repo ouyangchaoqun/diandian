@@ -56,8 +56,11 @@
                     <li v-for="item in messageList">
                         <img :src="item.faceUrl||item.sysFaceUrl" alt="">
                         <div class="message_right">
-                            <span v-if="!item.isLooked">{{item.nickName||item.sysNickName}}</span>
-                            <span v-if="item.isLooked">匿名</span>
+                            <span >
+                                <template v-if="!item.isLooked">{{item.nickName||item.sysNickName}}</template>
+                                <template v-if="item.isLooked">匿名</template>
+                                <i class="messageTime">{{formatDateText(item.addTime)}}</i>
+                            </span>
                             <div>{{item.content}}</div>
                         </div>
                     </li>
@@ -197,6 +200,7 @@
                 })
             },
 
+
             viewResult: function () {
                 let _this = this;
                 if (_this.answerId != null)
@@ -224,7 +228,10 @@
                     console.log( _this.messageList)
                 })
                 _this.page++
-            }
+            },
+            formatDateText: function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
         }
 
     }
@@ -299,30 +306,29 @@
         display: block;
         margin: 0 auto;
     }
-    .psychtestDetail .messageList{padding-bottom:4rem;}
+    .psychtestDetail .messageList{padding-bottom:4rem;padding-left:1.176471rem}
     .psychtestDetail .messageList li{
         position: relative;
         border-bottom: 1px solid #eee;
         padding-bottom: 0.5rem;
-        padding-top:0.88235rem;
+        margin-bottom:0.88235rem;
     }
     .psychtestDetail .messageList img{
-        width:2.35rem;
-        height:2.35rem;
-        border-radius: 50%;
+        width:2rem;
+        height:2rem;
+        border-radius: 5px;
         position: absolute;
-        left:0.88235rem;
-        top:0.88235rem;
+        top:0;
     }
     .psychtestDetail .message_right{
-        margin-left: 3.95rem;
+        margin-left:2.8rem;
         padding-right: 0.88235rem;
         color:#333;
         font-size: 0.8235rem;
     }
-    .psychtestDetail .message_right span{font-size: 0.70588235rem;color:rgba(81,101,145,1);display: block;line-height: 1;padding-top:0.471rem;margin-bottom: 0.5rem}
+    .psychtestDetail .message_right span{font-size: 0.8235rem;color:#888;display: block;line-height: 1;padding-top:0.2rem;margin-bottom: 0.35rem}
 
-    .psychtestDetail .moreClass{width:9rem;line-height: 2rem;color:#0BB20C;border:1px solid #0BB20C;text-align: center;font-size: 0.8235rem;border-radius: 1rem;margin:0 auto;margin-top: 0.88235rem;}
+    .psychtestDetail .moreClass{width:6rem;line-height: 1.6rem;color:#999;border:1px solid #ccc;text-align: center;font-size: 0.8235rem;border-radius: 1rem;margin:0 auto;margin-top: 0.88235rem;}
     .psychtestDetail .moreClass:active{background: #eee;}
     .psychtestDetail_btn {
         background: #FD7306;
@@ -383,6 +389,7 @@
     .psychtestDetail .addBottomText{
         padding:0
     }
+    .message_right .messageTime{color:#999;font-size:0.70588235rem ;font-style: normal;float: right}
     .psychtestDetail .addBottomText p:last-of-type{margin: 0}
     .addBottom .bottom_line{width:1.8235rem;height:0.176471rem;background: #DDDDDE;border-radius: 1.5px;margin:0 auto;margin-bottom: 1rem}
 </style>
