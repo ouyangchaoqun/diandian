@@ -59,9 +59,9 @@
                             <span >
                                 <template v-if="!item.isLooked">{{item.nickName||item.sysNickName}}</template>
                                 <template v-if="item.isLooked">匿名</template>
-                                <i class="messageTime">{{formatDateText(item.addTime)}}</i>
                             </span>
                             <div>{{item.content}}</div>
+                            <i class="messageTime">{{formatDateText(item.addTime)}}</i>
                         </div>
                     </li>
                     <div class="moreClass" v-show="!isEndPage" @click="getMessageList()">查看更多</div>
@@ -389,7 +389,7 @@
     .psychtestDetail .addBottomText{
         padding:0
     }
-    .message_right .messageTime{color:#999;font-size:0.70588235rem ;font-style: normal;float: right}
+    .message_right .messageTime{color:#999;font-size:0.70588235rem ;font-style: normal;}
     .psychtestDetail .addBottomText p:last-of-type{margin: 0}
     .addBottom .bottom_line{width:1.8235rem;height:0.176471rem;background: #DDDDDE;border-radius: 1.5px;margin:0 auto;margin-bottom: 1rem}
 </style>
