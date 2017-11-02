@@ -265,6 +265,8 @@ var xqzs = {
             d_days = parseInt(d / 86400);
             d_hours = parseInt(d / 3600);
             d_minutes = parseInt(d / 60);
+            console.log(publishTime,timeNow)
+            console.log(d_days,d_hours,d_minutes)
             if (d_days > 0 && d_days < 4) {
                 return d_days + "天前";
             } else if (d_days <= 0 && d_hours > 0) {
