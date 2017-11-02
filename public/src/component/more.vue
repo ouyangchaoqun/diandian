@@ -9,23 +9,19 @@
                     <div class="img">
                         <img src="../images/luck/lucky.png">
                     </div>
-                    <div class="title">十一月星座运势已新鲜出炉，测一测你的运势!</div>
-                    <div class="info">
-                        <div class="left">20w+人已测</div>
-                        <div class="right">免费</div>
-                        <div class="clear"></div>
-                    </div>
+                    <div class="title"></div>
+
                 </a>
                 </div>
                 <div class="sw swiper-slide" v-for="item in bannerTest">
                     <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                     <img :src="item.banner_pic">
-                    <div class="title">{{item.title}}</div>
-                    <div class="sub_title">{{item.sub_title}}</div>
+                    <div class="title"></div>
+                    <div class="sub_title"></div>
                     </router-link>
                 </div>
             </div>
-            <div class="wait"><div ></div></div>
+            <div class="wait"><div class="on"></div><div v-for="item in bannerTest"></div></div>
         </div>
         <div class="new_add_test test_box">
             <div class="title">
@@ -41,7 +37,7 @@
                                 <img :src="item.pic">
                                 <div class="time">{{formatTime(item.add_time)}}</div>
                             </div>
-                            <div class="t">{{leftTitle(item.title)}}</div>
+                            <div class="t">{{(item.title)}}</div>
                             <div class="price">¥{{formatPrice(item.price)}}</div>
                         </router-link>
                     </div>
@@ -62,7 +58,7 @@
                                 <img :src="item.pic">
                                 <div class="time">{{item.count}}想测</div>
                             </div>
-                            <div class="t">{{leftTitle(item.title)}}</div>
+                            <div class="t">{{(item.title)}}</div>
                             <div class="price">¥{{formatPrice(item.price)}}</div>
                         </router-link>
                     </div>
@@ -142,12 +138,16 @@
                 _this.mySwiperBanner = new Swiper('.swiper_banner',{
                     slidesPerView :1,
                     autoplay:5000,
-                    onSlideChangeStart: function(swiper){
-                       _this.initWaitAction()
+                    onSlideChangeEnd: function(swiper){
+                         $(".more_box .banner .wait div").removeClass("on").each(function (i) {
+                            if(swiper.activeIndex==i){
+                                $(this).addClass("on");
+                            }
+                        })
                     }
 
                 });
-                 _this.initWaitAction()
+
 
                 _this.mySwiperPre = new Swiper('.pre_swiper',{
                     slidesPerView :3,
@@ -227,10 +227,15 @@
     .more_box .banner{  color:#fff; width: 100%; height: 11.8rem; overflow: hidden; position: relative}
     .more_box .banner .title{  color:#fff;  font-size: 0.88235rem; font-weight: bold; position: absolute; bottom:2.6rem; left:0.88235rem;  z-index: 3}
     .more_box .banner .sub_title{position: absolute;color:#fff; bottom:1.26rem;font-size: 0.7058823529411765rem;left:0.88235rem;;  z-index: 3 }
-    .more_box .banner .wait{ height:0.1764705882352941rem; width: 100%; background: #ccc ; position: absolute; bottom:0 ; left:0 ; z-index: 100}
-    .more_box .banner .wait div{ height:0.1764705882352941rem; width: 0%;  background: #00B400 ;  }
+    .more_box .banner .wait{ height:0.1764705882352941rem; width: 100%; background: rgba(0,0,0,0.18) ; position: absolute; bottom:0 ; left:0 ; z-index: 100;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;}
+    .more_box .banner .wait div{ height:0.1764705882352941rem;      -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1; }
+    .more_box .banner .wait div.on{ background: #00B400 }
 
-    .more_box .banner .sw a:before{ height: 100%; width: 100%; position: absolute; top:0; left:0 ; z-index: 2 ; content:  ' '; background: rgba(0,0,0,0.2) }
     .more_box .banner .sw{ position: relative; height: 100%}
     .more_box .banner .sw img{ width: 100%}
     .more_box .test_box{ border-bottom: #eee solid  0.5882352941176471rem;}
@@ -249,7 +254,7 @@
     .more_box .pre_sell_test .title .left_icon{   background: #DB0000;  }
 
 
-    .more_box .test_box  .list{ padding: 0.88235rem;height: 8.4rem; overflow: hidden}
+    .more_box .test_box  .list{ padding: 0.88235rem;   }
     .more_box .test_box  .item{  padding-bottom: 0.5rem;}
     .more_box .test_box  .item .img{ height:6.176470588235294rem; width: 6.176470588235294rem; border-radius: 6px; overflow: hidden; position: relative}
     .more_box .test_box  .item .img img{ height: 100%; width: 100%;}
