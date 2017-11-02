@@ -41,6 +41,31 @@
                     </div>
                 </div>
             </div>
+            <div style="height:4rem" v-show="!isMessage"></div>
+            <div v-show="isMessage">
+                <div style="height:10px;background: #f4f4f8"></div>
+                <div style="padding-top: 1.76471rem">
+                    <div class="addBottom">
+                        <div>
+                            <div class="addBottomLine">用户评价</div>
+                            <div class="bottom_line"></div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="messageList">
+                    <li v-for="item in messageList">
+                        <img :src="item.faceUrl||item.sysFaceUrl" alt="">
+                        <div class="message_right">
+                            <span v-if="!item.isLooked">{{item.nickName||item.sysNickName}}</span>
+                            <span v-if="item.isLooked">匿名</span>
+                            <div>{{item.content}}</div>
+                        </div>
+                    </li>
+                    <div class="moreClass" v-show="!isEndPage" @click="getMessageList()">查看更多</div>
+                </ul>
+            </div>
+
+
 
             <div class="psych_test_btn_box">
                 <!--<template v-if="testDetail.lastAnswerId!=null">-->
@@ -84,6 +109,11 @@
                 showLoad: false,
                 htmlover:false,
                 theUser:null,
+                page:1,
+                messageList:[],
+                resultId:'',
+                isEndPage:false,
+                isMessage:false
             }
         },
         mounted: function () {
@@ -112,6 +142,7 @@
                         _this.testDetail = response.data.data;
                         _this.payed = response.data.data.payed;
                         _this.answerId = response.data.data.lastAnswerId;
+                        _this.resultId = response.data.data.resultId
                         //console.log(_this.payed);
                         if (start && _this.payed) {
                             _this.$router.replace('/testQuestions?testId=' + _this.testId)
@@ -135,6 +166,8 @@
                 });
 
             })
+            _this.getMessageList()
+
 
 
 
@@ -167,7 +200,30 @@
             viewResult: function () {
                 let _this = this;
                 if (_this.answerId != null)
-                    _this.$router.push('/testResult?answerId=' + _this.answerId)
+                    _this.$router.push({path:'/testResult',query:{answerId:_this.answerId,resultId:_this.resultId}})
+            },
+            getMessageList:function () {
+                let _this = this;
+                if(_this.isEndPage)return;
+                _this.showLoad=true;
+                let rows = 3;
+                _this.$http.get(web.API_PATH + 'test/evaluate/list/'+_this.testId +'/'+_this.page+'/'+rows).then(function (data) {
+                    if(data.data.status==1){
+                        //_this.messageList = data.data.data
+                        if(data.data.data.length<rows){
+                            _this.isEndPage = true;
+                        }
+                        _this.messageList = _this.messageList.concat(data.data.data);
+                        _this.showLoad=false;
+                        if(_this.messageList.length>0){
+                            _this.isMessage = true
+                        }else {
+                            _this.isMessage = false
+                        }
+                    }
+                    console.log( _this.messageList)
+                })
+                _this.page++
             }
         }
 
@@ -235,15 +291,39 @@
         background: #f8f8f8;
         margin:0 1.176471rem;
         border-radius: 5px;
-        margin-bottom: 3rem;
         padding:1.76471rem 1.176471rem;
+        margin-bottom:20px;
     }
     .psychtestDetail img {
         width: 100%;
         display: block;
         margin: 0 auto;
     }
+    .psychtestDetail .messageList{padding-bottom:4rem;}
+    .psychtestDetail .messageList li{
+        position: relative;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+        padding-top:0.88235rem;
+    }
+    .psychtestDetail .messageList img{
+        width:2.35rem;
+        height:2.35rem;
+        border-radius: 50%;
+        position: absolute;
+        left:0.88235rem;
+        top:0.88235rem;
+    }
+    .psychtestDetail .message_right{
+        margin-left: 3.95rem;
+        padding-right: 0.88235rem;
+        color:#333;
+        font-size: 0.8235rem;
+    }
+    .psychtestDetail .message_right span{font-size: 0.70588235rem;color:rgba(81,101,145,1);display: block;line-height: 1;padding-top:0.471rem;margin-bottom: 0.5rem}
 
+    .psychtestDetail .moreClass{width:5.88rem;height:1.4rem;line-height: 1.4rem;color:#0BB20C;border:1px solid #0BB20C;text-align: center;font-size: 0.8235rem;border-radius: 1rem;margin:0 auto;margin-top: 0.88235rem;}
+    .psychtestDetail .moreClass:active{background: #eee;}
     .psychtestDetail_btn {
         background: #FD7306;
         color: #fff;

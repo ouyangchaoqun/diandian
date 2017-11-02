@@ -1,7 +1,7 @@
 <template id="testResult">
     <div class="testResult">
-        <div class="addBottomText"   v-html="result.result">
-        </div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="addBottomText"   v-html="result.result"></div>
         <!--<div class="testResult_top">-->
             <!--{{testResult_top}}-->
         <!--</div>-->
@@ -13,9 +13,11 @@
             <!--<div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>-->
             <!--<div class="textResult_main">{{result.content}}</div>-->
         <!--</div>-->
+        <div class="addBtn" v-if="htmlOver" @click="toLeavMessage()">发表留言</div>
     </div>
 </template>
 <script type="text/javascript">
+    import showLoad from './showLoad.vue';
     var testResult = {
         template: '#testResult'
     }
@@ -23,15 +25,21 @@
         data() {
             return {
                 answerId: '',
+                resultId:'',
                 result: {},
-                testResult_top: ''
+                testResult_top: '',
+                showLoad:true,
+                htmlOver:false
             }
         },
         mounted: function () {
             let _this = this;
             _this.answerId = _this.$route.query.answerId;
+            _this.resultId = _this.$route.query.resultId;
             _this.$http.get(web.API_PATH + 'test/get/scoreonly/' + _this.answerId + '').then(response => {
                 if (response.data.status == 1) {
+                    _this.showLoad = false;
+                    _this.htmlOver = true;
                     _this.result = response.data.data
                     console.log(_this.result)
                     _this.$http.get(web.API_PATH + 'test/get/' + _this.result.testId + '/_userId_').then(response => {
@@ -46,6 +54,9 @@
 
 
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         methods: {
 
             testAgain: function () {
@@ -56,6 +67,10 @@
                     window.location.href = url
                 })
             },
+            toLeavMessage:function () {
+                let _this = this;
+                _this.$router.push({path:'/testLeavMessage',query:{testId:_this.result.testId,resultId:_this.resultId}})
+            }
         }
 
     }
@@ -63,12 +78,24 @@
 <style>
     .testResult {
         background: #fff;
-
-    }
-    .addBottomText{
-        padding:0.88235rem;
-        height: 100%;
+        height:100%;
         overflow-y: scroll;
+    }
+    .testResult .addBottomText{
+        padding:0.88235rem;
+    }
+    .testResult .addBtn{
+        margin:1rem auto 2rem auto;
+        width:40%;
+        height:2rem;
+        line-height: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        border:1px solid #0BB20C;
+        color:#0BB20C;
+    }
+    .testResult .addBtn:active{
+        background: #eee;
     }
 
     .testResult_top {

@@ -60,6 +60,7 @@ let routers =
                 require('./routes/psychtestDetail'),
                 require('./routes/testQuestions'),
                 require('./routes/testResult'),
+                require('./routes/testLeavMessage'),
                 require('./routes/more')
             ]
         }

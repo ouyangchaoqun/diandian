@@ -61,8 +61,9 @@
                 scoreCount:[],
                 answerId:'',
                 htmlover:false,
-                canNext:true
-            }
+                canNext:true,
+                resultId:''
+        }
         },
         mounted: function () {
             let _this = this;
@@ -151,7 +152,10 @@
                                 //console.log(bt.data.data)
                                 if(bt.data.status==1){
                                     _this.answerId = bt.data.data.id;
-                                    _this.$router.replace('/testResult?answerId='+_this.answerId)
+                                    _this.resultId = bt.data.data.resultId
+                                    console.log(_this.resultId)
+                                    //_this.$router.replace('/testResult?answerId='+_this.answerId)
+                                    _this.$router.replace({path:'/testResult',query:{answerId:_this.answerId,resultId: _this.resultId }})
                                 }
                                 //成功跳转到结果页
                             });
