@@ -34,7 +34,7 @@
                     <div class="item swiper-slide" v-for="item in newTest">
                         <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                             <div class="img">
-                                <img :src="item.pic">
+                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_120,w_120'">
                                 <div class="time">{{formatTime(item.add_time)}}</div>
                             </div>
                             <div class="t">{{(item.title)}}</div>
@@ -55,7 +55,7 @@
                     <div class="item swiper-slide" v-for="item in wantTest">
                         <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                             <div class="img">
-                                <img :src="item.pic">
+                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_120,w_120'">
                                 <div class="time">{{item.count}}想测</div>
                             </div>
                             <div class="t">{{(item.title)}}</div>
@@ -71,12 +71,14 @@
                 <div class="item"  v-for="item in featureTest">
                     <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                         <div class="left">
-                            <div class="t">{{item.title}}</div>
-                            <div class="sub_t">{{item.sub_title}}</div>
+                            <div class="tc">
+                                <div class="t">{{item.title}}</div>
+                                <div class="sub_t">{{item.sub_title}}</div>
+                            </div>
                             <div class="price">¥{{formatPrice(item.price)}}<span>¥{{formatPrice(item.old_price)}}</span></div>
                             <div class="done_count">{{item.count}}人已测</div>
                         </div>
-                        <div class="right"><img :src="item.pic"></div>
+                        <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_120,w_120'"></div>
                         <div class="clear"></div>
                     </router-link>
                 </div>
@@ -171,6 +173,22 @@
                     }
                    _this.$nextTick(function () {
                        _this.initSwippers();
+                       let h=0;
+                       $(".new_add_test .item .t").each(function (i) {
+                           if($(this).height()>h){
+                               h=$(this).height();
+                           }
+                       });
+                       $(".new_add_test .item .t").height(h)
+                       h=0;
+                       $(".pre_sell_test  .item .t").each(function (i) {
+                           if($(this).height()>h){
+                               h=$(this).height();
+                           }
+                       });
+                       $(".pre_sell_test  .item .t").height(h)
+
+
                    })
 
 
@@ -239,13 +257,13 @@
     .more_box .banner .sw{ position: relative; height: 100%}
     .more_box .banner .sw img{ width: 100%}
     .more_box .test_box{ border-bottom: #eee solid  0.5882352941176471rem;}
-    .more_box .test_box .title{ font-size: 1.058823529411765rem; font-weight: bold;  color:#333; line-height: 1 ; padding-top: 0.88235rem }
+    .more_box .test_box .title{ font-size: 1.058823529411765rem; font-weight: bold;  color:#333; line-height: 1 ; padding-top: 0.88235rem ; letter-spacing: 1px}
     .more_box .new_add_test .title span{ color:#00B400;}
 
 
     .more_box .test_box .img:before{ height: 100%; width: 100%; position: absolute; top:0; left:0 ; z-index: 2 ; content:  ' '; background: rgba(0,0,0,0.2) }
-    .more_box .test_box .sub_title{ color:#999; font-size:0.7058823529411765rem; margin-left: 0.88235rem; margin-top: 0.6rem; }
-    .more_box .test_box .title .left_icon{ height:0.9117647058823529rem; width: 0.3823529411764706rem; background: #00B400; float:left; margin-top: 0.2rem; margin-right: 0.4rem; position: relative }
+    .more_box .test_box .sub_title{ color:#999; font-size:0.5882352941176471rem; margin-left: 0.88235rem; margin-top: 0.4rem; }
+    .more_box .test_box .title .left_icon{ height:0.9117647058823529rem; width: 0.3823529411764706rem; background: #00B400; float:left; margin-top: 0.05rem; margin-right: 0.4rem; position: relative }
     .more_box .test_box .title .left_icon:before{ content: ' '; display: block;   width: 0;
         height: 0;
         border-bottom: 0.9117647058823529rem solid #fff;
@@ -257,10 +275,10 @@
     .more_box .test_box  .list{ padding: 0.88235rem;   }
     .more_box .test_box  .item{  padding-bottom: 0.5rem;}
     .more_box .test_box  .item .img{ height:6.176470588235294rem; width: 6.176470588235294rem; border-radius: 6px; overflow: hidden; position: relative}
-    .more_box .test_box  .item .img img{ height: 100%; width: 100%;}
-    .more_box .test_box  .item .img .time{ color:#fff; position: absolute; bottom:0.2rem; left:0.2rem; z-index: 3}
-    .more_box .test_box  .item .t{ color:#333; font-size: 0.7647058823529412rem; margin-top: 0.3rem;}
-    .more_box .test_box  .item .price{ color:#FF6600;font-size: 0.7647058823529412rem;}
+    .more_box .test_box  .item .img img{ min-height: 100%; min-width: 100%;}
+    .more_box .test_box  .item .img .time{ color:#fff; position: absolute; bottom:0.2rem; left:0.5rem; z-index: 3; font-size: 0.5882352941176471rem;}
+    .more_box .test_box  .item .t{ color:#333; font-size: 0.7647058823529412rem; margin-top: 0.3rem; font-weight: bold}
+    .more_box .test_box  .item .price{ color:#FF6600;font-size: 0.7647058823529412rem; font-weight: bold}
 
     .more_box   .hot_test .title{ font-size: 1.058823529411765rem; color:#333;padding-left: 0.88235rem;padding-top: 0.88235rem; font-weight: bold;    line-height: 1.2rem;; padding-bottom: 0.8rem}
     .more_box   .hot_test .title:active{ background: #f1f1f1}
@@ -270,12 +288,13 @@
 
     .more_box   .hot_test .list .item{ border-bottom: 1px solid #eee}
     .more_box   .hot_test .list .left{ width: 13.5rem;float:left; position: relative}
-    .more_box   .hot_test .list .right{ width:5.294117647058824rem; float:right; }
-    .more_box   .hot_test .list .right img{width:5.294117647058824rem;height:5.294117647058824rem; border-radius: 6px;}
-    .more_box   .hot_test .list .t{ font-size: 0.88235rem; color:#333; line-height: 1.4rem; width: 90%;font-weight: bold}
+    .more_box   .hot_test .list .left  .tc{ height: 3.3rem}
+    .more_box   .hot_test .list .right{ width:5.294117647058824rem; float:right;height:5.294117647058824rem;border-radius: 6px; overflow: hidden }
+    .more_box   .hot_test .list .right img{height: 100%;min-width: 100%; border-radius: 6px;}
+    .more_box   .hot_test .list .t{ font-size: 0.8235294117647059rem; color:#333; line-height: 1.235294117647059rem; width: 90%;font-weight: bold}
     .more_box   .hot_test .list .sub_t{font-size: 0.7058823529411765rem; color:#999; margin-top: 0.3rem;}
     .more_box   .hot_test .list .price{ color:#FF6600;;font-size: 0.7647058823529412rem; margin-top: 1rem;}
-    .more_box   .hot_test .list .price span{color:#999; font-size: 0.6470588235294118rem; text-decoration:line-through; margin-left: 0.3rem }
+    .more_box   .hot_test .list .price span{color:#999; font-size: 0.6470588235294118rem; text-decoration:line-through; margin-left: 0.3rem; font-weight: normal }
     .more_box   .hot_test .list  .done_count{ color:#999; font-size: 0.6470588235294118rem; position: absolute; right:0.88235rem;;  bottom:0rem; }
     .more_box .more_test{ font-size:0.7647058823529412rem; ; font-weight:  normal; color:#999; float:right; margin-right: 0.88235rem;}
     .more_box .more_test span{ display: inline-block; float:left;}

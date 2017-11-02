@@ -15,7 +15,7 @@
                 </div>
                 <div class="item" v-for="item in list">
                     <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
-                        <div class="right"><img :src="item.pic"></div>
+                        <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'"></div>
                         <div class="left">
                             <div class="t">{{item.title}}</div>
                             <div class="sub_t">{{item.sub_title}}</div>
@@ -216,8 +216,8 @@
     .test_list_box .list .item:first-child{ padding-top: 0.2rem;}
     .test_list_box   .list .item{ border-bottom: 1px solid #eee}
     .test_list_box   .list .left{ position: relative}
-    .test_list_box   .list .right{ width:5.294117647058824rem; float:right; margin-left: 0.8rem; }
-    .test_list_box   .list .right img{width:5.294117647058824rem;height:5.294117647058824rem; border-radius: 6px;}
+    .test_list_box   .list .right{ width:5.294117647058824rem; height:5.294117647058824rem;float:right; margin-left: 0.8rem;border-radius: 6px; overflow: hidden }
+    .test_list_box   .list .right img{min-width:100%;height:100%; }
     .test_list_box   .list .t{ font-size: 0.88235rem; color:#333; line-height: 1.2rem; width: 90%;font-weight: bold}
     .test_list_box   .list .sub_t{font-size: 0.7058823529411765rem; color:#999; margin-top: 0.3rem;}
     .test_list_box   .list .price{ color:#FF6600;;font-size: 0.7647058823529412rem; margin-top: 1rem; display: inline-block; width: 5rem;}
