@@ -1,5 +1,6 @@
 <template>
     <div class="newMoodCount">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>我的心情指数</div>
         <div class="swiper-container newMoodCount_swiper">
             <div class="addBg"></div>
@@ -43,6 +44,7 @@
 
 
 <script type="text/javascript">
+    import showLoad from './showLoad.vue';
 
 
 
@@ -57,8 +59,12 @@
                 lastIndex:null,
                 mySwiper:null,
                 loading:false,
-                searchTypes:['年','月','周']
+                searchTypes:['年','月','周'],
+                showLoad: false
             }
+        },
+        components: {
+            'v-showLoad': showLoad
         },
         mounted: function () {
             let _this = this;
@@ -117,10 +123,11 @@
                     return ;
                 }
                 _this.loading=true;
-
+                _this.showLoad=true;
                 _this.$http.get(web.API_PATH+'mood/get/user/statistics/info/_userId_/5/'+_this.page,{params:countType[_this.typeIndex]})
                     .then(function (json) {
                         _this.loading=false;
+                        _this.showLoad=false;
                         if(_this.page==1){
                             //第一页则直接赋值
                             _this.data = json.data.data.reverse();
