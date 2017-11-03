@@ -77,6 +77,7 @@
         },
         mounted: function () {
             let _this=this;
+            if(!_this.cutHeight)_this.cutHeight=0;
             this.height = "height:" + (document.body.clientHeight - _this.cutHeight)  + "px";
             this.loadMoreText();
             Bus.$on("scrollMoreTextInit", function (isShowMoreText) {
