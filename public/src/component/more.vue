@@ -268,7 +268,7 @@
 
     }
     .more_box .test_box .sub_title{ color:#999; font-size:0.5882352941176471rem; margin-left: 0.88235rem; margin-top: 0.4rem; }
-    .more_box .test_box .title .left_icon{ height:0.9117647058823529rem; width: 0.3823529411764706rem; background: #00B400; float:left; margin-top: 0.05rem; margin-right: 0.4rem; position: relative }
+    .more_box .test_box .title .left_icon{ height:0.9117647058823529rem; width: 0.3823529411764706rem; background: #DB0000; float:left; margin-top: 0.05rem; margin-right: 0.4rem; position: relative }
     .more_box .test_box .title .left_icon:before{ content: ' '; display: block;   width: 0;
         height: 0;
         border-bottom: 0.9117647058823529rem solid #fff;
