@@ -210,7 +210,7 @@
                 let _this = this;
                 if(_this.isEndPage)return;
                 _this.showLoad=true;
-                let rows = 3;
+                let rows = 5;
                 _this.$http.get(web.API_PATH + 'test/evaluate/list/'+_this.testId +'/'+_this.page+'/'+rows).then(function (data) {
                     if(data.data.status==1){
                         //_this.messageList = data.data.data
