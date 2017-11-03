@@ -642,6 +642,35 @@ var xqzs = {
             if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
             xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
+
+        //
+        actionSheetEditTimeout:function () {
+             setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                //document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                 var localdbkey = "max_edit_height_scrool_top4"
+                 var nowSH = $('body').scrollTop();
+                 var oldH = xqzs.localdb.get(localdbkey);
+                 console.log("nowSH:" + nowSH);
+                 console.log("oldH:" + oldH);
+                 if (nowSH == 0) {
+                     xqzs.mood.actionSheetEditTimeout();
+                 } else {
+                     if (nowSH && nowSH != 0) {
+                         if (oldH && oldH != 0) {
+                             if (oldH < nowSH) {
+                                 xqzs.mood.actionSheetEditTimeout();
+                                 xqzs.localdb.set(localdbkey, nowSH)
+                             } else {
+                                 var lastH = oldH - nowSH;
+                                 $(".comment_box").animate({bottom: lastH}, 150)
+                             }
+                         } else {
+                             xqzs.localdb.set(localdbkey, nowSH)
+                         }
+                     }
+                 }
+            }, 1)
+        },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
             if(!maxLength){
                 maxLength=1000;
@@ -664,16 +693,14 @@ var xqzs = {
             $("body").append(html);
 
 
-            //  var interval ;
+             var timeout ;
             // //解决第三方软键盘唤起时底部input输入框被遮挡问题
             // var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
             //
-            //  $(".comment_text").focus(function () {
-            //     interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
-            //         document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-            //
-            //     }, 3000)
-            // }).blur(function () {//设定输入框失去焦点时的事件
+             $(".comment_text").focus(function () {
+                 xqzs.mood.actionSheetEditTimeout();
+            });
+            //.blur(function () {//设定输入框失去焦点时的事件
             //     clearTimeout(interval);//清除计时器
             //      document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
             // });
