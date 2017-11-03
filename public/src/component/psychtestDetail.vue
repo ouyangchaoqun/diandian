@@ -158,7 +158,7 @@
                         imgUrl:_this.testDetail.share_pic,
                         title: _this.testDetail.share_title,
                         desc: _this.testDetail.share_description,
-                        link: web.BASE_PATH + "wx/pub/#/psychtestDetail?testId=" + _this.testId,
+                        link: web.BASE_PATH + "wx/pub?reurl=http%3a%2f%2fwx.xqzs.cn%2f%23%2fpsychtestDetail%3ftestId%3d" + _this.testId,
                     };
                     weshare.init(wx,config)
                     });
