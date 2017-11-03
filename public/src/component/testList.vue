@@ -7,18 +7,25 @@
             <div class="item" v-for="item in testClass" :class="{on:classId==item.id}" @click="changeClass(item.id)">{{item.name}}</div>
 
         </div>
+        <div class="top" @click="order()">
+            <div class="order">排序</div>
+            <div class="pai"><span>{{orders[orderIndex].label}}</span></div>
+            <div class="select_order">
+                <div class="itemo" :class="{on:orderDefault==item.value}"  v-for="item in orders" @click="changeOrder(item.value)">{{item.label}}</div>
+            </div>
+        </div>
+
         <div class="list">
-            <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
-                <div class="top" @click="order()">
-                    <div class="order">排序</div>
-                    <div class="pai"><span>{{orders[orderIndex].label}}</span></div>
-                </div>
+            <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" :cutHeight="topHeight">
+
                 <div class="item" v-for="item in list">
                     <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                         <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'"></div>
                         <div class="left">
-                            <div class="t">{{item.title}}</div>
-                            <div class="sub_t">{{item.sub_title}}</div>
+                            <div class="tc">
+                                <div class="t">{{item.title}}</div>
+                                <div class="sub_t">{{item.sub_title}}</div>
+                            </div>
                             <div class="price">¥{{formatPrice(item.price)}}<span>¥{{formatPrice(item.old_price)}}</span>
                             </div>
                             <div class="done_count">{{item.count}}人已测</div>
@@ -45,12 +52,15 @@
                 classId:0,
                 orderDefault:'sort',
                 orderIndex:0,
-                orders:[{label:'默认',value:'sort'},{label:'按时间',value:'add_time'},{label:'按热度',value:'count'},{label:'按价格',value:'price'}],
+                orders:[{label:'按默认',value:'sort'},{label:'按时间',value:'add_time'},{label:'按热度',value:'count'},{label:'按价格',value:'price'}],
                 list:[],
                 page: 1,
-                row: 10,
+                row: 6,
                 isPageEnd: false,
                 isShowMoreText:false,
+                topHeight:58,
+                isSelecting:false,
+
             }
         },
         mounted: function () {
@@ -58,6 +68,8 @@
             _this.getClass();
             _this.getList();
             xqzs.wx.setConfig(this);
+            _this.topHeight=$(".test_list_box .top").height();
+
 
         },
         components: {
@@ -130,35 +142,36 @@
                 this.isPageEnd=false;
                 this.getList(done);
             },
+            changeOrder:function (v) {
+                let _this =this;
+                _this.orderDefault = v;
+                if (_this.orderDefault === 'price') {
+                    $(".pai").addClass("on")
+                } else {
+                    $(".pai").removeClass("on")
+                }
+                for (let i = 0; i < _this.orders.length; i++) {
+                    if (_this.orders[i].value === _this.orderDefault) {
+                        _this.orderIndex = i;
+                        break;
+                    }
+                }
+                _this.page = 1;
+                _this.isPageEnd = false;
+                _this.getList();
+            },
             order:function () {
                 let _this =this;
+                _this.isSelecting = !_this.isSelecting;
+                if(_this.isSelecting){
+                    $(".test_list_box .top").stop().animate({height:$(".select_order").height()+_this.topHeight+"px"},200);
+                    $(".pai").addClass("on")
+                }else{
+                    $(".test_list_box .top").stop().animate({height:_this.topHeight+"px"},200);
+                    $(".pai").removeClass("on")
+                }
 
-                console.log( _this.orderDefault)
-                weui.picker(  _this.orders, {
-                    defaultValue: [_this.orderDefault],
-                    id:"id"+Math.random(),
-                    onChange: function (result) {
-                        console.log(result);
-                    },
-                    onConfirm: function (result) {
 
-                        _this.orderDefault = result[0].value;
-                        if(_this.orderDefault==='price'){
-                            $(".pai").addClass("on")
-                        }else{
-                            $(".pai").removeClass("on")
-                        }
-                        for(let i=0;i<_this.orders.length;i++){
-                            if(_this.orders[i].value===_this.orderDefault){
-                                _this.orderIndex=i;
-                                break;
-                            }
-                        }
-                        _this.page=1;
-                        _this.isPageEnd=false;
-                        _this.getList();
-                    },
-                });
             },
             getClass:function () {
                  let　_this=this;
@@ -201,29 +214,37 @@
 
     .test_list_box .class .item.on:before{ height: 100%; width: 0.1764705882352941rem; ; background: #00B400; display: block; position: absolute; left:0; top:0; content: ' '}
 
-    .test_list_box .list .top{  height:2.882352941176471rem; font-size:0.8235294117647059rem; ;
-        line-height:2.882352941176471rem; border-bottom: 1px solid #eee; position: relative }
-    .test_list_box .list .top .order{ padding-left: 0.88235rem; font-size: 0.8235294117647059rem; color:#666}
+    .test_list_box  .top{  height:2.882352941176471rem; font-size:0.75rem; width: 80% ;float:right;    overflow: hidden; position: absolute; right: 0 ; top:0;
+        line-height:2.882352941176471rem; border-bottom: 1px solid #eee; z-index: 1000; background: #fff   }
+    .test_list_box  .top .order{ padding-left: 0.88235rem; font-size:0.75rem; color:#666}
 
-    .test_list_box .list .top .pai{ display: inline-block; position: absolute; top:0; right: 0.88235rem;}
-    .test_list_box .list .top .pai span{ display: inline-block; float:left;}
-    .test_list_box .list .top .pai:after{ content: ' ';display: inline-block; float:left; background: url(../images/test_list_down.png) no-repeat; height: 0.3823529411764706rem; width: 0.7647058823529412rem; background-size: 0.7647058823529412rem; margin-left: 0.3rem; margin-top: 1.3rem; }
-    .test_list_box .list .top .pai.on:after{  background: url(../images/test_list_up.png) no-repeat;  background-size: 0.7647058823529412rem; }
+    .test_list_box  .top .pai{ display: inline-block; position: absolute; top:0; right: 0.88235rem;}
+    .test_list_box  .top .pai span{ display: inline-block; float:left;}
+    .test_list_box  .top .pai:after{ content: ' ';display: inline-block; float:left; background: url(../images/test_list_down.png) no-repeat; height: 0.3823529411764706rem; width: 0.7647058823529412rem; background-size: 0.7rem; margin-left: 0.3rem; margin-top: 1.3rem; transition: all .3s;}
+    .test_list_box  .top .pai.on:after{     -webkit-transform: translateY(-50%) rotate(-90deg);
+        transform:   rotate(-180deg); }
 
 
-    .test_list_box .list{ width: 80%; float:left;padding: 0;   line-height: 1; position: relative}
-    .test_list_box  .list .item{ padding: 0.88235rem;}
-    .test_list_box .list .item:first-child{ padding-top: 0.2rem;}
-    .test_list_box   .list .item{ border-bottom: 1px solid #eee}
+    .test_list_box .list{ width: 80%; float:left;padding: 0;   line-height: 1; position: absolute; top:2.89rem; right:0}
+     .test_list_box .list .item:first-child{ padding-top: 0.2rem;}
+    .test_list_box   .list .item{ border-bottom: 1px solid #eee; padding: 0.88235rem; margin-left:0.88235rem; padding-left: 0 }
     .test_list_box   .list .left{ position: relative}
-    .test_list_box   .list .right{ width:5.294117647058824rem; height:5.294117647058824rem;float:right; margin-left: 0.8rem;border-radius: 6px; overflow: hidden }
+    .test_list_box   .list .right{ width:5.294117647058824rem; height:5.294117647058824rem;float:right; margin-left: 0.3rem;border-radius: 6px; overflow: hidden }
     .test_list_box   .list .right img{min-width:100%;height:100%; }
-    .test_list_box   .list .t{ font-size: 0.88235rem; color:#333; line-height: 1.2rem; width: 90%;font-weight: bold}
+    .test_list_box   .list .t{ font-size: 0.8235294117647059rem; color:#555; line-height: 1.2rem; width: 90%;font-weight: bold}
+
+    .test_list_box   .list .left  .tc{ height: 3.3rem}
+
     .test_list_box   .list .sub_t{font-size: 0.7058823529411765rem; color:#999; margin-top: 0.3rem;}
-    .test_list_box   .list .price{ color:#FF6600;;font-size: 0.7647058823529412rem; margin-top: 1rem; display: inline-block; width: 5rem;}
+    .test_list_box   .list .price{ color:#FF6600;;font-size: 0.7647058823529412rem; margin-top: 1rem; display: inline-block; }
     .test_list_box   .list .price span{color:#999; font-size: 0.6470588235294118rem; text-decoration:line-through; margin-left: 0.3rem }
-    .test_list_box   .list  .done_count{ color:#999; font-size: 0.6470588235294118rem;  display: inline-block; text-align: right; width: 3.5rem; }
+    .test_list_box   .list  .done_count{ color:#999; font-size: 0.6470588235294118rem;  display: inline-block; text-align: right; position: absolute; right:6rem; bottom:0 }
 
 
     .test_list_box .yo-scroll{ background: #fff;}
+    .test_list_box  .select_order{
+        padding:  0.1rem 0.88235rem;       background: #fff;
+    }
+    .test_list_box  .select_order .itemo{ line-height: 2.4rem; text-align: right; padding-right: 1rem; color:#999}
+    .test_list_box  .select_order .itemo.on{ background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjFweCIgaGVpZ2h0PSIxNXB4IiB2aWV3Qm94PSIwIDAgMjEgMTUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQ0LjEgKDQxNDU1KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5pY29uX+mAieS4rTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSLmlrnmoYjkv67mlLnosIPmlbQiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CiAgICAgICAgPHBvbHlsaW5lIGlkPSJpY29uX+mAieS4rSIgc3Ryb2tlPSIjMzMzMzMzIiBzdHJva2Utd2lkdGg9IjIiIHBvaW50cz0iMSA5IDguNjkyMzA3NjkgMTQgMjAgMSI+PC9wb2x5bGluZT4KICAgIDwvZz4KPC9zdmc+) no-repeat center right ; background-size: 0.6rem; color:#555}
 </style>

@@ -62,7 +62,8 @@
             },
             isPageEnd: false,
             isShowMoreText: true,
-            isNotRefresh: true
+            isNotRefresh: true,
+            cutHeight:0
         },
         data() {
             return {
@@ -76,7 +77,7 @@
         },
         mounted: function () {
             let _this=this;
-            this.height = "height:" + (document.body.clientHeight) + "px";
+            this.height = "height:" + (document.body.clientHeight - _this.cutHeight)  + "px";
             this.loadMoreText();
             Bus.$on("scrollMoreTextInit", function (isShowMoreText) {
 //                console.log("scrollMoreTextInit")
