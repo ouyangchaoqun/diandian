@@ -371,16 +371,17 @@
                 this.showLoad = true;
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
-                    console.log( vm.downdata)
-                    //console.log( vm.downdata[0].userId)
-                    this.aaa = vm.downdata[0].userId;
-                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
-                    this.showLoad = false;
+                    if(vm.downdata) {
+                        console.log(vm.downdata)
+                        console.log(vm.downdata[0].userId)
+                        this.aaa = vm.downdata[0].userId;
+                        vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
+                    }
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
                         //消失loding
-
+                        this.showLoad = false;
                     })
                     if (vm.downdata.length <vm.num) {
                         vm.isPageEnd=true;
