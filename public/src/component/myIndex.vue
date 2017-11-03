@@ -375,11 +375,12 @@
                     //console.log( vm.downdata[0].userId)
                     this.aaa = vm.downdata[0].userId;
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
+                    this.showLoad = false;
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
                         //消失loding
-                        this.showLoad = false;
+
                     })
                     if (vm.downdata.length <vm.num) {
                         vm.isPageEnd=true;
