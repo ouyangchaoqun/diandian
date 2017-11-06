@@ -41,7 +41,7 @@
                 <div class="birthdays swiper-container" v-if="birthdayList&&birthdayList.length>0">
 
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide" @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0"><template  v-if="item.myself==1"><img :src="item.faceUrl" >我的生日</template><template v-else=""><img :src="item.faceUrl" >好友生日</template></div>
+                        <div class="swiper-slide" @click="birthday(item.userId)" v-for="(item,index) in  birthdayList" :key="index" v-show="birthdayList.length>0"><template  v-if="item.myself==1"><img :src="item.faceUrl" ></template><template v-else=""><img :src="item.faceUrl" ></template></div>
 
                     </div>
 
@@ -558,10 +558,11 @@
 
 
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
-    .birthdays{  position: absolute; top:2.6rem;left:0;z-index: 1001; background: rgba(7,7,7,0.5); border-radius: 1.25rem; border-top-left-radius: 0; border-bottom-left-radius: 0; height: 2.5rem; font-size: 0.9rem; color:#fff; width: 8rem; line-height:  2.5rem;}
+    .birthdays{  position: absolute; top:4.6rem;right:1.2rem;z-index: 1001;   height: 2.8rem; font-size: 0.9rem; color:#fff; width: 2.8rem; line-height:  2.8rem;}
     .birthdays:active{background: rgba(7,7,7,0.8);}
-    .birthdays .swiper-slide img{ width: 1.8rem ; height: 1.8rem; border-radius: 50%; float:left; margin-top: 0.2941176470588235rem; margin-left: 0.2rem;margin-right: 0.5rem; }
-    .birthdays   i{ display: inline-block;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.78rem; margin-right: 0.5rem; position: absolute; top:0; right:0}
+    .birthdays .swiper-slide{ width: 2.8rem;height: 2.8rem; }
+    .birthdays .swiper-slide img{ width: 2.3rem ; border: 3px solid rgba(225,225,225,.7); height: 2.3rem; border-radius: 50%;  }
+    .birthdays   i{ display: none;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.78rem; margin-right: 0.5rem; position: absolute; top:0; right:0}
 
     .birthdays.b_right{left:inherit; right:0;}
     .birthdays.b_right li{border-radius: 1.058823529411765rem; border-top-right-radius: 0; border-bottom-right-radius: 0; }
@@ -813,16 +814,16 @@
         height: 40px;
         font-size: 14px;
         margin: 25px 15px 30px 15px;
-        color: #696969;
+        color: #fff;
         display: block;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        background: #FFFFFF;
+        border: 1px solid #ffad00;
+        background: #ffaa00;
         border-radius: 5px;
         text-align: center;
 
     }
     .share:active{
-        background: #ECECEC;
+        background: #e5a000;
     }
     .notice_box{
         background: #ffffff;
