@@ -559,9 +559,9 @@
 
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
     .birthdays{  position: absolute; top:4.6rem;right:1.2rem;z-index: 1001;   height: 2.8rem; font-size: 0.9rem; color:#fff; width: 2.8rem; line-height:  2.8rem;}
-    .birthdays:active{background: rgba(7,7,7,0.8);}
     .birthdays .swiper-slide{ width: 2.8rem;height: 2.8rem; }
     .birthdays .swiper-slide img{ width: 2.3rem ; border: 3px solid rgba(225,225,225,.7); height: 2.3rem; border-radius: 50%;  }
+    .birthdays .swiper-slide img:active{ border: 3px solid rgb(225, 225, 225);}
     .birthdays   i{ display: none;float:right; width: 0.9rem; height: 0.9rem; background: url(../images/go.png) no-repeat; background-size: 100% 100%; margin-top: 0.78rem; margin-right: 0.5rem; position: absolute; top:0; right:0}
 
     .birthdays.b_right{left:inherit; right:0;}
