@@ -4,7 +4,7 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide propagandaPage1">
                     <div class="pagediv page1div">
-                        <h3>心情指数</h3>
+                        <h3>好一点</h3>
                         <p>随时记录和分享心情</p>
                         <p>让每天都能开心快乐一点</p>
                     </div>
@@ -66,7 +66,7 @@
                         <p>从现在开始</p>
                         <p>记录你最重要的每一刻</p>
                         <p>分享你最幸福的每一刻</p>
-                        <p>让心情指数</p>
+                        <p>让好一点</p>
                         <p>成为你我共同的“羁绊”</p>
                         <div class="page5ewm">
                             <div>关注你我 关注心情</div>

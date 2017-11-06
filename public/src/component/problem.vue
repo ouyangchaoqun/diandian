@@ -2,12 +2,12 @@
     <div class="problem_box">
         <div v-title>常见问题</div>
         <div class="problem">
-            <span class="protit">1.为何要用心情指数?</span>
-            <p class="protex">日子有大有小，心情冷暖自知!心情指数为你随时随地记录每一刻的心情，通过心情指数的变化趋势和其背后的故事,让你更了解自己的内心世界</p>
+            <span class="protit">1.为何要用好一点?</span>
+            <p class="protex">日子有大有小，心情冷暖自知！好一点为你随时随地记录每一刻的心情，通过心情指数的变化趋势和其背后的故事,让你更了解自己的内心世界</p>
         </div>
         <div class="problem">
             <span class="protit">2.我可以事后做记录吗?</span>
-            <p class="protex">不可以，心情指数只为你记录此刻的心情，不管是哪一刻的故事，此刻的心情和心情才是我们需关注和倾心的</p>
+            <p class="protex">不可以，好一点只为你记录此刻的心情，不管是哪一刻的故事，此刻的心情和心情才是我们需关注和倾心的</p>
         </div>
         <div class="problem">
             <span class="protit">3.如何看到我的心情指数统计情况?</span>

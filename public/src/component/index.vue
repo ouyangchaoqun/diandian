@@ -1,7 +1,7 @@
 <template id="myCenter">
     <div style="height: 100%" >
 
-        <div v-title>心情指数</div>
+        <div v-title>好一点</div>
         <div class="weui-tabbar" id="tabs">
             <a  @click="rank()" class="weui-tabbar__item tab " >
                 <span  class="calendarImg tab_icon"></span>

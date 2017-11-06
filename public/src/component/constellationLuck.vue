@@ -33,7 +33,7 @@
             </div>
             <div class="addEwmBox" v-if="!user||(user&&theUser&&user.id!=theUser.id)">
                 <img src="../images/addEwm_top.png" alt="">
-                <div class="addEwmtext">长按二维码关注“心情指数”后,<br/>回复“星座运势”查看本月运势</div>
+                <div class="addEwmtext">长按二维码关注“好一点”后,<br/>回复“星座运势”查看本月运势</div>
                 <div class="ewm"></div><br>
                 <br>
             </div>

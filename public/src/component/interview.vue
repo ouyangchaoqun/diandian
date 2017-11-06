@@ -5,7 +5,7 @@
             <div class="inter_face"><img :src="wxFaceUrl(currUser.faceUrl)"/></div>
             <div class="inter_name ">{{currUser.nickName | shortName(7) }}</div>
             <div class="inter_text ">向 /您/ 推/ 荐</div>
-            <div class="inter_xq">心情指数</div>
+            <div class="inter_xq">好一点</div>
             <div class="inter_an">
                 <div class="inter_code"><img :src="qrCodePath"/></div>
                 <div class="inter_zw"><img :src="pic_num"/>
