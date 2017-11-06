@@ -361,6 +361,14 @@
                 if(!that.cansubmit){
                     return;
                 }
+
+
+
+                if(this.moodcontent.length<=5){
+                    that.isopen=false;
+                }
+
+
                 var postdata = {
                     moodValue:that.moodValue,
                     scenesId:that.scenesId,
