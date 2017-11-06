@@ -361,6 +361,11 @@
                 if(!that.cansubmit){
                     return;
                 }
+
+                var length = this.moodcontent.length;
+                if(length<=5){
+                    that.isopen=false;
+                }
                 var postdata = {
                     moodValue:that.moodValue,
                     scenesId:that.scenesId,
@@ -714,10 +719,10 @@
         -webkit-box-flex:1.68;
         -webkit-flex: 1.68;
         flex: 1.68; overflow: auto }
-    .edit_option  .open_box .open_btn{float:left;display: inline-block; margin-left: 0.3rem;}
+    .edit_option  .open_box .open_btn{float:left;display: inline-block; margin-left: 0.5rem;}
+    .edit_option  .open_box .open_btn:nth-child(2){ margin-left: 0.4rem;}
     .edit_option  .open_box .open_btn:before{content: ' '; border: 1px solid #999; margin-right: 0.2rem; margin-top: 0.2rem; display: block; height: 0.6rem; width: 0.6rem; border-radius: 50%; float:left;}
     .edit_option  .open_box .open_btn.on:before{ border: 1px solid #0b900c; background: #0BB20C}
-
     .addEdit{
         height:65px;
         margin-bottom:15px;
