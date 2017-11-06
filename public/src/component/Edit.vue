@@ -363,16 +363,18 @@
                 }
 
 
-
+                let openIs = that.isopen;
                 if(this.moodcontent.length<=5){
-                    that.isopen=false;
+                    openIs=false;
                 }
+
+
 
 
                 var postdata = {
                     moodValue:that.moodValue,
                     scenesId:that.scenesId,
-                    isOpen: that.isopen,
+                    isOpen: openIs,
                     userId: '_userId_',
                     address: that.address,
                     content: that.moodcontent,
