@@ -645,31 +645,34 @@ var xqzs = {
 
         //
         actionSheetEditTimeout:function () {
-             setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
-                //document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                 var localdbkey = "max_edit_height_scrool_top4"
-                 var nowSH = $('body').scrollTop();
-                 var oldH = xqzs.localdb.get(localdbkey);
-                 console.log("nowSH:" + nowSH);
-                 console.log("oldH:" + oldH);
-                 if (nowSH == 0) {
-                     xqzs.mood.actionSheetEditTimeout();
-                 } else {
-                     if (nowSH && nowSH != 0) {
-                         if (oldH && oldH != 0) {
-                             if (oldH < nowSH) {
-                                 xqzs.mood.actionSheetEditTimeout();
-                                 xqzs.localdb.set(localdbkey, nowSH)
-                             } else {
-                                 var lastH = oldH - nowSH;
-                                 $(".comment_box").animate({bottom: lastH}, 150)
-                             }
-                         } else {
-                             xqzs.localdb.set(localdbkey, nowSH)
-                         }
-                     }
-                 }
-            }, 1)
+            setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                if (xqzs.isIos()) {
+                    //document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                    var localdbkey = "max_edit_height_scrool_top_last2";
+                    var nowSH = $('body').scrollTop();
+                    var oldH = xqzs.localdb.get(localdbkey);
+                    console.log("nowSH:" + nowSH);
+                    console.log("oldH:" + oldH);
+                    if (nowSH == 0) {
+                        xqzs.mood.actionSheetEditTimeout();
+                    } else {
+                        if (nowSH && nowSH != 0) {
+                            if (oldH && oldH != 0) {
+                                if (oldH < nowSH) {
+                                    xqzs.mood.actionSheetEditTimeout();
+                                    xqzs.localdb.set(localdbkey, nowSH)
+                                } else {
+                                    var lastH = oldH - nowSH;
+                                    lastH = lastH + 38;
+                                    $(".comment_box").animate({bottom: lastH}, 150)
+                                }
+                            } else {
+                                xqzs.localdb.set(localdbkey, nowSH)
+                            }
+                        }
+                    }
+                }
+            }, 150)
         },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
             if(!maxLength){
@@ -687,6 +690,10 @@ var xqzs = {
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
             html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
+            if(xqzs.isIos()){
+                html +='<div style=" height: 44px;    background: #f5f5f5;width: 100%;position: absolute;bottom: -44px;text-align: center;font-size: 12px;color: #ddd; line-height: 30px">一切都好一点</div>';
+            }
+
             html += '  </div>';
             html += '  </div>';
 
