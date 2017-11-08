@@ -77,7 +77,7 @@
 
     }
     $(".check_pay_red").click(function () {
-        alert(reurl)
+
         window.location.replace(reurl)
     })
 

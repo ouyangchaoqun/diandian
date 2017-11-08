@@ -97,7 +97,7 @@ input,textarea{  -webkit-appearance:none;}
         transform: scale(1.2,1.2);
     }
 }
-
+.clear{ clear:both  }
 .happy_txt_color {
     color: #ff6f02;
 }

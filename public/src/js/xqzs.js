@@ -221,6 +221,7 @@ var xqzs = {
         DATE_TIME: "date_time",
         TIME: "time",
         DATE_PATH: "date_path",
+        DATE:"date",
         _format: function (type, time) {
             time = time * 1000;
             var now = new Date(time);
@@ -241,6 +242,8 @@ var xqzs = {
                 return hour + ":" + minute;
             } else if (type === this.DATE_PATH) {
                 return year + "/" + month + "/" + date
+            }else if (type === this.DATE) {
+                return   month + "-" + date
             }
         },
         formatTime: function (time) {
@@ -248,6 +251,9 @@ var xqzs = {
         },
         formatDateTime: function (time) {
             return this._format(this.DATE_TIME, time);
+        },
+        formatDate: function (time) {
+            return this._format(this.DATE, time);
         },
         getTimeStamp: function (dateTime) {
             var _timestamp = new Date().getTime();
@@ -382,7 +388,7 @@ var xqzs = {
     shortname: function (value, len) {
         if (!value) return '';
         if (value.length > len) {
-            return value.substring(0, len) + '...';
+            return value.substring(0, len) + '..';
         } else {
             return value;
         }
@@ -983,6 +989,24 @@ var xqzs = {
         f = Math.round(x * 100) / 100;
         return f;
     },
+    toDecimal2: function (x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return "0.00";
+        }
+        var f = Math.floor(x * 100) / 100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        if(!s)return '0.00';
+        return s;
+    },
     toDecimal1: function (x) {
         var f = parseFloat(x);
         if (isNaN(f)) {
@@ -1041,6 +1065,14 @@ var xqzs = {
                 }
             }
             return out;
+        },
+        formatPrice: function (v) {
+            if(v!=null&&v!=''){
+                return xqzs.toDecimal2(v)
+            }else{
+                return "0.00";
+            }
+
         }
     },
 
