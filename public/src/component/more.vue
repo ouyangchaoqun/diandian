@@ -13,6 +13,18 @@
 
                 </a>
                 </div>
+
+                <div class="sw swiper-slide">
+                    <a class="item" href="http://mp.weixin.qq.com/s/S8zNN8Mvzl6dG0HfUrMyaw">
+                        <div class="img">
+                            <img src="../images/more_banner2.png">
+                        </div>
+
+                    </a>
+                </div>
+
+
+
                 <div class="sw swiper-slide" v-for="item in bannerTest">
                     <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                     <img :src="item.banner_pic">
@@ -21,7 +33,7 @@
                     </router-link>
                 </div>
             </div>
-            <div class="wait"><div class="on"></div><div v-for="item in bannerTest"></div></div>
+            <div class="wait"><div class="on"></div><div ></div><div v-for="item in bannerTest"></div></div>
         </div>
         <div class="new_add_test test_box">
             <div class="title">
