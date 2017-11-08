@@ -292,9 +292,9 @@
     .more_box .test_box  .list{ padding: 0.88235rem;   }
     .more_box .test_box  .item{  padding-bottom: 0.5rem;}
     .more_box .test_box  .item .img{ height:6.176470588235294rem; width: 6.176470588235294rem; border-radius: 6px; overflow: hidden; position: relative}
-    .more_box .test_box  .item .img img{ min-height: 100%; min-width: 100%;}
+    .more_box .test_box  .item .img img{ min-height: 100%; min-width: 100%; max-width: 100%}
     .more_box .test_box  .item .img .time{ color:#fff; position: absolute; bottom:0.2rem; left:0.5rem; z-index: 3; font-size: 0.5882352941176471rem;}
-    .more_box .test_box  .item .t{ color:#555; font-size: 0.7647058823529412rem; margin-top: 0.3rem; font-weight: bold; line-height: 1.2em;}
+    .more_box .test_box  .item .t{ color:#555; font-size: 0.7647058823529412rem; margin-top: 0.3rem; font-weight: bold; line-height: 1.2em; width: 6.3rem;}
     .more_box .test_box  .item .price{ color:#FF6600;font-size: 0.7647058823529412rem; font-weight: bold}
 
     .more_box   .hot_test .title{ font-size: 1.058823529411765rem; color:#555;padding-left: 0.88235rem;padding-top: 0.88235rem; font-weight: bold;    line-height: 1.2rem;; padding-bottom: 0.8rem}
