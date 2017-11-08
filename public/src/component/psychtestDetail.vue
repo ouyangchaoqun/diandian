@@ -5,7 +5,7 @@
             <div class="psychtestDetail_header" >
                 <img :src="testDetail.pic" alt="">
                 <h2 class="psychtestDetail_title">{{testDetail.title}}</h2>
-                <div class="psychtestDetail_class">{{testDetail.class_name}}</div>
+                <div class="psychtestDetail_class">{{testDetail.sub_title}}</div>
                 <div class="psychtestDetail_flex">
                     <div>
                         <span></span>
