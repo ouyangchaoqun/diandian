@@ -570,7 +570,7 @@ var xqzs = {
 
                 //随机头像
                 if (data[i].faceIndex !== null)
-                    data[i].randomFaceUrl = web.IMG_PATH + "anonymous_face/" + data[i].faceIndex + ".jpg";
+                    data[i].randomFaceUrl = "http://oss.xqzs.cn/xqzs/anonymous_face/" + data[i].faceIndex + ".jpg";
 
                 //心抱抱逻辑
                 if (data[i].caremy !== undefined) {
