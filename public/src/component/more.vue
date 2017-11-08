@@ -33,7 +33,7 @@
                     </router-link>
                 </div>
             </div>
-            <div class="wait"><div class="on"></div><div ></div><div v-for="item in bannerTest"></div></div>
+            <div class="swiper-pagination"></div>
         </div>
         <div class="new_add_test test_box">
             <div class="title">
@@ -151,7 +151,7 @@
             initSwippers:function () {
                 let _this= this;
                 _this.mySwiperBanner = new Swiper('.swiper_banner',{
-                    slidesPerView :1,
+                    pagination : '.swiper-pagination',
                     autoplay:5000,
                     onSlideChangeEnd: function(swiper){
                          $(".more_box .banner .wait div").removeClass("on").each(function (i) {
@@ -268,6 +268,8 @@
     .more_box .banner .wait div.on{ background: rgba(0, 248, 0, 0.6)
     }
 
+    .swiper-pagination-bullet-active{ background:  rgba(0, 248, 0, 0.6)}
+
     .more_box .banner .sw{ position: relative; height: 100%}
     .more_box .banner .sw img{ width: 100%}
     .more_box .test_box{ border-bottom: #f1f1f1 solid  0.5882352941176471rem;}
@@ -279,6 +281,7 @@
         background-image:-webkit-linear-gradient(to top, rgba(0,0,0,0.1),  rgba(0,0,0,0)); background-image:linear-gradient(to top,rgba(0,0,0,0.2),  rgba(0,0,0,0));
 
     }
+    .more_box .test_box .img:active:before{ height: 100%}
     .more_box .test_box .sub_title{ color:#999; font-size:0.5882352941176471rem; margin-left: 0.88235rem; margin-top: 0.4rem; }
     .more_box .test_box .title .left_icon{ height:0.9117647058823529rem; width: 0.3823529411764706rem; background: #DB0000; float:left; margin-top: 0.05rem; margin-right: 0.4rem; position: relative }
     .more_box .test_box .title .left_icon:before{ content: ' '; display: block;   width: 0;
@@ -294,16 +297,18 @@
     .more_box .test_box  .item .img{ height:6.176470588235294rem; width: 6.176470588235294rem; border-radius: 6px; overflow: hidden; position: relative}
     .more_box .test_box  .item .img img{ min-height: 100%; min-width: 100%; max-width: 100%}
     .more_box .test_box  .item .img .time{ color:#fff; position: absolute; bottom:0.2rem; left:0.5rem; z-index: 3; font-size: 0.5882352941176471rem;}
-    .more_box .test_box  .item .t{ color:#555; font-size: 0.7647058823529412rem; margin-top: 0.3rem; font-weight: bold; line-height: 1.2em; width: 6.3rem;}
-    .more_box .test_box  .item .price{ color:#FF6600;font-size: 0.7647058823529412rem; font-weight: bold}
+    .more_box .test_box  .item .t{ color:#555; font-size: 0.7647058823529412rem; margin-top: 0.3rem;  line-height: 1.2em; width: 6.3rem;}
+    .more_box .test_box  .item .price{ color:#FF6600;font-size: 0.7647058823529412rem; }
 
     .more_box   .hot_test .title{ font-size: 1.058823529411765rem; color:#555;padding-left: 0.88235rem;padding-top: 0.88235rem; font-weight: bold;    line-height: 1.2rem;; padding-bottom: 0.8rem}
     .more_box   .hot_test .title:active{ background: #f1f1f1}
     .more_box   .hot_test .item{padding: 0.88235rem 0; padding-right: 0.88235rem  }
-    .more_box   .hot_test .list{ padding: 0.88235rem;; padding-right: 0;   line-height: 1}
-    .more_box   .hot_test .item:first-child{ padding-top: 0.2rem;}
+    .more_box   .hot_test .list{ padding-bottom: 0.88235rem;    line-height: 1}
 
-    .more_box   .hot_test .list .item{ border-bottom: 1px solid #eee}
+    .more_box   .hot_test .list .item{ position: relative ; padding-left: 0.88235rem;
+        overflow: hidden;}
+    .more_box   .hot_test .list .item:active{ background: #f1f1f1}
+    .more_box .hot_test .list .item:after{content:' '; height:  1px; width:100%; background: #eee; display: block; position: absolute; bottom:0; left:0.88235rem; }
     .more_box   .hot_test .list .left{  position: relative}
     .more_box   .hot_test .list .left  .tc{ height: 3.3rem}
     .more_box   .hot_test .list .right{ width:5.294117647058824rem; float:right;height:5.294117647058824rem;border-radius: 3px; overflow: hidden; margin-left: 0.4rem; }
