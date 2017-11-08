@@ -234,7 +234,7 @@
         background: #ECECEC;
     }
     .optionHtml{
-        width:85%;
+        width:76%;
     }
     .question_option li:last-of-type{
         border-bottom: 0;
