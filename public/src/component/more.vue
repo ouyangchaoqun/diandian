@@ -46,7 +46,7 @@
                     <div class="item swiper-slide" v-for="item in newTest">
                         <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                             <div class="img">
-                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_120,w_120'">
+                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
                                 <div class="time">{{formatTime(item.add_time)}}</div>
                             </div>
                             <div class="t">{{(item.title)}}</div>
@@ -67,7 +67,7 @@
                     <div class="item swiper-slide" v-for="item in wantTest">
                         <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                             <div class="img">
-                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_120,w_120'">
+                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
                                 <div class="time">{{item.count}}人想测</div>
                             </div>
                             <div class="t">{{(item.title)}}</div>
@@ -82,7 +82,7 @@
             <div class="list">
                 <div class="item"  v-for="item in featureTest">
                     <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
-                        <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_120,w_120'"></div>
+                        <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'"></div>
                         <div class="left">
                             <div class="tc">
                                 <div class="t">{{item.title}}</div>
