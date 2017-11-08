@@ -68,7 +68,7 @@
                         <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                             <div class="img">
                                 <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
-                                <div class="time">{{item.count}}人想测</div>
+                                <div class="time">{{item.wantCount}}人想测</div>
                             </div>
                             <div class="t">{{(item.title)}}</div>
                             <div class="price">¥{{formatPrice(item.price)}}</div>
