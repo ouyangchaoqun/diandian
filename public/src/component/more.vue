@@ -17,7 +17,7 @@
                 <div class="sw swiper-slide">
                     <a class="item" href="http://mp.weixin.qq.com/s/S8zNN8Mvzl6dG0HfUrMyaw">
                         <div class="img">
-                            <img src="../images/more_banner2.png">
+                            <img src="../images/more_banner2.jpg">
                         </div>
 
                     </a>
