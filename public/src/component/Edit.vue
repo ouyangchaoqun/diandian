@@ -364,7 +364,7 @@
 
 
                 let openIs = that.isopen;
-                if(this.moodcontent.length<=5){
+                if(this.moodcontent.length<=7){
                     openIs=false;
                 }
 
