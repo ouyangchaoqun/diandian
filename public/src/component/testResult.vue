@@ -44,6 +44,9 @@
                     console.log(_this.result)
                     _this.$http.get(web.API_PATH + 'test/get/' + _this.result.testId + '/_userId_').then(response => {
                         _this.testResult_top = response.data.data.title;
+                        xqzs.wx.shareConfig.test.desc=response.data.data.title;
+                        xqzs.wx.shareConfig.test.link=web.BASE_PATH+"#/psychtestDetail?testId="+_this.result.testId;
+                        xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.test);
                     }, response => {
                         // error
                     });

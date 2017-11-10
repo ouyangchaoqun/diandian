@@ -682,7 +682,8 @@
                 }
             });
             //positionList  end
-            xqzs.wx.setConfig(that);
+            if(that.user) xqzs.wx.shareConfig.home.imgUrl=that.user.faceUrl;
+            xqzs.wx.setConfig(that,false,xqzs.wx.shareConfig.home);
         },
         computed: {
             moodImage: function () {

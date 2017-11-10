@@ -151,17 +151,10 @@
                             _this.$router.replace('/testQuestions?testId=' + _this.testId)
                         }
                     }
-                    xqzs.wx.setConfig(this, function () {
-                    wx.showAllNonBaseMenuItem();
-                    var config = {
 
-                        imgUrl:_this.testDetail.share_pic,
-                        title: _this.testDetail.share_title,
-                        desc: _this.testDetail.share_description,
-                        link: web.BASE_PATH + "wx/pub?reurl=http%3a%2f%2fwx.xqzs.cn%2f%23%2fpsychtestDetail%3ftestId%3d" + _this.testId,
-                    };
-                    weshare.init(wx,config)
-                    });
+                    xqzs.wx.shareConfig.test.desc=_this.testDetail.share_title;
+                    xqzs.wx.shareConfig.test.link=web.BASE_PATH+"#/psychtestDetail?testId="+_this.testId;
+                    xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.test);
 
                 }, response => {
                     // error

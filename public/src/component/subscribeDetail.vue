@@ -90,7 +90,7 @@
             });
         },
         mounted:function () {
-
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.me);
         },
         methods:{
             showTime: function () {

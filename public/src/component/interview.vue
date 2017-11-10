@@ -97,7 +97,6 @@
 
             this.checkIsUser();
             xqzs.wx.setConfig(this,function () {
-                wx.showAllNonBaseMenuItem();
                 var config ={
                     title: '邀请卡',
                     desc: '我的邀请卡',

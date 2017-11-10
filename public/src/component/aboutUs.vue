@@ -112,6 +112,9 @@
 
                 }
             })
+
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
+
         }
     }
 

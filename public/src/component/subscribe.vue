@@ -120,6 +120,8 @@
                 e.preventDefault();
             });
 
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.me);
+
             //swiperIndex
             /*   var swiperIndex = this.$route.query.isBack || 0;
              console.log(this.$route.query)

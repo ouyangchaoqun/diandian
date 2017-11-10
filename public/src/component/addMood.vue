@@ -293,7 +293,9 @@
                 _this.goIndex();
             }
             this.goScenes=false;
-            xqzs.wx.setConfig(this);
+
+            if(_this.user) xqzs.wx.shareConfig.home.imgUrl=_this.user.faceUrl;
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.home);
 
             var w =$(window).width() ;
 

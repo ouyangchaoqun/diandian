@@ -567,7 +567,9 @@
         mounted: function () {
             let _this = this;
 
-            xqzs.wx.setConfig(_this);
+
+            if(_this.user)xqzs.wx.shareConfig.home.imgUrl=_this.user;
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.home);
             if (xqzs.localdb.get("isBirthday") === "1") {
                 _this.isBirthday = true;
             } else {

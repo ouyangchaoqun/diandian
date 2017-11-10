@@ -849,7 +849,7 @@ var xqzs = {
             });
         },
 
-        setConfig: function (vm, callback) {
+        setConfig: function (vm, callback,shareConfig) {
 
             var url = window.location.href;
             var guest="";
@@ -863,12 +863,70 @@ var xqzs = {
                     if (callback && typeof (callback) == "function") {
                         callback()
                     }
+                    if(shareConfig){
+                        xqzs.wx.initShare(shareConfig);
+                    }
                     console.log('wx.ready');
                 });
                 wx.error(function (res) {
                     //可以更新签名
                 });
             });
+        },
+
+        shareConfig: {
+            home: {
+                title: '什么都好一点@好一点',
+                desc: '每个人都有自己的坚持，无非就是希望自己能好一点！',
+                link: web.BASE_PATH + '',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg' //#用户头像
+            },
+            rank: {
+                title: '坚持早睡早起，遇见更好的自己',
+                desc: '参与早睡早起打卡计划，培养自律，让生活更好一点！',
+                link: web.BASE_PATH + '#/sleepRank?type=2',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg' //#用户头像
+            },
+            friendMood: {
+                title: '这一刻，与你分享心情的快乐',
+                desc: '一句话、一段文、一张图，开启记录之旅，分享点滴故事！',
+                link: web.BASE_PATH + '#/friendsMoods',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            more: {
+                title: '“好一点”健康评测',
+                desc: '有趣、专业的健康测试，帮助你更好的了解自己的兴趣、性格、能力等特点。',
+                link: web.BASE_PATH + '#/more',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            test: {
+                title: '健康趣味评测@好一点',
+                desc: '',
+                link: '',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            set: {
+                title: '设置记录提醒@好一点',
+                desc: '坚持早起、记录心情，只为遇见更好自己',
+                link: web.BASE_PATH + '#/me/subscribe',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            me: {
+                title: '什么是好一点？关于我的好一点',
+                desc: '我一直在坚持，就是希望自己什么都能好一点！',
+                link: web.BASE_PATH + '#/me',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            center: {
+                title: '我的心情指数分析图@好一点',
+                desc: '我一周的喜怒哀乐，都已经悄悄的存放在这啦！',
+                link: web.BASE_PATH + '#/myCenter/myIndex',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+        },
+
+        initShare:function (config) {
+            weshare.init(wx, config)
         }
 
     },

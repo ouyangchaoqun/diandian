@@ -135,7 +135,7 @@
             }, function (error) {
                 //error
             });
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
 
             this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
             this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);

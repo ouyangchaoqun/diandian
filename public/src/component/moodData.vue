@@ -53,6 +53,7 @@
         beforeCreate: function () {
             let _this = this;
             //用户信息
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.center);
             this.$http({
                 method: 'GET',
                 url: web.API_PATH + 'mood/get/user/statistics/_userId_',

@@ -173,8 +173,7 @@
                 //error
             });
 
-            xqzs.wx.setConfig(_this);
-
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.center);
         },
         filters: {
             shortName: function (value, len) {

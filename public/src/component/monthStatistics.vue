@@ -34,6 +34,7 @@
         },
         created: function () {
             let _this = this;
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.center);
             _this.$http.get(web.API_PATH + 'mood/get/user/months/day/count/_userId_').then(function (response) {
                 if (response.data.status === 1) {
 

@@ -129,8 +129,8 @@
             //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
-            xqzs.wx.setConfig(_this);
-
+            if(_this.user&&_this.user.faceUrl)xqzs.wx.shareConfig.rank=_this.user.faceUrl;
+             xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.rank);
 
             if(_this.$route.query.month!=undefined) {
                 let date = new Date();

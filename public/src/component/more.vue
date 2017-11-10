@@ -47,7 +47,7 @@
                         <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
                             <div class="img">
                                 <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
-                                <div class="time">{{formatTime(item.add_time)}}</div>
+                                <div class="time">{{item.count}}人测过</div>
                             </div>
                             <div class="t">{{(item.title)}}</div>
                             <div class="price">¥{{formatPrice(item.price)}}</div>
@@ -242,8 +242,7 @@
             this.getTextList();
             let date=new Date();
             this.count = date.getFullYear()*100+date.getMonth()*10+date.getDay()*8+date.getHours()*6+date.getMinutes()*2 ;
-            xqzs.wx.setConfig(this);
-
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.more);
             xqzs.localdb.set(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY,true);
 
 

@@ -82,7 +82,7 @@
             }, function (error) {
                 //error
             });
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
         },
         filters:{
             shortName:function(value,len){

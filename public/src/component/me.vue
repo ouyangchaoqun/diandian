@@ -228,7 +228,7 @@
             let _this = this;
 			_this.getNewPerfect();
 			console.log(_this.user)
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
             var obj =  $(".me_lists")
             xqzs.weui.active(obj);
             _this.interviewLink="/interview?openId="+_this.user.openId;

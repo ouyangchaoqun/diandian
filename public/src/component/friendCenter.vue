@@ -120,7 +120,7 @@
             console.log("activated")
             let _this = this;
             _this.initData();
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
             $('.yo-scroll').css('background','#fff');
             $(".addSwiper a").click(function(e){
                 e.preventDefault();

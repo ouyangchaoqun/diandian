@@ -249,8 +249,7 @@
                 xqzs.localdb.set("friendsScrollTop",$(this).scrollTop())
             });
             _this.getFriends();
-
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
         },
 
         filters:{

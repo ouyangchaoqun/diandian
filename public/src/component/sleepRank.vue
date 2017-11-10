@@ -970,8 +970,6 @@
                                 }
 
                                 xqzs.wx.setConfig(this, function () {
-
-
                                     let sleepName = "早起";
                                     if (_this.typeId == 3) {
                                         sleepName = "早睡"
@@ -984,11 +982,11 @@
                                     }
 
 
-                                    wx.showAllNonBaseMenuItem();
+
                                     var config = {
                                         imgUrl: _this.user.faceUrl,
-                                        title: title,
-                                        desc: desc,
+                                        title: "坚持早睡早起，遇见更好的自己",
+                                        desc: '参与早睡早起打卡计划，培养自律，让生活更好一点！',
                                         link: web.BASE_PATH + "guest/#/sleepRank?type=" + _this.typeId + "&userid=" + _this.user.id,
                                     };
                                     weshare.init(wx, config, function () {

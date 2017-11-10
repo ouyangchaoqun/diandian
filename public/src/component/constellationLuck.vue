@@ -677,7 +677,7 @@
             }, function (error) {
                 //error
             });
-            xqzs.wx.setConfig(_this);
+
         },
         filters: {
             shortName: function (value, len) {
@@ -773,7 +773,6 @@
                         }
 
                         xqzs.wx.setConfig(this, function () {
-                            wx.showAllNonBaseMenuItem();
                             var config = {
 
                                 imgUrl:web.BASE_PATH+_this.constellation.pic,

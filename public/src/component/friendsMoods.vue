@@ -362,7 +362,7 @@
         created: function () {
             let _this = this;
             _this.getList();
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.friendMood);
 
         },
         components: {

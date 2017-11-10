@@ -67,7 +67,43 @@
         },
         mounted: function () {
             let _this = this;
-            _this.testId = _this.$route.query.testId
+            _this.testId = _this.$route.query.testId;
+
+
+
+
+
+
+
+            let guestData = ''
+            if (web.guest) {
+                this.isGuest = true;
+                guestData = "?guest=true";
+            }
+
+            _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {
+                if(data.data.status==1){
+                    _this.theUser = data.data.data.id
+                }else {
+                    _this.theUser = 0
+                }
+                _this.$http.get(web.API_PATH + 'test/get/' + _this.testId +'/'+_this.theUser+guestData).then(response => {
+                    if (response.data.status === 1) {
+                        _this.testDetail = response.data.data;
+                        xqzs.wx.shareConfig.test.desc=_this.testDetail.share_title;
+                        xqzs.wx.shareConfig.test.link=web.BASE_PATH+"#/psychtestDetail?testId="+_this.testId;
+                        xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.test);
+                    }
+
+                }, response => {
+                    // error
+
+                });
+
+            })
+
+
+
             //console.log(_this.testId)
             _this.$http.get(web.API_PATH+'test/get/allquestion/'+_this.testId+'/_userId_').then(response => {
                 //console.log(response)

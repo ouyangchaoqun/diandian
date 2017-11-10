@@ -70,6 +70,8 @@
             let _this = this;
             _this.getData(_this.typeIndex);
             _this.initBottomAction();
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.center);
+
 
         },
         methods: {

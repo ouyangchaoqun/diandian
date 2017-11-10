@@ -1240,7 +1240,6 @@
                         _this.birthdayUser = data.data.data;
                         _this.birthday = _this.birthdayUser.birthday;
                         xqzs.wx.setConfig(this, function () {
-                            wx.showAllNonBaseMenuItem();
                             var config = {
                                 imgUrl: web.BASE_PATH + web.IMG_PATH + "/birthday/birthday_share3.jpg",
                                 title: '生日祝福',
