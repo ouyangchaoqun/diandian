@@ -113,7 +113,8 @@
                 }
             })
 
-            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
+            xqzs.wx.shareConfig.me.link= web.BASE_PATH + '#/me/aboutUs',
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.me);
 
         }
     }
