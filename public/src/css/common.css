@@ -640,18 +640,21 @@ a{
     margin-bottom: 0.8235rem !important;
 }
 
-.share{
-
+.share {
     line-height: 40px;
     height: 40px;
     font-size: 14px;
     margin: 25px 15px 30px 15px;
-    color: #696969;
+    color: #fff;
     display: block;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background: #FFFFFF;
+    border: 1px solid #ffad00;
+    background: #ffaa00;
     border-radius: 5px;
     text-align: center;
+
+}
+.share:active{
+    background: #e5a000;
 }
 
 .weui_tip{ position: absolute; top:50%; margin-top: -14px; line-height: 28px !important; z-index: 10000; background:rgba(0,0,0,0.8); border-radius: 10px; font-size: 13px; color:#fff; left:50%; padding: 0 10px;}
