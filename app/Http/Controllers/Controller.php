@@ -81,6 +81,17 @@ class Controller extends BaseController
 
     }
 
+    public function errorLog(Request $request){
+        $log = storage_path('logs').'/web_js_log'.  date("Y_m_d")  .'.txt';
+        $url = $request->input("url");
+        $line = $request->input("line");
+        $col = $request->input("col");
+        $msg = $request->input("msg");
+        $content =  date("Y_m_d h:i:s") . "[url:$url;line:$line;col:$col;msg:$msg]\r\n";
+        file_put_contents($log, $content, FILE_APPEND);
+
+    }
+
 
     protected function getUserId(Request $request)
     {
