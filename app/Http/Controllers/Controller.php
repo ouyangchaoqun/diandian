@@ -82,7 +82,7 @@ class Controller extends BaseController
     }
 
     public function errorLog(Request $request){
-        $log = storage_path('logs').'/web_js_log'.  date("Y_m_d")  .'.txt';
+        $log = storage_path('logs').'/web_js_log.txt';
         $url = $request->input("url");
         $line = $request->input("line");
         $col = $request->input("col");
