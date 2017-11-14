@@ -48,7 +48,7 @@
     .about_us_box h1{ font-size: 1.411764705882353rem; margin-top: 2.029411764705882rem; margin-bottom:1.205882352941176rem; }
     .about_us_box h3{ font-size: 0.88235rem; font-weight: normal}
     .about_us_box h2{ font-size: 0.88235rem; font-weight: normal; margin-top: 0.5588rem;margin-bottom: 0.5588rem;}
-    .about_us_box .ewm{   width:100%;  margin-top: 1.058823529411765rem; }
+    .about_us_box .ewm{   width:97%;  margin: 0 auto; margin-top: 1.058823529411765rem; }
     .about_us_box .ewm img{  width: 100%}
     .about_us_box .tip{ font-size: 0.88235rem;}
 
