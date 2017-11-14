@@ -429,7 +429,7 @@
                 });
             },
             formatContent: function (item) {
-                var before=  " [ 在"+item.scense.text+"方面 ]";
+                var before=  "<div style='font-size: 12px; color:#999; margin-top: 3px;'>[ 在"+item.scense.text+"方面 ]</div>";
                 var before2=  "在"+item.scense.text+"方面：";
                 if(item.content!=''&&item.content!=null&&item.content!=undefined){
                     return   xqzs.face.parse(item.content) + before;
