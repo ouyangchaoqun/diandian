@@ -50,7 +50,7 @@
     .about_us_box h2{ font-size: 0.88235rem; font-weight: normal; margin-top: 0.5588rem;margin-bottom: 0.5588rem;}
     .about_us_box .ewm{   width:100%;  margin-top: 1.058823529411765rem; }
     .about_us_box .ewm img{  width: 100%}
-    .about_us_box .tip{ font-size: 0.88235rem; margin-top: 0.53rem;}
+    .about_us_box .tip{ font-size: 0.88235rem;}
 
 
     .about_us_box .about{ background: rgba(255,255,255,0.8); position: absolute; bottom:1.2rem; z-index: 2; left:0.9rem; right:0.9rem; border-radius: 0.6rem; border: 1px solid #C9C7C6}
