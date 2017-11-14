@@ -13,6 +13,7 @@
                     <div class="swiper-slide swiper-no-swiping" v-for="(quest,questIndex) in questLists" >
                         <div class="question_style">
                             <div class="question_content">{{questIndex+1}}、{{quest.title}}</div>
+                            <div class="question_img" v-if="quest.image"><img :src="quest.image" /></div>
                             <ul class="question_option">
                                 <li class="nextOption" v-for="(item,index) in optionItem" v-if="quest['item'+item.val]" @click.stop="nextOption(quest.id,index)">
                                     <img class="optionItem" :src="item.src" alt=""><span class="optionHtml">{{quest['item'+item.val]}}</span>
@@ -318,4 +319,9 @@
     .testQuestions_btn .isLastStyle:active{
         background: #eee;
     }
+    .question_style .question_img{
+        margin:  0 1.17647rem;
+    }
+    .question_style .question_img img{ width: 100%}
+
 </style>
