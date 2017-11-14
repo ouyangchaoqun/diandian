@@ -40,7 +40,9 @@
 </script>
 <style>
     .about_us_box{
-        background:-webkit-gradient(linear, 0 0, 0 bottom, from(#FDAB38), to(#F79511)); color:#754A2F
+        background:-webkit-gradient(linear, 0 0, 0 bottom, from(#FDAB38), to(#F79511)); color:#754A2F; height: 100%; width: 100%;
+        overflow-y: hidden !important;
+        overflow-x: hidden !important;
     }
     .about_us_box h1, .about_us_box h2, .about_us_box h3,.about_us_box .tip{ text-align: center; line-height: 1}
     .about_us_box h1{ font-size: 1.411764705882353rem; margin-top: 2.029411764705882rem; margin-bottom:1.205882352941176rem; }
@@ -52,8 +54,8 @@
 
 
     .about_us_box .about{ background: rgba(255,255,255,0.8); position: absolute; bottom:1.2rem; z-index: 2; left:1rem; right:1rem; border-radius: 0.6rem; border: 1px solid #C9C7C6}
-    .about_us_box .title{ font-size:1.411764705882353rem; ; color:#754A2F; text-align: center; font-weight: bold; padding-top: 1.8rem; padding-bottom:0.4rem;line-height: 1}
-    .about_us_box .bgr{ height: 100rem;width: 100rem; border-radius: 50%;left:50%; margin-left: -50rem; position: fixed;  bottom:-92.4rem;   background: #FFFAF4}
+    .about_us_box .title{ font-size:1.411764705882353rem; ; color:#754A2F; text-align: center; font-weight: bold; padding-top: 1.5rem; padding-bottom:0.1rem;line-height: 1}
+    .about_us_box .bgr{ height: 100rem;width: 100rem; border-radius: 50%;left:50%; margin-left: -50rem; position: absolute;  bottom:-93rem;   background: #FFFAF4}
     .about_us_box .content{ color:#754A2F; font-size: 0.7647058823529412rem; padding-left: 0.7rem; padding-bottom: 0.76rem; line-height: 1.8rem; padding-top: 0.8rem;}
     .about_us_box .content b{ font-size: 0.8235294117647059rem;}
 
