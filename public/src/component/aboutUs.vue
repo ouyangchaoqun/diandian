@@ -45,7 +45,7 @@
         overflow-x: hidden !important;
     }
     .about_us_box h1, .about_us_box h2, .about_us_box h3,.about_us_box .tip{ text-align: center; line-height: 1}
-    .about_us_box h1{ font-size: 1.3rem; margin-top: 2.029411764705882rem; margin-bottom:1.205882352941176rem; }
+    .about_us_box h1{ font-size: 1.1rem; margin-top: 2.029411764705882rem; margin-bottom:1.205882352941176rem; }
     .about_us_box h3{ font-size:0.7647058823529412rem; font-weight: normal}
     .about_us_box h2{ font-size: 0.7647058823529412rem; font-weight: normal; margin-top: 0.5588rem;margin-bottom: 0.5588rem;}
     .about_us_box .ewm{   width:97%;  margin: 0 auto; margin-top: 1.058823529411765rem; }
