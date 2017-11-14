@@ -13,7 +13,7 @@
             <div class="title">“好一点”有什么</div>
             <div class="content">
                 <b>新生活：</b><span>记录打卡、心情说说、心理测试、星座运势...</span><br>
-                <b>加加油：</b><span>情感困惑、人际关系、婚姻家庭、专家咨询...</span>
+                <b>加加油：</b><span>情感困惑、人际关系、工作事业、专家咨询...</span>
             </div>
         </div>
         <div class="bgr"></div>
