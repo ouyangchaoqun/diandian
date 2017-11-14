@@ -30,7 +30,7 @@
         mounted:function () {
 
 
-            xqzs.wx.shareConfig.me.link= web.BASE_PATH + '#/me/aboutUs',
+            xqzs.wx.shareConfig.me.link= web.BASE_PATH + '#/me/aboutUs';
             xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.me);
 
         }
@@ -48,15 +48,15 @@
     .about_us_box h1{ font-size: 1.411764705882353rem; margin-top: 2.029411764705882rem; margin-bottom:1.205882352941176rem; }
     .about_us_box h3{ font-size: 0.88235rem; font-weight: normal}
     .about_us_box h2{ font-size: 0.88235rem; font-weight: normal; margin-top: 0.5588rem;margin-bottom: 0.5588rem;}
-    .about_us_box .ewm{ height:14.20588235294118rem; ; width:9.147058823529412rem; margin: 0 auto; margin-top: 1.058823529411765rem; }
-    .about_us_box .ewm img{ height: 100%; width: 100%}
+    .about_us_box .ewm{   width:100%;  margin-top: 1.058823529411765rem; }
+    .about_us_box .ewm img{  width: 100%}
     .about_us_box .tip{ font-size: 0.88235rem; margin-top: 0.53rem;}
 
 
-    .about_us_box .about{ background: rgba(255,255,255,0.8); position: absolute; bottom:1.2rem; z-index: 2; left:1rem; right:1rem; border-radius: 0.6rem; border: 1px solid #C9C7C6}
+    .about_us_box .about{ background: rgba(255,255,255,0.8); position: absolute; bottom:1.2rem; z-index: 2; left:0.9rem; right:0.9rem; border-radius: 0.6rem; border: 1px solid #C9C7C6}
     .about_us_box .title{ font-size:1.411764705882353rem; ; color:#754A2F; text-align: center; font-weight: bold; padding-top: 1.5rem; padding-bottom:0.1rem;line-height: 1}
     .about_us_box .bgr{ height: 100rem;width: 100rem; border-radius: 50%;left:50%; margin-left: -50rem; position: absolute;  bottom:-92.8rem;   background: #FFFAF4}
-    .about_us_box .content{ color:#754A2F; font-size: 0.7647058823529412rem; padding-left: 0.7rem; padding-bottom: 0.76rem; line-height: 1.8rem; padding-top: 0.8rem;}
+    .about_us_box .content{ color:#754A2F; font-size: 0.7647058823529412rem;    text-align: center; padding-bottom: 0.76rem; line-height: 1.8rem; padding-top: 0.8rem;}
     .about_us_box .content b{ font-size: 0.8235294117647059rem;}
 
 
