@@ -455,7 +455,7 @@
         line-height: 21px;
         color: #333333;
         padding: 4px 16px 8px 0;
-        letter-spacing: 0.03rem;
+        /*letter-spacing: 0.03rem;*/
     }
 
     .stateBottom {
