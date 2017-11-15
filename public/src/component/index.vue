@@ -120,7 +120,7 @@
                                 <div class="friend">
                                     <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}</p>
                                     <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}</p>
-                                    <p class="time">{{friendMood.outTime}}</p>
+                                    <p class="time">{{friendMood.friendNum}}位好友</p>
                                 </div>
                             </div>
 
@@ -149,7 +149,7 @@
                                     <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8) }}</p>
                                     <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8) }}</p>
 
-                                    <p class="time">{{friendMood.outTime}}</p>
+                                    <p class="time">{{friendMood.friendNum}}位好友</p>
                                 </div>
                             </div>
 
