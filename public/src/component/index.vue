@@ -56,6 +56,19 @@
                     <img class="brithDayBg" src="../images/birthday/brithDayBg.png" alt="">
                 </div>
                 <v-banner v-show="!isBirthday"></v-banner>
+                <div class="flow">
+                    <div class="img"></div>
+                    <div class="img2"></div>
+                    <div class="img3"></div>
+                    <div class="img4"></div>
+
+                </div>
+            </div>
+            <div class="index_btns">
+                <a   class="get_up"><span>早起打卡</span></a>
+                <a   class="mood"><span>心情说说</span></a>
+                <a   class="habit"><span>好习惯</span></a>
+                <a   class="sign"><span>每日一签</span></a>
             </div>
             <!--banner end -->
             <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
@@ -542,6 +555,86 @@
 
 </script>
 <style>
+
+    .index_btns { display: flex;
+        display: -webkit-box;
+        display: -webkit-flex;
+        height: 5.5rem;
+        background: #fff;
+        border-bottom: 0.58823529411764705882352941176471rem solid #F4F3F8 ;
+    }
+    .index_btns a{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        z-index: 100;
+        text-align: center;
+        color:#999; font-size: 0.70588235294117647058823529411765rem;
+    }
+
+    .index_btns a:before{content: ' '; display: block; width: 3rem; height: 3rem; margin: 0 auto; margin-bottom: 0.4rem;}
+    .index_btns a.get_up:before{ background: url(../images/index_btn_get_up.png) no-repeat; background-size: 3rem;}
+    .index_btns a.mood:before{ background: url(../images/index_btn_mood.png) no-repeat; background-size: 3rem;}
+    .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat; background-size: 3rem;}
+    .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat; background-size: 3rem;}
+
+
+
+
+
+    .banner { width: 100%; overflow: hidden}
+    .banner .flow{
+        width: 1600rem;
+        position: absolute;
+        height: 200px;
+        bottom: -15px;
+    }
+    .banner .flow .img{
+        opacity: 0.9;
+        width: 2000rem;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        height: 80px;
+        animation: flow 460s infinite;
+        -webkit-animation: flow 460s infinite;  position: absolute; bottom:0;
+        animation-timing-function:linear}
+    .banner .flow .img2{
+        opacity: 0.7;
+        width: 2000rem;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        height: 80px;
+        animation: flow 600s infinite;
+        -webkit-animation: flow 600s infinite;  position: absolute; bottom:0;
+        animation-timing-function:linear}
+    .banner .flow .img3{
+        width: 2000rem;
+        opacity: 0.5;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        height: 80px;
+        animation: flow 720s infinite;
+        -webkit-animation: flow 720s infinite;  position: absolute; bottom:0;
+        animation-timing-function:linear}
+    .banner .flow .img4{
+        -webkit-filter: blur(8px); /* Chrome, Opera */
+        -ms-filter: blur(8px);
+        filter: blur(8px);
+        width: 2000rem;
+        opacity: 0.4;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        height: 80px;
+        animation: flow 800s infinite;
+        -webkit-animation: flow 800s infinite;  position: absolute; bottom:10px;
+        animation-timing-function:linear}
+
+    @keyframes  flow {
+        0%{
+            left:0
+        }
+        100%{
+            left:-100%;
+        }
+    }
+
+
 
     .add_record{ height: 3.3rem; width: 3.3rem ; margin-left: -1.65rem; top:-1.65rem; border-radius: 50% ;position: absolute; font-size: 2.5rem;  left:50%; background: #fff; color:#fff; border: 0.0588235294117647rem solid #ddd;}
     .add_record:before{ content: " " ; height: 2.8rem; width: 2.8rem;border-radius: 50% ;position: absolute;left:0.25rem; background: #0BB20C; top:0.25rem; z-index: 2  }
