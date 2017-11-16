@@ -57,10 +57,11 @@
                 </div>
                 <v-banner v-show="!isBirthday"></v-banner>
                 <div class="flow">
+                    <div class="img4"></div>
                     <div class="img"></div>
                     <div class="img2"></div>
                     <div class="img3"></div>
-                    <div class="img4"></div>
+
 
                 </div>
             </div>
@@ -587,10 +588,10 @@
         width: 1600rem;
         position: absolute;
         height: 200px;
-        bottom: -15px;
+        bottom: -38px;
     }
     .banner .flow .img{
-        opacity: 0.9;
+        opacity: 0.8;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
         height: 80px;
@@ -598,7 +599,7 @@
         -webkit-animation: flow 460s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img2{
-        opacity: 0.7;
+        opacity: 0.6;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
         height: 80px;
@@ -607,16 +608,16 @@
         animation-timing-function:linear}
     .banner .flow .img3{
         width: 2000rem;
-        opacity: 0.5;
+        opacity: 0.4;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
         height: 80px;
         animation: flow 720s infinite;
         -webkit-animation: flow 720s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img4{
-        -webkit-filter: blur(8px); /* Chrome, Opera */
-        -ms-filter: blur(8px);
-        filter: blur(8px);
+        -webkit-filter: blur(5px); /* Chrome, Opera */
+        -ms-filter: blur(5px);
+        filter: blur(5px);
         width: 2000rem;
         opacity: 0.4;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
