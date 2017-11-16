@@ -33,10 +33,10 @@
                 </div>
             </div>
             <div class="index_btns">
-                <a   class="get_up"><span>早起打卡</span></a>
-                <a   class="mood"><span>心情说说</span></a>
-                <a   class="habit"><span>好习惯</span></a>
-                <a   class="sign"><span>每日一签</span></a>
+                <a   class="get_up" @click=""><span>早起打卡</span></a>
+                <a   class="mood" @click="addMood()"><span>心情说说</span></a>
+                <a   class="habit" @click="goHabit()"><span>好习惯</span></a>
+                <a   class="sign" @click="dailyRecord()"><span>每日一签</span></a>
             </div>
             <!--banner end -->
             <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
@@ -212,6 +212,140 @@
             }
         },
         methods: {
+            goHabit:function () {
+                this.$router.push("/habit")
+            },
+            dailyRecord: function () {
+                let _this = this;
+                _this.showLoad = true;
+                _this.$http.get(web.API_PATH + 'record/daily/sign/card/_userId_').then(response => {
+                    console.log(response);
+                    if (response.data.status == 1) {
+                        _this.showLoad = false;
+                        xqzs.weui.dialog({
+                            title: '每日一签已经发送',
+                            msg: '前往公众号查看你的每日一签',
+                            submitText: '查看',
+                            submitFun: function () {
+                                try {
+                                    WeixinJSBridge.call('closeWindow');
+                                } catch (e) {
+                                }
+                            }
+                        })
+                        _this.isDailyRecord = true;
+                        var date = new Date();
+                        cookie.set("isDailyRecord", true, 1 - date.getHours() / 24);
+
+                    }
+
+                }, function (error) {
+                    _this.showLoad = false;
+                });
+
+
+            },
+            getUserInfo:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                        if(_this.user&&_this.user.faceUrl) xqzs.wx.shareConfig.home.imgUrl=_this.user.faceUrl;
+                        xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.home);
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
+            addMood: function () {
+                let _this = this;
+                console.log("addMood");
+                _this.getMoodCount(function (moodcount) {
+                    if (moodcount < 10) {
+                        _this.$router.push("/addMood")
+
+                    } else {
+                        if (_this.user&&_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                            _this.$router.push("/me/personal/validate")
+                        } else {
+                            _this.$router.replace("/addMood")
+                        }
+                    }
+                });
+
+            },
+            getMoodCount(callback) {
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'mood/get/user/count/_userId_'
+                }).then(function (bt) {
+                    if (bt.data && bt.data.status == 1) {
+                        if (typeof callback == 'function') {
+                            callback(bt.data.data);
+                        }
+                    }
+                })
+            },
+
+            morning: function () {
+                console.log("morning")
+
+                let _this = this;
+                if (_this.isGetUp && _this.isRecordTime(_this.MORNING_FROM_TIME, _this.MORNING_END_TIME)) {
+                    _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
+//                    _this.showResult(_this.getUpId);
+                    return;
+                }
+                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
+                    this.checkIn(2);
+                } else {
+                    console.log('outMorningTime');
+                    _this.animateIn();
+                    _this.outMorningTime = true;
+                    $(".timeout").show().animate({"opacity": 1}, 200, function () {
+                    });
+
+                }
+
+            },
+            night: function () {
+                console.log('night')
+                let _this = this;
+                if (_this.isGoBed && _this.isRecordTime(_this.NIGHT_FROM_TIME, _this.NIGHT_END_TIME)) {
+                    _this.showResult(_this.goBedId);
+                    return;
+                }
+
+                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)) {
+
+
+                    _this.animateIn();
+                    $(".night_action").show().animate({"opacity": 1}, 200, function () {
+                    });
+                    let w = $("body").width();
+                    $(".night_action").height(w * 753 / 750);
+                    _this.isNight = true;
+                    _this.isDoNight = true;
+
+                    //this.checkIn(3);
+                } else {
+                    console.log('outnightTime');
+                    _this.isNight = true;
+                    _this.animateIn();
+                    console.log('outnightTime');
+                    _this.outNightTime = true;
+                    $(".timeout").show().animate({"opacity": 1}, 200, function () {
+
+                    });
+                    $(".date_info").addClass("ngihttop")
+
+                }
+            },
 
             birthday:function (userId) {
                 this.$router.push("/birthday?userId="+userId)
@@ -366,8 +500,9 @@
         mounted: function () {
 
             let _this =this;
-            if(_this.user&&_this.user.faceUrl) xqzs.wx.shareConfig.home.imgUrl=_this.user.faceUrl;
-            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.home);
+            _this.getUserInfo();
+
+
 
              if( xqzs.localdb.get("isBirthday")==="1"){
                  _this.isBirthday=true;
@@ -457,6 +592,8 @@
             });
 
 
+
+
             if(window.screen.height==$(window).height()){
                 if(window.screen.width==320&& window.screen.availHeight==548){
                     var style ="<style id='iphone5style'>.transitionBox .child-view{height:504px !important;}</style>";
@@ -466,9 +603,7 @@
                 $("#iphone5style").remove();
             }
 
-//           setTimeout(function () {
-//               $(".weui-tab__panel").scrollTop(   xqzs.localdb.get("indexScrollTop"));
-//           },100)
+//
 
         },
         updated:function () {
@@ -526,7 +661,7 @@
     }
     .banner .flow .img{
 
-        opacity: 0.88;
+        opacity: 0.82;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem  3rem;
         height: 80px;
@@ -534,7 +669,7 @@
         -webkit-animation: flow 260s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img2{
-        opacity: 0.7;
+        opacity: 0.82;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem  3rem;
         height: 80px;
@@ -544,7 +679,7 @@
     .banner .flow .img3{
 
         width: 2000rem;
-        opacity: 0.7;
+        opacity: 0.82;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem 3rem;
         height: 80px;
         animation: flow 720s infinite;

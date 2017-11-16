@@ -57,7 +57,8 @@ let routers =
                 require('./routes/testList'),
                 require('./routes/testResult'),
                 require('./routes/testLeavMessage'),
-                require('./routes/more')
+                require('./routes/more'),
+                require('./routes/habit')
             ]
         }
     ];
