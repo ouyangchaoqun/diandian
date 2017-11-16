@@ -591,7 +591,7 @@
         bottom: -38px;
     }
     .banner .flow .img{
-        opacity: 0.82;
+        opacity: 0.88;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
         height: 80px;
@@ -599,7 +599,7 @@
         -webkit-animation: flow 260s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img2{
-        opacity: 0.7;
+        opacity: 0.75;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
         height: 80px;
@@ -608,7 +608,7 @@
         animation-timing-function:linear}
     .banner .flow .img3{
         width: 2000rem;
-        opacity: 0.5;
+        opacity: 0.6;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
         height: 80px;
         animation: flow 720s infinite;
