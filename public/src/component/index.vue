@@ -588,28 +588,30 @@
         width: 1600rem;
         position: absolute;
         height: 200px;
-        bottom: -38px;
+        bottom: -20px;
     }
     .banner .flow .img{
+
         opacity: 0.88;
         width: 2000rem;
-        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem  3rem;
         height: 80px;
         animation: flow 260s infinite;
         -webkit-animation: flow 260s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img2{
-        opacity: 0.75;
+        opacity: 0.7;
         width: 2000rem;
-        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem  3rem;
         height: 80px;
         animation: flow 600s infinite;
         -webkit-animation: flow 600s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img3{
+
         width: 2000rem;
-        opacity: 0.6;
-        background: url(../images/index_flow.png) repeat-x bottom;background-size: 30rem;
+        opacity: 0.7;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem 3rem;
         height: 80px;
         animation: flow 720s infinite;
         -webkit-animation: flow 720s infinite;  position: absolute; bottom:0;
@@ -620,10 +622,10 @@
         filter: blur(6px);
         width: 2000rem;
         opacity: 0.4;
-        background: url(../images/index_flow.png) repeat-x bottom;background-size: 20rem;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 20rem ;
         height: 80px;
         animation: flow 800s infinite;
-        -webkit-animation: flow 800s infinite;  position: absolute; bottom:33px;
+        -webkit-animation: flow 800s infinite;  position: absolute; bottom:20px;
         animation-timing-function:linear}
 
     @keyframes  flow {

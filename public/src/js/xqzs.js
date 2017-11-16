@@ -475,7 +475,7 @@ var xqzs = {
             return currTime - mood.addTime <= this.canRevokeTime && !this.canClear(mood);
         },
         getTopImg: function () {
-            return   "http://oss.xqzs.cn/xqzs/top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
+            return   "http://oss.xqzs.cn/xqzs/top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()-86400*4) + ".jpg";
         },
         getCjImg: function (scenesid) {
             for (var i = 0, l = this.moodScenesList.length; i < l; i++) {
