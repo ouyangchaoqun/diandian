@@ -2,40 +2,7 @@
     <div style="height: 100%" >
 
         <div v-title>好一点</div>
-        <div class="weui-tabbar" id="tabs">
-            <a  @click="rank()" class="weui-tabbar__item tab " >
-                <span  class="calendarImg tab_icon"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:calendarOn}">打卡排行</p>
-            </a>
-            <a class="weui-tabbar__item tab" @click="hideNewCircle('mood','/friendsMoods')">
-                <span   class="friendsImg tab_icon"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:friendsOn}">小心情</p>
-                <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
-            </a>
-
-
-
-            <a class="weui-tabbar__item tab add_record_box "  @click="record()"  style="position: relative">
-                <div class="add_record">
-                    <span>+</span>
-                </div>
-                <span   class="  tab_icon" style="background: none"></span>
-                <p class="weui-tabbar__label"  :class="{tabOn:recordOn}">记录打卡</p>
-            </a>
-
-            <a   @click="more()" class="weui-tabbar__item  tab">
-                <span  class="moreImg tab_icon"></span>
-                <p class="weui-tabbar__label" :class="{tabOn:more}">发现</p>
-                <span v-show="!isMoreHotPointClicked" class="hasnew" :style="newFirendMoodStyle" ></span>
-            </a>
-
-            <a class="weui-tabbar__item tab" @click="hideNewCircle('perfect','/me')">
-                <span  class="meImg tab_icon"></span>
-                <p class="weui-tabbar__label"   :class="{tabOn:meOn}">我的</p>
-                <span v-show="hasNewPerfect" class="hasnew" :style="newPerfectStyle"></span>
-            </a>
-
-        </div>
+        <v-tab tab="home"></v-tab>
         <div class="weui-tab__panel" >
             <div class="banner" style="position: relative;">
                 <div class="birthdays swiper-container" v-if="birthdayList&&birthdayList.length>0">
@@ -191,6 +158,7 @@
             <!--friendcenter end-->
         </div>
 
+
         <div class="addMoodBg"></div>
 
     </div>
@@ -198,6 +166,7 @@
 
 <script type="es6">
     import banner from "./banner.vue";
+    import tab from "./lib/tab.vue";
     import Bus from './bus.js';
     let myCenter = {
         template: '#myCenter'
@@ -211,10 +180,7 @@
                 linkTo:"#",
                 noticeLink:'/notice',
                 fillFlag:false,
-                hasNewFirendMood:false,
-                newFirendMoodStyle:'',
-                hasNewPerfect:false,
-                newPerfectStyle:'',
+
                 scrollTop:0,
                 birthdayList:[],
                 isBirthday:false,
@@ -246,12 +212,7 @@
             }
         },
         methods: {
-            checkMoreHot:function () {
-                this.isMoreHotPointClicked=  xqzs.localdb.get(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY);
-                let container = $('#tabs .tab:eq(0)');
-                let right = (container.width() - 32) / 2;
-                this.newFirendMoodStyle = 'right:' + right + 'px';
-            },
+
             birthday:function (userId) {
                 this.$router.push("/birthday?userId="+userId)
             },
@@ -272,12 +233,7 @@
                     this.$router.push("/sleepRank?type=3")
                 }
 
-                ///以下不要了
-//                var  _this=this;
-//                setTimeout(function () {
-//                    let date = new Date();
-//                    _this.$router.push("/ranklist/w/"+date.getFullYear()+"-"+ now_week );
-//                },2)
+
             },
             care: function (id) {
                 let _this = this;
@@ -348,9 +304,7 @@
                     })
                 });
             },
-            canWriteMood:function () {
 
-            },
 
             getFriendLastMood:function () {
 
@@ -396,29 +350,8 @@
 //                        })
 //                }
             },
-            getNewPerfect:function () {
-                var infokey = 'perfectinfo';
-                if(xqzs.version.isshow(infokey)){
-                    this.hasNewPerfect=true;
-                    var container = $('#tabs .tab:eq(0)');
-                    var right = (container.width() - 32) / 2;
-                    this.newPerfectStyle = 'right:'+right+'px';
-                }
-            },
-            hideNewCircle:function (key,url) {
-                var _this =this ;
-                if(key == 'mood'){
-                    xqzs.localdb.set(_this.LOCAL_DB_KEY_MOOD_COUNT,  _this.newMoodCount);
-                    this.hasNewFirendMood = false;
-                }
-                if(key == 'perfect'){
-                    this.hasNewPerfect = false;
-                }
-                setTimeout(function () {
-                    _this.$router.push(url)
-                },2)
 
-            },
+
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             }
@@ -441,7 +374,7 @@
              }else{
                  _this.isBirthday=false;
              }
-             _this.checkMoreHot();
+
 
              this.qunImgHeight =  $(window).width() * 400 *0.6 / 300;
              $(".weui-tab__panel").height($(window).height()-50);
@@ -508,8 +441,8 @@
 
 
             Bus.$emit('initHomeData');
-            _this.getFriendLastMood();
-            _this.getNewPerfect();
+
+
             _this.$http({
                 method: 'GET',
                 type: "json",
@@ -548,7 +481,8 @@
 
         },
         components: {
-            "v-banner": banner
+            "v-banner": banner,
+            "v-tab":tab
         }
 
     }
@@ -669,18 +603,7 @@
     .birthdays.b_right li img{margin-left: 0.4rem;}
     .birthdays.b_right li i{ margin-right: 0.2rem;}
 
-    .tab{position: relative; padding-top: 0 !important;}
-    #tabs a .tab_icon{ background: url(../images/tab_icons2.png) no-repeat; background-size: 116px; height: 27px; width: 29px; display: inline-block; margin-top: 1px;}
-    #tabs a .tab_icon.calendarImg { background-position: 0 0px}
-    #tabs a .tab_icon.friendsImg{ background-position: -29px 0px}
-    #tabs a .tab_icon.moreImg{ background-position: -58px 0px}
-    #tabs a .tab_icon.meImg{ background-position: -87px 0px}
 
-    #tabs a:active span.calendarImg { background-position: 0  -29px}
-    #tabs a:active span.friendsImg{ background-position: -29px -29px}
-    #tabs a:active span.moreImg{ background-position: -58px -29px}
-    #tabs a:active span.meImg{ background-position: -87px -29px}
-    #tabs a:active .weui-tabbar__label{ color:#00bd00}
     .brithBox{
         position: relative;
         overflow: hidden;
@@ -747,26 +670,10 @@
     }
 
 
-    .tab .hasnew{position:absolute;background-color:#ff0000;border-radius: 50%;top:1px;height: 8px !important;width: 8px!important;}
-    .tab img{
-        height: 24px;  width:24px;
-    }
+
     .friendCenter .addBorder{
         border-bottom: 1px solid #eeeeee;
     }
-
-    #tabs {
-        z-index:10000;
-        background: #fff;
-        height: 47px;
-        border-top:1px solid #ddd;padding-top:1px;
-    }
-    #tabs:before{  display: none }
-    #tabs .weui-tabbar__label{ color:#777}
-
-
-
-
 
 
     body, html {

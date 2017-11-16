@@ -1,4 +1,4 @@
-<template id="friends">
+<template >
 
     <div style="position: relative">
         <!--<div class="weui-toast">
@@ -7,7 +7,8 @@
         </div>-->
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>小心情</div>
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
+        <v-tab tab="friendMoods"></v-tab>
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" cutHeight="50">
             <div class="friends_box">
 
                 <!--beforeChange-->
@@ -97,10 +98,9 @@
 
 <script type="text/javascript">
     import scroll from './lib/scroll.vue';
+    import tab from './lib/tab.vue';
     import showLoad from './showLoad.vue';
-    let friends = {
-        template: '#friends'
-    };
+
     export default {
         data() {
             return {
@@ -367,7 +367,8 @@
         },
         components: {
             'v-scroll': scroll,
-            'v-showLoad':showLoad
+            'v-showLoad':showLoad,
+            'v-tab':tab,
         },
         beforeDestroy: function () {
             xqzs.weui.removeWhenPageChange()

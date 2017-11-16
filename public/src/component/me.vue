@@ -1,6 +1,8 @@
-<template id="me">
+<template >
 	<div class="me_box">
 		<div v-title>个人中心</div>
+		<v-tab tab="me"></v-tab>
+
 		<div class="me_top">
 			<router-link to="/me/personal" class="me1">
 				<span v-show="hasNewPerfect" class="hasnew"></span>
@@ -73,9 +75,6 @@
 			</div>
 		</a>
 
-		<div class="me_bottom">
-			<a class="weui-btn weui-btn_primary"  @click="createinvite()">生成邀请卡</a>
-		</div>
 		<div style="height: 50px;"></div>
 	</div>
 </template>
@@ -209,9 +208,7 @@
 	}
 </style>
 <script type="text/javascript">
-	var me={
-		template:'#me'
-	};
+    import tab from './lib/tab.vue';
     export default {
         data() {
             return {
@@ -276,6 +273,9 @@
                 }
             }
 		},
+        components: {
+            'v-tab':tab
+        },
 		updated:function () {
 
 

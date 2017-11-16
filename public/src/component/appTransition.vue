@@ -111,6 +111,17 @@
                 }, function (error) {
                     //error
                 });
+            },
+            isTabChange: function (from, to) {
+                let tabs = [
+                    '/',
+                    '/more',
+                    '/me',
+                    '/friendsMoods'
+                ];
+
+
+                return ($.inArray(from.path, tabs) != -1 && $.inArray(to.path, tabs) != -1);
             }
         },
 
@@ -141,43 +152,47 @@
 
 //            console.log({to:to.fullPath,from:from.fullPath});
 
-            let isBack = false;
-            for (let i = 0; i < this.pagesIn.length; i++) {
+            if (this.isTabChange(from, to)) {
+                this.transitionName = '';
+            }else{
+                let isBack = false;
+                for (let i = 0; i < this.pagesIn.length; i++) {
 //                console.log(this.pagesIn[i]);
-                if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
-                    isBack = true;
-                    this.pagesIn.splice(i, 1);
-                    break;
+                    if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
+                        isBack = true;
+                        this.pagesIn.splice(i, 1);
+                        break;
+                    }
                 }
-            }
 
-            if(to.fullPath==='/')isBack=true;
+                if(to.fullPath==='/')isBack=true;
 
-            if (!isBack)
-                this.pagesIn.push({to: to.fullPath, from: from.fullPath})
+                if (!isBack)
+                    this.pagesIn.push({to: to.fullPath, from: from.fullPath})
 
-            console.log("bearbear");
+                console.log("bearbear");
 //
-            console.log(from.fullPath);
+                console.log(from.fullPath);
 
-            let isBackStrIndex  =  to.fullPath.indexOf("isBack=1");
-            if(isBackStrIndex>0 ){
-                isBack= true;
-            }
+                let isBackStrIndex  =  to.fullPath.indexOf("isBack=1");
+                if(isBackStrIndex>0 ){
+                    isBack= true;
+                }
 
-            if(_this.$route.query.isBack!=undefined &&　_this.$route.query.isBack==1){
-                isBack= true;
-            }
-            //是否为点开心情页面；
-            if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/record") {
-                this.transitionName = 'page-xqzs-up'
-            } else if (from.fullPath === "/record" && (to.fullPath === "/" || to.fullPath === "/#")) {
-                this.transitionName = 'page-xqzs-down'
+                if(_this.$route.query.isBack!=undefined &&　_this.$route.query.isBack==1){
+                    isBack= true;
+                }
+                //是否为点开心情页面；
+                if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/record") {
+                    this.transitionName = 'page-xqzs-up'
+                } else if (from.fullPath === "/record" && (to.fullPath === "/" || to.fullPath === "/#")) {
+                    this.transitionName = 'page-xqzs-down'
 
-            }else if (isBack) {
-                this.transitionName = 'page-xqzs-right'
-            } else {
-                this.transitionName = 'page-xqzs-left'
+                }else if (isBack) {
+                    this.transitionName = 'page-xqzs-right'
+                } else {
+                    this.transitionName = 'page-xqzs-left'
+                }
             }
 
 

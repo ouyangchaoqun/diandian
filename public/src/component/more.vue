@@ -2,101 +2,105 @@
     <div style="height: 100%"  class="more_box wbg" >
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>发现</div>
-        <div class="banner swiper-container  swiper_banner">
-            <div class="swiper-wrapper">
-                <div class="sw swiper-slide">
-                <a class="item" @click="luck()">
-                    <div class="img">
-                        <img src="../images/luck/lucky.png">
-                    </div>
-                    <div class="title"></div>
-
-                </a>
-                </div>
-
-                <div class="sw swiper-slide">
-                    <a class="item" href="http://mp.weixin.qq.com/s/S8zNN8Mvzl6dG0HfUrMyaw">
+        <v-tab  tab="more"></v-tab>
+        <div class="box_content">
+            <div class="banner swiper-container  swiper_banner">
+                <div class="swiper-wrapper">
+                    <div class="sw swiper-slide">
+                    <a class="item" @click="luck()">
                         <div class="img">
-                            <img src="../images/more_banner2.jpg">
+                            <img src="../images/luck/lucky.png">
                         </div>
+                        <div class="title"></div>
 
                     </a>
-                </div>
+                    </div>
 
-
-
-                <div class="sw swiper-slide" v-for="item in bannerTest">
-                    <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
-                    <img :src="item.banner_pic">
-                    <div class="title"></div>
-                    <div class="sub_title"></div>
-                    </router-link>
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-        <div class="new_add_test test_box">
-            <div class="title">
-                <div class="left_icon"></div>
-                <div class="n"><span>新品</span>首发</div>
-            </div>
-            <div class="sub_title">用新的视角遇见更好的自己</div>
-            <div class="list swiper-container new_swiper">
-                <div class="swiper-wrapper">
-                    <div class="item swiper-slide" v-for="item in newTest">
-                        <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
+                    <div class="sw swiper-slide">
+                        <a class="item" href="http://mp.weixin.qq.com/s/S8zNN8Mvzl6dG0HfUrMyaw">
                             <div class="img">
-                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
-                                <div class="time">{{item.count}}人测过</div>
+                                <img src="../images/more_banner2.jpg">
                             </div>
-                            <div class="t">{{(item.title)}}</div>
-                            <div class="price">¥{{formatPrice(item.price)}}</div>
+
+                        </a>
+                    </div>
+
+
+
+                    <div class="sw swiper-slide" v-for="item in bannerTest">
+                        <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
+                        <img :src="item.banner_pic">
+                        <div class="title"></div>
+                        <div class="sub_title"></div>
                         </router-link>
                     </div>
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
-        </div>
-        <div class="pre_sell_test test_box">
-            <div class="title">
-                <div class="left_icon"></div>
-                <div class="n"><span>探索营</span></div>
-            </div>
-            <div class="sub_title">主动探索未知的自己</div>
-            <div class="list swiper-container pre_swiper">
-                <div class="swiper-wrapper">
-                    <div class="item swiper-slide" v-for="item in wantTest">
-                        <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
-                            <div class="img">
-                                <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
-                                <div class="time">{{item.wantCount}}人想测</div>
-                            </div>
-                            <div class="t">{{(item.title)}}</div>
-                            <div class="price">¥{{formatPrice(item.price)}}</div>
-                        </router-link>
-                    </div>
+            <div class="new_add_test test_box">
+                <div class="title">
+                    <div class="left_icon"></div>
+                    <div class="n"><span>新品</span>首发</div>
                 </div>
-            </div>
-        </div>
-        <div class="hot_test">
-            <div class="title" @click="goTestList()">精选评测 <div class="more_test"><span>更多</span></div></div>
-            <div class="list">
-                <div class="item"  v-for="item in featureTest">
-                    <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
-                        <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'"></div>
-                        <div class="left">
-                            <div class="tc">
-                                <div class="t">{{item.title}}</div>
-                                <div class="sub_t">{{item.sub_title}}</div>
-                            </div>
-                            <div class="price">¥{{formatPrice(item.price)}}<span>¥{{formatPrice(item.old_price)}}</span></div>
-                            <div class="done_count">{{item.count}}人已测</div>
+                <div class="sub_title">用新的视角遇见更好的自己</div>
+                <div class="list swiper-container new_swiper">
+                    <div class="swiper-wrapper">
+                        <div class="item swiper-slide" v-for="item in newTest">
+                            <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
+                                <div class="img">
+                                    <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
+                                    <div class="time">{{item.count}}人测过</div>
+                                </div>
+                                <div class="t">{{(item.title)}}</div>
+                                <div class="price">¥{{formatPrice(item.price)}}</div>
+                            </router-link>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pre_sell_test test_box">
+                <div class="title">
+                    <div class="left_icon"></div>
+                    <div class="n"><span>探索营</span></div>
+                </div>
+                <div class="sub_title">主动探索未知的自己</div>
+                <div class="list swiper-container pre_swiper">
+                    <div class="swiper-wrapper">
+                        <div class="item swiper-slide" v-for="item in wantTest">
+                            <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
+                                <div class="img">
+                                    <img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'">
+                                    <div class="time">{{item.wantCount}}人想测</div>
+                                </div>
+                                <div class="t">{{(item.title)}}</div>
+                                <div class="price">¥{{formatPrice(item.price)}}</div>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hot_test">
+                <div class="title" @click="goTestList()">精选评测 <div class="more_test"><span>更多</span></div></div>
+                <div class="list">
+                    <div class="item"  v-for="item in featureTest">
+                        <router-link :to="{ path: '/psychtestDetail', query: { testId: item.id}}">
+                            <div class="right"><img :src="item.pic+'?x-oss-process=image/resize,m_fill,h_200,w_200'"></div>
+                            <div class="left">
+                                <div class="tc">
+                                    <div class="t">{{item.title}}</div>
+                                    <div class="sub_t">{{item.sub_title}}</div>
+                                </div>
+                                <div class="price">¥{{formatPrice(item.price)}}<span>¥{{formatPrice(item.old_price)}}</span></div>
+                                <div class="done_count">{{item.count}}人已测</div>
+                            </div>
 
-                        <div class="clear"></div>
-                    </router-link>
+                            <div class="clear"></div>
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>
+
 
 
     </div>
@@ -104,6 +108,7 @@
 
 <script type="es6">
     import showLoad from './showLoad.vue';
+    import tab from './lib/tab.vue';
 
     export default {
         data() {
@@ -128,7 +133,8 @@
             }
         },
         components: {
-            'v-showLoad': showLoad
+            'v-showLoad': showLoad,
+            'v-tab': tab
         },
         methods: {
             goTestList:function () {
@@ -245,6 +251,9 @@
             xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.more);
             xqzs.localdb.set(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY,true);
 
+            this.$nextTick(function () {
+                $(".box_content").height($(document).height()-50)
+            })
 
         },
 
@@ -254,6 +263,7 @@
 </script>
 <style>
     .more_box{ background: #fff !important}
+    .box_content{ overflow-y: scroll}
     .more_box .banner{  color:#fff; width: 100%; height: 11.8rem; overflow: hidden; position: relative}
     .more_box .banner .title{  color:#fff;  font-size: 0.88235rem; font-weight: bold; position: absolute; bottom:2.6rem; left:0.88235rem;  z-index: 3}
     .more_box .banner .sub_title{position: absolute;color:#fff; bottom:1.26rem;font-size: 0.7058823529411765rem;left:0.88235rem;;  z-index: 3 }
