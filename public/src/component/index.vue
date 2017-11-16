@@ -620,10 +620,10 @@
         filter: blur(6px);
         width: 2000rem;
         opacity: 0.4;
-        background: url(../images/index_flow.png) repeat-x bottom;background-size: 40rem;
+        background: url(../images/index_flow.png) repeat-x bottom;background-size: 20rem;
         height: 80px;
         animation: flow 800s infinite;
-        -webkit-animation: flow 800s infinite;  position: absolute; bottom:-6px;
+        -webkit-animation: flow 800s infinite;  position: absolute; bottom:36px;
         animation-timing-function:linear}
 
     @keyframes  flow {
