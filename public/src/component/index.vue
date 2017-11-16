@@ -623,7 +623,7 @@
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 20rem;
         height: 80px;
         animation: flow 800s infinite;
-        -webkit-animation: flow 800s infinite;  position: absolute; bottom:36px;
+        -webkit-animation: flow 800s infinite;  position: absolute; bottom:33px;
         animation-timing-function:linear}
 
     @keyframes  flow {
