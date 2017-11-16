@@ -615,11 +615,11 @@
         -webkit-animation: flow 720s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img4{
-        -webkit-filter: blur(5px); /* Chrome, Opera */
-        -ms-filter: blur(5px);
-        filter: blur(5px);
+        -webkit-filter: blur(6px); /* Chrome, Opera */
+        -ms-filter: blur(6px);
+        filter: blur(6px);
         width: 2000rem;
-        opacity: 0.6;
+        opacity: 0.4;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 40rem;
         height: 80px;
         animation: flow 800s infinite;
