@@ -58,7 +58,10 @@ let routers =
                 require('./routes/testResult'),
                 require('./routes/testLeavMessage'),
                 require('./routes/more'),
-                require('./routes/habit')
+                require('./routes/habit'),
+                require('./routes/habitAdd'),
+                require('./routes/habitStatistics'),
+                require('./routes/habitCard')
             ]
         }
     ];
