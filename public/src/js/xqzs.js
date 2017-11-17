@@ -474,8 +474,11 @@ var xqzs = {
             var currTime = xqzs.dateTime.getTimeStamp();
             return currTime - mood.addTime <= this.canRevokeTime && !this.canClear(mood);
         },
-        getTopImg: function () {
-            return   "http://oss.xqzs.cn/xqzs/top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
+        getTopImg: function (time) {
+            if(!time){
+                time =xqzs.dateTime.getTimeStamp();
+            }
+            return   "http://oss.xqzs.cn/xqzs/top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH,time ) + ".jpg";
         },
         getCjImg: function (scenesid) {
             for (var i = 0, l = this.moodScenesList.length; i < l; i++) {
