@@ -1,34 +1,14 @@
 <template >
     <div class="habit_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_habit">
-             <div class="item on">
-                 <div class="img"  style="background: url(../src/images/habit_icon_1.png) no-repeat center; background-size: 40%; "></div>
-                 <div class="txt">跑步</div>
-             </div>
-            <div class="item on">
-                <div class="img"  style="background: url(../src/images/habit_icon_2.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">吃早餐</div>
+
+            <div class="item " v-for="(item,index) in habits " @click="delOrAddHabit(index)" :class="{on:item.todayAdded==1}" >
+                <div class="img"  v-if="item.todayAdded==1" :style="'background: url('+item.iconFinish+') no-repeat center; background-size: 40%;'"></div>
+                <div class="img" v-else="" :style="'background: url('+item.iconNotFinish+') no-repeat center; background-size: 40%;'"></div>
+                <div class="txt">{{item.title}}</div>
             </div>
-            <div class="item on">
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_3.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">八杯水</div>
-            </div>
-            <div class="item on">
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_4.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">看书一小时</div>
-            </div>
-            <div class="item">
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">吃水果</div>
-            </div>
-            <div class="item">
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">晚上泡脚</div>
-            </div>
-            <div class="item">
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">晚上泡脚</div>
-            </div>
+
             <div class="item" @click="goAdd()">
                 <div class="img">+</div>
                 <div class="txt">编辑</div>
@@ -38,222 +18,15 @@
         </div>
         <div class="habit_history">
             <div class="title">历史习惯</div>
-            <div class="item">
-                <div class="time">10.23</div>
+            <div class="item" v-for="item in list">
+                <div class="time">{{item.month}}.{{item.day}}</div>
                 <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
+                    <span v-for="i in item.habits"><img :src="i.iconFinish" /></span>
+
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="item">
-                <div class="time">10.23</div>
-                <div class="day_habits">
-                    <span><img src="../images/habit_icon_1.png" /></span>
-                    <span><img src="../images/habit_icon_2.png" /></span>
-                    <span><img src="../images/habit_icon_3.png" /></span>
-                    <span><img src="../images/habit_icon_4.png" /></span>
-                    <span><img src="../images/habit_icon_5.png" /></span>
-                    <span><img src="../images/habit_icon_6.png" /></span>
-                </div>
-                <div class="clear"></div>
-            </div>
+
         </div>
         <div class="habit_btns">
             <div class="btn btn_s" @click="goStatistics()">
@@ -264,6 +37,10 @@
                 <div class="img"></div>
                 <div class="txt">卡片</div>
             </div>
+        </div>
+        <div class="addHabit" v-if="false">
+            <div class="r"></div>
+            <div class="good"></div>
         </div>
     </div>
 </template>
@@ -277,7 +54,7 @@
     .habit_box .my_habit .item.on .txt{ color:#333}
 
 
-    .habit_box .habit_history{ position: relative; height: 600px;}
+    .habit_box .habit_history{ position: relative;}
     .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem; font-weight: bold; padding-left: 0.88235rem; padding-top: 0.6rem; }
     .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem }
     .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
@@ -293,21 +70,140 @@
     .habit_btns .btn_card .img{ background: url(../images/habit_btn_card.png) no-repeat center; background-size: 44%; height: 1rem; width: 100%; }
 
 
+    .habit_box .addHabit{ width: 9.8823529411764705882352941176471rem; height: 9.8823529411764705882352941176471rem;  position: fixed; top:50%;left:50%; margin-left: -4.9411764705882352941176470588235rem; margin-top: -4.9411764705882352941176470588235rem; background: red}
+    .habit_box .addHabit .r{ background: url(../images/habit_today_add_good_r.png) no-repeat; background-size: 100%;}
+
+
 </style>
 <script type="text/javascript">
-
+    import Bus from './bus.js';
+    import showLoad from './showLoad.vue';
     export default {
         data() {
             return {
-
+                habits:[],
+                list:[],
+                page: 1,
+                row: 12,
+                isPageEnd: false,
+                isShowMoreText:false,
+                showLoad:false
             }
         },
 
         mounted: function () {
-            let _this = this;
-
+            this.getList();
         },
         methods:{
+
+
+            delOrAddHabit:function (index) {
+                let item = this.habits[index];
+                if(item.todayAdded==1){
+                    this.delHabit(index);
+                }else{
+                    this.addHabit(index);
+                }
+            },
+
+            addHabit:function (index) {
+                let _this=this;
+                _this.showLoad=true;
+                let id = _this.habits[index].id
+                _this.$http.put(web.API_PATH + 'habit/put/habit/today/_userId_/'+id, {}).then(response => {
+                    _this.showLoad=false;
+                    if (response.data.status === 1) {
+                        _this.habits[index].todayAdded=1;
+                        _this.$set(_this.habits,index,_this.habits[index]);
+                        _this.$nextTick(function () {
+                            $(".my_habit .item .img").css({"background-size":"40%"})
+                        })
+                    }
+                });
+            },
+            delHabit:function (index) { ///{userId}/{habitId}
+                let _this=this;
+                _this.showLoad=true;
+                let id = _this.habits[index].id;
+                _this.$http.put(web.API_PATH + 'habit/del/habit/today/_userId_/'+id, {}).then(response => {
+                    _this.showLoad=false;
+                    if (response.data.status === 1) {
+                        _this.habits[index].todayAdded=0;
+                        _this.$set(_this.habits,index,_this.habits[index]);
+                        _this.$nextTick(function () {
+                            $(".my_habit .item .img").css({"background-size":"40%"})
+                        })
+                    }
+                });
+            },
+
+            getList: function (done) {
+                let vm= this;
+
+                let url = web.API_PATH + "habit/get/home/page/_userId_/"+vm.page+"/"+vm.row+"";
+
+
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+
+                vm.isLoading = true;
+                vm.$http.get(url).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
+
+
+
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+
+                    if(response.data.status!=1){
+                        vm.list = [];
+                        return;
+                    }
+                    vm.habits=response.data.data.habits;
+                    let arr = response.data.data.habitList;
+ //
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText =true;
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    vm.$nextTick(function () {
+                        $(".habit_history").height( $(".habit_history").height())
+                    });
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList(done);
+            },
+            onRefresh(done) {
+                this.counter=1;
+                this.isPageEnd=false;
+                this.getList(done);
+            },
             goStatistics:function () {
                 this.$router.push("/habit/statistics")
             },
@@ -319,7 +215,7 @@
             }
         },
         components: {
-
+            'v-showLoad': showLoad
         }
     }
 

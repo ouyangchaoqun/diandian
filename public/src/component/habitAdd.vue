@@ -1,82 +1,24 @@
 <template >
     <div class="habit_add_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_habit">
             <div class="title">我的好习惯</div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_1.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">跑步</div>
+            <div class="item on" v-for="(item,index) in habits" v-if="item.added==1">
+                <div class="close" @click="deleteHabit(index)">+</div>
+                <div class="img"  :style="'background: url('+item.iconFinish+') no-repeat center; background-size: 40%; '"></div>
+                <div class="txt">{{item.title}}</div>
             </div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_2.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">吃早餐</div>
-            </div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_3.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">八杯水</div>
-            </div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_4.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">看书一小时</div>
-            </div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">吃水果</div>
-            </div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">晚上泡脚</div>
-            </div>
-            <div class="item on">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">晚上泡脚</div>
-            </div>
+
 
             <div class="clear"></div>
 
         </div>
         <div class="my_habit no_b_b">
-            <div class="title">我的好习惯</div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">跑步</div>
-            </div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">吃早餐</div>
-            </div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">八杯水</div>
-            </div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">看书一小时</div>
-            </div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">吃水果</div>
-            </div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
-                <div class="txt">晚上泡脚</div>
-            </div>
-            <div class="item ">
-                <div class="close">+</div>
-                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
-                <div class="txt">晚上泡脚</div>
+            <div class="title">待添加的好习惯</div>
+            <div class="item" v-for="(item,index) in habits" v-if="item.added!=1">
+                <div class="close"  @click="add(index)">+</div>
+                <div class="img"  :style="'background: url('+item.iconNotFinish+') no-repeat center; background-size: 40%; '"></div>
+                <div class="txt">{{item.title}}</div>
             </div>
 
             <div class="clear"></div>
@@ -98,23 +40,61 @@
     .habit_add_box .no_b_b .item .close{transform: rotate(0deg); -webkit-transform: rotate(0deg);border: 1px solid #FF9900; color:#FF9900;}
 </style>
 <script type="text/javascript">
-
+    import showLoad from './showLoad.vue';
     export default {
         data() {
             return {
+                habits:[],
+                showLoad:false
 
             }
         },
 
         mounted: function () {
-            let _this = this;
-
+            this.getAllHabit()
         },
         methods:{
+            add:function (index) {
+                let _this=this;
+                _this.showLoad=true;
+                let id = _this.habits[index].id
+                _this.$http.put(web.API_PATH + 'habit/put/habit/kind/_userId_/'+id, {}).then(response => {
+                    _this.showLoad=false;
+                    if (response.data.status === 1) {
+                        _this.habits[index].added=1;
+                        _this.$set(_this.habits,index,_this.habits[index])
+                    }
+                });
+            },
+            deleteHabit:function (index) {//
+                let _this=this;
+                _this.showLoad=true;
+                let id = _this.habits[index].id
+                _this.$http.put(web.API_PATH + 'habit/del/habit/_userId_/'+id, {}).then(response => {
+                    _this.showLoad=false;
+                    if (response.data.status === 1) {
+                        _this.habits[index].added=0;
+                        _this.$set(_this.habits,index,_this.habits[index])
+                    }
+                });
+            },
+            getAllHabit:function () { //habit/get/all/habit
+                let _this = this;
+                _this.showLoad = true;
+                _this.$http.get(web.API_PATH + 'habit/get/all/habit/_userId_').then(response => {
+                    _this.showLoad = false;
+                    if (response.data.status === 1) {
+                        _this.habits = response.data.data;
+                    }
+                }, response => {
+                    _this.showLoad = false;
+                });
+
+            }
 
         },
         components: {
-
+            'v-showLoad': showLoad
         }
     }
 

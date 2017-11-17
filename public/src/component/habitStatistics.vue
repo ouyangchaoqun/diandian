@@ -1,66 +1,19 @@
 <template >
     <div class="habit_statistics_box">
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="item" v-for="item in list">
+            <div class="img"  :style="'background: url('+item.iconFinish+') no-repeat center ; background-size: 50%;'"></div>
+            <div class="title">
+                <div class="t">{{item.title}}</div>
+                <div class="s">开始于{{formatTime(item.startTime)}}</div>
+            </div>
+            <div class="contanue">
+                <div class="t">{{item.finishNum}}天</div>
+                <div class="s">共计坚持</div>
+            </div>
+            <div class="clear"></div>
+        </div>
 
-        <div class="item">
-            <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
-            <div class="title">
-                <div class="t">看书一小时</div>
-                <div class="s">开始于2017-10-10</div>
-            </div>
-            <div class="contanue">
-                <div class="t">20天</div>
-                <div class="s">共计坚持</div>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="item">
-            <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
-            <div class="title">
-                <div class="t">看书一小时</div>
-                <div class="s">开始于2017-10-10</div>
-            </div>
-            <div class="contanue">
-                <div class="t">20天</div>
-                <div class="s">共计坚持</div>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="item">
-            <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
-            <div class="title">
-                <div class="t">看书一小时</div>
-                <div class="s">开始于2017-10-10</div>
-            </div>
-            <div class="contanue">
-                <div class="t">20天</div>
-                <div class="s">共计坚持</div>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="item">
-            <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
-            <div class="title">
-                <div class="t">看书一小时</div>
-                <div class="s">开始于2017-10-10</div>
-            </div>
-            <div class="contanue">
-                <div class="t">20天</div>
-                <div class="s">共计坚持</div>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="item">
-            <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
-            <div class="title">
-                <div class="t">看书一小时</div>
-                <div class="s">开始于2017-10-10</div>
-            </div>
-            <div class="contanue">
-                <div class="t">20天</div>
-                <div class="s">共计坚持</div>
-            </div>
-            <div class="clear"></div>
-        </div>
     </div>
 </template>
 <style>
@@ -77,22 +30,42 @@
 </style>
 <script type="text/javascript">
 
+    import showLoad from './showLoad.vue';
     export default {
         data() {
             return {
-
+                showLoad:false,
+                list:[]
             }
         },
 
         mounted: function () {
             let _this = this;
+            _this.getList();
 
         },
         methods:{
+            formatTime:function (time) {
+              return xqzs.dateTime.formatYearDate(time)
+            },
+            getList:function () {
+                let _this = this;
+                //
+                _this.showLoad=true;
+                _this.$http.get(web.API_PATH+'habit/get/statistics/habit/_userId_').then(response => {
+                    _this.showLoad=false;
+                    if(response.data.status===1){
+                        _this.list= response.data.data;
+                    }
+                }, response => {
+                    _this.showLoad=false;
+                });
+
+            }
 
         },
         components: {
-
+            'v-showLoad': showLoad
         }
     }
 

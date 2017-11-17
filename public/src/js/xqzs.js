@@ -222,6 +222,8 @@ var xqzs = {
         TIME: "time",
         DATE_PATH: "date_path",
         DATE:"date",
+        YEAR_DATE:"year_date",
+
         _format: function (type, time) {
             time = time * 1000;
             var now = new Date(time);
@@ -244,6 +246,8 @@ var xqzs = {
                 return year + "/" + month + "/" + date
             }else if (type === this.DATE) {
                 return   month + "-" + date
+            }else if(type === this.YEAR_DATE) {
+                return  year + "-" +  month + "-" + date
             }
         },
         formatTime: function (time) {
@@ -251,6 +255,9 @@ var xqzs = {
         },
         formatDateTime: function (time) {
             return this._format(this.DATE_TIME, time);
+        },
+        formatYearDate: function (time) {
+            return this._format(this.YEAR_DATE, time);
         },
         formatDate: function (time) {
             return this._format(this.DATE, time);
