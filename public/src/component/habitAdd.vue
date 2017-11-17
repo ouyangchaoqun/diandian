@@ -4,37 +4,37 @@
             <div class="title">我的好习惯</div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_1.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_1.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">跑步</div>
             </div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_2.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_2.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">吃早餐</div>
             </div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_3.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">八杯水</div>
             </div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_4.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_4.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">看书一小时</div>
             </div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">吃水果</div>
             </div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">晚上泡脚</div>
             </div>
             <div class="item on">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">晚上泡脚</div>
             </div>
 
@@ -45,37 +45,37 @@
             <div class="title">我的好习惯</div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">跑步</div>
             </div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">吃早餐</div>
             </div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">八杯水</div>
             </div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">看书一小时</div>
             </div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">吃水果</div>
             </div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">晚上泡脚</div>
             </div>
             <div class="item ">
                 <div class="close">+</div>
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">晚上泡脚</div>
             </div>
 

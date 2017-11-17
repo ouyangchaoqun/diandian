@@ -10,23 +10,23 @@
                 <div class="txt">吃早餐</div>
             </div>
             <div class="item on">
-                <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_3.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">八杯水</div>
             </div>
             <div class="item on">
-                <div class="img"  style="background: url(../src/images/habit_icon_4.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_4.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">看书一小时</div>
             </div>
             <div class="item">
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">吃水果</div>
             </div>
             <div class="item">
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center ; background-size: 40%;"></div>
                 <div class="txt">晚上泡脚</div>
             </div>
             <div class="item">
-                <div class="img"  style="background: url(../src/images/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
+                <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_6_no.png) no-repeat center; background-size: 40%; "></div>
                 <div class="txt">晚上泡脚</div>
             </div>
             <div class="item" @click="goAdd()">
@@ -313,6 +313,9 @@
             },
             goCard:function () {
                 this.$router.push("/habit/card")
+            },
+            goAdd:function () {
+                this.$router.push("/habit/add")
             }
         },
         components: {

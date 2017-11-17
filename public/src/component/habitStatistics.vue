@@ -26,7 +26,7 @@
             <div class="clear"></div>
         </div>
         <div class="item">
-            <div class="img"  style="background: url(../src/images/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
+            <div class="img"  style="background: url(http://oss.xqzs.cn/xqzs/temp/habit_icon_3.png) no-repeat center ; background-size: 50%;"></div>
             <div class="title">
                 <div class="t">看书一小时</div>
                 <div class="s">开始于2017-10-10</div>
