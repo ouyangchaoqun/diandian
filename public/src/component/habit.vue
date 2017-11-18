@@ -178,8 +178,10 @@
 
             addHabit:function (index) {
                 let _this=this;
-                if(_this.timeout) clearTimeout(_this.timeout);
-                _this.animit=true;
+                if(  _this.animit==true){
+                    return ;
+                }
+                 _this.animit=true;
                 let id = _this.habits[index].id
                 _this.$http.put(web.API_PATH + 'habit/put/habit/today/_userId_/'+id, {}).then(response => {
 
