@@ -156,7 +156,8 @@
                 isPageEnd: false,
                 isShowMoreText:false,
                 showLoad:false,
-                animit:false
+                animit:false,
+                timeout:null
             }
         },
 
@@ -177,13 +178,14 @@
 
             addHabit:function (index) {
                 let _this=this;
+                if(_this.timeout) clearTimeout(_this.timeout);
                 _this.animit=true;
                 let id = _this.habits[index].id
                 _this.$http.put(web.API_PATH + 'habit/put/habit/today/_userId_/'+id, {}).then(response => {
 
-                    setTimeout(function () {
+                    _this.timeout= setTimeout(function () {
                         _this.animit=false;
-                    },3200)
+                    },3200);
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=1;
                         _this.$set(_this.habits,index,_this.habits[index]);
