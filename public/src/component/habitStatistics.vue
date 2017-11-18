@@ -1,5 +1,5 @@
 <template >
-    <div class="habit_statistics_box">
+    <div class="habit_statistics_box"  style="height: 100%">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="item" v-for="item in list">
             <div class="img"  :style="'background: url('+item.iconFinish+') no-repeat center ; background-size: 50%;'"></div>
@@ -17,7 +17,7 @@
     </div>
 </template>
 <style>
-    .habit_statistics_box{background: #fff; padding: 0.3rem 0}
+    .habit_statistics_box{background: #fff;  overflow: scroll;padding: 0.3rem 0}
     .habit_statistics_box .item{ margin: 0.88235rem;  -webkit-box-shadow:0px 0px 13px rgba(0,0,0,.18); box-shadow:0px 0px 13px  rgba(0,0,0,.18); border-radius: 0.2rem; padding: 0.88235rem; position: relative}
     .habit_statistics_box .item .img{  display: inline-block;border: 1px solid #FF9900 ; height: 2.3529411764705882352941176470588rem; width: 2.3529411764705882352941176470588rem;  border-radius: 50%; font-size: 2rem; float:left;}
     .habit_statistics_box .item .title{ float:left; margin-left: 0.6rem; line-height: 1}

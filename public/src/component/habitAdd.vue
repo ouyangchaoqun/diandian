@@ -1,5 +1,5 @@
 <template >
-    <div class="habit_add_box">
+    <div class="habit_add_box"  style="height: 100%">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_habit">
             <div class="title">我的好习惯</div>
@@ -27,7 +27,7 @@
     </div>
 </template>
 <style>
-    .habit_add_box{ background: #fff}
+    .habit_add_box{ background: #fff; overflow: scroll}
     .habit_add_box .my_habit{ padding: 0.6rem 0.88235rem; padding-bottom: 1rem; border-bottom: #F5F5F5 solid 0.55882352941176470588235294117647rem}
     .habit_add_box .my_habit .item{  width: 25%; float:left; text-align: center; color:#999; font-size: 0.70588235294117647058823529411765rem ;  margin-top: 0.8rem; position: relative  }
     .habit_add_box .my_habit .item .img{  display: inline-block;border: 1px solid #DCDCDC ; height: 2.9411764705882352941176470588235rem; width: 2.9411764705882352941176470588235rem;  border-radius: 50%; font-size: 2rem;  line-height:2.7rem;  overflow: hidden;}

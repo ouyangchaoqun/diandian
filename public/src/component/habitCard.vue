@@ -1,6 +1,6 @@
 
 <template >
-    <div class="habit_card_box">
+    <div class="habit_card_box"  style="height: 100%">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="top">
             <div class="h1">{{data.count}}个</div>
@@ -53,7 +53,7 @@
     </div>
 </template>
 <style>
-    .habit_card_box{ background: #fff}
+    .habit_card_box{ background: #fff; overflow: scroll}
     .habit_card_box .top{ margin:1.4705882352941176470588235294118rem;}
     .habit_card_box .top>div{text-align: right; line-height: 1; color:#333}
     .habit_card_box .h1{ font-size: 2.1176470588235294117647058823529rem; }
