@@ -38,7 +38,7 @@
                 <div class="txt">卡片</div>
             </div>
         </div>
-        <div class="addHabit" v-if="false">
+        <div class="addHabit" v-if="animit" >
             <div class="r"></div>
             <div class="good"></div>
         </div>
@@ -70,8 +70,76 @@
     .habit_btns .btn_card .img{ background: url(../images/habit_btn_card.png) no-repeat center; background-size: 44%; height: 1rem; width: 100%; }
 
 
-    .habit_box .addHabit{ width: 9.8823529411764705882352941176471rem; height: 9.8823529411764705882352941176471rem;  position: fixed; top:50%;left:50%; margin-left: -4.9411764705882352941176470588235rem; margin-top: -4.9411764705882352941176470588235rem; background: red}
-    .habit_box .addHabit .r{ background: url(../images/habit_today_add_good_r.png) no-repeat; background-size: 100%;}
+    .habit_box .addHabit{ width: 9.8823529411764705882352941176471rem; height: 9.8823529411764705882352941176471rem;  position: fixed; top:50%;left:50%; margin-left: -4.9411764705882352941176470588235rem; margin-top: -4.9411764705882352941176470588235rem;
+
+        -webkit-animation: big 3.5s ;
+        animation: big 3.5s ;
+
+        animation-fill-mode:forwards;
+        -webkit-animation-fill-mode:forwards;
+
+
+    }
+    .habit_box .addHabit .r{ background: url(../images/habit_today_add_good_r.png) no-repeat; background-size: 100%; height: 100%;
+        -webkit-animation: round 2.5s  ;
+          animation: round 2.5s ;
+        animation-delay:0.5s;
+        -webkit-animation-delay:0.5s; /* Safari 和 Chrome */
+        animation-fill-mode:forwards;
+        -webkit-animation-fill-mode:forwards;
+    }
+    .habit_box .addHabit .good{ background: url(../images/habit_today_add_good.png) no-repeat; background-size: 7.705882352941176rem;width:7.705882352941176rem; height: 6.911764705882353rem; position: absolute; left:1.088235294117647rem;top:1.485294117647059rem;}
+
+
+
+    @keyframes big {
+        0% {
+            transform:scale(0)translate3d(0, 0, 0);
+            -webkit-transform:scale(0)translate3d(0, 0, 0);
+        }
+
+        20% {
+            transform:scale(1) translate3d(0, 0, 0);
+            -webkit-transform:scale(1) translate3d(0, 0, 0);
+        }
+
+       80% {
+            transform:scale(1) translate3d(0, 0, 0);
+            -webkit-transform:scale(1) translate3d(0, 0, 0);
+        }
+
+        100% {
+            transform:scale(0) translate3d(0, -300px, 0);
+            -webkit-transform:scale(0) translate3d(0, -300px, 0);
+
+        }
+
+
+
+    }
+
+    @keyframes round {
+        0% {
+            opacity: 1;
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg); /* Safari 和 Chrome */
+        }
+
+
+        80% {
+            opacity: 1;
+            transform: rotate(360deg);
+            -webkit-transform: rotate(360deg); /* Safari 和 Chrome */
+        }
+
+
+        100% {
+            opacity: 0;
+            transform: rotate(360deg);
+            -webkit-transform: rotate(360deg); /* Safari 和 Chrome */
+        }
+
+    }
 
 
 </style>
@@ -87,7 +155,8 @@
                 row: 12,
                 isPageEnd: false,
                 isShowMoreText:false,
-                showLoad:false
+                showLoad:false,
+                animit:false
             }
         },
 
@@ -108,10 +177,13 @@
 
             addHabit:function (index) {
                 let _this=this;
-                _this.showLoad=true;
+                _this.animit=true;
                 let id = _this.habits[index].id
                 _this.$http.put(web.API_PATH + 'habit/put/habit/today/_userId_/'+id, {}).then(response => {
-                    _this.showLoad=false;
+
+                    setTimeout(function () {
+                        _this.animit=false;
+                    },3200)
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=1;
                         _this.$set(_this.habits,index,_this.habits[index]);
