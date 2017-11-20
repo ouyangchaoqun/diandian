@@ -184,8 +184,10 @@
                                 slidesPerView: 2,
                                 width: 510
                             });
-                            $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
-                            console.log()
+                            setTimeout(function () {
+                                $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
+                            },120)
+
                         })
                     }
                 }, response => {
