@@ -31,7 +31,7 @@
                 <div class="swiper-slide"  v-for="(item,index) in data.habitList">
                     <div class="item ">
                         <div class="img">
-                            <img :src="getTopImg(1510890501 - index*24*3600)" />
+                            <img :src="getTopImg(item.timestamp)" />
                         </div>
                         <div class="habits">
                              <span v-for="habit in item.habits">
@@ -74,7 +74,8 @@
 
     .habit_card_box  .share_btn{line-height: 2rem; height: 2rem; border-radius: 0.4rem; border: 1px solid #FF9900;  color:#FF9900;font-size:0.88235rem;  display: inline-block; position: fixed; bottom:1.8rem; width: 8rem; left:50%; margin-left:-4rem; text-align: center; background: #fff }
     .habit_card_box  .share_btn:active{ border: 1px solid #e38000; color:#e38000 }
-
+    .habit_card_box  .swiper-slide-active{ -webkit-transform:scale(1.1);
+        -moz-transform:scale(1.1);}
 </style>
 <script type="text/javascript">
     import showLoad from './showLoad.vue';
@@ -171,7 +172,9 @@
                             _this.mySwiperPre = new Swiper('.cards', {
                                 slidesPerView: 2,
                                 width: 510
-                            })
+                            });
+                            $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2+10})
+                            console.log()
                         })
                     }
                 }, response => {
