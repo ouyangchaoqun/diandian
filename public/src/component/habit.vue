@@ -66,6 +66,8 @@
 
     .habit_btns{ position: fixed; bottom:2rem; right:1.2rem}
     .habit_btns .btn{ height: 2.4rem; width: 2.6rem; ;background: #FF9900; border-radius: 3px; text-align: center; color:#fff; font-size: 0.82rem;  padding-top: 0.3rem; margin-bottom: 1rem;  }
+    .habit_btns .btn:active{ background: #e38000
+    }
     .habit_btns .btn_s .img{ background: url(../images/habit_btn_s.png) no-repeat center; background-size: 44%; height: 1rem; width: 100%; }
     .habit_btns .btn_card .img{ background: url(../images/habit_btn_card.png) no-repeat center; background-size: 44%; height: 1rem; width: 100%; }
 
@@ -94,23 +96,35 @@
 
     @keyframes big {
         0% {
-            transform:scale(0)translate3d(0, 0, 0);
-            -webkit-transform:scale(0)translate3d(0, 0, 0);
+            transform:translate3d(0px, -180px, 0) scale(0) ;
+            -webkit-transform:translate3d(0px, -180px, 0) scale(0) ;
         }
 
+        10% {
+            transform:translate3d(0, 40px, 0) scale(1) ;
+            -webkit-transform:translate3d(0,40px, 0) scale(1) ;
+        }
+        16% {
+            transform:translate3d(0, -60px, 0) scale(1) ;
+            -webkit-transform:translate3d(0, -60px, 0) scale(1) ;
+        }
+        18% {
+            transform:translate3d(0, 20px, 0) scale(1) ;
+            -webkit-transform:translate3d(0, 20px, 0) scale(1) ;
+        }
         20% {
-            transform:scale(1) translate3d(0, 0, 0);
-            -webkit-transform:scale(1) translate3d(0, 0, 0);
+            transform:translate3d(0, 0, 0) scale(1) ;
+            -webkit-transform:translate3d(0, 0, 0) scale(1) ;
         }
 
-       80% {
-            transform:scale(1) translate3d(0, 0, 0);
-            -webkit-transform:scale(1) translate3d(0, 0, 0);
+       92% {
+            transform: translate3d(0, 0, 0) scale(1);
+            -webkit-transform:translate3d(0, 0, 0) scale(1) ;
         }
 
         100% {
-            transform:scale(0) translate3d(0, -300px, 0);
-            -webkit-transform:scale(0) translate3d(0, -300px, 0);
+            transform:translate3d(0px, -180px, 0) scale(0) ;
+            -webkit-transform:translate3d(0px, -180px, 0) scale(0) ;
 
         }
 
