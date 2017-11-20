@@ -182,11 +182,12 @@
                         _this.$nextTick(function () {
                             _this.mySwiperPre = new Swiper('.cards', {
                                 slidesPerView: 2,
-                                width: 510
+                                width: 510,
+                                onInit: function(swiper){
+                                    $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
+                                }
                             });
-                            setTimeout(function () {
-                                $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
-                            },120)
+
 
                         })
                     }
