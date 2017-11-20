@@ -14,10 +14,10 @@
         </div>
         <div class="moodBox_bg" @click="goIndex()">
         </div>
-        <div class="record_box" :class="{bgw:isShowResult&&!isNight,nightbg:isNight,night_do_ac:isDoNight}">
+        <div class="record_box" :class="{bgw:isShowResult&&!isNight,nightbg:isNight||recordType==3,night_do_ac:isDoNight}">
 
             <div class="main_record">
-                <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
+                <div class="init_record" :class="{goHide:isShowResult}" v-show="false&&!outMorningTime&&!outNightTime">
                     <div class="notes">
                         <a class="weui-tabbar__item " @click="morning">
                             <div class="go_record record_morning "

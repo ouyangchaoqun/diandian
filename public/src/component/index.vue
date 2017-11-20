@@ -1,5 +1,5 @@
-<template id="myCenter">
-    <div style="height: 100%" >
+<template>
+    <div style="height: 100%" class="index_box" >
 
         <div v-title>好一点</div>
         <v-tab tab="home"></v-tab>
@@ -66,17 +66,10 @@
                     <a   @click="link('/myCenter/myIndex')">
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
-                            <template v-if="myLastMood">
-                                <div class="friend">
-                                    <p class="friendName">{{user.nickName | shortName(8)}}</p>
-                                    <p class="time">{{myLastMood.addTime}}</p>
-                                </div>
-                            </template>
-                            <template v-if="!myLastMood">
-                                <span>{{ user.nickName | shortName(8) }}</span>
-                            </template>
-
-
+                            <div class="friend">
+                                <p class="friendName">{{user.nickName | shortName(8)}}</p>
+                                <p class="time"><font>{{friendCount}}位好友</font><i class="habits"><font v-for="habit in myHabit" v-if="habit.finish==1"><img :src="habit.iconFinish"/></font></font></i><i class="clear"></i></p>
+                            </div>
                         </div>
 
                         <div class="list_right">
@@ -95,7 +88,8 @@
                                 </div>
                             </template>
                             <template v-if="myLastMood==null">
-                                <span class="noRecord">还未记录</span>
+                                <img class="moodimg my_head" src="../images/list_mood_no.png"/>
+
                             </template>
                         </div>
                     </a>
@@ -111,7 +105,7 @@
                                 <div class="friend">
                                     <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}</p>
                                     <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}</p>
-                                    <p class="time">{{friendMood.friendNum}}位好友</p>
+                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-for="habit in friendMood.finishHabit"><img :src="habit.iconFinish"/></font></font></i><i class="clear"></i></p>
                                 </div>
                             </div>
 
@@ -129,6 +123,7 @@
                                           src="../images/list_baob_pre.png" alt=""/>
                                 </div>
                             </div>
+                            <div class="clear"></div>
                         </a>
                     </div>
                     <div class="mycenterFill" v-if="hasLine"></div><!--todo-->
@@ -139,8 +134,7 @@
                                 <div class="friend">
                                     <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8) }}</p>
                                     <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8) }}</p>
-
-                                    <p class="time">{{friendMood.friendNum}}位好友</p>
+                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-for="habit in friendMood.finishHabit"><img :src="habit.iconFinish"/></font></font></i><i class="clear"></i></p>
                                 </div>
                             </div>
 
@@ -158,6 +152,7 @@
                                           src="../images/list_baob_pre.png" alt=""/>
                                 </div>
                             </div>
+                            <div class="clear"></div>
                         </a>
                     </div>
                 </div>
@@ -204,6 +199,8 @@
                 NIGHT_END_TIME: '23:59',
                 MORNING_TYPE: 2,
                 NIGHT_TYPE: 3,
+                friendCount:'',
+                myHabit:[]
 
             }
         },
@@ -226,6 +223,43 @@
             }
         },
         methods: {
+            getMyHabit:function () {
+                let _this = this;
+                _this.$http.get(web.API_PATH + 'habit/get/card/page/_userId_/1/1').then(response => {
+                    if (response.data.status === 1) {
+                        _this.myHabit = response.data.data.todayHabit;
+
+                    }
+                });
+
+            },
+            getFriends:function () {
+                let _this = this;
+                this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_').then(function (data) {
+
+                    if (data.body.data !== null&&data.body.data !== undefined) {
+
+                        let generalFriends= data.body.data.generalFriends;
+
+                        let arrayGeneal = [];
+                        for (let key in generalFriends) {
+                            for (let i = 0; i < generalFriends[key].length; i++) {
+                                let friend = generalFriends[key][i];
+                                friend.firstCn = key;
+                                friend.friendLink = "/#/friendCenter/" + friend.id;
+                                arrayGeneal.push(friend)
+                            }
+                        }
+
+                        console.log(data.body.data)
+                        _this.friendCount = data.body.data.specialFriends.length +  arrayGeneal.length;
+                    }
+
+                }, function (error) {
+                });
+            },
+
+
             initSleepConfig:function () {
                 let _this=this;
                 //是否打卡
@@ -534,6 +568,8 @@
             let _this =this;
             _this.getUserInfo();
             _this.initSleepConfig();
+            _this.getFriends();
+            _this.getMyHabit();
 
 
 
@@ -684,6 +720,7 @@
     .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat; background-size: 3rem;}
     .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat; background-size: 3rem;}
 
+    .my_head{ margin-right: 54px !important;}
 
 
 
@@ -880,7 +917,7 @@
     }*/
 
     .mycenter a {
-        height: 72px;
+        min-height: 72px;
         display: block;
         padding: 0 15px;
         /*-webkit-tap-highlight-color: rgba(0,0,0,.2);*/
@@ -900,15 +937,26 @@
         text-overflow: ellipsis;
     }
 
-    .time {
+  .index_box  .time {
         font-size: 14px;
         color: #999999;
     }
+
+    .index_box  p.time .habits{ display: inline-block; padding-bottom: 0.3rem; width: 72%}
+
+  .index_box  p.time font {
+         height: 1.1764705882352941176470588235294rem; width: 1.1764705882352941176470588235294rem; display: inline-block; float:left;
+    }
+    .index_box  p.time>font:first-child{ width: auto}
+    .index_box  p.time>font:not(:first-child){ margin-left: 0.6rem;}
+    .index_box  p.time .habits  font{margin-left: 0.29rem; margin-bottom: 0.3rem;}
+    .index_box  p.time font img{ width: 100%; height: 100%}
 
     .list_left {
         float: left;
         position: relative;
         height: 100%;
+        width: 75%;
     }
 
     .headerimg {

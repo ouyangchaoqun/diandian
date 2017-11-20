@@ -182,10 +182,13 @@
                 if(_this.$route.query.isBack!=undefined &&　_this.$route.query.isBack==1){
                     isBack= true;
                 }
+
+                console.log(to);
+
                 //是否为点开心情页面；
-                if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/record") {
+                if ((from.fullPath === "/" || from.fullPath === "/#") && (to.path === "/record"||to.path==="/addMood")) {
                     this.transitionName = 'page-xqzs-up'
-                } else if (from.fullPath === "/record" && (to.fullPath === "/" || to.fullPath === "/#")) {
+                } else if ( (from.path === "/record"||from.path==="/addMood") && (to.fullPath === "/" || to.fullPath === "/#")) {
                     this.transitionName = 'page-xqzs-down'
 
                 }else if (isBack) {
