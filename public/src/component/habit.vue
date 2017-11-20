@@ -96,8 +96,8 @@
 
     @keyframes big {
         0% {
-            transform:translate3d(0px, -180px, 0) scale(0) ;
-            -webkit-transform:translate3d(0px, -180px, 0) scale(0) ;
+            transform:translate3d(0px, -260px, 0) scale(0) ;
+            -webkit-transform:translate3d(0px, -260px, 0) scale(0) ;
         }
 
         10% {
@@ -123,8 +123,8 @@
         }
 
         100% {
-            transform:translate3d(0px, -180px, 0) scale(0) ;
-            -webkit-transform:translate3d(0px, -180px, 0) scale(0) ;
+            transform:translate3d(0px, -260px, 0) scale(0) ;
+            -webkit-transform:translate3d(0px, -260px, 0) scale(0) ;
 
         }
 
