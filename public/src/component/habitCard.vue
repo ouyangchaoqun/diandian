@@ -62,8 +62,8 @@
 
     .habit_card_box .cards{ margin-top:5rem; margin-left: 1.8rem; overflow: visible}
 
-    .habit_card_box .cards .item{ width: 12.941176470588235294117647058824rem; -webkit-box-shadow:0px 0px 13px rgba(0,0,0,.18); box-shadow:0px 0px 13px  rgba(0,0,0,.18); overflow: hidden;}
-    .habit_card_box .cards .item .img{ width: 100%; height: 8.6470588235294117647058823529412rem; }
+    .habit_card_box .cards .item{ width: 220px; -webkit-box-shadow:0px 0px 13px rgba(0,0,0,.18); box-shadow:0px 0px 13px  rgba(0,0,0,.18); overflow: hidden;}
+    .habit_card_box .cards .item .img{ width: 100%; height:147px; }
     .habit_card_box .cards .item .img img{ width: 100%; height: 100%}
     .habit_card_box .cards .item .habits{ margin: 1.4705882352941176470588235294118rem 0.5rem; margin-bottom: 1rem; text-align: right   }
     .habit_card_box .cards .item .habits img{height:1rem; }
@@ -74,8 +74,19 @@
 
     .habit_card_box  .share_btn{line-height: 2rem; height: 2rem; border-radius: 0.4rem; border: 1px solid #FF9900;  color:#FF9900;font-size:0.88235rem;  display: inline-block; position: fixed; bottom:1.8rem; width: 8rem; left:50%; margin-left:-4rem; text-align: center; background: #fff }
     .habit_card_box  .share_btn:active{ border: 1px solid #e38000; color:#e38000 }
-    .habit_card_box  .swiper-slide-active{ -webkit-transform:scale(1.1);
-        -moz-transform:scale(1.1);}
+    .habit_card_box  .swiper-slide-active{
+        animation: bigs .5s; -webkit-animation: bigs .5s;
+        animation-fill-mode:forwards;
+        -webkit-animation-fill-mode:forwards;}
+
+    @keyframes  bigs {
+        from {-webkit-transform:scale(1);
+            -moz-transform:scale(1);}
+        to{-webkit-transform:scale(1.1);
+            -moz-transform:scale(1.1);}
+    }
+
+
 </style>
 <script type="text/javascript">
     import showLoad from './showLoad.vue';
@@ -173,7 +184,7 @@
                                 slidesPerView: 2,
                                 width: 510
                             });
-                            $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2+10})
+                            $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
                             console.log()
                         })
                     }
