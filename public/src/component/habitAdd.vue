@@ -35,9 +35,11 @@
     .habit_add_box .my_habit .item.on .img{border: 1px solid #FF9900 ;}
     .habit_add_box .my_habit .item.on .txt{ color:#333}
     .habit_add_box .my_habit .item .close{ transform: rotate(45deg); -webkit-transform: rotate(45deg); height: 0.88235rem; width: 0.88235rem; border-radius: 50%; border: 1px solid #ccc; color:#ccc; line-height: 0.82rem; position: absolute;left:50%;top:-0.6rem; margin-left: -2rem;}
+    .habit_add_box .my_habit .item .close:active{border: 1px solid #FF9900; color:#FF9900}
     .habit_add_box .my_habit .title{ font-size: 0.88235rem; font-weight: bold; padding-left: 0.6rem; padding-top: 0.4rem; padding-bottom: 0.4rem;}
     .habit_add_box .no_b_b{ border-bottom: 0}
     .habit_add_box .no_b_b .item .close{transform: rotate(0deg); -webkit-transform: rotate(0deg);border: 1px solid #FF9900; color:#FF9900;}
+    .habit_add_box .no_b_b .item .close:active{border: 1px solid #ccc; color:#ccc}
 </style>
 <script type="text/javascript">
     import showLoad from './showLoad.vue';

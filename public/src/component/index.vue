@@ -33,10 +33,20 @@
                 </div>
             </div>
             <div class="index_btns">
-                <a   class="get_up" @click=""><span>早起打卡</span></a>
-                <a   class="mood" @click="addMood()"><span>心情说说</span></a>
-                <a   class="habit" @click="goHabit()"><span>好习惯</span></a>
-                <a   class="sign" @click="dailyRecord()"><span>每日一签</span></a>
+                <a   :class="isNight()?'go_sleep':'get_up'" @click="sleepOrGetUp()">
+                    <span class="record_hot" v-show="isRecordTime()&&(isNight()&&!isGoBed||!isNight()&&!isGetUp)" ></span>
+                    <span v-if="!isNight()">
+                        <template v-if="isGetUp||!isRecordTime()">早起排行</template>
+                        <template v-else="">早起打卡</template>
+                    </span>
+                    <span v-if="isNight()">
+                        <template v-if="isGoBed||!isRecordTime()">早睡排行</template>
+                        <template v-else="">早睡打卡</template>
+                    </span>
+                </a>
+                <a class="mood" @click="addMood()"><span>心情说说</span></a>
+                <a class="habit" @click="goHabit()"><span>好习惯</span></a>
+                <a class="sign" @click="dailyRecord()"><span>每日一签</span></a>
             </div>
             <!--banner end -->
             <router-link :to='noticeLink' class="weui-tabbar__item tab" style="padding: 0" v-if="notice.count">
@@ -180,7 +190,6 @@
                 linkTo:"#",
                 noticeLink:'/notice',
                 fillFlag:false,
-
                 scrollTop:0,
                 birthdayList:[],
                 isBirthday:false,
@@ -189,13 +198,18 @@
                 LOCAL_DB_KEY_MOOD_COUNT:'local_db_key_mood_count',
                 isMoreHotPointClicked:false,
 
+                MORNING_FROM_TIME: '5:00',
+                MORNING_END_TIME: '10:00',
+                NIGHT_FROM_TIME: '20:00',
+                NIGHT_END_TIME: '23:59',
+                MORNING_TYPE: 2,
+                NIGHT_TYPE: 3,
+
             }
         },
         filters:{
             shortName:function(value,len){
-
                 return xqzs.shortname(value,len);
-
             }
         },
         props:{
@@ -212,6 +226,57 @@
             }
         },
         methods: {
+            initSleepConfig:function () {
+                let _this=this;
+                //是否打卡
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + "record/sleep/get/is/record/_userId_",
+                }).then(function (data) {
+                    if (data.body.status == 1) {
+                        _this.isGetUp = data.body.data.isGetUp;
+                        _this.isGoBed = data.body.data.isGoBed;
+                        _this.goBedId = data.body.data.goBedId;
+                        _this.getUpId = data.body.data.getUpId;
+
+                        _this.MORNING_FROM_TIME = data.body.data.getUpConfig.starttime;
+                        _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
+                        _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
+                        _this.NIGHT_END_TIME = data.body.data.goBedConfig.endtime;
+                    }
+                }, function (error) {
+
+                });
+            },
+            isNight:function () {
+                let date= new Date();
+                return !(date.getHours() >= 5 && date.getHours() < 20)
+            },
+            isRecordTime:function () {
+                if(this.isNight()){
+                    return this._isRecordTime(this.NIGHT_FROM_TIME,this.NIGHT_END_TIME)
+                }else{
+                    return this._isRecordTime(this.MORNING_FROM_TIME,this.MORNING_END_TIME)
+                }
+            },
+            //是否在打卡时间内
+            _isRecordTime: function (fromTime, endTime) {
+                let startTime = parseInt(fromTime.split(":")[0]) * 60 + parseInt(fromTime.split(":")[1]);
+                endTime = parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1]);
+                let mydate = new Date();
+                let nowTime = mydate.getHours() * 60 + mydate.getMinutes();
+                //打卡时间
+                let _r = false;
+                //跨天判断
+                if (startTime > endTime) {  //跨天
+                    _r = (startTime <= nowTime && nowTime <= 24 * 60) || (0 <= nowTime && nowTime <= endTime);
+                } else { //非跨天
+                    _r = startTime <= nowTime && nowTime <= endTime;
+                }
+                return _r;
+            },
+
             goHabit:function () {
                 this.$router.push("/habit")
             },
@@ -292,59 +357,26 @@
                 })
             },
 
-            morning: function () {
-                console.log("morning")
-
-                let _this = this;
-                if (_this.isGetUp && _this.isRecordTime(_this.MORNING_FROM_TIME, _this.MORNING_END_TIME)) {
-                    _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
-//                    _this.showResult(_this.getUpId);
-                    return;
+            sleepOrGetUp:function () {
+                if(this.isNight()){
+                    this.sleep();
+                }else{
+                    this.getUp();
                 }
-                if (this.isRecordTime(this.MORNING_FROM_TIME, this.MORNING_END_TIME)) {
-                    this.checkIn(2);
-                } else {
-                    console.log('outMorningTime');
-                    _this.animateIn();
-                    _this.outMorningTime = true;
-                    $(".timeout").show().animate({"opacity": 1}, 200, function () {
-                    });
-
+            },
+            getUp: function () {
+                console.log("morning")
+                let _this = this;
+                if (_this.isGetUp && _this.isRecordTime()) {
+                    _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
+                }else{
+                    _this.$router.push("record?record_type=" + this.MORNING_TYPE)
                 }
 
             },
-            night: function () {
-                console.log('night')
-                let _this = this;
-                if (_this.isGoBed && _this.isRecordTime(_this.NIGHT_FROM_TIME, _this.NIGHT_END_TIME)) {
-                    _this.showResult(_this.goBedId);
-                    return;
-                }
-
-                if (this.isRecordTime(this.NIGHT_FROM_TIME, this.NIGHT_END_TIME)) {
-
-
-                    _this.animateIn();
-                    $(".night_action").show().animate({"opacity": 1}, 200, function () {
-                    });
-                    let w = $("body").width();
-                    $(".night_action").height(w * 753 / 750);
-                    _this.isNight = true;
-                    _this.isDoNight = true;
-
-                    //this.checkIn(3);
-                } else {
-                    console.log('outnightTime');
-                    _this.isNight = true;
-                    _this.animateIn();
-                    console.log('outnightTime');
-                    _this.outNightTime = true;
-                    $(".timeout").show().animate({"opacity": 1}, 200, function () {
-
-                    });
-                    $(".date_info").addClass("ngihttop")
-
-                }
+            sleep: function () {
+                console.log('sleep')
+                this.$router.push("record?record_type=" + this.NIGHT_TYPE)
             },
 
             birthday:function (userId) {
@@ -501,6 +533,7 @@
 
             let _this =this;
             _this.getUserInfo();
+            _this.initSleepConfig();
 
 
 
@@ -529,7 +562,7 @@
                     let isbirthday=false;
                     for(let i=0;i<_this.birthdayList.length;i++){
                         if(_this.birthdayList[i].myself==1){
-    
+
                             isbirthday=true;
                             break;
                         }
@@ -557,7 +590,7 @@
                             }
                         })
                     })
-                    
+
                 }
 
 
@@ -640,10 +673,13 @@
         z-index: 100;
         text-align: center;
         color:#999; font-size: 0.70588235294117647058823529411765rem;
+        position: relative;
     }
+    .index_btns a .record_hot{ height: 0.7rem; width: 0.7rem;  border-radius: 50%; position: absolute; left:50%; margin-left: 1.2rem; top:-0.1rem; background: red}
 
     .index_btns a:before{content: ' '; display: block; width: 3rem; height: 3rem; margin: 0 auto; margin-bottom: 0.4rem;}
     .index_btns a.get_up:before{ background: url(../images/index_btn_get_up.png) no-repeat; background-size: 3rem;}
+    .index_btns a.go_sleep:before{ background: url(../images/index_btn_go_sleep.png) no-repeat; background-size: 3rem;}
     .index_btns a.mood:before{ background: url(../images/index_btn_mood.png) no-repeat; background-size: 3rem;}
     .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat; background-size: 3rem;}
     .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat; background-size: 3rem;}

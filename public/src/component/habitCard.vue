@@ -73,6 +73,7 @@
     .habit_card_box .cards .item  .day{ color:#999; font-size: 0.70588235294117647058823529411765rem; text-align: right;margin-right: 0.9rem; margin-top:0.4rem; margin-bottom: 0.8rem; }
 
     .habit_card_box  .share_btn{line-height: 2rem; height: 2rem; border-radius: 0.4rem; border: 1px solid #FF9900;  color:#FF9900;font-size:0.88235rem;  display: inline-block; position: fixed; bottom:1.8rem; width: 8rem; left:50%; margin-left:-4rem; text-align: center; background: #fff }
+    .habit_card_box  .share_btn:active{ border: 1px solid #e38000; color:#e38000 }
 
 </style>
 <script type="text/javascript">

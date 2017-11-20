@@ -244,7 +244,8 @@
                 doRecordText: '',
                 isDoNight: false,
                 isBirthday: false,
-                topImg:xqzs.mood.getTopImg()
+                topImg:xqzs.mood.getTopImg(),
+                recordType:''
 
             }
         },
@@ -413,7 +414,12 @@
 
                         }
                         setTimeout(function () {
-                            _this.$router.push("sleepRank?type=" + type)
+                            if (type == _this.MORNING_TYPE) {
+                                _this.$router.replace("sleepRank?type=" + type)
+                            }else{
+                                _this.$router.push("sleepRank?type=" + type)
+                            }
+
                         },200);
 
 
@@ -566,6 +572,7 @@
 
         mounted: function () {
             let _this = this;
+            _this.recordType=_this.$route.query.record_type;
 
 
             if(_this.user&&_this.user.faceUrl)xqzs.wx.shareConfig.home.imgUrl=_this.user.faceUrl;
@@ -618,6 +625,11 @@
                     _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
                     _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
                     _this.NIGHT_END_TIME = data.body.data.goBedConfig.endtime;
+                    if(_this.recordType==_this.MORNING_TYPE){
+                        _this.morning()
+                    }else if(_this.recordType==_this.NIGHT_TYPE){
+                        _this.night()
+                    }
                 }
             }, function (error) {
 
