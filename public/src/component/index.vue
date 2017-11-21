@@ -790,11 +790,11 @@
     .index_btns a .record_hot{ height: 0.7rem; width: 0.7rem;  border-radius: 50%; position: absolute; left:50%; margin-left: 1.2rem; top:-0.1rem; background: red}
 
     .index_btns a:before{content: ' '; display: block; width: 2.9rem; height: 2.9rem; margin: 0 auto; margin-bottom: 0.4rem; border-radius: 1.2rem;}
-     .index_btns a.get_up:before{ background: url(../images/index_btn_get_up.png) no-repeat #ffefcb center; background-size: 1.8235294117647058823529411764706rem;border: 0.04rem  solid #ffb700}
-    .index_btns a.go_sleep:before{ background: url(../images/index_btn_go_sleep.png) no-repeat #edd8f6 center; background-size: 1.5882352941176470588235294117647rem;border: 0.04rem   solid #a54bd8}
-    .index_btns a.mood:before{ background: url(../images/index_btn_mood.png) no-repeat #cfebf1 center; background-size: 1.4117647058823529411764705882353rem;  border: 0.04rem  solid #00c1ff}
-    .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat #def3cd center; background-size: 1.2647058823529411764705882352941rem; border: 0.04rem  solid #71c06d}
-    .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat #ffd9ac center; background-size: 1.6470588235294117647058823529412rem;   border: 0.04rem  solid #ff7800}
+     .index_btns a.get_up:before{ background: url(../images/index_btn_get_up.png) no-repeat #ffefcb center; background-size: 1.8235294117647058823529411764706rem;border: 0.03rem  solid #ffb700}
+    .index_btns a.go_sleep:before{ background: url(../images/index_btn_go_sleep.png) no-repeat #edd8f6 center; background-size: 1.5882352941176470588235294117647rem;border: 0.03rem   solid #a54bd8}
+    .index_btns a.mood:before{ background: url(../images/index_btn_mood.png) no-repeat #cfebf1 center; background-size: 1.6470588235294117647058823529412rem;  border: 0.03rem  solid #00c1ff}
+    .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat #def3cd center; background-size: 1.2647058823529411764705882352941rem; border: 0.03rem  solid #71c06d}
+    .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat #ffd9ac center; background-size: 1.6470588235294117647058823529412rem;   border: 0.03rem  solid #ff7800}
 
     .index_btns a:active.get_up:before{background-color: #ffebc7  }
     .index_btns a:active.go_sleep:before{background-color: #f6c8ed  }
