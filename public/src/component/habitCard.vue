@@ -61,7 +61,7 @@
     .habit_card_box .top>div{text-align: right; line-height: 1; color:#333}
     .habit_card_box .h1{ font-size: 2.1176470588235294117647058823529rem; }
     .habit_card_box .h2{ font-size: 1.3529411764705882352941176470588rem; margin-top: 0.85294117647058823529411764705882rem; }
-    .habit_card_box .h3{font-size:0.76470588235294117647058823529412rem; margin-top:0.67647058823529411764705882352941rem;;}
+    .habit_card_box .h3{font-size:0.76470588235294117647058823529412rem; margin-top:0.67647058823529411764705882352941rem; color:#666 !important;}
 
     .habit_card_box .cards{ margin-top:5rem; margin-left: 1.8rem; overflow: visible}
 
@@ -196,13 +196,10 @@
                                 slidesPerView: 2,
                                 width: 510,
                                 onInit: function(swiper){
-                                    $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
+
                                     setTimeout(function () {
-                                        $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
-                                    },100)
-                                    setTimeout(function () {
-                                        $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
-                                    },200)
+                                        $(".cards ").css({"margin-left":($(document).width()-220)/2})
+                                    },600)
 
                                 },
                                 onSlideChangeEnd: function(swiper){

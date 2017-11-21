@@ -9,7 +9,7 @@
             </div>
             <div class="contanue">
                 <div class="t">{{item.finishNum}}天</div>
-                <div class="s">共计坚持</div>
+                <div class="s">共完成</div>
             </div>
             <div class="clear"></div>
         </div>
