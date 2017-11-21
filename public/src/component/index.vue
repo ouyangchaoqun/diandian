@@ -1160,8 +1160,8 @@
         height:32px;
         width: 32px;
         float: left;
-        margin-left:5px;
-        margin-top:5px;
+        margin-left:8px;
+        margin-top:8px;
         display: block;
     }
     .notice div{
