@@ -777,6 +777,7 @@
         height: 5.5rem;
         background: #fff;
         border-bottom: 0.58823529411764705882352941176471rem solid #F4F3F8 ;
+        padding-top: 6px;
     }
     .index_btns a{
         -webkit-box-flex: 1;
@@ -787,7 +788,7 @@
         color:#999; font-size: 0.70588235294117647058823529411765rem;
         position: relative;
     }
-    .index_btns a .record_hot{ height: 0.7rem; width: 0.7rem;  border-radius: 50%; position: absolute; left:50%; margin-left: 1.2rem; top:-0.1rem; background: red}
+    .index_btns a .record_hot{ height: 8px; width: 8px;  border-radius: 50%; position: absolute; left:50%; margin-left: 1.2rem; top:-0.1rem; background: red}
 
     .index_btns a:before{content: ' '; display: block; width: 2.9rem; height: 2.9rem; margin: 0 auto; margin-bottom: 0.4rem; border-radius: 1.2rem;}
      .index_btns a.get_up:before{ background: url(../images/index_btn_get_up.png) no-repeat #ffefcb center; background-size: 1.8235294117647058823529411764706rem;border: 0.03rem  solid #ffb700}
@@ -814,7 +815,7 @@
         width: 1600rem;
         position: absolute;
         height: 200px;
-        bottom: -20px;
+        bottom: -26px;
     }
     .banner .flow .img{
 
