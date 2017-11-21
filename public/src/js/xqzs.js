@@ -588,24 +588,24 @@ var xqzs = {
 
                     if (item.isCare !== undefined && parseInt(userId) !== parseInt(item.userId)) {
                         if ((item.moodValue >= 5 || item.moodValue == 0) && item.isCare === null) {
-                            item.careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
+                            item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
                         } else if (item.moodValue < 5 && item.isCare === null) {
-                            item.careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
+                            item.careImg = web.IMG_PATH + "list_icon_baob_nor.png";
                         } else if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.isCare !== null) {
-                            item.careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
+                            item.careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
                         } else if (item.moodValue < 5 && item.isCare !== null) {
-                            item.careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
+                            item.careImg = web.IMG_PATH + "list_icon_baob_pre.png";
                         }
                     } else {
 
                         if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.careCount == 0) {
-                            item.careImg = web.IMG_PATH + "mood_icon_dianz_nor.png";
+                            item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
                         } else if (item.moodValue < 5 && item.careCount == 0) {
-                            item.careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
+                            item.careImg = web.IMG_PATH + "list_icon_baob_nor.png";
                         } else if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.careCount != 0) {
-                            item.careImg = web.IMG_PATH + "mood_icon_dianz_pre.png";
+                            item.careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
                         } else if (item.moodValue < 5 && item.careCount != 0) {
-                            item.careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
+                            item.careImg = web.IMG_PATH + "list_icon_baob_pre.png";
                         }
                     }
 
