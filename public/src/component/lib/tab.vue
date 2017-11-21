@@ -135,9 +135,9 @@
     #tabs a .tab_icon.moreImg{ background-position: -58px -29px}
     #tabs a .tab_icon.meImg{ background-position: -87px -29px}
 
-    #tabs a:active span.calendarImg,#tabs a.tabOn span.calendarImg { background-position: 0  0px}
-    #tabs a:active span.friendsImg,#tabs a.tabOn span.friendsImg{ background-position: -29px 0px}
-    #tabs a:active span.moreImg,#tabs a.tabOn span.moreImg{ background-position: -58px 0px}
-    #tabs a:active span.meImg,#tabs a.tabOn span.meImg{ background-position: -87px 0px}
-    #tabs a:active .weui-tabbar__label,#tabs a.tabOn .weui-tabbar__label{ color:#00bd00}
+   #tabs a.tabOn span.calendarImg { background-position: 0  0px}
+   #tabs a.tabOn span.friendsImg{ background-position: -29px 0px}
+   #tabs a.tabOn span.moreImg{ background-position: -58px 0px}
+  #tabs a.tabOn span.meImg{ background-position: -87px 0px}
+   #tabs a.tabOn .weui-tabbar__label{ color:#00bd00}
 </style>
