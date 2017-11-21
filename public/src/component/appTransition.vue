@@ -170,9 +170,8 @@
                 if (!isBack)
                     this.pagesIn.push({to: to.fullPath, from: from.fullPath})
 
-                console.log("bearbear");
-//
-                console.log(from.fullPath);
+
+
 
                 let isBackStrIndex  =  to.fullPath.indexOf("isBack=1");
                 if(isBackStrIndex>0 ){
@@ -183,7 +182,6 @@
                     isBack= true;
                 }
 
-                console.log(to);
 
                 //是否为点开心情页面；
                 if ((from.fullPath === "/" || from.fullPath === "/#") && (to.path === "/record"||to.path==="/addMood")) {
