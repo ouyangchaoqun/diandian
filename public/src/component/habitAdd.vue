@@ -15,8 +15,8 @@
         </div>
         <div class="my_habit no_b_b">
             <div class="title">待添加的好习惯</div>
-            <div class="item" v-for="(item,index) in habits" v-if="item.added!=1">
-                <div class="close"  @click="add(index)">+</div>
+            <div class="item" v-for="(item,index) in habits" v-if="item.added!=1"  @click="add(index)">
+                <div class="close" >+</div>
                 <div class="img"  :style="'background: url('+item.iconNotFinish+') no-repeat center; background-size: 64%; '"></div>
                 <div class="txt">{{item.title}}</div>
             </div>
@@ -39,7 +39,7 @@
     .habit_add_box .my_habit .title{ font-size: 0.88235rem; padding-left: 0.6rem; padding-top: 0.4rem; padding-bottom: 0.4rem; color:#666}
     .habit_add_box .no_b_b{ border-bottom: 0}
     .habit_add_box .no_b_b .item .close{transform: rotate(0deg); -webkit-transform: rotate(0deg);border: 1px solid #FF9900; color:#FF9900;}
-    .habit_add_box .no_b_b .item .close:active{border: 1px solid #ccc; color:#ccc}
+    .habit_add_box .no_b_b .item:active .close{border: 1px solid #ccc; color:#ccc}
 </style>
 <script type="text/javascript">
     import showLoad from './showLoad.vue';

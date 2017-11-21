@@ -13,7 +13,7 @@
 
                 <div class="item" @click="goAdd()">
                     <div class="img">+</div>
-                    <div class="txt">编辑</div>
+                    <div class="txt">新习惯</div>
                 </div>
                 <div class="clear"></div>
 
@@ -57,7 +57,7 @@
     .habit_box .my_habit{ padding: 0.6rem 0.88235rem; padding-bottom: 1rem; border-bottom: #F5F5F5 solid 0.55882352941176470588235294117647rem}
     .habit_box .my_habit .item{  width: 25%; float:left; text-align: center; color:#999; font-size: 0.70588235294117647058823529411765rem ;  margin-top: 0.8rem;  }
     .habit_box .my_habit .item .img{  display: inline-block;border: 1px solid rgba(217,217,217,0.5) ; height: 2.9411764705882352941176470588235rem; width: 2.9411764705882352941176470588235rem;  border-radius: 50%; font-size: 2rem;  line-height:2.7rem;  overflow: hidden;}
-    .habit_box .my_habit .item .txt{color:#DCDCDC}
+    .habit_box .my_habit .item .txt{color:#999}
     .habit_box .my_habit .item.on .img{border: 1px solid rgba(255,153,0,0.5) ;}
     .habit_box .my_habit .item.on .txt{ color:#666}
 
@@ -66,7 +66,7 @@
     .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem;  padding-left: 0.88235rem; padding-top: 0.6rem; }
     .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem }
     .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
-    .habit_box .habit_history .item .day_habits img{ height:1rem; }
+    .habit_box .habit_history .item .day_habits img{ height:1.2rem; }
     .habit_box .habit_history .item .day_habits{ line-height: 2.2rem; margin-left: 1.6rem;float:left}
     .habit_box .habit_history .item .day_habits span{display: inline-block; width:2.3rem; text-align: center }
     .habit_box .habit_history .item{ position: relative}
@@ -192,6 +192,21 @@
         methods:{
 
 
+            orderHabits:function (habits) {
+                let reHabits=[];
+                for(let i =0;i<habits.length;i++){
+                    if(habits[i].todayAdded){
+                        reHabits.push(habits[i]);
+                    }
+                }
+                for(let i =0;i<habits.length;i++){
+                    if(!habits[i].todayAdded){
+                        reHabits.push(habits[i]);
+                    }
+                }
+                return reHabits;
+            },
+
             delOrAddHabit:function (index) {
                 let item = this.habits[index];
                 if(item.todayAdded==1){
@@ -228,6 +243,7 @@
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=1;
                         _this.$set(_this.habits,index,_this.habits[index]);
+                        _this.habits =  _this.orderHabits(_this.habits);
                         _this.$nextTick(function () {
                             $(".my_habit .item .img").css({"background-size":"64%"})
                         })
@@ -243,6 +259,7 @@
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=0;
                         _this.$set(_this.habits,index,_this.habits[index]);
+                        _this.habits =  _this.orderHabits(_this.habits);
                         _this.$nextTick(function () {
                             $(".my_habit .item .img").css({"background-size":"64%"})
                         })
@@ -280,6 +297,8 @@
                         return;
                     }
                     vm.habits=response.data.data.habits;
+
+                    vm.habits =  vm.orderHabits(vm.habits);
 
                     let arr = response.data.data.habitList;
  //
