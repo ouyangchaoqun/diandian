@@ -31,7 +31,7 @@
                 </div>
 
             </div>
-            <div class="history_ts"><span>你开启了健康习惯之旅</span></div>
+            <div class="history_ts" v-if="list.length>0"><span>你开启了健康习惯之旅</span></div>
 
         </v-scroll>
         <div class="habit_btns">
