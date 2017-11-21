@@ -6,8 +6,8 @@
             <div class="my_habit">
 
                 <div class="item " v-for="(item,index) in habits " @click="delOrAddHabit(index)" :class="{on:item.todayAdded==1}" >
-                    <div class="img"  v-if="item.todayAdded==1" :style="'background: url('+item.iconFinish+') no-repeat center; background-size: 40%;'"></div>
-                    <div class="img" v-else="" :style="'background: url('+item.iconNotFinish+') no-repeat center; background-size: 40%;'"></div>
+                    <div class="img"  v-if="item.todayAdded==1" :style="'background: url('+item.iconFinish+') no-repeat center; background-size: 64%;'"></div>
+                    <div class="img" v-else="" :style="'background: url('+item.iconNotFinish+') no-repeat center; background-size: 64%;'"></div>
                     <div class="txt">{{item.title}}</div>
                 </div>
 
@@ -59,14 +59,14 @@
     .habit_box .my_habit .item .img{  display: inline-block;border: 1px solid rgba(217,217,217,0.5) ; height: 2.9411764705882352941176470588235rem; width: 2.9411764705882352941176470588235rem;  border-radius: 50%; font-size: 2rem;  line-height:2.7rem;  overflow: hidden;}
     .habit_box .my_habit .item .txt{color:#DCDCDC}
     .habit_box .my_habit .item.on .img{border: 1px solid rgba(255,153,0,0.5) ;}
-    .habit_box .my_habit .item.on .txt{ color:#333}
+    .habit_box .my_habit .item.on .txt{ color:#666}
 
 
     .habit_box .habit_history{ position: relative;}
-    .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem; font-weight: bold; padding-left: 0.88235rem; padding-top: 0.6rem; }
+    .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem;  padding-left: 0.88235rem; padding-top: 0.6rem; }
     .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem }
     .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
-    .habit_box .habit_history .item .day_habits img{ height:1.3rem; }
+    .habit_box .habit_history .item .day_habits img{ height:1rem; }
     .habit_box .habit_history .item .day_habits{ line-height: 2.2rem; margin-left: 1.6rem;float:left}
     .habit_box .habit_history .item .day_habits span{display: inline-block; width:2.3rem; text-align: center }
     .habit_box .habit_history .item{ position: relative}
@@ -225,7 +225,7 @@
                         _this.habits[index].todayAdded=1;
                         _this.$set(_this.habits,index,_this.habits[index]);
                         _this.$nextTick(function () {
-                            $(".my_habit .item .img").css({"background-size":"40%"})
+                            $(".my_habit .item .img").css({"background-size":"64%"})
                         })
                     }
                 });
@@ -240,7 +240,7 @@
                         _this.habits[index].todayAdded=0;
                         _this.$set(_this.habits,index,_this.habits[index]);
                         _this.$nextTick(function () {
-                            $(".my_habit .item .img").css({"background-size":"40%"})
+                            $(".my_habit .item .img").css({"background-size":"64%"})
                         })
                     }
                 });
