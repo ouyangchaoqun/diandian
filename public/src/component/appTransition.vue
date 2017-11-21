@@ -127,12 +127,6 @@
 
         beforeRouteUpdate (to, from, next) {
             var _this = this;
-            console.log("beforeRouteUpdate")
-
-            console.log(from.path);
-            console.log(to.path);
-
-
 
 
 
@@ -148,9 +142,7 @@
             xqzs.weui.removeWhenPageChange();
 
 
-//            let isBack = parseInt( Math.random()*10)%2;
-
-//            console.log({to:to.fullPath,from:from.fullPath});
+//
 
             if (this.isTabChange(from, to)) {
                 this.transitionName = '';
@@ -204,7 +196,7 @@
             })
             var tt = document.querySelector('.child-view');
             tt.addEventListener("webkitAnimationEnd", function(){
-                console.log("webkitAnimationEnd")
+//                console.log("webkitAnimationEnd")
             }, false);
 
         }

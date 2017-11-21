@@ -1,6 +1,6 @@
 <template>
     <div style="height: 100%" class="index_box" >
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>好一点</div>
         <v-tab tab="home"></v-tab>
         <div class="weui-tab__panel" >
@@ -170,16 +170,15 @@
 </template>
 
 <script type="es6">
+    import showLoad from './showLoad.vue';
     import banner from "./banner.vue";
     import tab from "./lib/tab.vue";
     import Bus from './bus.js';
-    let myCenter = {
-        template: '#myCenter'
-    };
 
     export default {
         data() {
             return {
+                showLoad:false,
                 myLastMood:null,
                 notice:{count:0},
                 linkTo:"#",
@@ -258,8 +257,6 @@
                 }, function (error) {
                 });
             },
-
-
             initSleepConfig:function () {
                 let _this=this;
                 //是否打卡
@@ -505,53 +502,6 @@
                 });
             },
 
-
-            getFriendLastMood:function () {
-
-                let _this=this;
-
-                //小心情数量发生变化就有红点点
-                let oldMoodCount=xqzs.localdb.get(_this.LOCAL_DB_KEY_MOOD_COUNT);
-                _this.$http.get(web.API_PATH + "mood/query/all/page/0/1/1?lastId=0&lastAdId=0")
-                    .then(function (bt) {
-                        if (bt && bt.data.status == 1) {
-                            let newMoodCount = bt.data.data.total;
-                            _this.newMoodCount=newMoodCount;
-                            if (oldMoodCount != newMoodCount) {
-                                _this.hasNewFirendMood = true;
-                                let container = $('#tabs .tab:eq(0)');
-                                let right = (container.width() - 32) / 2;
-                                _this.newFirendMoodStyle = 'right:' + right + 'px';
-                            }
-                        }
-                    })
-
-
-
-
-
-                //好友是否有新心情
-//                var that = this;
-//                var lastfriendmoodid = xqzs.friendmood.getlast();
-//                if(lastfriendmoodid!=''){
-//                    that.$http.get(web.API_PATH + "mood/find/friendlast/_userId_")
-//                        .then(function (bt) {
-//                            if(bt && bt.data.status == 1){
-//                                var data = bt.data.data;
-//                                var newId = data.id;
-//                                console.info(newId+'   '+lastfriendmoodid)
-//                                if(newId > parseFloat(lastfriendmoodid)){
-//                                    that.hasNewFirendMood=true;
-//                                    var container = $('#tabs .tab:eq(0)');
-//                                    var right = (container.width() - 32) / 2;
-//                                    that.newFirendMoodStyle = 'right:'+right+'px';
-//                                }
-//                            }
-//                        })
-//                }
-            },
-
-
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             }
@@ -686,7 +636,7 @@
         },
         components: {
             "v-banner": banner,
-            "v-tab":tab
+            "v-tab":tab, 'v-showLoad': showLoad
         }
 
     }
