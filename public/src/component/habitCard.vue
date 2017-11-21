@@ -4,7 +4,9 @@
         <div v-title>健康习惯</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="top">
-            <div class="h1">{{data.count}}个</div>
+            <div class="h1" v-if="data.todayHabit&&finishPer(data.todayHabit)==100">{{data.count+1}}个</div>
+            <div class="h1"v-else="">{{data.count}}个</div>
+
             <div class="h2">100%完美的日子</div>
             <div class="h3">「在{{year}}年{{lastTxt}}天里要继续你努力」</div>
         </div>
