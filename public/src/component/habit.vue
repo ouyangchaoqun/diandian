@@ -18,7 +18,7 @@
                 <div class="clear"></div>
 
             </div>
-            <div class="habit_history">
+            <div class="habit_history" :class="{nolinee:list.length>0}">
                 <div class="title">历史习惯</div>
                 <div class="item" v-for="item in list">
                     <div class="time" v-if="item.day<10">{{item.month}}.0{{item.day}}</div>
@@ -66,6 +66,7 @@
     .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem;  padding-left: 0.88235rem; padding-top: 0.6rem; }
     .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem }
     .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
+    .habit_box .habit_history.nolinee:before{ display: none}
     .habit_box .habit_history .item .day_habits img{ height:1.2rem; }
     .habit_box .habit_history .item .day_habits{ line-height: 2.2rem; margin-left: 1.6rem;float:left}
     .habit_box .habit_history .item .day_habits span{display: inline-block; width:2.3rem; text-align: center }
