@@ -1046,7 +1046,7 @@
         float: left;
         position: relative;
         height: 100%;
-        width: 75%;
+
     }
 
     .headerimg {
