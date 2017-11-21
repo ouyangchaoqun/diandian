@@ -68,7 +68,8 @@
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                             <div class="friend">
                                 <p class="friendName">{{user.nickName | shortName(8)}}</p>
-                                <p class="time"><font>{{friendCount}}位好友</font><i class="habits"><font v-for="habit in myHabit" v-if="habit.finish==1"><img :src="habit.iconFinish"/></font></font></i><i class="clear"></i></p>
+                                <p class="time"><font>{{friendCount}}位好友</font><i class="habits"><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myHabit.length>0" class="habit_icon"  ></font><font v-if="isGoBed"  class="sleep_icon" ></font></i><i class="clear"></i></p>
+
                             </div>
                         </div>
 
@@ -105,23 +106,23 @@
                                 <div class="friend">
                                     <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}</p>
                                     <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}</p>
-                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-for="habit in friendMood.finishHabit"><img :src="habit.iconFinish"/></font></font></i><i class="clear"></i></p>
-                                </div>
+                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font></i><i class="clear"></i></p>
+                            </div>
                             </div>
 
                             <div class="list_right">
-                                <img class="moodimg" :src="friendMood.moodValueUrl"/>
-                                <div class="interaction" @click.stop="care(friendMood.id)" >
-                                    <div>{{ friendMood.careCount }}</div>
-                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
-                                         src="../images/list_icon_dianz_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
-                                         src="../images/list_baob_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
-                                         src="../images/list_icon_dianz_pre.png" alt=""/>
-                                    <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                          src="../images/list_baob_pre.png" alt=""/>
-                                </div>
+
+                                <template v-if="friendMood.finishEvents.mood">
+                                    <img class="moodimg" :src="friendMood.finishEvents.mood.moodValueUrl"/>
+                                    <div class="interaction" @click.stop="care(finishEvents.finishEvents.mood.id)" >
+                                        <div>{{ friendMood.finishEvents.mood.careCount }}</div>
+                                        <img :class="{heartUp:friendMood.finishEvents.mood.hit}"  :src="friendMood.finishEvents.mood.careImg" alt=""/>
+                                    </div>
+                                </template>
+                                <template v-else="">
+                                    <img class="moodimg my_head" src="../images/list_mood_no.png"/>
+                                </template>
+
                             </div>
                             <div class="clear"></div>
                         </a>
@@ -134,23 +135,21 @@
                                 <div class="friend">
                                     <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8) }}</p>
                                     <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8) }}</p>
-                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-for="habit in friendMood.finishHabit"><img :src="habit.iconFinish"/></font></font></i><i class="clear"></i></p>
+                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font></i><i class="clear"></i></p>
                                 </div>
                             </div>
 
                             <div class="list_right">
-                                <img class="moodimg" :src="friendMood.moodValueUrl"/>
-                                <div class="interaction" @click.stop="care(friendMood.id)" >
-                                    <div>{{ friendMood.careCount }}</div>
-                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare==null"
-                                         src="../images/list_icon_dianz_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare==null"
-                                         src="../images/list_baob_nor.png" alt=""/>
-                                    <img :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue>=5 &&  friendMood.isCare!=null"
-                                         src="../images/list_icon_dianz_pre.png" alt=""/>
-                                    <img  :class="{heartUp:friendMood.hit}" v-if="friendMood.moodValue<5 &&  friendMood.isCare!=null"
-                                          src="../images/list_baob_pre.png" alt=""/>
+                                <template v-if="friendMood.finishEvents.mood">
+                                <img class="moodimg" :src="friendMood.finishEvents.mood.moodValueUrl"/>
+                                <div class="interaction" @click.stop="care(friendMood.finishEvents.mood.id)" >
+                                    <div>{{ friendMood.finishEvents.mood.careCount }}</div>
+                                    <img :class="{heartUp:friendMood.finishEvents.mood.hit}"  :src="friendMood.finishEvents.mood.careImg" alt=""/>
                                 </div>
+                                </template>
+                                <template v-else="">
+                                    <img class="moodimg my_head" src="../images/list_mood_no.png"/>
+                                </template>
                             </div>
                             <div class="clear"></div>
                         </a>
@@ -545,22 +544,39 @@
                 let _this = this;
                 _this.$http.put(web.API_PATH + 'mood/care/add', {"moodId": id, "userId": "omg"}).then(function (data) {//es5写法
                     if (data.data.status === 1) {
+
+
                         for(var i = 0; i<_this.friendMoodsSpe.length;i++){
-                            if(_this.friendMoodsSpe[i].id===id){
-                                _this.friendMoodsSpe[i].careCount =data.data.data;
-                                _this.friendMoodsSpe[i].hit=true;
-                                _this.friendMoodsSpe[i].isCare=true;
+                            if(_this.friendMoodsSpe[i].finishEvents.mood)
+                            {
+                                let item  = _this.friendMoodsSpe[i].finishEvents.mood;
+                                if(item.id===id){
+                                    item.careCount =data.data.data;
+                                    item.mood.hit=true;
+                                    item.mood.isCare=true;
+                                    item.careImg=  item.careImg.replace("_nor","_pre");
+                                    _this.friendMoodsSpe[i].finishEvents.mood=item;
+                                    _this.$set(_this.friendMoodsSpe,i,_this.friendMoodsSpe[i]);
+                                    break
+                                }
                             }
-
-
                         }
-                        for( i = 0; i<_this.friendMoods.length;i++){
-                            if(_this.friendMoods[i].id===id){
-                                _this.friendMoods[i].hit=true;
-                                _this.friendMoods[i].careCount =data.data.data;
-                                _this.friendMoods[i].isCare=true;
 
+
+                        for( i = 0; i<_this.friendMoods.length;i++){
+                            if(_this.friendMoods[i].finishEvents.mood){
+                                let item  = _this.friendMoods[i].finishEvents.mood;
+                                if(item.id===id){
+                                    item.hit=true;
+                                    item.careCount =data.data.data;
+                                    item.isCare=true;
+                                    item.careImg=  item.careImg.replace("_nor","_pre");
+                                    _this.friendMoods[i].finishEvents.mood=item;
+                                    _this.$set(_this.friendMoods,i,_this.friendMoods[i]);
+                                    break
+                                }
                             }
+
                         }
 
                         console.log(_this.friendMoods)
@@ -788,7 +804,7 @@
     .index_btns a:active{ color:#666}
 
 
-    .my_head{ margin-right: 54px !important;}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              .my_head{ margin-right: 54px !important;}
 
 
 
@@ -1019,6 +1035,12 @@
     .index_box  p.time>font:not(:first-child){ margin-left: 0.6rem;}
     .index_box  p.time .habits  font{margin-left: 0.29rem; margin-bottom: 0.3rem;}
     .index_box  p.time font img{ width: 100%; height: 100%}
+
+    .index_box  p.time font.get_up_icon{ background: url(../images/index_finish_get_up.png) no-repeat center; background-size: 1.1176470588235294117647058823529rem;}
+    .index_box  p.time font.habit_icon{ background: url(../images/index_finish_habit.png) no-repeat center; background-size: 0.79411764705882352941176470588235rem;}
+    .index_box  p.time font.sleep_icon{ background: url(../images/index_finish_go_sleep.png) no-repeat center; background-size:0.94117647058823529411764705882353rem;}
+
+
 
     .list_left {
         float: left;

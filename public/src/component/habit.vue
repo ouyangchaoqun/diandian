@@ -31,7 +31,7 @@
                 </div>
 
             </div>
-
+            <div class="history_ts"><span>你开启了健康习惯之旅</span></div>
 
         </v-scroll>
         <div class="habit_btns">
@@ -62,7 +62,7 @@
     .habit_box .my_habit .item.on .txt{ color:#666}
 
 
-    .habit_box .habit_history{ position: relative;}
+    .habit_box .habit_history{ position: relative; overflow: hidden; padding-bottom: 0.5rem;}
     .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem;  padding-left: 0.88235rem; padding-top: 0.6rem; }
     .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem }
     .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
@@ -71,6 +71,8 @@
     .habit_box .habit_history .item .day_habits span{display: inline-block; width:2.3rem; text-align: center }
     .habit_box .habit_history .item{ position: relative}
     .habit_box .habit_history .item:before{content:"";display:block; position:absolute; top:.8rem; left:3.3rem;height: 0.29411764705882352941176470588235rem;width: 0.29411764705882352941176470588235rem; border-radius: 50%; background: #FF9900}
+    .habit_box   .history_ts{ color:#999; font-size: 0.70rem; line-height:1.8823529411764705882352941176471rem;padding-left: 2.45rem; margin-top: -0.4rem; margin-bottom: 1rem; }
+    .habit_box   .history_ts:before{ content: " " ;display: inline-block; height:1.8823529411764705882352941176471rem; width: 1.8823529411764705882352941176471rem; background: url(../images/habit_history_ts.png) no-repeat; background-size: 1.8823529411764705882352941176471rem; float:left; margin-right: 0.6rem; }
 
     .habit_btns{ position: fixed; bottom:2rem; right:1.2rem}
     .habit_btns .btn{ height: 2.4rem; width: 2.6rem; ;background: #FF9900; border-radius: 3px; text-align: center; color:#fff; font-size: 0.82rem;  padding-top: 0.3rem; margin-bottom: 1rem;  }
@@ -218,9 +220,11 @@
                 let id = _this.habits[index].id;
                 _this.$http.put(web.API_PATH + 'habit/put/habit/today/_userId_/'+id, {}).then(response => {
 
-                    _this.timeout= setTimeout(function () {
-                        _this.animit=false;
-                    },3200);
+                    if((addedCount+1)==_this.habits.length) {
+                        _this.timeout = setTimeout(function () {
+                            _this.animit = false;
+                        }, 3200);
+                    }
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=1;
                         _this.$set(_this.habits,index,_this.habits[index]);
@@ -299,7 +303,7 @@
 
                     vm.$nextTick(function () {
                         $(".my_habit .item .img").css({"background-size":"64%"})
-                        $(".habit_history").height( $(".habit_history").height())
+
                     });
                     if (arr.length == 0) return;
                     vm.page = vm.page + 1;

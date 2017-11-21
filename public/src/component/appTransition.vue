@@ -75,7 +75,7 @@
                     }).then(function (data) {//es5写法
                         if (data.data.status === 1 && data.data.data !== null) {
                             _this.friendMoodsSpe = eval(data.data.data);
-                            _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
+                            _this.friendMoodsSpe = xqzs.mood.initMoodsIndex(_this.friendMoodsSpe);
                         }
                     }, function (error) {
                         //error
@@ -89,7 +89,10 @@
                     }).then(function (data) {//es5写法
                         if (data.data.status === 1 && data.data.data !== null) {
                             _this.friendMoods = eval(data.data.data);
-                            _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
+                            _this.friendMoods = xqzs.mood.initMoodsIndex(_this.friendMoods);
+
+
+                            console.log( _this.friendMoods)
 
                         }
                     }, function (error) {
