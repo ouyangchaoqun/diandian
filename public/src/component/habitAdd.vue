@@ -31,7 +31,7 @@
     .habit_add_box .my_habit{ padding: 0.6rem 0.88235rem; padding-bottom: 1rem; border-bottom: #F5F5F5 solid 0.55882352941176470588235294117647rem}
     .habit_add_box .my_habit .item{  width: 25%; float:left; text-align: center; color:#999; font-size: 0.70588235294117647058823529411765rem ;  margin-top: 0.8rem; position: relative  }
     .habit_add_box .my_habit .item .img{  display: inline-block;border: 1px solid rgba(217,217,217,0.5) ; ; height: 2.9411764705882352941176470588235rem; width: 2.9411764705882352941176470588235rem;  border-radius: 50%; font-size: 2rem;  line-height:2.7rem;  overflow: hidden;}
-    .habit_add_box .my_habit .item .txt{color:#333}
+    .habit_add_box .my_habit .item .txt{color:#666}
     .habit_add_box .my_habit .item.on .img{border: 1px solid  rgba(255,153,0,0.5)  ;}
     .habit_add_box .my_habit .item.on .txt{ color:#666}
     .habit_add_box .my_habit .item .close{ transform: rotate(45deg); -webkit-transform: rotate(45deg); height: 0.88235rem; width: 0.88235rem; border-radius: 50%; border: 1px solid #ccc; color:#ccc; line-height: 0.82rem; position: absolute;left:50%;top:-0.6rem; margin-left: -2rem;}

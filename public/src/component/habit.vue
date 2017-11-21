@@ -276,6 +276,7 @@
                         return;
                     }
                     vm.habits=response.data.data.habits;
+
                     let arr = response.data.data.habitList;
  //
                     if (arr.length < vm.row) {
@@ -293,7 +294,11 @@
                     } else {
                         vm.list = vm.list.concat(arr);
                     }
+
+
+
                     vm.$nextTick(function () {
+                        $(".my_habit .item .img").css({"background-size":"64%"})
                         $(".habit_history").height( $(".habit_history").height())
                     });
                     if (arr.length == 0) return;
