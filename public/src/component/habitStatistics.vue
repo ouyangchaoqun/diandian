@@ -1,5 +1,6 @@
 <template >
     <div class="habit_statistics_box" >
+        <div v-title>健康习惯</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="item" v-for="item in list">
             <div class="img"  :style="'background: url('+item.iconFinish+') no-repeat center ; background-size: 64%;'"></div>

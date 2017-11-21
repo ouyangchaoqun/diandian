@@ -1,5 +1,6 @@
 <template >
     <div class="habit_add_box" >
+        <div v-title>新习惯</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_habit">
             <div class="title">我的好习惯</div>

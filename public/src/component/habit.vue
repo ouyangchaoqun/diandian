@@ -1,7 +1,7 @@
 <template >
     <div class="habit_box">
         <v-showLoad v-if="showLoad"></v-showLoad>
-
+        <div v-title>健康习惯</div>
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite"  :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="my_habit">
 
