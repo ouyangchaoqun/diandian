@@ -550,7 +550,7 @@ var xqzs = {
             for (var i = 0; i < data.length; i++) {
 
                 if(data[i].finishEvents.mood){
-                    let item= data[i].finishEvents.mood;
+                    var item= data[i].finishEvents.mood;
                     item.moodValueUrl = web.IMG_PATH + "list_mood_0" + item.moodValue + ".png";
                     if (!timeType)
                         item.formatAddTime = xqzs.dateTime.formatTime(item.addTime);
