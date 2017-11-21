@@ -1026,7 +1026,7 @@
         color: #999999;
     }
 
-    .index_box  p.time .habits{ display: inline-block; padding-bottom: 0.3rem; min-height: 1.4764705882352941176470588235294rem}
+    .index_box  p.time .habits{ display: inline-block; padding-bottom: 0.3rem; min-height: 1.4764705882352941176470588235294rem; float:left;}
 
   .index_box  p.time font {
          height: 1.1764705882352941176470588235294rem; width: 1.1764705882352941176470588235294rem; display: inline-block; float:left;
