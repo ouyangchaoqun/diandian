@@ -53,7 +53,7 @@
     </div>
 </template>
 <style>
-    .habit_card_box{ background: #fff}
+    .habit_card_box{ background: #fff ; width: 100%; overflow: hidden}
     .habit_card_box .top{ margin:1.4705882352941176470588235294118rem;}
     .habit_card_box .top>div{text-align: right; line-height: 1; color:#333}
     .habit_card_box .h1{ font-size: 2.1176470588235294117647058823529rem; }
@@ -67,7 +67,7 @@
     .habit_card_box .cards .item .img img{ width: 100%; height: 100%}
     .habit_card_box .cards .item .habits{ margin: 1.4705882352941176470588235294118rem 0.5rem; margin-bottom: 1rem; text-align: right   }
     .habit_card_box .cards .item .habits img{height:1rem; }
-    .habit_card_box .cards .item .habits span{ display: inline-block; width: 2rem;  text-align: center}
+    .habit_card_box .cards .item .habits span{ display: inline-block; width: 1.8rem;  text-align: center}
 
     .habit_card_box .cards .item  .txt{ font-size:0.82352941176470588235294117647059rem; color:#666; line-height: 1; text-align: right; margin-right: 0.9rem; }
     .habit_card_box .cards .item  .day{ color:#999; font-size: 0.70588235294117647058823529411765rem; text-align: right;margin-right: 0.9rem; margin-top:0.4rem; margin-bottom: 0.8rem; }

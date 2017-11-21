@@ -714,6 +714,7 @@
     .index_btns a .record_hot{ height: 0.7rem; width: 0.7rem;  border-radius: 50%; position: absolute; left:50%; margin-left: 1.2rem; top:-0.1rem; background: red}
 
     .index_btns a:before{content: ' '; display: block; width: 3rem; height: 3rem; margin: 0 auto; margin-bottom: 0.4rem;}
+    .index_btns a:active{ opacity: 0.7}
     .index_btns a.get_up:before{ background: url(../images/index_btn_get_up.png) no-repeat; background-size: 3rem;}
     .index_btns a.go_sleep:before{ background: url(../images/index_btn_go_sleep.png) no-repeat; background-size: 3rem;}
     .index_btns a.mood:before{ background: url(../images/index_btn_mood.png) no-repeat; background-size: 3rem;}
