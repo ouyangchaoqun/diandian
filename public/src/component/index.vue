@@ -67,11 +67,13 @@
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                             <div class="friend">
-                                <p class="friendName">{{user.nickName | shortName(8)}}</p>
-                                <p class="time"><font>{{friendCount}}位好友</font><i class="habits"><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myHabit.length>0" class="habit_icon"  ></font><font v-if="isGoBed"  class="sleep_icon" ></font></i><i class="clear"></i></p>
+                                <p class="friendName">{{user.nickName | shortName(6)}}<font>{{friendCount}}位好友</font></p>
+                                <p class="time"><font v-if="myLastMood">{{myLastMood.addTime}}</font><i class="habits"><font v-if="isGoBed"  class="sleep_icon" ></font><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myHabit.length>0" class="habit_icon"  ></font></i><i class="clear"></i></p>
 
                             </div>
                         </div>
+
+
 
                         <div class="list_right">
                             <template v-if="myLastMood!=null">
@@ -104,9 +106,9 @@
                             <div class="list_left">
                                 <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                                 <div class="friend">
-                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}</p>
-                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}</p>
-                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font></i><i class="clear"></i></p>
+                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}<font>{{friendMood.friendNum}}位好友</font></p>
+                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}<font>{{friendMood.friendNum}}位好友</font></p>
+                                    <p class="time"><font>{{friendMood.outTime}}</font><i class="habits"><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font></i><i class="clear"></i></p>
                             </div>
                             </div>
 
@@ -114,7 +116,7 @@
 
                                 <template v-if="friendMood.finishEvents.mood">
                                     <img class="moodimg" :src="friendMood.finishEvents.mood.moodValueUrl"/>
-                                    <div class="interaction" @click.stop="care(finishEvents.finishEvents.mood.id)" >
+                                    <div class="interaction" @click.stop="care(friendMood.finishEvents.mood.id)" >
                                         <div>{{ friendMood.finishEvents.mood.careCount }}</div>
                                         <img :class="{heartUp:friendMood.finishEvents.mood.hit}"  :src="friendMood.finishEvents.mood.careImg" alt=""/>
                                     </div>
@@ -127,15 +129,15 @@
                             <div class="clear"></div>
                         </a>
                     </div>
-                    <div class="mycenterFill" v-if="hasLine"></div><!--todo-->
+                    <div class="mycenterFill" v-if="hasLine"></div>
                     <div class="addBorder" v-for="friendMood in friendMoods">
                         <a @click="friendLink(friendMood.userId)">
                             <div class="list_left">
                                 <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                                 <div class="friend">
-                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8) }}</p>
-                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8) }}</p>
-                                    <p class="time"><font>{{friendMood.friendNum}}位好友</font><i class="habits"><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font></i><i class="clear"></i></p>
+                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(6) }}<font>{{friendMood.friendNum}}位好友</font></p>
+                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(6) }}<font>{{friendMood.friendNum}}位好友</font></p>
+                                    <p class="time"><font>{{friendMood.outTime}}</font><i class="habits"><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font></i><i class="clear"></i></p>
                                 </div>
                             </div>
 
@@ -280,7 +282,7 @@
             },
             isNight:function () {
                 let date= new Date();
-                return !(date.getHours() >= 5 && date.getHours() < 20)
+                return !(date.getHours() >= 4 && date.getHours() < 19)
             },
             isRecordTime:function () {
                 if(this.isNight()){
@@ -1017,24 +1019,24 @@
     .friendName {
         font-size: 16px;
         color: #333;
-        width:144px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
-  .index_box  .time {
+    .index_box   .friendName font{     font-size: 12px;
+        color: #999999; margin-left: 0.6rem;}
+    .index_box  .time {
         font-size: 14px;
         color: #999999;
     }
 
-    .index_box  p.time .habits{ display: inline-block; padding-bottom: 0.3rem; min-height: 1.4764705882352941176470588235294rem; float:left;}
+    .index_box  p.time .habits{ display: inline-block;  min-height: 1.4764705882352941176470588235294rem; float:left; margin-left:0.4rem; }
 
   .index_box  p.time font {
          height: 1.1764705882352941176470588235294rem; width: 1.1764705882352941176470588235294rem; display: inline-block; float:left;
     }
     .index_box  p.time>font:first-child{ width: auto}
     .index_box  p.time>font:not(:first-child){ margin-left: 0.6rem;}
-    .index_box  p.time .habits  font{margin-left: 0.29rem; margin-bottom: 0.3rem;}
+    .index_box  p.time .habits  font{margin-left: 0.29rem;}
     .index_box  p.time font img{ width: 100%; height: 100%}
 
     .index_box  p.time font.get_up_icon{ background: url(../images/index_finish_get_up.png) no-repeat center; background-size: 1.1176470588235294117647058823529rem;}
@@ -1047,6 +1049,7 @@
         float: left;
         position: relative;
         height: 100%;
+        width: 65%;
 
     }
 
