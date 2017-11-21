@@ -45,7 +45,7 @@
                     </span>
                 </a>
                 <a class="mood" @click="addMood()"><span>心情说说</span></a>
-                <a class="habit" @click="goHabit()"><span>好习惯</span></a>
+                <a class="habit" @click="goHabit()"><span>健康习惯</span></a>
                 <a class="sign" @click="dailyRecord()"><span>每日一签</span></a>
             </div>
             <!--banner end -->
