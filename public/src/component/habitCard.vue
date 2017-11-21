@@ -99,7 +99,8 @@
                 showLoad:false,
                 data:{},
                 year:2017,
-                lastTxt:''
+                lastTxt:'',
+                index:0
             }
         },
 
@@ -203,6 +204,9 @@
                                         $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
                                     },200)
 
+                                },
+                                onSlideChangeEnd: function(swiper){
+                                    _this.index=swiper.activeIndex;
                                 }
                             });
 
@@ -220,13 +224,37 @@
             },
             share:function () {
                 let _this = this;
-                _this.showLoad = true;
-                _this.$http.get(web.API_PATH + 'record/daily/sign/card/_userId_').then(response => {
+
+                //时间获取
+                let year ,month ,day;
+                let isToday=false;
+                let index=0;
+                if(_this.data.todayHabit.length>0){
+                    if(_this.index==0){
+                        let date= new Date();
+                        year=date.getFullYear();
+                        month=date.getMonth()+1;
+                        day=date.getDate();
+                        isToday=true;
+                    }else{
+                        index =_this.index-1;
+                    }
+                }else{
+                    index =_this.index;
+                }
+                if(!isToday&&_this.data.habitList){
+                    year=_this.data.habitList[index].year;
+                    month=_this.data.habitList[index].month;
+                    day=_this.data.habitList[index].day;
+                }
+
+                _this.showLoad = true; //{userId}/{year}/{month}/{day}
+                _this.$http.get(web.API_PATH + 'habit/get/habit/card/_userId_/'+year+"/"+month+"/"+day).then(response => {
                      if (response.data.status == 1) {
                         _this.showLoad = false;
                         xqzs.weui.dialog({
-                            title: '每日一签已经发送',
-                            msg: '前往公众号查看你的每日一签',
+                            title: '习惯卡片已经发送',
+                            msg: '前往公众号查看你的习惯卡片',
                             submitText: '查看',
                             submitFun: function () {
                                 try {

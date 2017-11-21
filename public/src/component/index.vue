@@ -162,8 +162,6 @@
             </div>
             <!--friendcenter end-->
         </div>
-
-
         <div class="addMoodBg"></div>
 
     </div>
@@ -178,6 +176,7 @@
     export default {
         data() {
             return {
+                weather: {},
                 showLoad:false,
                 myLastMood:null,
                 notice:{count:0},
@@ -401,10 +400,120 @@
                 if (_this.isGetUp && _this.isRecordTime()) {
                     _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
                 }else{
-                    _this.$router.push("record?record_type=" + this.MORNING_TYPE)
+                    if(_this.isRecordTime()){
+                        _this.checkIn(this.MORNING_TYPE);
+                    }else{
+                        _this.$router.push("record?record_type=" + this.MORNING_TYPE)
+                    }
+
                 }
+            },
+
+            share: function (isNotShowLoad) {
+                let _this = this;
+                if (!isNotShowLoad) {
+                    _this.showLoad = true;
+                }
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/check/in/invite/card/_userId_/' + _this.MORNING_TYPE
+                }).then(function (bt) {
+                    if (bt.body.status == 1) {
+                        if (!isNotShowLoad) {
+                            xqzs.weui.dialog({
+                                title: '邀请卡已经发送',
+                                msg: '前往公众号查看，邀请好友一起参加早起计划',
+                                submitText: '查看',
+                                submitFun: function () {
+                                    try {
+                                        WeixinJSBridge.call('closeWindow');
+                                    } catch (e) {
+                                    }
+                                }
+                            })
+                        }
+                    }
+                    _this.showLoad = false;
+                })
 
             },
+
+            getWeather:function () {
+                let _this=this;
+                //获取天气
+                wx.ready(function () {
+                    //获取天气
+                    wx.getLocation({
+                        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                        success: function (res) {
+                            let latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                            let longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                            let latLng = new qq.maps.LatLng(latitude, longitude);
+                            //调用城市服务信息
+                            let citylocation = new qq.maps.CityService({
+                                complete: function (results) {
+                                    let area = results.detail.detail;
+                                    let city = encodeURIComponent(area.split(",")[1]);
+                                    _this.$http({
+                                        method: 'GET',
+                                        type: "json",
+                                        url: web.API_PATH + "base/get/weather/" + city,
+                                    }).then(function (data) {
+                                        _this.weather = data.body.results[0].weather_data[0];
+                                        let s = _this.weather.date;
+                                        _this.weather.current = s.substring(s.indexOf("：") + 1, s.indexOf(")"));
+                                        _this.weather.current = _this.weather.current.replace("℃", "°");
+                                        _this.weather.temperature = _this.weather.temperature.replace(" ~ ", "-");
+                                        _this.weather.temperature = _this.weather.temperature.replace("℃", "°");
+                                        console.log(_this.weather);
+                                    }, function (error) {
+                                        //error
+                                    });
+                                }
+                            });
+
+                            citylocation.searchCityByLatLng(latLng);
+                        },
+                        cancel: function (res) {
+
+                        }
+                    });
+                });
+
+            },
+            checkIn: function (type) {
+                let _this = this;
+                let weather = '';
+                if (_this.weather.weather != undefined) {
+                    weather += _this.weather.weather;
+                }
+                if (_this.weather.current != undefined) {
+                    weather += " " + _this.weather.current;
+                }
+
+
+                _this.$http.put(web.API_PATH + 'sleep/checkin/' + type + '/_userId_', {"weather": weather}).then(response => {
+                    console.log(response);
+                    if (response.data.status === 1) {
+
+
+                        //直接跳转到排行榜
+                        //早上发送成就卡
+                        if (type == _this.MORNING_TYPE) {
+                            _this.share(true)
+                        }
+                        setTimeout(function () {
+                            _this.$router.push("sleepRank?type=" + type)
+
+                        },200);
+
+
+
+                    }
+                });
+            },
+
             sleep: function () {
                 console.log('sleep')
                 this.$router.push("record?record_type=" + this.NIGHT_TYPE)
@@ -520,6 +629,7 @@
             _this.initSleepConfig();
             _this.getFriends();
             _this.getMyHabit();
+            _this.getWeather();
 
 
 
