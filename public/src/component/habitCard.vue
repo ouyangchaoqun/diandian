@@ -18,12 +18,13 @@
                         </div>
                         <div class="habits">
                             <span v-for="habit in data.todayHabit">
-                                <img :src="habit.iconNotFinish"  v-if="habit.finish==0"/>
-                                <img :src="habit.iconFinish"  v-else=""/>
+                                <img :src="habit.iconFinish"  v-if="habit.finish"/>
+                                <img :src="habit.iconNotFinish"  v-else=""/>
                             </span>
 
                         </div>
-                        <div class="txt">{{data.todayHabit.length}}个好习惯{{finishPer(data.todayHabit)}}%完成</div>
+                        <div class="txt" v-if="finishPer(data.todayHabit)==100">{{data.todayHabit.length}}个好习惯全部完成</div>
+                        <div class="txt" v-else="">今日完成{{finishCount(data.todayHabit)}}个好习惯</div>
                         <div class="day">{{formatTime()}}</div>
                     </div>
                 </div>
@@ -35,12 +36,14 @@
                         </div>
                         <div class="habits">
                              <span v-for="habit in item.habits">
-                                <img :src="habit.iconNotFinish"  v-if="habit.finish"/>
-                                <img :src="habit.iconFinish"  v-else=""/>
+                                <img :src="habit.iconFinish"  v-if="habit.finish"/>
+                                <img :src="habit.iconNotFinish"  v-else=""/>
                             </span>
 
                         </div>
-                        <div class="txt">{{item.habits.length}}个好习惯{{finishPer(item.habits)}}%完成</div>
+                        <div class="txt" v-if="finishPer(item.habits)==100">{{item.habits.length}}个好习惯全部完成</div>
+                        <div class="txt" v-else="">今日完成{{finishCount(item.habits)}}个好习惯</div>
+
                         <div class="day">{{item.year}}-{{item.month}}-{{item.day}}</div>
                     </div>
                 </div>
@@ -170,7 +173,15 @@
                     }
                 }
                 return parseInt(count*100/list.length);
-
+            },
+            finishCount:function (list) {
+                let count=0;
+                for( let i = 0;i<list.length;i++){
+                    if(list[i].finish){
+                        count++
+                    }
+                }
+                return count;
             },
             getCards:function () {
                 let _this = this;
@@ -185,6 +196,13 @@
                                 width: 510,
                                 onInit: function(swiper){
                                     $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
+                                    setTimeout(function () {
+                                        $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
+                                    },100)
+                                    setTimeout(function () {
+                                        $(".cards ").css({"margin-left":($(document).width()-$(".habit_card_box .cards .item").width())/2})
+                                    },200)
+
                                 }
                             });
 

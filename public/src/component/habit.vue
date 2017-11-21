@@ -48,9 +48,9 @@
     .habit_box{ background: #fff}
     .habit_box .my_habit{ padding: 0.6rem 0.88235rem; padding-bottom: 1rem; border-bottom: #F5F5F5 solid 0.55882352941176470588235294117647rem}
     .habit_box .my_habit .item{  width: 25%; float:left; text-align: center; color:#999; font-size: 0.70588235294117647058823529411765rem ;  margin-top: 0.8rem;  }
-    .habit_box .my_habit .item .img{  display: inline-block;border: 1px solid #DCDCDC ; height: 2.9411764705882352941176470588235rem; width: 2.9411764705882352941176470588235rem;  border-radius: 50%; font-size: 2rem;  line-height:2.7rem;  overflow: hidden;}
+    .habit_box .my_habit .item .img{  display: inline-block;border: 1px solid rgba(217,217,217,0.5) ; height: 2.9411764705882352941176470588235rem; width: 2.9411764705882352941176470588235rem;  border-radius: 50%; font-size: 2rem;  line-height:2.7rem;  overflow: hidden;}
     .habit_box .my_habit .item .txt{color:#DCDCDC}
-    .habit_box .my_habit .item.on .img{border: 1px solid #FF9900 ;}
+    .habit_box .my_habit .item.on .img{border: 1px solid rgba(255,153,0,0.5) ;}
     .habit_box .my_habit .item.on .txt{ color:#333}
 
 
@@ -195,8 +195,18 @@
                 if(  _this.animit==true){
                     return ;
                 }
-                 _this.animit=true;
-                let id = _this.habits[index].id
+
+                let addedCount=0;
+                for(let i=0;i<_this.habits.length;i++){
+                    if( _this.habits[i].todayAdded==1){
+                        addedCount++;
+                    }
+                }
+
+                if((addedCount+1)==_this.habits.length){
+                    _this.animit=true;
+                }
+                let id = _this.habits[index].id;
                 _this.$http.put(web.API_PATH + 'habit/put/habit/today/_userId_/'+id, {}).then(response => {
 
                     _this.timeout= setTimeout(function () {

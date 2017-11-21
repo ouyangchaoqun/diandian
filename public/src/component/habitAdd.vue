@@ -58,6 +58,19 @@
         methods:{
             add:function (index) {
                 let _this=this;
+
+                //限制数量
+                let count=0;
+                for(let i=0;i< _this.habits.length;i++){
+                    if( _this.habits[i].added==1){
+                        count++;
+                    }
+                }
+                if(count==7){
+                    xqzs.weui.tip("最多能同时添加七个习惯");
+                    return ;
+                }
+
                 _this.showLoad=true;
                 let id = _this.habits[index].id
                 _this.$http.put(web.API_PATH + 'habit/put/habit/kind/_userId_/'+id, {}).then(response => {
@@ -70,6 +83,18 @@
             },
             deleteHabit:function (index) {//
                 let _this=this;
+                //限制数量
+                let count=0;
+                for(let i=0;i< _this.habits.length;i++){
+                    if( _this.habits[i].added==1){
+                        count++;
+                    }
+                }
+                if(count==1){
+                    xqzs.weui.tip("最少需要保留一个习惯");
+                    return ;
+                }
+
                 _this.showLoad=true;
                 let id = _this.habits[index].id
                 _this.$http.put(web.API_PATH + 'habit/del/habit/_userId_/'+id, {}).then(response => {
