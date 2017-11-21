@@ -106,7 +106,7 @@
         },
 
         mounted: function () {
-            $(".cards ").css({"margin-left":($(document).width()-220)/2})
+            $(".cards ").css({"margin-left":($(window).width()-220)/2})
 
             this.getCards();
             this.initTime();
