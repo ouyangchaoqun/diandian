@@ -1,7 +1,7 @@
 <template >
     <div style="height: 100%"  class="more_box wbg" >
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div v-title>发现</div>
+        <div v-title>健康测试</div>
         <v-tab  tab="more"></v-tab>
         <div class="box_content">
             <div class="banner swiper-container  swiper_banner">
