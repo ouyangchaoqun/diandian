@@ -40,8 +40,9 @@
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
                         <ul class="friendImgList" v-if="item.haspicture">
                                  <li   v-for="pic in item.pics">
-                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
-                                         :data-h="pic.picheight" :style="pic.styleObject"
+                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="item.pics.length>1?pic.picwidth:''"
+                                         :data-h="item.pics.length>1?pic.picheight:''"
+                                       :style="pic.styleObject" :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}"
                                          @click="showBigImg(item.pics,pic)">
                                 </li>
 
@@ -505,9 +506,12 @@
     }
 
     .friendImgList.one li {
-        width: 10.07058823529412rem;
-        height: 7.623529411764706rem;
+        width: 100%;
+        height: auto;
     }
+
+    .friendImgList img.hw{ width: 12rem !important; height: auto !important}
+    .friendImgList img.hh{ height: 15rem !important; width: auto !important}
 
 
     .friendImgList li {
@@ -521,7 +525,6 @@
     .friendImgList img {
         display: block;
     }
-
     .commont_box {
         padding: 5px 10px 5px 10px;
         background: #f9f9f9;
