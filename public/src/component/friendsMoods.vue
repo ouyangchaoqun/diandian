@@ -510,8 +510,8 @@
         height: auto;
     }
 
-    .friendImgList img.hw{ width: 12rem !important; height: auto !important}
-    .friendImgList img.hh{ height: 15rem !important; width: auto !important}
+    .friendImgList img.hw{ width: 10.05882352941176rem !important; height: auto !important}
+    .friendImgList img.hh{ height: 10.58823529411765rem !important; width: auto !important}
 
 
     .friendImgList li {
