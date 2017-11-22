@@ -18,7 +18,7 @@
                 <div class="clear"></div>
 
             </div>
-            <div class="habit_history" :class="{nolinee:list.length>0}">
+            <div class="habit_history" :class="{nolinee:list.length==0}">
                 <div class="title">历史习惯</div>
                 <div class="item" v-for="item in list">
                     <div class="time" v-if="item.day<10">{{item.month}}.0{{item.day}}</div>

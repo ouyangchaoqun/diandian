@@ -84,10 +84,12 @@ class Controller extends BaseController
     public function errorLog(Request $request){
         $log = storage_path('logs').'/web_js_log.txt';
         $url = $request->input("url");
-        $line = $request->input("line");
-        $col = $request->input("col");
+        if($url==''){
+            return ;
+        }
         $msg = $request->input("msg");
-        $content =  date("Y_m_d h:i:s") . "[url:$url;line:$line;col:$col;msg:$msg]\r\n";
+        $headArray = getallheaders();
+        $content =  date("Y_m_d h:i:s") . "【msg:$msg ，User-Agent:". $headArray['User-Agent']  ."】\r\n\r\n";
         file_put_contents($log, $content, FILE_APPEND);
 
     }
