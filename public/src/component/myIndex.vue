@@ -48,8 +48,8 @@
                                         <template v-if="item.haspicture">
                                             <div class="moodPhotoLists">
                                                 <div class="moodPhotoList" v-for="pic in item.pics">
-                                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
-                                                         :data-h="pic.picheight" :style="pic.styleObject"
+                                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl"  :data-w="item.pics.length>1?pic.picwidth:''"
+                                                         :data-h="item.pics.length>1?pic.picheight:''"   :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}" :style="pic.styleObject"
                                                          @click="showBigImg(item.pics,pic)">
                                                 </div>
                                                 <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
@@ -534,6 +534,10 @@
        -khtml-user-select:text !important;
        user-select:text !important;
     }
+
+    .moodPhotoList img.hw{ width: 10.05882352941176rem !important; height: auto !important}
+    .moodPhotoList img.hh{ height: 10.58823529411765rem !important; width: auto !important}
+
 
 
 

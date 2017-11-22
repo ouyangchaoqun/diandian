@@ -41,8 +41,8 @@
                         <ul class="friendImgList" v-if="item.haspicture">
                                  <li   v-for="pic in item.pics">
                                     <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="item.pics.length>1?pic.picwidth:''"
-                                         :data-h="item.pics.length>1?pic.picheight:''"
-                                       :style="pic.styleObject" :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}"
+                                         :data-h="item.pics.length>1?pic.picheight:''"   :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}"
+                                       :style="pic.styleObject"
                                          @click="showBigImg(item.pics,pic)">
                                 </li>
 

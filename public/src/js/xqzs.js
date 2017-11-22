@@ -561,8 +561,8 @@ var xqzs = {
                     if (item.haspicture) {
                         if (item.pics !== undefined) {
                             for (var j = 0; j < item.pics.length; j++) {
-                                item.pics[j].smallUrl = item.pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
-                                item.pics[j].bigUrl = item.pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
+                                item.pics[j].smallUrl = item.pics[j].picpath + "?x-oss-process=image/resize,h_400,w_400/quality,q_100";
+                                item.pics[j].bigUrl = item.pics[j].picpath + "?x-oss-process=image/resize,h_1000,w_1000/quality,q_100";
 
                             }
                         }
@@ -632,8 +632,8 @@ var xqzs = {
                 if (data[i].haspicture) {
                     if (data[i].pics !== undefined) {
                         for (var j = 0; j < data[i].pics.length; j++) {
-                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
-                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
+                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_400,w_400/quality,q_100";
+                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_1000,w_1000/quality,q_100";
 
                         }
                     }

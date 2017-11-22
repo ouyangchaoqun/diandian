@@ -437,7 +437,7 @@ li{list-style: none}
 
 .moodImg_right .moodPhotoLists.one > div {
     width: 10.07058823529412rem;
-    height: 7.623529411764706rem;
+    height:auto
 }
 
 .moodFunnPicList {
