@@ -106,8 +106,8 @@
                             <div class="list_left">
                                 <img class="headerimg" :src="wxFaceUrl(friendMood.faceUrl)"/>
                                 <div class="friend">
-                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(8)}}<font>{{friendMood.friendNum}}位好友</font></p>
-                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(8)}}<font>{{friendMood.friendNum}}位好友</font></p>
+                                    <p class="friendName" v-if="friendMood.memoName!=null">{{friendMood.memoName | shortName(6)}}<font>{{friendMood.friendNum}}位好友</font></p>
+                                    <p class="friendName" v-if="friendMood.memoName==null">{{friendMood.nickName | shortName(6)}}<font>{{friendMood.friendNum}}位好友</font></p>
                                     <p class="time"><font>{{friendMood.outTime}}</font><i class="habits"><font v-if="friendMood.finishEvents.sleep"  class="sleep_icon" ></font><font v-if="friendMood.finishEvents.getUp" class="get_up_icon" ></font><font v-if="friendMood.finishEvents.habit" class="habit_icon"  ><img src=""/></font></i><i class="clear"></i></p>
                             </div>
                             </div>
@@ -554,8 +554,8 @@
                                 let item  = _this.friendMoodsSpe[i].finishEvents.mood;
                                 if(item.id===id){
                                     item.careCount =data.data.data;
-                                    item.mood.hit=true;
-                                    item.mood.isCare=true;
+                                    item.hit=true;
+                                    item.isCare=true;
                                     item.careImg=  item.careImg.replace("_nor","_pre");
                                     _this.friendMoodsSpe[i].finishEvents.mood=item;
                                     _this.$set(_this.friendMoodsSpe,i,_this.friendMoodsSpe[i]);
