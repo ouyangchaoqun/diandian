@@ -8,7 +8,7 @@
         </div>
         <v-calendarTemplate :habitId="id" :iconON="iconON" :icon="icon" v-if="calendar"></v-calendarTemplate>
         <div class="title">{{detail.descTitle}}</div>
-        <div class="content">{{detail.descContent}}</div>
+        <div class="content" v-html="detail.descContent"></div>
 
     </div>
 </template>
