@@ -24,7 +24,7 @@
                     <div class="time" v-if="item.day<10">{{item.month}}.0{{item.day}}</div>
                     <div class="time" v-else="">{{item.month}}.{{item.day}}</div>
                     <div class="day_habits">
-                        <span v-for="i in item.habits"><img :src="i.iconFinish" /></span>
+                        <span v-for="i in item.habits" v-if="i.finish"><img :src="i.iconFinish" /></span>
 
                     </div>
                     <div class="clear"></div>
