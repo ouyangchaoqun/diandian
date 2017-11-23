@@ -1,5 +1,5 @@
 <template >
-    <div class="calendarTemplate_box">
+    <div class="calendar_habit_box ">
             <div class="canlendarBgView">
                 <div class="canlendarView">
                     <div class="canlendarTopView">
@@ -298,7 +298,7 @@
 </script>
 
 <style>
-    .calendarTemplate_box{
+    .calendar_habit_box{
         height:auto;
     }
     .show_box_cal {
@@ -489,17 +489,16 @@
         float: left;
     }
 
-    .dateView img {
+    .calendar_habit_box    .dateView img {
         height: 26px;
         width: 26px;
         display: block;
-        margin: 6px auto;
-        margin-top: 4px;
-        margin-bottom: 8px;
+        margin: 0px auto;
+        margin-bottom: 4px;
     }
 
-    .datesView {
-        height: 28px;
+    .calendar_habit_box   .datesView {
+        height: 24px;
         color: #828080;
         font-size: 13px;
         display: flex;
