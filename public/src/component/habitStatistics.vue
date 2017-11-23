@@ -2,7 +2,7 @@
     <div class="habit_statistics_box" >
         <div v-title>健康习惯</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="item" v-for="item in list">
+        <div class="item" v-for="item in list" @click="goDetail(item.habitId)">
             <div class="img"  :style="'background: url('+item.iconFinish+') no-repeat center ; background-size: 64%;'"></div>
             <div class="title">
                 <div class="t">{{item.title}}</div>
@@ -20,6 +20,7 @@
 <style>
     .habit_statistics_box{background: #fff;  }
     .habit_statistics_box .item{ margin: 0.88235rem;  -webkit-box-shadow:0px 0px 13px rgba(0,0,0,.18); box-shadow:0px 0px 13px  rgba(0,0,0,.18); border-radius: 0.2rem; padding: 0.88235rem; position: relative}
+    .habit_statistics_box .item:active{ background: #f1f1f1}
     .habit_statistics_box .item .img{  display: inline-block;border: 1px solid  rgba(255,153,0,0.5) ; height: 2.3529411764705882352941176470588rem; width: 2.3529411764705882352941176470588rem;  border-radius: 50%; font-size: 2rem; float:left;}
     .habit_statistics_box .item .title{ float:left; margin-left: 0.6rem; line-height: 1}
     .habit_statistics_box .item  .t{ display: block; font-size: 0.88235rem; line-height: 1;  margin-bottom: 0.6rem; margin-top: 0.2rem; color:#666}
@@ -46,6 +47,9 @@
 
         },
         methods:{
+            goDetail:function (id) {
+                this.$router.push("/habit/detail?id="+id);
+            },
             formatTime:function (time) {
               return xqzs.dateTime.formatYearDate(time)
             },

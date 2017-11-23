@@ -61,7 +61,8 @@ let routers =
                 require('./routes/habit'),
                 require('./routes/habitAdd'),
                 require('./routes/habitStatistics'),
-                require('./routes/habitCard')
+                require('./routes/habitCard'),
+                require('./routes/habitDetail')
             ]
         }
     ];
