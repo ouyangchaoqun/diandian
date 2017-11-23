@@ -90,8 +90,8 @@
                                          src="../images/list_baob_nor.png" alt=""/>
                                 </div>
                             </template>
-                            <template v-if="myLastMood==null&&false">
-                                <img class="moodimg my_head" src="../images/list_mood_no.png"/>
+                            <template v-if="myLastMood==null">
+                                <!--<img class="moodimg my_head" src="../images/list_mood_no.png"/>-->
 
                             </template>
                         </div>
@@ -121,8 +121,8 @@
                                         <img :class="{heartUp:friendMood.finishEvents.mood.hit}"  :src="friendMood.finishEvents.mood.careImg" alt=""/>
                                     </div>
                                 </template>
-                                <template v-else="false">
-                                    <img class="moodimg my_head" src="../images/list_mood_no.png"/>
+                                <template v-else="">
+                                    <!--<img class="moodimg my_head" src="../images/list_mood_no.png"/>-->
                                 </template>
 
                             </div>
@@ -149,8 +149,8 @@
                                     <img :class="{heartUp:friendMood.finishEvents.mood.hit}"  :src="friendMood.finishEvents.mood.careImg" alt=""/>
                                 </div>
                                 </template>
-                                <template v-else="false">
-                                    <img class="moodimg my_head" src="../images/list_mood_no.png"/>
+                                <template v-else="">
+                                    <!--<img class="moodimg my_head" src="../images/list_mood_no.png"/>-->
                                 </template>
                             </div>
                             <div class="clear"></div>
