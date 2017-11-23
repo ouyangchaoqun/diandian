@@ -67,8 +67,8 @@
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                             <div class="friend">
-                                <p class="friendName">{{user.nickName | shortName(6)}}<font>{{friendCount}}位好友</font></p>
-                                <p class="time"><font v-if="myLastMood">{{myLastMood.addTime}}</font><i class="habits"><font v-if="isGoBed"  class="sleep_icon" ></font><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myHabit.length>0" class="habit_icon"  ></font></i><i class="clear"></i></p>
+                                <p class="friendName">{{user.nickName | shortName(6)}}<font  v-if="myInfos">{{myInfos.friendNum}}位好友</font></p>
+                                <p class="time" v-if="myInfos"><font >{{myInfos.outTime}}</font><i class="habits"><font v-if="myInfos.finishEvents.habit"  class="sleep_icon" ></font><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myInfos.finishEvents.habit" class="habit_icon"  ></font></i><i class="clear"></i></p>
 
                             </div>
                         </div>
@@ -199,7 +199,9 @@
                 MORNING_TYPE: 2,
                 NIGHT_TYPE: 3,
                 friendCount:'',
-                myHabit:[]
+
+
+                myInfos:null
 
             }
         },
@@ -222,40 +224,15 @@
             }
         },
         methods: {
-            getMyHabit:function () {
-                let _this = this;
-                _this.$http.get(web.API_PATH + 'habit/get/card/page/_userId_/1/1').then(response => {
+            getMyInfos:function () {
+
+                 let _this = this;
+                _this.$http.get(web.API_PATH + 'mood/event/query/user/pull/day/_userId_').then(response => {
                     if (response.data.status === 1) {
-                        _this.myHabit = response.data.data.todayHabit;
-
+                        _this.myInfos = response.data.data[0];
                     }
                 });
 
-            },
-            getFriends:function () {
-                let _this = this;
-                this.$http.get(web.API_PATH + 'user/query/friend/by/user/id/_userId_').then(function (data) {
-
-                    if (data.body.data !== null&&data.body.data !== undefined) {
-
-                        let generalFriends= data.body.data.generalFriends;
-
-                        let arrayGeneal = [];
-                        for (let key in generalFriends) {
-                            for (let i = 0; i < generalFriends[key].length; i++) {
-                                let friend = generalFriends[key][i];
-                                friend.firstCn = key;
-                                friend.friendLink = "/#/friendCenter/" + friend.id;
-                                arrayGeneal.push(friend)
-                            }
-                        }
-
-                        console.log(data.body.data)
-                        _this.friendCount = data.body.data.specialFriends.length +  arrayGeneal.length;
-                    }
-
-                }, function (error) {
-                });
             },
             initSleepConfig:function () {
                 let _this=this;
@@ -645,8 +622,7 @@
             let _this =this;
             _this.getUserInfo();
             _this.initSleepConfig();
-            _this.getFriends();
-            _this.getMyHabit();
+            _this.getMyInfos();
             _this.getWeather();
 
 
@@ -1004,28 +980,28 @@
     }*/
 
     .mycenter a {
-        min-height: 72px;
+        height:4.235294117647059rem;
         display: block;
-        padding: 0 15px;
+        padding: 0 0.88235rem;
         /*-webkit-tap-highlight-color: rgba(0,0,0,.2);*/
         padding-right: 0;
     }
 
     .friend {
-        margin-left: 59px;
-        padding-top: 12px
+        margin-left: 3.470588235294118rem;
+        padding-top: 0.7058823529411765rem;
     }
 
-    .friendName {
-        font-size: 16px;
+    .index_box .friendName {
+        font-size: 0.9411764705882353rem;
         color: #333;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .index_box   .friendName font{     font-size: 12px;
+    .index_box   .friendName font{     font-size: 0.7058823529411765rem;
         color: #999999; margin-left: 0.6rem;}
     .index_box  .time {
-        font-size: 14px;
+        font-size: 0.8235294117647059rem;
         color: #999999;
     }
 
@@ -1054,74 +1030,74 @@
     }
 
     .headerimg {
-        height: 44px;
-        width: 44px;
+        height:  2.588235294117647rem;;
+        width: 2.588235294117647rem;
         display: inline-block;
         border-radius: 3px;
         position: absolute;
         top: 50%;
-        margin-top: -22px;
+        margin-top: -1.294117647058824rem;
     }
 
     .list_left span {
-        font-size: 15px;
-        line-height: 72px;
+        font-size: 0.8823529411764706rem;
+        line-height:4.235294117647059rem;;
         color: #000000;
-        margin-left: 59px;
+        margin-left: 3.470588235294118rem;
     }
 
     .list_right {
         float: right;
-        height: 72px;
+        height: 4.235294117647059rem;
     }
 
     .list_right span {
         color: #666666;
-        font-size: 15px;
-        line-height: 72px;
+        font-size:  0.8823529411764706rem;
+        line-height: 4.235294117647059rem;
     }
     .list_right span.noRecord{
         margin-right:24px
     }
 
     .moodimg {
-        width: 34px;
-        height: 34px;
+        width: 2rem;
+        height: 2rem;
         float: left;
-        margin-top: 17px;
+        margin-top: 1rem;
         margin-right: 4px;
     }
 
     .interaction {
         float: left;
         text-align: center;
-        padding: 15px;
-        padding-top: 16px;
-        padding-left: 16px;
+        padding:0.88235rem;
+        padding-top:  0.9411764705882353rem;
+        padding-left: 0.9411764705882353rem;
 
-        padding-right: 14px;
-        font-size: 13px;
+        padding-right: 0.8235294117647059rem;
+        font-size: 0.7647058823529412rem;
         color: #aeaeae;
         overflow: hidden;
     }
     .interaction div{
-        line-height: 14px;
+        line-height: 0.8235294117647059rem;
     }
 
     .interaction img {
         display:block; margin-top: 2px;
-        width: 20px;
-        height: 20px;
+        width: 1.176470588235294rem;
+        height:  1.176470588235294rem;;
     }
     .interaction a{
 
-        height:20px;
+        height: 1.176470588235294rem;;
         padding:0;
     }
 
     .mycenterFill {
         width: 100%;
-        height: 12px;
+        height:0.7058823529411765rem;
         background: #f4f4f8;
     }
 
@@ -1130,15 +1106,15 @@
     }
 
     .share {
-        line-height: 40px;
-        height: 40px;
-        font-size: 14px;
-        margin: 25px 15px 30px 15px;
+        line-height: 2.352941176470588rem;
+        height: 2.352941176470588rem;;
+        font-size: 0.8235294117647059rem;
+        margin: 1.470588235294118rem  0.88235rem 1.764705882352941rem   0.88235rem;
         color: #fff;
         display: block;
         border: 1px solid #ffad00;
         background: #ffaa00;
-        border-radius: 5px;
+        border-radius: 0.2941176470588235rem;
         text-align: center;
 
     }

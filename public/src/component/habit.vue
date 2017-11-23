@@ -5,7 +5,7 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite"  :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="my_habit">
 
-                <div class="item " v-for="(item,index) in habits " @click="delOrAddHabit(index)" :class="{on:item.todayAdded==1}" >
+                <div class="item " v-for="(item,index) in habits " @click="delOrAddHabit(index)" :class="{on:item.todayAdded==1,small:item.small,big:item.big}" >
                     <div class="img"  v-if="item.todayAdded==1" :style="'background: url('+item.iconFinish+') no-repeat center; background-size: 64%;'"></div>
                     <div class="img" v-else="" :style="'background: url('+item.iconNotFinish+') no-repeat center; background-size: 64%;'"></div>
                     <div class="txt">{{item.title}}</div>
@@ -61,14 +61,49 @@
     .habit_box .my_habit .item.on .img{border: 1px solid rgba(255,153,0,0.5) ;}
     .habit_box .my_habit .item.on .txt{ color:#666}
 
+    .habit_box .my_habit .item.small{
+
+        -webkit-animation: item_small 0.35s  ;
+        animation: item_small 0.35s ;
+        animation-fill-mode:forwards;
+        -webkit-animation-fill-mode:forwards;
+    }
+    @keyframes item_small {
+        0% {
+            transform: scale(1);
+            -webkit-transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+            -webkit-transform: scale(0);
+        }
+    }
+    .habit_box .my_habit .item.big{
+
+        -webkit-animation: item_big 0.35s  ;
+        animation: item_big 0.35s ;
+        animation-fill-mode:forwards;
+        -webkit-animation-fill-mode:forwards;
+    }
+    @keyframes item_big {
+        0% {
+            transform: scale(0);
+            -webkit-transform: scale(0);
+        }
+        100% {
+            transform: scale(1);
+            -webkit-transform: scale(1);
+        }
+    }
+
 
     .habit_box .habit_history{ position: relative; overflow: hidden; padding-bottom: 0.5rem;}
     .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem;  padding-left: 0.88235rem; padding-top: 0.6rem; }
-    .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem }
+    .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem; width: 2rem; }
     .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
     .habit_box .habit_history.nolinee:before{ display: none}
     .habit_box .habit_history .item .day_habits img{ height:1.2rem; }
-    .habit_box .habit_history .item .day_habits{ line-height: 2.2rem; margin-left: 1.6rem;float:left}
+    .habit_box .habit_history .item .day_habits{ line-height: 2.2rem; margin-left: 1.4rem;float:left}
     .habit_box .habit_history .item .day_habits span{display: inline-block; width:2.3rem; text-align: center }
     .habit_box .habit_history .item{ position: relative}
     .habit_box .habit_history .item:before{content:"";display:block; position:absolute; top:.8rem; left:3.3rem;height: 0.29411764705882352941176470588235rem;width: 0.29411764705882352941176470588235rem; border-radius: 50%; background: #FF9900}
@@ -95,7 +130,7 @@
     }
     .habit_box .addHabit .r{ background: url(../images/habit_today_add_good_r.png) no-repeat; background-size: 100%; height: 100%;
         -webkit-animation: round 2.5s  ;
-          animation: round 2.5s ;
+        animation: round 2.5s ;
         animation-delay:0.5s;
         -webkit-animation-delay:0.5s; /* Safari 和 Chrome */
         animation-fill-mode:forwards;
@@ -183,7 +218,9 @@
                 isShowMoreText:false,
                 showLoad:false,
                 animit:false,
-                timeout:null
+                timeout:null,
+                smallOrBigAnimt:false,
+                timeout2:null
             }
         },
 
@@ -193,23 +230,42 @@
         methods:{
 
 
-            orderHabits:function (habits) {
+            orderHabits:function (habits,id) {
+                let _this=this;
                 let reHabits=[];
                 for(let i =0;i<habits.length;i++){
+                    habits[i].big=false;
                     if(habits[i].todayAdded){
                         reHabits.push(habits[i]);
+                    }
+                    if(id&&id==habits[i].id){
+                        habits[i].big=true;
                     }
                 }
                 for(let i =0;i<habits.length;i++){
                     if(!habits[i].todayAdded){
                         reHabits.push(habits[i]);
                     }
+                    if(id&&id==habits[i].id){
+                        habits[i].big=true;
+                    }
                 }
+
+
                 return reHabits;
             },
 
             delOrAddHabit:function (index) {
+                let _this=this;
+                console.log("delOrAddHabit:"+_this.smallOrBigAnimt)
+                if(_this.smallOrBigAnimt)return;
+                for(let i =0;i<this.habits.length;i++){
+                    this.habits[i].small=false;
+                }
                 let item = this.habits[index];
+                _this.habits[index].small=true;
+                _this.smallOrBigAnimt=true;
+                this.$set(this.habits,index,this.habits[index]);
                 if(item.todayAdded==1){
                     this.delHabit(index);
                 }else{
@@ -218,11 +274,11 @@
             },
 
             addHabit:function (index) {
+
                 let _this=this;
                 if(  _this.animit==true){
                     return ;
                 }
-
                 let addedCount=0;
                 for(let i=0;i<_this.habits.length;i++){
                     if( _this.habits[i].todayAdded==1){
@@ -244,10 +300,20 @@
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=1;
                         _this.$set(_this.habits,index,_this.habits[index]);
-                        _this.habits =  _this.orderHabits(_this.habits);
+
+                        _this.habits =  _this.orderHabits(_this.habits, _this.habits[index].id);
+                        if( _this.timeout2)clearTimeout( _this.timeout2);
+                        _this.timeout2= setTimeout(function () {
+                            for(let i=0;i<_this.habits.length;i++){
+                                _this.habits[i].small=false;
+                                _this.habits[i].big=false;
+                            }
+                            _this.smallOrBigAnimt=false;
+                        },740)
                         _this.$nextTick(function () {
                             $(".my_habit .item .img").css({"background-size":"64%"})
-                        })
+                        });
+
                     }
                 });
             },
@@ -259,11 +325,23 @@
                     _this.showLoad=false;
                     if (response.data.status === 1) {
                         _this.habits[index].todayAdded=0;
-                        _this.$set(_this.habits,index,_this.habits[index]);
-                        _this.habits =  _this.orderHabits(_this.habits);
+                         _this.$set(_this.habits,index,_this.habits[index]);
+                        _this.habits =  _this.orderHabits(_this.habits,_this.habits[index].id);
+                        if( _this.timeout2)clearTimeout( _this.timeout2);
+                        _this.timeout2= setTimeout(function () {
+                            for(let i=0;i<_this.habits.length;i++){
+                                _this.habits[i].small=false;
+                                _this.habits[i].big=false;
+                            }
+
+                            _this.smallOrBigAnimt=false;
+                        },740)
                         _this.$nextTick(function () {
                             $(".my_habit .item .img").css({"background-size":"64%"})
-                        })
+                        });
+
+
+
                     }
                 });
             },
