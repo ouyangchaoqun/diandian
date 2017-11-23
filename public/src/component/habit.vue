@@ -100,7 +100,7 @@
     .habit_box .habit_history{ position: relative; overflow: hidden; padding-bottom: 0.5rem;}
     .habit_box .habit_history .title{ color:#4A4949; font-size:0.82352941176470588235294117647059rem;  padding-left: 0.88235rem; padding-top: 0.6rem; }
     .habit_box .habit_history .item .time{ font-size: 0.70588235294117647058823529411765rem;color:#999;float:left;line-height:2rem; margin-left: 0.88235rem; width: 2rem; }
-    .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:2rem; left:3.4rem;  }
+    .habit_box .habit_history:before{width: 1px; height:100%; background: #eee; content: ' '; display: block; position: absolute; top:3rem; left:3.4rem;  }
     .habit_box .habit_history.nolinee:before{ display: none}
     .habit_box .habit_history .item .day_habits img{ height:1.2rem; }
     .habit_box .habit_history .item .day_habits{ line-height: 2.2rem; margin-left: 1.4rem;float:left}
