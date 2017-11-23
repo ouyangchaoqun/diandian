@@ -1025,7 +1025,7 @@
         float: left;
         position: relative;
         height: 100%;
-        width: 65%;
+        width: 72%;
 
     }
 
