@@ -91,6 +91,7 @@
                                 </div>
                             </template>
                             <template v-if="myLastMood==null">
+                                <span class="noRecord">还未记录</span>
                                 <!--<img class="moodimg my_head" src="../images/list_mood_no.png"/>-->
 
                             </template>
