@@ -180,21 +180,23 @@
                 _this.$http.get(web.API_PATH + 'habit/query/calendar/list/_userId_/'+_this.habitId+'?date=' + year + '-' + monthchange + '-01').then(response => {
                     if (response.data.status === 1) {
                         if (thisMonthDays > 0) {
+                            let count = 0;
                             for (let i = 1; i <= thisMonthDays; i++) {
                                 let dayChange = i;
                                 if (i < 10) dayChange = "0" + i;
                                 let dateStr = year + "-" + monthchange + "-" + dayChange;
-                                let moods = [];
+
                                 let smailUrl = _this.icon;
                                 for (let j = 0; j < response.data.data.length; j++) {
                                     if (dateStr === response.data.data[j].dt) {
                                         smailUrl =_this.iconON;
+                                        count++;
                                     }
                                 }
 
                                 days.push({index: i - 1, date: dateStr, smailUrl: smailUrl});
                             }
-
+                            _this.$emit('ievent',count);
 
                         }
 
