@@ -68,7 +68,7 @@
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                             <div class="friend">
                                 <p class="friendName">{{user.nickName | shortName(6)}}<font  v-if="myInfos">{{myInfos.friendNum}}位好友</font></p>
-                                <p class="time" v-if="myInfos"><font >{{myInfos.outTime}}</font><i class="habits"><font v-if="myInfos.finishEvents.habit"  class="sleep_icon" ></font><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myInfos.finishEvents.habit" class="habit_icon"  ></font></i><i class="clear"></i></p>
+                                <p class="time" v-if="myInfos"><font >{{myInfos.outTime}}</font><i class="habits"><font v-if="myInfos.finishEvents.sleep"  class="sleep_icon" ></font><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myInfos.finishEvents.habit" class="habit_icon"  ></font></i><i class="clear"></i></p>
 
                             </div>
                         </div>
