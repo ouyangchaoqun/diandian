@@ -55,7 +55,7 @@
                         _this.icon=response.data.data.iconNotFinish;
                         _this.calendar=true;
                         _this.detail=response.data.data;
-                        _this.detail.descContent= _this.detail.descContent.replace(/\r\n/g,"<br>");
+//                        _this.detail.descContent= _this.detail.descContent.replace(/\r\n/g,"<br>");
                     }
                 }, response => {
                     _this.showLoad=false;
