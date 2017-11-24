@@ -73,7 +73,7 @@
                 id:this.$route.query.id,
                 calendar:false,
                 detail:{},
-                finishDay:false
+                finishDay:0
 
             }
         },
