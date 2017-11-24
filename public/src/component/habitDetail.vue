@@ -1,6 +1,6 @@
 <template >
     <div class="habit_detail_box" >
-        <div v-title>健康习惯</div>
+        <div v-title>{{detail.title}}</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="head">
             <div class="t">数据统计</div>
@@ -8,7 +8,7 @@
                 <div class="item">
                    <div class="mainbox">
                        <div class="count">
-                           <span>{{detail.realUserCount}}</span>人
+                           <span>{{detail.realUserCount}}</span> 人
                        </div>
                        <div class="line"></div>
                        <div class="tip">参与人数</div>
@@ -17,10 +17,10 @@
                 <div class="item">
                     <div class="mainbox">
                     <div class="count">
-                        <span>{{finishDay}}</span>天
+                        <span>{{finishDay}}</span> 天
                     </div>
                     <div class="line"></div>
-                    <div class="tip">完成天数</div>
+                    <div class="tip">本月完成</div>
                 </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
 
     .habit_detail_box{background: #fff;  }
-    .habit_detail_box .head{ border-bottom: 1px solid  #e7e4e4 ; padding: 0.88235rem; font-size: 1rem;background: #fff
+    .habit_detail_box .head{  padding: 0.88235rem; font-size: 1rem;background: #fff
     }.habit_detail_box .head .t{ font-size: 0.8235294117647059rem; color:#333; border-left:2px  solid #ff9a00; line-height: 1; padding-left: 0.5rem;}
      .habit_detail_box .head .img{float:left; width: 1.5rem; height: 1.5rem; margin-right: 0.8rem; }
     .habit_detail_box .head .img img{ width: 100%; height: 100%;}
@@ -52,13 +52,12 @@
         text-align: center;
     }
     .habit_detail_box .head  .mainbox{line-height: 1}
-    .habit_detail_box .head  .count span{ font-size: 1.8rem; color:#ff9a00;line-height: 1}
+    .habit_detail_box .head  .count span{ font-size: 1.6rem; color:#ff9a00;line-height: 1}
     .habit_detail_box .head .mainbox{ width: 70%; margin: 0 auto; font-size:0.8235294117647059rem; color:#999; }
     .habit_detail_box .head .mainbox .line{ height: 1px ; background: #e7e4e4; width: 100%;
         overflow: hidden; margin: 0.6rem 0}
-    .habit_detail_box .h{ height: 0.88235rem; background: #f8f8f8}
-    .calendar_habit_box{ border-top: 1px solid #e7e4e4;}
-    .habit_detail_box .title{ margin: 0 0.88235rem; text-align: center; padding: 0.88235rem; font-size: 1rem; color:#333; border-bottom: 1px solid #f1f1f1}
+    .habit_detail_box .h{ height: 0.7rem; background: #f8f8f8}
+     .habit_detail_box .title{ margin: 0 0.88235rem; text-align: center; padding: 0.88235rem; font-size: 1rem; color:#333; border-bottom: 1px solid #f1f1f1}
     .habit_detail_box .content{ padding: 0.88235rem; font-size: 0.88235rem; color:#666}
 
 </style>
