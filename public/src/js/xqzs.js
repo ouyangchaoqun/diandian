@@ -8,7 +8,7 @@ var xqzs = {
     constant: {
         PIC_SMALL: '?x-oss-process=image/resize,h_320,w_320/quality,q_100',
         PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100',
-        PIC_BIG: '?x-oss-process=image/resize,h_1000,w_1000/quality,q_100'
+        PIC_BIG: '?x-oss-process=image/resize,h_1334,w_1000/quality,q_100'
     },
 
     weui: {
