@@ -864,7 +864,7 @@
 
 
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
-    .birthdays{  position: absolute; top:1.2em;left:1.2rem;z-index: 1001;   height: 2.8rem; font-size: 0.9rem; color:#fff; width: 2.8rem; line-height:  2.8rem;}
+    .birthdays{  position: absolute; top:1.34em;left:1.25rem;z-index: 1001;   height: 2.8rem; font-size: 0.9rem; color:#fff; width: 2.8rem; line-height:  2.8rem;}
     .birthdays .swiper-slide{ width: 2.8rem;height: 2.8rem; }
     .birthdays .swiper-slide img{ width: 2.4rem ; border: 0.1rem solid rgba(225,225,225,.7); height: 2.4rem; border-radius: 50%;  }
     .birthdays .swiper-slide img:active{ border:  0.1rem solid rgb(225, 225, 225);}
