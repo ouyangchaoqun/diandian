@@ -24,7 +24,11 @@ class Controller extends BaseController
         $this->apiService = $apiService;
         $this->API_URL = env("API_URL_HOST") . "/" . env("API_VERSION");
     }
+    public function party(Request $request)
+    {
 
+        return view('party')->with("guest", true);
+    }
 
     public function guest(Request $request)
     {
@@ -77,8 +81,6 @@ class Controller extends BaseController
         $apiurl = "/user/be/friend/width/ids/{$friendid}/_userId_";
         $this->apiService->execFull($request, $userId, $apiurl, 'POST');
         return redirect("/#/friendCenter/{$friendid}");
-
-
     }
 
     public function errorLog(Request $request){
