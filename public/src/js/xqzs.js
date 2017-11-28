@@ -8,7 +8,11 @@ var xqzs = {
     constant: {
         PIC_SMALL: '?x-oss-process=image/resize,h_320,w_320/quality,q_100',
         PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100',
-        PIC_BIG: '?x-oss-process=image/resize,h_1334,w_1000/quality,q_100'
+        PIC_BIG: '?x-oss-process=image/resize,h_1334,w_1000/quality,q_100',
+        HABIT_CARE_TYPE:6,
+        SLEEP_CARE_TYPE:3,
+        GET_UP_CARE_TYPE:2
+
     },
 
     weui: {
@@ -549,75 +553,44 @@ var xqzs = {
         },
         initMoodsIndex:function (data,timeType,userId) {
             for (var i = 0; i < data.length; i++) {
+                data[i].finishEvents.reverse();
+                for(var j=0;j< data[i].finishEvents.length;j++){
+                    if(data[i].finishEvents[j].type=="mood"){
+                        var item= data[i].finishEvents[j].value;
+                        item.moodValueUrl = web.IMG_PATH + "list_mood_0" + item.moodValue + ".png";
+                        if (!timeType)
+                            item.formatAddTime = xqzs.dateTime.formatTime(item.addTime);
 
-                if(data[i].finishEvents.mood){
-                    var item= data[i].finishEvents.mood;
-                    item.moodValueUrl = web.IMG_PATH + "list_mood_0" + item.moodValue + ".png";
-                    if (!timeType)
-                        item.formatAddTime = xqzs.dateTime.formatTime(item.addTime);
-                    item.link = "friendCenter/" + item.userId;
-                    item.hide = false;
-                    item.moodValueText = this.moodValueText[item.moodValue];
-                    this.setMoodValueStyle(item);
-                    if (item.haspicture) {
-                        if (item.pics !== undefined) {
-                            for (var j = 0; j < item.pics.length; j++) {
-                                item.pics[j].smallUrl = item.pics[j].picpath   + xqzs.constant.PIC_SMALL;
-                                item.pics[j].bigUrl = item.pics[j].picpath +  xqzs.constant.PIC_BIG;
+                        item.hide = false;
+                        item.scense = xqzs.mood.getCjImg(item.scenesId);
 
+                        //心抱抱逻辑
+                        item.isCare = data[i].finishEvents[j].isCare;
+
+                        if ( parseInt(userId) !== parseInt(item.userId)) {
+                            if ((item.moodValue >= 5 || item.moodValue == 0) && !item.isCare ) {
+                                item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
+                            } else if (item.moodValue < 5 && !item.isCare ) {
+                                item.careImg = web.IMG_PATH + "list_baob_nor.png";
+                            } else if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.isCare) {
+                                item.careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
+                            } else if (item.moodValue < 5 && item.isCare ) {
+                                item.careImg = web.IMG_PATH + "list_baob_pre.png";
                             }
                         }
 
-                    }
-                    item.showAll = false;
-                    item.showordown = "查看更多";
-                    item.editLink = "/myCenter/myIndex/Edit?id=" + item.id;
-                    item.hide = false;
-                    item.scense = xqzs.mood.getCjImg(item.scenesId);
-                    //随机头像
-                    if (item.faceIndex !== null)
-                        item.randomFaceUrl = "http://oss.xqzs.cn/xqzs/anonymous_face/" + item.faceIndex + ".jpg";
 
-                    //心抱抱逻辑
-                    if (item.caremy !== undefined) {
-                        item.isCare = null;
-                        if (item.caremy !== null && item.caremy !== undefined && item.caremy !== "") {
-                            item.isCare = true;
+                        data[i].finishEvents[j].value=item;
+                        data[i].careImg= item.careImg
+                    }else{
+                        if(data[i].finishEvents[j].isCare){
+                            data[i].careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
+                        }else{
+                            data[i].careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
                         }
                     }
-
-
-                    if (item.isCare !== undefined && parseInt(userId) !== parseInt(item.userId)) {
-                        if ((item.moodValue >= 5 || item.moodValue == 0) && item.isCare === null) {
-                            item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
-                        } else if (item.moodValue < 5 && item.isCare === null) {
-                            item.careImg = web.IMG_PATH + "list_baob_nor.png";
-                        } else if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.isCare !== null) {
-                            item.careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
-                        } else if (item.moodValue < 5 && item.isCare !== null) {
-                            item.careImg = web.IMG_PATH + "list_baob_pre.png";
-                        }
-                    } else {
-
-                        if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.careCount == 0) {
-                            item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
-                        } else if (item.moodValue < 5 && item.careCount == 0) {
-                            item.careImg = web.IMG_PATH + "list_icon_baob_nor.png";
-                        } else if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.careCount != 0) {
-                            item.careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
-                        } else if (item.moodValue < 5 && item.careCount != 0) {
-                            item.careImg = web.IMG_PATH + "list_icon_baob_pre.png";
-                        }
-                    }
-
-                    //评论emoji
-                    if (item.replies && item.replies.length > 0) {
-                        for (var ri = 0, rl = item.replies.length; ri < rl; ri++) {
-                            item.replies[ri].content = xqzs.face.parseEmoji(item.replies[ri].content);
-                        }
-                    }
-                    data[i].finishEvents.mood=item;
                 }
+
             }
             return data;
         },

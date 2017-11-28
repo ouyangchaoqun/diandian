@@ -71,7 +71,7 @@
                     _this.$http({
                         method: 'GET',
                         type: "json",
-                        url: web.API_PATH + 'mood/event/query/friend/pull/day/_userId_/1/3',
+                        url: web.API_PATH + 'mood/event/query/friend/pull/day/_userId_/1/3?version=2.0',
                     }).then(function (data) {//es5写法
                         if (data.data.status === 1 && data.data.data !== null) {
                             _this.friendMoodsSpe = eval(data.data.data);
@@ -85,10 +85,11 @@
                     _this.$http({
                         method: 'GET',
                         type: "json",
-                        url: web.API_PATH + 'mood/event/query/friend/pull/day/_userId_/0/3',
+                        url: web.API_PATH + 'mood/event/query/friend/pull/day/_userId_/0/3?version=2.0',
                     }).then(function (data) {//es5写法
                         if (data.data.status === 1 && data.data.data !== null) {
                             _this.friendMoods = eval(data.data.data);
+
                             _this.friendMoods = xqzs.mood.initMoodsIndex(_this.friendMoods);
 
 
