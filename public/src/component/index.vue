@@ -594,25 +594,24 @@
                                 }
                             }
 
+                        }
 
+                        for (i = 0; i < _this.friendMoods.length; i++) {
+                            let item = _this.friendMoods[i];
 
-                            for (i = 0; i < _this.friendMoods.length; i++) {
-                                let item = _this.friendMoods[i];
-                                for (let j = 0; j < item.finishEvents.length; j++) {
-                                    console.log(item.finishEvents[j]);
-                                    if (item.finishEvents[j].type === itemV.type && item.finishEvents[j].id === itemV.id) {
-                                        item.hit = true;
-                                        item.careCount = data.data.data;
-                                        item.isCare = true;
-                                        item.careImg = item.careImg.replace("_nor", "_pre");
-                                        _this.friendMoods[i] = item;
-                                        _this.$set(_this.friendMoods, i, _this.friendMoods[i]);
-                                        break
-                                    }
+                            for (let j = 0; j < item.finishEvents.length; j++) {
+                                console.log(item.finishEvents[j]);
+                                if (item.finishEvents[j].type === itemV.type && item.finishEvents[j].id === itemV.id) {
+                                    item.hit = true;
+                                    item.careCount = data.data.data;
+                                    item.isCare = true;
+                                    item.careImg = item.careImg.replace("_nor", "_pre");
+                                    _this.friendMoods[i] = item;
+                                    _this.$set(_this.friendMoods, i, _this.friendMoods[i]);
+                                    break
                                 }
                             }
                         }
-
                     }
                 }, function (error) {
                     //error
@@ -910,7 +909,7 @@
         text-align: center;
         display: block;
         width: 100%;}
-    .not_care_a>span{   animation: not_care_a 2s infinite 0s;
+    .not_care_a>span {   animation: not_care_a 2s infinite 0s;
         -webkit-animation:not_care_a 2s infinite 0s;
     }
     @keyframes not_care_a
@@ -926,6 +925,22 @@
             -webkit-transform:scale(1);}
     }
 
+    .not_care_a>img{   animation: not_care_a2 2s infinite 0s;
+        -webkit-animation:not_care_a2 2s infinite 0s;
+    }
+
+    @keyframes not_care_a2
+    {
+        0%  {
+            transform:scale(1);
+            -webkit-transform:scale(1);
+        }
+        50% { transform:scale(1.2);
+            -webkit-transform:scale(1.2);}
+
+        100%{ transform:scale(1);
+            -webkit-transform:scale(1);}
+    }
 
     .qun_qrcode{ text-align: center;  margin-bottom: 15px;}
     .birthdays{  position: absolute; top:1.34em;left:1.25rem;z-index: 1001;   height: 2.8rem; font-size: 0.9rem; color:#fff; width: 2.8rem; line-height:  2.8rem;}

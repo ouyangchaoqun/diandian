@@ -553,6 +553,7 @@ var xqzs = {
         },
         initMoodsIndex:function (data,timeType,userId) {
             for (var i = 0; i < data.length; i++) {
+                if( data[i].finishEvents&&data[i].finishEvents.length>0)
                 data[i].finishEvents.reverse();
                 for(var j=0;j< data[i].finishEvents.length;j++){
                     if(data[i].finishEvents[j].type=="mood"){
