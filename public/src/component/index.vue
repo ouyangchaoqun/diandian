@@ -70,9 +70,9 @@
                         <div class="list_left">
                             <img class="headerimg" :src="wxFaceUrl(user.faceUrl)"/>
                             <div class="friend">
-                                <p class="friendName">{{user.nickName | shortName(6)}}<font  v-if="myInfos&&false">{{myInfos.friendNum}}位好友</font></p>
+                                <p class="friendName" :class="{line_middle:!myInfos||!myInfos.outTime}">{{user.nickName | shortName(6)}}<font  v-if="myInfos&&false">{{myInfos.friendNum}}位好友</font></p>
                                 <p class="time" v-if="myInfos"><font >{{myInfos.outTime}}</font>
-                                    <!--<i class="habits"><font v-if="myInfos.finishEvents.sleep"  class="sleep_icon" ></font><font v-if="isGetUp" class="get_up_icon" ></font><font v-if="myInfos.finishEvents.habit" class="habit_icon"  ></font></i><i class="clear"></i>-->
+
                                 </p>
 
                             </div>
@@ -93,7 +93,7 @@
                                 </template>
                             </template>
 
-                            <template v-if="myInfos&&myInfos.finishEvents.length==0">
+                            <template v-if="!myInfos||myInfos.finishEvents.length==0">
                                 <span class="noRecord">还未记录</span>
                              </template>
                         </div>
@@ -1077,6 +1077,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+    .index_box .friendName.line_middle{ line-height:2.941176470588235rem; }
+
     .index_box   .friendName font{     font-size: 0.7058823529411765rem;
         color: #999999; margin-left: 0.6rem;}
     .index_box  .time {
