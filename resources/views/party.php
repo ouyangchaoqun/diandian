@@ -167,13 +167,15 @@
         .ewm .img img{ width: 100%; height: 100%}
         .ewm .title { color:#fff; font-size: 40px; text-align: center; width: 100%; margin-top: 20px;}
         .messages{ width: 100%; position: absolute; z-index: 1001; top:120px; left:0; height:75%}
-        .messages .item { width: 100%; position: absolute; top:75%;left:100%}
+        .messages .item { width: 100%; position: absolute; top:75%;left:100%; text-shadow:     0 1px 2px rgba(0, 0, 0, 0.3)}
         .messages .item .img{ height: 48px; width: 48px; border-radius: 50%; border: 3px solid #fff;
-            overflow: hidden; float:left; }
+            overflow: hidden; float:left; box-shadow: 0 0 0px 3px rgba(0,0,0,0.15) }
         .messages .item .txt{ float:left; width: 80%; color:#fff; font-size: 16px; margin-left: 12px}
         .messages .item .txt .user_name span{ font-size: 12px;}
-        .messages .item .txt  .content{ font-size: 20px; font-weight: bold}
-        .
+        .messages .item .txt  .content{ font-size: 30px; font-weight: 500}
+
+
+
 
     </style>
 </head>
