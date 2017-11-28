@@ -118,7 +118,7 @@
                 let date = new Date();
                 this.year=date.getFullYear();
                 let month=  date.getMonth()+1;
-                let day= date.getDay()
+                let day= date.getDate()
                 let yearCurDayIndex= this.yearCurDayIndex( this.year,month,day);
                 let yearDayCount=this.yearDayCount( this.year);
 
@@ -128,10 +128,6 @@
                 }else{
                     this.lastTxt= "第"+yearCurDayIndex+""
                 }
-
-
-
-
             },
 
             isLeapYr: function (yr) {
@@ -147,6 +143,7 @@
                 //计算该月份之前的总天数，比如m=3，那么就计算1和2月的总天数
                 for (var i = 0; i < m - 1; i++) {
                     mSum += mdays[i];
+                    console.log( mdays[i])
                 }
                 //加上当月天数
                 sum = mSum + d;

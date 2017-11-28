@@ -245,7 +245,7 @@
             initBtns:function () {
                 this.$nextTick(function () {
                     let mySwiperPre = new Swiper('.index_btns', {
-                        slidesPerView: 4.5,
+                        slidesPerView: 4,
                         onInit: function(swiper){
 
                         },
