@@ -579,7 +579,7 @@ var xqzs = {
                             }
                             data[i].careImg= item.careImg
                         }else{
-                            if(data[i].moodValue >= 5){
+                            if(data[i].finishEvents[j].value.moodValue >= 5){
                                 if(data[i].careCount>0){
                                     data[i].careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
                                 }else{
