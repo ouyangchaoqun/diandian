@@ -11,10 +11,10 @@
         *{ padding: 0; margin: 0}
         body{ height: 100%}
         body .main{ height: 100%; color:#333 ; width: 100%; position: relative; overflow: hidden;background: url(src/party/036d.jpg) no-repeat #000 center top;     background-size: cover;}
-        .main .list{   height: 80%; overflow:hidden; padding:120px 80px;}
+        .main .list{   height: 70%; overflow:hidden; padding:30px 60px; margin: 40px 0; margin-top: 120px; padding-bottom: 0;}
         .main .list .img{ border: 5px solid #fff; border-radius: 50%; height: 120px; width: 120px; overflow: hidden}
         .main .list .img img{ width: 100%}
-        .main .list .item { float:left; position: relative; margin-right: 30px;}
+        .main .list .item { float:left; position: relative; margin-right: 30px;    height: 176px;}
         .main .list .item .order{ height: 24px; line-height: 24px; background: #fff; border-radius: 15px; text-align: center;position: absolute;top:110px;left:50%; width: 60px; margin-left: -30px;}
         .main .list .item .text{ color:#fff; text-align: center; line-height: 32px;}
         .cover{height: 100%; width: 100%; position: fixed; top:0; left:0; display: none;}
@@ -28,7 +28,7 @@
         .main .list .item.big{    -webkit-animation: big 4s 0s ease forwards;}
         @-webkit-keyframes big{
             0%{-webkit-transform: scale(0.1);opacity:0;}
-            10%{-webkit-transform: scale(1.5);opacity:1;}
+            10%{-webkit-transform: scale(1.3);opacity:1;}
             20%{-webkit-transform: scale(1);opacity:1;}
             100%{-webkit-transform: scale(1);opacity:1;}
 
@@ -156,7 +156,7 @@
                 -webkit-transform: translate3d(0%, -100%, 0);
             }
         }
-        .top .left{ float:left; font-size: 35px; color:#fff; margin-left: 80px; padding-top:50px; line-height: 1}
+        .top .left{ float:left; font-size: 35px; color:#fff; margin-left: 80px; padding-top:50px; line-height: 1; text-shadow:  0 2px 4px rgba(0, 0, 0, 0.4)}
         .top .right{ float:right;}
         .top .right img{ width: 100px; height: 100px; margin-right: 80px; margin-top:60px;}
 
@@ -171,6 +171,7 @@
         .messages .item { width: 100%; position: absolute; top:75%;left:100%; text-shadow:     0 1px 2px rgba(0, 0, 0, 0.3)}
         .messages .item .img{ height: 48px; width: 48px; border-radius: 50%; border: 3px solid #fff;
             overflow: hidden; float:left; box-shadow: 0 0 0px 3px rgba(0,0,0,0.15) }
+        .messages .item .img img{ width: 100%; height: 100%;}
         .messages .item .txt{ float:left; width: 80%; color:#fff; font-size: 16px; margin-left: 12px}
         .messages .item .txt .user_name span{ font-size: 12px;}
         .messages .item .txt  .content{ font-size: 30px; font-weight: 500}
@@ -184,6 +185,8 @@
         li{
             list-style: none;
         }
+        .ul_box li div{ text-align: center; font-size: 20px; color:#fff; line-height: 120px; position: relative}
+        .ul_box li div .nick_name{ position: absolute; bottom:0; background: rgba(255,255,255,0.8); color:#666; line-height: 24px; height: 24px; width: 100%; display: block; font-size: 14px;}
         .ul_box li{
             overflow: hidden;
             float: left;
@@ -276,7 +279,7 @@
         .scroll{
             animation: scroll;
             animation-fill-mode: none;
-            animation-duration: 0.7s;
+            animation-duration: 2s;
             animation-iteration-count: infinite;
             animation-timing-function: linear;
         }
@@ -285,7 +288,7 @@
                 transform: translateY(0);
             }
             100%{
-                transform: translateY(-600px);
+                transform: translateY(-100%);
             }
         }
         .bottom{
@@ -396,7 +399,7 @@
     </div>
 </div>
 <div class="top">
-    <div class="left">某某活动现场</div>
+    <div class="left" id="xcTitle"></div>
     <div class="right"><img src="http://7xik7r.com1.z0.glb.clouddn.com/1509417069005.jpg"></div>
 </div>
 
@@ -498,54 +501,27 @@
             <ul class="ul_box">
                 <li>
                     <div>
-                        <img src="src/party/chou/0 (3).jpg" alt="" />
-                        <img src="src/party/chou/0 (4).jpg" alt="" />
-                        <img src="src/party/chou/0.jpg" alt="" />
-                        <img src="src/party/chou/6272576897a2e42385ddbcf41435d938.jpg" alt="" />
-                        <img src="src/party/chou/0 (1).jpg" alt="" />
-                        <img src="src/party/chou/0 (2).jpg" alt="" />
+                        名
                     </div>
                 </li>
                 <li>
                     <div>
-                        <img src="src/party/chou/0 (3).jpg" alt="" />
-                        <img src="src/party/chou/6272576897a2e42385ddbcf41435d938.jpg" alt="" />
-                        <img src="src/party/chou/0 (1).jpg" alt="" />
-                        <img src="src/party/chou/0 (2).jpg" alt="" />
-                        <img src="src/party/chou/0 (4).jpg" alt="" />
-                        <img src="src/party/chou/0.jpg" alt="" />
+                        单
                     </div>
                 </li>
                 <li>
                     <div>
-                        <img src="src/party/chou/6272576897a2e42385ddbcf41435d938.jpg" alt="" />
-                        <img src="src/party/chou/0 (1).jpg" alt="" />
-                        <img src="src/party/chou/0 (4).jpg" alt="" />
-                        <img src="src/party/chou/0 (2).jpg" alt="" />
-                        <img src="src/party/chou/0 (3).jpg" alt="" />
-                        <img src="src/party/chou/0.jpg" alt="" />
+                        加
                     </div>
                 </li>
                 <li>
                     <div>
-                        <img src="src/party/chou/6272576897a2e42385ddbcf41435d938.jpg" alt="" />
-                        <img src="src/party/chou/0 (1).jpg" alt="" />
-                        <img src="src/party/chou/0 (4).jpg" alt="" />
-                        <img src="src/party/chou/0.jpg" alt="" />
-                        <img src="src/party/chou/0 (2).jpg" alt="" />
-                        <img src="src/party/chou/0 (3).jpg" alt="" />
-
+                        载
                     </div>
                 </li>
                 <li>
                     <div>
-                        <img src="src/party/chou/0 (2).jpg" alt="" />
-                        <img src="src/party/chou/0 (3).jpg" alt="" />
-                        <img src="src/party/chou/6272576897a2e42385ddbcf41435d938.jpg" alt="" />
-                        <img src="src/party/chou/0 (1).jpg" alt="" />
-
-                        <img src="src/party/chou/0 (4).jpg" alt="" />
-                        <img src="src/party/chou/0.jpg" alt="" />
+                        中
                     </div>
                 </li>
 
@@ -554,11 +530,8 @@
         <div class="bottom">
             <div class="count">当前已中奖人数：<span>5</span></div>
             <div>设置奖项：
-                <select name="" id="" onchange="showValue1(this.value)">
-                    <option value="请选择" style="display: none;">请选择</option>
-                    <option value="一等奖" selected>一等奖</option>
-                    <option value="二等奖">二等奖</option>
-                    <option value="三等奖">三等奖</option>
+                <select name="" id="lotteryItem" onchange="showValue1(this.value)">
+
                 </select>
             </div>
             <div>
@@ -599,18 +572,27 @@
     web.BASE_PATH= 'http://192.168.31.55/' //"<?=env("BASE_PATH")?>";
     web.API_PATH=web.BASE_PATH+"api/";
     var xcId= '<?=$xcId?>';
+    var lotteryId= '<?=$lotteryId?>';
+//
+    getXcDetail();
+    function   getXcDetail(){
+        $.ajax({
+            dataType: 'JSON',
+            url: web.API_PATH+"xianchang/get/xc/"+xcId,
+            success: function (json) {
+                $("#xcTitle").html(json.data.title)
+
+            }
+        })
+    }
+
+
     resizeHeight()
     function resizeHeight() {
         $(".main,.chou").height($(document).height());
     }
-    function  sign() {
-        $(".main.sign").show()
-        $(".chou").hide()
-    }
-    function cj() {
-        $(".main.sign").hide()
-        $(".chou").show()
-    }
+
+
     var open=true;
     $(".foot  .middle").click(function () {
         open = !open ;
@@ -628,47 +610,72 @@
         }
 
     });
+
+
+//    签到
+
     var cover= $(".cover");
     var signing=[];
+    var signInterval=setInterval(function () {
+        getSignUsers()
+        ;},800);
 
 
-    getSignUsers();
     var isUsersFirst=true;
     var oldUserLength=0;
     var userOrder = 0;
+    var isSignLogin=false;
     function getSignUsers() {
+        if(isSignLogin){
+            return ;
+        }
+        isSignLogin=true;
         $.ajax({
             dataType: 'JSON',
             url: web.API_PATH+"xianchang/get/users/"+xcId,
             success: function (json) {
+                isSignLogin=false;
+
                if(isUsersFirst){
-                   for(var i=json.data.length-3;i>=0;i--){
+                   isUsersFirst=false;
+                   oldUserLength=json.data.length;
+                   console.log("dddddddddddddddddddddddd");
+                    let arr = json.data;
+                   for(var i=json.data.length-1;i>=0;i--){
                        userOrder++;
                        $(".list").prepend('<div class="item big">' +
                            '            <div class="img"><img src="' + json.data[i].faceUrl + '"></div>' +
                            '            <div class="order">' + userOrder + '</div>' +
                            '            <div class="text">' + json.data[i].nickName + '</div>' +
                            '        </div>');
-                       json.data.splice(i, 1);
+                       arr.splice(i, 1);
 
                    }
-                   oldUserLength=json.data.length;
-                   signing = json.data;
-                   console.log(signing);
-               }else{
+                   signing =arr;
+                 }else{
                    if(oldUserLength<json.data.length){
-                       oldUserLength = json.data.length;
-                       var arr = json.data.splice(0, oldUserLength);
+                       var  oldUserLength2=oldUserLength
+                       oldUserLength=json.data.length;
+                       console.log("oldUserLength+"+oldUserLength2);
+                       var arr = json.data;
+                       for(var i =0;i<oldUserLength2;i++){
+                           arr.splice(0, 1)
+                       }
+
+                       console.log(arr)
                        signing = signing.concat( arr );
+
                    }
+
                }
+               console.log(oldUserLength    )
+
+
+
 
             }
         })
     }
-
-
-
     setInterval(function () {
         if(signing.length>0){
             userOrder++;
@@ -693,13 +700,27 @@
                     '            <div class="text">'+signing[0].nickName+'</div>' +
                     '        </div>');
                 signing.splice(0, 1);
-            },4998)
+            },4918)
 
 
         }
 
         },5000
     );
+
+    function cj() {
+        $(".main.sign").hide()
+        $(".chou").show();
+        clearInterval(signInterval);
+    }
+    cj();
+    function  sign() {
+        $(".main.sign").show()
+        $(".chou").hide()
+        signInterval=setInterval(function () {
+            getSignUsers()
+            ;},800);
+    }
 
     //全屏退出全屏
     var fullScreen=false;
@@ -747,8 +768,6 @@
             resizeHeight()
         },100)
     }
-
-
     var isShowEwm=false;
     $(" .top .right img").click(function () {
         isShowEwm=!isShowEwm;
@@ -757,26 +776,78 @@
     $(".ewm .close").click(function () {
         isShowEwm=!isShowEwm;
         $(".ewm").animate({height:'0%'},300)
-    })
+    });
 
-    var messageId = 1;
+
+
+    var cookie = {
+        set: function (name, value, days) {
+            var d = new Date;
+            d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
+            window.document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+        },
+        setNoexpires:function (name, value) {
+            window.document.cookie = name + "=" + value + ";path=/;";
+        },
+        get: function (name) {
+            var v = window.document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+            return v ? v[2] : null;
+        },
+        delete: function (name) {
+            this.set(name, '', -1);
+        }
+    };
+
+
+//    弹幕 2
+    var messageId = cookie.get("lastmessageId")||0;
+    var isLoadingMessage=false;
     function messageGet() {
-        messageId++;
-        var rndTop=Math.random()*100;
-        var rndSteep=Math.random()*20000+10000;
-        var html = ' <div class="item" id="messageId_'+messageId+'" style="top:'+rndTop+'%;">' +
-            '            <div class="img"><img src="src/party/0.jpg"></div>' +
-            '            <div class="txt">' +
-            '                <div class="user_name">打开了<span>10:25:55</span></div>' +
-            '                <div class="content">晚上必须中奖！</div>' +
-            '            </div>' +
-            '        </div>';
-        $(".messages").append(html)
 
-        $("#messageId_"+messageId).stop().animate({left:"-40%"},rndSteep)
+        if(isLoadingMessage){
+            return ;
+        }
+        isLoadingMessage=true;
+        $.ajax({
+            dataType: 'JSON',
+            url: web.API_PATH+"xianchang/get/message/"+xcId+"/1/"+messageId,
+            success: function (json) {
+                isLoadingMessage=false;
+                if(json.data.length==0){return; }
+                messageId=json.data[0].messageId;
+                cookie.set("lastmessageId",messageId,1);
+                var rndTop=Math.random()*100;
+                var rndSteep=Math.random()*20000+10000;
+                var html = ' <div class="item" id="messageId_'+messageId+'" style="top:'+rndTop+'%;">' +
+                    '            <div class="img"><img src="'+json.data[0].faceUrl +'"></div>' +
+                    '            <div class="txt">' +
+                    '                <div class="user_name">'+json.data[0].nickName+'<span>'+formatTime(json.data[0].addTime)+'</span></div>' +
+                    '                <div class="content">'+json.data[0].message+'</div>' +
+                    '            </div>' +
+                    '        </div>';
+                $(".messages").append(html)
 
+                $("#messageId_"+messageId).stop().animate({left:"-40%"},rndSteep)
+
+            }
+        })
     }
-
+    function  formatTime  ( time) {
+        time = time * 1000;
+        var now = new Date(time);
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var date = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        if (hour < 10) hour = "0" + hour;
+        if (minute < 10) minute = "0" + minute;
+        if (second < 10) second = "0" + second;
+        return  hour + ":" + minute + ":" + second;
+    }
 
     var isInterval=false;
     var interval=null;
@@ -787,14 +858,68 @@
         }else{
                interval=   setInterval(function () {
                 messageGet()
-            } ,300)
+            } ,1000)
         }
         isInterval=!isInterval
     }
+
+
+
+
+
+    //获取抽奖详情
+    var prices=[];
+    var pricesIndex=0;
+    $.ajax({
+        dataType: 'JSON',
+        url: web.API_PATH+"xianchang/get/lottery/"+lotteryId,
+        success: function (json) {
+            prices = json.data.prices;
+            for(var i=0;i<prices.length;i++){
+                $("#lotteryItem").append('<option value="'+i+'">'+ prices[i].prize +'</option>');
+            }
+            if(prices.length>0){
+                getCanLotteryUsers(prices[pricesIndex].lotteryItemId)
+            }
+        }
+    });
+    //获取可以抽奖用户
+    var canLotteryUsers=[];
+    function getCanLotteryUsers(lotteryItemId,callback) {
+        $.ajax({
+            dataType: 'JSON',
+            url: web.API_PATH+"xianchang/get/lottery/users/"+xcId+"/"+lotteryId+"/"+lotteryItemId,
+            success: function (json) {
+                canLotteryUsers=json.data;
+                if(canLotteryUsers.length<5){
+                    showValue2(5)
+                }
+                initCanLotteryUsers(callback);
+            }
+        })
+    }
+
+    function  initCanLotteryUsers(callback) {
+
+        $(".prize-Incontent li div").each(function (i) {
+            $(this).html('')
+            for(var j=i;j<canLotteryUsers.length;j++){
+                $(this).append('<img src="'+canLotteryUsers[j].faceUrl+'" />')
+            }
+            for(var k =0;k<i;k++){
+                $(this).append('<img src="'+canLotteryUsers[k].faceUrl+'" />')
+            }
+        });
+        if(typeof (callback)=='function'){
+            callback()
+        }
+    }
+
     
 
 
-//    抽奖
+
+    //    抽奖
     //console.log(parseInt(Math.random()*54))
     setInterval(function(){
         $('.light li').eq(parseInt(Math.random()*54)).addClass('appear')
@@ -810,55 +935,118 @@
     }
     var start = function(o){
         flag();
-        $('.prize-Incontent div').addClass('scroll')
-        $("#setNum").attr("disabled","disabled");
-        o.unbind('click').bind('click',function(){end(o)})
+        getCanLotteryUsers(prices[pricesIndex].lotteryItemId,function () {
+            $('.prize-Incontent div').addClass('scroll')
+            $("#setNum").attr("disabled","disabled");
+            o.unbind('click').bind('click',function(){end(o)})
+        })
     }
+    
+
     var end = function(o){
         flag();
         o.unbind('click')
-        var l = $('.prize-Incontent div').length
+        var l = $('.prize-Incontent div').length;
+
+        //设置中奖人
+        var lotteryUsersIndex=[];
+
         for(let i = 0;i<l;i++){
-            setTimeout(function(){
-                $('.prize-Incontent div').eq(i).removeClass('scroll')
-            }, 1000*i)
+            lotteryUsersIndex.push(getx(lotteryUsersIndex));
+
         }
-        setTimeout(function(){
+
+        //
+//
+//        中奖上传
+        var userIds='';
+        for(var j=0;j<lotteryUsersIndex.length;j++){
+            userIds +=canLotteryUsers[lotteryUsersIndex[j]].userId+",";
+        }
+        userIds =   userIds.substr(0,userIds.length-1);
+        console.log(userIds)
+
+        $.ajax({
+            dataType: 'JSON',
+            type:"POST",
+            data:{userIds:userIds},
+            url: web.API_PATH+"xianchang/post/lottery/user/"+xcId+"/"+lotteryId+"/"+prices[pricesIndex].lotteryItemId,
+            success: function (json) {
+
+
+                for(let i = 0;i<l;i++){
+                setTimeout(function(){
+                    $('.prize-Incontent div').eq(i).removeClass('scroll');
+                    $('.prize-Incontent div').eq(i).html("<img src='"+canLotteryUsers[lotteryUsersIndex[i]].faceUrl+"'/>" +
+                        "<span class='nick_name'>"+canLotteryUsers[lotteryUsersIndex[i]].nickName.substring(0,8)+"</span>")
+
+                        canLotteryUsers.splice(lotteryUsersIndex[i],1);
+
+                }, 1000*i);
+                }
+
+            }
+        })
+
+
+         setTimeout(function(){
             o.bind('click',function(){start(o)})
             $("#setNum").removeAttr("disabled");
         }, 1000*(l-1))
     }
+
+    function getx(lotteryUsersIndex){
+        for(var i=0;i>-1;i++){
+            var flag = true;
+            var num = parseInt(canLotteryUsers.length*Math.random());
+            for(var i in lotteryUsersIndex){
+                if(lotteryUsersIndex[i] == num){
+                    flag= false;
+                    break;
+                }
+            }
+            if(flag == true){
+                console.log(num);
+                return num;
+            }
+        }
+    }
+
+
+    
     function showValue1(i){
-        console.log(i)
+        console.log("pricesIndex:"+i)
+        pricesIndex=i;
+        getCanLotteryUsers(prices[i].lotteryItemId)
     }
 
     function showValue2(i){
-        console.log(i)
-        $('.count span').text(i)
-        $('.ul_box li').remove()
-        for(var j=0;j<i;j++){
-            $('.ul_box').append(
-                '<li>'
-                +'<div>'
-                +'<img src="img/0 (3).jpg" alt="" />'
-                +'<img src="img/0 (4).jpg" alt="" />'
-                +'<img src="img/0.jpg" alt="" />'
-                +'<img src="img/6272576897a2e42385ddbcf41435d938.jpg" alt="" />'
-                +'<img src="img/0 (1).jpg" alt="" />'
-                +'<img src="img/0 (2).jpg" alt="" />'
-                +'</div>'
-                +'</li>'
-            );
+
+        if(canLotteryUsers.length<i){
+            i=canLotteryUsers.length;
         }
-        var w = $('.ul_box li').outerWidth(true)
-        console.log(w)
-        if(i<=5){
-            $('.prize-Incontent').css('top','131px')
-            $('.ul_box').css({'left':'50%','margin-left':-w/2*i+'px','position':'absolute'})
-        }else{
-            $('.prize-Incontent').css('top','80px')
-            $('.ul_box').css({'position':'static','margin-left':'0'})
-        }
+            $('.count span').text(i)
+            $('.ul_box li').remove()
+            for(var j=0;j<i;j++){
+                $('.ul_box').append(
+                    '<li>'
+                    +'<div>'
+                    +'</div>'
+                    +'</li>'
+                );
+            }
+            initCanLotteryUsers();
+            var w = $('.ul_box li').outerWidth(true)
+            console.log(w)
+            if(i<=5){
+                $('.prize-Incontent').css('top','131px')
+                $('.ul_box').css({'left':'50%','margin-left':-w/2*i+'px','position':'absolute'})
+            }else{
+                $('.prize-Incontent').css('top','80px')
+                $('.ul_box').css({'position':'static','margin-left':'0'})
+            }
+
+
     }
     $('.flag').click(function(){
         start($(this));

@@ -27,7 +27,7 @@ class Controller extends BaseController
     public function party(Request $request)
     {
 
-        return view('party')->with("xcId", $request->input("xcId"));
+        return view('party')->with("xcId", $request->input("xcId"))->with("lotteryId", $request->input("lotteryId"));
     }
 
     public function guest(Request $request)
