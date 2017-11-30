@@ -98,8 +98,6 @@
                 let val = $('.comment_text').val()
 
                 let msg = {
-                    'userId ':'_userId_',
-                    'xcId ':_this.$route.query.xcId,
 					'message':val
                 };
                 $("#textarea").val('')

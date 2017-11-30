@@ -84,10 +84,9 @@
                 let _this = this;
                 let xcId= this.$route.query.xcId;
                 let msg = {
-                    'userId ':'_userId_',
-                    'xcId ':xcId,
+
                 };
-                _this.$http.put(web.API_PATH + 'xianchang/put/sign', msg).then(
+                _this.$http.put(web.API_PATH + 'xianchang/put/sign/_userId_/'+xcId, msg).then(
                     (response) => {
                         _this.$router.push('/signRoom?xcId='+xcId)
                     }
@@ -101,12 +100,11 @@
                     return false;
 				}
 				let msg = {
-                    'userId ':'_userId_',
-					'xcId ':xcId,
+
 					'realName ':_this.realName,
 					'mobile ':_this.mobile
                 };
-				_this.$http.put(web.API_PATH + 'xianchang/put/sign', msg).then(
+				_this.$http.put(web.API_PATH + 'xianchang/put/sign/_userId_/'+xcId, msg).then(
 					(response) => {
 
                         _this.$router.push('/signRoom?xcId='+xcId)
