@@ -1,6 +1,6 @@
 <template >
 	<div class="signRoom_box" id="signRoom_box">
-		<div v-title>签到</div>
+		<div v-title>消息上墙</div>
 		<ul class="item_box" id="item_box">
 			<li class="item" v-for="item in list " :class="{me_item:item.userId==user.id}">
 				<img :src="item.faceUrl" alt="">
