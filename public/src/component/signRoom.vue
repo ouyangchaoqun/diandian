@@ -2,7 +2,7 @@
 	<div class="signRoom_box" id="signRoom_box">
 		<div v-title>签到</div>
 		<ul class="item_box" id="item_box">
-			<li class="item" v-for="item in list " :class="{me_item:item.userId==1275}">
+			<li class="item" v-for="item in list " :class="{me_item:item.userId==user.id}">
 				<img :src="item.faceUrl" alt="">
 				<div class="main">
 					<span>姓名:{{item.realName}}</span>
@@ -74,7 +74,7 @@
 				lastMessageId:0,
 				list:[],
 				timer:null,
-				isgeting:false
+				isgeting:false,user:{}
             }
         },
 
@@ -117,6 +117,21 @@
             $('.action-sheet-edit .weui-mask').hide()
         },
 		methods:{
+            getUserInfo:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
 			getMessage:function (num) {
 				let _this= this;
 
@@ -135,7 +150,7 @@
 					_this.lastMessageId = lastId;
                     _this.isgeting = false
 					console.log(data.data.data.length);
-                    if(num==2){
+                    if(num==2&&data.data.data.length>0){
                         $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
 					}
 
