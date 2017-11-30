@@ -1,7 +1,7 @@
 <template >
 	<div class="sign_box">
 		<div v-title>签到</div>
-		<div class="sign_main">
+		<div class="sign_main" v-show="showRecord" >
 			<div class="input_box">
 				<input type="text" placeholder="输入姓名"  v-model="realName">
 			</div>
@@ -66,29 +66,50 @@
         data() {
             return {
                 realName:'',
-                mobile:''
+                mobile:'',
+				showRecord:false
             }
         },
         mounted: function () {
+			let auto = this.$route.query.auto;
+			if(auto=="true"){
+                this.autoSign()
+			}else{
+			    this.showRecord=true;
+			}
 
         },
 		methods:{
+            autoSign:function () {
+                let _this = this;
+                let xcId= this.$route.query.xcId;
+                let msg = {
+                    'userId ':'_userId_',
+                    'xcId ':xcId,
+                };
+                _this.$http.put(web.API_PATH + 'xianchang/put/sign', msg).then(
+                    (response) => {
+                        _this.$router.push('/signRoom?xcId='+xcId)
+                    }
+                );
+            },
             goSign:function () {
                 let _this = this;
+                let xcId= this.$route.query.xcId;
                 if(!(/^1[34578]\d{9}$/.test(_this.mobile))){
                     xqzs.weui.tip("手机号码有误，请重新填写");
                     return false;
 				}
 				let msg = {
                     'userId ':'_userId_',
-					'xcId ':5,
+					'xcId ':xcId,
 					'realName ':_this.realName,
 					'mobile ':_this.mobile
                 };
 				_this.$http.put(web.API_PATH + 'xianchang/put/sign', msg).then(
 					(response) => {
 
-                        _this.$router.push('/signRoom')
+                        _this.$router.push('/signRoom?xcId='+xcId)
 					}
 				);
 

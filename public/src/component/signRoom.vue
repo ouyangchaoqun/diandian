@@ -21,6 +21,7 @@
 	}
 	.signRoom_box .item_box{
 		padding:1.5rem 0.88235rem;
+		padding-bottom: 120px;
 	}
 	.signRoom_box .item_box .item{
 		min-height:2.35rem;
@@ -82,17 +83,7 @@
 			setInterval(function () {
                 _this.getMessage()
 
-            },10000)
-
-//			_this.timer =  setInterval(function () {
-//				_this.getMessage()
-//				var h  = $('.signRoom_box').height()
-//				//$('.item_box').css({'transform':'translateY(-'+(h)+'px)','transition':'all linear '+parseInt(h/60)+'s '})
-//               // $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},3000)
-//
-//			},3000)
-
-
+            },500)
 
             $('.signRoom_box .item_box .me_item .main p').each(function () {
 				var ph = $(this).height();
@@ -106,12 +97,15 @@
                 let val = $('.comment_text').val()
                 let msg = {
                     'userId ':'_userId_',
-                    'xcId ':1,
+                    'xcId ':_this.$route.query.xcId,
 					'message':val
                 };
-					_this.$http.post(web.API_PATH+'xianchang/post/message/1/_userId_',msg).then(
+					_this.$http.post(web.API_PATH+'xianchang/post/message/'+_this.$route.query.xcId	+'/_userId_',msg).then(
                         (response) => {
+								if(response.body.status==1&&response.body.data==true){
+									$("#textarea").val('')
 
+								}
                         }
                     );
 
@@ -123,7 +117,9 @@
 		methods:{
 			getMessage:function () {
 				let _this= this;
-				_this.$http.get(web.API_PATH+'xianchang/get/message/1/8?last_messageId='+_this.lastMessageId).then(function (data) {
+				let xcId=this.$route.query.xcId;
+				_this.$http.get(web.API_PATH+'xianchang/get/message/'+xcId+'/8?last_messageId='+_this.lastMessageId).then(function (data) {
+
 					_this.list = _this.list.concat(data.data.data);
 					let lastId = _this.list[_this.list.length-1].messageId;
 					_this.lastMessageId = lastId;
