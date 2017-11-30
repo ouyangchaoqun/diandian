@@ -752,7 +752,7 @@ var xqzs = {
                 }
             }, 150)
         },
-        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
+        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength,noHide) {
             if(!maxLength){
                 maxLength=1000;
             }
@@ -821,12 +821,17 @@ var xqzs = {
                 if (v !== "") {
                     doFun(v);
                 }
-                xqzs.weui.weuiMaskClose();
+                if(noHide){
 
-                $(".comment_box").removeClass('addactive').addClass("subactive");
-                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
-                    $(".action-sheet-edit").remove();
-                });
+                }else{
+                    xqzs.weui.weuiMaskClose();
+
+                    $(".comment_box").removeClass('addactive').addClass("subactive");
+                    $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                        $(".action-sheet-edit").remove();
+                    });
+                }
+
 
             })
 
