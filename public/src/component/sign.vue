@@ -88,7 +88,7 @@
                 };
                 _this.$http.put(web.API_PATH + 'xianchang/put/sign/_userId_/'+xcId, msg).then(
                     (response) => {
-                        _this.$router.push('/signRoom?xcId='+xcId)
+                        _this.$router.replace('/signRoom?xcId='+xcId)
                     }
                 );
             },
