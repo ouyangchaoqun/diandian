@@ -102,11 +102,12 @@
                     'xcId ':_this.$route.query.xcId,
 					'message':val
                 };
+                $("#textarea").val('')
+                $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
 					_this.$http.post(web.API_PATH+'xianchang/post/message/'+_this.$route.query.xcId	+'/_userId_',msg).then(
                         (response) => {
 								if(response.body.status==1&&response.body.data==true){
-									$("#textarea").val('')
-                                    $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
+
 
 								}
                         }
