@@ -74,14 +74,15 @@
 				lastMessageId:0,
 				list:[],
 				timer:null,
+				isgeting:false
             }
         },
 
         mounted: function () {
             let _this = this;
-            _this.getMessage()
+            _this.getMessage(8)
 			setInterval(function () {
-                _this.getMessage()
+                _this.getMessage(2)
 
             },500)
 
@@ -95,6 +96,7 @@
             })
             xqzs.mood.actionSheetEdit("取消","发送",function () {
                 let val = $('.comment_text').val()
+
                 let msg = {
                     'userId ':'_userId_',
                     'xcId ':_this.$route.query.xcId,
@@ -104,6 +106,7 @@
                         (response) => {
 								if(response.body.status==1&&response.body.data==true){
 									$("#textarea").val('')
+                                    $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
 
 								}
                         }
@@ -115,16 +118,25 @@
             $('.action-sheet-edit .weui-mask').hide()
         },
 		methods:{
-			getMessage:function () {
+			getMessage:function (num) {
 				let _this= this;
-				let xcId=this.$route.query.xcId;
-				_this.$http.get(web.API_PATH+'xianchang/get/message/'+xcId+'/8?last_messageId='+_this.lastMessageId).then(function (data) {
+
+                let xcId=this.$route.query.xcId;
+				if(_this.isgeting){
+				    return
+				}
+                _this.isgeting = true;
+				_this.$http.get(web.API_PATH+'xianchang/get/message/'+xcId+'/'+num+'?last_messageId='+_this.lastMessageId).then(function (data) {
 
 					_this.list = _this.list.concat(data.data.data);
 					let lastId = _this.list[_this.list.length-1].messageId;
 					_this.lastMessageId = lastId;
+                    _this.isgeting = false
 					console.log(data.data.data.length);
-                    $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
+                    if(num==2){
+                        $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
+					}
+
                 })
             }
 		},
