@@ -6,7 +6,7 @@
 				<img :src="item.faceUrl" alt="">
 				<div class="main">
 					<span>姓名:{{item.realName}}</span>
-					<p>{{item.message}}</p>
+					<p>{{emj(item.message)}}</p>
 				</div>
 				<div style="clear: both"></div>
 			</li>
@@ -95,7 +95,7 @@
                 let msg = {
 					'message':val
                 };
-                $("#textarea").val('')
+                $("#textarea").val('').attr({"style":""});
                 $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
 					_this.$http.post(web.API_PATH+'xianchang/post/message/'+_this.$route.query.xcId	+'/_userId_',msg).then(
                         (response) => {
@@ -112,6 +112,9 @@
             $('.action-sheet-edit .weui-mask').hide()
         },
 		methods:{
+            emj:function (t) {
+					return xqzs.face.parseEmoji(t);
+            },
             getUserInfo:function () {
                 let _this=this;
                 _this.$http({
