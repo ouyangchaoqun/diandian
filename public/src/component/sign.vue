@@ -107,7 +107,7 @@
 				_this.$http.put(web.API_PATH + 'xianchang/put/sign/_userId_/'+xcId, msg).then(
 					(response) => {
 						xqzs.weui.tip("签到成功！",function () {
-                            _this.$router.push('/signRoom?xcId='+xcId)
+                            _this.$router.replace('/signRoom?xcId='+xcId)
                         })
 
 					}
