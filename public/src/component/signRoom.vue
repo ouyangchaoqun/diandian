@@ -2,7 +2,7 @@
 	<div class="signRoom_box" id="signRoom_box">
 		<div v-title>签到</div>
 		<ul class="item_box" id="item_box">
-			<li class="item" v-for="item in list " :class="{me_item:item.userId==1275}">
+			<li class="item" v-for="item in list " :class="{me_item:item.userId==user.id}">
 				<img :src="item.faceUrl" alt="">
 				<div class="main">
 					<span>姓名:{{item.realName}}</span>
@@ -58,12 +58,11 @@
 	}
 	.signRoom_box .item_box .me_item .main p{
 		text-align: right;
-		word-wrap : break-word ;
+		word-break: break-all;word-wrap:break-word
 	}
 	.signRoom_box .item_box .main p{
 		font-size: 0.88235rem;
 		line-height: 1.411764rem;
-		word-wrap : break-word ;
 	}
 
 </style>
@@ -76,35 +75,27 @@
 				lastMessageId:0,
 				list:[],
 				timer:null,
-				isgeting:false
+				isgeting:false,user:{}
             }
         },
 
         mounted: function () {
             let _this = this;
+            _this.getUserInfo();
             _this.getMessage(8);
-            $('.signRoom_box .item_box .me_item .main p').each(function () {
-                var ph = $(this).height();
-                if(ph>30){
-                    $(this).css('text-align','left')
-                }else{
-                    $(this).css('text-align','right')
-                }
-            })
 			setInterval(function () {
                 _this.getMessage(2)
 
             },500)
 
+
             xqzs.mood.actionSheetEdit("取消","发送",function () {
-                let val = $('.comment_text').val();
+                let val = $('.comment_text').val()
 
                 let msg = {
-                    'userId ':'_userId_',
-                    'xcId ':_this.$route.query.xcId,
 					'message':val
                 };
-                $("#textarea").val('');
+                $("#textarea").val('')
                 $(".action-sheet-edit .release").css({'borderColor': "#91cc91", "background": "#94db93"})
 					_this.$http.post(web.API_PATH+'xianchang/post/message/'+_this.$route.query.xcId	+'/_userId_',msg).then(
                         (response) => {
@@ -121,6 +112,21 @@
             $('.action-sheet-edit .weui-mask').hide()
         },
 		methods:{
+            getUserInfo:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
 			getMessage:function (num) {
 				let _this= this;
 
@@ -132,28 +138,41 @@
 				_this.$http.get(web.API_PATH+'xianchang/get/message/'+xcId+'/'+num+'?last_messageId='+_this.lastMessageId).then(function (data) {
 
 					_this.list = _this.list.concat(data.data.data);
-					let lastId = _this.list[_this.list.length-1].messageId;
+                    let lastId =0;
+					if(_this.list.length>0){
+                          lastId = _this.list[_this.list.length-1].messageId;
+					}
 					_this.lastMessageId = lastId;
                     _this.isgeting = false
 					console.log(data.data.data.length);
-                    if(num==2){
-                        $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
+                    if(num==8){
+                      _this.$nextTick(function () {
+                          var scrollDom = document.getElementById('signRoom_box');
+                          scrollDom.scrollTop = scrollDom.scrollHeight;
+                      })
+					}else{
+                        if(data.data.data.length>0){
+                            $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
+                        }
 					}
 
+
+
                 })
-            }
+            },
+
 		},
         updated:function () {
-            var scrollDom = document.getElementById('signRoom_box');
-            scrollDom.scrollTop = scrollDom.scrollHeight;
-            $('.signRoom_box .item_box .me_item .main p').each(function () {
-                var ph = $(this).height();
-                if(ph>30){
-                    $(this).css('text-align','left')
-                }else{
-                    $(this).css('text-align','right')
-                }
-            })
+		   this.$nextTick(function () {
+				$('.signRoom_box .item_box .me_item .main p').each(function () {
+					var ph = $(this).height();
+					if(ph>30){
+						$(this).css('text-align','left')
+					}else{
+						$(this).css('text-align','right')
+					}
+				})
+			})
         },
         components: {
 

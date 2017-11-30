@@ -62,7 +62,9 @@ let routers =
                 require('./routes/habitAdd'),
                 require('./routes/habitStatistics'),
                 require('./routes/habitCard'),
-                require('./routes/habitDetail')
+                require('./routes/habitDetail'),
+                require('./routes/sign'),
+                require('./routes/signRoom')
             ]
         }
     ];

@@ -567,8 +567,7 @@ var xqzs = {
 
                         //心抱抱逻辑
                         item.isCare = data[i].finishEvents[j].isCare;
-
-                        if ( parseInt(userId) !== parseInt(item.userId)) {
+                        if ( !userId) {
                             if ((item.moodValue >= 5 || item.moodValue == 0) && !item.isCare ) {
                                 item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
                             } else if (item.moodValue < 5 && !item.isCare ) {
@@ -578,13 +577,27 @@ var xqzs = {
                             } else if (item.moodValue < 5 && item.isCare ) {
                                 item.careImg = web.IMG_PATH + "list_baob_pre.png";
                             }
+                            data[i].careImg= item.careImg
+                        }else{
+                            if(data[i].finishEvents[j].value.moodValue >= 5){
+                                if(data[i].careCount>0){
+                                    data[i].careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
+                                }else{
+                                    data[i].careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
+                                }
+                            }else{
+                                if(data[i].careCount>0){
+                                    data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
+                                }else{
+                                    data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
+                                }
+                            }
                         }
 
-
                         data[i].finishEvents[j].value=item;
-                        data[i].careImg= item.careImg
+
                     }else{
-                        if(data[i].finishEvents[j].isCare){
+                        if(data[i].finishEvents[j].isCare||(data[i].careCount>0&&userId)){
                             data[i].careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
                         }else{
                             data[i].careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
@@ -739,7 +752,7 @@ var xqzs = {
                 }
             }, 150)
         },
-        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
+        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength,noHide) {
             if(!maxLength){
                 maxLength=1000;
             }
@@ -808,12 +821,17 @@ var xqzs = {
                 if (v !== "") {
                     doFun(v);
                 }
-                xqzs.weui.weuiMaskClose();
+                if(noHide){
 
-                $(".comment_box").removeClass('addactive').addClass("subactive");
-                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
-                    $(".action-sheet-edit").remove();
-                });
+                }else{
+                    xqzs.weui.weuiMaskClose();
+
+                    $(".comment_box").removeClass('addactive').addClass("subactive");
+                    $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                        $(".action-sheet-edit").remove();
+                    });
+                }
+
 
             })
 

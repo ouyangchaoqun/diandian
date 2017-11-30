@@ -10,6 +10,7 @@
 |
 */
 $app->get('/guest/','Controller@guest');
+$app->get('/party/','Controller@party');
 $app->get('/','Controller@index');
 $app->get('befriend','Controller@befriend');
 
