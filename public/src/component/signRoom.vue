@@ -130,7 +130,10 @@
 				_this.$http.get(web.API_PATH+'xianchang/get/message/'+xcId+'/'+num+'?last_messageId='+_this.lastMessageId).then(function (data) {
 
 					_this.list = _this.list.concat(data.data.data);
-					let lastId = _this.list[_this.list.length-1].messageId;
+                    let lastId =0;
+					if(_this.list.length>0){
+                          lastId = _this.list[_this.list.length-1].messageId;
+					}
 					_this.lastMessageId = lastId;
                     _this.isgeting = false
 					console.log(data.data.data.length);
