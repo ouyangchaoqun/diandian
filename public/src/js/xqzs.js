@@ -691,6 +691,7 @@ var xqzs = {
         textareaAutoOldHeight: 20,
         textareaAutoBaseH: 20,
         textareaHeight: [],
+        textareaHover:false,
         textareaAutoHeight: function () {
             var textareaScrollHeight = document.getElementById("textarea").scrollHeight;
 
@@ -726,11 +727,10 @@ var xqzs = {
             setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
                 if (xqzs.isIos()) {
                     //document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                    var localdbkey = "max_edit_height_scrool_top_last2";
+                    var localdbkey = "max_edit_height_scrool_top_last3";
                     var nowSH = $('body').scrollTop();
                     var oldH = xqzs.localdb.get(localdbkey);
-                    console.log("nowSH:" + nowSH);
-                    console.log("oldH:" + oldH);
+
                     if (nowSH == 0) {
                         xqzs.mood.actionSheetEditTimeout();
                     } else {
@@ -742,7 +742,12 @@ var xqzs = {
                                 } else {
                                     var lastH = oldH - nowSH;
                                     lastH = lastH + 38;
-                                    $(".comment_box").animate({bottom: lastH}, 150)
+                                    console.log("oldH:"+oldH);
+                                    console.log("nowSH:"+nowSH);
+                                    console.log("bottom-lastH:"+lastH);
+                                   if(xqzs.mood.textareaHover){
+                                       $(".comment_box").animate({bottom: lastH}, 150)
+                                   }
                                 }
                             } else {
                                 xqzs.localdb.set(localdbkey, nowSH)
@@ -750,7 +755,7 @@ var xqzs = {
                         }
                     }
                 }
-            }, 150)
+            }, 800)
         },
         actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength,noHide) {
             if(!maxLength){
@@ -783,15 +788,19 @@ var xqzs = {
             // var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
             //
              $(".comment_text").focus(function () {
+                 xqzs.mood.textareaHover=true;
                  xqzs.mood.actionSheetEditTimeout();
-            });
+            }).blur(function () {
+                 xqzs.mood.textareaHover=false;
+                 $(".comment_box").animate({bottom: 0}, 150)
+             });
             //.blur(function () {//设定输入框失去焦点时的事件
             //     clearTimeout(interval);//清除计时器
             //      document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
             // });
 
 
-            $(".comment_text").focus().keyup(function () {
+            $(".comment_text").keyup(function () {
                 var val = $(this).val();
                 if (val.length > 0) {
                     $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
@@ -801,7 +810,9 @@ var xqzs = {
                     $(".comment_p").css('display', 'block');
                 }
             });
-
+            if(!noHide){
+                $(".comment_text").focus();
+            }
 
             setTimeout(function () {
                 $(".comment_box").removeClass('subactive').addClass("addactive");
