@@ -80,7 +80,8 @@
 
         mounted: function () {
             let _this = this;
-            _this.getMessage(8)
+            _this.getUserInfo();
+            _this.getMessage(8);
 			setInterval(function () {
                 _this.getMessage(2)
 
