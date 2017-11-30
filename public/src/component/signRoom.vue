@@ -58,6 +58,7 @@
 	}
 	.signRoom_box .item_box .me_item .main p{
 		text-align: right;
+		word-break: break-all;word-wrap:break-word
 	}
 	.signRoom_box .item_box .main p{
 		font-size: 0.88235rem;
@@ -87,14 +88,7 @@
 
             },500)
 
-            $('.signRoom_box .item_box .me_item .main p').each(function () {
-				var ph = $(this).height();
-				if(ph>30){
-                    $('.signRoom_box .item_box .me_item .main p').css('text-align','left')
-				}else{
-                    $('.signRoom_box .item_box .me_item .main p').css('text-align','right				')
-				}
-            })
+
             xqzs.mood.actionSheetEdit("取消","发送",function () {
                 let val = $('.comment_text').val()
 
@@ -151,16 +145,34 @@
 					_this.lastMessageId = lastId;
                     _this.isgeting = false
 					console.log(data.data.data.length);
-                    if(num==2&&data.data.data.length>0){
-                        $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
+                    if(num==8){
+                      _this.$nextTick(function () {
+                          var scrollDom = document.getElementById('signRoom_box');
+                          scrollDom.scrollTop = scrollDom.scrollHeight;
+                      })
+					}else{
+                        if(data.data.data.length>0){
+                            $('.signRoom_box').animate({scrollTop:$('.signRoom_box')[0].scrollHeight},1000*data.data.data.length)
+                        }
 					}
 
+
+
                 })
-            }
+            },
+
 		},
         updated:function () {
-            var scrollDom = document.getElementById('signRoom_box');
-            scrollDom.scrollTop = scrollDom.scrollHeight;
+		   this.$nextTick(function () {
+				$('.signRoom_box .item_box .me_item .main p').each(function () {
+					var ph = $(this).height();
+					if(ph>30){
+						$(this).css('text-align','left')
+					}else{
+						$(this).css('text-align','right')
+					}
+				})
+			})
         },
         components: {
 
