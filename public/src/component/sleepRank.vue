@@ -21,10 +21,10 @@
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :isShowMoreText="isShowMoreText">
             <div class="day_or_night">
-                <div class="btn day_rank" @click="goDayRank()">
+                <div v-if="isNight" class="btn day_rank" @click="goDayRank()">
                     <img src="../images/morning_rank_btn.png" alt="">
                 </div>
-                <div class="btn night_rank" @click="goNightRank()">
+                <div v-if="!isNight" class="btn night_rank" @click="goNightRank()">
                     <img src="../images/night_rank_btn.png" alt="">
                 </div>
 
@@ -202,12 +202,12 @@
         display: flex;
         right:0.88235rem;
         z-index: 1000;
-        top:2.5rem;
+        top:2.35rem;
     }
 
     .day_or_night img {
         display: block;
-        width:1.94rem;
+        width:2.1176471rem;
     }
 
 
