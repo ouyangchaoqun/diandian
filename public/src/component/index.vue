@@ -173,7 +173,30 @@
             <!--friendcenter end-->
         </div>
         <div class="addMoodBg"></div>
-
+        <!--新增打卡失败场景-->
+        <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="isLose" @click="hideLoseBox()">
+                <div class="diglog_lose" :class="{'morning_lose':!isNight(),'night_lose':isNight()}">
+                    <div class="title_lose">打卡失败</div>
+                    <div class="record_time"><template v-if="isNight()">早睡</template>早起打卡时间：05:00-10:00 <template v-if="isNight()">10:00-02:00</template> </div>
+                    <p>今天有122为小伙伴参与<template v-if="isNight()">早睡</template>早起打卡，设置打卡提醒和他们一起<template v-if="isNight()">早睡</template><template v-if="!isNight()">早起</template>吧，<template v-if="!isNight()">坚持早起打卡，遇见更好的自己！</template> <template v-if="isNight()"> 生活不易你要懂得照顾自己！</template></p>
+                    <img v-if="!isNight()" class="status_img" src="../images/morning_status.png" alt="">
+                    <img v-if="isNight()" class="status_img" src="../images/night_status.png" alt="">
+                    <div class="lose_bottom" :class="{'morning_bottom':!isNight(),'night_bottom':isNight()}" @click="set()">
+                        设置<template v-if="!isNight()">早起</template><template v-if="isNight()">早睡</template>打卡提醒
+                    </div>
+                </div>
+        </div>
+        <!--早睡弹窗-->
+        <div class="sleep_dialog weui-mask weui-animate-fade-in" v-show="isGoSleep" @click="hideSleepDialog()">
+            <div class="sleep_dialog_box">
+                <div class="sleep_dialog_title">睡觉打卡</div>
+                <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
+                <div class="sleep_dialog_bottom">
+                    <div @click="goSleepRank()">查看排行榜</div>
+                    <div @click="checkIn(3)">睡觉打卡</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -208,10 +231,9 @@
                 MORNING_TYPE: 2,
                 NIGHT_TYPE: 3,
                 friendCount:'',
-
-
-                myInfos:null
-
+                myInfos:null,
+                isLose:false,
+                isGoSleep:false,
             }
         },
         filters:{
@@ -233,6 +255,15 @@
             }
         },
         methods: {
+            hideLoseBox:function () {
+              this.isLose = false
+            },
+            hideSleepDialog:function () {
+                this.isGoSleep = false
+            },
+            goSleepRank:function () {
+                this.$router.push("/sleepRank?type=3")
+            },
             set:function () {
                 this.$router.push('/me/subscribe')
             },
@@ -407,7 +438,17 @@
                     if(_this.isRecordTime()){
                         _this.checkIn(this.MORNING_TYPE);
                     }else{
-                        _this.$router.push("record?record_type=" + this.MORNING_TYPE)
+                      // _this.$router.push("record?record_type=" + this.MORNING_TYPE)
+                        console.log('打卡失败')
+                        if(cookie.get('loseBox_frist')){
+                           _this.$router.push("/sleepRank?type=2")
+                        }else{
+                            _this.isLose = true;
+                            cookie.set('loseBox_frist','true',1)
+                        }
+
+
+
                     }
 
                 }
@@ -520,7 +561,8 @@
 
             sleep: function () {
                 console.log('sleep')
-                this.$router.push("record?record_type=" + this.NIGHT_TYPE)
+                this.isGoSleep = true;
+                //this.$router.push("record?record_type=" + this.NIGHT_TYPE)
             },
 
             birthday:function (userId) {
@@ -818,21 +860,13 @@
     .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat #def3cd center; background-size: 1.2647058823529411764705882352941rem; border: 0.03rem  solid #71c06d}
     .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat #ffd9ac center; background-size: 1.6470588235294117647058823529412rem;   border: 0.03rem  solid #ff7800}
     .index_btns a.set:before{ background: url(../images/index_btn_set.png) no-repeat #ffd8f5 center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #f67cd1}
-
-
     .index_btns a:active.get_up:before{background-color: #ffebc7  }
     .index_btns a:active.go_sleep:before{background-color: #f6c8ed  }
     .index_btns a:active.mood:before{background-color: #c2ecf1  }
     .index_btns a:active.habit:before{background-color: #d2f3c7  }
     .index_btns a:active.sign:before{background-color: #ffd1a4  }
     .index_btns a:active{ color:#666}
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              .my_head{ margin-right: 54px !important;}
-
-
-
-
+    .my_head{ margin-right: 54px !important;}
     .banner { width: 100%; overflow: hidden}
     .banner .flow{
         width: 1600rem;
@@ -841,7 +875,6 @@
         bottom: -26px;
     }
     .banner .flow .img{
-
         opacity: 0.82;
         width: 2000rem;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem  3rem;
@@ -858,7 +891,6 @@
         -webkit-animation: flow 600s infinite;  position: absolute; bottom:0;
         animation-timing-function:linear}
     .banner .flow .img3{
-
         width: 2000rem;
         opacity: 0.82;
         background: url(../images/index_flow.png) repeat-x bottom;background-size: 35rem 3rem;
@@ -888,9 +920,35 @@
             -webkit-transform: translate3d(-100%, 0, 0);
         }
     }
-
-
-
+    /*新增打卡失败*/
+    .record_loseBox{z-index:10001 !important;}
+    .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;color:rgba(51,51,51,1);text-align: center;}
+    .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;}
+    .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;}
+    .title_lose{font-size: 1.35rem;line-height: 1;margin-bottom: 0.588235rem;}
+    .record_time{font-size: 0.6471rem;line-height: 1;margin-bottom: 1.176471rem;}
+    .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
+    .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
+    .lose_bottom{width:10.8235rem;height:2.588235rem;font-size: 0.88235rem;color:#fff;line-height: 3rem;position: absolute;bottom:-4.588rem;left:50%;margin-left: -5.41175rem;}
+    .morning_bottom{background: url("../images/lose_bottom1.png") no-repeat;background-size: 100% 100%;}
+    .night_bottom{background: url("../images/lose_bottom2.png") no-repeat;background-size: 100% 100%;}
+    /*早睡弹窗*/
+    .sleep_dialog{z-index: 10001 !important;}
+    .sleep_dialog_box{width:72%;background: rgba(255,255,255,1);position: absolute;top:25%;left:50%;margin-left:-36%;padding:1.471rem 0 1.52rem 0;border-radius: 0.588235rem;}
+    .sleep_dialog_title{color:rgba(36,37,61,1);font-size: 1.35rem;text-align: center;line-height: 1;margin-bottom: 1.294rem;}
+    .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
+    .sleep_dialog_bottom{position: absolute;width:100%;bottom:-4rem;}
+    .sleep_dialog_bottom div{width:7.0588rem;height:2rem;line-height: 2.1rem;font-size:0.76471rem;text-align: center;border-radius: 0.294rem; }
+    .sleep_dialog_bottom div:nth-of-type(1){
+        background: rgba(231,244,255,1);
+        float: left;
+        color:rgba(102,102,102,1);
+    }
+    .sleep_dialog_bottom div:nth-of-type(2){
+        background: rgba(153,102,204,1);
+        float: right;
+        color:rgba(255,255,255,1);
+    }
     .add_record{ height: 3.3rem; width: 3.3rem ; margin-left: -1.65rem; top:-1.65rem; border-radius: 50% ;position: absolute; font-size: 2.5rem;  left:50%; background: #fff; color:#fff; border: 0.0588235294117647rem solid #ddd;}
     .add_record:before{ content: " " ; height: 2.8rem; width: 2.8rem;border-radius: 50% ;position: absolute;left:0.25rem; background: #0BB20C; top:0.25rem; z-index: 2  }
     .add_record:after{ content: " " ; height: 1.76rem; width: 3.5176470588235294rem; position: absolute;left:-0.0588235294117647rem; background: #fff; top:1.6rem; z-index: 1  }
@@ -898,7 +956,6 @@
         top: 0.1rem;; z-index: 3; width: 100%; text-align: center; line-height: 2.8rem;}
     .add_record:before:active{background: #0b9a0c;}
     .add_record_box .weui-tabbar__label {
-
         z-index: 100000;
         position: absolute;
         text-align: center;
