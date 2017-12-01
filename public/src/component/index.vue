@@ -177,7 +177,7 @@
         <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="isLose" @click="hideLoseBox()">
                 <div class="diglog_lose" :class="{'morning_lose':!isNight(),'night_lose':isNight()}">
                     <div class="title_lose">打卡失败</div>
-                    <div class="record_time"><template v-if="isNight()">早睡</template>早起打卡时间：05:00-10:00 <template v-if="isNight()">10:00-02:00</template> </div>
+                    <div class="record_time"><template v-if="isNight()">早睡</template>早起打卡时间：{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}} <template v-if="isNight()">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
                     <p>今天有122为小伙伴参与<template v-if="isNight()">早睡</template>早起打卡，设置打卡提醒和他们一起<template v-if="isNight()">早睡</template><template v-if="!isNight()">早起</template>吧，<template v-if="!isNight()">坚持早起打卡，遇见更好的自己！</template> <template v-if="isNight()"> 生活不易你要懂得照顾自己！</template></p>
                     <img v-if="!isNight()" class="status_img" src="../images/morning_status.png" alt="">
                     <img v-if="isNight()" class="status_img" src="../images/night_status.png" alt="">
@@ -439,7 +439,6 @@
                         _this.checkIn(this.MORNING_TYPE);
                     }else{
                       // _this.$router.push("record?record_type=" + this.MORNING_TYPE)
-                        console.log('打卡失败')
                         if(cookie.get('loseBox_frist')){
                            _this.$router.push("/sleepRank?type=2")
                         }else{
@@ -452,6 +451,30 @@
                     }
 
                 }
+            },
+            sleep: function () {
+                console.log('sleep')
+                let _this = this;
+                if (_this.isGoBed && _this.isRecordTime()) {
+                    _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE)
+                }else{
+                    if(_this.isRecordTime()){
+                        _this.isGoSleep = true
+                    }else{
+                        if(cookie.get('loseBox_frist_night')){
+                            _this.$router.push("/sleepRank?type=3")
+                        }else{
+                            _this.isLose = true;
+                            cookie.set('loseBox_frist_night','true',1)
+                        }
+
+
+
+                    }
+
+                }
+
+                //this.$router.push("record?record_type=" + this.NIGHT_TYPE)
             },
 
             share: function (isNotShowLoad) {
@@ -559,11 +582,7 @@
                 });
             },
 
-            sleep: function () {
-                console.log('sleep')
-                this.isGoSleep = true;
-                //this.$router.push("record?record_type=" + this.NIGHT_TYPE)
-            },
+
 
             birthday:function (userId) {
                 this.$router.push("/birthday?userId="+userId)
