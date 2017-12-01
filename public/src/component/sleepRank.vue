@@ -195,7 +195,8 @@
     .lose_bottom{width:10.8235rem;height:2.588235rem;font-size: 0.88235rem;color:#fff;line-height: 3rem;position: absolute;bottom:-4.588rem;left:50%;margin-left: -5.41175rem;}
     .morning_bottom{background: url("../images/lose_bottom1.png") no-repeat;background-size: 100% 100%;}
     .night_bottom{background: url("../images/lose_bottom2.png") no-repeat;background-size: 100% 100%;}
-
+    .morning_bottom:active{background: url("../images/lose_bottom3.png") no-repeat;background-size: 100% 100%;}
+    .night_bottom:active{background: url("../images/lose_bottom4.png") no-repeat;background-size: 100% 100%;}
     .day_or_night{ height:2.647058823529412rem; line-height: 2.647058823529412rem; background: #fff; display: -webkit-box;
         display: -webkit-flex;
         display: flex; }
