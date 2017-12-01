@@ -22,10 +22,10 @@
                   :isShowMoreText="isShowMoreText">
             <div class="day_or_night">
                 <div class="btn day_rank" @click="goDayRank()">
-                    <span>早起排行</span>
+                    <img src="../images/morning_rank_btn.png" alt="">
                 </div>
                 <div class="btn night_rank" @click="goNightRank()">
-                    <span>早睡排行</span>
+                    <img src="../images/night_rank_btn.png" alt="">
                 </div>
 
             </div>
@@ -197,24 +197,19 @@
     .night_bottom{background: url("../images/lose_bottom2.png") no-repeat;background-size: 100% 100%;}
     .morning_bottom:active{background: url("../images/lose_bottom3.png") no-repeat;background-size: 100% 100%;}
     .night_bottom:active{background: url("../images/lose_bottom4.png") no-repeat;background-size: 100% 100%;}
-    .day_or_night{ height:2.647058823529412rem; line-height: 2.647058823529412rem; background: #fff; display: -webkit-box;
-        display: -webkit-flex;
-        display: flex; }
-
-    .day_or_night .btn {
-        text-align: center;
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        position: relative;
+    .day_or_night{
+        position: absolute;
+        display: flex;
+        right:0.88235rem;
+        z-index: 1000;
+        top:2.5rem;
     }
-    .day_or_night .btn:last-child:after{display: none}
-    .day_or_night .btn:active{ background: #f1f1f1;}
-    .day_or_night .btn:after{ content:' '; display: block; height: 100%; width: 1px; background: #eee; position: absolute;right:0;top:0}
-    .day_or_night .btn span{ display: inline-block; color:#333; font-size: 0.7647058823529412rem; padding-left: 1.9rem;
-      }
-    .day_or_night .btn.day_rank span{ background: url(../images/day_icon.png) no-repeat;   background-size:1.029411764705882rem; background-position: 0.5rem; }
-    .day_or_night .btn.night_rank span{ background: url(../images/night_icon.png) no-repeat;   background-size:0.9117647058823529rem; background-position: 0.5rem; }
+
+    .day_or_night img {
+        display: block;
+        width:1.94rem;
+    }
+
 
     .line32{ line-height: 2.35rem !important;}
     .share:active{
