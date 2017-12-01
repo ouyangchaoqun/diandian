@@ -6,7 +6,7 @@
             <div class="diglog_lose" :class="{'morning_lose':!isNight,'night_lose':isNight}">
                 <div class="title_lose">打卡失败</div>
                 <div class="record_time">
-                    <template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡时间：{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}
+                    <template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡时间：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
                 <p>今天有{{allCount}}位小伙伴参与<template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡，设置打卡提醒和他们一起<template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>吧，<template v-if="!isNight">坚持早起打卡，遇见更好的自己！</template> <template v-if="isNight"> 生活不易你要懂得照顾自己！</template></p>
                 <img v-if="!isNight" class="status_img" src="../images/morning_status.png" alt="">
@@ -800,7 +800,10 @@
                 showBottomBtnText: "",
                 isLogin: false,
                 isLose:false,
-
+                MORNING_FROM_TIME: '5:00',
+                MORNING_END_TIME: '10:00',
+                NIGHT_FROM_TIME: '20:00',
+                NIGHT_END_TIME: '23:59',
             }
         },
 
@@ -813,7 +816,10 @@
             this.initData();
             this.$nextTick(function () {
                 if((cookie.get('record_lose')=='true'&&cookie.get('loseBox_frist')=='true')||(cookie.get('record_lose_night')=='true'&&cookie.get('loseBox_frist_night')=='true')){
+                    this.initSleepConfig()
                     this.isLose = true;
+                    cookie.set('record_lose','false',1)
+                    cookie.set('record_lose_night','false',1)
                 }
             })
 
@@ -831,6 +837,29 @@
             },
             hideLoseBox:function () {
                 this.isLose = false
+            },
+            initSleepConfig:function () {
+                let _this=this;
+                //是否打卡
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + "record/sleep/get/is/record/_userId_",
+                }).then(function (data) {
+                    if (data.body.status == 1) {
+                        _this.isGetUp = data.body.data.isGetUp;
+                        _this.isGoBed = data.body.data.isGoBed;
+                        _this.goBedId = data.body.data.goBedId;
+                        _this.getUpId = data.body.data.getUpId;
+
+                        _this.MORNING_FROM_TIME = data.body.data.getUpConfig.starttime;
+                        _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
+                        _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
+                        _this.NIGHT_END_TIME = data.body.data.goBedConfig.endtime;
+                    }
+                }, function (error) {
+
+                });
             },
             tip:function () {
                 this.$router.push('/me/subscribe')
