@@ -31,6 +31,13 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
+		<router-link to="/coin/index" class="me_lists">
+			<div class="me_list">
+				<img class="listimg1" src="../images/listimg2.png"/>
+				<div class="listtext">我的积分</div>
+				<img class="listimg2" src="../images/me_jt.png"/>
+			</div>
+		</router-link>
 		<router-link to="/me/subscribe" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 remindImgIcon" src="../images/listimg3.png"/>
