@@ -5,7 +5,7 @@
 			<li class="item" v-for="item in list " :class="{me_item:item.userId==user.id}">
 				<img :src="item.faceUrl" alt="">
 				<div class="main">
-					<span>姓名:{{item.realName}}</span>
+					<span>{{item.nickName}}</span>
 					<p>{{emj(item.message)}}</p>
 				</div>
 				<div style="clear: both"></div>
