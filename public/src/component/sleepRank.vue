@@ -203,8 +203,13 @@
         right:0.88235rem;
         z-index: 1000;
         top:2.35rem;
-    }
+        transform: rotateY(0deg);
 
+    }
+    .day_or_night_rotate{
+        transform: rotateY(180deg);
+        transition: all 1s;
+    }
     .day_or_night img {
         display: block;
         width:2.1176471rem;
@@ -1100,6 +1105,7 @@
 
             },
             goDayRank:function(){
+
                 if (this.typeId == 3) {
                     this.typeId=2;
                 }
