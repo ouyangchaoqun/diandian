@@ -424,12 +424,19 @@
                         _this.checkIn(this.MORNING_TYPE);
                     }else{
                         _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
+                        let cookieYear = new Date().getFullYear().toString();
+                        let cookieMonth = new Date().getMonth().toString();
+                        let cookieDay = new Date().getDate().toString();
+                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+
                         if(cookie.get('loseBox_frist')){
-                            cookie.set('record_lose',false,1)
+                            cookie.set('record_lose',false,CookieExpire)
                         }else{
-                            cookie.set('record_lose',true,1)
+                            cookie.set('record_lose',true,CookieExpire)
                         }
-                        cookie.set('loseBox_frist',true,1)
+                        cookie.set('loseBox_frist',true,CookieExpire)
 
                     }
 
@@ -445,12 +452,19 @@
                         _this.isGoSleep = true
                     }else{
                         _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
+                        let cookieYear = new Date().getFullYear().toString();
+                        let cookieMonth = new Date().getMonth().toString();
+                        let cookieDay = new Date().getDate().toString();
+                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+
                         if(cookie.get('loseBox_frist_night')){
-                            cookie.set('record_lose_night',false,1)
+                            cookie.set('record_lose_night',false,CookieExpire)
                         }else{
-                            cookie.set('record_lose_night',true,1)
+                            cookie.set('record_lose_night',true,CookieExpire)
                         }
-                        cookie.set('loseBox_frist_night',true,1)
+                        cookie.set('loseBox_frist_night',true,CookieExpire)
                     }
 
                 }

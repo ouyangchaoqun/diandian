@@ -816,10 +816,16 @@
             this.initData();
             this.$nextTick(function () {
                 if((cookie.get('record_lose')=='true'&&cookie.get('loseBox_frist')=='true')||(cookie.get('record_lose_night')=='true'&&cookie.get('loseBox_frist_night')=='true')){
-                    this.initSleepConfig()
+                    this.initSleepConfig();
+                    let cookieYear = new Date().getFullYear().toString();
+                    let cookieMonth = new Date().getMonth().toString();
+                    let cookieDay = new Date().getDate().toString();
+                    var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                    let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                    let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
                     this.isLose = true;
-                    cookie.set('record_lose','false',1)
-                    cookie.set('record_lose_night','false',1)
+                    cookie.set('record_lose','false',CookieExpire)
+                    cookie.set('record_lose_night','false',CookieExpire)
                 }
             })
 
