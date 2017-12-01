@@ -434,6 +434,7 @@
                         if(cookie.get('loseBox_frist')){
                             cookie.set('record_lose',false,CookieExpire)
                         }else{
+                            if(!_this.isGetUp)
                             cookie.set('record_lose',true,CookieExpire)
                         }
                         cookie.set('loseBox_frist',true,CookieExpire)
@@ -462,6 +463,7 @@
                         if(cookie.get('loseBox_frist_night')){
                             cookie.set('record_lose_night',false,CookieExpire)
                         }else{
+                            if(!_this.isGoSleep)
                             cookie.set('record_lose_night',true,CookieExpire)
                         }
                         cookie.set('loseBox_frist_night',true,CookieExpire)
