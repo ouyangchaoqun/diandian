@@ -1,6 +1,6 @@
 <template>
     <div class="coin_list">
-
+        <div v-title>积分明细</div>
         <div class="my_coin">
             <div class="word">当前积分：<span>1100</span></div>
         </div>

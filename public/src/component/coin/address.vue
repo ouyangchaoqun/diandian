@@ -1,6 +1,6 @@
 <template>
     <div class="coin_address">
-
+        <div v-title>收货地址</div>
         <div class="box">
             <div class="item">
                 <span>收货人</span>

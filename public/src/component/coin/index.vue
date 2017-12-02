@@ -1,8 +1,10 @@
 <template>
     <div class="coin_index">
+        <div v-title>我的积分</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_coin">
             <div class="word"> <div class="icon"></div><span>1100</span></div>
-            <div class="detail"><span>积分明细</span></div>
+            <div class="detail"><span @click="goList()">积分明细</span></div>
             <div class="rule" v-show="false">积分规则</div>
         </div>
         <div class="tabs">
@@ -13,62 +15,15 @@
             <div class="tab_c product "  :class="{on:tab==1}">
                 <div class="title"><span>精选推荐</span></div>
                 <ul>
-                    <li>
-                        <div class="item" @click="goProduct(1)">
-                            <div class="img"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3622256548,81672705&fm=173&s=B32AF804C48B276E169B88880300E09B&w=550&h=366&img.JPEG"></div>
-                            <div class="title">头盔VR眼镜</div>
+                    <li v-for="item in list">
+                        <div class="item" @click="goProduct(item.goodsId)">
+                            <div class="img"><img :src="item.path"></div>
+                            <div class="title">{{item.name}}</div>
                             <div class="coin">
-                                2800 点豆
+                                {{item.coinNum}} 点豆
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <div class="item" @click="goProduct(2)">
-                            <div class="img"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3622256548,81672705&fm=173&s=B32AF804C48B276E169B88880300E09B&w=550&h=366&img.JPEG"></div>
-                            <div class="title">头盔VR眼镜</div>
-                            <div class="coin">
-                                2800 点豆
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="item" @click="goProduct(3)">
-                            <div class="img"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3622256548,81672705&fm=173&s=B32AF804C48B276E169B88880300E09B&w=550&h=366&img.JPEG"></div>
-                            <div class="title">头盔VR眼镜</div>
-                            <div class="coin">
-                                2800 点豆
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item" @click="goProduct(4)">
-                            <div class="img"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3622256548,81672705&fm=173&s=B32AF804C48B276E169B88880300E09B&w=550&h=366&img.JPEG"></div>
-                            <div class="title">头盔VR眼镜</div>
-                            <div class="coin">
-                                2800 点豆
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <div class="img"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3622256548,81672705&fm=173&s=B32AF804C48B276E169B88880300E09B&w=550&h=366&img.JPEG"></div>
-                            <div class="title">头盔VR眼镜</div>
-                            <div class="coin">
-                                2800 点豆
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <div class="img"><img src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3622256548,81672705&fm=173&s=B32AF804C48B276E169B88880300E09B&w=550&h=366&img.JPEG"></div>
-                            <div class="title">头盔VR眼镜</div>
-                            <div class="coin">
-                                2800 点豆
-                            </div>
-                        </div>
-                    </li>
-
                     <div class="clear"></div>
                 </ul>
 
@@ -127,15 +82,27 @@
     </div>
 </template>
 <script>
-
+    import showLoad from '../showLoad.vue';
+    import scroll from '../lib/scroll.vue';
     export default {
         data() {
             return {
-                tab:1
+                tab:1,
+                list:[],
+                counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
+                num: 10,  // 一次显示多少条
+                pageStart: 0, // 开始页数
+                pageEnd: 0, // 结束页数
+                listdata: [], // 下拉更新数据存放数组
+                downdata: [],  // 上拉更多的数据存放数组
+                showAll:false,
+                showLoad:false,
+                isPageEnd:false,
+                isShowMoreText:true
             }
         },
         mounted:function () {
-
+            this.getList()
 
 
 
@@ -145,9 +112,22 @@
                 this.tab=v;
             },
             goProduct:function (id) {
-                this.$router.push("/coin/product?id="+id)
+                this.$router.push("/coin/product?goodsId="+id)
+            },
+            goList:function () {
+                this.$router.push('list')
+            },
+            getList:function () {
+                this.$http.get(web.API_PATH+'coin/get/goods/1/10').then((response) => {
+                    console.log(response.data.data)
+                    this.list = response.data.data
+                })
             }
-        }
+        },
+        components: {
+            'v-scroll': scroll,
+            'v-showLoad':showLoad,
+        },
     }
 
 
