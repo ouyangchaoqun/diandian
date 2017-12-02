@@ -185,7 +185,7 @@
             </div>
         </div>
         <!--未到打卡时间弹窗-->
-        <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="record_timeOut">
+        <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="record_timeOut" @click="hideRecord_timeOut()">
             <div class="diglog_lose" :class="{'morning_lose':!isNight(),'night_lose':isNight()}">
                 <div class="title_lose">打卡时间未到</div>
                 <div class="record_time">
@@ -262,7 +262,10 @@
         methods: {
 
             hideSleepDialog:function () {
-                this.isGoSleep = false
+                this.isGoSleep = false;
+            },
+            hideRecord_timeOut:function () {
+                this.record_timeOut = false;
             },
             goSleepRank:function () {
 
@@ -361,7 +364,8 @@
                 let _this = this;
                 var t;
                 var nowStamp = (new Date().getTime())/1000;
-                if(_this.isNight){
+                console.log(_this.isNight()+'*************')
+                if(_this.isNight()){
                      t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.NIGHT_FROM_TIME
                 }else {
                     t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.MORNING_FROM_TIME
@@ -370,7 +374,7 @@
                 var end = xqzs.dateTime.getTimeStamp(t);
                 var start = end - 3600;
                 if(nowStamp>start && nowStamp <end){
-
+                    console.log(nowStamp,start,end+'*************')
                     this.record_timeOut = true;
                     return false;
                 }else{
