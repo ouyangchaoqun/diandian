@@ -184,6 +184,23 @@
                 </div>
             </div>
         </div>
+        <!--未到打卡时间弹窗-->
+        <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="record_timeOut">
+            <div class="diglog_lose" :class="{'morning_lose':!isNight(),'night_lose':isNight()}">
+                <div class="title_lose">打卡时间未到</div>
+                <div class="record_time">
+                    <template v-if="isNight()">早睡</template><template v-if="!isNight()">早起</template>打卡时间：<template v-if="!isNight()">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
+                    <template v-if="isNight()">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
+                <p v-if="!isNight()">未到起床打卡时间，还可以睡一会哦！     </p>
+                <p v-if="isNight()">今天发生了什么有意思的事吗？快来“心情说说”分享一下吧~</p>
+                <img v-if="!isNight()" class="status_img" src="../images/morning_status.png" alt="">
+                <img v-if="isNight()" class="status_img" src="../images/night_status.png" alt="">
+                <div class="sleep_dialog_bottom" >
+                    <div @click="goYesterDaySleepRank()">查看昨日排行</div>
+                    <div @click="set()">设置打卡提醒</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -221,6 +238,7 @@
                 myInfos:null,
                 isLose:false,
                 isGoSleep:false,
+                record_timeOut:false,
             }
         },
         filters:{
@@ -247,7 +265,20 @@
                 this.isGoSleep = false
             },
             goSleepRank:function () {
+
                 this.$router.push("/sleepRank?type=3")
+            },
+            goYesterDaySleepRank:function () {
+                let yesDay = parseInt((new Date().getTime())-86400*1000,10);
+                let now = new Date(yesDay);
+                let year = now.getFullYear();
+                let month = now.getMonth() + 1;
+                let date = now.getDate();
+                if(this.isNight()){
+                    this.$router.push("/sleepRank?type=3&year="+year+"&month="+month+"&date="+date+"")
+                }else {
+                    this.$router.push("/sleepRank?type=2&year="+year+"&month="+month+"&date="+date+"")
+                }
             },
             set:function () {
                 this.$router.push('/me/subscribe')
@@ -326,7 +357,31 @@
                 }
                 return _r;
             },
+            recordTimeOut:function () {
+                let _this = this;
+                var t;
+                var nowStamp = (new Date().getTime())/1000;
+                if(_this.isNight){
+                     t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.NIGHT_FROM_TIME
+                }else {
+                    t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.MORNING_FROM_TIME
+                }
 
+                var end = xqzs.dateTime.getTimeStamp(t);
+                var start = end - 3600;
+                if(nowStamp>start && nowStamp <end){
+
+                    this.record_timeOut = true;
+                    return false;
+                }else{
+
+                    console.log(nowStamp,start,end)
+                    this.record_timeOut = false;
+                    return true;
+                }
+
+
+            },
             goHabit:function () {
                 this.$router.push("/habit")
             },
@@ -408,6 +463,12 @@
             },
 
             sleepOrGetUp:function () {
+
+                if(!this.recordTimeOut()){
+                    return ;
+                }
+                //
+
                 if(this.isNight()){
                     this.sleep();
                 }else{
@@ -415,14 +476,19 @@
                 }
             },
             getUp: function () {
+
+
                 console.log("morning")
                 let _this = this;
                 if (_this.isGetUp && _this.isRecordTime()) {
                     _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
                 }else{
+
                     if(_this.isRecordTime()){
+
                         _this.checkIn(this.MORNING_TYPE);
                     }else{
+                        console.log('超市')
                         _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
                         let cookieYear = new Date().getFullYear().toString();
                         let cookieMonth = new Date().getMonth().toString();
@@ -723,7 +789,6 @@
         },
 
         mounted: function () {
-
             let _this =this;
             _this.getUserInfo();
             _this.initSleepConfig();
@@ -853,6 +918,19 @@
 
 </script>
 <style>
+    /*新增打卡失败*/
+    .record_loseBox{z-index:10001 !important;}
+    .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;text-align: center;}
+    .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
+    .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
+    .title_lose{font-size: 1.35rem;line-height: 1;margin-bottom: 0.588235rem;}
+    .record_time{font-size: 0.6471rem;line-height: 1;margin-bottom: 1.176471rem;}
+    .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
+    .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
+    .morning_bottom{background: url("../images/lose_bottom1.png") no-repeat;background-size: 100% 100%;}
+    .night_bottom{background: url("../images/lose_bottom2.png") no-repeat;background-size: 100% 100%;}
+    .morning_bottom:active{background: url("../images/lose_bottom3.png") no-repeat;background-size: 100% 100%;}
+    .night_bottom:active{background: url("../images/lose_bottom4.png") no-repeat;background-size: 100% 100%;}
 
     .index_btns {
         height: 5.5rem;

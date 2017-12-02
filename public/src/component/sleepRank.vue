@@ -941,12 +941,14 @@
                 if (_this.userid) {
                     userIdStr = _this.userid;
                 }
+                  let yesYear =  _this.$route.query.year;
+                  let yesMonth =  _this.$route.query.month;
+                  let yesDay =  _this.$route.query.date;
 
                 _this.time = new Date();
-
-                _this.clockDay = _this.time.getDate();
-                _this.clockMonth = _this.time.getMonth() + 1;
-                _this.clockYear = _this.time.getFullYear();
+                _this.clockDay = yesDay||_this.time.getDate();
+                _this.clockMonth = yesMonth||_this.time.getMonth() + 1;
+                _this.clockYear = yesYear||_this.time.getFullYear();
                 let guestUrl = "";
                 if (web.guest) {
                     guestUrl = "?guest=true"
