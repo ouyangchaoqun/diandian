@@ -591,7 +591,7 @@
 
                             return;
                         }else{
-                            _this.$router.push("slee" + this.NIGHT_TYPE);
+                            _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
                             console.log('超时打');
                             let cookieYear = new Date().getFullYear().toString();
                             let cookieMonth = new Date().getMonth().toString();
