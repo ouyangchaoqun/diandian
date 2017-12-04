@@ -120,7 +120,7 @@
                 this.getList(done);
             },
             onRefresh(done) {
-                this.counter=1;
+                this.page=1;
                 this.isPageEnd=false;
                 this.getList(done);
             },

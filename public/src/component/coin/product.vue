@@ -40,10 +40,17 @@
 
            </div>
            <div class="btn_bottom  " @click="change()">
-               <div class="btn_change cant" v-if="user.coinAmount<goods.coinNum">积分不足</div>
-               <div class="btn_change" v-else="">立即兑换</div>
+               <div class="btn_change" >立即兑换</div>
            </div>
-
+           <div id="check_change" style="display: none;">
+           <div class="check_change" v-if="check">
+               <div class="img">
+                   <img :src="goods.pictures[0].path" alt="">
+               </div>
+               <div class="coin"><span>{{goods.coinNum}}</span>积分</div>
+               <div class="btn_change check_change_btn" >确认兑换</div>
+           </div>
+           </div>
        </div>
     </div>
 </template>
@@ -56,7 +63,9 @@
                 goods:{},
                 showLoad:false,
                 address:null,
-                user:{coinAmount:0}
+                user:{coinAmount:0},
+                shareOnePersonCoin:5,
+                check:false,
             }
         },
         mounted:function () {
@@ -64,20 +73,36 @@
             this.getAddress();
             $(".product_top").height( $(document).height()-60);
             this.getUserInfo();
+            this.getTaskList();
         },
         methods: {
             change:function () {
-
-
                 let _this=this;
-                if( !_this.address){
-                    xqzs.weui.tip("请先添加地址！")
-                    return;
-                }
                 if(_this.user.coinAmount<_this.goods.coinNum){
-                    xqzs.weui.tip("积分不足！")
+                    this.getCoin();
                     return;
                 }
+
+                if( !_this.address){
+                    xqzs.weui.tip("请先添加地址！",function () {
+                       _this.goSetAdress();
+                    });
+                    return;
+                }
+
+                this.check=true;
+                this.$nextTick(function () {
+                    xqzs.weui.dialogCustom($("#check_change").html());
+                    $(".check_change_btn").click(function () {
+                        _this.changeCheck();
+                    })
+                })
+
+
+
+            },
+            changeCheck:function () {
+                let _this=this;
                 _this.$http.post(web.API_PATH + 'coin/buy/goods/'+_this.goods.id+"/_userId_/"+ _this.address.addressId +"/1",{})
                     .then(function (res) {
                         console.log(res)
@@ -90,6 +115,43 @@
 
                     });
             },
+            getCoin:function () {
+                let product= this.goods;
+                console.log(product)
+                let lastCount = Math.ceil((product.coinNum -  this.user.coinAmount) / this.shareOnePersonCoin);
+                let  html =    '<div class="get_coin">' +
+                    '                    <div class="close"></div>'+
+                    '                    <div class="img">'+'<img src="'+product.pictures[0].path+'" />'+'</div>\n' +
+                    '                    <div class="h1">积分不足</div>\n' +
+                    '                    <div class="con">已有'+this.user.coinAmount+'积分，每邀请1位好友支持可得'+this.shareOnePersonCoin+'积分，<span>邀请'+lastCount+'位好友</span>关注“好一点”公众号可立即兑换</div>\n' +
+                    '                    <div class="line"></div>\n' +
+                    '                    <div class="info">注：更多获取积分方式，请去每日任务查看</div>\n' +
+                    '                    <div class="btn">邀请好友赚积分</div>\n' +
+                    '                </div>';
+                xqzs.weui.dialogCustom(html);
+                $(".get_coin .close").click(function () {
+                    $(".js_dialog .weui-mask").click();
+                });
+                $(".get_coin .btn").click(function () {
+                    //发送邀请卡
+                })
+            },
+
+            getTaskList:function () {
+                this.$http.get(web.API_PATH+'coin/get/task/_userId_').then((response) => {
+
+
+                    for(let i =0;i< this.taskList.length;i++){
+                        this.taskList = response.data.data;
+                        if(this.taskList[i].type==7){
+                            this.shareOnePersonCoin= this.taskList[i].point;
+                            break;
+                        }
+                    }
+
+                })
+            },
+
             getUserInfo:function () {
 
                 let _this=this;
@@ -159,6 +221,36 @@
 
 </script>
 <style>
+
+    .check_change{ height: 12rem; background: #fff;position: fixed ; bottom:0; z-index: 101001;  -webkit-animation: go_top ease .3s forwards;
+        animation: go_top ease .3s forwards; left:0; width: 100% }
+    .check_change .img{ margin-top: 0.88235rem; margin-left: 0.88235rem;}
+    .check_change img{ width: 8rem;}
+    @keyframes go_top {
+        0% {
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+
+        }
+    }
+
+    .get_coin{ position: fixed;    z-index: 1001; top:50%; left:50%; width: 80%; height: 24rem; margin-left: -40%; margin-top: -12rem; background: #fff; border-radius: 0.8rem; text-align: center; line-height: 1}
+    .get_coin .img{ width:60%; margin: 0 auto ; height: 6rem; text-align: center; margin-top: 1rem;}
+    .get_coin .img img{ max-width: 100%; max-height: 100%; }
+    .get_coin .h1{ margin-top: 1rem; margin-bottom: 1rem; font-size: 1.176470588235294rem; color:#333}
+    .get_coin .con{ font-size: 0.88235rem; color:#666; line-height: 1.5rem; margin: 0 0.8rem;}
+    .get_coin .con span{ color:red;}
+    .get_coin .line{ height: 1px; width: 80%; margin: 0.8rem auto; background: #f1f1f1}
+    .get_coin .info{ color:#999; font-size: 0.7083rem;}
+    .get_coin .btn{background: #f97f06; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 80%; margin: 0 auto;position: absolute; bottom:0.88235rem;left:50%; margin-left: -40%; }
+    .get_coin .close{ background: url(../../images/writer_icon_fork.png) no-repeat; width: 23px; background-size: 23px; border-radius: 50%; height: 23px; position: absolute; top:0.88235rem; right:0.88235rem;}
+
+
+
     .product_box{  background: #fff }
     .product_top{ padding-bottom:3rem; overflow-y: auto }
     .product_top img{width:100%;display: block;margin-bottom: 1px;}
@@ -178,9 +270,8 @@
     .adress_detail div{padding-top: 0.588235rem;}
     .product_detail{ background: #fff;}
     video{max-width:100%;}
-    .btn_change{ background: #FC9B2C ; border-radius: 0.3rem; margin:   0.88235rem;  height: 2.588235294117647rem;z-index: 111; color:#fff; line-height: 2.588235294117647rem; text-align: center }
-    .btn_change.cant ,.btn_change.cant:active{ background: #ccc ; color:#999;}
-    .btn_change:active{background: #d88325;}
+     .btn_bottom  .btn_change, .check_change .btn_change{ background: #FC9B2C ; border-radius: 0.3rem; margin:   0.88235rem;  height: 2.588235294117647rem;z-index: 111; color:#fff; line-height: 2.588235294117647rem; text-align: center }
+    .btn_bottom  .btn_change:active, .check_change .btn_change:active{background: #d88325;}
 
     .btn_bottom {   ;position:fixed; bottom:0; width: 100%}
 </style>

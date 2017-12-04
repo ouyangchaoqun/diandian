@@ -2,6 +2,7 @@
     <div class="coin_index">
         <div v-title>我的积分</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite"  isNotRefresh="true" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
         <div class="my_coin">
             <div class="word"> <div class="icon"></div><span>{{user.coinAmount}}</span></div>
             <div class="detail"><span @click="goList()">积分明细</span></div>
@@ -15,13 +16,15 @@
             <div class="tab_c product "  :class="{on:tab==1}">
                 <div class="title"><span>精选推荐</span></div>
                 <ul>
-                    <li v-for="item in list">
+                    <li v-for="(item,index) in list">
                         <div class="item" @click="goProduct(item.goodsId)">
                             <div class="img"><img :src="item.path"></div>
                             <div class="title">{{item.name}}</div>
                             <div class="coin">
                                 {{item.coinNum}} 点豆
                             </div>
+                            <div class="btn" v-if="user.coinAmount<item.coinNum" @click.stop="getCoin(index)">赚积分</div>
+                            <div class="btn change" v-else="" @click.stop="goProduct(item.goodsId)">去兑换</div>
                         </div>
                     </li>
                     <div class="clear"></div>
@@ -33,40 +36,48 @@
                     <div :class="'item type'+item.type" v-for="item in taskList">
                         <div class="icon"></div>
                         <div class="word">
-                            <div class="title">{{item.string}} <span>+{{item.coinNum}}</span></div>
-                            <div class="info">早起打卡时段：05:00-10:00</div>
+                            <div class="title">{{item.title}} <span>+{{item.coinNum}}</span></div>
+                            <div class="info">{{item.desc}}</div>
                         </div>
 
-                        <div class="btn no" v-if="item.finished">已完成</div>
-                        <div class="btn" v-else="">去记录</div>
+                        <div class="btn no" v-if="item.finished">{{item.btnFinish}}</div>
+                        <div class="btn" v-else="item.finished==-1">{{item.btnFail}}</div>
+                        <div class="btn" v-else="">{{item.btnUnFinish}}</div>
                     </div>
 
                 </div>
 
 
+
+
             </div>
         </div>
+        </v-scroll>
     </div>
 </template>
 <script>
+    import Bus from '../bus.js';
+
     import showLoad from '../showLoad.vue';
     import scroll from '../lib/scroll.vue';
+
+
+
     export default {
         data() {
             return {
                 tab:1,
                 list:[],
-                counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
-                num: 10,  // 一次显示多少条
-                pageStart: 0, // 开始页数
-                pageEnd: 0, // 结束页数
-                listdata: [], // 下拉更新数据存放数组
-                downdata: [],  // 上拉更多的数据存放数组
+                page: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
+                row: 4,  // 一次显示多少条
+
                 showAll:false,
                 showLoad:false,
                 isPageEnd:false,
                 isShowMoreText:true,
-                taskList:[],user:{}
+                taskList:[],user:{},
+                isLoading:false,
+                shareOnePersonCoin:5
             }
         },
         mounted:function () {
@@ -75,6 +86,28 @@
             this.getUserInfo();
         },
         methods: {
+
+            getCoin:function (index) {
+                let product= this.list[index];
+                let lastCount = Math.ceil((product.coinNum -  this.user.coinAmount) / this.shareOnePersonCoin);
+                let  html =    '<div class="get_coin">' +
+                '                    <div class="close"></div>'+
+                '                    <div class="img">'+'<img src="'+product.path+'" />'+'</div>\n' +
+                '                    <div class="h1">积分不足</div>\n' +
+                '                    <div class="con">已有'+this.user.coinAmount+'积分，每邀请1位好友支持可得'+this.shareOnePersonCoin+'积分，<span>邀请'+lastCount+'位好友</span>关注“好一点”公众号可立即兑换</div>\n' +
+                '                    <div class="line"></div>\n' +
+                '                    <div class="info">注：更多获取积分方式，请去每日任务查看</div>\n' +
+                '                    <div class="btn">邀请好友赚积分</div>\n' +
+                '                </div>';
+                xqzs.weui.dialogCustom(html);
+                $(".get_coin .close").click(function () {
+                    $(".js_dialog .weui-mask").click();
+                });
+                $(".get_coin .btn").click(function () {
+                    //发送邀请卡
+                })
+            },
+
             getUserInfo:function () {
                 let _this=this;
                 _this.$http({
@@ -91,12 +124,27 @@
             },
             getTaskList:function () {
                 this.$http.get(web.API_PATH+'coin/get/task/_userId_').then((response) => {
-                    console.log(response.data.data)
-                    this.taskList = response.data.data
+
+                    this.taskList = response.data.data;
+                    console.log(this.taskList)
+                    for(let i =0;i< this.taskList.length;i++){
+
+                        if(this.taskList[i].type==7){
+                            this.shareOnePersonCoin= this.taskList[i].point;
+                            break;
+                        }
+                    }
+
                 })
             },
             tabChange:function (v) {
                 this.tab=v;
+                if(v==2){
+                    this.isShowMoreText=false
+                }else{
+                    this.isShowMoreText=true
+                }
+                Bus.$emit("scrollMoreTextInit", this.isShowMoreText);
             },
             goProduct:function (id) {
                 this.$router.push("/coin/product?goodsId="+id)
@@ -104,12 +152,72 @@
             goList:function () {
                 this.$router.push('list')
             },
-            getList:function () {
-                this.$http.get(web.API_PATH+'coin/get/goods/1/10').then((response) => {
-                    console.log(response.data.data)
-                    this.list = response.data.data
-                })
-            }
+
+            getList: function (done) {
+                console.log("rrrrrrrrrrrrrrrrr")
+                let vm= this;
+                let url = web.API_PATH + "coin/get/goods/"+vm.page+"/"+vm.row+"";
+
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(url).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
+                    vm.showLoad = false;
+                    vm.isLoading = false;
+
+                    if(response.data.status!=1){
+                        vm.list = [];
+                        return;
+                    }
+
+
+
+                    let arr = response.data.data;
+                    //
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText =true;
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+                    vm.$nextTick(function () {
+                         $(".product .item .img img").height($(".product .item .img img").width())
+                    });
+
+
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList(done);
+            },
+            onRefresh(done) {
+                this.page=1;
+                this.isPageEnd=false;
+                this.getList(done);
+            },
         },
         components: {
             'v-scroll': scroll,
@@ -122,13 +230,29 @@
 <style>
     .coin_index{ background: #fff;}
 
+
+    .get_coin{ position: fixed;    z-index: 1001; top:50%; left:50%; width: 80%; height: 24rem; margin-left: -40%; margin-top: -12rem; background: #fff; border-radius: 0.8rem; text-align: center; line-height: 1}
+    .get_coin .img{ width:60%; margin: 0 auto ; height: 6rem; text-align: center; margin-top: 1rem;}
+    .get_coin .img img{ max-width: 100%; max-height: 100%; }
+    .get_coin .h1{ margin-top: 1rem; margin-bottom: 1rem; font-size: 1.176470588235294rem; color:#333}
+    .get_coin .con{ font-size: 0.88235rem; color:#666; line-height: 1.5rem; margin: 0 0.8rem;}
+    .get_coin .con span{ color:red;}
+    .get_coin .line{ height: 1px; width: 80%; margin: 0.8rem auto; background: #f1f1f1}
+    .get_coin .info{ color:#999; font-size: 0.7083rem;}
+    .get_coin .btn{background: #f97f06; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 80%; margin: 0 auto;position: absolute; bottom:0.88235rem;left:50%; margin-left: -40%; }
+    .get_coin .close{ background: url(../../images/writer_icon_fork.png) no-repeat; width: 23px; background-size: 23px; border-radius: 50%; height: 23px; position: absolute; top:0.88235rem; right:0.88235rem;}
+
+
     .coin_index .product ul{ margin: 0.38235rem; margin-top: 0}
     .coin_index .product ul li  { width: 50%; float:left;
         overflow: hidden ; margin-bottom: 0.8rem;}
-    .coin_index .product ul li .item{ margin:0 0.5rem;}
+    .coin_index .product ul li .item{ margin:0 0.5rem; position: relative}
     .coin_index .product .item .img img{ width: 100%; border-radius: 0.4rem; }
     .coin_index .product .item .title{ font-size: 0.88235rem; color:#333;}
     .coin_index .product .item .coin { font-size: 0.88235rem; color:#E28B27}
+    .coin_index .product .item .btn{background: #0cc92f; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 3.6rem; position: absolute; right: 0; bottom:0.3rem;}
+    .coin_index .product .item .btn.change{background: #f97f06;}
+
 
     .coin_index .my_coin{
         height: 8.823529411764706rem;
@@ -200,5 +324,6 @@
         background: url(../../images/coin_task_type_7.png); background-size: 100%;
     }
 
+    .coin_index .yo-scroll{ background: #fff;}
 
 </style>
