@@ -34,7 +34,7 @@
             <div class="tab_c"  :class="{on:tab==2}">
                 <div class="task_list">
                     <div :class="'item type'+item.type" v-for="item in taskList">
-                        <div class="icon"></div>
+                        <div class="icon"><img :src="item.icon" ></div>
                         <div class="word">
                             <div class="title">{{item.title}} <span>+{{item.coinNum}}</span></div>
                             <div class="info">{{item.desc}}</div>
@@ -307,21 +307,10 @@
         background:-webkit-gradient(linear, 0 0, right 0, from(#f9630c), to(#ffa115));
     }
     .coin_index .cont_tab  .task_list .item  .btn.no{background:#d9d9d9}
-    .coin_index .cont_tab  .task_list .item.type1 .icon{
-        background: url(../../images/coin_task_type_1.png); background-size: 100%;
+    .coin_index .cont_tab  .task_list .item .icon img{ width: 100%; height: 100%;
+
     }
-    .coin_index .cont_tab  .task_list .item.type2 .icon{
-        background: url(../../images/coin_task_type_2.png); background-size: 100%;
-    }
-    .coin_index .cont_tab  .task_list .item.type3 .icon{
-        background: url(../../images/coin_task_type_3.png); background-size: 100%;
-    }
-    .coin_index .cont_tab  .task_list .item.type6 .icon{
-        background: url(../../images/coin_task_type_6.png); background-size: 100%;
-    }
-    .coin_index .cont_tab  .task_list .item.type7 .icon{
-        background: url(../../images/coin_task_type_7.png); background-size: 100%;
-    }
+
 
     .coin_index .yo-scroll{ background: #fff;}
 
