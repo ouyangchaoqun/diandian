@@ -320,6 +320,7 @@
                 }).then(function (data) {
                     if (data.body.status == 1) {
                         _this.isGetUp = data.body.data.isGetUp;
+                        console.log(_this.isGetUp+'-----------------loseBox_frist')
                         _this.isGoBed = data.body.data.isGoBed;
                         _this.goBedId = data.body.data.goBedId;
                         _this.getUpId = data.body.data.getUpId;
@@ -364,7 +365,6 @@
                 let _this = this;
                 var t;
                 var nowStamp = (new Date().getTime())/1000;
-                console.log(_this.isNight()+'*************')
                 if(_this.isNight()){
                      t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.NIGHT_FROM_TIME
                 }else {
@@ -374,17 +374,12 @@
                 var end = xqzs.dateTime.getTimeStamp(t);
                 var start = end - 3600;
                 if(nowStamp>start && nowStamp <end){
-                    console.log(nowStamp,start,end+'*************')
                     this.record_timeOut = true;
                     return false;
                 }else{
-
-                    console.log(nowStamp,start,end)
                     this.record_timeOut = false;
                     return true;
                 }
-
-
             },
             goHabit:function () {
                 this.$router.push("/habit")
@@ -467,76 +462,154 @@
             },
 
             sleepOrGetUp:function () {
-
-                if(!this.recordTimeOut()){
-                    return ;
-                }
-                //
-
                 if(this.isNight()){
                     this.sleep();
                 }else{
                     this.getUp();
                 }
             },
+//            getUp: function () {
+//
+//
+//                console.log("morning")
+//                let _this = this;
+//                if (_this.isGetUp && _this.isRecordTime()) {
+//                    _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
+//                }else{
+//
+//                    if(_this.isRecordTime()){
+//
+//                        _this.checkIn(this.MORNING_TYPE);
+//                    }else{
+//                        console.log('超市')
+//                        _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
+//                        let cookieYear = new Date().getFullYear().toString();
+//                        let cookieMonth = new Date().getMonth().toString();
+//                        let cookieDay = new Date().getDate().toString();
+//                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+//                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
+//                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+//
+//                        if(cookie.get('loseBox_frist')){
+//                            cookie.set('record_lose',false,CookieExpire)
+//                        }else{
+//                            if(!_this.isGetUp)
+//                            cookie.set('record_lose',true,CookieExpire)
+//                        }
+//                        cookie.set('loseBox_frist',true,CookieExpire)
+//
+//                    }
+//
+//                }
+//            },
             getUp: function () {
-
-
                 console.log("morning")
                 let _this = this;
-                if (_this.isGetUp && _this.isRecordTime()) {
+                if (_this.isGetUp) {
+                    //打过卡
                     _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
                 }else{
-
+                    //未打卡
+                    console.log('未打卡')
                     if(_this.isRecordTime()){
-
+                            //打卡时间段内
+                        console.log('未打卡打卡时间段内')
                         _this.checkIn(this.MORNING_TYPE);
                     }else{
-                        console.log('超市')
-                        _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
-                        let cookieYear = new Date().getFullYear().toString();
-                        let cookieMonth = new Date().getMonth().toString();
-                        let cookieDay = new Date().getDate().toString();
-                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
-                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
-                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+                            //提前
+                        if(!_this.recordTimeOut()){
+                            console.log('未打卡打卡提前')
 
-                        if(cookie.get('loseBox_frist')){
-                            cookie.set('record_lose',false,CookieExpire)
+                            return;
                         }else{
-                            if(!_this.isGetUp)
-                            cookie.set('record_lose',true,CookieExpire)
+                            //超时
+                            console.log('未打卡打卡超时')
+                            _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
+                            let cookieYear = new Date().getFullYear().toString();
+                            let cookieMonth = new Date().getMonth().toString();
+                            let cookieDay = new Date().getDate().toString();
+                            var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                            let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                            let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+
+                            if(cookie.get('loseBox_frist')){
+                                cookie.set('record_lose',false,CookieExpire)
+                            }else{
+                                if(!_this.isGetUp)
+                                    cookie.set('record_lose',true,CookieExpire)
+                            }
+                            cookie.set('loseBox_frist',true,CookieExpire)
                         }
-                        cookie.set('loseBox_frist',true,CookieExpire)
+
 
                     }
 
                 }
             },
+//            sleep: function () {
+//                console.log('sleep')
+//                let _this = this;
+//                if (_this.isGoBed && _this.isRecordTime()) {
+//                    _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE)
+//                }else{
+//                    if(_this.isRecordTime()){
+//                        _this.isGoSleep = true
+//                    }else{
+//                        _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
+//                        let cookieYear = new Date().getFullYear().toString();
+//                        let cookieMonth = new Date().getMonth().toString();
+//                        let cookieDay = new Date().getDate().toString();
+//                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+//                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
+//                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+//
+//                        if(cookie.get('loseBox_frist_night')){
+//                            cookie.set('record_lose_night',false,CookieExpire)
+//                        }else{
+//                            if(!_this.isGoSleep)
+//                            cookie.set('record_lose_night',true,CookieExpire)
+//                        }
+//                        cookie.set('loseBox_frist_night',true,CookieExpire)
+//                    }
+//
+//                }
+//
+//                //this.$router.push("record?record_type=" + this.NIGHT_TYPE)
+//            },
             sleep: function () {
                 console.log('sleep')
                 let _this = this;
-                if (_this.isGoBed && _this.isRecordTime()) {
+                if (_this.isGoBed) {
                     _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE)
                 }else{
                     if(_this.isRecordTime()){
+                        //未打卡并在打卡时间段内
                         _this.isGoSleep = true
                     }else{
-                        _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
-                        let cookieYear = new Date().getFullYear().toString();
-                        let cookieMonth = new Date().getMonth().toString();
-                        let cookieDay = new Date().getDate().toString();
-                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
-                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
-                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+                        if(!_this.recordTimeOut()){
+                            console.log('提前打')
 
-                        if(cookie.get('loseBox_frist_night')){
-                            cookie.set('record_lose_night',false,CookieExpire)
+                            return;
                         }else{
-                            if(!_this.isGoSleep)
-                            cookie.set('record_lose_night',true,CookieExpire)
+                            _this.$router.push("slee" + this.NIGHT_TYPE);
+                            console.log('超时打');
+                            let cookieYear = new Date().getFullYear().toString();
+                            let cookieMonth = new Date().getMonth().toString();
+                            let cookieDay = new Date().getDate().toString();
+                            var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                            let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                            let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+
+                            if(cookie.get('loseBox_frist_night')){
+                                cookie.set('record_lose_night',false,CookieExpire)
+                            }else{
+                                if(!_this.isGoSleep)
+                                    cookie.set('record_lose_night',true,CookieExpire)
+                            }
+                            cookie.set('loseBox_frist_night',true,CookieExpire)
                         }
-                        cookie.set('loseBox_frist_night',true,CookieExpire)
+
+
                     }
 
                 }
