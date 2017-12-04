@@ -32,6 +32,7 @@
                 page: 1,
                 row: 10,
                 isPageEnd: false,
+                isLoading:false,
                 isShowMoreText:false,
                 showLoad:false,
                 user:{}
@@ -62,6 +63,8 @@
             getList: function (done) {
                 let vm= this;
                 let url = web.API_PATH + "coin/get/coin/detail/_userId_/"+vm.page+"/"+vm.row+"";
+                console.log(vm.isLoading)
+                console.log(vm.isPageEnd)
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
