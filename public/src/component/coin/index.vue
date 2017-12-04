@@ -231,21 +231,20 @@
     .coin_index{ background: #fff;}
 
 
-    .get_coin{ position: fixed;    z-index: 1001; top:50%; left:50%; width: 80%; height: 24rem; margin-left: -40%; margin-top: -12rem; background: #fff; border-radius: 0.8rem; text-align: center; line-height: 1}
-    .get_coin .img{ width:60%; margin: 0 auto ; height: 6rem; text-align: center; margin-top: 1rem;}
+    .get_coin{ position: fixed;    z-index: 1001; top:50%; left:50%; width: 80%; height:26rem; margin-left: -40%; margin-top: -12rem; background: #fff; border-radius: 0.8rem; text-align: center; line-height: 1}
+    .get_coin .img{ width:9.411764705882353rem; margin: 0 auto ; height:9.411764705882353rem; text-align: center; margin-top: 1.647058823529412rem;}
     .get_coin .img img{ max-width: 100%; max-height: 100%; }
-    .get_coin .h1{ margin-top: 1rem; margin-bottom: 1rem; font-size: 1.176470588235294rem; color:#333}
-    .get_coin .con{ font-size: 0.88235rem; color:#666; line-height: 1.5rem; margin: 0 0.8rem;}
-    .get_coin .con span{ color:red;}
-    .get_coin .line{ height: 1px; width: 80%; margin: 0.8rem auto; background: #f1f1f1}
-    .get_coin .info{ color:#999; font-size: 0.7083rem;}
-    .get_coin .btn{background: #f97f06; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 80%; margin: 0 auto;position: absolute; bottom:0.88235rem;left:50%; margin-left: -40%; }
-    .get_coin .close{ background: url(../../images/writer_icon_fork.png) no-repeat; width: 23px; background-size: 23px; border-radius: 50%; height: 23px; position: absolute; top:0.88235rem; right:0.88235rem;}
+    .get_coin .h1{ margin-top: 1rem; margin-bottom: 1rem; font-size: 1rem; color:#000; font-weight: bold}
+    .get_coin .con{ font-size: 0.7647058823529412rem; color:#666; line-height: 1.5rem; margin: 0 1.5rem; text-align: left;}
+    .get_coin .con span{ color:#333; font-weight: bold}
+    .get_coin .line{ height: 1px; width: 85%; margin: 0.8rem auto; background: #f1f1f1}
+    .get_coin .info{ color:#666; font-size: 0.7647058823529412rem;}
+    .get_coin .btn{background: #f97f06; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 80%; margin: 0 auto;position: absolute; bottom:1.3rem;left:50%; margin-left: -40%; }
+    .get_coin .close{ background: url(../../images/coin_close.png) no-repeat; width: 0.8235294117647059rem; background-size:  0.8235294117647059rem;height: 0.8235294117647059rem; position: absolute; top:0.88235rem; right:0.88235rem;}
 
 
     .coin_index .product ul{ margin: 0.38235rem; margin-top: 0}
-    .coin_index .product ul li  { width: 50%; float:left;
-        overflow: hidden ; margin-bottom: 0.8rem;}
+    .coin_index .product ul li  { width: 50%; float:left;  overflow: hidden ; margin-bottom: 0.8rem;}
     .coin_index .product ul li .item{ margin:0 0.5rem; position: relative}
     .coin_index .product .item .img img{ width: 100%; border-radius: 0.4rem; }
     .coin_index .product .item .title{ font-size: 0.88235rem; color:#333;}
