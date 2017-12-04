@@ -21,12 +21,12 @@
            </div>
            <div class="product_adress" @click="goSetAdress()">
                <i>配送至：</i>
-               <div class="adress_detail" v-if="true">
+               <div class="adress_detail" v-if="!address">
                    <span>您还没有填写收货信息，马上去填写。</span>
                </div>
-               <div class="adress_detail" v-if=" false">
-                   <span>陈小刚</span><span>15717725580</span>
-                   <div>浙江省 杭州市 滨江区 前陌路聚光中心</div>
+               <div class="adress_detail" v-else="">
+                   <span>{{address.userName}}</span><span>{{address.mobile}}</span>
+                   <div>{{provinceName}} {{cityName}} {{areaName}} {{address.address}}</div>
                </div>
                 <div style="clear: both"></div>
            </div>
@@ -49,14 +49,34 @@
                 goodsId:'',
                 goods:{},
                 showLoad:false,
+                address:null
             }
         },
         mounted:function () {
             this.getDetail();
+            this.getAddress();
         },
         methods: {
             goSetAdress:function () {
                 this.$router.push('address')
+            },
+            getAddress:function () {
+
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'coin/get/address/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.address = eval(data.data.data);
+                        if( _this.address.province) _this.provinceName =  _this.address.province;
+                        if( _this.address.city) _this.cityName =  _this.address.city;
+                        if( _this.address.area) _this.areaName =  _this.address.area;
+                    }
+                }, function (error) {
+                    //error
+                });
             },
             getDetail:function () {
                 let _this = this;
@@ -99,8 +119,9 @@
     .product_adress{margin-bottom:1px;font-size: 0.76471rem;color:rgba(153,153,153,1);padding:1rem 0.88235rem;line-height: 1;background: #fff;position: relative}
     .product_adress i{font-style: normal;float: left}
     .product_adress span{color:rgba(51,51,51,1);}
-    .product_detail_header{color:rgba(51,51,51,1);font-size: 0.8235rem;line-height: 2.94rem;background: #fff;padding:0 0.88235rem;}
+    .product_detail_header{color:rgba(51,51,51,1);font-size: 0.8235rem;line-height: 2.94rem;background: #fff;padding:0 0.88235rem; }
     .adress_detail{float: left;margin-left: 0.588235rem;}
     .adress_detail div{padding-top: 0.588235rem;}
+    .product_detail{ background: #fff;}
     video{max-width:100%;}
 </style>

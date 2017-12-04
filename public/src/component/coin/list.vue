@@ -1,56 +1,130 @@
 <template>
+    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite"  :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
     <div class="coin_list">
         <div v-title>积分明细</div>
+
         <div class="my_coin">
-            <div class="word">当前积分：<span>1100</span></div>
+            <div class="word">当前积分：<span>{{user.coinAmount}}</span></div>
         </div>
         <div class="list">
-            <div class="item">
-                <div class="name">早起打卡</div>
-                <div class="time">2017-1-01</div>
-                <div class="coin">+69</div>
+            <div class="item" v-for="item in list">
+                <div class="name">{{item.type}}</div>
+                <div class="time">{{formatTime(item.addTime)}}</div>
+                <div class="coin">+{{item.coinNum}}</div>
             </div>
-            <div class="item">
-                <div class="name">早起打卡</div>
-                <div class="time">2017-1-01</div>
-                <div class="coin">+69</div>
-            </div>
-            <div class="item">
-                <div class="name">早起打卡</div>
-                <div class="time">2017-1-01</div>
-                <div class="coin">+69</div>
-            </div>
-            <div class="item">
-                <div class="name">早起打卡</div>
-                <div class="time">2017-1-01</div>
-                <div class="coin">+69</div>
-            </div>
-            <div class="item">
-                <div class="name">早起打卡</div>
-                <div class="time">2017-1-01</div>
-                <div class="coin">+69</div>
-            </div>
+
 
         </div>
 
+
     </div>
+    </v-scroll>
 </template>
 <script>
+    import Bus from '../bus.js';
 
+    import scroll from '../lib/scroll.vue';
+    import showLoad from '../showLoad.vue';
     export default {
         data() {
             return {
-
+                list:[],
+                page: 1,
+                row: 10,
+                isPageEnd: false,
+                isShowMoreText:false,
+                showLoad:false,
+                user:{}
             }
         },
         mounted:function () {
-
-
-
-
+            this.getList();
+            this.getUserInfo();
         },
         methods: {
+            getUserInfo:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
+            formatTime:function (v) {
+                return xqzs.dateTime.formatYearDate(v)
+            },
+            getList: function (done) {
+                let vm= this;
+                let url = web.API_PATH + "coin/get/coin/detail/_userId_/"+vm.page+"/"+vm.row+"";
+                if (vm.isLoading || vm.isPageEnd) {
+                    return;
+                }
+                if (vm.page == 1) {
+                    vm.showLoad = true;
+                }
+                vm.isLoading = true;
+                vm.$http.get(url).then((response) => {
+                    if(done&&typeof(done)==='function'){
+                        done()
+                    }
+                    vm.showLoad = false;
+                    vm.isLoading = false;
 
+                    if(response.data.status!=1){
+                        vm.list = [];
+                        return;
+                    }
+
+
+
+                    let arr = response.data.data;
+                    //
+                    if (arr.length < vm.row) {
+                        vm.isPageEnd = true;
+                        vm.isShowMoreText = false
+                    }else{
+                        vm.isShowMoreText =true;
+                    }
+                    Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
+
+
+
+                    if (vm.page == 1) {
+                        vm.list = arr;
+                    } else {
+                        vm.list = vm.list.concat(arr);
+                    }
+
+
+
+
+                    if (arr.length == 0) return;
+                    vm.page = vm.page + 1;
+
+                }, (response) => {
+                    vm.isLoading = false;
+                    vm.showLoad = false;
+                });
+
+            },
+            onInfinite(done) {
+                this.getList(done);
+            },
+            onRefresh(done) {
+                this.counter=1;
+                this.isPageEnd=false;
+                this.getList(done);
+            },
+        },
+        components: {
+            'v-scroll': scroll,
+            'v-showLoad': showLoad
         }
     }
 

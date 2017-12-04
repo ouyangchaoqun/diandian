@@ -4,16 +4,16 @@
         <div class="box">
             <div class="item">
                 <span>收货人</span>
-                <div class="con"><input type="text" placeholder="请输入收货人名字"> </div>
+                <div class="con"><input type="text" placeholder="请输入收货人名字" id="userName" :value="address.userName" > </div>
             </div>
             <div class="item">
             <span>手机号码</span>
-            <div class="con"><input type="text" placeholder="收货人的电话，方便联系"> </div>
+            <div class="con"><input type="text" placeholder="收货人的电话，方便联系" id="mobile" :value="address.mobile"> </div>
         </div>
             <div class="item" id="localCity" @click="areaPicker()">
                 <span>地址</span>
                 <div class="showdL area">
-                    <span id="address_ts">请选择地址</span>
+                    <span id="address_ts" v-if="!(provinceName&&cityName&&areaName)">请选择地址</span>
                     <span v-if="provinceName">{{provinceName}}</span>
                     <span v-if="cityName">{{cityName}}</span>
                     <span v-if="areaName">{{areaName}}</span>
@@ -24,12 +24,11 @@
             </div>
             <div class="item addess">
                 <span>详细地址</span>
-                <div class="con"><textarea type="text" placeholder="请输入街道、门派等详细地址信息"></textarea> </div>
+                <div class="con"><textarea type="text"  id="address"  placeholder="请输入街道、门派等详细地址信息">{{address.address}}</textarea> </div>
              </div>
-            <div  @click="msgSubmit()">
+            <div  @click="submit()">
                 <a class="submit_btn">提交</a>
             </div>
-
 
         </div>
 
@@ -49,15 +48,88 @@
                 provinceId: '',
                 cityId: '',
                 areaId: '',
+                address:{}
             }
         },
         mounted:function () {
-
-
-
-
+            this.getAddress();
         },
         methods: {
+            submit:function () {
+
+                let _this=this;
+                let word= "添加";
+                if(address&&address!={}){
+                    word= "修改";
+                }
+                let provinceId =_this.provinceId;
+                let cityId =_this.cityId;
+                let areaId =_this.areaId;
+                let userName =$("#userName").val();
+                let mobile =$("#mobile").val();
+                let address =$("#address").val();
+
+
+
+                if(!userName){
+                    xqzs.weui.tip("请填写收件人姓名");
+                    return ;
+                }
+                if(!mobile){
+                    xqzs.weui.tip("请填写手机号");
+                    return ;
+                }
+                if(!(provinceId&&cityId&&areaId)){
+                    xqzs.weui.tip("请填写地址");
+                    return ;
+                }
+
+                if(!address){
+                    xqzs.weui.tip("请填写详细地址");
+                    return ;
+                }
+
+                let data  ={
+                    userId:'--',
+                    provinceId:provinceId,
+                    cityId:cityId,
+                    areaId:areaId,
+                    userName:userName,
+                    mobile:mobile,
+                    address:address,
+                };
+                _this.$http.post(web.API_PATH + 'coin/add/address',data)
+                    .then(function (res) {
+
+                        xqzs.weui.toast("success",word+"成功", function () {
+                            _this.$router.go(-1);
+                        })
+
+                    });
+
+            },
+            getAddress:function () {
+
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'coin/get/address/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.address = eval(data.data.data);
+                        if( _this.address.province) _this.provinceName =  _this.address.province;
+                        if( _this.address.city) _this.cityName =  _this.address.city;
+                        if( _this.address.area) _this.areaName =  _this.address.area;
+                        if( _this.address.provinceId) _this.provinceId =  _this.address.provinceId;
+                        if( _this.address.cityId) _this.cityId =  _this.address.cityId;
+                        if( _this.address.areaId) _this.areaId =  _this.address.areaId;
+                        _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             areaPicker: function () {
                 let _this = this;
                 $.get('/src/js/city.json', function (data) {

@@ -3,7 +3,7 @@
         <div v-title>我的积分</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="my_coin">
-            <div class="word"> <div class="icon"></div><span>1100</span></div>
+            <div class="word"> <div class="icon"></div><span>{{user.coinAmount}}</span></div>
             <div class="detail"><span @click="goList()">积分明细</span></div>
             <div class="rule" v-show="false">积分规则</div>
         </div>
@@ -30,48 +30,15 @@
             </div>
             <div class="tab_c"  :class="{on:tab==2}">
                 <div class="task_list">
-                    <div class="item type2">
+                    <div :class="'item type'+item.type" v-for="item in taskList">
                         <div class="icon"></div>
                         <div class="word">
-                            <div class="title">早起打卡 <span>+1</span></div>
+                            <div class="title">{{item.string}} <span>+{{item.coinNum}}</span></div>
                             <div class="info">早起打卡时段：05:00-10:00</div>
                         </div>
-                        <div class="btn">去打卡</div>
-                    </div>
-                    <div class="item type3">
-                        <div class="icon"></div>
-                        <div class="word">
-                            <div class="title">早睡打卡 <span>+1</span></div>
-                            <div class="info">早起打卡时段：05:00-10:00</div>
-                        </div>
-                        <div class="btn no">已完成</div>
-                    </div>
 
-                    <div class="item type1">
-                        <div class="icon"></div>
-                        <div class="word">
-                            <div class="title">记录心情 <span>+1</span></div>
-                            <div class="info">记录心情记录心情</div>
-                        </div>
-                        <div class="btn">去记录</div>
-                    </div>
-
-                    <div class="item type7">
-                        <div class="icon"></div>
-                        <div class="word">
-                            <div class="title">邀请好友 <span>+1</span></div>
-                            <div class="info">早起打卡时段：05:00-10:00</div>
-                        </div>
-                        <div class="btn">去打卡</div>
-                    </div>
-
-                    <div class="item type6">
-                        <div class="icon"></div>
-                        <div class="word">
-                            <div class="title">记录健康好习惯 <span>+1点豆</span></div>
-                            <div class="info">早起打卡时段：05:00-10:00</div>
-                        </div>
-                        <div class="btn">去打卡</div>
+                        <div class="btn no" v-if="item.finished">已完成</div>
+                        <div class="btn" v-else="">去记录</div>
                     </div>
 
                 </div>
@@ -98,16 +65,36 @@
                 showAll:false,
                 showLoad:false,
                 isPageEnd:false,
-                isShowMoreText:true
+                isShowMoreText:true,
+                taskList:[],user:{}
             }
         },
         mounted:function () {
-            this.getList()
-
-
-
+            this.getList(); //商城列表
+            this.getTaskList() ; //任务列表
+            this.getUserInfo();
         },
         methods: {
+            getUserInfo:function () {
+                let _this=this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                     }
+                }, function (error) {
+                    //error
+                });
+            },
+            getTaskList:function () {
+                this.$http.get(web.API_PATH+'coin/get/task/_userId_').then((response) => {
+                    console.log(response.data.data)
+                    this.taskList = response.data.data
+                })
+            },
             tabChange:function (v) {
                 this.tab=v;
             },
