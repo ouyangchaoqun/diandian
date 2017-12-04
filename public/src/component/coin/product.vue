@@ -43,11 +43,14 @@
                <div class="btn_change" >立即兑换</div>
            </div>
            <div id="check_change" style="display: none;">
-           <div class="check_change" v-if="check">
+           <div class="check_change up" v-if="check">
+               <div class="close"></div>
                <div class="img">
                    <img :src="goods.pictures[0].path" alt="">
                </div>
-               <div class="coin"><span>{{goods.coinNum}}</span>积分</div>
+               <div class="coin"><span>{{goods.coinNum}}</span></div>
+               <div class="clear"></div>
+               <div class="line"></div>
                <div class="btn_change check_change_btn" >确认兑换</div>
            </div>
            </div>
@@ -92,7 +95,14 @@
 
                 this.check=true;
                 this.$nextTick(function () {
+
                     xqzs.weui.dialogCustom($("#check_change").html());
+                    $(".check_change").addClass("up").removeClass("down")
+
+                    $(".check_change .close").click(function () {
+                        $(".check_change").removeClass("up").addClass("down")
+                        $(".js_dialog .weui-mask").click();
+                    })
                     $(".check_change_btn").click(function () {
                         _this.changeCheck();
                     })
@@ -222,10 +232,29 @@
 </script>
 <style>
 
-    .check_change{ height: 12rem; background: #fff;position: fixed ; bottom:0; z-index: 101001;  -webkit-animation: go_top ease .3s forwards;
-        animation: go_top ease .3s forwards; left:0; width: 100% }
-    .check_change .img{ margin-top: 0.88235rem; margin-left: 0.88235rem;}
-    .check_change img{ width: 8rem;}
+
+
+
+    .check_change{ height: 12rem; background: #fff;position: fixed ; bottom:0; z-index: 101001;   left:0; width: 100% }
+    .check_change.up{-webkit-animation: go_top ease .3s forwards;  animation: go_top ease .3s forwards;}
+    .check_change.down{-webkit-animation: go_down ease .3s forwards;  animation: go_down ease .3s forwards;}
+    .check_change .img{ margin-top: 0.88235rem; margin-left: 0.88235rem; display: inline-block; float:left ;height: 5.882352941176471rem;}
+    .check_change .line{ height: 1px; background: #f1f1f1; overflow: hidden; width: 100%; margin-top: 1rem;}
+    .check_change .close{ background: url(../../images/coin_close.png) no-repeat; background-size: 0.8235294117647059rem; height: 0.8235294117647059rem; width: 0.8235294117647059rem; position: absolute; right:0.88235rem; top:0.88235rem;}
+    .check_change img{ max-width: 5.882352941176471rem; max-height: 5.882352941176471rem;}
+    .check_change .coin { display: inline-block; float:left ; font-size: 1.058823529411765rem; background: url(../../images/coin_coin_icon.png) no-repeat; background-size:0.7647058823529412rem; padding-left: 1rem; background-position:  0 0.3rem; margin-left: 1rem; margin-top: 1rem; color:#FF9933  }
+
+    @keyframes go_down {
+        0% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
+    }
+
     @keyframes go_top {
         0% {
             transform: translate3d(0, 100%, 0);
