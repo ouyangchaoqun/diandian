@@ -4,11 +4,11 @@
         <div class="box">
             <div class="item">
                 <span>收货人</span>
-                <div class="con"><input type="text" placeholder="请输入收货人名字" id="userName" :value="address.userName" > </div>
+                <div class="con"><input type="text" placeholder="请输入收货人名字" id="userName" v-model:value="address.userName" > </div>
             </div>
             <div class="item">
             <span>手机号码</span>
-            <div class="con"><input type="text" placeholder="收货人的电话，方便联系" id="mobile" :value="address.mobile"> </div>
+            <div class="con"><input type="text" placeholder="收货人的电话，方便联系" id="mobile" v-model:value="address.mobile"> </div>
         </div>
             <div class="item" id="localCity" @click="areaPicker()">
                 <span>地址</span>
@@ -65,11 +65,9 @@
                 let provinceId =_this.provinceId;
                 let cityId =_this.cityId;
                 let areaId =_this.areaId;
-                let userName =$("#userName").val();
-                let mobile =$("#mobile").val();
+                let userName =_this.address.userName;
+                let mobile =_this.address.mobile;
                 let address =$("#address").val();
-
-
 
                 if(!userName){
                     xqzs.weui.tip("请填写收件人姓名");
@@ -140,6 +138,7 @@
 
                         },
                         onConfirm: function onConfirm(result) {
+
                             if (result[0]) {
                                 _this.provinceId = result[0].value;
                                 _this.provinceName = result[0].label;
