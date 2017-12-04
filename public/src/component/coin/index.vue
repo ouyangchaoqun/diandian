@@ -249,7 +249,7 @@
     .coin_index .product .item .img img{ width: 100%; border-radius: 0.4rem; }
     .coin_index .product .item .title{ font-size: 0.88235rem; color:#333;}
     .coin_index .product .item .coin { font-size: 0.88235rem; color:#E28B27}
-    .coin_index .product .item .btn{background: #0cc92f; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 3.6rem; position: absolute; right: 0; bottom:0.3rem;}
+    .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 3.6rem; position: absolute; right: 0; bottom:0.3rem;}
     .coin_index .product .item .btn.change{background: #f97f06;}
 
 

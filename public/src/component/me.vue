@@ -4,7 +4,8 @@
 		<v-tab tab="me"></v-tab>
 
 		<div class="me_top">
-			<router-link to="/me/personal" class="me1">
+			<div class="me_head">
+			<a @click="goPerf()" class="me1">
 				<span v-show="hasNewPerfect" class="hasnew"></span>
 				<img class="me1_left" :src="user.faceUrl"/>
 				<div class="me1_right">
@@ -14,8 +15,10 @@
 						<img class="edit" src="../images/info_icon_por.png"/>
 					</div>
 				</div>
-				<img class="me1_back" src="../images/me_jt.png"/>
-			</router-link>
+				<div class="coin_btn" @click.stop="goCoin()">我的积分</div>
+ 			</a>
+			</div>
+
 		</div>
 		<router-link to = "/me/moodCount" class="me_lists">
 			<div class="me_list">
@@ -31,13 +34,7 @@
 				<img class="listimg2" src="../images/me_jt.png"/>
 			</div>
 		</router-link>
-		<router-link to="/coin/index" class="me_lists">
-			<div class="me_list">
-				<img class="listimg1" src="../images/listimg2.png"/>
-				<div class="listtext">我的积分</div>
-				<img class="listimg2" src="../images/me_jt.png"/>
-			</div>
-		</router-link>
+
 		<router-link to="/me/subscribe" class="me_lists">
 			<div class="me_list">
 				<img class="listimg1 remindImgIcon" src="../images/listimg3.png"/>
@@ -90,128 +87,140 @@
 		background: #fff;
 	}
 	.me_top{
-		background:#f4f4f8;
-		padding: 12px 0;
+		background:url(../images/me_top_green_bg.png) no-repeat; background-size: 100%;
+		height: 6.5rem;
+		margin-bottom: 1.4rem;
+	}
+	.me_head{ position: absolute; width: 100%; top:0.88235rem; }
+	.me_head .coin_btn{   color:#fff; background: url(../images/coin_coin_icoin2.png) no-repeat #FF9933 ; background-size: 1rem; padding-left: 1.6rem; display: block; height:1.764705882352941rem; width: 3.105882352941176rem;  position: absolute ; right:0; top:50%; margin-top: -0.88235rem; z-index: 100001;line-height:1.764705882352941rem;
+		font-size: 0.6470588235294118rem; border-bottom-left-radius:0.8823529411764705rem; border-top-left-radius: 0.8823529411764705rem;
+		background-position: 0.4rem 0.4rem; }
+	.me1{
+		background:#fff;
+		height: 6.5rem;
+		display: block;
+
+		border-radius: 0.4rem;
+		box-shadow: 0px 0px 1.058823529411765rem  rgba(74,186,0,0.6) ;
+		position: absolute; z-index: 1111;     width: 92%;
+		left: 4%;
+
 	}
 	.me1_left{
-		height:60px;
-		width:60px;
+		height:3.529411764705882rem;
+		width:3.529411764705882rem;
 		display: block;
 		border-radius: 4px;
 		float: left;
 		position: relative;
+		margin-top: 1.470588235294118rem;
+		margin-left: 1rem;
 	}
-	.me1{
-		background:#fff;
-		padding:15px;
-		height:60px;
-		display: block;
-		position: relative;
-	}
+
 	.me1:active{
 		background: #ECECEC;}
 	.me1_right{
 		position: absolute;
-		left:88px;
-		top:16px;
+		left:5.5rem;
+		top:1.4rem;
 	}
 	.me1 .hasnew{
-		position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:12px;left:70px;height: 8px;width: 8px;z-index: 999;
+		position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:0.7058823529411765rem;left:4.117647058823529rem;height: 0.4705882352941176rem;width: 0.4705882352941176rem;z-index: 999;
 	}
 	.perfec_top{
 		color: #333333;
-		font-size:16px;
-		line-height: 30px;
+		font-size:0.9411764705882353rem;
+		line-height: 1.764705882352941rem;
 	}
 	.perfec{
-		font-size:14px;
+		font-size:0.8235294117647059rem;
 		color: #999;
 		position: relative;
 	}
 	.perfec span{
-		line-height: 24px;
+		line-height: 1.411764705882353rem;
 	}
 	.perfec img{
 		position: absolute;
 		top:0px;
-		left: 66px;
+		left: 3.882352941176471rem;
 		border-radius: 4px;
 	}
 	.edit{
-		height:22px;
-		width:22px;
+		height:1.294117647058824rem;
+		width:1.294117647058824rem;
 	}
 	.me1_back{
 		display: block;
 		float: right;
-		width:16px;
-		margin-top:20px;
+		width:0.9411764705882353rem;
+		margin-top:1.176470588235294rem;
 	}
 	.me_lists{
 		background:#fff;
-		padding:0 15px;
+		padding:0 0.88235rem;
 		display: block;
 		position: relative;
 	}
 	.me_list{
-		height:58px;
+		height:3.411764705882353rem;
 		border-bottom:1px solid #eee;
-		line-height: 58px;
-		padding-left: 41px;
+		line-height: 3.411764705882353rem;
+		padding-left: 2.411764705882353rem;
 	}
 	.listimg1{
-		width:21px;
+		width:1.235294117647059rem;
 		display: block;
 		position: absolute;
 		top:50%;
-		margin-top:-10px;
-		left: 16.5px;
+		margin-top:-0.5882352941176471rem;
+		left: 0.9705882352941176rem;
 	}
-	.listimg1.record { margin-top: -11px}
-	.listimg1.remindImgIcon{ width: 20px;margin-top:-11px;}
+	.listimg1.record { margin-top: -0.6470588235294118rem}
+	.listimg1.remindImgIcon{ width: 1.176470588235294rem;margin-top:-0.6470588235294118rem;}
 	.listimg20{
-		width:20px;
+		width:1.176470588235294rem;
 		display: block;
 		position: absolute;
 		top:50%;
-		margin-top:-10px;
-		left:20px;
+		margin-top:-0.5882352941176471rem;
+		left:1.176470588235294rem;
 	}
 	.listimg2{
 		display: block;
 		float: right;
-		width:16px;
-		margin-top:20px;
+		width:0.9411764705882353rem;
+		margin-top:1.176470588235294rem;
 	}
 	.listtext{
-		font-size:15px;
+		font-size:0.8823529411764706rem;
 		color: #333333;
 		float: left;
 	}
 	.me_bottom{
-		padding: 0 15px;
-		margin-top:30px;
+		padding: 0 0.8823529411764706rem;
+		margin-top:1.764705882352941rem;
 	}
 	.privacyImg{
-		width:18px;
-		margin-top:-11px;
-		height:21px;
-		left: 18px;
+		width:1.058823529411765rem;
+		margin-top:-0.6470588235294118rem;
+		height:1.235294117647059rem;
+		left: 1.058823529411765rem;
 	}
 	.proposalImg{
-		margin-top: -8px;
+		margin-top: -0.4705882352941176rem;
 	}
 	.problemImg{
-		margin-top:-16px;
+		margin-top:-0.9411764705882353rem;
 	}
 	.listimgSal{
-		width: 20px;
-		margin-top:-8px;
-		left:18px
+		width: 1.176470588235294rem;
+		margin-top:-0.4705882352941176rem;
+		left:1.058823529411765rem
 	}
 	.listimgPro{
-		width:22px;
-		margin-top: -12px;
+		width:1.294117647058824rem;
+		margin-top: -0.7058823529411765rem;
 	}
 </style>
 <script type="text/javascript">
@@ -243,6 +252,12 @@
 			}
 		},
 		methods:{
+            goPerf:function () {
+				this.$router.push("/me/personal");
+            },
+            goCoin:function () {
+                this.$router.push("/coin/index");
+            },
 			_createinvite:function (type,callback) {
 				this.$http({
 					method: 'GET',
