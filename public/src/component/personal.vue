@@ -446,7 +446,7 @@
         right: 15px;
     }
 
-    .showdL {
+   .personal_box   .showdL {
         float: right;
         color: #999;
         font-size: 15px;
@@ -454,7 +454,7 @@
         text-align: right;
     }
 
-    .showdL span {
+    .personal_box .showdL span {
         margin-left: 5px;
         float: none;
         color: #999;
@@ -476,19 +476,19 @@
         line-height: 34px;
     }
 
-    #localCity {
+    .personal_box  #localCity {
         line-height: inherit;
         height: auto;
         padding-top: 9px;
         padding-bottom: 9px;
     }
 
-    #localCity span {
+    .personal_box  #localCity span {
         float: none;
 
     }
 
-    .area {
+    .personal_box  .area {
         width: 65%;
         text-align: right;
     }

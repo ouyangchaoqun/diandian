@@ -157,7 +157,7 @@
                 let lastCount = Math.ceil((product.coinNum -  this.user.coinAmount) / this.shareOnePersonCoin);
                 let  html =    '<div class="get_coin">' +
                     '                    <div class="close"></div>'+
-                    '                    <div class="img">'+'<img src="'+product.pictures[0].path+'" />'+'</div>\n' +
+                    '                    <div class="img">'+'<img src="'+product.home_pic.path+'" />'+'</div>\n' +
                     '                    <div class="h1">积分不足</div>\n' +
                     '                    <div class="con">已有'+this.user.coinAmount+'积分，每邀请1位好友支持可得'+this.shareOnePersonCoin+'积分，<span>邀请'+lastCount+'位好友</span>关注“好一点”公众号可立即兑换</div>\n' +
                     '                    <div class="line"></div>\n' +
@@ -255,15 +255,20 @@
                     console.log(response.data.data)
                         _this.showLoad=false;
                     _this.goods = response.data.data;
+
+
+
                     this.$nextTick(function () {
                         var productSwiper = new Swiper ('.product_box_swiper', {
-
                             // 如果需要分页器
                             pagination: '.swiper-pagination',
-                            observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                            observeParents:true//修改swiper的父元素时，自动初始化swiper
                         })
                     })
+
+                    if( _this.goods.pictures.length<=1){
+                        $(".swiper-pagination").hide()
+                    }
+
                 })
             }
         },
