@@ -14,7 +14,7 @@
            <div class="product_main">
                <h3>{{goods.name}}</h3>
                <div class="product_main_del">{{goods.coinNum}}
-                   <span>点豆</span>
+                   <span>积分</span>
                     <div class="product_price">¥{{goods.price}}</div>
                     <div class="product_price product_freight">运费：包邮</div>
                </div>
@@ -33,28 +33,30 @@
            </div>
            <div class="product_detail">
                <div class="product_detail_header">商品介绍</div>
-               <div v-html=" goods.description">
+               <div class="product_content" v-html=" goods.description">
 
 
                </div>
 
            </div>
-           <div class="btn_bottom  " @click="change()">
-               <div class="btn_change" >立即兑换</div>
-           </div>
-           <div id="check_change" style="display: none;">
-           <div class="check_change up" v-if="check">
-               <div class="close"></div>
-               <div class="img">
-                   <img :src="goods.pictures[0].path" alt="">
-               </div>
-               <div class="coin"><span>{{goods.coinNum}}</span></div>
-               <div class="clear"></div>
-               <div class="line"></div>
-               <div class="btn_change check_change_btn" >确认兑换</div>
-           </div>
-           </div>
+
        </div>
+
+        <div class="btn_bottom  " @click="change()">
+            <div class="btn_change" >立即兑换</div>
+        </div>
+        <div id="check_change" style="display: none;">
+            <div class="check_change up" v-if="check">
+                <div class="close"></div>
+                <div class="img">
+                    <img :src="goods.pictures[0].path" alt="">
+                </div>
+                <div class="coin"><span>{{goods.coinNum}}</span></div>
+                <div class="clear"></div>
+                <div class="line"></div>
+                <div class="btn_change check_change_btn" >确认兑换</div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -76,6 +78,7 @@
             this.getAddress();
             this.getUserInfo();
             this.getTaskList();
+            $(".product_top").height( $(document).height()-$(".btn_bottom  ").height())
         },
         methods: {
             change:function () {
@@ -172,7 +175,29 @@
                     $(".js_dialog .weui-mask").click();
                 });
                 $(".get_coin .btn").click(function () {
-                    //发送邀请卡
+                    let _this=this;
+
+                    $(".js_dialog .weui-mask").click();
+                    _this.$http.get(web.API_PATH + 'coin/push/coin/card/_userId_/'+product.goodsId).then(response => {
+                        if (response.data.status == 1) {
+                            _this.showLoad = false;
+                            xqzs.weui.dialog({
+                                title: '邀请卡',
+                                msg: '前往公众号查看你的邀请卡',
+                                submitText: '查看',
+                                submitFun: function () {
+                                    try {
+                                        WeixinJSBridge.call('closeWindow');
+                                    } catch (e) {
+                                    }
+                                }
+                            })
+                        }
+
+                    }, function (error) {
+                        _this.showLoad = false;
+                    });
+
                 })
             },
 
@@ -295,7 +320,7 @@
         }
     }
 
-    .get_coin{ position: fixed;    z-index: 1001; top:50%; left:50%; width: 80%; height:26rem; margin-left: -40%; margin-top: -12rem; background: #fff; border-radius: 0.8rem; text-align: center; line-height: 1}
+    .get_coin{ position: fixed;    z-index: 1001; top:50%; left:50%; width: 80%; height:26rem; margin-left: -40%; margin-top: -13rem; background: #fff; border-radius: 0.8rem; text-align: center; line-height: 1}
     .get_coin .img{ width:9.411764705882353rem; margin: 0 auto ; height:9.411764705882353rem; text-align: center; margin-top: 1.647058823529412rem;}
     .get_coin .img img{ max-width: 100%; max-height: 100%; }
     .get_coin .h1{ margin-top: 1rem; margin-bottom: 1rem; font-size: 1rem; color:#000; font-weight: bold}
@@ -315,8 +340,8 @@
     .product_main{padding:1.0588235rem 0.88235rem 0.88235rem 0.88235rem;background: #fff;border-bottom: 0.588235rem solid #f4f4f8;}
     .product_main h3{font-size: 1rem;color:rgba(51,51,51,1);line-height: 1;margin-bottom: 0.6rem;}
     .product_main_del{color:rgba(226,139,39,1);font-size: 1.5294rem;height:2rem;line-height: 2rem;display:flex;position: relative;width: 100%; }
-    .product_main_del span{font-size: 0.76471rem;display: block;margin-left: 0.8235rem;margin-right: 0.9411rem;}
-    .product_price{color:rgba(176,174,174,1);font-size: 0.70588rem;text-decoration:line-through;}
+    .product_main_del span{font-size: 0.76471rem;display: block;margin-left: 0.8235rem;margin-right: 0.9411rem;margin-top: 0.2rem}
+    .product_price{color:rgba(176,174,174,1);font-size: 0.70588rem;text-decoration:line-through;margin-top: 0.2rem}
     .product_main_del .product_freight{position: absolute;right:0;text-decoration:none;}
     .product_adress{border-bottom:1px    solid #f4f4f8;font-size: 0.76471rem;color:rgba(153,153,153,1);padding:1rem 0.88235rem;line-height: 1;background: #fff;position: relative}
     .product_adress .right_go{ position: absolute; right:0.88235rem; width: 16px; top:50%; margin-top: -8px;}
@@ -327,9 +352,11 @@
     .adress_detail{float: left;margin-left: 0.588235rem;}
     .adress_detail div{padding-top: 0.588235rem;}
     .product_detail{ background: #fff;}
+    .product_detail .product_content{ padding: 0 0.88235rem;}
     video{max-width:100%;}
-     .btn_bottom  .btn_change, .check_change .btn_change{ background: #FC9B2C ; border-radius: 0.3rem; margin:   0.88235rem;  height: 2.588235294117647rem;z-index: 111; color:#fff; line-height: 2.588235294117647rem; text-align: center }
+    .btn_bottom{  ;position:absolute; bottom:0; width: 100%; background: #fff; border-top: 1px solid #eee;}
+    .btn_bottom  .btn_change, .check_change .btn_change{ background: #FC9B2C ; border-radius: 0.3rem; margin:   0.88235rem;  height: 2.588235294117647rem;z-index: 111; color:#fff; line-height: 2.588235294117647rem; text-align: center }
     .btn_bottom  .btn_change:active, .check_change .btn_change:active{background: #d88325;}
 
-    .btn_bottom {   ;position:fixed; bottom:0; width: 100%}
+
 </style>

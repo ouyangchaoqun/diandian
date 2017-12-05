@@ -146,5 +146,5 @@
         height:3.1rem; padding-top: 0.9rem; position: relative}
     .coin_list  .list .item .name{ font-size: 0.88235rem;; color:#333;}
     .coin_list  .list .item .time{ color:#999; font-size: 0.7058823529411765rem  ; margin-top: 0.5rem;}
-    .coin_list  .list .item    .coin{ position: absolute;top:0; right:1.233rem; line-height:4rem; color:#E28B27; font-size: 1.411764705882353rem; }
+    .coin_list  .list .item    .coin{ position: absolute;top:0; right:1.233rem; line-height:4rem; color:#FC9B2C; font-size: 1.411764705882353rem; }
 </style>
