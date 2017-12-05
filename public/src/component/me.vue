@@ -87,7 +87,7 @@
 		background: #fff;
 	}
 	.me_top{
-		background:url(../images/me_top_green_bg.png) no-repeat; background-size: 100%;
+		background:#666666;
 		height: 6.5rem;
 		margin-bottom: 1.4rem;
 	}
@@ -102,7 +102,7 @@
 		display: block;
 
 		border-radius: 0.4rem;
-		box-shadow: 0px 0px 1.058823529411765rem  rgba(74,186,0,0.6) ;
+		box-shadow: 0px 0px 1.058823529411765rem  rgba(102,102,102,0.5) ;
 		position: absolute; z-index: 1111;     width: 92%;
 		left: 4%;
 

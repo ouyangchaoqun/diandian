@@ -10,7 +10,7 @@
             <div class="item" v-for="item in list">
                 <div class="name">{{item.type}}</div>
                 <div class="time">{{formatTime(item.addTime)}}</div>
-                <div class="coin">+{{item.coinNum}}</div>
+                <div class="coin">{{item.coinNum}}</div>
             </div>
 
 
@@ -30,7 +30,7 @@
             return {
                 list:[],
                 page: 1,
-                row: 10,
+                row: 15,
                 isPageEnd: false,
                 isLoading:false,
                 isShowMoreText:false,

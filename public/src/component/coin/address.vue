@@ -171,9 +171,9 @@
     .coin_address{ background: #Fff}
     .coin_address .box{ margin: 0.88235rem;}
     .coin_address .box .item{ height: 3.058823529411765rem; border-bottom: 1px solid  #eee; line-height:3.058823529411765rem; }
-    .coin_address .box .item>span{ display: inline-block; float:left; width:5.882352941176471rem;color:#333 ; font-size: 0.9411764705882353rem; font-weight: bold; }
+    .coin_address .box .item>span{ display: inline-block; float:left; width:5.882352941176471rem;color:#333 ; font-size: 0.88235rem;  }
     .coin_address .box .item .con{ height: 100% ; color:#666}
-    .coin_address .box .item .con input{ height:2rem; border: none;outline:none; font-size: 0.9411764705882353rem;  }
+    .coin_address .box .item .con input{ height:2rem; border: none;outline:none; font-size: 0.8235294117647059rem;  }
     .coin_address .box .submit_btn{ background: #FC9B2C; border-radius: 0.2rem; height:2.588235294117647rem;  line-height: 2.588235294117647rem; color:#fff ;text-align: center ; margin: 0 10%; display: block; margin-top: 2rem; }
     .coin_address .box .addess{ height: auto}
     .coin_address .box .addess textarea{ height:2rem; line-height: 1rem; font-size: 0.9411764705882353rem; width: 68%; border: none ; outline: none; margin-top: 1rem;}

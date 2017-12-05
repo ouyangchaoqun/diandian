@@ -195,12 +195,13 @@
             },
 
             getTaskList:function () {
+                let _this=this;
                 this.$http.get(web.API_PATH+'coin/get/task/_userId_').then((response) => {
 
                     let list  = response.data.data
                     for(let i =0;i< list.length;i++){
                         if(list[i].type==7){
-                            this.shareOnePersonCoin=list[i].point;
+                            _this.shareOnePersonCoin=list[i].coinNum;
                             break;
                         }
                     }
@@ -332,7 +333,7 @@
     .product_top img{width:100%;display: block;margin-bottom: 1px;}
     .product_main{padding:1.0588235rem 0.88235rem 0.88235rem 0.88235rem;background: #fff;border-bottom: 0.588235rem solid #f4f4f8;}
     .product_main h3{font-size: 1rem;color:rgba(51,51,51,1);line-height: 1;margin-bottom: 0.6rem;}
-    .product_main_del{color:rgba(226,139,39,1);font-size: 1.5294rem;height:2rem;line-height: 2rem;display:flex;position: relative;width: 100%; }
+    .product_main_del{color:#FC9B2C;font-size: 1.5294rem;height:2rem;line-height: 2rem;display:flex;position: relative;width: 100%; }
     .product_main_del span{font-size: 0.76471rem;display: block;margin-left: 0.8235rem;margin-right: 0.9411rem;margin-top: 0.2rem}
     .product_price{color:rgba(176,174,174,1);font-size: 0.70588rem;text-decoration:line-through;margin-top: 0.2rem}
     .product_main_del .product_freight{position: absolute;right:0;text-decoration:none;}
@@ -349,7 +350,7 @@
     video{max-width:100%;}
     .btn_bottom{  ;position:absolute; bottom:0; width: 100%; background: #fff; border-top: 1px solid #eee;}
     .btn_bottom  .btn_change, .check_change .btn_change{ background: #FC9B2C ; border-radius: 0.3rem; margin:   0.88235rem;  height: 2.588235294117647rem;z-index: 111; color:#fff; line-height: 2.588235294117647rem; text-align: center }
-    .btn_bottom  .btn_change:active, .check_change .btn_change:active{background: #d88325;}
+    .btn_bottom  .btn_change:active, .check_change .btn_change:active{background: #FC9B2C;}
 
-
+   .product_box .swiper-pagination-bullet-active{ background: #FC9B2C}
 </style>

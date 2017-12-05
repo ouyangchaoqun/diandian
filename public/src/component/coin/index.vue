@@ -18,6 +18,10 @@
                     <div class="title"><span>精选推荐</span></div>
                     <ul>
                         <li v-for="(item,index) in list">
+                            <div class="last_count">
+                                <span>还剩</span>
+                                <span class="count">{{item.amount}}件</span>
+                            </div>
                             <div class="item" @click="goProduct(item.goodsId)">
                                 <div class="img"><img :src="item.path"></div>
                                 <div class="title">{{item.name}}</div>
@@ -168,14 +172,15 @@
                 });
             },
             getTaskList:function () {
+                let _this=this;
                 this.$http.get(web.API_PATH+'coin/get/task/_userId_').then((response) => {
 
-                    this.taskList = response.data.data;
+                    _this.taskList = response.data.data;
                     console.log(this.taskList)
                     for(let i =0;i< this.taskList.length;i++){
 
-                        if(this.taskList[i].type==7){
-                            this.shareOnePersonCoin= this.taskList[i].point;
+                        if(_this.taskList[i].type==7){
+                            _this.shareOnePersonCoin= _this.taskList[i].coinNum;
                             break;
                         }
                     }
@@ -293,14 +298,21 @@
 
 
     .coin_index .product ul{  }
-    .coin_index .product ul li  { background: #fff; width: 50%; float:left;  overflow: hidden ;  padding-top: 1.1rem; padding-bottom: 1.1rem; border-top:1px solid #eee; }
+    .coin_index .product ul li  {position:relative ;background: #fff; width: 50%; float:left;  overflow: hidden ;  padding-top: 1.1rem; padding-bottom: 1.1rem; border-top:1px solid #eee; }
 
-    .coin_index .product ul li:nth-child(odd){ position:relative}
-    .coin_index .product ul li:nth-child(odd):after{ content: ''; height: 100%; width: 1px; position: absolute; right:0;top:0;background: #eee}
+     .coin_index .product ul li:nth-child(odd):after{ content: ''; height: 100%; width: 1px; position: absolute; right:0;top:0;background: #eee}
     .coin_index .product ul li .item{ margin:0 0.5rem; position: relative}
+    .coin_index .product ul li    .last_count{ position: absolute; top:0.6rem; right:0.6rem;z-index: 1; background: #333; padding: 0.2rem  0.3rem; }
+    .coin_index .product ul li .last_count:after{ content: ''; display: block; width: 0; position: absolute;  bottom:-0.6rem; left:0.5rem;
+        height: 0;
+        border-left: 0.2rem solid transparent;
+        border-right: 0.6rem solid transparent;
+        border-top: 0.6rem solid #333;}
+    .coin_index .product ul li    .last_count span{ display: block; text-align: center; line-height: 1.3; font-size:0.5294117647058824rem; color:#FFFAF4 ; }
+    .coin_index .product ul li    .last_count span.count{ color:#FF9933 }
     .coin_index .product .item .img img{ width: 100%; border-radius: 0.4rem; }
     .coin_index .product .item .title{ font-size: 0.88235rem; color:#333; height: 2.8rem;}
-    .coin_index .product .item .coin { font-size: 0.88235rem; color:#FC9B2C}
+    .coin_index .product .item .coin { font-size: 1.2rem; color:#FC9B2C}
     .coin_index .product .item .coin span{ color:#B1AFAF ; font-size:0.6470588235294118rem; }
     .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.6rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 3.6rem; position: absolute; right: 0; bottom:0.2rem;}
     .coin_index .product .item .btn.change{background: #FC9B2C;}
@@ -310,11 +322,11 @@
         height: 8.823529411764706rem;
         background:-webkit-gradient(linear, 0 0, right 0, from(#f97f06), to(#ffb336));
     }
-    .coin_index .my_coin  .word{ color:#fff; font-size: 2.5rem; text-align: center; padding-top: 2rem; position: relative; display: table;  margin: 0 auto;}
+    .coin_index .my_coin  .word{ color:#fff; font-size: 2.5rem; text-align: center; padding-top: 2rem; position: relative; display: table;  margin: 0 auto;height: 3.294117647058824rem;}
     .coin_index .my_coin  .detail { text-align: center;}
     .coin_index .my_coin  .detail span{ text-align: center; color:#fff; font-size: 0.88235rem; padding-right: 1rem; background: url(../../images/coin_jt.png) no-repeat center right; background-size: 0.4117647058823529rem;  }
     .coin_index .my_coin  .rule{ background: rgba(255,255,255,0.4); height: 1.6rem; width: 4.5rem; text-align: center; color:#fff; font-size: 0.8235rem; border-bottom-left-radius:0.8rem;border-top-left-radius:0.8rem; line-height: 1.6rem; position: absolute; top:1rem; right:0  }
-    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_douzi.png) no-repeat ; background-size:  1.558823529411765rem;  position: absolute; top:3.3rem; left:-1.8rem; }
+    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.558823529411765rem;  position: absolute; top:3.3rem; left:-1.8rem; }
 
     .coin_index .tabs{
         height:3.529411764705882rem; background: #fff;  ; color:#9a9a9a;; line-height: 3.529411764705882rem;
