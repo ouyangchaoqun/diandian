@@ -68,7 +68,7 @@
             <!--新增红包部分-->
 
             <!--发红包弹窗-->
-            <div  class="weui-mask weui-animate-fade-in redPacket_mask" v-show="redPackFlag" @click="hideRedPacket()" >
+            <div  class="weui-mask weui-animate-fade-in redPacket_mask" v-show="redPackFlag" @click="hideRedPacket()" @touchmove.prevent>
                 <div class="redPacket_dialog" >
                     <div class="redPacket_top">
                         <img class="flower_style" src="../images/redPackTopBg.png" alt="">
