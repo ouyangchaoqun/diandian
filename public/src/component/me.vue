@@ -95,6 +95,7 @@
 	.me_head .coin_btn{   color:#fff; background: url(../images/coin_coin_icoin2.png) no-repeat #FF9933 ; background-size: 1rem; padding-left: 1.6rem; display: block; height:1.764705882352941rem; width: 3.105882352941176rem;  position: absolute ; right:0; top:50%; margin-top: -0.88235rem; z-index: 100001;line-height:1.764705882352941rem;
 		font-size: 0.6470588235294118rem; border-bottom-left-radius:0.8823529411764705rem; border-top-left-radius: 0.8823529411764705rem;
 		background-position: 0.4rem 0.4rem; }
+	.me_head .coin_btn:active{ background:  url(../images/coin_coin_icoin2.png) no-repeat #f39031; background-size: 1rem;background-position: 0.4rem 0.4rem;}
 	.me1{
 		background:#fff;
 		height: 6.5rem;
@@ -117,8 +118,7 @@
 		margin-left: 1rem;
 	}
 
-	.me1:active{
-		background: #ECECEC;}
+
 	.me1_right{
 		position: absolute;
 		left:5.5rem;
@@ -158,7 +158,7 @@
 	}
 	.me_lists{
 		background:#fff;
-		padding:0 0.88235rem;
+		padding-left:  0.88235rem;
 		display: block;
 		position: relative;
 	}
@@ -167,6 +167,7 @@
 		border-bottom:1px solid #eee;
 		line-height: 3.411764705882353rem;
 		padding-left: 2.411764705882353rem;
+		padding-right: 0.88235rem;
 	}
 	.listimg1{
 		width:1.235294117647059rem;
@@ -300,6 +301,12 @@
         },
 		updated:function () {
 
+            var obj =  $(".me_head>a")
+            xqzs.weui.active(obj);
+
+            $(".coin_btn").on("touchstart",function () {
+                event.stopPropagation();
+            })
 
         }
     }

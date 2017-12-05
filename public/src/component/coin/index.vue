@@ -40,9 +40,9 @@
                             <div class="info">{{item.desc}}</div>
                         </div>
 
-                        <div class="btn no" v-if="item.finished">{{item.btnFinish}}</div>
-                        <div class="btn" v-else="item.finished==-1">{{item.btnFail}}</div>
-                        <div class="btn" v-else="">{{item.btnUnFinish}}</div>
+                        <div class="btn no" v-if="item.finished" >{{item.btnFinish}}</div>
+                        <div class="btn no" v-if="item.finished==-1">{{item.btnFail}}</div>
+                        <div class="btn" v-if="item.finished==0" @click="goDo(item.type)">{{item.btnUnFinish}}</div>
                     </div>
 
                 </div>
@@ -86,7 +86,14 @@
             this.getUserInfo();
         },
         methods: {
+            goDo:function (type) {
+                if(type==7){
 
+                }else{
+                    this.$router.push("/")
+                }
+
+            },
             getCoin:function (index) {
                 let product= this.list[index];
                 let lastCount = Math.ceil((product.coinNum -  this.user.coinAmount) / this.shareOnePersonCoin);
@@ -290,7 +297,7 @@
 
 
     .coin_index .cont_tab  .task_list .item{ background: #fff; border-bottom:1px  solid #f1f1f1; height:4rem; margin:  0 0.88235rem; position: relative ; padding: 0.15rem; }
-    .coin_index .cont_tab  .task_list .item .icon{ width: 2.117647058823529rem; height: 2.117647058823529rem; border-radius: 50%; background: #ffaa00; position: absolute; top:50%; margin-top: -1.058823529411765rem; }
+    .coin_index .cont_tab  .task_list .item .icon{ width: 2.117647058823529rem; height: 2.117647058823529rem;   position: absolute; top:50%; margin-top: -1.058823529411765rem; }
     .coin_index .cont_tab  .task_list .item .word{ margin-left: 3.2rem; margin-top: 0.9rem; line-height: 1 }
     .coin_index .cont_tab  .task_list .item .word .title{ font-size: 1rem; color:#333;}
     .coin_index .cont_tab  .task_list .item .word .title span{ color:#ff8318; display: inline-block; margin-left: 0.8rem;}

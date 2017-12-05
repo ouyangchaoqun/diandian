@@ -180,11 +180,10 @@
             getTaskList:function () {
                 this.$http.get(web.API_PATH+'coin/get/task/_userId_').then((response) => {
 
-
-                    for(let i =0;i< this.taskList.length;i++){
-                        this.taskList = response.data.data;
-                        if(this.taskList[i].type==7){
-                            this.shareOnePersonCoin= this.taskList[i].point;
+                    let list  = response.data.data
+                    for(let i =0;i< list.length;i++){
+                        if(list[i].type==7){
+                            this.shareOnePersonCoin=list[i].point;
                             break;
                         }
                     }

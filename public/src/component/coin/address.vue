@@ -176,5 +176,5 @@
     .coin_address .box .item .con input{ height:2rem; border: none;outline:none; font-size: 0.9411764705882353rem;  }
     .coin_address .box .submit_btn{ background: #E7972F; border-radius: 0.2rem; height:2.588235294117647rem;  line-height: 2.588235294117647rem; color:#fff ;text-align: center ; margin: 0 10%; display: block; margin-top: 2rem; }
     .coin_address .box .addess{ height: auto}
-    .coin_address .box .addess textarea{ height:2rem; line-height: 1rem; font-size: 0.9411764705882353rem; width: 70%; border: none ; outline: none; margin-top: 1rem;}
+    .coin_address .box .addess textarea{ height:2rem; line-height: 1rem; font-size: 0.9411764705882353rem; width: 68%; border: none ; outline: none; margin-top: 1rem;}
 </style>

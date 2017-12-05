@@ -286,7 +286,7 @@
         },
         beforeRouteEnter(to, from, next){
             isCheckFromRoute = false;
-            if(from.path!='/addMood') {
+            if(from.path!='/') {
                 //来源不是addMood
                 isCheckFromRoute = true;
             }

@@ -47,7 +47,9 @@
                     </a>
                     <a class=" swiper-slide mood" @click="addMood()"><span>心情说说</span></a>
                     <a class="swiper-slide habit" @click="goHabit()"><span>健康习惯</span></a>
+                    <a class=" swiper-slide xz" @click="goXz()"><span>本月运势</span></a>
                     <a class="swiper-slide sign" @click="dailyRecord()"><span>每日一签</span></a>
+                    <a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>
                     <a class=" swiper-slide set" @click="set()"><span>健康提醒</span></a>
                 </div>
             </div>
@@ -172,8 +174,42 @@
             </div>
             <!--friendcenter end-->
         </div>
-        <div class="addMoodBg"></div>
 
+        <div id="mood_box" style="display: none;">
+        <div class="mood_box"  >
+            <div class="mood_left"  >
+                <div class="moodBox_header">此刻心情</div>
+                <div class="weui-grids grids_box">
+                    <a class="weui-grid grid_33" v-for="mood in moodValues"  :val="mood.value">
+                        <div class="grid_top">
+                            <img :src="moodSrc(mood.src)" alt="">
+                        </div>
+                        <p class="weui-grid__label grid_bottom" :class="mood.class" >
+                            {{mood.text}}</p>
+                    </a>
+                </div>
+            </div>
+            <div class="scene_box sogo-enter-active"  >
+                <div>
+                    <div class="moodBox_header">在哪方面</div>
+                    <div class="weui-grids grids_box">
+                        <a v-for="scenes in scenesList" class="weui-grid grid_33"    :val="scenes.value"   v-if="!scenes.hide">
+                            <div class="scene_top" v-if="scenes.haspic">
+                                <img :src="moodSrc(scenes.src)">
+                            </div>
+                            <div class="scene_top" v-if="!scenes.haspic">
+                                <img/>
+                            </div>
+                            <p :class="{'weui-grid__label grid_bottom':true,'scene_col':scenes.haspic}">{{scenes.text}}</p>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        </div>
     </div>
 </template>
 
@@ -208,9 +244,15 @@
                 MORNING_TYPE: 2,
                 NIGHT_TYPE: 3,
                 friendCount:'',
+                myInfos:null,
 
+                moodValues:[],
+                scenesList:xqzs.mood.moodScenesList,
+                goScenes:false,
+                goScenesIng:false,
+                choosedData:{},
+                myMoodCount:null
 
-                myInfos:null
 
             }
         },
@@ -233,13 +275,179 @@
             }
         },
         methods: {
+            moodSrc:function (src) {
+                return web.IMG_PATH+src;
+            },
+            chooseData:function (key,v) {
+                this.choosedData[key] = v;
+
+
+                if(key =="moodValue"){
+                    this.goScenes = true;
+                }else{
+                    let keys = ['moodValue', 'scenesId'];
+                    let params = [];
+                    for (let o in keys) {
+                        if (typeof this.choosedData[keys[o]] == 'undefined') {
+                            return true;
+                        }
+                        params.push(keys[o] + '=' + this.choosedData[keys[o]]);
+                    }
+                    this.$router.push('/myCenter/myIndex/Edit?' + params.join('&'));
+                }
+                console.log( this.goScenes)
+            },
+            initAddMood:function () {
+                let _this= this;
+
+                for(let i =xqzs.mood.moodValueText.length-2;i>0;i--){
+                    let css= 3;
+                    if(i>3&&i<=6){
+                        css= 2
+                    }else if(i>6){
+                        css= 1
+                    }
+                    _this.moodValues.push({
+                        value:i,
+                        src:'list_mood_0'+i+'.png',
+                        text:xqzs.mood.moodValueText[i],
+                        class:"grid_row"+css
+                    })
+                }
+
+                _this.$nextTick(function () {
+                    let w =$(window).width() ;
+                    let w1= ( w -31 )/4;
+                    $('.grid_25').width(w1).height(w1 * 1.06976744186);
+
+                    let w2= ( w -31 )/3;
+                    let h2 = ( w -31 ) * 1.06976744186/4;
+                    $('.grid_33').width(w2).height(h2);
+                    $(".weui-grids").height( ( w -31 )*3 * 1.06976744186/4);
+                })
+
+            },
+            initDom:function () {
+                this.qunImgHeight =  $(window).width() * 400 *0.6 / 300;
+                $(".weui-tab__panel").height($(window).height()-50).scroll(function () {
+                    xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
+                });
+                Bus.$emit('initHomeData');
+                if(window.screen.height==$(window).height()){
+                    if(window.screen.width==320&& window.screen.availHeight==548){
+                        var style ="<style id='iphone5style'>.transitionBox .child-view{height:504px !important;}</style>";
+                        $(".child-view").append(style);
+                    }
+                }else{
+                    $("#iphone5style").remove();
+                }
+            },
+            initNewNotice:function () {
+                let _this = this;
+                _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'notice/find/new/_userId_',
+                }).then(function (data) {
+                    if (data.data.data !== null) {
+                        _this.notice = eval(data.data.data);
+                        console.log(_this.notice);
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
+            initBirthday:function () {
+                let _this = this;
+                if( xqzs.localdb.get("isBirthday")==="1"){
+                    _this.isBirthday=true;
+                }else{
+                    _this.isBirthday=false;
+                }
+                let date=new Date();
+                let year=date.getFullYear();
+                let month=date.getMonth()+1;
+                let day=date.getDate()
+                //好友生日
+                _this.$http.get(web.API_PATH + 'birthday/get/list/'+year+'/'+month+'/'+day+'/_userId_').then(function (data) {//es5写法
+                    console.log(data)
+                    if(data.body.status==1){
+                        _this.birthdayList=data.body.data;
+                        let isbirthday=false;
+                        for(let i=0;i<_this.birthdayList.length;i++){
+                            if(_this.birthdayList[i].myself==1){
+
+                                isbirthday=true;
+                                break;
+                            }
+                        }
+                        _this.isBirthday=isbirthday;
+                        if(isbirthday){
+                            xqzs.localdb.set("isBirthday",1);
+                        }else{
+                            xqzs.localdb.set("isBirthday",0);
+                        }
+                        let loop=false;
+                        if(_this.birthdayList>1){loop=true}
+                        _this.$nextTick(function () {
+                            _this.questSwiper = new Swiper ('.birthdays', {
+                                direction : 'vertical',
+                                noSwiping : false,
+                                loop : loop,
+                                autoplay : 3000,
+                                observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                                onSlideChangeStart:function () {
+
+                                },
+                                onSlideChangeEnd :function () {
+
+                                }
+                            })
+                        })
+
+                    }
+
+
+                }, function (error) {
+
+                });
+
+            },
+            goXz:function () {
+                this.$router.push('/constellationLuck?userid='+this.user.id)
+            },
+            goFeedback:function () {
+                this.$router.push('/me/proposal')
+            },
             set:function () {
                 this.$router.push('/me/subscribe')
             },
             initBtns:function () {
+                let arrBtnSide1=[],arrBtnSide2=[];
+                $(".index_btns .swiper-slide").each(function (i) {
+                    if(i<3){
+                        arrBtnSide1.push($(this));
+                    }else{
+                        arrBtnSide2.push($(this));
+                    }
+                });
+                arrBtnSide2.sort(function () {
+                    return Math.random() > 0.5 ? -1 : 1;
+                });
+
+                $(".index_btns .swiper-slide").remove();
+                for(let i =0;i<arrBtnSide1.length;i++){
+                    $(".index_btns .swiper-wrapper").append(arrBtnSide1[i]);
+                }
+                for(let i =0;i<arrBtnSide2.length;i++){
+                    $(".index_btns .swiper-wrapper").append(arrBtnSide2[i]);
+                }
+
+
                 this.$nextTick(function () {
                     let mySwiperPre = new Swiper('.index_btns', {
-                        slidesPerView: 4,
+                        slidesPerView: 4.5,
                         onInit: function(swiper){
 
                         },
@@ -362,28 +570,59 @@
             },
             addMood: function () {
                 let _this = this;
-                console.log("addMood");
-                _this.getMoodCount(function (moodcount) {
-                    if (moodcount < 10) {
-                        _this.$router.push("/addMood")
-
-                    } else {
-                        if (_this.user&&_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
-                            _this.$router.push("/me/personal/validate")
-                        } else {
-                            _this.$router.replace("/addMood")
-                        }
-                    }
-                });
+                if(_this.myMoodCount!==null){
+                    _this.checkMoodCount(_this.myMoodCount)
+                }else{
+                    _this.getMoodCount(function (moodcount) {
+                        _this.checkMoodCount(moodcount)
+                    });
+                }
 
             },
+            checkMoodCount:function (moodcount) {
+                let _this=this;
+                if (moodcount < 10) {
+                    _this.showAddMoodBox()
+                } else {
+                    if (_this.user&&_this.user.mobile == '' || _this.user.mobile == null || _this.user.mobile == undefined) {
+                        _this.$router.push("/me/personal/validate")
+                    } else {
+                        _this.showAddMoodBox()
+                    }
+                }
+            },
+            showAddMoodBox:function () {
+                $(".mood_box .mood_left").show();
+                $(".mood_box .scene_box").hide();
+                $(".mood_box").addClass("go_up");
+                let _this=this;
+                xqzs.weui.dialogCustom($("#mood_box").html());
+                $(".js_dialog .weui-mask").click(function () {
+                    xqzs.weui.weuiMaskClose();
+                    $(".mood_box").removeClass("go_up").addClass("go_down");
+                    setTimeout(function () {
+                        $(".js_dialog").remove();
+                    }, 300);
+
+                });
+                $(".mood_box .mood_left a").click(function () {
+                    $(".mood_box .mood_left").hide();
+                    $(".mood_box .scene_box").show();
+                    _this.chooseData("moodValue",$(this).attr("val"));
+                });
+                $(".mood_box .scene_box a").click(function () {
+                    _this.chooseData("scenesId",$(this).attr("val"));
+                })
+            },
             getMoodCount(callback) {
+                let _this=this;
                 this.$http({
                     method: 'GET',
                     type: "json",
                     url: web.API_PATH + 'mood/get/user/count/_userId_'
                 }).then(function (bt) {
                     if (bt.data && bt.data.status == 1) {
+                        _this.myMoodCount =bt.data.data;
                         if (typeof callback == 'function') {
                             callback(bt.data.data);
                         }
@@ -665,115 +904,16 @@
         },
 
         mounted: function () {
-
-            let _this =this;
-            _this.getUserInfo();
-            _this.initSleepConfig();
-            _this.getMyInfos();
-            _this.getWeather();
-            _this.initBtns();
-
-
-             if( xqzs.localdb.get("isBirthday")==="1"){
-                 _this.isBirthday=true;
-             }else{
-                 _this.isBirthday=false;
-             }
-
-
-             this.qunImgHeight =  $(window).width() * 400 *0.6 / 300;
-             $(".weui-tab__panel").height($(window).height()-50);
-
-
-
-
-            let date=new Date();
-            let year=date.getFullYear();
-            let month=date.getMonth()+1;
-            let day=date.getDate()
-            //好友生日 
-            _this.$http.get(web.API_PATH + 'birthday/get/list/'+year+'/'+month+'/'+day+'/_userId_').then(function (data) {//es5写法
-                console.log(data)
-                if(data.body.status==1){
-                    _this.birthdayList=data.body.data;
-                    let isbirthday=false;
-                    for(let i=0;i<_this.birthdayList.length;i++){
-                        if(_this.birthdayList[i].myself==1){
-
-                            isbirthday=true;
-                            break;
-                        }
-                    }
-                    _this.isBirthday=isbirthday;
-                    if(isbirthday){
-                        xqzs.localdb.set("isBirthday",1);
-                    }else{
-                        xqzs.localdb.set("isBirthday",0);
-                    }
-                    let loop=false;
-                    if(_this.birthdayList>1){loop=true}
-                    _this.$nextTick(function () {
-                        _this.questSwiper = new Swiper ('.birthdays', {
-                            direction : 'vertical',
-                            noSwiping : false,
-                            loop : loop,
-                            autoplay : 3000,
-                            observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                            onSlideChangeStart:function () {
-
-                            },
-                            onSlideChangeEnd :function () {
-
-                            }
-                        })
-                    })
-
-                }
-
-
-            }, function (error) {
-
-            });
-
-            $(".weui-tab__panel").scroll(function () {
-                xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
-            });
-
-
-            _this.noticeLink=_this.noticeLink +"/?time="+ xqzs.dateTime.getTimeStamp();
-
-
-
-
-            Bus.$emit('initHomeData');
-
-
-            _this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'notice/find/new/_userId_',
-            }).then(function (data) {
-                if (data.data.data !== null) {
-                    _this.notice = eval(data.data.data);
-                    console.log(_this.notice);
-                }
-            }, function (error) {
-                //error
-            });
-
-
-
-
-            if(window.screen.height==$(window).height()){
-                if(window.screen.width==320&& window.screen.availHeight==548){
-                    var style ="<style id='iphone5style'>.transitionBox .child-view{height:504px !important;}</style>";
-                    $(".child-view").append(style);
-                }
-            }else{
-                $("#iphone5style").remove();
-            }
-
-//
+            this.getUserInfo();
+            this.initSleepConfig();
+            this.getMyInfos();
+            this.getWeather();
+            this.initBtns();
+            this.initBirthday();
+            this.initNewNotice();
+            this.initDom();
+            this.initAddMood();
+            this.getMoodCount();
 
         },
         updated:function () {
@@ -817,7 +957,10 @@
     .index_btns a.mood:before{ background: url(../images/index_btn_mood.png) no-repeat #cfebf1 center; background-size: 1.6470588235294117647058823529412rem;  border: 0.03rem  solid #00c1ff}
     .index_btns a.habit:before{ background: url(../images/index_btn_habit.png) no-repeat #def3cd center; background-size: 1.2647058823529411764705882352941rem; border: 0.03rem  solid #71c06d}
     .index_btns a.sign:before{ background: url(../images/index_btn_sign.png) no-repeat #ffd9ac center; background-size: 1.6470588235294117647058823529412rem;   border: 0.03rem  solid #ff7800}
-    .index_btns a.set:before{ background: url(../images/index_btn_set.png) no-repeat #ffd8f5 center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #f67cd1}
+    .index_btns a.set:before{ background: url(../images/index_btn_set.png) no-repeat #F3DCEE center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #EB9ED8}
+    .index_btns a.index_feedback_btn:before{ background: url(../images/index_btn_feedback.png) no-repeat #CEE4FA  center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #3399FF}
+    .index_btns a.xz:before{ background: url(../images/index_btn_xz.png) no-repeat #E2BFFA center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #9402FB }
+
 
 
     .index_btns a:active.get_up:before{background-color: #ffebc7  }
@@ -825,6 +968,9 @@
     .index_btns a:active.mood:before{background-color: #c2ecf1  }
     .index_btns a:active.habit:before{background-color: #d2f3c7  }
     .index_btns a:active.sign:before{background-color: #ffd1a4  }
+    .index_btns a:active.set:before{background-color: #f5ceeb  }
+    .index_btns a:active.index_feedback_btn:before{background-color: #c4daf0  }
+    .index_btns a:active.xz:before{background-color: #d8b5f0  }
     .index_btns a:active{ color:#666}
 
 
@@ -1259,5 +1405,64 @@
     }
 
 
+
+
+    /*添加心情*/
+    .sogo-enter-active {  animation-name: sgo ;  animation-duration: .2s;
+    }
+
+    @keyframes sgo {
+        0% {
+            transform: translate3d(100%, 0, 0);
+            -webkit-transform: translate3d(100%, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+            z-index: 2;
+        }
+    }
+    .addMood,.mood_box{  -webkit-tap-highlight-color: rgba(0,0,0,0);  }
+    .grids_box{  margin:0 15px;  }
+    .weui-grids{ overflow: inherit}
+    .weui-grid{  padding:0;  position: relative;  }
+    .moodBox{  position: absolute;  top:0;  height:100%;  width:100%;  z-index: 3;  }
+    .scene_top{  margin-top: 1.082rem;  margin-bottom: 0.5rem;  }
+    .scene_top img{  width:1.883rem;  height:1.883rem;  display: block;  margin:0 auto;  }
+    .addMood{  height:100%;  background: #FFFFFF;  }
+    .scene_box .grid_25{  width:25%;  }
+    .mood_box{  background: url(../images/add_mood_bj.jpg) #fff;  background-size: cover;  border-top-left-radius:5px;  border-top-right-radius:5px;  position: absolute;  bottom:0;  width:100%;  padding-top: 23px;  padding-bottom: 25px;  overflow: hidden;  z-index: 11118;  }
+    .scene_box{  width:100%;  display: block;  }
+    .moodBox_header{  font-size: 18px;  color: #666666;  text-align: center;  margin-bottom: 1.411761176470588rem;  }
+    .grid_top{  margin-bottom:0.471rem;  }
+    .grid_top img{  display: block;  width:2.353rem;  height:2.353rem;  margin: auto;  margin-top: 12px;  }
+    .grid_bottom{  font-size: 12px;  }
+    .scene_col{  color: #333333;  }
+    .grid_row1{  color: #fe6103;  }
+    .grid_row2{  color: #747474;  }
+    .grid_row3{  color: #0eb80e;  }
+
+    .mood_box.go_down{     -webkit-animation: go_down  .2s forwards;  animation: go_down  .2s forwards;  }
+    @keyframes go_down {
+        0% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
+    }
+    .mood_box.go_up{     -webkit-animation: go_up  .2s forwards;  animation: go_up  .2s forwards;}
+    @keyframes go_up {
+        0% {
+            transform: translate3d(0,100%, 0);
+            -webkit-transform: translate3d(0, 100%, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
+        }
+    }
 
 </style>
