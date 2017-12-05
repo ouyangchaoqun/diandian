@@ -49,10 +49,15 @@
             _this.getFriendLastMood();
             _this.getNewPerfect();
             _this.checkMoreHot();
-//
+
+        },
+        updated:function () {
+            this.initDom()
         },
         methods: {
-
+            initDom:function () {
+                $(".weui-tabbar").height(xqzs.equipment.tabHeight())
+            },
             checkMoreHot:function () {
                 this.isMoreHotPointClicked=  xqzs.localdb.get(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY);
                 let container = $('#tabs .tab:eq(0)');
@@ -117,7 +122,7 @@
     #tabs {
         z-index:10000;
         background: #fff;
-        height: 48px;
+
         border-top:1px solid #ddd;padding-top:1px;
         overflow: hidden;
     }

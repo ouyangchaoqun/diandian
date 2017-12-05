@@ -8,7 +8,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>小心情</div>
         <v-tab tab="friendMoods"></v-tab>
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" cutHeight="50">
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" :cutHeight="cutHeight">
             <div class="friends_box">
 
                 <!--beforeChange-->
@@ -101,7 +101,7 @@
     import scroll from './lib/scroll.vue';
     import tab from './lib/tab.vue';
     import showLoad from './showLoad.vue';
-
+    import Bus from './bus.js';
     export default {
         data() {
             return {
@@ -114,7 +114,8 @@
                 showAll:false,
                 showLoad:false,
                 isPageEnd:false,
-                isShowMoreText:true
+                isShowMoreText:true,
+                cutHeight:50
             }
         },
         props:{
@@ -365,6 +366,9 @@
             _this.getList();
             xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.friendMood);
 
+        },
+        updated:function () {
+            Bus.$emit("scrollHeightInit", xqzs.equipment.tabHeight()+2);
         },
         components: {
             'v-scroll': scroll,

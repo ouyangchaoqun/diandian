@@ -329,7 +329,7 @@
             },
             initDom:function () {
                 this.qunImgHeight =  $(window).width() * 400 *0.6 / 300;
-                $(".weui-tab__panel").height($(window).height()-50).scroll(function () {
+                $(".weui-tab__panel").height($(window).height()-xqzs.equipment.tabHeight()-2).scroll(function () {
                     xqzs.localdb.set("indexScrollTop",$(this).scrollTop())
                 });
                 Bus.$emit('initHomeData');

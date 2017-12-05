@@ -74,7 +74,6 @@
         mounted:function () {
             this.getDetail();
             this.getAddress();
-            $(".product_top").height( $(document).height()-60);
             this.getUserInfo();
             this.getTaskList();
         },
@@ -311,7 +310,7 @@
 
 
     .product_box{  background: #fff }
-    .product_top{ padding-bottom:3rem; overflow-y: auto }
+    .product_top{ padding-bottom:4.3rem; overflow-y: auto }
     .product_top img{width:100%;display: block;margin-bottom: 1px;}
     .product_main{padding:1.0588235rem 0.88235rem 0.88235rem 0.88235rem;background: #fff;border-bottom: 0.588235rem solid #f4f4f8;}
     .product_main h3{font-size: 1rem;color:rgba(51,51,51,1);line-height: 1;margin-bottom: 0.6rem;}

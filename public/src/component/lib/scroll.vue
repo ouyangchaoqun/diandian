@@ -85,9 +85,17 @@
                 _this.isShowMoreText=isShowMoreText;
                 _this.loadMoreText();
             });
+            Bus.$on("scrollHeightInit", function (cutHeight) {
+                _this.cutHeight=cutHeight;
+                console.log("cutHeightcutHeightcutHeightcutHeightcutHeight"+cutHeight)
+                _this.initHeight();
+            });
 //
         },
         methods: {
+            initHeight:function () {
+                this.height = "height:" + (document.body.clientHeight - this.cutHeight)  + "px";
+            },
             touchStart(e) {
                 this.startY = e.targetTouches[0].pageY
                 this.startScroll = this.$el.scrollTop || 0

@@ -125,7 +125,7 @@
 		top:1.4rem;
 	}
 	.me1 .hasnew{
-		position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:0.7058823529411765rem;left:4.117647058823529rem;height: 0.4705882352941176rem;width: 0.4705882352941176rem;z-index: 999;
+		position:absolute;background-color:#ff0000;border-radius: 50%;position: absolute;top:1.25rem;left:4.2rem;height: 0.4705882352941176rem;width: 0.4705882352941176rem;z-index: 999;
 	}
 	.perfec_top{
 		color: #333333;

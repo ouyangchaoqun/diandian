@@ -252,7 +252,7 @@
             xqzs.localdb.set(xqzs.localdb.keys.MORE_HOT_POINT_CLICKED_KEY,true);
 
             this.$nextTick(function () {
-                $(".box_content").height($(document).height()-50)
+                $(".box_content").height($(document).height()-xqzs.equipment.tabHeight()-2)
             })
 
         },

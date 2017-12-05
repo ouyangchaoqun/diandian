@@ -1248,6 +1248,18 @@ var xqzs = {
             return image;
         },
 
+    },
+    equipment:{
+        isIphoneX:function () {
+            return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
+        },
+        tabHeight:function () {
+            if(xqzs.equipment.isIphoneX()){
+                return 68;
+            }else{
+                return 48;
+            }
+        }
     }
 };
 
