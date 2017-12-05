@@ -11,7 +11,7 @@
                 <div class="name">{{item.type}}
                 <span v-if="item.name">[{{item.name}}]</span></div>
                 <div class="time">{{formatTime(item.addTime)}}</div>
-                <div class="coin">{{item.coinNum}}</div>
+                <div class="coin"><span v-if="item.coinNum>0">+</span>{{item.coinNum}}</div>
             </div>
 
 
