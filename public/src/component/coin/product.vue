@@ -169,7 +169,7 @@
                     $(".js_dialog .weui-mask").click();
                 });
                 $(".get_coin .btn").click(function () {
-
+                    _this.showLoad = true;
                     $(".js_dialog .weui-mask").click();
                     _this.$http.get(web.API_PATH + 'coin/push/coin/card/_userId_/'+product.id).then(response => {
                         if (response.data.status == 1) {
