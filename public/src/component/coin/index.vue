@@ -84,7 +84,8 @@
                 taskList:[],user:{},
                 isLoading:false,
                 shareOnePersonCoin:5,
-                mySwiperPre:null
+                mySwiperPre:null,
+                tabHeight:[]
             }
         },
         mounted:function () {
@@ -101,6 +102,22 @@
                     },
                     onSlideChangeEnd: function(swiper){
                         _this.tab=swiper.activeIndex+1;
+                        if( _this.tab==2){
+                            this.isShowMoreText=false
+                        }else{
+                            if(!this.isPageEnd)
+                                this.isShowMoreText=true
+                        }
+                        Bus.$emit("scrollMoreTextInit", this.isShowMoreText);
+
+
+                        $(".swiper-slide").each(
+                            function () {
+                               _this.tabHeight.push($(this).height())
+                            }
+                        )
+
+                        $(".cont_tab ").height( _this.tabHeight[swiper.activeIndex])
                     }
                 });
             })
@@ -188,15 +205,6 @@
                 })
             },
             tabChange:function (v) {
-                this.tab=v;
-                if(v==2){
-                    this.isShowMoreText=false
-                }else{
-                    this.isShowMoreText=true
-                }
-                Bus.$emit("scrollMoreTextInit", this.isShowMoreText);
-
-
                 this.mySwiperPre.slideTo(v-1);
 
             },
