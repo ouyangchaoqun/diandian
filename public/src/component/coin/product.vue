@@ -49,7 +49,7 @@
             <div class="check_change up" v-if="check">
                 <div class="close"></div>
                 <div class="img">
-                    <img :src="goods.pictures[0].path" alt="">
+                    <img :src="goods.home_pic.path" alt="">
                 </div>
                 <div class="coin"><span>{{goods.coinNum}}</span></div>
                 <div class="clear"></div>
