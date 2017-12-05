@@ -115,49 +115,43 @@
             },
             changeCheck:function () {
                 let _this=this;
+                _this.showLoad=true;
                 $(".check_change .close").click();
                 _this.$http.post(web.API_PATH + 'coin/buy/goods/'+_this.goods.id+"/_userId_/"+ _this.address.addressId +"/1",{})
                     .then(function (res) {
-                        console.log(res)
-                        if(res.body.status==1&&res.body.data){
+                        setTimeout(function () {
+                            _this.showLoad=false;
+                            if(res.body.status==1&&res.body.data){
+                                let  html =    '<div class="get_coin">' +
+                                    '                    <div class="close"></div>'+
+                                    '                    <div class="img coin_change_success"></div>\n' +
+                                    '                    <div class="h1">恭喜你，兑换成功</div>\n' +
+                                    '                    <div class="con">请耐心等待，发货成功后快递单号会通公众对话窗口发送给你。</div>\n' +
+                                    '                    <div class="line"></div>\n' +
+                                    '                    <div class="info">(注：积分消费记录详情请在积分明细中查看）</div>\n' +
+                                    '                    <div class="btn coin_success_btn">OK</div>\n' +
+                                    '                </div>';
+                                xqzs.weui.dialogCustom(html);
 
-
-                            let  html =    '<div class="get_coin">' +
-                                '                    <div class="close"></div>'+
-                                '                    <div class="img coin_change_success"></div>\n' +
-                                '                    <div class="h1">恭喜你，兑换成功</div>\n' +
-                                '                    <div class="con">请耐心等待，发货成功后快递单号会通公众对话窗口发送给你。</div>\n' +
-                                '                    <div class="line"></div>\n' +
-                                '                    <div class="info">(注：积分消费记录详情请在积分明细中查看）</div>\n' +
-                                '                    <div class="btn coin_success_btn">OK</div>\n' +
-                                '                </div>';
-                            xqzs.weui.dialogCustom(html);
-                            $(".get_coin .close").click(function () {
-                                $(".js_dialog .weui-mask").click();
-                            });
-                            $(".get_coin .coin_success_btn").click(function () {
-                                _this.$router.go(-1);
-                            })
-
-
-
-//
-
-
-
-                        }
-                        else if(res.body.status==9000008){
-                            this.getCoin();
-                        }else if(res.body.status==9000009){
-                            xqzs.weui.tip("地址错误")
-                        }else if(res.body.status==9000004){
-                            xqzs.weui.tip("商品不足")
-                        }
-
-
+                                $(".get_coin .close").click(function () {
+                                    $(".js_dialog .weui-mask").click();
+                                });
+                                $(".get_coin .coin_success_btn").click(function () {
+                                    _this.$router.go(-1);
+                                })
+                            }
+                            else if(res.body.status==9000008){
+                                this.getCoin();
+                            }else if(res.body.status==9000009){
+                                xqzs.weui.tip("地址错误")
+                            }else if(res.body.status==9000004){
+                                xqzs.weui.tip("商品不足")
+                            }
+                        },210)
                     });
             },
             getCoin:function () {
+                let _this=this;
                 let product= this.goods;
                 console.log(product)
                 let lastCount = Math.ceil((product.coinNum -  this.user.coinAmount) / this.shareOnePersonCoin);
@@ -175,7 +169,6 @@
                     $(".js_dialog .weui-mask").click();
                 });
                 $(".get_coin .btn").click(function () {
-                    let _this=this;
 
                     $(".js_dialog .weui-mask").click();
                     _this.$http.get(web.API_PATH + 'coin/push/coin/card/_userId_/'+product.goodsId).then(response => {

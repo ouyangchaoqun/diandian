@@ -12,44 +12,46 @@
             <div :class="{on:tab==1}" @click="tabChange(1)">积分商城</div>
             <div :class="{on:tab==2}" @click="tabChange(2)">每日任务</div>
         </div>
-        <div class="cont_tab">
-            <div class="tab_c product "  :class="{on:tab==1}">
-                <div class="title"><span>精选推荐</span></div>
-                <ul>
-                    <li v-for="(item,index) in list">
-                        <div class="item" @click="goProduct(item.goodsId)">
-                            <div class="img"><img :src="item.path"></div>
-                            <div class="title">{{item.name}}</div>
-                            <div class="coin">
-                                {{item.coinNum}} <span>积分</span>
+        <div class="cont_tab  swiper-container">
+            <div class="swiper-wrapper">
+                <div class="tab_c product swiper-slide on "   >
+                    <div class="title"><span>精选推荐</span></div>
+                    <ul>
+                        <li v-for="(item,index) in list">
+                            <div class="item" @click="goProduct(item.goodsId)">
+                                <div class="img"><img :src="item.path"></div>
+                                <div class="title">{{item.name}}</div>
+                                <div class="coin">
+                                    {{item.coinNum}} <span>积分</span>
+                                </div>
+                                <div class="btn" v-if="user.coinAmount<item.coinNum" @click.stop="getCoin(index)">赚积分</div>
+                                <div class="btn change" v-else="" @click.stop="goProduct(item.goodsId)">去兑换</div>
                             </div>
-                            <div class="btn" v-if="user.coinAmount<item.coinNum" @click.stop="getCoin(index)">赚积分</div>
-                            <div class="btn change" v-else="" @click.stop="goProduct(item.goodsId)">去兑换</div>
-                        </div>
-                    </li>
-                    <div class="clear"></div>
-                </ul>
-
-            </div>
-            <div class="tab_c"  :class="{on:tab==2}">
-                <div class="task_list">
-                    <div :class="'item type'+item.type" v-for="item in taskList">
-                        <div class="icon"><img :src="item.icon" ></div>
-                        <div class="word">
-                            <div class="title">{{item.title}} <span>+{{item.coinNum}}</span></div>
-                            <div class="info">{{item.desc}}</div>
-                        </div>
-
-                        <div class="btn no" v-if="item.finished" >{{item.btnFinish}}</div>
-                        <div class="btn no" v-if="item.finished==-1">{{item.btnFail}}</div>
-                        <div class="btn" v-if="item.finished==0" @click="goDo(item.type)">{{item.btnUnFinish}}</div>
-                    </div>
+                        </li>
+                        <div class="clear"></div>
+                    </ul>
 
                 </div>
+                <div class="tab_c swiper-slide on"   >
+                    <div class="task_list">
+                        <div :class="'item type'+item.type" v-for="item in taskList">
+                            <div class="icon"><img :src="item.icon" ></div>
+                            <div class="word">
+                                <div class="title">{{item.title}} <span>+{{item.coinNum}}</span></div>
+                                <div class="info">{{item.desc}}</div>
+                            </div>
+
+                            <div class="btn no" v-if="item.finished" >{{item.btnFinish}}</div>
+                            <div class="btn no" v-if="item.finished==-1">{{item.btnFail}}</div>
+                            <div class="btn" v-if="item.finished==0" @click="goDo(item.type)">{{item.btnUnFinish}}</div>
+                        </div>
+
+                    </div>
 
 
 
 
+                </div>
             </div>
         </div>
         </v-scroll>
@@ -77,13 +79,27 @@
                 isShowMoreText:true,
                 taskList:[],user:{},
                 isLoading:false,
-                shareOnePersonCoin:5
+                shareOnePersonCoin:5,
+                mySwiperPre:null
             }
         },
         mounted:function () {
             this.getList(); //商城列表
             this.getTaskList() ; //任务列表
             this.getUserInfo();
+
+            let _this=this;
+            this.$nextTick(function () {
+                _this.mySwiperPre = new Swiper('.cont_tab', {
+                    slidesPerView: 1,
+                    onInit: function(swiper){
+
+                    },
+                    onSlideChangeEnd: function(swiper){
+                        _this.tab=swiper.activeIndex+1;
+                    }
+                });
+            })
         },
         methods: {
             goDo:function (type) {
@@ -174,6 +190,10 @@
                     this.isShowMoreText=true
                 }
                 Bus.$emit("scrollMoreTextInit", this.isShowMoreText);
+
+
+                this.mySwiperPre.slideTo(v-1);
+
             },
             goProduct:function (id) {
                 this.$router.push("/coin/product?goodsId="+id)
