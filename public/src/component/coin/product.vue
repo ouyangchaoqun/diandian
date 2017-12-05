@@ -171,7 +171,7 @@
                 $(".get_coin .btn").click(function () {
 
                     $(".js_dialog .weui-mask").click();
-                    _this.$http.get(web.API_PATH + 'coin/push/coin/card/_userId_/'+product.goodsId).then(response => {
+                    _this.$http.get(web.API_PATH + 'coin/push/coin/card/_userId_/'+product.id).then(response => {
                         if (response.data.status == 1) {
                             _this.showLoad = false;
                             xqzs.weui.dialog({

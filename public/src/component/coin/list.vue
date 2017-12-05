@@ -8,7 +8,8 @@
         </div>
         <div class="list">
             <div class="item" v-for="item in list">
-                <div class="name">{{item.type}}</div>
+                <div class="name">{{item.type}}
+                <span v-if="item.name">[{{item.name}}]</span></div>
                 <div class="time">{{formatTime(item.addTime)}}</div>
                 <div class="coin">{{item.coinNum}}</div>
             </div>
