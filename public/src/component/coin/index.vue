@@ -35,6 +35,11 @@
                                 </template>
                             </div>
                         </li>
+                        <li class="add_item " v-if="list.length % 2 ==1">
+                            <span>尽请期待</span>
+
+                        </li>
+
                         <div class="clear"></div>
                     </ul>
 
@@ -319,7 +324,9 @@
             xqzs.weui.active(obj);
             $(".cont_tab .product  ul li .btn ").on("touchstart",function () {
                 event.stopPropagation();
-            })
+            });
+
+            $(".coin_index .product ul li ").height($(".coin_index .product ul li ").eq(1).height())
 
         }
     }
@@ -353,6 +360,9 @@
         border-left: 0.2rem solid transparent;
         border-right: 0.6rem solid transparent;
         border-top: 0.6rem solid #333;}
+    .coin_index .product ul li.add_item{  text-align: center; color:#ddd; position: relative; background: url(../../images/coin_index_add_item_bg.png) no-repeat #fff center; background-size: 4.6rem; ; background-position-y: 3.2rem}
+    .coin_index .product ul li.add_item span{display: inline-block;line-height:1; height: 1rem; position: absolute;
+       top:62%; left:0;width: 100%; font-size: 1.6rem;}
     .coin_index .product ul li    .last_count span{ display: block; text-align: center; line-height: 1.3; font-size:0.5294117647058824rem; color:#FFFAF4 ; }
     .coin_index .product ul li    .last_count span.count{ color:#FF9933 }
     .coin_index .product .item .img img{ width: 100%;  }
