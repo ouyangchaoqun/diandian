@@ -1,7 +1,9 @@
 <template>
-    <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite"  :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
+
     <div class="coin_list">
         <div v-title>积分明细</div>
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite"  :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
+
 
         <div class="my_coin">
             <div class="word">当前积分：<span>{{user.coinAmount}}</span></div>
@@ -13,13 +15,14 @@
                 <div class="time">{{formatTime(item.addTime)}}</div>
                 <div class="coin"><span v-if="item.coinNum>0">+</span>{{item.coinNum}}</div>
             </div>
-
-
         </div>
-
+        <div class="no_coin_record" v-if="list.length==0&&!isLoading">
+            没任何收获，快去做任务赚积分吧！
+        </div>
+        </v-scroll>
 
     </div>
-    </v-scroll>
+
 </template>
 <script>
     import Bus from '../bus.js';
@@ -135,6 +138,9 @@
 
 </script>
 <style>
+    .coin_list .yo-scroll{ background: #fff}
+    .coin_list  .no_coin_record{ background: url(../../images/coin_list_no_record.png) no-repeat center top; text-align: center; color:#FC9B2C; font-size: 0.88235rem; padding-top:11rem ;
+        width:100%; height: 2rem;; background-size:11.14705882352941rem; margin-top: 6rem;}
     .coin_list{ background: #fff;}
     .coin_list .my_coin{
         height: 3.6rem;

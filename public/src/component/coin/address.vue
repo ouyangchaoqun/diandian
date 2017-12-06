@@ -52,6 +52,7 @@
             }
         },
         mounted:function () {
+            xqzs.wx.setConfig(this);
             this.getAddress();
         },
         methods: {
@@ -130,6 +131,7 @@
                         _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
                     }else{
                         //微信地址
+                        console.log("bbbbbbbbbbbdlksanddddress")
                         wx.openAddress({
                             success: function (res) {
                                 _this.address.userName= res.userName; // 收货人姓名
