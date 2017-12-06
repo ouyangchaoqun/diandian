@@ -349,7 +349,7 @@
     .coin_index .product ul li    .last_count span{ display: block; text-align: center; line-height: 1.3; font-size:0.5294117647058824rem; color:#FFFAF4 ; }
     .coin_index .product ul li    .last_count span.count{ color:#FF9933 }
     .coin_index .product .item .img img{ width: 100%;  }
-    .coin_index .product .item .title{ font-size: 0.7058823529411765rem; color:#333; margin-top: 0.2rem;}
+    .coin_index .product .item .title{ font-size: 0.7058823529411765rem; color:#333; margin-top: 0.1rem;}
     .coin_index .product .item .coin { font-size:0.88235rem; color:#FC9B2C; margin-top: 0.35rem;}
     .coin_index .product .item .coin span{ color:#B1AFAF ; font-size:0.6470588235294118rem; }
     .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.3rem; font-size: 0.6470588235294118rem; color:#fff; text-align: center; width: 2.882352941176471rem; position: absolute; right: 0; bottom:0rem;}
@@ -365,7 +365,7 @@
     .coin_index .my_coin  .detail { text-align: center;}
     .coin_index .my_coin  .detail span{ text-align: center; color:#fff; font-size: 0.88235rem; padding-right: 1rem; background: url(../../images/coin_jt.png) no-repeat center right; background-size: 0.4117647058823529rem;  }
     .coin_index .my_coin  .rule{ background: rgba(255,255,255,0.4); height: 1.6rem; width: 4.5rem; text-align: center; color:#fff; font-size: 0.8235rem; border-bottom-left-radius:0.8rem;border-top-left-radius:0.8rem; line-height: 1.6rem; position: absolute; top:1rem; right:0  }
-    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.1rem;  position: absolute; top:3.8rem; left:-1.9rem; }
+    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.1rem;  position: absolute; top:3.8rem; left:-1.5rem; }
 
     .coin_index .tabs{
         height:3.529411764705882rem; background: #fff;  ; color:#9a9a9a;; line-height: 3.529411764705882rem;
