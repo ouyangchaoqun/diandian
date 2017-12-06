@@ -352,7 +352,7 @@
     .coin_index .product .item .title{ font-size: 0.7058823529411765rem; color:#333; margin-top: 0.2rem;}
     .coin_index .product .item .coin { font-size:0.88235rem; color:#FC9B2C; margin-top: 0.35rem;}
     .coin_index .product .item .coin span{ color:#B1AFAF ; font-size:0.6470588235294118rem; }
-    .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.3rem; font-size: 0.6470588235294118rem; color:#fff; text-align: center; width: 3.4rem; position: absolute; right: 0; bottom:0rem;}
+    .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.3rem; font-size: 0.6470588235294118rem; color:#fff; text-align: center; width: 2.882352941176471rem; position: absolute; right: 0; bottom:0rem;}
     .coin_index .product .item .btn.change{background: #FC9B2C;}
     .coin_index .product .item .btn.change_over{     background: #d9d9d9;
         color: #fff;}
