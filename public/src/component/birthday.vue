@@ -45,22 +45,28 @@
                         <div class="redPacket_btn">
                             <img src="../images/redPacket_btn.png" alt="">
                         </div>
-                        <div class="text">发红包</div>
+                        <div class="text">
+                            <template v-if="user!=null&&user.id!=birthdayUserId">发红包</template>
+                            <template v-if="user!=null&&user.id==birthdayUserId">{{getCount.redPacket.amount}}</template>
+                        </div>
                     </div>
                     <div class="addTipCount"><img src="../images/brith_money.png" alt="">
 
-                        1个好友红包
+                       {{getCount.redPacket.userCount}}个好友红包
                     </div>
                 </div>
                 <div class="heart_click_btn" @click="addHeart">
 
                     <div class="btn">
                         <div class="heart_btn"></div>
-                        <div class="text">点赞</div>
+                        <div class="text">
+                            <template v-if="user!=null&&user.id!=birthdayUserId">点赞</template>
+                            <template v-if="user!=null&&user.id==birthdayUserId">{{getCount.care.careCount}}</template>
+                        </div>
                     </div>
                     <div class="addTipCount">
                         <img src="../images/brith_zan.png" alt="">
-                        2个好友祝福
+                        {{getCount.care.userCount}}个好友祝福
                     </div>
                 </div>
             </div>
@@ -119,10 +125,10 @@
             <!--点赞-->
 
             <div class="bottom_tip">
-                <!--<div class="text" @click="share()" v-if="user!=null"><img :src="user.faceUrl"/>-->
-                    <!--您点了{{myCareCount}}次赞，邀请好友一起点赞-->
-                <!--</div>-->
-                <div class="addText_style">
+                <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
+                    您为他发了{{senderCount.redPacket}}元红包，点了{{senderCount.careCount}}个赞
+                </div>
+                <div class="addText_style" v-if="user!=null&&user.id==birthdayUserId">
                     <div>-<span>生日红包温馨提示</span>-</div>
                     <p>好友给您发生日红包后，好一点将会消息通知您</p>
                     <p>您可在好一点-个人中心查看收到的红包金额，并可提现到微信钱包！</p>
@@ -1055,6 +1061,7 @@
         display: block;
         margin: 0 auto;
         margin-top: 1rem;
+        margin-bottom: 0.294rem;
     }
 
     .heart_btn {
@@ -1064,6 +1071,7 @@
         width: 1.294117647058824rem;
         margin: 0 auto;
         margin-top: 1rem;
+        margin-bottom: 0.294rem;
     }
 
 
@@ -1080,7 +1088,7 @@
     export default {
         data() {
             return {
-                MAX_CARE_COUNT: 100,
+                MAX_CARE_COUNT: 10,
                 steps: [
                     {num: 1, isReach: false},
                     {num: 21, isReach: false},
@@ -1110,6 +1118,12 @@
                 hasMyContent: false,
                 adding: false,
                 redPackFlag:false,
+                getCount:{
+                    care:{},
+                    redPacket:{}
+                },
+                senderCount:{},
+
             }
         },
         filters: {
@@ -1317,6 +1331,22 @@
                     });
 
             },
+            getSender:function () {
+                let _this = this;
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/sender/'+_this.birthdayUserId+'/_userId_').then(function (data) {
+                    console.log(data.data.data)
+                    _this.senderCount = data.data.data;
+                })
+            },
+            getReceiver:function () {
+                let _this = this;
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/receiver/_userId_').then(function (data) {
+                    console.log(data.data.data)
+                    _this.getCount.care= data.data.data.care;
+                    _this.getCount.redPacket= data.data.data.redPacket;
+                    console.log(_this.getCount.care.careCount+'**********')
+                })
+            },
             reach: function () {
                 //遍历到达位置
 
@@ -1468,13 +1498,15 @@
             }, function (error) {
 
             });
-
+            _this.getReceiver()
+            _this.getSender()
 
         },
         updated:function () {
             $('.redPack_item').on('click',function(){
                 $('.redPack_item').removeClass('redPackChecked')
                 $(this).addClass('redPackChecked')
+                console.log($(this).find($('.money_item')).text())
             })
         }
     }
