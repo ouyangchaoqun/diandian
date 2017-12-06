@@ -25,7 +25,7 @@
                    <span>您还没有填写收货信息，马上去填写。</span>
                </div>
                <div class="adress_detail" v-else="">
-                   <span>{{address.userName}}</span><span>{{address.mobile}}</span>
+                   <span>{{address.userName}}</span> <span>{{address.mobile}}</span>
                    <div>{{provinceName}} {{cityName}} {{areaName}} {{address.address}}</div>
                </div>
                <img class="right_go" src="../../images/me_jt.png"/>
@@ -48,7 +48,7 @@
         <div id="check_change" style="display: none;">
             <div class="check_change up" v-if="check">
                 <div class="close"></div>
-                <div class="img">
+                <div class="img" v-if="goods.home_pic">
                     <img :src="goods.home_pic.path" alt="">
                 </div>
                 <div class="coin"><span>{{goods.coinNum}}</span></div>
@@ -156,9 +156,9 @@
                 console.log(product)
                 let lastCount = Math.ceil((product.coinNum -  this.user.coinAmount) / this.shareOnePersonCoin);
                 let  html =    '<div class="get_coin">' +
-                    '                    <div class="close"></div>'+
-                    '                    <div class="img">'+'<img src="'+product.home_pic.path+'" />'+'</div>\n' +
-                    '                    <div class="h1">积分不足</div>\n' +
+                    '                    <div class="close"></div>';
+               if(product.home_pic&&product.home_pic.path)  html +=   '                    <div class="img">'+'<img src="'+product.home_pic.path+'" />'+'</div>\n' ;
+                html +=   '                    <div class="h1">积分不足</div>\n' +
                     '                    <div class="con">已有'+this.user.coinAmount+'积分，每邀请1位好友支持可得'+this.shareOnePersonCoin+'积分，<span>邀请'+lastCount+'位好友</span>关注“好一点”公众号可立即兑换</div>\n' +
                     '                    <div class="line"></div>\n' +
                     '                    <div class="info">注：更多获取积分方式，请去每日任务查看</div>\n' +
@@ -339,7 +339,7 @@
     .product_main{padding:1.0588235rem 0.88235rem 0.88235rem 0.88235rem;background: #fff;border-bottom: 0.588235rem solid #f4f4f8;}
     .product_main h3{font-size: 1rem;color:rgba(51,51,51,1);line-height: 1;margin-bottom: 0.6rem;}
     .product_main_del{color:#FC9B2C;font-size: 1.5294rem;height:2rem;line-height: 2rem;display:flex;position: relative;width: 100%; }
-    .product_main_del span{font-size: 0.76471rem;display: block;margin-left: 0.8235rem;margin-right: 0.9411rem;margin-top: 0.2rem}
+    .product_main_del span{font-size: 0.76471rem;display: block;margin-left: 0.6rem;margin-right: 0.6rem;margin-top: 0.2rem}
     .product_price{color:rgba(176,174,174,1);font-size: 0.70588rem;text-decoration:line-through;margin-top: 0.2rem}
     .product_main_del .product_freight{position: absolute;right:0;text-decoration:none;}
     .product_adress{border-bottom:1px    solid #f4f4f8;font-size: 0.76471rem;color:rgba(153,153,153,1);padding:1rem 0.88235rem;line-height: 1;background: #fff;position: relative}

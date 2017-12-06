@@ -61,7 +61,10 @@
                 require: false
             },
             isPageEnd: false,
-            isShowMoreText: true,
+            isShowMoreText: {
+                type: Boolean,
+                default: true
+            },
             isNotRefresh: true,
             cutHeight:0
         },
@@ -81,13 +84,11 @@
             this.height = "height:" + (document.body.clientHeight - _this.cutHeight)  + "px";
             this.loadMoreText();
             Bus.$on("scrollMoreTextInit", function (isShowMoreText) {
-//                console.log("scrollMoreTextInit")
                 _this.isShowMoreText=isShowMoreText;
                 _this.loadMoreText();
             });
             Bus.$on("scrollHeightInit", function (cutHeight) {
                 _this.cutHeight=cutHeight;
-                console.log("cutHeightcutHeightcutHeightcutHeightcutHeight"+cutHeight)
                 _this.initHeight();
             });
 //
@@ -121,17 +122,17 @@
             },
             touchEnd(e) {
 
-                if (!this.enableRefresh) return
-                this.touching = false
+                if (!this.enableRefresh) return;
+                this.touching = false;
                 if (this.state === 2) { // in refreshing
-                    this.state = 2
-                    this.top = this.offset
+                    this.state = 2;
+                    this.top = this.offset;
                     return
                 }
                 if (this.top >= this.offset) { // do refresh
                     this.refresh()
                 } else { // cancel refresh
-                    this.state = 0
+                    this.state = 0;
                     this.top = 0
                 }
                 this.loadMoreText();
@@ -148,11 +149,11 @@
 
             },
             refreshDone() {
-                this.state = 0
+                this.state = 0;
                 this.top = 0
             },
             loadMoreText: function () {
-
+                console.log(this.isShowMoreText)
                 if (!this.isShowMoreText) {
                     $(".load-more").hide();
                     $(".load-finish").hide();

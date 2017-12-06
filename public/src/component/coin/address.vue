@@ -59,7 +59,7 @@
 
                 let _this=this;
                 let word= "添加";
-                if(address&&address!={}){
+                if(_this.address&&_this.address!={}){
                     word= "修改";
                 }
                 let provinceId =_this.provinceId;
@@ -75,6 +75,11 @@
                 }
                 if(!mobile){
                     xqzs.weui.tip("请填写手机号");
+                    return ;
+                }
+
+                if(!xqzs.string.isMobile(mobile)){
+                    xqzs.weui.tip("请填写正确的手机号");
                     return ;
                 }
                 if(!(provinceId&&cityId&&areaId)){
@@ -175,6 +180,7 @@
     .coin_address .box .item .con{ height: 100% ; color:#666}
     .coin_address .box .item .con input{ height:2rem; border: none;outline:none; font-size: 0.8235294117647059rem;  }
     .coin_address .box .submit_btn{ background: #FC9B2C; border-radius: 0.2rem; height:2.588235294117647rem;  line-height: 2.588235294117647rem; color:#fff ;text-align: center ; margin: 0 10%; display: block; margin-top: 2rem; }
+    .coin_address .box .submit_btn:active{ background: #e48d27  }
     .coin_address .box .addess{ height: auto}
     .coin_address #localCity span{font-size: 0.8235294117647059rem;}
     .coin_address .box .addess textarea{ height:2rem; line-height: 1rem; font-size: 0.8235294117647059rem; width: 68%; border: none ; outline: none; margin-top: 1rem;}

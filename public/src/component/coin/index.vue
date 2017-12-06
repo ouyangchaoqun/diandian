@@ -124,8 +124,29 @@
         },
         methods: {
             goDo:function (type) {
+                let _this=this;
                 if(type==7){
-
+                    _this.showLoad=true;
+                    this.$http({
+                        method: 'GET',
+                        type: "json",
+                        url: web.API_PATH + 'wei/xin/create/invite/card/_userId_',
+                    }).then(function (data) {
+                        _this.showLoad=false;
+                        if (data && data.data.status == 1) {
+                            xqzs.weui.dialog({
+                                title:'邀请卡已经发送',
+                                msg:'前往公众号查看你的专属名片',
+                                submitText:'查看',
+                                submitFun:function () {
+                                    try {
+                                        WeixinJSBridge.call('closeWindow');
+                                    }catch (e){
+                                    }
+                                }
+                            })
+                        }
+                    })
                 }else{
                     this.$router.push("/")
                 }
@@ -205,7 +226,11 @@
                 })
             },
             tabChange:function (v) {
-                this.mySwiperPre.slideTo(v-1);
+                if(v!=this.tab){
+                    this.mySwiperPre.slideTo(v-1);
+                }
+                console.log("bbbbbbbbb3b23333bbbbbbbbbbbb")
+
 
             },
             goProduct:function (id) {
@@ -305,7 +330,7 @@
     .get_coin .close{ background: url(../../images/coin_close.png) no-repeat; width: 0.8235294117647059rem; background-size:  0.8235294117647059rem;height: 0.8235294117647059rem; position: absolute; top:0.88235rem; right:0.88235rem;}
 
 
-    .coin_index .product ul{  }
+    .coin_index .product ul{ margin-bottom: 1.176470588235294rem; }
     .coin_index .product ul li  {position:relative ;background: #fff; width: 50%; float:left;  overflow: hidden ;  padding-top: 0.88235rem; padding-bottom: 0.88235rem; border-top:1px solid #eee; }
     .coin_index .product ul li:active{ background: #f1f1f1}
 

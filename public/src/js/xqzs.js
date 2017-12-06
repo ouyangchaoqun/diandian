@@ -1218,6 +1218,13 @@ var xqzs = {
                 return "0.00";
             }
 
+        },
+        isMobile:function (v) {
+            var regExpP = /^1[34578]\d{9}$/; //手机号
+            if (regExpP.test(v)) {
+                return true;
+            }
+            return false;
         }
     },
 
