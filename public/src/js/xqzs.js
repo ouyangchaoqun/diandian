@@ -1218,6 +1218,13 @@ var xqzs = {
                 return "0.00";
             }
 
+        },
+        isMobile:function (v) {
+            var regExpP = /^1[34578]\d{9}$/; //手机号
+            if (regExpP.test(v)) {
+                return true;
+            }
+            return false;
         }
     },
 
@@ -1248,6 +1255,18 @@ var xqzs = {
             return image;
         },
 
+    },
+    equipment:{
+        isIphoneX:function () {
+            return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
+        },
+        tabHeight:function () {
+            if(xqzs.equipment.isIphoneX()){
+                return 68;
+            }else{
+                return 48;
+            }
+        }
     }
 };
 
