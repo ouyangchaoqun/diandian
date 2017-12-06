@@ -705,8 +705,45 @@
             },
             sleep: function () {
                 console.log('sleep')
-                this.$router.push("record?record_type=" + this.NIGHT_TYPE)
+                let _this = this;
+                if (_this.isGoBed) {
+                    _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE)
+                }else{
+                    if(_this.isRecordTime()){
+                        //未打卡并在打卡时间段内
+                        _this.isGoSleep = true
+                    }else{
+                        if(!_this.recordTimeOut()){
+                            console.log('提前打')
+
+                            return;
+                        }else{
+                            _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
+                            console.log('超时打');
+                            let cookieYear = new Date().getFullYear().toString();
+                            let cookieMonth = new Date().getMonth().toString();
+                            let cookieDay = new Date().getDate().toString();
+                            var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                            let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                            let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+
+                            if(cookie.get('loseBox_frist_night')){
+                                cookie.set('record_lose_night',false,CookieExpire)
+                            }else{
+                                if(!_this.isGoSleep)
+                                    cookie.set('record_lose_night',true,CookieExpire)
+                            }
+                            cookie.set('loseBox_frist_night',true,CookieExpire)
+                        }
+
+
+                    }
+
+                }
+
+                //this.$router.push("record?record_type=" + this.NIGHT_TYPE)
             },
+
             sleepOrGetUp:function () {
                 if(this.isNight()){
                     this.sleep();
