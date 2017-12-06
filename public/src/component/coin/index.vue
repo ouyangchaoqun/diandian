@@ -314,6 +314,14 @@
             'v-scroll': scroll,
             'v-showLoad':showLoad,
         },
+        updated:function () {
+            var obj =  $(".cont_tab .product ul li")
+            xqzs.weui.active(obj);
+            $(".cont_tab .product  ul li .btn ").on("touchstart",function () {
+                event.stopPropagation();
+            })
+
+        }
     }
 
 
@@ -336,7 +344,6 @@
 
     .coin_index .product ul{ margin-bottom: 1.176470588235294rem; }
     .coin_index .product ul li  {position:relative ;background: #fff; width: 50%; float:left;  overflow: hidden ;  padding-top: 0.88235rem; padding-bottom: 0.88235rem; border-top:1px solid #eee; }
-    .coin_index .product ul li:active{ background: #f1f1f1}
 
      .coin_index .product ul li:nth-child(odd):after{ content: ''; height: 100%; width: 1px; position: absolute; right:0;top:0;background: #eee}
     .coin_index .product ul li .item{ margin:0 0.88235rem; position: relative}
@@ -353,7 +360,9 @@
     .coin_index .product .item .coin { font-size:0.88235rem; color:#FC9B2C; margin-top: 0.35rem;}
     .coin_index .product .item .coin span{ color:#B1AFAF ; font-size:0.6470588235294118rem; }
     .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.3rem; font-size: 0.6470588235294118rem; color:#fff; text-align: center; width: 2.882352941176471rem; position: absolute; right: 0; bottom:0rem;}
+    .coin_index .product .item .btn:active{background: #e60000;}
     .coin_index .product .item .btn.change{background: #FC9B2C;}
+    .coin_index .product .item .btn.change:active{background: #ee9329;}
     .coin_index .product .item .btn.change_over{     background: #d9d9d9;
         color: #fff;}
 
