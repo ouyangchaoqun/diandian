@@ -26,7 +26,7 @@
                </div>
                <div class="adress_detail" v-else="">
                    <span>{{address.userName}}</span> <span>{{address.mobile}}</span>
-                   <div>{{provinceName}} {{cityName}} {{areaName}} {{address.address}}</div>
+                   <div class="address_long">{{provinceName}} {{cityName}} {{areaName}} {{address.address}}</div>
                </div>
                <img class="right_go" src="../../images/me_jt.png"/>
                 <div style="clear: both"></div>
@@ -343,7 +343,7 @@
     .product_top{   overflow-y: auto;    -webkit-overflow-scrolling: touch; }
     .product_top img{width:100%;display: block;margin-bottom: 1px;}
     .product_main{padding:1.0588235rem 0.88235rem 0.88235rem 0.88235rem;background: #fff;border-bottom: 0.588235rem solid #f4f4f8;}
-    .product_main h3{font-size: 1rem;color:rgba(51,51,51,1);line-height: 1;margin-bottom: 0.6rem;}
+    .product_main h3{font-size: 1rem;color:rgba(51,51,51,1);line-height: 1.411764705882353rem;margin-bottom: 0.6rem;}
     .product_main_del{color:#FC9B2C;font-size: 1.5294rem;height:2rem;line-height: 2rem;display:flex;position: relative;width: 100%; }
     .product_main_del span{font-size: 0.76471rem;display: block;margin-left: 0.6rem;margin-right: 0.6rem;margin-top: 0.2rem}
     .product_price{color:rgba(176,174,174,1);font-size: 0.70588rem;text-decoration:line-through;margin-top: 0.2rem}
@@ -356,6 +356,7 @@
     .product_detail_header{color:rgba(51,51,51,1);font-size: 0.8235rem;line-height: 2.94rem;background: #fff;padding:0 0.88235rem; }
     .adress_detail{float: left;margin-left: 0.588235rem;}
     .adress_detail div{padding-top: 0.588235rem;}
+    .adress_detail .address_long{ width: 15rem; line-height: 1.176470588235294rem;}
     .product_detail{ background: #fff;}
     .product_detail .product_content{ padding: 0 0.88235rem;}
     video{max-width:100%;}
