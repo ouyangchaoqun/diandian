@@ -13,7 +13,7 @@
                 <div class="name">{{item.type}}
                 <span v-if="item.name">[{{item.name}}]</span></div>
                 <div class="time">{{formatTime(item.addTime)}}</div>
-                <div class="coin"><span v-if="item.coinNum>0">+</span>{{item.coinNum}}</div>
+                <div class="coin" :class="{green:item.coinNum<0}"><span v-if="item.coinNum>0">+</span>{{item.coinNum}}</div>
             </div>
         </div>
         <div class="no_coin_record" v-if="list.length==0&&!isLoading">
@@ -150,8 +150,9 @@
     .coin_list .my_coin span{ font-size:1.764705882352941rem; }
     .coin_list  .list{ margin-left: 1rem;}
     .coin_list  .list .item{ line-height: 1; border-bottom: 1px solid #eee;
-        height:3.1rem; padding-top: 0.9rem; position: relative}
-    .coin_list  .list .item .name{ font-size: 0.88235rem;; color:#333;}
+       min-height:2.6rem; padding-top: 0.9rem; position: relative; padding-bottom: 0.5rem;}
+    .coin_list  .list .item .name{ font-size: 0.88235rem;; color:#333; width: 70%; line-height: 1.4rem;}
     .coin_list  .list .item .time{ color:#999; font-size: 0.7058823529411765rem  ; margin-top: 0.5rem;}
     .coin_list  .list .item    .coin{ position: absolute;top:0; right:1.233rem; line-height:4rem; color:#FC9B2C; font-size: 1.411764705882353rem; }
+    .coin_list  .list .item    .coin.green{color:#00bd00}
 </style>

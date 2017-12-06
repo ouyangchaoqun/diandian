@@ -366,15 +366,12 @@
     .coin_index .product .item .btn.change_over{     background: #d9d9d9;
         color: #fff;}
 
-    .coin_index .my_coin{
-        height: 8.823529411764706rem;
-        background:-webkit-gradient(linear, 0 0, right 0, from(#f97f06), to(#ffb336));
-    }
-    .coin_index .my_coin  .word{ color:#fff; font-size: 2.5rem; text-align: center; padding-top: 2rem; position: relative; display: table;  margin: 0 auto;height: 3.294117647058824rem;}
-    .coin_index .my_coin  .detail { text-align: center;}
+    .coin_index .my_coin{ height: 4.6rem;  background:-webkit-gradient(linear, 0 0, right 0, from(#f97f06), to(#ffb336)); position: relative }
+    .coin_index .my_coin  .word{ color:#fff; font-size: 2.5rem; text-align: center; padding-top: 1rem; position: relative; display: table;  margin-left: 3rem;;  line-height: 1}
+    .coin_index .my_coin  .detail { position: absolute; right:1.2rem; top:1.5rem;}
     .coin_index .my_coin  .detail span{ text-align: center; color:#fff; font-size: 0.88235rem; padding-right: 1rem; background: url(../../images/coin_jt.png) no-repeat center right; background-size: 0.4117647058823529rem;  }
     .coin_index .my_coin  .rule{ background: rgba(255,255,255,0.4); height: 1.6rem; width: 4.5rem; text-align: center; color:#fff; font-size: 0.8235rem; border-bottom-left-radius:0.8rem;border-top-left-radius:0.8rem; line-height: 1.6rem; position: absolute; top:1rem; right:0  }
-    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.1rem;  position: absolute; top:3.8rem; left:-1.5rem; }
+    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.1rem;  position: absolute; top:2.1rem; left:-1.5rem; }
 
     .coin_index .tabs{
         height:3.529411764705882rem; background: #fff;  ; color:#9a9a9a;; line-height: 3.529411764705882rem;
