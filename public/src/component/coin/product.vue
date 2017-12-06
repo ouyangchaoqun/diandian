@@ -42,9 +42,13 @@
 
        </div>
 
-        <div class="btn_bottom  " @click="change()">
+        <div class="btn_bottom  " v-if="goods.stock&&goods.stock>0" @click="change()">
             <div class="btn_change" >立即兑换</div>
         </div>
+        <div class="btn_bottom  overed " v-else-if="!showLoad">
+            <div class="btn_change " >已兑完</div>
+        </div>
+
         <div id="check_change" style="display: none;">
             <div class="check_change up" v-if="check">
                 <div class="close"></div>
@@ -356,6 +360,6 @@
     .btn_bottom{  ;position:absolute; bottom:0; width: 100%; background: #fff; border-top: 1px solid #eee;}
     .btn_bottom  .btn_change, .check_change .btn_change{ background: #FC9B2C ; border-radius: 0.3rem; margin:   0.88235rem;  height: 2.588235294117647rem;z-index: 111; color:#fff; line-height: 2.588235294117647rem; text-align: center }
     .btn_bottom  .btn_change:active, .check_change .btn_change:active{background: #FC9B2C;}
-
+    .btn_bottom.overed  .btn_change{ background: #d9d9d9;color:#fff}
    .product_box .swiper-pagination-bullet-active{ background: #FC9B2C}
 </style>

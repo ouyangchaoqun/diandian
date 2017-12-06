@@ -18,9 +18,9 @@
                     <div class="title"><span>精选推荐</span></div>
                     <ul>
                         <li v-for="(item,index) in list"  @click="goProduct(item.goodsId)">
-                            <div class="last_count">
+                            <div class="last_count" v-if="item.stock>0">
                                 <span>还剩</span>
-                                <span class="count">{{item.amount}}件</span>
+                                <span class="count">{{item.stock}}件</span>
                             </div>
                             <div class="item">
                                 <div class="img"><img :src="item.path"></div>
@@ -28,8 +28,11 @@
                                 <div class="coin">
                                     {{item.coinNum}} <span>积分</span>
                                 </div>
-                                <div class="btn" v-if="user.coinAmount<item.coinNum" @click.stop="getCoin(index)">赚积分</div>
-                                <div class="btn change" v-else="" @click.stop="goProduct(item.goodsId)">去兑换</div>
+                                <div class="btn change_over" v-if="item.stock==0">已兑完</div>
+                                <template v-else="">
+                                    <div class="btn" v-if="user.coinAmount<item.coinNum" @click.stop="getCoin(index)">赚积分</div>
+                                    <div class="btn change" v-else="" @click.stop="goProduct(item.goodsId)">去兑换</div>
+                                </template>
                             </div>
                         </li>
                         <div class="clear"></div>
@@ -351,7 +354,8 @@
     .coin_index .product .item .coin span{ color:#B1AFAF ; font-size:0.6470588235294118rem; }
     .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.6rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 3.6rem; position: absolute; right: 0; bottom:0.2rem;}
     .coin_index .product .item .btn.change{background: #FC9B2C;}
-
+    .coin_index .product .item .btn.change_over{     background: #d9d9d9;
+        color: #fff;}
 
     .coin_index .my_coin{
         height: 8.823529411764706rem;
