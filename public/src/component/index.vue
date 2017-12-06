@@ -47,10 +47,10 @@
                     </a>
                     <a class=" swiper-slide mood" @click="addMood()"><span>心情说说</span></a>
                     <a class="swiper-slide habit" @click="goHabit()"><span>健康习惯</span></a>
-                    <a class=" swiper-slide xz" @click="goXz()"><span>本月运势</span></a>
+                    <a class=" swiper-slide xz" @click="goXz()"><span>星座运势</span></a>
                     <a class="swiper-slide sign" @click="dailyRecord()"><span>每日一签</span></a>
                     <a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>
-                    <a class=" swiper-slide set" @click="set()"><span>健康提醒</span></a>
+                    <a class=" swiper-slide set" @click="set()"><span>设置提醒</span></a>
                 </div>
             </div>
             <!--banner end -->
