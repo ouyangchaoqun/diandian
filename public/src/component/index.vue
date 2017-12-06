@@ -703,7 +703,10 @@
                     }
                 })
             },
-
+            sleep: function () {
+                console.log('sleep')
+                this.$router.push("record?record_type=" + this.NIGHT_TYPE)
+            },
             sleepOrGetUp:function () {
                 if(this.isNight()){
                     this.sleep();
