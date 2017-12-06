@@ -15,7 +15,7 @@
                <h3>{{goods.name}}</h3>
                <div class="product_main_del">{{goods.coinNum}}
                    <span>积分</span>
-                    <div class="product_price">¥{{goods.price}}</div>
+                    <div class="product_price" v-if="false">¥{{goods.price}}</div>
                     <div class="product_price product_freight">运费：包邮</div>
                </div>
            </div>
