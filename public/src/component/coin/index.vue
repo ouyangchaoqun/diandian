@@ -360,7 +360,7 @@
     .coin_index .my_coin  .detail { text-align: center;}
     .coin_index .my_coin  .detail span{ text-align: center; color:#fff; font-size: 0.88235rem; padding-right: 1rem; background: url(../../images/coin_jt.png) no-repeat center right; background-size: 0.4117647058823529rem;  }
     .coin_index .my_coin  .rule{ background: rgba(255,255,255,0.4); height: 1.6rem; width: 4.5rem; text-align: center; color:#fff; font-size: 0.8235rem; border-bottom-left-radius:0.8rem;border-top-left-radius:0.8rem; line-height: 1.6rem; position: absolute; top:1rem; right:0  }
-    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.558823529411765rem;  position: absolute; top:3.7rem; left:-1.9rem; }
+    .coin_index .my_coin .icon{ height: 1.588235294117647rem; width: 1.588235294117647rem; background: url(../../images/coin_coin_icoin2.png) no-repeat ; background-size:  1.4rem;  position: absolute; top:3.4rem; left:-1.9rem; }
 
     .coin_index .tabs{
         height:3.529411764705882rem; background: #fff;  ; color:#9a9a9a;; line-height: 3.529411764705882rem;
