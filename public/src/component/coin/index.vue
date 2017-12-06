@@ -349,10 +349,10 @@
     .coin_index .product ul li    .last_count span{ display: block; text-align: center; line-height: 1.3; font-size:0.5294117647058824rem; color:#FFFAF4 ; }
     .coin_index .product ul li    .last_count span.count{ color:#FF9933 }
     .coin_index .product .item .img img{ width: 100%;  }
-    .coin_index .product .item .title{ font-size: 0.88235rem; color:#333;}
-    .coin_index .product .item .coin { font-size: 1.2rem; color:#FC9B2C}
+    .coin_index .product .item .title{ font-size: 0.7058823529411765rem; color:#333; margin-top: 0.2rem;}
+    .coin_index .product .item .coin { font-size:0.88235rem; color:#FC9B2C; margin-top: 0.35rem;}
     .coin_index .product .item .coin span{ color:#B1AFAF ; font-size:0.6470588235294118rem; }
-    .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.6rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 3.6rem; position: absolute; right: 0; bottom:0.2rem;}
+    .coin_index .product .item .btn{background: #FF0000; border-radius: 0.3rem; line-height: 1.3rem; font-size: 0.6470588235294118rem; color:#fff; text-align: center; width: 3.4rem; position: absolute; right: 0; bottom:0rem;}
     .coin_index .product .item .btn.change{background: #FC9B2C;}
     .coin_index .product .item .btn.change_over{     background: #d9d9d9;
         color: #fff;}
