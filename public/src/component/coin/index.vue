@@ -326,7 +326,9 @@
                 event.stopPropagation();
             });
 
-            $(".coin_index .product ul li ").height($(".coin_index .product ul li ").eq(1).height())
+           this.$nextTick(function () {
+               $(".coin_index .product ul .add_item ").height($(".coin_index .product ul li ").eq(1).height())
+           })
 
         }
     }
