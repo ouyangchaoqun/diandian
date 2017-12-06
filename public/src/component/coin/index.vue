@@ -326,9 +326,7 @@
                 event.stopPropagation();
             });
 
-           this.$nextTick(function () {
-               $(".coin_index .product ul .add_item ").height($(".coin_index .product ul li ").eq(1).height())
-           })
+
 
         }
     }
@@ -352,7 +350,7 @@
 
 
     .coin_index .product ul{ margin-bottom: 1.176470588235294rem; }
-    .coin_index .product ul li  {position:relative ;background: #fff; width: 50%; float:left;  overflow: hidden ;  padding-top: 0.88235rem; padding-bottom: 0.88235rem; border-top:1px solid #eee; }
+    .coin_index .product ul li  {position:relative ;background: #fff; width: 50%; float:left;  overflow: hidden ;  padding-top: 0.88235rem; padding-bottom: 0.88235rem; border-top:1px solid #eee; height: 12.17647058823529rem; }
 
      .coin_index .product ul li:nth-child(odd):after{ content: ''; height: 100%; width: 1px; position: absolute; right:0;top:0;background: #eee}
     .coin_index .product ul li .item{ margin:0 0.88235rem; position: relative}
