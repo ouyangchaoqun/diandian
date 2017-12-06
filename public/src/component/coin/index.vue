@@ -120,6 +120,7 @@
                         $(".cont_tab ").height( _this.tabHeight[swiper.activeIndex])
                     }
                 });
+                this.mySwiperPre.slideTo(0);
             })
         },
         methods: {
