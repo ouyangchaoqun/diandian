@@ -82,7 +82,9 @@
             this.getAddress();
             this.getUserInfo();
             this.getTaskList();
-            $(".product_top").height( $(document).height()-$(".btn_bottom  ").height())
+
+
+          
         },
         methods: {
             change:function () {
@@ -279,8 +281,8 @@
         components: {
             'v-showLoad':showLoad,
         },
-        updated:{
-
+        updated:function () {
+            $(".product_top").height( $(document).height()-$(".btn_bottom  ").height());
         }
     }
 
