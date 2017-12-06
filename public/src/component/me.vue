@@ -15,7 +15,7 @@
 						<img class="edit" src="../images/info_icon_por.png"/>
 					</div>
 				</div>
-				<div class="coin_btn" @click.stop="goCoin()">我的积分</div>
+				<div class="coin_btn" v-if="false" @click.stop="goCoin()">我的积分</div>
  			</a>
 			</div>
 
