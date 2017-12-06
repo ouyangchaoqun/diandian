@@ -134,7 +134,7 @@
                     this.$http({
                         method: 'GET',
                         type: "json",
-                        url: web.API_PATH + 'wei/xin/create/invite/card/_userId_',
+                        url: web.API_PATH + 'coin/push/coin/card/_userId_/1',
                     }).then(function (data) {
                         _this.showLoad=false;
                         if (data && data.data.status == 1) {

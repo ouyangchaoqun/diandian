@@ -128,6 +128,44 @@
                         if( _this.address.cityId) _this.cityId =  _this.address.cityId;
                         if( _this.address.areaId) _this.areaId =  _this.address.areaId;
                         _this.defaultCity = [_this.provinceId, _this.cityId, _this.areaId];
+                    }else{
+                        //微信地址
+                        wx.openAddress({
+                            success: function (res) {
+                                _this.address.userName= res.userName; // 收货人姓名
+                                _this.provinceName = res.provinceName; // 国标收货地址第一级地址（省）
+                                _this.cityName = res.cityName; // 国标收货地址第二级地址（市）
+                                _this.areaName  = res.countryName; // 国标收货地址第三级地址（区）
+                                _this.address.address = res.detailInfo; // 详细收货地址信息
+                                _this.address.code = res.postalCode; // 邮编
+                                _this.address.mobile  = res.telNumber; // 收货人手机号码
+
+
+//                                循环查询id
+                                $.get('/src/js/city.json', function (areas) {
+                                    for(let i =0;i< areas.length;i++){
+                                        if(areas[i].label===res.provinceName){
+                                            _this.provinceId = areas[i].value;
+                                            for(let j =0;j<areas[i].children.length;j++){
+                                                if(areas[i].children[j].label===res.cityName){
+                                                    _this.cityId = areas[i].children[j].value;
+                                                    for(let k =0;k< areas[i].children[j].children.length;k++){
+                                                        if(areas[i].children[j].children[k].label===res.countryName){
+                                                            _this.areaId = areas[i].children[j].children[k].value;
+                                                            break;
+                                                        }
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                });
+
+                            }
+
+                        });
                     }
                 }, function (error) {
                     //error
