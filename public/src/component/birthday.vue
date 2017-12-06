@@ -47,7 +47,7 @@
                         </div>
                         <div class="text">
                             <template v-if="user!=null&&user.id!=birthdayUserId">发红包</template>
-                            <template v-if="user!=null&&user.id==birthdayUserId">{{getCount.redPacket.amount}}</template>
+                            <template v-if="user!=null&&user.id==birthdayUserId">{{parseFloat(getCount.redPacket.amount||0).toFixed(2)}}</template>
                         </div>
                     </div>
                     <div class="addTipCount"><img src="../images/brith_money.png" alt="">
@@ -80,7 +80,7 @@
                         <img class="flower_style" src="../images/redPackTopBg.png" alt="">
                     </div>
                     <div class="redPacket_input" @click.stop>
-                        <input type="tel" placeholder="红包金额">
+                        <input type="number" placeholder="红包金额" v-model="moneyValue" @input="moneyValueChange()" pattern="/^(((\d|[1-9]\d)(\.\d{1,2})?)|200|200.0|200.00)$/">
                         <span>元</span>
                     </div>
                     <ul class="money_list" @click.stop>
@@ -113,10 +113,10 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="redPacket_sub" @click.stop>塞钱进红包</div>
+                    <div class="redPacket_sub" @click.stop="goPay()">塞钱进红包</div>
                     <div class="redPacket_bottom">
                         <div>-<span>生日红包温馨提示</span>-</div>
-                        <p>发红包时每人单笔最大限额为1000元</p>
+                        <p>发红包时每人单笔最大限额为200元</p>
                         <p>您给寿星发送生日红包后，好一点将会消息通知寿星</p>
                         <p> 寿星可在好一点个人中心查看收到的红包金额,并可体现到微信钱包。</p>
                     </div>
@@ -126,7 +126,7 @@
 
             <div class="bottom_tip">
                 <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
-                    您为他发了{{senderCount.redPacket}}元红包，点了{{senderCount.careCount}}个赞
+                    您为他发了{{parseFloat((senderCount.redPacket||0)).toFixed(2)}}元红包，点了{{senderCount.careCount}}个赞
                 </div>
                 <div class="addText_style" v-if="user!=null&&user.id==birthdayUserId">
                     <div>-<span>生日红包温馨提示</span>-</div>
@@ -174,7 +174,7 @@
                                 <img :src="item.faceUrl"/>
                                 <div class="info">
                                     <div class="name">{{item.nickName | shortName(8)}}</div>
-                                    <span>送了{{item.count}}个赞，发了0元红包</span>
+                                    <span>送了{{item.count}}个赞，发了{{parseFloat(item.totalAmount||0).toFixed(2)}}元红包</span>
                                     <div class="content" v-show="item.content&&item.content!=null&&item.content!=''">
                                         {{item.content}}
                                     </div>
@@ -209,7 +209,7 @@
     .redPacket_top{padding-top:0.6471rem;padding-bottom: 0.88235rem;}
     .flower_style{width:6.76471rem;display: block;margin:0 auto}
     .redPacket_input{width:30%;margin:0 auto;border-bottom: 1px solid rgba(255,57,58,1);padding-bottom: 0.6471rem;position: relative;}
-    .redPacket_input input{width:100%;border:0;outline: none;line-height: 1.176471rem;text-align: center;font-size: 1.235rem;}
+    .redPacket_input input{width:100%;border:0;outline: none;line-height: 1.176471rem;text-align: center;font-size: 1.235rem;color:rgba(255,57,58,1)}
     ::-webkit-input-placeholder { /* WebKit browsers */
         color:   rgba(255,57,58,0.2);
     }
@@ -1123,7 +1123,7 @@
                     redPacket:{}
                 },
                 senderCount:{},
-
+                moneyValue:null,
             }
         },
         filters: {
@@ -1139,6 +1139,21 @@
                 xqzs.eventLog.visit('birthdaysendredpacket')
                 xqzs.weui.tip("该功能暂未开放！",function () {
 
+                })
+            },
+            goPay:function () {
+                let _this = this;
+                let msg = {
+                    'userId':'',//發紅包用戶
+                    'amount':_this.moneyValue,
+                    'message':''
+                }
+                console.log(msg)
+                _this.$http.put(web.API_PATH + 'birthday/red/packet/send/'+_this.birthdayUserId,msg).then(function (res) {
+                    let config = res.data.data;
+                    console.log(res)
+                    let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href + "&start=1");
+                    window.location.href = url
                 })
             },
             goRedPacket:function () {
@@ -1347,6 +1362,10 @@
                     console.log(_this.getCount.care.careCount+'**********')
                 })
             },
+            moneyValueChange:function () {
+                console.log(this.moneyValue)
+                $('.redPack_item').removeClass('redPackChecked')
+            },
             reach: function () {
                 //遍历到达位置
 
@@ -1503,11 +1522,13 @@
 
         },
         updated:function () {
+            let _this = this
             $('.redPack_item').on('click',function(){
                 $('.redPack_item').removeClass('redPackChecked')
                 $(this).addClass('redPackChecked')
-                console.log($(this).find($('.money_item')).text())
+               _this.moneyValue = $(this).find($('.money_item')).text();
             })
-        }
+        },
+
     }
 </script>
