@@ -118,8 +118,7 @@
                     <div class="redPacket_bottom">
                         <div>-<span>生日红包温馨提示</span>-</div>
                         <p>发红包时每人单笔最大限额为{{MAX_MONEY}}元</p>
-                        <p>您给寿星发送生日红包后，好一点将会消息通知寿星</p>
-                        <p> 寿星可在好一点个人中心查看收到的红包金额,并可体现到微信钱包。</p>
+                        <p>您给寿星发送生日红包后</p> <p>“好一点”将会消息通知寿星领取红包</p>
                     </div>
                 </div>
             </div>
@@ -216,7 +215,7 @@
         animation: fadeIn ease .3s forwards;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
-    .redPacket_dialog{width:90%;height:90%;background: #fff;border-radius: 0.88235rem;position: absolute;top:5%;left:5%; overflow-y: auto}
+    .redPacket_dialog{width:90%;height:82%;background: #fff;border-radius: 0.88235rem;position: absolute;top:9%;left:5%; overflow-y: auto}
     .redPacket_dialog .close{ background: url(../images/coin_close.png) no-repeat; width:1rem; height: 1rem; background-size: 1rem; position: absolute; top:1rem; right:1rem}
     .redPacket_top{padding-top:0.6471rem;padding-bottom: 0.88235rem;}
     .flower_style{width:6.76471rem;display: block;margin:0 auto}
@@ -1039,20 +1038,22 @@
         height: 4.529411764705882rem;
         width: 4.529411764705882rem;
         border-radius: 50%;
-        background: #dd3c3b;
+
+        background: rgba(210,159,114,1);
         position: absolute;
-        right: 10%;
+        right: 15%;
         margin-left: -2.264705882352941rem
     }
+
     .redPacket_box{
         right: auto;
-        left:10%;
-        background: rgba(210,159,114,1);
+        left:15%;
+        background: #dd3c3b;
         margin-left: 0;
     }
-
+    .redPacket_box:active{background: #d33b3a !important }
     .heart_click_btn:active {
-        background: rgba(221, 60, 59, 0.8);
+        background: rgb(193, 144, 98);
     }
 
     .heart_click_btn:active .heart_btn {
@@ -1132,7 +1133,7 @@
                 },
                 senderCount:{},
                 moneyValue:null,
-                MAX_MONEY:1000,
+                MAX_MONEY:200,
                 MIN_MONEY:1
             }
         },
