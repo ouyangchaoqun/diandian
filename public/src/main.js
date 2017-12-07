@@ -68,7 +68,8 @@ let routers =
                 require('./routes/coin/index'),
                 require('./routes/coin/list'),
                 require('./routes/coin/address'),
-                require('./routes/coin/product')
+                require('./routes/coin/product'),
+                require('./routes/birthdayTest')
             ]
         }
     ];

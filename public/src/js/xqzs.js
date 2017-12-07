@@ -61,6 +61,9 @@ var xqzs = {
             }, 800);
         },
         tip: function (msg, fun) {
+            if($("#toast").length>0){
+                return ;
+            }
             var html = "";
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
             var len= msg.length;
