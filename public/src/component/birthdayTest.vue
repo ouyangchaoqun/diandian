@@ -1163,8 +1163,8 @@
                 let _this = this;
 
                 let  message = "生日快乐！"
-                 if($(".redPack_item .redPackChecked .money_meaning").length>0){
-                     message=$(".redPack_item .redPackChecked .money_meaning").html();
+                 if($(".redPack_item.redPackChecked .money_meaning").length>0){
+                     message=$(".redPack_item.redPackChecked .money_meaning").html();
                  }
                 let msg = {
                     'userId':'',//發紅包用戶
