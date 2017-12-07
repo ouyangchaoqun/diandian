@@ -64,7 +64,8 @@ let routers =
                 require('./routes/habitCard'),
                 require('./routes/habitDetail'),
                 require('./routes/sign'),
-                require('./routes/signRoom')
+                require('./routes/signRoom'),
+                require('./routes/birthdayTest')
             ]
         }
     ];
