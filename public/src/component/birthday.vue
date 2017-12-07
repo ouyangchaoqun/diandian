@@ -409,7 +409,7 @@
         padding-left:0.70588rem;
     }
     .has_content .info span{
-        color:rgba(153,153,153,1);
+        color:rgba(255,57,58,1);
         font-size: 0.70588rem;
         line-height: 1;
     }
