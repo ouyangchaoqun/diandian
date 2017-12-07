@@ -1550,12 +1550,14 @@
                         }, function (error) {
                         });
                     }
-                    _this.friends();
+
                 }
+                _this.friends();
                 _this.getSender();
                 _this.showLoad = false;
             }, function (error) {
                 _this.friends();
+                _this.getSender();
             });
 
               data = '?userId=_userId_';
