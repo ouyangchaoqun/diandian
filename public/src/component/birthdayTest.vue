@@ -251,7 +251,7 @@
         background: #fbf6eb;
     }
     .page_two{
-        background: url("../images/brithday_page_two.png") no-repeat;
+        background: url("../images/brithday_page_two.png") no-repeat #fbf6eb;
         background-size: 100%;
         margin-top: -3rem;
         padding-top: 3rem;
