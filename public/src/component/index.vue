@@ -3,6 +3,23 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>好一点</div>
         <v-tab tab="home"></v-tab>
+        <div class="birthday_note">
+            <div class="note_bg open">
+                <div class="bg"></div>
+                <div class="page1"></div>
+                <div class="page2"></div>
+                <div class="page3"></div>
+                <div class="page4"></div>
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="flower"></div>
+            </div>
+
+
+
+
+        </div>
+
         <div class="weui-tab__panel" >
             <div class="banner" style="position: relative;">
                 <div class="birthdays swiper-container" v-if="birthdayList&&birthdayList.length>0">
@@ -1072,11 +1089,218 @@
         }
 
     }
-
-
 </script>
 <style>
-    /*新增打卡失败*/
+
+
+    .birthday_note{ background: rgba(0,0,0,0.6); position: fixed; top:0; left:0; height: 100%; width: 100%; z-index: 10000}
+    .birthday_note .note_bg{ width:16.61764705882353rem; height:28.94117647058824rem; ; position: absolute; left:50%; top:50%; margin-left: -8.308823529411765rem; ; margin-top: -16.47058823529412rem;
+        /*animation: note_down 1.5s  forwards ;*/
+        /*-webkit-animation: note_down 1.5s  forwards ;*/
+        /*animation-delay:1s;*/
+        /*-webkit-animation-delay:1s;transform: translate3d(-100%, -100%, 0) rotate(14deg) scale(0.5);*/
+        /*-webkit-transform: translate3d(-100%,-100%, 0) rotate(14deg) scale(0.5); */
+
+    }
+    .birthday_note .note_bg .bg{background:#81512e; position: absolute; left:1%; top:1%; height: 98%; width:98%}
+    .birthday_note .note_bg .page1{ background: url(../images/index_birthday_page1.png) no-repeat; height:80%; background-size: auto 100%     ; position: absolute; top:10%; left:0; z-index: 1 ; width: 80%; margin-left: 1rem; }
+    .birthday_note .note_bg .page2{ background: url(../images/index_birthday_page2.png) no-repeat  top right; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute; top:0; right:0; z-index: 2;width: 100% }
+    .birthday_note .note_bg .page3{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 4;width: 100% }
+    .birthday_note .note_bg .page4{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 3;width: 100% ;-webkit-transform:rotate(180deg);}
+    .birthday_note .note_bg .line1{ background: url(../images/index_birthday_line.png) no-repeat ; height: 2.176470588235294rem; width: 5.705882352941176rem; z-index: 6 ; position: absolute;top:50%; margin-top: -1.088235294117647rem; background-size: 5.705882352941176rem; left:0.8%   }
+    .birthday_note .note_bg .line2{ background: url(../images/index_birthday_line.png) no-repeat top left ; height: 2.176470588235294rem; width: 100%; z-index: 6 ; position: absolute;top:50%; margin-top: -1.088235294117647rem; background-size: 5.705882352941176rem; -webkit-transform:rotateX(0deg) rotateY(180deg); }
+    .birthday_note .note_bg .flower{ background: url(../images/index_birthday_flower.png) no-repeat top left ; height: 6.411764705882353rem; width: 6.294117647058824rem; z-index: 7 ; position: absolute;top:50%; left:50%; margin-top: -3rem; background-size:  6.294117647058824rem; margin-left: -3rem;
+        animation: flower 3.5s infinite;
+        -webkit-animation: flower 3.5s infinite; }
+
+    @keyframes note_down {
+        0% {
+            transform: translate3d(-100%, -100%, 0) rotate(14deg) scale(0.5);
+            -webkit-transform: translate3d(-100%,-100%, 0) rotate(14deg) scale(0.5);
+        }
+
+        100%{
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+            -webkit-transform: translate3d(0,0, 0) rotate(0deg) scale(1);
+        }
+
+    }
+    @keyframes flower {
+        0%{
+              transform:scale(1);
+              -webkit-transform:scale(1);
+        }
+        50%{
+            transform:scale(1.1);
+            -webkit-transform:scale(1.1);
+        }
+        100%{
+            transform:scale(1);
+            -webkit-transform:scale(1);
+        }
+        
+    }
+
+    .birthday_note .open .flower{
+        animation: open_flower 1.5s  forwards ;
+        -webkit-animation: open_flower 1.5s  forwards ;
+    }
+
+
+    .birthday_note .open .line1{
+        animation: line_left_disappear 1.5s  forwards ;
+        -webkit-animation: line_left_disappear 1.5s  forwards ;
+         animation-delay:1s;
+         -webkit-animation-delay:1s;
+}
+    .birthday_note .open .line2{
+        animation: line_right_disappear 1.5s  forwards ;
+        -webkit-animation: line_right_disappear 1.5s  forwards ;
+        animation-delay:1s;
+        -webkit-animation-delay:1s;
+    }
+
+    .birthday_note .open .line2{
+        animation: line_right_disappear 1.5s  forwards ;
+        -webkit-animation: line_right_disappear 1.5s  forwards ;
+        animation-delay:1s;
+        -webkit-animation-delay:1s;
+    }
+
+
+    .birthday_note .open .page3{
+        animation: page3_disappear 0.5s  forwards ;
+        -webkit-animation: page3_disappear 0.5s  forwards ;
+        animation-delay:2.5s;
+        -webkit-animation-delay:2.5s;
+    }
+    .birthday_note .open .page4{
+        animation: page4_disappear 0.5s  forwards ;
+        -webkit-animation: page4_disappear 0.5s  forwards ;
+        animation-delay:3s;
+        -webkit-animation-delay:3s;
+    }
+
+    .birthday_note .open .page3{
+        animation: page3_disappear 0.5s  forwards ;
+        -webkit-animation: page3_disappear 0.5s  forwards ;
+        animation-delay:2.5s;
+        -webkit-animation-delay:2.5s;
+    }
+
+
+    .birthday_note .open .page1{
+        animation: page1_show 1.5s  forwards ;
+        -webkit-animation: page1_show 1.5s  forwards ;
+        animation-delay:4s;
+        -webkit-animation-delay:4s;
+    }
+
+    @keyframes page1_show  {
+        0% {
+            transform: translate3d(0%, 0%, 0)  scale(1);
+            -webkit-transform: translate3d(0%,0%, 0) scale(1) ;
+            z-index: 1;
+        }
+        50% {
+            transform: translate3d(-100%, 0%, 0) scale(1);
+            -webkit-transform: translate3d(-100%,0%, 0) scale(1) ;
+            z-index: 1;
+        }
+        51% {
+            transform: translate3d(-100%, 0%, 0)scale(1) ;
+            -webkit-transform: translate3d(-100%,0%, 0) scale(1) ;
+            z-index: 6;
+        }
+        100%{
+            transform: translate3d(0%, 0%, 0) scale(1.1) ;
+            -webkit-transform: translate3d(0%,0%, 0) scale(1.1)   ;
+            z-index: 6;
+        }
+    }
+
+
+    @keyframes page3_disappear  {
+        0% {
+            transform: translate3d(0%, 0%, 0) ;
+            -webkit-transform: translate3d(0%,0%, 0)  ;
+        }
+        100%{
+            transform: translate3d(-100%, 0%, 0) ;
+            -webkit-transform: translate3d(-100%,0%, 0)  ;
+        }
+    }
+
+
+    @keyframes page4_disappear  {
+        0% {
+            transform: translate3d(0%, 0%, 0)  rotate(180deg);;
+            -webkit-transform: translate3d(0%,0%, 0)  rotate(180deg); ;
+        }
+        100%{
+            transform: translate3d(100%, 0%, 0)  rotate(180deg);;
+            -webkit-transform: translate3d(100%,0%, 0)  rotate(180deg);;
+        }
+    }
+
+
+    @keyframes line_left_disappear  {
+        0% {
+            transform: translate3d(0%, 0%, 0) scale(1)  ;
+            -webkit-transform: translate3d(0%,0%, 0)  scale(1) ;
+            opacity: 1;
+        }
+        40%{
+            transform: translate3d(-100%, -100%, 0) scale(0.6);
+            -webkit-transform: translate3d(-100%,-100%, 0)   scale(0.6);
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            transform: translate3d(-100%, -100%, 0) scale(0.2);
+            -webkit-transform: translate3d(-100%,-100%, 0)   scale(0.2);
+        }
+    }
+    @keyframes line_right_disappear  {
+        0% {
+            transform: translate3d(0%, 0%, 0) scale(1)  rotateX(0deg) rotateY(180deg) ;
+            -webkit-transform: translate3d(0%,0%, 0)  scale(1)  rotateX(0deg) rotateY(180deg);
+            opacity: 1;
+
+        }
+        40%{
+            transform: translate3d(100%, -100%, 0) scale(0.6) rotateX(0deg) rotateY(180deg);
+            -webkit-transform: translate3d(100%,-100%, 0)   scale(0.6) rotateX(0deg) rotateY(180deg);
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            transform: translate3d(100%, -100%, 0) scale(0.2) rotateX(0deg) rotateY(180deg);
+            -webkit-transform: translate3d(100%,-100%, 0)   scale(0.2) rotateX(0deg) rotateY(180deg);
+        }
+    }
+
+
+@keyframes open_flower  {
+    0% {
+        transform: translate3d(0%, 0%, 0) rotate(0deg) scale(1);
+        -webkit-transform: translate3d(0%,0%, 0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    40%{
+        transform: translate3d(0, 0, 0) rotate(360deg) scale(0.6);
+        -webkit-transform: translate3d(0,0, 0) rotate(360deg) scale(0.6);
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: translate3d(100%, -100%, 0) rotate(720deg) scale(0);
+        -webkit-transform: translate3d(100%,-100%, 0) rotate(720deg) scale(0);
+    }
+}
+
+
+/*新增打卡失败*/
     .record_loseBox{z-index:10001 !important;}
     .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;text-align: center;}
     .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
