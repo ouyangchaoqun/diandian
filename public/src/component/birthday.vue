@@ -165,7 +165,7 @@
         <div class="page_two">
             <div id="friends">
                 <div class="friend_list">
-                    <div class="top">祝福<span v-if="user!=null&&user.id!=birthdayUserId">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人</div>
+                    <div class="top">祝福<span v-if="(user!=null&&user.id!=birthdayUserId)||user==null">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人</div>
                     <ul>
                         <li v-for="(item,index) in  friendList" v-if="item.userId!=0"
                             class="has_content" :class="{no_has_content:!(item.content&&item.content!=null&&item.content!='')}">
