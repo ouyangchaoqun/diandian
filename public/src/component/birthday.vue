@@ -47,7 +47,7 @@
                         </div>
                         <div class="text">
                             <template v-if="user!=null&&user.id!=birthdayUserId">发红包</template>
-                            <template v-if="user!=null&&user.id==birthdayUserId">{{parseFloat(getCount.redPacket.amount||0).toFixed(2)}}</template>
+                            <template v-if="user!=null&&user.id==birthdayUserId">{{formatMyMoney(getCount.redPacket.amount)}}</template>
                         </div>
                     </div>
                     <div class="addTipCount"><img src="../images/brith_money.png" alt="">
@@ -74,8 +74,9 @@
             <!--新增红包部分-->
 
             <!--发红包弹窗-->
-            <div  class="weui-mask weui-animate-fade-in redPacket_mask" v-show="redPackFlag" @click="hideRedPacket()" @touchmove.prevent>
+            <div  class="redPacket_mask" v-show="redPackFlag"  @touchmove.prevent>
                 <div class="redPacket_dialog" >
+                    <div class="close" @click="hideRedPacket()" ></div>
                     <div class="redPacket_top">
                         <img class="flower_style" src="../images/redPackTopBg.png" alt="">
                     </div>
@@ -85,7 +86,7 @@
                     </div>
                     <ul class="money_list" @click.stop>
                         <li>
-                            <div class="redPack_item redPackChecked">
+                            <div class="redPack_item">
                                 <div class="money_item">1.68</div>
                                 <div class="money_meaning">一路发财</div>
                             </div>
@@ -116,7 +117,7 @@
                     <div class="redPacket_sub" @click.stop="goPay()">塞钱进红包</div>
                     <div class="redPacket_bottom">
                         <div>-<span>生日红包温馨提示</span>-</div>
-                        <p>发红包时每人单笔最大限额为200元</p>
+                        <p>发红包时每人单笔最大限额为{{MAX_MONEY}}元</p>
                         <p>您给寿星发送生日红包后，好一点将会消息通知寿星</p>
                         <p> 寿星可在好一点个人中心查看收到的红包金额,并可体现到微信钱包。</p>
                     </div>
@@ -160,21 +161,20 @@
             <div id="output" class="output" style="display: none"></div>
             <div class="myshare" v-show="isShowShareTip" @click="share()">
             </div>
-            <!--<div class="down"></div>-->
-        </div>
+         </div>
         <div class="page_two">
             <div id="friends">
                 <div class="friend_list">
                     <div class="top">祝福我的人</div>
                     <ul>
                         <li v-for="(item,index) in  friendList" v-if="item.userId!=0"
-                            :class="{has_content:item.content&&item.content!=null||(user!=null&&user.id==item.userId)}">
+                            class="has_content">
                             <template v-if="item.userId!=0">
                                 <i class="item_index">{{index+1}}</i>
                                 <img :src="item.faceUrl"/>
                                 <div class="info">
                                     <div class="name">{{item.nickName | shortName(8)}}</div>
-                                    <span>送了{{item.count}}个赞，发了{{parseFloat(item.totalAmount||0).toFixed(2)}}元红包</span>
+                                    <span><font v-if="item.count>0">送了{{item.count}}个赞 </font><font v-if="item.totalAmount>0&&item.count>0">，</font><font v-if="item.totalAmount>0">发了{{parseFloat(item.totalAmount||0).toFixed(2)}}元红包</font></span>
                                     <div class="content" v-show="item.content&&item.content!=null&&item.content!=''">
                                         {{item.content}}
                                     </div>
@@ -198,14 +198,26 @@
             <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
         </div>
 
-        <!--<div class="send_red_packet" @click="sendRedPacket()">发红包</div>-->
-    </div>
+     </div>
 </template>
 <style>
     .addTipCount{color:rgba(144,73,59,1);font-size: 0.6471rem;line-height: 1;position: absolute;top:-1.5rem;width:130%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
     .addTipCount img{width:12px;display: inline-block;float: left;margin-right: 0.235rem;}
-    .redPacket_mask{z-index: 1005;}
+    .redPacket_mask{z-index: 1005;
+        position: fixed;
+
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+
+        -webkit-animation: fadeIn ease .3s forwards;
+        animation: fadeIn ease .3s forwards;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
     .redPacket_dialog{width:90%;height:90%;background: #fff;border-radius: 0.88235rem;position: absolute;top:5%;left:5%;}
+    .redPacket_dialog .close{ background: url(../images/coin_close.png) no-repeat; width:1rem; height: 1rem; background-size: 1rem; position: absolute; top:1rem; right:1rem}
     .redPacket_top{padding-top:0.6471rem;padding-bottom: 0.88235rem;}
     .flower_style{width:6.76471rem;display: block;margin:0 auto}
     .redPacket_input{width:30%;margin:0 auto;border-bottom: 1px solid rgba(255,57,58,1);padding-bottom: 0.6471rem;position: relative;}
@@ -213,15 +225,7 @@
     ::-webkit-input-placeholder { /* WebKit browsers */
         color:   rgba(255,57,58,0.2);
     }
-    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        color:   rgba(255,57,58,0.2);
-    }
-    ::-moz-placeholder { /* Mozilla Firefox 19+ */
-        color:   rgba(255,57,58,0.2);
-    }
-    :-ms-input-placeholder { /* Internet Explorer 10+ */
-        color:    rgba(255,57,58,0.2);
-    }
+
     .redPacket_input span{position: absolute;color:rgba(255,57,58,1);font-size: 0.88235rem;right:-1.5rem;line-height: 1;top:50%;margin-top:-0.441175rem;}
     .money_list{padding: 1.88235rem 1.0588235rem 0.588235rem 1.0588235rem;}
     .money_list li{display: flex; display: -webkit-flex;margin-bottom: 0.88235rem;height:3.1176471rem;}
@@ -1124,6 +1128,8 @@
                 },
                 senderCount:{},
                 moneyValue:null,
+                MAX_MONEY:1000,
+                MIN_MONEY:1
             }
         },
         filters: {
@@ -1135,6 +1141,14 @@
             'v-showLoad': showLoad
         },
         methods: {
+            formatMyMoney:function (v) {
+                if(v>1000){
+                    return  parseInt(v||0);
+                }else{
+                    return  parseFloat(v||0).toFixed(2);
+                }
+
+            },
             sendRedPacket:function () {
                 xqzs.eventLog.visit('birthdaysendredpacket')
                 xqzs.weui.tip("该功能暂未开放！",function () {
@@ -1158,7 +1172,12 @@
             },
             goRedPacket:function () {
               let _this = this;
-              _this.redPackFlag = true;
+              if(_this.birthdayUserId==this.user.id){
+                  xqzs.weui.tip("快邀请好友给自己发红包");
+              }else{
+                  _this.redPackFlag = true;
+              }
+
             },
             hideRedPacket:function () {
                 let _this = this;
@@ -1363,8 +1382,25 @@
                 })
             },
             moneyValueChange:function () {
-                console.log(this.moneyValue)
-                $('.redPack_item').removeClass('redPackChecked')
+                let _this=this;
+                console.log(this.moneyValue);
+                if(this.moneyValue>this.MAX_MONEY){
+                    this.moneyValue = this.MAX_MONEY;
+                    xqzs.weui.tip("不能超过最大值！")
+                }
+                if(this.moneyValue<this.MIN_MONEY){
+                    this.moneyValue = this.MIN_MONEY;
+                    xqzs.weui.tip("不能低于最小值！")
+                }
+                $('.redPack_item').each(function (i) {
+                    let money = $(this).find(".money_item").html();
+                    console.log(money)
+                    $(this).removeClass('redPackChecked')
+                    if(money==_this.moneyValue){
+                        $(this).addClass('redPackChecked')
+                    }
+                });
+
             },
             reach: function () {
                 //遍历到达位置
