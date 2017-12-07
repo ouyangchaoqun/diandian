@@ -32,7 +32,7 @@
                 <div style="clear: both"></div>
            </div>
            <div class="product_detail">
-               <div class="product_detail_header">商品介绍</div>
+               <div class="product_detail_header"></div>
                <div class="product_content" v-html=" goods.description">
 
 
