@@ -165,10 +165,10 @@
         <div class="page_two">
             <div id="friends">
                 <div class="friend_list">
-                    <div class="top">祝福我的人</div>
+                    <div class="top">祝福<span v-if="user!=null&&user.id!=birthdayUserId">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人</div>
                     <ul>
                         <li v-for="(item,index) in  friendList" v-if="item.userId!=0"
-                            class="has_content">
+                            class="has_content" :class="{no_has_content:!(item.content&&item.content!=null&&item.content!='')}">
                             <template v-if="item.userId!=0">
                                 <i class="item_index">{{index+1}}</i>
                                 <img :src="item.faceUrl"/>
@@ -372,6 +372,10 @@
         display: flex;
         margin-bottom: 0.88235rem;
     }
+    .friend_list ul li.no_has_content{
+        min-height: 3.1rem;
+    }
+
     .item_index{
         position: absolute;
         left:0;
@@ -1362,6 +1366,7 @@
 
                             that.friends();
                             that.getSender();
+                            that.getReceiver();
                         }
                     });
 
