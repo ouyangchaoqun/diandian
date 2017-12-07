@@ -34,22 +34,104 @@
             </div>
             <div class="clear"></div>
 
-            <div class="tip">点赞送生日祝福</div>
-            <div class="count">{{count}}</div>
+            <!--<div class="tip">点赞送生日祝福</div>-->
+            <!--<div class="count">{{count}}</div>-->
             <div class="heart_a">
 
             </div>
-            <div class="heart_click_btn" @click="addHeart">
+            <div class="heart_click_Box">
+                <div class="heart_click_btn redPacket_box" @click="goRedPacket()">
+                    <div class="btn">
+                        <div class="redPacket_btn">
+                            <img src="../images/redPacket_btn.png" alt="">
+                        </div>
+                        <div class="text">
+                            <template v-if="(user!=null&&user.id!=birthdayUserId)||user==null">发红包</template>
+                            <template v-if="user!=null&&user.id==birthdayUserId">{{formatMyMoney(getCount.redPacket.amount)}}</template>
+                        </div>
+                    </div>
+                    <div class="addTipCount"><img src="../images/brith_money.png" alt="">
 
-                <div class="btn">
-                    <div class="heart_btn"></div>
-                    <div class="text">点赞</div>
+                        {{getCount.redPacket.userCount}}个好友红包
+                    </div>
                 </div>
+                <div class="heart_click_btn" @click="addHeart">
 
+                    <div class="btn">
+                        <div class="heart_btn"></div>
+                        <div class="text">
+                            <template v-if="(user!=null&&user.id!=birthdayUserId)||user==null">点赞</template>
+                            <template v-if="user!=null&&user.id==birthdayUserId">{{getCount.care.careCount}}</template>
+                        </div>
+                    </div>
+                    <div class="addTipCount">
+                        <img src="../images/brith_zan.png" alt="">
+                        {{getCount.care.userCount}}个好友祝福
+                    </div>
+                </div>
             </div>
+            <div style="clear: both"></div>
+            <!--新增红包部分-->
+
+            <!--发红包弹窗-->
+            <div  class="redPacket_mask" v-show="redPackFlag"  @touchmove.prevent>
+                <div class="redPacket_dialog" >
+                    <div class="close" @click="hideRedPacket()" ></div>
+                    <div class="redPacket_top">
+                        <img class="flower_style" src="../images/redPackTopBg.png" alt="">
+                    </div>
+                    <div class="redPacket_input" @click.stop>
+                        <input type="number" placeholder="红包金额" v-model="moneyValue" @input="moneyValueChange()" pattern="/^(((\d|[1-9]\d)(\.\d{1,2})?)|200|200.0|200.00)$/">
+                        <span>元</span>
+                    </div>
+                    <ul class="money_list" @click.stop>
+                        <li>
+                            <div class="redPack_item">
+                                <div class="money_item">1.68</div>
+                                <div class="money_meaning">一路发财</div>
+                            </div>
+                            <div class="redPack_item">
+                                <div class="money_item">5.20</div>
+                                <div class="money_meaning">我爱你</div>
+                            </div>
+                            <div class="redPack_item">
+                                <div class="money_item">6.66</div>
+                                <div class="money_meaning">一帆风顺</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="redPack_item">
+                                <div class="money_item">8.88</div>
+                                <div class="money_meaning">发发发</div>
+                            </div>
+                            <div class="redPack_item">
+                                <div class="money_item">9.99</div>
+                                <div class="money_meaning">长长久久</div>
+                            </div>
+                            <div class="redPack_item">
+                                <div class="money_item">13.14</div>
+                                <div class="money_meaning">一生一世</div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="redPacket_sub" @click.stop="goPay()">塞钱进红包</div>
+                    <div class="redPacket_bottom">
+                        <div>-<span>生日红包温馨提示</span>-</div>
+                        <p>发红包时每人单笔最大限额为{{MAX_MONEY}}元</p>
+                        <p>您给寿星发送生日红包后</p> <p>“好一点”将会消息通知寿星领取红包</p>
+                    </div>
+                </div>
+            </div>
+            <!--点赞-->
+
             <div class="bottom_tip">
-                <div class="text" @click="share()" v-if="user!=null"><img :src="user.faceUrl"/>
-                    您点了{{myCareCount}}次赞，邀请好友一起点赞
+                <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
+                    您为他发了{{parseFloat((senderCount.redPacket||0)).toFixed(2)}}元红包，点了{{senderCount.careCount}}个赞
+                </div>
+                <div class="addText_style" v-if="user!=null&&user.id==birthdayUserId">
+                    <div>-<span>生日红包温馨提示</span>-</div>
+                    <p>好友给您发生日红包后，好一点将会消息通知您</p>
+                    <p>您可在好一点-个人中心查看收到的红包金额，并可提现到微信钱包！</p>
                 </div>
             </div>
             <div id="follow" style="display: none">
@@ -78,53 +160,102 @@
             <div id="output" class="output" style="display: none"></div>
             <div class="myshare" v-show="isShowShareTip" @click="share()">
             </div>
-            <div class="down"></div>
         </div>
-
-        <div id="friends">
-            <div class="friend_list">
-                <div class="top">点赞的人</div>
-                <ul>
-                    <li v-for="item in  friendList" v-if="item.userId!=0"
-                        :class="{has_content:item.content&&item.content!=null||(user!=null&&user.id==item.userId)}">
-                        <template v-if="item.userId!=0">
-                            <img :src="item.faceUrl"/>
-                            <div class="info">
-                                <div class="name">{{item.nickName | shortName(8)}}</div>
-                                <div class="content" v-show="item.content&&item.content!=null&&item.content!=''">
-                                    {{item.content}}
+        <div class="page_two">
+            <div id="friends">
+                <div class="friend_list">
+                    <div class="top">祝福<span v-if="(user!=null&&user.id!=birthdayUserId)||user==null">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人</div>
+                    <ul>
+                        <li v-for="(item,index) in  friendList" v-if="item.userId!=0"
+                            class="has_content" :class="{no_has_content:!(item.content&&item.content!=null&&item.content!='')}">
+                            <template v-if="item.userId!=0">
+                                <i class="item_index">{{index+1}}</i>
+                                <img :src="item.faceUrl"/>
+                                <div class="info">
+                                    <div class="name">{{item.nickName | shortName(8)}}</div>
+                                    <span><font v-if="item.count>0">送了{{item.count}}个赞 </font><font v-if="item.totalAmount>0&&item.count>0">，</font><font v-if="item.totalAmount>0">发了{{parseFloat(item.totalAmount||0).toFixed(2)}}元红包</font></span>
+                                    <div class="content" v-show="item.content&&item.content!=null&&item.content!=''">
+                                        {{item.content}}
+                                    </div>
+                                    <div class="content submitContent" @click="submitContent"
+                                         v-show="!(item.content&&item.content!=null&&item.content!='')&&user&&user.id==item.userId">
+                                        送祝福
+                                    </div>
                                 </div>
-                                <div class="content submitContent" @click="submitContent"
-                                     v-show="!(item.content&&item.content!=null&&item.content!='')&&user.id==item.userId">
-                                    送祝福
-                                </div>
-                            </div>
 
-                            <span>{{item.count}}个赞</span>
-                            <div class="clear"></div>
 
-                        </template>
-                        <template v-else=""><img src="../images/birthday/wxfriend.png"/>微信好友<span>{{item.count}}个赞</span>
-                        </template>
-                    </li>
-                </ul>
+                                <div class="clear"></div>
+
+                            </template>
+                            <template v-else=""><img src="../images/birthday/wxfriend.png"/>微信好友<span>{{item.count}}个赞</span>
+                            </template>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-
+            <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
         </div>
-        <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
-        <div class="send_red_packet" @click="sendRedPacket()">发红包</div>
+
     </div>
 </template>
 <style>
+    .addTipCount{color:rgba(144,73,59,1);font-size: 0.6471rem;line-height: 1;position: absolute;top:-1.5rem;width:130%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
+    .addTipCount img{width:12px;display: inline-block;float: left;margin-right: 0.235rem;}
+    .redPacket_mask{z-index: 1005;
+        position: fixed;
 
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+
+        -webkit-animation: fadeIn ease .3s forwards;
+        animation: fadeIn ease .3s forwards;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    .redPacket_dialog{width:90%;height:90%;background: #fff;border-radius: 0.88235rem;position: absolute;top:5%;left:5%; overflow-y: auto}
+    .redPacket_dialog .close{ background: url(../images/coin_close.png) no-repeat; width:1rem; height: 1rem; background-size: 1rem; position: absolute; top:1rem; right:1rem}
+    .redPacket_top{padding-top:0.6471rem;padding-bottom: 0.88235rem;}
+    .flower_style{width:6.76471rem;display: block;margin:0 auto}
+    .redPacket_input{width:30%;margin:0 auto;border-bottom: 1px solid rgba(255,57,58,1);padding-bottom: 0.6471rem;position: relative;}
+    .redPacket_input input{width:100%;border:0;outline: none;line-height: 1.176471rem;text-align: center;font-size: 1.235rem;color:rgba(255,57,58,1)}
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color:   rgba(255,57,58,0.2);
+    }
+
+    .redPacket_input span{position: absolute;color:rgba(255,57,58,1);font-size: 0.88235rem;right:-1.5rem;line-height: 1;top:50%;margin-top:-0.441175rem;}
+    .money_list{padding: 1.88235rem 1.0588235rem 0.588235rem 1.0588235rem;}
+    .money_list li{display: flex; display: -webkit-flex;margin-bottom: 0.88235rem;height:3.1176471rem;}
+    .money_list .money_item{font-size: 0.941176471rem;line-height: 1;padding:0.5rem 0;}
+    .money_list .money_meaning{font-size: 0.70588235rem;line-height: 1;}
+    .money_list li>div{flex: 1;text-align: center;border:1px solid rgba(255,102,102,1);color:rgba(255,57,58,1);}
+    .money_list li>div.redPackChecked{background: rgba(255,57,58,1);color:rgba(255,255,255,1);}
+    .money_list li>div:nth-of-type(2){margin:0 0.88235rem;}
+    .redPacket_sub{width:35%;line-height: 2.4rem;color:rgba(255,255,255,1);text-align: center;font-size: 0.88235rem;border-radius: 1.176471rem;margin: 0 auto;background: rgba(255,57,58,1);}
+    .redPacket_bottom{ margin-top:1rem; width:100%;}
+    .redPacket_bottom div{font-size: 0.76471rem;line-height: 1;margin-bottom: 0.941rem;text-align: center;color: rgba(0,0,0,1);}
+    .redPacket_bottom div span{color:rgba(51,51,51,1);margin: 0 0.5rem}
+    .redPacket_bottom p{text-align: center;color:rgba(135,133,133,1);font-size: 0.588235rem;line-height: 1rem;}
     .send_red_packet{
         background: url(../images/send_red_packet.png) no-repeat #f01d1d ; background-position: 0 0.6rem; background-size: 100%; height:4rem; width: 3rem ; border-radius: 0.8rem; ; font-size: 0.7rem; font-weight: bold; text-align: center; color:#fff; line-height: 6rem; overflow: hidden; position: fixed; right:1rem; bottom:1rem; z-index: 10000;top:68%;
     }
     .send_red_packet:active{background: url(../images/send_red_packet.png) no-repeat #bf1a1a; background-size: 100%; background-position: 0 0.6rem;}
-
+    .birthday_box{
+        background: rgba(255,255,255,1);
+    }
     .page_one {
         width: 100%;
-        height: 100%
+        /*height: 100%*/
+        background: #fbf6eb;
+    }
+    .page_two{
+        background: url("../images/brithday_page_two.png") no-repeat #fbf6eb;
+        background-size: 100%;
+        margin-top: -3rem;
+        padding-top: 3rem;
+        padding-bottom: 2rem;
     }
 
     .birthday_box .down {
@@ -156,18 +287,16 @@
     }
 
     .goInfo {
-        background: #0BB20C;
-        color: #fff;
+        color: rgba(255,57,58,1);
         text-align: center;
-        padding: 4px 12px;
-        width: 60%;
+        width: 34%;
         display: block;
         margin: 12px auto;
         font-size: 0.8823529411764706rem;
-        margin-bottom: 26px;
-        border-radius: 8px;
+        border-radius: 1.176471rem;
+        border:1px solid rgba(244,76,76,1);
+        line-height:2.35rem;
     }
-
 
     .img.smill img {
         width: 10rem;
@@ -190,15 +319,16 @@
         overflow: hidden;
         height: 100%;
         margin: 0 auto;
-        width: 90%;
         margin-bottom: 1rem;
+        background: #fff;
     }
 
     .friend_list .top {
-        color: #e84965;
+        color: rgba(255,57,58,1);
         text-align: center;
-        height: 2rem;
-        margin-top: 2rem;
+        line-height: 1;
+        margin-bottom: 2rem;
+        font-size:1.1176471rem ;
     }
 
     .friend_list .top:before {
@@ -226,8 +356,8 @@
     }
 
     .friend_list ul {
-
-        width: 100%;
+        margin:0 auto;
+        width: 77%;
     }
 
     .friend_list ul li {
@@ -239,43 +369,58 @@
         font-size: 0.8823529411764706rem;
         clear: both;
         position: relative;
+        display: flex;
+        margin-bottom: 0.88235rem;
+    }
+    .friend_list ul li:last-child{ border-bottom: none}
+    .friend_list ul li.no_has_content{
+        min-height: 3.1rem;
+    }
+
+    .item_index{
+        position: absolute;
+        left:0;
+        font-style: normal;
+        font-size: 0.8235rem;
+        color:rgba(153,153,153,1);
+        line-height: 1;
+        top:0.8235rem;
     }
 
     .clear {
         clear: both
     }
 
-    .friend_list ul li:last-child {
-        margin-bottom: 8px;
-    }
 
     .friend_list ul li img {
         display: block;
-        float: left;
-        width: 2rem;
-        height: 2rem;
-        margin: 0.75rem;
-        margin-left: 15px;
-        border-radius: 0.4rem;
+        width: 2.294rem;
+        height: 2.294rem;
+        margin-left: 1.176471rem;
+        border-radius: 50%;
     }
 
-    .friend_list .info {
-        display: inline-block;
-        float: left;
-        width: 80%
-    }
 
     .friend_list .has_content {
         line-height: 22px !important
     }
-
-    .friend_list .has_content .info {
-        margin-top: 0.5rem;
+    .has_content .info{
+        padding-left:0.70588rem;
     }
+    .has_content .info span{
+        color:rgba(153,153,153,1);
+        font-size: 0.70588rem;
+        line-height: 1;
+    }
+    .has_content .name{
+        color:rgba(54,54,54,1);
+        font-size: 0.88235rem;
+        line-height: 1;
+    }
+
 
     .friend_list .content {
         font-size: 0.72rem;
-        width: 80%;
         color: #777;
         margin-bottom: 0.3529411764705882rem;
         line-height: 1rem;
@@ -284,20 +429,6 @@
 
     .submitContent {
         color: dodgerblue !important;
-    }
-
-    .friend_list ul li span {
-        font-size: 0.8235294117647059rem;
-        text-align: right;
-        display: inline-block;
-        color: #914951;
-        position: absolute;
-        right: 15px;
-        top: 0px;
-    }
-
-    .friend_list .has_content span {
-        top: 16px;
     }
 
     .myshare {
@@ -356,6 +487,8 @@
 
     .bottom_tip {
         text-align: center;
+        margin-top:6.5rem;
+        padding-bottom: 3.8rem;
     }
 
     .bottom_tip .text {
@@ -367,9 +500,23 @@
         padding-right: 12px;
         border-radius: 0.823529411764706rem;
         font-size: 0.6470588235294118rem;
-        margin-top: 6.3rem;
         color: #8e664d;
-        margin-bottom: 2rem;
+
+    }
+    .bottom_tip .addText_style{
+        color:rgba(162,101,87,1);
+        text-align: center;
+    }
+    .bottom_tip .addText_style span{
+        color:rgba(144,73,59,1);
+        font-size: 0.76471rem;
+        margin:0 0.411rem;
+        line-height: 1;
+        margin-bottom: 0.88235rem;
+    }
+    .bottom_tip .addText_style p{
+        font-size: 0.6471rem;
+        line-height: 1rem;
     }
 
     .bottom_tip .text img {
@@ -385,9 +532,6 @@
         margin-left: 6px
     }
 
-    .birthday_box {
-        background: #fbf6eb
-    }
 
     .birthday_box .top_info {
         padding-top: 4.8rem;
@@ -714,23 +858,23 @@
     @keyframes heart_move1 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);
-            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);
+            transform: translate3d(8.18rem, 6.42rem, 0) rotate(0deg);
+            -webkit-transform: translate3d(8.18rem, 6.42rem, 0) rotate(0deg);
 
         }
         10% {
 
-            transform: translate3d(1rem, 7.2rem, 0) rotate(-7deg);
-            -webkit-transform: translate3d(1rem, 7.2rem, 0) rotate(-7deg);
+            transform: translate3d(7.18rem,5.42rem, 0) rotate(-7deg);
+            -webkit-transform: translate3d(7.18rem,5.42rem, 0) rotate(-7deg);
         }
         40% {
-            transform: translate3d(0.2rem, 5.4rem, 0) rotate(17deg);
-            -webkit-transform: translate3d(0.2rem, 5.4rem, 0) rotate(17deg);
+            transform: translate3d(5.18rem, 4.88rem, 0) rotate(17deg);
+            -webkit-transform: translate3d(5.18rem, 4.88rem, 0) rotate(17deg);
         }
         60% {
             opacity: 0.7;
-            transform: translate3d(1.3rem, 3.6rem, 0) rotate(-4deg);
-            -webkit-transform: translate3d(1.3rem, 3.6rem, 0) rotate(-4deg);
+            transform: translate3d(2.18rem, 3.88rem, 0) rotate(-4deg);
+            -webkit-transform: translate3d(2.18rem, 3.88rem, 0) rotate(-4deg);
         }
         80% {
             transform: translate3d(0.8rem, 1.8rem, 0) rotate(18deg);
@@ -749,23 +893,23 @@
     @keyframes heart_move2 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);;
-            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(0deg);;
+            transform: translate3d(8.18rem, 6.42rem, 0) rotate(0deg);;
+            -webkit-transform: translate3d(8.18rem, 6.42rem, 0) rotate(0deg);;
         }
 
         11% {
 
-            transform: translate3d(2rem, 7.2rem, 0) rotate(10deg);
-            -webkit-transform: translate3d(2rem, 7.2rem, 0) rotate(10deg);
+            transform: translate3d(8.18rem,5.88rem, 0) rotate(10deg);
+            -webkit-transform: translate3d(8.18rem,5.88rem, 0) rotate(10deg);
         }
         40% {
-            transform: translate3d(2.2rem, 5.4rem, 0) rotate(12deg);
-            -webkit-transform: translate3d(2.2rem, 5.4rem, 0) rotate(12deg);
+            transform: translate3d(6.18rem, 4.68rem, 0) rotate(12deg);
+            -webkit-transform: translate3d(6.18rem, 4.62rem, 0) rotate(12deg);
         }
         60% {
             opacity: 0.4;
-            transform: translate3d(2.3rem, 3.6rem, 0) rotate(13deg);
-            -webkit-transform: translate3d(2.3rem, 3.6rem, 0) rotate(13deg);
+            transform: translate3d(4.18rem, 3.88rem, 0) rotate(13deg);
+            -webkit-transform: translate3d(4.18rem, 3.88rem, 0) rotate(13deg);
         }
         80% {
             transform: translate3d(2.8rem, 1.8rem, 0) rotate(-18deg);
@@ -783,22 +927,22 @@
     @keyframes heart_move3 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 9rem, 0) rotate(-4deg);
-            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(-4deg);
+            transform: translate3d(8.18rem, 6.42rem, 0) rotate(-4deg);
+            -webkit-transform: translate3d(8.18rem, 6.42rem, 0) rotate(-4deg);
         }
         12% {
 
-            transform: translate3d(1.1rem, 7.2rem, 0) rotate(-4deg);
-            -webkit-transform: translate3d(1.1rem, 7.2rem, 0) rotate(-4deg);
+            transform: translate3d(7.1rem,5.2rem, 0) rotate(-4deg);
+            -webkit-transform: translate3d(7.1rem, 5.2rem, 0) rotate(-4deg);
         }
         40% {
-            transform: translate3d(0.8rem, 5.4rem, 0) rotate(-14deg);
-            -webkit-transform: translate3d(0.8rem, 5.4rem, 0) rotate(-14deg);
+            transform: translate3d(5.8rem, 4.4rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(5.8rem, 4.4rem, 0) rotate(-14deg);
         }
         60% {
             opacity: 0.6;
-            transform: translate3d(0.3rem, 3.6rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(0.3rem, 3.6rem, 0) rotate(14deg);
+            transform: translate3d(3.3rem, 3.6rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(3.3rem, 3.6rem, 0) rotate(14deg);
         }
         80% {
             transform: translate3d(1.7rem, 1.8rem, 0) rotate(-10deg);
@@ -815,22 +959,22 @@
 
     @keyframes heart_move4 {
         0% {
-            transform: translate3d(1.56rem, 9rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(14deg);
+            transform: translate3d(8.18rem, 6.42rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(8.18rem,6.42rem, 0) rotate(14deg);
         }
         12% {
 
-            transform: translate3d(2.8rem, 7.2rem, 0) rotate(14deg);;
-            -webkit-transform: translate3d(2.8rem, 7.2rem, 0) rotate(14deg);;
+            transform: translate3d(6.8rem, 5.68rem, 0) rotate(14deg);;
+            -webkit-transform: translate3d(6.8rem, 5.68rem, 0) rotate(14deg);;
         }
         40% {
-            transform: translate3d(3.1rem, 5.4rem, 0) rotate(-10deg);;
-            -webkit-transform: translate3d(3.1rem, 5.4rem, 0) rotate(-10deg);
+            transform: translate3d(5.1rem, 5.4rem, 0) rotate(-10deg);;
+            -webkit-transform: translate3d(5.1rem, 5.4rem, 0) rotate(-10deg);
         }
         60% {
             opacity: 0.4;
-            transform: translate3d(1.9rem, 3.6rem, 0) rotate(-10deg);
-            -webkit-transform: translate3d(1.9rem, 3.6rem, 0) rotate(-10deg);
+            transform: translate3d(3.9rem, 3.6rem, 0) rotate(-10deg);
+            -webkit-transform: translate3d(3.9rem, 3.6rem, 0) rotate(-10deg);
         }
         80% {
             transform: translate3d(1.4rem, 1.8rem, 0) rotate(5deg);
@@ -848,22 +992,22 @@
     @keyframes heart_move5 {
         0% {
             opacity: 1;
-            transform: translate3d(1.56rem, 9rem, 0) rotate(-14deg);
-            -webkit-transform: translate3d(1.56rem, 9rem, 0) rotate(-14deg);
+            transform: translate3d(8.18rem, 6.42rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(8.18rem, 6.42rem, 0) rotate(-14deg);
         }
         14% {
 
-            transform: translate3d(1rem, 7.2rem, 0) rotate(-14deg);
-            -webkit-transform: translate3d(1rem, 7.2rem, 0) rotate(-14deg);
+            transform: translate3d(4.18rem, 5.28rem, 0) rotate(-14deg);
+            -webkit-transform: translate3d(4.18rem, 5.28rem, 0) rotate(-14deg);
         }
         40% {
-            transform: translate3d(0.2rem, 5.4rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(0.2rem, 5.4rem, 0) rotate(14deg);
+            transform: translate3d(3.18rem, 4.4rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(3.18rem, 4.4rem, 0) rotate(14deg);
         }
         60% {
             opacity: 0.3;
-            transform: translate3d(1.4rem, 3.6rem, 0) rotate(14deg);
-            -webkit-transform: translate3d(1.4rem, 3.6rem, 0) rotate(14deg);
+            transform: translate3d(2.18rem, 3.6rem, 0) rotate(14deg);
+            -webkit-transform: translate3d(2.18rem, 3.6rem, 0) rotate(14deg);
         }
         80% {
             transform: translate3d(1.7rem, 1.8rem, 0) rotate(-7deg);
@@ -873,7 +1017,7 @@
         100% {
             transform: translate3d(1.56rem, 0, 0) rotate(0deg);
             -webkit-transform: translate3d(1.56rem, 0, 0) rotate(0deg);
-            opacity: 0;
+            opacity:0;
             display: none;
         }
     }
@@ -887,20 +1031,31 @@
         top: 18rem;
         z-index: 1001;
     }
+    .heart_click_Box{
+        position: relative;
+        padding-top: 4.4rem;
+    }
 
     .heart_click_btn {
         height: 4.529411764705882rem;
         width: 4.529411764705882rem;
         border-radius: 50%;
-        background: #dd3c3b;
+
+        background: rgba(210,159,114,1);
         position: absolute;
-        top: 27rem;
-        left: 50%;
+        right: 15%;
         margin-left: -2.264705882352941rem
     }
 
+    .redPacket_box{
+        right: auto;
+        left:15%;
+        background: #dd3c3b;
+        margin-left: 0;
+    }
+    .redPacket_box:active{background: #d33b3a !important }
     .heart_click_btn:active {
-        background: rgba(221, 60, 59, 0.8);
+        background: rgb(193, 144, 98);
     }
 
     .heart_click_btn:active .heart_btn {
@@ -912,6 +1067,13 @@
         text-align: center;
         font-size: 0.8235294117647059rem;
     }
+    .redPacket_btn img{
+        width:1.0588235rem;
+        display: block;
+        margin: 0 auto;
+        margin-top: 1rem;
+        margin-bottom: 0.294rem;
+    }
 
     .heart_btn {
         background: url(../images/birthday/heart_w.png) no-repeat;
@@ -920,6 +1082,7 @@
         width: 1.294117647058824rem;
         margin: 0 auto;
         margin-top: 1rem;
+        margin-bottom: 0.294rem;
     }
 
 
@@ -964,7 +1127,16 @@
                 myCareCount: 0,
                 myCareId: 0,
                 hasMyContent: false,
-                adding: false
+                adding: false,
+                redPackFlag:false,
+                getCount:{
+                    care:{},
+                    redPacket:{}
+                },
+                senderCount:{},
+                moneyValue:null,
+                MAX_MONEY:200,
+                MIN_MONEY:1
             }
         },
         filters: {
@@ -976,11 +1148,58 @@
             'v-showLoad': showLoad
         },
         methods: {
+            formatMyMoney:function (v) {
+                if(v>1000){
+                    return  parseInt(v||0);
+                }else{
+                    return  parseFloat(v||0).toFixed(2);
+                }
+
+            },
             sendRedPacket:function () {
                 xqzs.eventLog.visit('birthdaysendredpacket')
                 xqzs.weui.tip("该功能暂未开放！",function () {
 
                 })
+            },
+            goPay:function () {
+                let _this = this;
+
+                let  message = "生日快乐！"
+                if($(".redPack_item.redPackChecked .money_meaning").length>0){
+                    message=$(".redPack_item.redPackChecked .money_meaning").html();
+                }
+                let msg = {
+                    'userId':'',//發紅包用戶
+                    'amount':_this.moneyValue,
+                    'message':message
+                }
+                console.log(msg)
+                _this.$http.put(web.API_PATH + 'birthday/red/packet/send/'+_this.birthdayUserId,msg).then(function (res) {
+                    let config = res.data.data;
+                    console.log(res)
+                    let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href + "&start=1");
+                    window.location.href = url
+                })
+            },
+            goRedPacket:function () {
+                let _this = this;
+
+                if(!(this.user&&this.user.id)){
+                    this.follow();
+                    return;
+                }
+
+                if(_this.birthdayUserId==this.user.id){
+                    xqzs.weui.tip("快邀请好友给自己发红包");
+                }else{
+                    _this.redPackFlag = true;
+                }
+
+            },
+            hideRedPacket:function () {
+                let _this = this;
+                _this.redPackFlag = false;
             },
             submitContent: function () {
                 let _this = this;
@@ -1021,7 +1240,7 @@
                 //点赞好友列表 +总数
 
 
-                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + '?userId=_userId_').then(function (data) {//es5写法
+                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + data2).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         let count = 0;
                         for (let i = 0; i < data.body.data.length; i++) {
@@ -1033,7 +1252,7 @@
                         for (let i = 0; i < _this.friendList.length; i++) {
 
                             if (_this.friendList[i].content && _this.friendList[i].content != null && _this.friendList[i].content != '') {
-                                _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
+                                if(_this.friendList[i].content&&_this.friendList[i].content!='') _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
                             }
 
                             _this.$set(_this.friendList,i ,_this.friendList[i]);
@@ -1160,13 +1379,64 @@
                             }
 
                             that.friends();
+                            that.getSender();
+                            that.getReceiver();
                         }
                     });
 
             },
+            getSender:function () {
+                let _this = this;
+                let  data ='';
+                if (web.guest) {
+                    data =  '?guest=true'
+                }
+                let userId="_userId_";
+                if( !(_this.user&& _this.user.id)){
+                    userId=0;
+                }
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/sender/'+_this.birthdayUserId+'/'+userId+data).then(function (data) {
+                    console.log(data.data.data)
+                    _this.senderCount = data.data.data;
+                })
+            },
+            getReceiver:function () {
+                let _this = this;
+                let  data ='';
+                if (web.guest) {
+                    data =  '?guest=true'
+                }
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/receiver/'+_this.birthdayUserId+data).then(function (data) {
+                    console.log(data.data.data)
+                    _this.getCount.care= data.data.data.care;
+                    _this.getCount.redPacket= data.data.data.redPacket;
+                    console.log(_this.getCount.care.careCount+'**********')
+                })
+            },
+            moneyValueChange:function () {
+                let _this=this;
+                console.log(this.moneyValue);
+                if(this.moneyValue>this.MAX_MONEY){
+                    this.moneyValue = this.MAX_MONEY;
+                    xqzs.weui.tip("不能超过最大值！")
+                }
+                if(this.moneyValue<this.MIN_MONEY){
+                    this.moneyValue = this.MIN_MONEY;
+                    xqzs.weui.tip("不能低于最小值！")
+                }
+                $('.redPack_item').each(function (i) {
+                    let money = $(this).find(".money_item").html();
+                    console.log(money)
+                    $(this).removeClass('redPackChecked')
+                    if(money==_this.moneyValue){
+                        $(this).addClass('redPackChecked')
+                    }
+                });
+
+            },
             reach: function () {
                 //遍历到达位置
-
+                console.log("bearbearreachbearbearbear")
                 for (let i = 0; i < this.steps.length; i++) {
                     if (this.steps[i].num <= this.count) {
                         this.steps[i].isReach = true;
@@ -1214,8 +1484,6 @@
             var winWidth = $(window).width();
             var winHeight = $(window).height();
             console.log(winWidth)
-
-
             let _this = this;
             this.showLoad = true;
             //当前生日用户
@@ -1290,14 +1558,17 @@
                         }, function (error) {
                         });
                     }
-                    _this.friends();
+
                 }
-                this.showLoad = false;
+                _this.friends();
+                _this.getSender();
+                _this.showLoad = false;
             }, function (error) {
                 _this.friends();
+                _this.getSender();
             });
 
-              data = '?userId=_userId_';
+            data = '?userId=_userId_';
             if (web.guest) {
                 this.isGuest = true;
                 data = data + '&guest=true'
@@ -1317,8 +1588,18 @@
             }, function (error) {
 
             });
+            _this.getReceiver()
 
 
-        }
+        },
+        updated:function () {
+            let _this = this
+            $('.redPack_item').on('click',function(){
+                $('.redPack_item').removeClass('redPackChecked')
+                $(this).addClass('redPackChecked')
+                _this.moneyValue = $(this).find($('.money_item')).text();
+            })
+        },
+
     }
 </script>
