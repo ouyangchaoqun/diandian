@@ -179,7 +179,7 @@
                                         {{item.content}}
                                     </div>
                                     <div class="content submitContent" @click="submitContent"
-                                         v-show="!(item.content&&item.content!=null&&item.content!='')&&user.id==item.userId">
+                                         v-show="!(item.content&&item.content!=null&&item.content!='')&&user&&user.id==item.userId">
                                         送祝福
                                     </div>
                                 </div>
