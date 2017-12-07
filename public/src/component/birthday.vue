@@ -46,7 +46,7 @@
                             <img src="../images/redPacket_btn.png" alt="">
                         </div>
                         <div class="text">
-                            <template v-if="user!=null&&user.id!=birthdayUserId">发红包</template>
+                            <template v-if="(user!=null&&user.id!=birthdayUserId)||user==null">发红包</template>
                             <template v-if="user!=null&&user.id==birthdayUserId">{{formatMyMoney(getCount.redPacket.amount)}}</template>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="btn">
                         <div class="heart_btn"></div>
                         <div class="text">
-                            <template v-if="user!=null&&user.id!=birthdayUserId">点赞</template>
+                            <template v-if="(user!=null&&user.id!=birthdayUserId)||user==null">点赞</template>
                             <template v-if="user!=null&&user.id==birthdayUserId">{{getCount.care.careCount}}</template>
                         </div>
                     </div>
@@ -1176,6 +1176,12 @@
             },
             goRedPacket:function () {
               let _this = this;
+
+              if(!(this.user&&this.user.id)){
+                  this.follow();
+                  return;
+              }
+
               if(_this.birthdayUserId==this.user.id){
                   xqzs.weui.tip("快邀请好友给自己发红包");
               }else{
@@ -1226,7 +1232,7 @@
                 //点赞好友列表 +总数
 
 
-                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + '?userId=_userId_').then(function (data) {//es5写法
+                _this.$http.get(web.API_PATH + 'birthday/get/care/users/' + _this.birthdayUserId + data2).then(function (data) {//es5写法
                     if (data.body.status == 1) {
                         let count = 0;
                         for (let i = 0; i < data.body.data.length; i++) {
@@ -1377,7 +1383,11 @@
                 if (web.guest) {
                     data =  '?guest=true'
                 }
-                _this.$http.get(web.API_PATH+'birthday/get/info/by/sender/'+_this.birthdayUserId+'/_userId_'+data).then(function (data) {
+                let userId="_userId_";
+                if( !(_this.user&& _this.user.id)){
+                    userId=0;
+                }
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/sender/'+_this.birthdayUserId+'/'+userId+data).then(function (data) {
                     console.log(data.data.data)
                     _this.senderCount = data.data.data;
                 })
@@ -1542,7 +1552,8 @@
                     }
                     _this.friends();
                 }
-                this.showLoad = false;
+                _this.getSender();
+                _this.showLoad = false;
             }, function (error) {
                 _this.friends();
             });
@@ -1568,7 +1579,7 @@
 
             });
             _this.getReceiver()
-            _this.getSender()
+
 
         },
         updated:function () {
