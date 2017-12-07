@@ -1373,14 +1373,22 @@
             },
             getSender:function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH+'birthday/get/info/by/sender/'+_this.birthdayUserId+'/_userId_').then(function (data) {
+                let  data ='';
+                if (web.guest) {
+                    data =  '?guest=true'
+                }
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/sender/'+_this.birthdayUserId+'/_userId_'+data).then(function (data) {
                     console.log(data.data.data)
                     _this.senderCount = data.data.data;
                 })
             },
             getReceiver:function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH+'birthday/get/info/by/receiver/'+_this.birthdayUserId).then(function (data) {
+                let  data ='';
+                if (web.guest) {
+                    data =  '?guest=true'
+                }
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/receiver/'+_this.birthdayUserId+data).then(function (data) {
                     console.log(data.data.data)
                     _this.getCount.care= data.data.data.care;
                     _this.getCount.redPacket= data.data.data.redPacket;
