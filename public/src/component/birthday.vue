@@ -1429,7 +1429,7 @@
             },
             reach: function () {
                 //遍历到达位置
-
+                console.log("bearbearreachbearbearbear")
                 for (let i = 0; i < this.steps.length; i++) {
                     if (this.steps[i].num <= this.count) {
                         this.steps[i].isReach = true;
