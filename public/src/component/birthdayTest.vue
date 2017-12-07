@@ -320,6 +320,7 @@
         height: 100%;
         margin: 0 auto;
         margin-bottom: 1rem;
+        background: #fff;
     }
 
     .friend_list .top {
