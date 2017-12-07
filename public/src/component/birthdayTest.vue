@@ -372,6 +372,7 @@
         display: flex;
         margin-bottom: 0.88235rem;
     }
+    .friend_list ul li:last-child{ border-bottom: none}
     .friend_list ul li.no_has_content{
         min-height: 3.1rem;
     }
