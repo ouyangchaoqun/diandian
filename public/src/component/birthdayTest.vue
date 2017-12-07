@@ -215,7 +215,7 @@
         animation: fadeIn ease .3s forwards;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
-    .redPacket_dialog{width:90%;height:82%;background: #fff;border-radius: 0.88235rem;position: absolute;top:9%;left:5%; overflow-y: auto}
+    .redPacket_dialog{width:90%;height:90%;background: #fff;border-radius: 0.88235rem;position: absolute;top:5%;left:5%; overflow-y: auto}
     .redPacket_dialog .close{ background: url(../images/coin_close.png) no-repeat; width:1rem; height: 1rem; background-size: 1rem; position: absolute; top:1rem; right:1rem}
     .redPacket_top{padding-top:0.6471rem;padding-bottom: 0.88235rem;}
     .flower_style{width:6.76471rem;display: block;margin:0 auto}
@@ -252,7 +252,7 @@
     }
     .page_two{
         background: url("../images/brithday_page_two.png") no-repeat;
-        background-size: cover;
+        background-size: 100%;
         margin-top: -3rem;
         padding-top: 3rem;
         padding-bottom: 2rem;
