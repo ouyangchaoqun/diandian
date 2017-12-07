@@ -1259,7 +1259,6 @@
                             }
 
                         }
-                        console.log("bearbearbearbearbear")
                         _this.reach();
 
                     }
