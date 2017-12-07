@@ -1244,7 +1244,7 @@
                         for (let i = 0; i < _this.friendList.length; i++) {
 
                             if (_this.friendList[i].content && _this.friendList[i].content != null && _this.friendList[i].content != '') {
-                                _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
+                                if(_this.friendList[i].content&&_this.friendList[i].content!='') _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
                             }
 
                             _this.$set(_this.friendList,i ,_this.friendList[i]);
@@ -1259,6 +1259,7 @@
                             }
 
                         }
+                        console.log("bearbearbearbearbear")
                         _this.reach();
 
                     }
