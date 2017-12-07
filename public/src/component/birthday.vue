@@ -256,6 +256,7 @@
         background-size: cover;
         margin-top: -3rem;
         padding-top: 3rem;
+        padding-bottom: 2rem;
     }
 
     .birthday_box .down {
@@ -293,7 +294,6 @@
         display: block;
         margin: 12px auto;
         font-size: 0.8823529411764706rem;
-        margin-bottom: 26px;
         border-radius: 1.176471rem;
         border:1px solid rgba(244,76,76,1);
         line-height:2.35rem;
@@ -1380,7 +1380,7 @@
             },
             getReceiver:function () {
                 let _this = this;
-                _this.$http.get(web.API_PATH+'birthday/get/info/by/receiver/_userId_').then(function (data) {
+                _this.$http.get(web.API_PATH+'birthday/get/info/by/receiver/'+_this.birthdayUserId).then(function (data) {
                     console.log(data.data.data)
                     _this.getCount.care= data.data.data.care;
                     _this.getCount.redPacket= data.data.data.redPacket;
