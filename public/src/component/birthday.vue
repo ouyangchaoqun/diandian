@@ -234,6 +234,7 @@
     .money_list li>div.redPackChecked{background: rgba(255,57,58,1);color:rgba(255,255,255,1);}
     .money_list li>div:nth-of-type(2){margin:0 0.88235rem;}
     .redPacket_sub{width:35%;line-height: 2.4rem;color:rgba(255,255,255,1);text-align: center;font-size: 0.88235rem;border-radius: 1.176471rem;margin: 0 auto;background: rgba(255,57,58,1);}
+    .redPacket_sub:active{background: rgb(235, 56, 57);}
     .redPacket_bottom{ margin-top:1rem; width:100%;}
     .redPacket_bottom div{font-size: 0.76471rem;line-height: 1;margin-bottom: 0.941rem;text-align: center;color: rgba(0,0,0,1);}
     .redPacket_bottom div span{color:rgba(51,51,51,1);margin: 0 0.5rem}
