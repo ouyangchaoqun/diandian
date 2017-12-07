@@ -36,10 +36,8 @@
                             </div>
                         </li>
                         <li class="add_item " v-if="list.length % 2 ==1">
-                            <span>尽请期待</span>
-
+                            <span>敬请期待</span>
                         </li>
-
                         <div class="clear"></div>
                     </ul>
 
