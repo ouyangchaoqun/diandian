@@ -216,7 +216,7 @@
         animation: fadeIn ease .3s forwards;
         -webkit-tap-highlight-color: rgba(0,0,0,0);
     }
-    .redPacket_dialog{width:90%;height:90%;background: #fff;border-radius: 0.88235rem;position: absolute;top:5%;left:5%;}
+    .redPacket_dialog{width:90%;height:90%;background: #fff;border-radius: 0.88235rem;position: absolute;top:5%;left:5%; overflow-y: auto}
     .redPacket_dialog .close{ background: url(../images/coin_close.png) no-repeat; width:1rem; height: 1rem; background-size: 1rem; position: absolute; top:1rem; right:1rem}
     .redPacket_top{padding-top:0.6471rem;padding-bottom: 0.88235rem;}
     .flower_style{width:6.76471rem;display: block;margin:0 auto}
@@ -235,7 +235,7 @@
     .money_list li>div.redPackChecked{background: rgba(255,57,58,1);color:rgba(255,255,255,1);}
     .money_list li>div:nth-of-type(2){margin:0 0.88235rem;}
     .redPacket_sub{width:35%;line-height: 2.4rem;color:rgba(255,255,255,1);text-align: center;font-size: 0.88235rem;border-radius: 1.176471rem;margin: 0 auto;background: rgba(255,57,58,1);}
-    .redPacket_bottom{position: absolute;bottom:10%;width:100%;}
+    .redPacket_bottom{ margin-top:1rem; width:100%;}
     .redPacket_bottom div{font-size: 0.76471rem;line-height: 1;margin-bottom: 0.941rem;text-align: center;color: rgba(0,0,0,1);}
     .redPacket_bottom div span{color:rgba(51,51,51,1);margin: 0 0.5rem}
     .redPacket_bottom p{text-align: center;color:rgba(135,133,133,1);font-size: 0.588235rem;line-height: 1rem;}
@@ -1361,6 +1361,7 @@
                             }
 
                             that.friends();
+                            that.getSender();
                         }
                     });
 
