@@ -139,7 +139,7 @@
 	}
 	.me_head{ position: absolute; width: 100%;  }
 	.me_head .coin_btn{   color:rgba(255,255,255,0.8); background: url(../images/me_top_coin_icon.png) no-repeat   rgba(0,0,0,0.29);
-	; background-size: 1.264705882352941rem; padding-left: 1.7rem; display: block; height:1.705882352941176rem; width: 3.105882352941176rem;  position: absolute ; right:0;     z-index: 100001;  top:2.764705882352941rem;  padding-top: 0.1rem;
+	; background-size: 1.264705882352941rem; padding-left: 1.8rem; display: block; height:1.705882352941176rem; width: 3.105882352941176rem;  position: absolute ; right:0;     z-index: 100001;  top:2.764705882352941rem;  padding-top: 0.2rem;
 		font-size: 0.5882352941176471rem; border-bottom-left-radius:0.852941176470588rem; border-top-left-radius: 0.852941176470588rem;
 		background-position: 0.25rem 0.25rem;line-height: 1.2 ;}
 	.me_head .coin_btn span{ color:#FAAE30}
@@ -192,7 +192,7 @@
 		margin-top: 0.2rem;
 	}
 	.perfec span{
-		line-height: 1.441176470588235rem; margin-left: 0.2rem;
+		line-height: 1.441176470588235rem; margin-left: 0.3rem;
 	}
 	.perfec img{
 		position: absolute;
