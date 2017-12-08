@@ -23,7 +23,7 @@
 		<div class="me_top_btn">
 			<div class="mood" @click="goMyMood()">我的心情</div>
 			<div class="amount"  @click="goMyAmount()">我的余额</div>
-			<div class="friend"  @click="goMyFriend()">我的好友</div>
+			<div class="my_friends"  @click="goMyFriend()">我的好友</div>
 		</div>
 		<div class="me_list">
 			<router-link to = "/me/subscribe" class="set_btn"><i></i>提醒设置</router-link>
@@ -117,7 +117,7 @@
 	.me_top_btn>div:before{ margin-bottom: 0.5rem;}
 	.me_top_btn>div.mood:before{content:'';width:100%; height: 1.3rem; background: url(../images/me_btn_icon_mood.png) no-repeat center;   background-size: 1.176470588235294rem; display: block }
 	.me_top_btn>div.amount:before{content:'';width:100%; height: 1.3rem; background: url(../images/me_btn_icon_money.png) no-repeat center;   background-size: 1.088235294117647rem;  display: block }
-	.me_top_btn>div.friend:before{content:'';width:100%; height: 1.3rem; background: url(../images/me_btn_icon_friend.png) no-repeat center;     background-size: 1.176470588235294rem;  display: block }
+	.me_top_btn>div.my_friends:before{content:'';width:100%; height: 1.3rem; background: url(../images/me_btn_icon_friend.png) no-repeat center;     background-size: 1.176470588235294rem;  display: block }
 	.me_list{ overflow: hidden}
 	.me_list a{ height: 3.235294117647059rem; line-height: 3.235294117647059rem; background: #fff; color:#666; font-size: 0.8235294117647059rem ; display: block; position: relative; padding-left: 3.235294117647059rem;  }
 	.me_list a:active{ background: #f1f1f1}
