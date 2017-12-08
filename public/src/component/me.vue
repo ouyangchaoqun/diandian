@@ -133,7 +133,7 @@
 		background: #fff;
 	}
 	.me_top{
-		background:url(../images/me_top_bg.png) ;  background-size: 100%;
+		background:url(../images/me_top_bg.png) no-repeat ;  background-size: 100%;
 		height:7.911764705882353rem;
 
 	}
