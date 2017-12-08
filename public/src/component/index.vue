@@ -7,7 +7,17 @@
             <div class="note_bg " :class="{open:isOpenNote}">
                 <div class="close" @click="hideNote"></div>
                 <div class="bg"></div>
-                <div class="page1"></div>
+                <div class="page1">
+                    <div class="wish">
+                        To：{{user.nickName}}<br><br>
+                        生日快乐！<br>
+                        愿你的快乐与岁月无关，<br>
+                        愿你的纯真与经历无关，<br>
+                        愿你每天都能好一点，再好一点！<br>
+                        <br>
+                        From：好一点<br>
+                    </div>
+                </div>
                 <div class="page2">
                     <div class="words">
                         <div class="logo"></div>
@@ -1122,6 +1132,9 @@
     .birthday_note .note_bg .close{ background: url(../images/coin_close.png) no-repeat rgba(0,0,0,0.6) center; width: 1.5rem;background-size:0.6rem; border: 1px solid rgba(255,255,255,0.6);  height: 1.5rem; border-radius: 50%; z-index: 10; position: absolute;right:0rem; top:-1.5rem;  }
     .birthday_note .note_bg .bg{background:#81512e; position: absolute; left:1%; top:1%; height: 98%; width:98%}
     .birthday_note .note_bg .page1{ background: url(../images/index_birthday_page1.png) no-repeat; height:100%; background-size: 100%     ; position: absolute; top:12%; left:2%; z-index: 1 ; width: 96%;   }
+    .birthday_note .note_bg .page1 .wish{; text-align: left; color:#353145; font-size: 0.7058823529411765rem;
+        margin-top: 12rem;
+        margin-left: 3rem;}
     .birthday_note .note_bg .page2{ background: url(../images/index_birthday_page2.png) no-repeat  top right; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute; top:0; right:0; z-index: 2;width: 100% }
 
      
