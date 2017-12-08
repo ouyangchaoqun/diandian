@@ -7,7 +7,7 @@
             <div class="img"></div>
             <div class="my_income_txt">我的余额</div>
             <div class="money">￥{{formatPrice(user.balance)}}</div>
-            <div class="get_money">提现</div>
+            <!--<div class="get_money">提现</div>-->
         </div>
 
     </div>
