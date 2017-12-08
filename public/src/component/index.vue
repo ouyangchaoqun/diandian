@@ -3,8 +3,9 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>好一点</div>
         <v-tab tab="home"></v-tab>
-        <div class="birthday_note">
-            <div class="note_bg open">
+        <div class="birthday_note" v-if="isBirthday">
+            <div class="note_bg " :class="{open:isOpenNote}">
+                <div class="close" @click="hideNote"></div>
                 <div class="bg"></div>
                 <div class="page1"></div>
                 <div class="page2"></div>
@@ -12,11 +13,8 @@
                 <div class="page4"></div>
                 <div class="line1"></div>
                 <div class="line2"></div>
-                <div class="flower"></div>
+                <div class="flower" @click="openNote"></div>
             </div>
-
-
-
 
         </div>
 
@@ -32,14 +30,8 @@
                     <i></i>
                 </div>
 
-                <div v-show="isBirthday" class="brithBox">
-                    <img src="../images/birthday/bribg.jpg" alt="">
-                    <img src="../images/birthday/bribg.png" alt="" style="position: absolute;bottom: 0">
-                    <img class="briCake" src="../images/birthday/briCake.png" alt="">
-                    <img class="brithText" src="../images/birthday/brithText.png" alt="">
-                    <img class="brithDayBg" src="../images/birthday/brithDayBg.png" alt="">
-                </div>
-                <v-banner v-show="!isBirthday"></v-banner>
+
+                <v-banner></v-banner>
                 <div class="flow">
                     <div class="img4"></div>
                     <div class="img"></div>
@@ -299,8 +291,8 @@
                 goScenes:false,
                 goScenesIng:false,
                 choosedData:{},
-                myMoodCount:null
-
+                myMoodCount:null,
+                isOpenNote:false,
 
             }
         },
@@ -323,6 +315,18 @@
             }
         },
         methods: {
+            hideNote:function () {
+               this.isBirthday=false;
+            },
+            openNote:function () {
+                let date=new Date();
+                let year=date.getFullYear();
+                let month=date.getMonth()+1;
+                let day=date.getDate();
+                let isBirthdayShowKey="isBirthdayShow"+year+"_"+month+"_"+day;
+                xqzs.localdb.set(isBirthdayShowKey,1);
+                this.isOpenNote=true;
+            },
 
             hideSleepDialog:function () {
                 this.isGoSleep = false;
@@ -431,15 +435,14 @@
             },
             initBirthday:function () {
                 let _this = this;
-                if( xqzs.localdb.get("isBirthday")==="1"){
-                    _this.isBirthday=true;
-                }else{
-                    _this.isBirthday=false;
-                }
+
                 let date=new Date();
                 let year=date.getFullYear();
                 let month=date.getMonth()+1;
-                let day=date.getDate()
+                let day=date.getDate();
+
+                let isBirthdayShowKey="isBirthdayShow"+year+"_"+month+"_"+day;
+
                 //好友生日
                 _this.$http.get(web.API_PATH + 'birthday/get/list/'+year+'/'+month+'/'+day+'/_userId_').then(function (data) {//es5写法
                     console.log(data)
@@ -453,11 +456,10 @@
                                 break;
                             }
                         }
-                        _this.isBirthday=isbirthday;
                         if(isbirthday){
-                            xqzs.localdb.set("isBirthday",1);
-                        }else{
-                            xqzs.localdb.set("isBirthday",0);
+                            if(xqzs.localdb.get(isBirthdayShowKey)!='1'){
+                                _this.isBirthday=true;
+                            }
                         }
                         let loop=false;
                         if(_this.birthdayList>1){loop=true}
@@ -908,7 +910,7 @@
                             _this.share(true)
                         }
                         setTimeout(function () {
-                            _this.$router.push("sleepRank?type=" + type)
+                            _this.$router.push("sleepRank?type=" + type+"&checkin=true")
 
                         },200);
 
@@ -1095,23 +1097,24 @@
 
     .birthday_note{ background: rgba(0,0,0,0.6); position: fixed; top:0; left:0; height: 100%; width: 100%; z-index: 10000}
     .birthday_note .note_bg{ width:16.61764705882353rem; height:28.94117647058824rem; ; position: absolute; left:50%; top:50%; margin-left: -8.308823529411765rem; ; margin-top: -16.47058823529412rem;
-        /*animation: note_down 1.5s  forwards ;*/
-        /*-webkit-animation: note_down 1.5s  forwards ;*/
-        /*animation-delay:1s;*/
-        /*-webkit-animation-delay:1s;transform: translate3d(-100%, -100%, 0) rotate(14deg) scale(0.5);*/
-        /*-webkit-transform: translate3d(-100%,-100%, 0) rotate(14deg) scale(0.5); */
+        animation: note_down 0.8s  forwards ;
+        -webkit-animation: note_down 0.8s  forwards ;
+        animation-delay:0.4s;
+        -webkit-animation-delay:0.4s;transform: translate3d(-100%, -100%, 0) rotate(14deg) scale(0.5);
+        -webkit-transform: translate3d(-100%,-100%, 0) rotate(14deg) scale(0.5);
 
     }
+    .birthday_note .note_bg .close{ background: url(../images/coin_close.png) no-repeat rgba(0,0,0,0.6) center; width: 1.5rem;background-size:0.6rem; border: 1px solid rgba(255,255,255,0.6);  height: 1.5rem; border-radius: 50%; z-index: 10; position: absolute;right:0rem; top:-1.5rem;  }
     .birthday_note .note_bg .bg{background:#81512e; position: absolute; left:1%; top:1%; height: 98%; width:98%}
-    .birthday_note .note_bg .page1{ background: url(../images/index_birthday_page1.png) no-repeat; height:80%; background-size: auto 100%     ; position: absolute; top:10%; left:0; z-index: 1 ; width: 80%; margin-left: 1rem; }
+    .birthday_note .note_bg .page1{ background: url(../images/index_birthday_page1.png) no-repeat; height:100%; background-size: 100%     ; position: absolute; top:16%; left:2%; z-index: 1 ; width: 96%;   }
     .birthday_note .note_bg .page2{ background: url(../images/index_birthday_page2.png) no-repeat  top right; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute; top:0; right:0; z-index: 2;width: 100% }
-    .birthday_note .note_bg .page3{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 4;width: 100% }
-    .birthday_note .note_bg .page4{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 3;width: 100% ;-webkit-transform:rotate(180deg);}
+    .birthday_note .note_bg .page3{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 4;width: 200%  ;  margin-left: -16.61764705882353rem;    background-position: 16.61764705882353rem;}
+    .birthday_note .note_bg .page4{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 3;width: 200% ;-webkit-transform:rotate(180deg); background-position: 16.61764705882353rem;}
     .birthday_note .note_bg .line1{ background: url(../images/index_birthday_line.png) no-repeat ; height: 2.176470588235294rem; width: 5.705882352941176rem; z-index: 6 ; position: absolute;top:50%; margin-top: -1.088235294117647rem; background-size: 5.705882352941176rem; left:0.8%   }
     .birthday_note .note_bg .line2{ background: url(../images/index_birthday_line.png) no-repeat top left ; height: 2.176470588235294rem; width: 100%; z-index: 6 ; position: absolute;top:50%; margin-top: -1.088235294117647rem; background-size: 5.705882352941176rem; -webkit-transform:rotateX(0deg) rotateY(180deg); }
     .birthday_note .note_bg .flower{ background: url(../images/index_birthday_flower.png) no-repeat top left ; height: 6.411764705882353rem; width: 6.294117647058824rem; z-index: 7 ; position: absolute;top:50%; left:50%; margin-top: -3rem; background-size:  6.294117647058824rem; margin-left: -3rem;
-        animation: flower 3.5s infinite;
-        -webkit-animation: flower 3.5s infinite; }
+        animation: flower 2.5s infinite;
+        -webkit-animation: flower 2.5s infinite; }
 
     @keyframes note_down {
         0% {
@@ -1159,41 +1162,42 @@
         animation-delay:1s;
         -webkit-animation-delay:1s;
     }
-
-    .birthday_note .open .line2{
-        animation: line_right_disappear 1.5s  forwards ;
-        -webkit-animation: line_right_disappear 1.5s  forwards ;
-        animation-delay:1s;
-        -webkit-animation-delay:1s;
-    }
-
-
     .birthday_note .open .page3{
         animation: page3_disappear 0.5s  forwards ;
         -webkit-animation: page3_disappear 0.5s  forwards ;
+        animation-delay:2s;
+        -webkit-animation-delay:2s;
+    }
+
+    .birthday_note .open .bg{
+        animation: bg_big 1s  forwards ;
+        -webkit-animation: bg_big 1s  forwards ;
         animation-delay:2.5s;
         -webkit-animation-delay:2.5s;
     }
+
+
     .birthday_note .open .page4{
         animation: page4_disappear 0.5s  forwards ;
         -webkit-animation: page4_disappear 0.5s  forwards ;
-        animation-delay:3s;
-        -webkit-animation-delay:3s;
+        animation-delay:2.5s;
+        -webkit-animation-delay:2.5s;
+
     }
 
     .birthday_note .open .page3{
         animation: page3_disappear 0.5s  forwards ;
         -webkit-animation: page3_disappear 0.5s  forwards ;
-        animation-delay:2.5s;
-        -webkit-animation-delay:2.5s;
+        animation-delay:2s;
+        -webkit-animation-delay:2s;
     }
 
 
     .birthday_note .open .page1{
         animation: page1_show 1.5s  forwards ;
         -webkit-animation: page1_show 1.5s  forwards ;
-        animation-delay:4s;
-        -webkit-animation-delay:4s;
+        animation-delay:3.5s;
+        -webkit-animation-delay:3.5s;
     }
 
     @keyframes page1_show  {
@@ -1222,24 +1226,39 @@
 
     @keyframes page3_disappear  {
         0% {
-            transform: translate3d(0%, 0%, 0) ;
-            -webkit-transform: translate3d(0%,0%, 0)  ;
+            transform:   rotateY(0deg);
+            -webkit-transform:    rotateY(0deg) ;
         }
         100%{
-            transform: translate3d(-100%, 0%, 0) ;
-            -webkit-transform: translate3d(-100%,0%, 0)  ;
+            transform:   rotateY(-90deg);
+            -webkit-transform:   rotateY(-90deg)  ;
+
+        }
+
+    }
+    @keyframes bg_big  {
+        0% {
+            width: 98%;left:
+                1%;
+        }
+       50%{
+           width: 148%;
+           left: -50%;
+        }
+        100%{
+            width: 198%;
+            left: -50%;
         }
     }
 
-
     @keyframes page4_disappear  {
         0% {
-            transform: translate3d(0%, 0%, 0)  rotate(180deg);;
-            -webkit-transform: translate3d(0%,0%, 0)  rotate(180deg); ;
+            transform:   rotate(180deg);;
+            -webkit-transform:   rotate(180deg); ;
         }
         100%{
-            transform: translate3d(100%, 0%, 0)  rotate(180deg);;
-            -webkit-transform: translate3d(100%,0%, 0)  rotate(180deg);;
+            transform:    rotate(180deg) rotateY(90deg) ;;
+            -webkit-transform:    rotate(180deg) rotateY(90deg);;
         }
     }
 
@@ -1341,14 +1360,22 @@
 
 
 
-    .index_btns a:active.get_up:before{background-color: #ffebc7  }
-    .index_btns a:active.go_sleep:before{background-color: #f6c8ed  }
-    .index_btns a:active.mood:before{background-color: #c2ecf1  }
-    .index_btns a:active.habit:before{background-color: #d2f3c7  }
-    .index_btns a:active.sign:before{background-color: #ffd1a4  }
-    .index_btns a:active.set:before{background-color: #f5ceeb  }
-    .index_btns a:active.index_feedback_btn:before{background-color: #c4daf0  }
-    .index_btns a:active.xz:before{background-color: #d8b5f0  }
+    .index_btns a:active.get_up:before{background-color: #ffe294
+    }
+    .index_btns a:active.go_sleep:before{background-color: #efc0e6
+    }
+    .index_btns a:active.mood:before{background-color: #b8e1e6
+    }
+    .index_btns a:active.habit:before{background-color: #bfe2b4
+    }
+    .index_btns a:active.sign:before{background-color: #f1c398
+    }
+    .index_btns a:active.set:before{background-color: #e4bdda
+    }
+    .index_btns a:active.index_feedback_btn:before{background-color: #b4cae0
+    }
+    .index_btns a:active.xz:before{background-color: #c0a1d7
+    }
     .index_btns a:active{ color:#666}
     .my_head{ margin-right: 54px !important;}
     .banner { width: 100%; overflow: hidden}
@@ -1723,7 +1750,7 @@
 
     .mycenterFill {
         width: 100%;
-        height:0.7058823529411765rem;
+        height:0.58823529411764705882352941176471rem;
         background: #f4f4f8;
     }
 

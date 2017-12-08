@@ -813,7 +813,14 @@
 
         },
         mounted: function () {
+            let _this=this;
             this.typeId = this.$route.query.type;
+            let checkin = this.$route.query.checkin;
+            if(checkin==="true"){
+                setTimeout(function () {
+                    xqzs.coin.addAminate(_this.typeId);
+                },200)
+            }
             this.initData();
             this.$nextTick(function () {
                 if((cookie.get('record_lose')=='true'&&cookie.get('loseBox_frist')=='true')||(cookie.get('record_lose_night')=='true'&&cookie.get('loseBox_frist_night')=='true')){

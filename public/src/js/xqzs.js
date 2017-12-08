@@ -431,7 +431,43 @@ var xqzs = {
         }
         img.css(imgcss);
     },
+    coin:{
+        constant:{
+            ADD_MOOD_TYPE:1,
+            GET_UP_TYPE:2,
+            SLEEP_TYPE:3,
+            HABIT_TYPE:6,
+            ADD_FRIEND:7
+        },
 
+        addAminate:function (type) {
+
+            $.ajax({
+                url: web.API_PATH + 'coin/get/coin/num/' + type,
+                type: 'get',
+                dataType: 'JSON',
+                success: function (json) {
+                    console.log(json)
+                    if(json.status==1&&json.data.coinNum){
+                        var html =        '<div class="coin_add">\n' +
+                            '            <div class="coin_add_round">\n' +
+                            '            </div>\n' +
+                            '            <div class="coin_add_coin">\n' +
+                            '            </div>\n' +
+                            '            <div class="add_num">+'+json.data.coinNum+'</div>\n' +
+                            '        </div>';
+                        $("#app").append(html);
+
+                    }
+
+                }
+            });
+
+
+
+
+        }  
+    },
     mood: {
         canEditTime: 20 * 60,//可以编辑的时间限制
         canRevokeTime: 3 * 60,//可以撤回时间

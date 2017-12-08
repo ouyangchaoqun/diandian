@@ -49,9 +49,11 @@
             <div class="r"></div>
             <div class="good"></div>
         </div>
+
     </div>
 </template>
 <style>
+
     .habit_box ,    .habit_box .yo-scroll{ background: #fff}
 
     .habit_box .my_habit{ padding: 0.6rem 0.88235rem; padding-bottom: 1rem; border-bottom: #F5F5F5 solid 0.55882352941176470588235294117647rem}
@@ -229,14 +231,15 @@
         },
         methods:{
 
-
             orderHabits:function (habits,id) {
                 let _this=this;
                 let reHabits=[];
+
                 for(let i =0;i<habits.length;i++){
                     habits[i].big=false;
                     if(habits[i].todayAdded){
                         reHabits.push(habits[i]);
+
                     }
                     if(id&&id==habits[i].id){
                         habits[i].big=true;
@@ -302,6 +305,17 @@
                         _this.$set(_this.habits,index,_this.habits[index]);
 
                         _this.habits =  _this.orderHabits(_this.habits, _this.habits[index].id);
+                        let count = 0;
+                        for(let k =0;k<_this.habits.length;k++){
+                            if(_this.habits[k].todayAdded==1){
+                                count++;
+                            }
+                        }
+                        if(count==1) xqzs.coin.addAminate(xqzs.coin.constant.HABIT_TYPE);
+
+
+
+
                         if( _this.timeout2)clearTimeout( _this.timeout2);
                         _this.timeout2= setTimeout(function () {
                             for(let i=0;i<_this.habits.length;i++){

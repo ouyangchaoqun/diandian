@@ -441,6 +441,13 @@
 
         },
         mounted: function () {
+            let addmood = this.$route.query.addmood;
+            if(addmood==="true"){
+                setTimeout(function () {
+                    xqzs.coin.addAminate(xqzs.coin.constant.ADD_MOOD_TYPE);
+                },200)
+            }
+
 
             var _this = this;
             _this.activeCalendarIndex  = _this.$route.query.activeIndex;

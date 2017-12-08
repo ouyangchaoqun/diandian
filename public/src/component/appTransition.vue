@@ -208,6 +208,100 @@
 </script>
 
 <style>
+    /*积分动画*/
+    .coin_add{ position: fixed; width:5.558823529411765rem; height: 5.558823529411765rem; top:50%; left:50%; margin-left: -2.779411764705883rem; margin-top: -2.779411764705883rem; z-index: 1000;
+        animation: coin_add_show 3s  forwards ;
+        -webkit-animation: coin_add_show 3s  forwards ;}
+    .coin_add .coin_add_round{ background: url(../images/coin_add_round.png) no-repeat center; width: 100%; height: 100%; background-size: 100%; position: absolute; top:0;
+        animation: coin_round_round 1s    infinite linear ;;
+        -webkit-animation: coin_round_round 1s  infinite linear ; ;
+        animation-delay:0.8s;
+        -webkit-animation-delay:0.8s;
+
+    }
+    .coin_add .coin_add_coin{ background: url(../images/coin_add_coin.png) no-repeat center; width: 100%; height: 100%; background-size: 3.617647058823529rem; position: absolute; top:0;
+        animation: coin_coin_round 1s   infinite linear ; ;
+        -webkit-animation: coin_coin_round 1s  infinite linear ;  ;
+        animation-delay:0.8s;
+        -webkit-animation-delay:0.8s;}
+
+    .coin_add .add_num{ font-size: 12px; color:#ffaa00; position: absolute; top:0; width: 100%; text-align: center;
+        animation: coin_big 1.5s  forwards linear;
+        -webkit-animation: coin_big 1.5s  forwards  linear;
+        animation-delay:0.8s;
+        -webkit-animation-delay:0.8s;
+    }
+    @keyframes coin_coin_round {
+        0%{
+            backface-visibility: hidden;
+            transform: rotateY(0deg);
+            -webkit-transform: rotateY(0deg);
+        }
+        100%{
+            backface-visibility: hidden;
+            transform: rotateY(360deg);
+            -webkit-transform: rotateY(360deg);
+        }
+
+    }
+
+    @keyframes coin_round_round {
+
+        0%{
+            backface-visibility: hidden;
+
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+        }
+        100%{
+            backface-visibility: hidden;
+
+            transform: rotate(360deg);
+            -webkit-transform: rotate(360deg);
+        }
+
+    }
+
+
+    @keyframes coin_big {
+        /*rotate(0deg) */
+        0%{
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0) scale(1);
+        }
+        70%{
+            transform: translate3d(0, -200%, 0)   scale(2.5);
+            -webkit-transform: translate3d(0,-200%, 0) scale(2.5);
+            opacity: 1;
+        }
+        100%{
+            transform: translate3d(20%, -300%, 0)   scale(3);
+            -webkit-transform: translate3d(20%,-300%, 0) scale(3);
+            opacity: 0;
+        }
+
+    }
+
+    @keyframes coin_add_show {
+        0%{
+            transform: translate3d(100%, -200%, 0)   scale(0);
+            -webkit-transform: translate3d(100%,-200%, 0) scale(0);
+        }
+        15%{
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0) scale(1);
+        }
+        85%{
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0) scale(1);
+        }
+        100%{
+            transform: translate3d(100%, -200%, 0)   scale(0);
+            -webkit-transform: translate3d(100%,-200%, 0) scale(0);
+        }
+    }
+
+
     .child-view {
         position: absolute !important;
         width: 100% !important;
