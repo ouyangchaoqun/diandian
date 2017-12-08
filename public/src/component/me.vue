@@ -165,6 +165,7 @@
 		position: relative;
 		margin-top: 1.470588235294118rem;
 		margin-left: 1rem;
+		border: 0.0588235rem solid rgba(255,255,255,0.8);
 	}
 
 
