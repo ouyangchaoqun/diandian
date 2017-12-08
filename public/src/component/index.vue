@@ -8,7 +8,13 @@
                 <div class="close" @click="hideNote"></div>
                 <div class="bg"></div>
                 <div class="page1"></div>
-                <div class="page2"></div>
+                <div class="page2">
+                    <div class="words">
+                        <div class="logo"></div>
+                        <div class="date">{{date}}</div>
+                        <div class="word"><p>好一点</p><p>发来贺卡</p></div>
+                    </div>
+                </div>
                 <div class="page3"></div>
                 <div class="page4"></div>
                 <div class="line1"></div>
@@ -293,6 +299,7 @@
                 choosedData:{},
                 myMoodCount:null,
                 isOpenNote:false,
+                date:''
 
             }
         },
@@ -315,15 +322,21 @@
             }
         },
         methods: {
-            hideNote:function () {
-               this.isBirthday=false;
-            },
-            openNote:function () {
+            initDate:function () {
                 let date=new Date();
                 let year=date.getFullYear();
                 let month=date.getMonth()+1;
                 let day=date.getDate();
-                let isBirthdayShowKey="isBirthdayShow"+year+"_"+month+"_"+day;
+                this.date= year +"-"+ (month<10?("0"+month):month)+"-"+(day<10?("0"+day):day);
+
+            },
+            hideNote:function () {
+               this.isBirthday=false;
+            },
+            openNote:function () {
+
+                let isBirthdayShowKey="isBirthdayShow"+ this.date;
+                console.log(this.date)
                 xqzs.localdb.set(isBirthdayShowKey,1);
                 this.isOpenNote=true;
             },
@@ -441,7 +454,7 @@
                 let month=date.getMonth()+1;
                 let day=date.getDate();
 
-                let isBirthdayShowKey="isBirthdayShow"+year+"_"+month+"_"+day;
+                let isBirthdayShowKey= "isBirthdayShow" +this.date;
 
                 //好友生日
                 _this.$http.get(web.API_PATH + 'birthday/get/list/'+year+'/'+month+'/'+day+'/_userId_').then(function (data) {//es5写法
@@ -1064,6 +1077,7 @@
         },
 
         mounted: function () {
+            this.initDate();
             this.getUserInfo();
             this.initSleepConfig();
             this.getMyInfos();
@@ -1074,6 +1088,7 @@
             this.initDom();
             this.initAddMood();
             this.getMoodCount();
+
 
         },
         updated:function () {
@@ -1106,15 +1121,24 @@
     }
     .birthday_note .note_bg .close{ background: url(../images/coin_close.png) no-repeat rgba(0,0,0,0.6) center; width: 1.5rem;background-size:0.6rem; border: 1px solid rgba(255,255,255,0.6);  height: 1.5rem; border-radius: 50%; z-index: 10; position: absolute;right:0rem; top:-1.5rem;  }
     .birthday_note .note_bg .bg{background:#81512e; position: absolute; left:1%; top:1%; height: 98%; width:98%}
-    .birthday_note .note_bg .page1{ background: url(../images/index_birthday_page1.png) no-repeat; height:100%; background-size: 100%     ; position: absolute; top:16%; left:2%; z-index: 1 ; width: 96%;   }
+    .birthday_note .note_bg .page1{ background: url(../images/index_birthday_page1.png) no-repeat; height:100%; background-size: 100%     ; position: absolute; top:12%; left:2%; z-index: 1 ; width: 96%;   }
     .birthday_note .note_bg .page2{ background: url(../images/index_birthday_page2.png) no-repeat  top right; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute; top:0; right:0; z-index: 2;width: 100% }
+
+     
+                                                                                                                                                                                      .birthday_note .note_bg .page2 .words{position: absolute; top:4rem; right:2rem; padding-top: 3rem; text-align: right}
+    .birthday_note .note_bg .page2 .words .logo{ background: url(../images/logo.jpg) no-repeat; background-size: 2.588235294117647rem; height: 2.588235294117647rem; width: 2.588235294117647rem; border-radius: 50%; position: absolute; right:0; top:0}
+    .birthday_note .note_bg .page2 .words .date{ font-size: 0.8235294117647059rem;  color:#795631; font-weight: bold; margin-top: 1rem; margin-bottom: 1rem;}
+    .birthday_note .note_bg .page2 .words .word{font-size: 0.7647058823529412rem; color:#FAEAC8; position: relative; padding: 0 0.5rem; display: inline-block}
+    .birthday_note .note_bg .page2 .words .word:before{ content: ''; height:1.323529411764706rem;  width: 1px; background: #7F5429; overflow: hidden; display: block; position: absolute; left:0; bottom:0 }
+    .birthday_note .note_bg .page2 .words .word:after{ content: ''; height:2.647058823529412rem;  width: 1px; background: #7F5429; overflow: hidden; display: block; position: absolute; right:0;; bottom:0}
+
     .birthday_note .note_bg .page3{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 4;width: 200%  ;  margin-left: -16.61764705882353rem;    background-position: 16.61764705882353rem;}
     .birthday_note .note_bg .page4{ background: url(../images/index_birthday_page3.png) no-repeat ; height:28.94117647058824rem; background-size: auto 28.94117647058824rem; position: absolute;  z-index: 3;width: 200% ;-webkit-transform:rotate(180deg); background-position: 16.61764705882353rem;}
     .birthday_note .note_bg .line1{ background: url(../images/index_birthday_line.png) no-repeat ; height: 2.176470588235294rem; width: 5.705882352941176rem; z-index: 6 ; position: absolute;top:50%; margin-top: -1.088235294117647rem; background-size: 5.705882352941176rem; left:0.8%   }
     .birthday_note .note_bg .line2{ background: url(../images/index_birthday_line.png) no-repeat top left ; height: 2.176470588235294rem; width: 100%; z-index: 6 ; position: absolute;top:50%; margin-top: -1.088235294117647rem; background-size: 5.705882352941176rem; -webkit-transform:rotateX(0deg) rotateY(180deg); }
     .birthday_note .note_bg .flower{ background: url(../images/index_birthday_flower.png) no-repeat top left ; height: 6.411764705882353rem; width: 6.294117647058824rem; z-index: 7 ; position: absolute;top:50%; left:50%; margin-top: -3rem; background-size:  6.294117647058824rem; margin-left: -3rem;
-        animation: flower 2.5s infinite;
-        -webkit-animation: flower 2.5s infinite; }
+        animation: flower 2.2s infinite;
+        -webkit-animation: flower 2.2s infinite; }
 
     @keyframes note_down {
         0% {
@@ -1196,8 +1220,8 @@
     .birthday_note .open .page1{
         animation: page1_show 1.5s  forwards ;
         -webkit-animation: page1_show 1.5s  forwards ;
-        animation-delay:3.5s;
-        -webkit-animation-delay:3.5s;
+        animation-delay:4s;
+        -webkit-animation-delay:4s;
     }
 
     @keyframes page1_show  {

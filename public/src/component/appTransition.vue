@@ -210,8 +210,8 @@
 <style>
     /*积分动画*/
     .coin_add{ position: fixed; width:5.558823529411765rem; height: 5.558823529411765rem; top:50%; left:50%; margin-left: -2.779411764705883rem; margin-top: -2.779411764705883rem; z-index: 1000;
-        animation: coin_add_show 3s  forwards ;
-        -webkit-animation: coin_add_show 3s  forwards ;}
+        animation: coin_add_show 2.5s  forwards ;
+        -webkit-animation: coin_add_show 2.5s  forwards ;}
     .coin_add .coin_add_round{ background: url(../images/coin_add_round.png) no-repeat center; width: 100%; height: 100%; background-size: 100%; position: absolute; top:0;
         animation: coin_round_round 1s    infinite linear ;;
         -webkit-animation: coin_round_round 1s  infinite linear ; ;
@@ -239,8 +239,8 @@
         }
         100%{
             backface-visibility: hidden;
-            transform: rotateY(360deg);
-            -webkit-transform: rotateY(360deg);
+            transform: rotateY(720deg);
+            -webkit-transform: rotateY(720deg);
         }
 
     }
@@ -256,8 +256,8 @@
         100%{
             backface-visibility: hidden;
 
-            transform: rotate(360deg);
-            -webkit-transform: rotate(360deg);
+            transform: rotate(720deg);
+            -webkit-transform: rotate(720deg);
         }
 
     }
