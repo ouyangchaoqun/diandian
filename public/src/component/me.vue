@@ -184,16 +184,16 @@
 	}
 	.perfec{
 		font-size:0.7058823529411765rem;
-		color: #333;
+		color: #FFFFFF;
 		position: relative;
-		background:rgba(255,255,255,0.29);
+
 		width: 4.617647058823529rem;
 		height:1.441176470588235rem;
 		border-radius: 4px;
 		margin-top: 0.2rem;
 	}
 	.perfec span{
-		line-height: 1.441176470588235rem; margin-left: 0.3rem;
+		line-height: 1.441176470588235rem;
 	}
 	.perfec img{
 		position: absolute;
@@ -304,12 +304,9 @@
         },
 		updated:function () {
 
-            var obj =  $(".me_head>a")
-            xqzs.weui.active(obj);
 
-            $(".coin_btn").on("touchstart",function () {
-                event.stopPropagation();
-            })
+
+
 
         }
     }
