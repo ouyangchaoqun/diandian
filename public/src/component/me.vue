@@ -5,12 +5,12 @@
 
 		<div class="me_top">
 			<div class="me_head">
-			<a @click="goPerf()" class="me1">
+			<a  class="me1">
 				<span v-show="hasNewPerfect" class="hasnew"></span>
 				<img class="me1_left" :src="user.faceUrl"/>
 				<div class="me1_right">
 					<div class="perfec_top">{{user.nickName | shortName(6)}}</div>
-					<div class="perfec">
+					<div class="perfec" @click="goPerf()">
 						<span>完善资料</span>
 						<img class="edit" src="../images/me_btn_icon_perfore.png"/>
 					</div>
@@ -188,10 +188,11 @@
 		position: relative;
 
 		width: 4.617647058823529rem;
-		height:1.441176470588235rem;
+		height:2.441176470588235rem;
 		border-radius: 4px;
 		margin-top: 0.2rem;
 	}
+    .perfec:active{opacity: 0.8}
 	.perfec span{
 		line-height: 1.441176470588235rem;
 	}
