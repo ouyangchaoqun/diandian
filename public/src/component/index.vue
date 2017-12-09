@@ -205,8 +205,8 @@
                 <div class="sleep_dialog_title">睡觉打卡</div>
                 <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
                 <div class="sleep_dialog_bottom">
-                    <div @click="goSleepRank()">查看排行榜</div>
-                    <div @click="checkIn(3)">睡觉打卡</div>
+                    <div @click.stop="goSleepRank()">查看排行榜</div>
+                    <div @click.stop="checkIn(3)">睡觉打卡</div>
                 </div>
             </div>
         </div>
