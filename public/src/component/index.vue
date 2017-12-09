@@ -200,7 +200,7 @@
             <!--friendcenter end-->
         </div>
         <!--早睡弹窗-->
-        <div class="sleep_dialog weui-mask weui-animate-fade-in" v-if="isGoSleep" >
+        <div class="sleep_dialog " style="display: none">
             <div class="sleep_dialog_box">
                 <div class="sleep_dialog_title">睡觉打卡</div>
                 <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
@@ -755,6 +755,10 @@
                     if(_this.isRecordTime()){
                         //未打卡并在打卡时间段内
                         _this.isGoSleep = true
+
+
+                        xqzs.weui.dialogCustom($(".sleep_dialog").html());
+
                      }else{
 
                         if(!_this.recordTimeOut()){
@@ -1474,7 +1478,7 @@
     }
     /*早睡弹窗*/
     .sleep_dialog{z-index: 10001 !important;}
-    .sleep_dialog_box{width:72%;background: rgba(255,255,255,1);position: absolute;top:25%;left:50%;margin-left:-36%;padding:1.471rem 0 1.52rem 0;border-radius: 0.588235rem;}
+    .sleep_dialog_box{width:72%;background: rgba(255,255,255,1);position: absolute;top:25%;left:50%;margin-left:-36%;padding:1.471rem 0 1.52rem 0;border-radius: 0.588235rem; z-index: 10001}
     .sleep_dialog_title{color:rgba(36,37,61,1);font-size: 1.35rem;text-align: center;line-height: 1;margin-bottom: 1.294rem;}
     .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
     .sleep_dialog_bottom{position: absolute;width:100%;bottom:-4rem;}
