@@ -205,7 +205,7 @@
                 <div class="sleep_dialog_title">睡觉打卡</div>
                 <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
                 <div class="sleep_dialog_bottom">
-                    <div @click.stop="goSleepRank()">查看排行榜</div>
+                    <router-link to='/sleepRank?type=3' >查看排行榜 </router-link>
                     <div @click.stop="checkIn(3)">睡觉打卡</div>
                 </div>
             </div>
@@ -1478,13 +1478,13 @@
     .sleep_dialog_title{color:rgba(36,37,61,1);font-size: 1.35rem;text-align: center;line-height: 1;margin-bottom: 1.294rem;}
     .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
     .sleep_dialog_bottom{position: absolute;width:100%;bottom:-4rem;}
-    .sleep_dialog_bottom div{width:7.0588rem;height:2rem;line-height: 2.1rem;font-size:0.76471rem;text-align: center;border-radius: 0.294rem; }
-    .sleep_dialog_bottom div:nth-of-type(1){
+    .sleep_dialog_bottom div ,.sleep_dialog_bottom a{width:7.0588rem;height:2rem;line-height: 2.1rem;font-size:0.76471rem;text-align: center;border-radius: 0.294rem; display:block }
+    .sleep_dialog_bottom  a{
         background: rgba(231,244,255,1);
         float: left;
         color:rgba(102,102,102,1);
     }
-    .sleep_dialog_bottom div:nth-of-type(2){
+    .sleep_dialog_bottom div:nth-of-type(1){
         background: rgba(153,102,204,1);
         float: right;
         color:rgba(255,255,255,1);
