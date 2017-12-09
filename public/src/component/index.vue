@@ -200,7 +200,7 @@
             <!--friendcenter end-->
         </div>
         <!--早睡弹窗-->
-        <div class="sleep_dialog weui-mask weui-animate-fade-in" v-if="isGoSleep" @click="hideSleepDialog()">
+        <div class="sleep_dialog weui-mask weui-animate-fade-in" v-if="isGoSleep" >
             <div class="sleep_dialog_box">
                 <div class="sleep_dialog_title">睡觉打卡</div>
                 <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
