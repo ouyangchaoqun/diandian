@@ -206,7 +206,7 @@
                 <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
                 <div class="sleep_dialog_bottom">
                     <router-link to='/sleepRank?type=3' >查看排行榜 </router-link>
-                    <div @click.stop="checkIn(3)">睡觉打卡</div>
+                    <div class="sleep_btn_go_sleep" >睡觉打卡</div>
                 </div>
             </div>
         </div>
@@ -758,6 +758,9 @@
 
 
                         xqzs.weui.dialogCustom($(".sleep_dialog").html());
+                        $(".sleep_btn_go_sleep").click(function () {
+                            _this.checkIn(3)
+                        })
 
                      }else{
 
