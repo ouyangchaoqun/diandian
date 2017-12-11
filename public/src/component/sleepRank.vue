@@ -27,6 +27,10 @@
                 </div>
 
             </div>
+            <div class="addIcon_sleepRank">
+                <img src="../images/addIcon_sleepRank.png" alt="">
+                <span>{{user.coinAmount}}</span>
+            </div>
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
@@ -181,6 +185,22 @@
     </div>
 </template>
 <style>
+    /*新增积分*/
+    .addIcon_sleepRank{
+        position: absolute;
+        top:3rem;
+        left:1rem;
+    }
+    .addIcon_sleepRank img{
+        width:0.88235rem;
+        display: inline-block;
+    }
+    .addIcon_sleepRank span{
+        color:#ffaa00;
+        font-size: 0.76471rem;
+        vertical-align: text-top;
+        display: inline-block;
+    }
     /*新增打卡失败*/
     .sleep_rank_box .record_loseBox{z-index:10001 !important;}
     .sleep_rank_box .record_loseBox .diglog_lose{width:15.588rem;height:14.294rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;text-align: center;padding:0}
