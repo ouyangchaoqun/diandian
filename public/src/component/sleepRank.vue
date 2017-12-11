@@ -9,7 +9,7 @@
                     <template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡时间段：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
                 <div class="lose_bottom" :class="{'morning_bottom':!isNight,'night_bottom':isNight}" @click="set()">
-                    设置<template v-if="!isNight">早起</template><template v-if="isNight">早睡</template>打卡提醒
+                    设置提醒
                 </div>
             </div>
             <img class="close_btn" src="../images/close_loseBox.png" alt="">

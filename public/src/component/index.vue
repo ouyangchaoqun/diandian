@@ -200,11 +200,11 @@
             <!--friendcenter end-->
         </div>
         <!--早睡弹窗-->
-        <div class="sleep_dialog " style="display: none">
+        <div class="sleep_dialog" style="display: none">
             <div class="sleep_dialog_box">
                 <div class="sleep_dialog_title">睡觉打卡</div>
                 <p>又到睡觉时间了！乖，放下手机，关灯、睡觉，做个好梦。</p>
-                <div class="sleep_dialog_bottom">
+                <div class="sleep_bottom_style">
                     <router-link to='/sleepRank?type=3' >查看排行榜 </router-link>
                     <div class="sleep_btn_go_sleep" >睡觉打卡</div>
                 </div>
@@ -217,13 +217,9 @@
                 <div class="record_time">
                     <template v-if="isNight()">早睡</template><template v-if="!isNight()">早起</template>打卡时间：<template v-if="!isNight()">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight()">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
-                <p v-if="!isNight()">未到起床打卡时间，还可以睡一会哦！     </p>
-                <p v-if="isNight()">今天发生了什么有意思的事吗？快来“心情说说”分享一下吧~</p>
-                <img v-if="!isNight()" class="status_img" src="../images/morning_status.png" alt="">
-                <img v-if="isNight()" class="status_img" src="../images/night_status.png" alt="">
-                <div class="sleep_dialog_bottom" >
-                    <div @click="goYesterDaySleepRank()">查看昨日排行</div>
-                    <div @click="set()">设置打卡提醒</div>
+                <div class="sleep_dialog_bottom" :class="{morning_bottomStyle:!isNight(),night_bottomStyle:isNight()}">
+                    <div @click="goYesterDaySleepRank()">昨日排行</div>
+                    <div @click="set()">设置提醒</div>
                 </div>
             </div>
         </div>
@@ -1367,11 +1363,11 @@
 
 /*新增打卡失败*/
     .record_loseBox{z-index:10001 !important;}
-   .record_loseBox .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;text-align: center;}
+   .record_loseBox .diglog_lose{width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;height:14.294rem;text-align: center;}
     .record_loseBox .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
     .record_loseBox .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
-    .record_loseBox .title_lose{font-size: 1.35rem;line-height: 1;margin-bottom: 0.588235rem;}
-    .record_loseBox .record_time{font-size: 0.6471rem;line-height: 1;margin-bottom: 1.176471rem;}
+    .record_loseBox .title_lose{font-size:1.0588rem;line-height: 1;width:100%;position: absolute;top:46%;}
+    .record_loseBox .record_time{font-size: 0.6471rem;line-height: 1;width:100%;position: absolute;top:58%;}
     .record_loseBox .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
     .record_loseBox .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
 
@@ -1478,21 +1474,46 @@
     }
     /*早睡弹窗*/
     .sleep_dialog{z-index: 10001 !important;}
+    .sleep_dialog_box .sleep_bottom_style{
+        font-size: 0.76471rem;height:2rem;text-align: center;line-height: 2rem;width:100%;position: absolute;bottom:-50%;
+    }
+    .sleep_dialog_box .sleep_bottom_style a{
+        display: block;float: left;color:rgba(102,102,102,1);background: rgba(231,244,255,1);height:100%;
+        width:40%;border-radius: 0.294rem;margin-left: 0.588235rem;
+    }
+    .sleep_dialog_box .sleep_bottom_style div{
+        background: rgba(153,102,204,1);color:rgba(255,255,255,1);border-radius: 0.294rem;width:40%;float: right;margin-right:0.588235rem;}
     .sleep_dialog_box{width:72%;background: rgba(255,255,255,1);position: absolute;top:25%;left:50%;margin-left:-36%;padding:1.471rem 0 1.52rem 0;border-radius: 0.588235rem; z-index: 10001}
     .sleep_dialog_title{color:rgba(36,37,61,1);font-size: 1.35rem;text-align: center;line-height: 1;margin-bottom: 1.294rem;}
     .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
-    .sleep_dialog_bottom{position: absolute;width:100%;bottom:-4rem;}
-    .sleep_dialog_bottom div ,.sleep_dialog_bottom a{width:7.0588rem;height:2rem;line-height: 2.1rem;font-size:0.76471rem;text-align: center;border-radius: 0.294rem; display:block }
-    .sleep_dialog_bottom  a{
-        background: rgba(231,244,255,1);
-        float: left;
-        color:rgba(102,102,102,1);
-    }
+    .sleep_dialog_bottom{position: absolute;width:100%;bottom:10%;}
+    .sleep_dialog_bottom div{width:40%;height:2rem;line-height: 2.1rem;font-size:0.76471rem;text-align: center;border-radius: 1rem; display:block;float: left;border:1px solid;}
     .sleep_dialog_bottom div:nth-of-type(1){
-        background: rgba(153,102,204,1);
-        float: right;
-        color:rgba(255,255,255,1);
+        margin-left: 0.588235rem;
     }
+    .sleep_dialog_bottom div:nth-of-type(2){
+        float: right;
+        margin-right: 0.588235rem;
+    }
+    .morning_bottomStyle div:nth-of-type(1){
+        border-color: rgba(251,184,40,1);
+        color:rgba(251,184,40,1);
+    }
+    .morning_bottomStyle div:nth-of-type(2){
+        border-color: rgba(251,184,40,1);
+        color:#fff;
+        background: rgba(251,184,40,1);
+    }
+    .night_bottomStyle div:nth-of-type(1){
+        border-color: rgba(68,60,97,1);
+        color:#fff;
+    }
+    .night_bottomStyle div:nth-of-type(2){
+        border-color: rgba(68,60,97,1);
+        color:#fff;
+        background: rgba(68,60,97,1);
+    }
+
     .add_record{ height: 3.3rem; width: 3.3rem ; margin-left: -1.65rem; top:-1.65rem; border-radius: 50% ;position: absolute; font-size: 2.5rem;  left:50%; background: #fff; color:#fff; border: 0.0588235294117647rem solid #ddd;}
     .add_record:before{ content: " " ; height: 2.8rem; width: 2.8rem;border-radius: 50% ;position: absolute;left:0.25rem; background: #0BB20C; top:0.25rem; z-index: 2  }
     .add_record:after{ content: " " ; height: 1.76rem; width: 3.5176470588235294rem; position: absolute;left:-0.0588235294117647rem; background: #fff; top:1.6rem; z-index: 1  }
