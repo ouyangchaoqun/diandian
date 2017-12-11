@@ -4,17 +4,15 @@
         <!--新增打卡失败场景-->
         <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="isLose" @click="hideLoseBox()">
             <div class="diglog_lose" :class="{'morning_lose':!isNight,'night_lose':isNight}">
-                <div class="title_lose">打卡失败</div>
+                <div class="title_lose">错过打卡时间</div>
                 <div class="record_time">
-                    <template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡时间：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
+                    <template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡时间段：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
-                <p>今天有{{allCount}}位小伙伴参与<template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡，设置打卡提醒和他们一起<template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>吧，<template v-if="!isNight">坚持早起打卡，遇见更好的自己！</template> <template v-if="isNight"> 生活不易你要懂得照顾自己！</template></p>
-                <img v-if="!isNight" class="status_img" src="../images/morning_status.png" alt="">
-                <img v-if="isNight" class="status_img" src="../images/night_status.png" alt="">
                 <div class="lose_bottom" :class="{'morning_bottom':!isNight,'night_bottom':isNight}" @click="set()">
                     设置<template v-if="!isNight">早起</template><template v-if="isNight">早睡</template>打卡提醒
                 </div>
             </div>
+            <img class="close_btn" src="../images/close_loseBox.png" alt="">
         </div>
         <div class="myshare" v-show="isShowShareTip" @click="share()">
         </div>
@@ -184,19 +182,19 @@
 </template>
 <style>
     /*新增打卡失败*/
-    .record_loseBox{z-index:10001 !important;}
-    .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;text-align: center;}
-    .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
-    .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
-    .title_lose{font-size: 1.35rem;line-height: 1;margin-bottom: 0.588235rem;}
-    .record_time{font-size: 0.6471rem;line-height: 1;margin-bottom: 1.176471rem;}
-    .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
-    .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
-    .lose_bottom{width:10.8235rem;height:2.588235rem;font-size: 0.88235rem;color:#fff;line-height: 3rem;position: absolute;bottom:-4.588rem;left:50%;margin-left: -5.41175rem;}
-    .morning_bottom{background: url("../images/lose_bottom1.png") no-repeat;background-size: 100% 100%;}
-    .night_bottom{background: url("../images/lose_bottom2.png") no-repeat;background-size: 100% 100%;}
-    .morning_bottom:active{background: url("../images/lose_bottom3.png") no-repeat;background-size: 100% 100%;}
-    .night_bottom:active{background: url("../images/lose_bottom4.png") no-repeat;background-size: 100% 100%;}
+    .sleep_rank_box .record_loseBox{z-index:10001 !important;}
+    .sleep_rank_box .record_loseBox .diglog_lose{width:15.588rem;height:14.294rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;text-align: center;padding:0}
+    .sleep_rank_box .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
+    .sleep_rank_box .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
+    .sleep_rank_box .title_lose{font-size: 1.0588rem;line-height: 1;width:100%;position: absolute;top:46%;}
+    .sleep_rank_box .record_time{font-size: 0.6471rem;line-height: 1;position: absolute;width:100%;top:58%;}
+    .sleep_rank_box .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
+    .sleep_rank_box .lose_bottom{width:10.8235rem;height:2.1176471rem;font-size: 0.88235rem;color:#fff;line-height: 2.12rem;position: absolute;bottom:10%;left:50%;margin-left: -5.41175rem;border-radius: 1rem;}
+    .sleep_rank_box .morning_bottom{background: rgba(251,184,40,1);}
+    .sleep_rank_box .night_bottom{background: rgba(53,49,69,1);}
+    .sleep_rank_box .morning_bottom:active{background:#d69c21;}
+    .sleep_rank_box .night_bottom:active{background: #37314f;}
+    .sleep_rank_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: 25%; left: 50%;margin-left: -0.7355rem;}
     .day_or_night{
         position: absolute;
         display: flex;

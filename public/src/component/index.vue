@@ -1367,17 +1367,14 @@
 
 /*新增打卡失败*/
     .record_loseBox{z-index:10001 !important;}
-    .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;text-align: center;}
-    .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
-    .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
-    .title_lose{font-size: 1.35rem;line-height: 1;margin-bottom: 0.588235rem;}
-    .record_time{font-size: 0.6471rem;line-height: 1;margin-bottom: 1.176471rem;}
-    .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
-    .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
-    .morning_bottom{background: url("../images/lose_bottom1.png") no-repeat;background-size: 100% 100%;}
-    .night_bottom{background: url("../images/lose_bottom2.png") no-repeat;background-size: 100% 100%;}
-    .morning_bottom:active{background: url("../images/lose_bottom3.png") no-repeat;background-size: 100% 100%;}
-    .night_bottom:active{background: url("../images/lose_bottom4.png") no-repeat;background-size: 100% 100%;}
+   .record_loseBox .diglog_lose{position: relative;width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;padding:1.235rem 0 4rem 0;text-align: center;}
+    .record_loseBox .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
+    .record_loseBox .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
+    .record_loseBox .title_lose{font-size: 1.35rem;line-height: 1;margin-bottom: 0.588235rem;}
+    .record_loseBox .record_time{font-size: 0.6471rem;line-height: 1;margin-bottom: 1.176471rem;}
+    .record_loseBox .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
+    .record_loseBox .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
+
 
     .index_btns {
         height: 5.5rem;
