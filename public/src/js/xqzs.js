@@ -985,6 +985,13 @@ var xqzs = {
             }
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url,guest:guest}}).then(function (response) {
+                response.body.jsApiList=['getLocation','chooseImage','uploadImage','downloadImage','previewImage','onMenuShareTimeline',"onMenuShareAppMessage"
+                    ,"onMenuShareQQ"
+                    ,"onMenuShareWeibo"
+                    ,"onMenuShareQZone"
+                    ,"openAddress"
+                ];
+
 
                 wx.config(response.body);
                 wx.ready(function () {

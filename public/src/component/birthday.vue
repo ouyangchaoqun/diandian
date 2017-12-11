@@ -1250,7 +1250,7 @@
                         _this.count = count;
                         console.log(_this.count);
                         _this.friendList = data.body.data;
-                        for (let i = 0; i < _this.friendList.length; i++) {
+                        for (let i = _this.friendList.length-1; i >=0; i--) {
 
                             if (_this.friendList[i].content && _this.friendList[i].content != null && _this.friendList[i].content != '') {
                                 if(_this.friendList[i].content&&_this.friendList[i].content!='') _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
