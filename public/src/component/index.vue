@@ -708,15 +708,12 @@
                 $(".mood_box .scene_box").hide();
                 $(".mood_box").addClass("go_up");
                 let _this=this;
-                xqzs.weui.dialogCustom($("#mood_box").html());
-                $(".js_dialog .weui-mask").click(function () {
-                    xqzs.weui.weuiMaskClose();
-                    $(".mood_box").removeClass("go_up").addClass("go_down");
-                    setTimeout(function () {
-                        $(".js_dialog").remove();
-                    }, 300);
+                xqzs.weui.dialogCustom($("#mood_box").html(),function () {
 
+                },function () {
+                    $(".mood_box").removeClass("go_up").addClass("go_down");
                 });
+
                 $(".mood_box .mood_left a").click(function () {
                     $(".mood_box .mood_left").hide();
                     $(".mood_box .scene_box").show();

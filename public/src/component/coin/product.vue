@@ -104,11 +104,14 @@
                 this.check=true;
                 this.$nextTick(function () {
 
-                    xqzs.weui.dialogCustom($("#check_change").html());
-                    $(".check_change").addClass("up").removeClass("down")
+                    xqzs.weui.dialogCustom($("#check_change").html(),function () {
+                        $(".check_change").addClass("up").removeClass("down")
+                    },function () {
+                        $(".check_change").removeClass("up").addClass("down")
+                    });
+
 
                     $(".check_change .close").click(function () {
-                        $(".check_change").removeClass("up").addClass("down")
                         $(".js_dialog .weui-mask").click();
                     })
                     $(".check_change_btn").click(function () {
@@ -137,14 +140,17 @@
                                     '                    <div class="info">(注：积分消费记录详情请在积分明细中查看）</div>\n' +
                                     '                    <div class="btn coin_success_btn">OK</div>\n' +
                                     '                </div>';
-                                xqzs.weui.dialogCustom(html);
-
-                                $(".get_coin .close").click(function () {
-                                    $(".js_dialog .weui-mask").click();
+                                xqzs.weui.dialogCustom(html,function () {
+                                    $(".get_coin .coin_success_btn").click(function () {
+                                        _this.$router.go(-1);
+                                    });
+                                    $(".get_coin .close").click(function () {
+                                        $(".js_dialog .weui-mask").click();
+                                    });
                                 });
-                                $(".get_coin .coin_success_btn").click(function () {
-                                    _this.$router.go(-1);
-                                })
+
+
+
                             }
                             else if(res.body.status==9000008){
                                 this.getCoin();

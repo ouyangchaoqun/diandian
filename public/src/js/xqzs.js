@@ -16,8 +16,12 @@ var xqzs = {
     },
 
     weui: {
-        weuiMaskClose: function () {
-            $(".weui-mask").removeClass("weui-animate-fade-in").addClass("weui-animate-fade-out");
+        weuiMaskClose: function (callback) {
+            $(".weui-mask").removeClass("weui-animate-fade-in").animate({opacity:0},300,function () {
+                if(typeof callback=='function'){
+                    callback();
+                }
+            })
         },
         active: function (obj) {
             obj.on("touchstart", function () {
@@ -101,33 +105,38 @@ var xqzs = {
             html += '   </div>';
             $("body").append(html);
             $(".js_dialog .cancel").click(function () {
-                xqzs.weui.weuiMaskClose();
-                setTimeout(function () {
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                }, 300);
+                });
                 cancelFun();
             });
             $(".js_dialog .submit").click(function () {
-                xqzs.weui.weuiMaskClose();
-                submitFun();
-                setTimeout(function () {
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                }, 300);
+                });
+                submitFun();
+
             })
         },
-        dialogCustom: function (Html) {
+        dialogCustom: function (Html,inCallback,outCallback) {
             var html = "";
             html += '<div class="js_dialog"  >';
             html += '   <div class="weui-mask weui-animate-fade-in"></div>';
             html += Html;
             html += '</div>';
             $("body").append(html);
+            if(typeof inCallback=='function'){
+                inCallback()
+            }
             $(".js_dialog .weui-mask").click(function () {
-                xqzs.weui.weuiMaskClose();
-                setTimeout(function () {
+                if(typeof outCallback=='function'){
+                    outCallback()
+                }else{
+                    $(".js_dialog>*:not(.weui-mask)").animate({opacity:0},0);
+                }
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                }, 300);
-
+                });
             });
         },
         _dialog: function (config) {
@@ -144,7 +153,7 @@ var xqzs = {
             config = $.extend(defaultsize, config);
             var html = "";
             html += '<div class="js_dialog"  >';
-            html += '   <div class="weui-mask weui-animate-fade-in-in"></div>';
+            html += '   <div class="weui-mask weui-animate-fade-in"></div>';
             html += '   <div class="weui-dialog">';
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
@@ -156,16 +165,19 @@ var xqzs = {
             html += '   </div>';
             $("body").append(html);
             $(".js_dialog .cancel").click(function () {
-                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                $(".js_dialog>*:not(.weui-mask)").animate({opacity:0},0);
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                    config.cancelFun();
                 });
+                config.cancelFun();
+
             });
             $(".js_dialog .submit").click(function () {
-                config.submitFun();
-                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                $(".js_dialog>*:not(.weui-mask)").animate({opacity:0},0);
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
                 });
+                config.submitFun();
             })
         },
         actionSheet: function (tip, actionName, doFun, cancelFun) {
