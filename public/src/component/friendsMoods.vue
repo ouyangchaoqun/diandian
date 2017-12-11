@@ -1,6 +1,6 @@
 <template >
 
-    <div style="position: relative">
+    <div style="position: relative" class="friends_moods">
         <!--<div class="weui-toast">
             <i class="weui-icon-success-no-circle weui-icon_toast"></i>
             <p class="weui-toast__content">已完成</p>
@@ -546,7 +546,7 @@
         margin-top: 0;
     }
 
-    .arrow {
+.friends_moods  .arrow {
         width: 12px;
         height: 12px;
         background: #f9f9f9;
@@ -573,17 +573,17 @@
         color: #333;
         display: block;
     }
-    .name {
+  .friends_moods  .name {
         color: #5e61a2;
         font-size: 13px;
         font-weight: bold;
 
     }
-    .commont {
+.friends_moods .commont {
         font-size: 13px;
         color: #333333;
     }
-    .addCj{
+.friends_moods .addCj{
         height: 16px;
         vertical-align: middle;
         margin-top: -3px;
