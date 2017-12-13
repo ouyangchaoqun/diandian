@@ -72,10 +72,10 @@
                     </a>
                     <a class=" swiper-slide mood" @click="addMood()"><span>心情说说</span></a>
                     <a class="swiper-slide habit" @click="goHabit()"><span>健康习惯</span></a>
-                    <a class=" swiper-slide xz" @click="goXz()"><span>星座运势</span></a>
                     <a class="swiper-slide sign" @click="dailyRecord()"><span>每日一签</span></a>
-                    <a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>
+                    <a class=" swiper-slide xz" @click="goXz()"><span>星座运势</span></a>
                     <a class=" swiper-slide set" @click="set()"><span>设置提醒</span></a>
+                    <a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>
                 </div>
             </div>
             <!--banner end -->
@@ -518,25 +518,25 @@
                 this.$router.push('/me/subscribe')
             },
             initBtns:function () {
-                let arrBtnSide1=[],arrBtnSide2=[];
-                $(".index_btns .swiper-slide").each(function (i) {
-                    if(i<3){
-                        arrBtnSide1.push($(this));
-                    }else{
-                        arrBtnSide2.push($(this));
-                    }
-                });
-                arrBtnSide2.sort(function () {
-                    return Math.random() > 0.5 ? -1 : 1;
-                });
-
-                $(".index_btns .swiper-slide").remove();
-                for(let i =0;i<arrBtnSide1.length;i++){
-                    $(".index_btns .swiper-wrapper").append(arrBtnSide1[i]);
-                }
-                for(let i =0;i<arrBtnSide2.length;i++){
-                    $(".index_btns .swiper-wrapper").append(arrBtnSide2[i]);
-                }
+//                let arrBtnSide1=[],arrBtnSide2=[];
+//                $(".index_btns .swiper-slide").each(function (i) {
+//                    if(i<3){
+//                        arrBtnSide1.push($(this));
+//                    }else{
+//                        arrBtnSide2.push($(this));
+//                    }
+//                });
+//                arrBtnSide2.sort(function () {
+//                    return Math.random() > 0.5 ? -1 : 1;
+//                });
+//
+//                $(".index_btns .swiper-slide").remove();
+//                for(let i =0;i<arrBtnSide1.length;i++){
+//                    $(".index_btns .swiper-wrapper").append(arrBtnSide1[i]);
+//                }
+//                for(let i =0;i<arrBtnSide2.length;i++){
+//                    $(".index_btns .swiper-wrapper").append(arrBtnSide2[i]);
+//                }
 
 
                 this.$nextTick(function () {

@@ -18,7 +18,7 @@
    <script src="https://cdn.staticfile.org/Swiper/3.4.2/js/swiper.min.js"></script>
   <script src="https://res.wx.qq.com/open/libs/weuijs/1.1.1/weui.min.js"></script>
   <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
-  <script src="http://map.qq.com/api/js?v=2" charset="utf-8"></script>
+  <script src="https://map.qq.com/api/js?v=2" charset="utf-8"></script>
 </head>
 <body>
 <div id="app">
@@ -29,7 +29,7 @@
 
     web.BASE_PATH2="<?=env("BASE_PATH")?>";
     web.BASE_PATH="<?=env("BASE_PATH")?>";
-    web.API_PATH=web.BASE_PATH2+"api/";
+    web.API_PATH= "//wx.xqzs.cn/api/";
     web.IMG_PATH="/dist/";
     web.IPAddress="<?=$_SERVER["REMOTE_ADDR"]?>";
     var now_week= "<?=date("W")?>";
