@@ -202,6 +202,7 @@
         <!--早睡弹窗-->
         <div class="sleep_dialog " style="display: none">
             <div class="sleep_dialog_box">
+                <img class="close_btn" src="../images/close_loseBox.png" alt="">
                 <div class="addTitleHtml">睡觉时间到</div>
                <div class="addNewHtml">打卡、晚安、做个好梦</div>
                 <div class="sleep_bottom_style">
@@ -209,6 +210,7 @@
                     <div class="sleep_btn_go_sleep" >早睡打卡</div>
                 </div>
             </div>
+
         </div>
         <!--未到打卡时间弹窗-->
         <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="record_timeOut" @click="hideRecord_timeOut()">
@@ -1488,7 +1490,7 @@
     .sleep_dialog_box .sleep_bottom_style div{
         background: rgba(70,59,100,1);color:rgba(255,255,255,1);border-radius: 1.176471rem;width:38%;float: right;margin-right:1.4rem;border:1px solid rgba(70,59,100,1);height:100%;}
     .sleep_dialog_box{width:17.647rem;height:17.647rem;background: url("../images/night_lose.png") no-repeat;position: absolute;top:20%;left:50%;margin-left:-8.8235rem;z-index: 10001;background-size: 100% 100%;text-align: center}
-
+    .sleep_dialog_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: -40%; left: 50%;margin-left: -0.7355rem;}
     .sleep_dialog_title{color:#fff;font-size: 1.0588rem;text-align: center;line-height: 1;width:100%;position: absolute;top:46%;}
     .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
     .sleep_dialog_bottom{position: absolute;width:100%;bottom:8%;}
