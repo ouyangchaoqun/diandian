@@ -200,15 +200,13 @@
             <!--friendcenter end-->
         </div>
         <!--早睡弹窗-->
-        <div class="sleep_dialog" style="display: none">
+        <div class="sleep_dialog " style="display: none">
             <div class="sleep_dialog_box">
-                <div class="sleep_dialog_title">睡觉打卡</div>
-                <div class="addSleeprecord_time">
-                    打卡时间：  {{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}
-                </div>
+                <div class="addTitleHtml">睡觉时间到</div>
+               <div class="addNewHtml">打卡、晚安、做个好梦</div>
                 <div class="sleep_bottom_style">
-                    <router-link to='/sleepRank?type=3' >查看排行榜 </router-link>
-                    <div class="sleep_btn_go_sleep" >睡觉打卡</div>
+                    <router-link to='/sleepRank?type=3' >早睡排行</router-link>
+                    <div class="sleep_btn_go_sleep" >早睡打卡</div>
                 </div>
             </div>
         </div>
@@ -217,7 +215,7 @@
             <div class="diglog_lose" :class="{'morning_lose':!isNight(),'night_lose':isNight()}">
                 <div class="title_lose">打卡时间未到</div>
                 <div class="record_time">
-                    <template v-if="isNight()">早睡</template><template v-if="!isNight()">早起</template>打卡时间：<template v-if="!isNight()">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
+                    打卡时间：<template v-if="!isNight()">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight()">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
                 <div class="sleep_dialog_bottom" :class="{morning_bottomStyle:!isNight(),night_bottomStyle:isNight()}">
                     <div @click="goYesterDaySleepRank()">昨日排行</div>
@@ -1362,11 +1360,11 @@
 
 /*新增打卡失败*/
     .record_loseBox{z-index:10001 !important;}
-   .record_loseBox .diglog_lose{width:15.588rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;height:14.294rem;text-align: center;}
+   .record_loseBox .diglog_lose{width:17.647rem;position: absolute;top:20%;left:50%;margin-left: -8.8235rem;height:17.647rem;text-align: center;}
     .record_loseBox .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
     .record_loseBox .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
-    .record_loseBox .title_lose{font-size:1.0588rem;line-height: 1;width:100%;position: absolute;top:46%;}
-    .record_loseBox .record_time{font-size: 0.6471rem;line-height: 1;width:100%;position: absolute;top:58%;}
+    .record_loseBox .title_lose{font-size:1.176471rem;line-height: 1;width:100%;position: absolute;top:46%;}
+    .record_loseBox .record_time{font-size: 0.8235rem;line-height: 1;width:100%;position: absolute;top:58%;}
     .record_loseBox .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
     .record_loseBox .status_img{width:1.176471rem;position: absolute;bottom:-1.176471rem;left:50%;margin-left: -0.588235rem;}
 
@@ -1474,22 +1472,25 @@
     /*早睡弹窗*/
     .sleep_dialog{z-index: 10001 !important;}
     .sleep_dialog_box .sleep_bottom_style{
-        font-size: 0.76471rem;height:2rem;text-align: center;line-height: 2rem;width:100%;position: absolute;bottom:10%;
+        font-size: 0.88235rem;height:2.235rem;text-align: center;line-height: 2.3rem;width:100%;position: absolute;bottom:8%;
     }
+    .sleep_dialog_box .addTitleHtml{color:rgba(255,255,255,1);font-size: 1.1176471rem;width:100%;position: absolute;top:47%;}
+    .sleep_dialog_box .addNewHtml{font-size: 0.8235rem;color:rgba(255,255,255,1);position: absolute;top:58%;width:100%;}
     .sleep_dialog_box .sleep_bottom_style a{
-        display: block;float: left;color:rgba(102,102,102,1);background: rgba(231,244,255,1);height:100%;
-        width:40%;border-radius: 0.294rem;margin-left: 0.588235rem;
+        display: block;float: left;color:rgba(252,252,247,1);height:100%;
+        width:40%;border-radius: 1.176471rem;margin-left: 0.588235rem;border:1px solid rgba(70,59,100,1);
     }
     .sleep_dialog_box .addSleeprecord_time{
         width:100%;color:#fff;position: absolute;top:58%;font-size: 0.70588235rem;text-align: center;
     }
     .sleep_dialog_box .sleep_bottom_style div{
-        background: rgba(153,102,204,1);color:rgba(255,255,255,1);border-radius: 0.294rem;width:40%;float: right;margin-right:0.588235rem;}
-    .sleep_dialog_box{width:15.588rem;height:14.294rem;background: url("../images/night_lose.png") no-repeat;position: absolute;top:25%;left:50%;margin-left:-7.794rem;border-radius: 0.588235rem; z-index: 10001;background-size: 100% 100%;}
+        background: rgba(70,59,100,1);color:rgba(255,255,255,1);border-radius: 1.176471rem;width:40%;float: right;margin-right:0.588235rem;border:1px solid rgba(70,59,100,1);height:100%;}
+    .sleep_dialog_box{width:17.647rem;height:17.647rem;background: url("../images/night_lose.png") no-repeat;position: absolute;top:20%;left:50%;margin-left:-8.8235rem;z-index: 10001;background-size: 100% 100%;text-align: center}
+
     .sleep_dialog_title{color:#fff;font-size: 1.0588rem;text-align: center;line-height: 1;width:100%;position: absolute;top:46%;}
     .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
-    .sleep_dialog_bottom{position: absolute;width:100%;bottom:10%;}
-    .sleep_dialog_bottom div{width:40%;height:2rem;line-height: 2.1rem;font-size:0.76471rem;text-align: center;border-radius: 1rem; display:block;float: left;border:1px solid;}
+    .sleep_dialog_bottom{position: absolute;width:100%;bottom:8%;}
+    .sleep_dialog_bottom div{width:40%;height:2.235rem;line-height: 2.3rem;font-size:0.88235rem;text-align: center;border-radius: 1.176471rem; display:block;float: left;border:1px solid;}
     .sleep_dialog_bottom div:nth-of-type(1){
         margin-left: 0.588235rem;
     }
