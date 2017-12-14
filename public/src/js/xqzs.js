@@ -128,7 +128,7 @@ var xqzs = {
             if(typeof inCallback=='function'){
                 inCallback()
             }
-            $(".js_dialog .weui-mask").click(function () {
+            $(".js_dialog .weui-mask,.js_dialog .close_btn").click(function () {
                 if(typeof outCallback=='function'){
                     outCallback()
                 }else{
