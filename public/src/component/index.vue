@@ -213,7 +213,7 @@
         <!--未到打卡时间弹窗-->
         <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="record_timeOut" @click="hideRecord_timeOut()">
             <div class="diglog_lose" :class="{'morning_lose':!isNight(),'night_lose':isNight()}">
-                <div class="title_lose">打卡时间未到</div>
+                <div class="title_lose">时间未到</div>
                 <div class="record_time">
                     打卡时间：<template v-if="!isNight()">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight()">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
@@ -222,6 +222,7 @@
                     <div @click="set()">设置提醒</div>
                 </div>
             </div>
+            <img class="close_btn" src="../images/close_loseBox.png" alt="">
         </div>
 
         <div id="mood_box" style="display: none;">
@@ -1360,6 +1361,7 @@
 
 /*新增打卡失败*/
     .record_loseBox{z-index:10001 !important;}
+    .record_loseBox .close_btn{display: block;width:1.471rem;position: absolute; bottom: 15%; left: 50%;margin-left: -0.7355rem;}
    .record_loseBox .diglog_lose{width:17.647rem;position: absolute;top:20%;left:50%;margin-left: -8.8235rem;height:17.647rem;text-align: center;}
     .record_loseBox .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
     .record_loseBox .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
@@ -1478,25 +1480,25 @@
     .sleep_dialog_box .addNewHtml{font-size: 0.8235rem;color:rgba(255,255,255,1);position: absolute;top:58%;width:100%;}
     .sleep_dialog_box .sleep_bottom_style a{
         display: block;float: left;color:rgba(252,252,247,1);height:100%;
-        width:40%;border-radius: 1.176471rem;margin-left: 0.588235rem;border:1px solid rgba(70,59,100,1);
+        width:38%;border-radius: 1.176471rem;margin-left: 1.4rem;border:1px solid rgba(70,59,100,1);
     }
     .sleep_dialog_box .addSleeprecord_time{
         width:100%;color:#fff;position: absolute;top:58%;font-size: 0.70588235rem;text-align: center;
     }
     .sleep_dialog_box .sleep_bottom_style div{
-        background: rgba(70,59,100,1);color:rgba(255,255,255,1);border-radius: 1.176471rem;width:40%;float: right;margin-right:0.588235rem;border:1px solid rgba(70,59,100,1);height:100%;}
+        background: rgba(70,59,100,1);color:rgba(255,255,255,1);border-radius: 1.176471rem;width:38%;float: right;margin-right:1.4rem;border:1px solid rgba(70,59,100,1);height:100%;}
     .sleep_dialog_box{width:17.647rem;height:17.647rem;background: url("../images/night_lose.png") no-repeat;position: absolute;top:20%;left:50%;margin-left:-8.8235rem;z-index: 10001;background-size: 100% 100%;text-align: center}
 
     .sleep_dialog_title{color:#fff;font-size: 1.0588rem;text-align: center;line-height: 1;width:100%;position: absolute;top:46%;}
     .sleep_dialog_box p{font-size: 0.76471rem;color:rgba(51,51,51,1);padding: 0 1.471rem;line-height: 1.235rem;}
     .sleep_dialog_bottom{position: absolute;width:100%;bottom:8%;}
-    .sleep_dialog_bottom div{width:40%;height:2.235rem;line-height: 2.3rem;font-size:0.88235rem;text-align: center;border-radius: 1.176471rem; display:block;float: left;border:1px solid;}
+    .sleep_dialog_bottom div{width:38%;height:2.235rem;line-height: 2.3rem;font-size:0.88235rem;text-align: center;border-radius: 1.176471rem; display:block;float: left;border:1px solid;}
     .sleep_dialog_bottom div:nth-of-type(1){
-        margin-left: 0.588235rem;
+        margin-left: 1.4rem;
     }
     .sleep_dialog_bottom div:nth-of-type(2){
         float: right;
-        margin-right: 0.588235rem;
+        margin-right: 1.4rem;
     }
     .morning_bottomStyle div:nth-of-type(1){
         border-color: rgba(251,184,40,1);

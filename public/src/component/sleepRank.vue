@@ -214,7 +214,7 @@
     .sleep_rank_box .night_bottom{background: rgba(68,60,97,1);}
     .sleep_rank_box .morning_bottom:active{background:#d69c21;}
     .sleep_rank_box .night_bottom:active{background: #37314f;}
-    .sleep_rank_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: 25%; left: 50%;margin-left: -0.7355rem;}
+    .sleep_rank_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: 15%; left: 50%;margin-left: -0.7355rem;}
     .day_or_night{
         position: absolute;
         display: flex;
