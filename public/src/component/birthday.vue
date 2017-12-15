@@ -210,7 +210,7 @@
 <style>
     .addThanksBtn_box{padding-bottom: 4.5rem;padding-top: 1rem;}
     .addThanksBtn{width:32%;height:2.35rem;line-height: 2.4rem;background: rgba(255,102,102,1);font-size: 0.88235rem;color:rgba(245,245,245,1);text-align: center;border-radius: 2.35rem;margin: 0 auto;box-shadow: 0px 3px 10px 0px rgba(255,102,102,0.8);}
-    .addThanksImg{width:2.588235rem;height:1.88235rem;background:url("../../dist/img_step2.png") no-repeat;background-size: 100% 100%;position: absolute;right:-12%;top:10%;}
+    .addThanksImg{width:2.588235rem;height:1.88235rem;background:url("../images/thanksGifImg.gif") no-repeat;background-size: 100% 100%;position: absolute;right:-12%;top:10%;}
     .addTipCount{color:rgba(144,73,59,1);font-size: 0.6471rem;line-height: 1;position: absolute;top:-1.5rem;width:130%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
     .addTipCount img{width:12px;display: inline-block;float: left;margin-right: 0.235rem;}
     .redPacket_mask{z-index: 1005;
@@ -1651,16 +1651,6 @@
 
             });
             _this.getReceiver()
-            let thanksIndex = 0;
-            let thanksImgLenght = _this.thanksImg.length;
-            setInterval(function(){
-                $('.addThanksImg').css({'background':_this.thanksImg[thanksIndex%thanksImgLenght],'background-size':'100% 100%'});
-                if(thanksIndex==2){
-                    thanksIndex = 0;
-                }else{
-                    thanksIndex++;
-                }
-            },110)
         },
         updated:function () {
             let _this = this
