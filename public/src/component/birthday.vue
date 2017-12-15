@@ -1498,10 +1498,18 @@
                     //  this.per = 108;
                 }
 
-                this.per = this.myCareCount / this.MAX_CARE_COUNT * 100;
 
+
+                //自己判断
+                if(this.user!=null&&this.user.id==this.birthdayUserId){ //自己
+                    this.per = this.count / this.steps[this.steps.length-1].num * 100;
+                    if(this.per >100)this.per=100;
+                }else{
+                    this.per = this.myCareCount / this.MAX_CARE_COUNT * 100;
+                }
 
                 $(".heart .wave").css({top: 100 - (this.per) + "%"});
+
             },
             goThanks:function () {
                 let _this = this;
