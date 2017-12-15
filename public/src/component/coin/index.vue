@@ -53,7 +53,7 @@
 
                             <div class="btn no" v-if="item.finished" >{{item.btnFinish}}</div>
                             <div class="btn no" v-if="item.finished==-1">{{item.btnFail}}</div>
-                            <div class="btn" v-if="item.finished==0" @click="goDo(item.type)">{{item.btnUnFinish}}</div>
+                            <div class="btn" v-if="item.finished==0" @click="goDo(item.type,item.goods)">{{item.btnUnFinish}}</div>
                         </div>
 
                     </div>
@@ -130,14 +130,18 @@
             })
         },
         methods: {
-            goDo:function (type) {
+            goDo:function (type,goods) {
                 let _this=this;
                 if(type==7){
+                    let goodsId = 1;
+                    if(goods){
+                        goodsId = goods.id
+                    }
                     _this.showLoad=true;
                     this.$http({
                         method: 'GET',
                         type: "json",
-                        url: web.API_PATH + 'coin/push/coin/card/_userId_/1',
+                        url: web.API_PATH + 'coin/push/coin/card/_userId_/'+goodsId,
                     }).then(function (data) {
                         _this.showLoad=false;
                         if (data && data.data.status == 1) {
