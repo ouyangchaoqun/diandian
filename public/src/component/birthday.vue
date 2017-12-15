@@ -40,8 +40,8 @@
 
             </div>
             <div class="heart_click_Box">
-                <div class="heart_click_btn redPacket_box" @click="goRedPacket()">
-                    <div class="btn">
+                <div  class="heart_click_btn redPacket_box" >
+                    <div class="btn" v-if="(user!=null&&user.id!=birthdayUserId)||user==null" @click="goRedPacket()">
                         <div class="redPacket_btn">
                             <img src="../images/redPacket_btn.png" alt="">
                         </div>
@@ -55,10 +55,12 @@
                         {{getCount.redPacket.userCount}}个好友红包
                     </div>
                 </div>
-                <div class="heart_click_btn" @click="addHeart">
+                <div class="heart_click_btn" >
 
-                    <div class="btn">
-                        <div class="heart_btn"></div>
+                    <div class="btn" v-if="(user!=null&&user.id!=birthdayUserId)||user==null" @click="addHeart">
+                        <div class="heart_btn">
+                            <img src="../../dist/heart_w.png" alt="">
+                        </div>
                         <div class="text">
                             <template v-if="(user!=null&&user.id!=birthdayUserId)||user==null">点赞</template>
                             <template v-if="user!=null&&user.id==birthdayUserId">{{getCount.care.careCount}}</template>
@@ -69,6 +71,11 @@
                         {{getCount.care.userCount}}个好友祝福
                     </div>
                 </div>
+                <!--新增一键答谢-->
+                <div class="addThanksBtn_box" v-if="user!=null&&user.id==birthdayUserId">
+                    <div  class="addThanksBtn" @click="goThanks()">一键答谢</div>
+                </div>
+
             </div>
             <div style="clear: both"></div>
             <!--新增红包部分-->
@@ -124,14 +131,9 @@
             </div>
             <!--点赞-->
 
-            <div class="bottom_tip">
-                <div class="text" @click="share()" v-if="user!=null&&user.id!=birthdayUserId"><img :src="user.faceUrl"/>
+            <div class="bottom_tip" v-if="user!=null&&user.id!=birthdayUserId">
+                <div class="text" @click="share()" ><img :src="user.faceUrl"/>
                     您为他发了{{parseFloat((senderCount.redPacket||0)).toFixed(2)}}元红包，点了{{senderCount.careCount}}个赞
-                </div>
-                <div class="addText_style" v-if="user!=null&&user.id==birthdayUserId">
-                    <div>-<span>生日红包温馨提示</span>-</div>
-                    <p>好友给您发生日红包后，好一点将会消息通知您</p>
-                    <p>您可在好一点-个人中心查看收到的红包金额，并可提现到微信钱包！</p>
                 </div>
             </div>
             <div id="follow" style="display: none">
@@ -170,7 +172,7 @@
                             class="has_content" :class="{no_has_content:!(item.content&&item.content!=null&&item.content!='')}">
                             <template v-if="item.userId!=0">
                                 <i class="item_index">{{index+1}}</i>
-                                <img :src="item.faceUrl"/>
+                                <img class="faceImg" :src="item.faceUrl"/>
                                 <div class="info">
                                     <div class="name">{{item.nickName | shortName(8)}}</div>
                                     <span><font v-if="item.count>0">送了{{item.count}}个赞 </font><font v-if="item.totalAmount>0&&item.count>0">，</font><font v-if="item.totalAmount>0">发了{{parseFloat(item.totalAmount||0).toFixed(2)}}元红包</font></span>
@@ -189,17 +191,26 @@
                             </template>
                             <template v-else=""><img src="../images/birthday/wxfriend.png"/>微信好友<span>{{item.count}}个赞</span>
                             </template>
+                            <div class="addThanksImg" v-show="item.isThanked==1"></div>
                         </li>
                     </ul>
                 </div>
 
             </div>
             <div class="goInfo" @click="goInfo" v-if="user!=null&&user.id!=birthdayUserId">我也要记录生日</div>
+            <div class="addText_style" v-if="user!=null&&user.id==birthdayUserId">
+                <div style="padding-top: 1.6471rem;">-<span>生日红包温馨提示</span>-</div>
+                <p>好友给您发生日红包后，好一点将会消息通知您</p>
+                <p>您可在好一点-个人中心查看收到的红包金额，并可提现到微信钱包！</p>
+            </div>
         </div>
 
     </div>
 </template>
 <style>
+    .addThanksBtn_box{padding-bottom: 4.5rem;padding-top: 1rem;}
+    .addThanksBtn{width:32%;height:2.35rem;line-height: 2.4rem;background: rgba(255,102,102,1);font-size: 0.88235rem;color:rgba(245,245,245,1);text-align: center;border-radius: 2.35rem;margin: 0 auto;box-shadow: 0px 3px 10px 0px rgba(255,102,102,0.8);}
+    .addThanksImg{width:2.588235rem;height:1.88235rem;background:url("../../dist/img_step2.png") no-repeat;background-size: 100% 100%;position: absolute;right:-12%;top:10%;}
     .addTipCount{color:rgba(144,73,59,1);font-size: 0.6471rem;line-height: 1;position: absolute;top:-1.5rem;width:130%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
     .addTipCount img{width:12px;display: inline-block;float: left;margin-right: 0.235rem;}
     .redPacket_mask{z-index: 1005;
@@ -252,11 +263,11 @@
         background: #fbf6eb;
     }
     .page_two{
-        background: url("../images/brithday_page_two.png") no-repeat #fbf6eb;
+        background: url("../images/brithday_page_two.png") no-repeat ;
         background-size: 100%;
         margin-top: -3rem;
         padding-top: 3rem;
-        padding-bottom: 2rem;
+        /*padding-bottom: 2rem;*/
     }
 
     .birthday_box .down {
@@ -393,7 +404,7 @@
     }
 
 
-    .friend_list ul li img {
+    .friend_list ul li .faceImg {
         display: block;
         width: 2.294rem;
         height: 2.294rem;
@@ -504,18 +515,22 @@
         color: #8e664d;
 
     }
-    .bottom_tip .addText_style{
+    .addText_style{
         color:rgba(162,101,87,1);
         text-align: center;
+        background: url("../images/addText_style_bg.png") no-repeat;
+        width:100%;
+        height:6.294rem;
+        background-size: 100% 100%;
     }
-    .bottom_tip .addText_style span{
+    .addText_style span{
         color:rgba(144,73,59,1);
         font-size: 0.76471rem;
         margin:0 0.411rem;
         line-height: 1;
         margin-bottom: 0.88235rem;
     }
-    .bottom_tip .addText_style p{
+    .addText_style p{
         font-size: 0.6471rem;
         line-height: 1rem;
     }
@@ -1041,8 +1056,6 @@
         height: 4.529411764705882rem;
         width: 4.529411764705882rem;
         border-radius: 50%;
-
-        background: rgba(210,159,114,1);
         position: absolute;
         right: 15%;
         margin-left: -2.264705882352941rem
@@ -1051,11 +1064,10 @@
     .redPacket_box{
         right: auto;
         left:15%;
-        background: #dd3c3b;
         margin-left: 0;
     }
-    .redPacket_box:active{background: #d33b3a !important }
-    .heart_click_btn:active {
+    .redPacket_box .btn:active{background: #d33b3a !important }
+    .heart_click_btn .btn:active {
         background: rgb(193, 144, 98);
     }
 
@@ -1072,18 +1084,30 @@
         width:1.0588235rem;
         display: block;
         margin: 0 auto;
-        margin-top: 1rem;
         margin-bottom: 0.294rem;
     }
+    .heart_click_Box .redPacket_box .btn{
+        background: #dd3c3b;
 
+    }
+    .heart_click_Box .btn{
+        height:100%;
+        border-radius: 50%;
+        background:rgba(210,159,114,1) ;
+    }
+    .redPacket_btn{
+        padding-top: 1rem;
+    }
     .heart_btn {
-        background: url(../images/birthday/heart_w.png) no-repeat;
-        background-size: 1.2941176rem;
+        margin: 0 auto;
+        padding-top: 1rem;
+        margin-bottom: 0.294rem;
+    }
+    .heart_btn img{
         height: 1.117647058823529rem;
         width: 1.294117647058824rem;
+        display: block;
         margin: 0 auto;
-        margin-top: 1rem;
-        margin-bottom: 0.294rem;
     }
 
 
@@ -1137,7 +1161,9 @@
                 senderCount:{},
                 moneyValue:null,
                 MAX_MONEY:200,
-                MIN_MONEY:1
+                MIN_MONEY:1,
+                thanksImg:['url(/dist/img_step2.png) no-repeat','url(/dist/img_step3.png) no-repeat','url(/dist/img_step4.png) no-repeat'],
+                isThanks:false,
             }
         },
         filters: {
@@ -1476,7 +1502,42 @@
 
 
                 $(".heart .wave").css({top: 100 - (this.per) + "%"});
-                console.log(this.per)
+            },
+            goThanks:function () {
+                let _this = this;
+                let friendsId = [];
+                console.log(_this.friendList)
+                for(let i = 0;i<_this.friendList.length;i++){
+                    if(_this.friendList[i].isThanked){
+
+                    }else{
+                        friendsId.push(_this.friendList[i].userId);
+                    }
+
+                }
+                console.log(friendsId)
+                let msg = {
+                    'thanksUsers' : friendsId.join(',')
+                }
+                console.log(msg)
+                _this.$http.post(web.API_PATH+'birthday/set/thanks/_userId_',msg).then(function (res) {
+                    console.log(res)
+                    let $_time = 0;
+                    for(let i = 0;i<_this.friendList.length;i++){
+                        if(_this.friendList[i].isThanked){
+
+                        }else{
+                            $_time+=500;
+                            setTimeout(function () {
+                                _this.friendList[i].isThanked = 1;
+                                _this.$set(_this.friendList,i,_this.friendList[i])
+                            },$_time)
+
+                        }
+
+                    }
+                })
+
             }
         }
         ,
@@ -1590,8 +1651,16 @@
 
             });
             _this.getReceiver()
-
-
+            let thanksIndex = 0;
+            let thanksImgLenght = _this.thanksImg.length;
+            setInterval(function(){
+                $('.addThanksImg').css({'background':_this.thanksImg[thanksIndex%thanksImgLenght],'background-size':'100% 100%'});
+                if(thanksIndex==2){
+                    thanksIndex = 0;
+                }else{
+                    thanksIndex++;
+                }
+            },110)
         },
         updated:function () {
             let _this = this
