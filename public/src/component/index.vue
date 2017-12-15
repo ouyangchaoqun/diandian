@@ -200,11 +200,12 @@
             <!--friendcenter end-->
         </div>
         <!--早睡弹窗-->
-        <div class="sleep_dialog " style="display: none">
+        <div class="sleep_dialog " ><!--style="display: none"-->
             <div class="sleep_dialog_box">
                 <img class="close_btn" src="../images/close_loseBox.png" alt="">
-                <div class="addTitleHtml">睡觉时间到</div>
-               <div class="addNewHtml">打卡、晚安、做个好梦</div>
+                <div class="addTitleHtml">早睡打卡</div>
+               <div class="addNewHtml"><span style="margin-right: 0.294rem;">亲，晚安~ 愿你做个好梦 </span> <img src="../images/zzz.png" alt="" style="display: inline-block;position: absolute;top:-0.3rem;">
+               </div>
                 <div class="sleep_bottom_style">
                     <router-link to='/sleepRank?type=3' >早睡排行</router-link>
                     <div class="sleep_btn_go_sleep" >早睡打卡</div>
