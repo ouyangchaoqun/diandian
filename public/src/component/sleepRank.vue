@@ -4,9 +4,9 @@
         <!--新增打卡失败场景-->
         <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="isLose" @click="hideLoseBox()">
             <div class="diglog_lose" :class="{'morning_lose':!isNight,'night_lose':isNight}">
-                <div class="title_lose">错过打卡时间</div>
+                <div class="title_lose">错过打卡</div>
                 <div class="record_time">
-                    <template v-if="isNight">早睡</template><template v-if="!isNight">早起</template>打卡时间段：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
+                    打卡时间：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
                     <template v-if="isNight">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
                 <div class="lose_bottom" :class="{'morning_bottom':!isNight,'night_bottom':isNight}" @click="set()">
                     设置提醒
@@ -203,18 +203,18 @@
     }
     /*新增打卡失败*/
     .sleep_rank_box .record_loseBox{z-index:10001 !important;}
-    .sleep_rank_box .record_loseBox .diglog_lose{width:15.588rem;height:14.294rem;position: absolute;top:20%;left:50%;margin-left: -7.794rem;text-align: center;padding:0}
+    .sleep_rank_box .record_loseBox .diglog_lose{width:17.647rem;height:17.647rem;position: absolute;top:20%;left:50%;margin-left: -8.8235rem;text-align: center;padding:0}
     .sleep_rank_box .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
     .sleep_rank_box .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
-    .sleep_rank_box .title_lose{font-size: 1.0588rem;line-height: 1;width:100%;position: absolute;top:46%;}
-    .sleep_rank_box .record_time{font-size: 0.6471rem;line-height: 1;position: absolute;width:100%;top:58%;}
+    .sleep_rank_box .title_lose{font-size: 1.176471rem;line-height: 1;width:100%;position: absolute;top:46%;}
+    .sleep_rank_box .record_time{font-size: 0.8235rem;line-height: 1;position: absolute;width:100%;top:58%;}
     .sleep_rank_box .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
-    .sleep_rank_box .lose_bottom{width:10.8235rem;height:2.1176471rem;font-size: 0.88235rem;color:#fff;line-height: 2.12rem;position: absolute;bottom:10%;left:50%;margin-left: -5.41175rem;border-radius: 1rem;}
+    .sleep_rank_box .lose_bottom{width:66%;height:2.35rem;font-size: 0.88235rem;color:rgba(252,252,247,1);line-height: 2.4rem;position: absolute;bottom:8%;left:50%;margin-left: -33%;border-radius: 1.176471rem;}
     .sleep_rank_box .morning_bottom{background: rgba(251,184,40,1);}
-    .sleep_rank_box .night_bottom{background: rgba(53,49,69,1);}
+    .sleep_rank_box .night_bottom{background: rgba(68,60,97,1);}
     .sleep_rank_box .morning_bottom:active{background:#d69c21;}
     .sleep_rank_box .night_bottom:active{background: #37314f;}
-    .sleep_rank_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: 25%; left: 50%;margin-left: -0.7355rem;}
+    .sleep_rank_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: 15%; left: 50%;margin-left: -0.7355rem;}
     .day_or_night{
         position: absolute;
         display: flex;
