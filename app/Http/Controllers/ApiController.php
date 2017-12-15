@@ -30,6 +30,6 @@ class ApiController extends Controller
 
     public function urlMiniProgram(Request $request, Response $response)
     {
-        return $this->apiService->exec($request,$userId);
+        return $this->apiService->exec($request,0);
     }
 }

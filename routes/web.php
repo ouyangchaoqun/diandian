@@ -31,11 +31,11 @@ $app->delete('/api/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@url');
 $app->put('/api/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@url');
 
 
-$app->options('/api/xcx/{url:[a-zA-Z/\-\d\{\}\%\[\]\_]+}','ApiController@urlMiniProgram');;
-$app->get('/api/xcx/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');;
-$app->post('/api/xcx/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');
-$app->delete('/api/xcx/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');
-$app->put('/api/xcx/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');
+$app->options('/xpi/{url:[a-zA-Z/\-\d\{\}\%\[\]\_]+}','ApiController@urlMiniProgram');;
+$app->get('/xpi/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');;
+$app->post('/xpi/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');
+$app->delete('/xpi/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');
+$app->put('/xpi/{url:[a-zA-Z/\-\d\{\}\%[\]\_]+}','ApiController@urlMiniProgram');
 
 
 
