@@ -200,7 +200,7 @@
             <!--friendcenter end-->
         </div>
         <!--早睡弹窗-->
-        <div class="sleep_dialog " ><!--style="display: none"-->
+        <div class="sleep_dialog " style="display: none">
             <div class="sleep_dialog_box">
                 <img class="close_btn" src="../images/close_loseBox.png" alt="">
                 <div class="addTitleHtml">早睡打卡</div>
