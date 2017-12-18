@@ -631,6 +631,9 @@
 
                 var end = xqzs.dateTime.getTimeStamp(t);
                 var start = end - 3600;
+                console.log(start)
+                console.log(end)
+                console.log(nowStamp)
                 if(nowStamp>start && nowStamp <end){
                     _this.record_timeOut = true;
                     return false;
@@ -805,7 +808,6 @@
                     _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
                 }else{
                     //未打卡
-                    console.log('未打卡')
                     if(_this.isRecordTime()){
                             //打卡时间段内
                         console.log('未打卡打卡时间段内')
