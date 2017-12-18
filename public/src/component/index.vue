@@ -631,9 +631,9 @@
 
                 var end = xqzs.dateTime.getTimeStamp(t);
                 var start = end - 3600;
-                console.log(new Date(start))
-                console.log(new Date(end))
-                console.log(new Date(nowStamp))
+                console.log(start)
+                console.log(end)
+                console.log(nowStamp)
                 if(nowStamp>start && nowStamp <end){
                     _this.record_timeOut = true;
                     return false;
