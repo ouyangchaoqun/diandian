@@ -749,6 +749,10 @@
             sleep: function () {
                 console.log('sleep')
                 let _this = this;
+                if(!_this.recordTimeOut()){
+                    console.log('提前打')
+                    return;
+                }
                 if (_this.isGoBed) {
                      _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE)
                 }else{
@@ -759,10 +763,6 @@
                             _this.checkIn(3)
                         })
                      }else{
-                        if(!_this.recordTimeOut()){
-                            console.log('提前打')
-                            return;
-                        }else{
                             _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
                             console.log('超时打');
                             let cookieYear = new Date().getFullYear().toString();
@@ -778,8 +778,6 @@
                                     cookie.set('record_lose_night',true,CookieExpire)
                             }
                             cookie.set('loseBox_frist_night',true,CookieExpire)
-                        }
-
 
                     }
 
@@ -798,6 +796,10 @@
             getUp: function () {
                 console.log("morning")
                 let _this = this;
+                if(!_this.recordTimeOut()){
+                    console.log('未打卡打卡提前')
+                    return;
+                }
                 if (_this.isGetUp) {
                     //打过卡
                     _this.$router.push("sleepRank?type=" + this.MORNING_TYPE)
@@ -809,32 +811,22 @@
                         console.log('未打卡打卡时间段内')
                         _this.checkIn(this.MORNING_TYPE);
                     }else{
-                            //提前
-                        if(!_this.recordTimeOut()){
-                            console.log('未打卡打卡提前')
+                        console.log('未打卡打卡超时')
+                        _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
+                        let cookieYear = new Date().getFullYear().toString();
+                        let cookieMonth = new Date().getMonth().toString();
+                        let cookieDay = new Date().getDate().toString();
+                        var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                        let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                        let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
 
-                            return;
+                        if(cookie.get('loseBox_frist')){
+                            cookie.set('record_lose',false,CookieExpire)
                         }else{
-                            //超时
-                            console.log('未打卡打卡超时')
-                            _this.$router.push("sleepRank?type=" + this.MORNING_TYPE);
-                            let cookieYear = new Date().getFullYear().toString();
-                            let cookieMonth = new Date().getMonth().toString();
-                            let cookieDay = new Date().getDate().toString();
-                            var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
-                            let nowTimeStamp=Math.round(new Date().getTime()/1000);
-                            let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
-
-                            if(cookie.get('loseBox_frist')){
-                                cookie.set('record_lose',false,CookieExpire)
-                            }else{
-                                if(!_this.isGetUp)
-                                    cookie.set('record_lose',true,CookieExpire)
-                            }
-                            cookie.set('loseBox_frist',true,CookieExpire)
+                            if(!_this.isGetUp)
+                                cookie.set('record_lose',true,CookieExpire)
                         }
-
-
+                        cookie.set('loseBox_frist',true,CookieExpire)
                     }
 
                 }
