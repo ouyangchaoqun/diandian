@@ -624,11 +624,11 @@
                 var t;
                 var nowStamp = (new Date().getTime())/1000;
                 if(_this.isNight()){
-                     t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ _this.NIGHT_FROM_TIME
+                     t = xqzs.dateTime.formatTimeIos(nowStamp) +' '+ _this.NIGHT_FROM_TIME
                 }else {
-                    t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ _this.MORNING_FROM_TIME
+                    t = xqzs.dateTime.formatTimeIos(nowStamp) +' '+ _this.MORNING_FROM_TIME
                 }
-
+                console.log(t)
                 var end = xqzs.dateTime.getTimeStamp(t);
                 var start = end - 3600;
                 console.log(start)

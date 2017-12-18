@@ -273,6 +273,9 @@ var xqzs = {
         formatTime: function (time) {
             return this._format(this.TIME, time);
         },
+        formatTimeIos: function (time) {
+            return this._format(this.DATE_PATH, time);
+        },
         formatDateTime: function (time) {
             return this._format(this.DATE_TIME, time);
         },
