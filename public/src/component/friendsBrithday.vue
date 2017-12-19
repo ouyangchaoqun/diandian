@@ -3,11 +3,11 @@
         <div v-title>好友生日</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
             <div class="friendsBrithday_top"></div>
-            <div class="noFriends_box" v-if="list.length==0">
+            <div class="noFriends_box" v-if="isNull">
                 <img src="../images/mafriends_pic_bj.png" alt="">
                 <div>还没有朋友，快去邀请吧！</div>
             </div>
-            <ul class="friendsBrithday_ul" v-if="list.length>0">
+            <ul class="friendsBrithday_ul" v-if="!isNull">
                 <li v-for="item in list">
                     <img :src="item.faceUrl" alt="">
                     <div class="info_left">
@@ -38,7 +38,8 @@
                 user:{},
                 monthN:'',
                 dayN:'',
-                showLoad:true
+                showLoad:true,
+                isNull:false,
             }
         },
         mounted:function () {
@@ -82,6 +83,11 @@
                             _this.isLeap(datas[i].isLeap,datas[i].birthday[1],datas[i].birthday[2],datas[i])
                         }
                         _this.list =datas||[];
+                        if(_this.list.length>0){
+                            _this.isNull = false
+                        }else{
+                            _this.isNull = true;
+                        }
                         _this.showLoad = false;
                     }
                 })
