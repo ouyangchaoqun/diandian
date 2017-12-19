@@ -82,13 +82,16 @@
                             _this.isLeap(datas[i].isLeap,datas[i].birthday[1],datas[i].birthday[2],datas[i])
                         }
                         _this.list =datas;
-                    let arrLength = _this.list.length;
-                    console.log(arrLength)
-                    if(arrLength>0){
-                        _this.isNull = false
-                    }else{
-                        _this.isNull = true
-                    }
+                    _this.$nextTick(function () {
+                        let arrLength = _this.list.length;
+                        console.log(arrLength)
+                        if(arrLength>0){
+                            _this.isNull = false
+                        }else{
+                            _this.isNull = true
+                        }
+                    })
+
                     _this.showLoad = false;
                 })
 
