@@ -11,7 +11,7 @@
                 <div class="txt2" v-if="user!=null&&user.id!=birthdayUserId">{{birthdayUser.nickName | shortName(8)}}
                 </div>
                 <div class="txt2" v-if="user!=null&&user.id==birthdayUserId">亲爱的 {{birthdayUser.nickName |
-                    shortName(8)}}<br>祝你生日快乐，天天开心！
+                shortName(8)}}<br>祝你生日快乐，天天开心！
                 </div>
                 <div class="happy"></div>
                 <div class="happy_top"></div>
@@ -212,7 +212,7 @@
 <style>
     .addThanksBtn_box{padding-bottom: 4.5rem;padding-top: 1rem;}
     .addThanksBtn{width:32%;height:2.35rem;line-height: 2.4rem;background: rgba(255,102,102,1);font-size: 0.88235rem;color:rgba(245,245,245,1);text-align: center;border-radius: 2.35rem;margin: 0 auto;box-shadow: 0px 3px 10px 0px rgba(255,102,102,0.8);}
-    .addThanksImg{position: absolute;right:-10%;}
+    .addThanksImg{position: absolute;right:0.88235rem;}
     .addTipCount{color:rgba(144,73,59,1);font-size: 0.6471rem;line-height: 1;position: absolute;top:-1.5rem;width:130%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
     .addTipCount img{width:12px;display: inline-block;float: left;margin-right: 0.235rem;}
     .redPacket_mask{z-index: 1005;
@@ -371,11 +371,10 @@
 
     .friend_list ul {
         margin:0 auto;
-        width: 77%;
+        padding-left:10%;
     }
 
     .friend_list ul li {
-        width: 100%;
         min-height: 3.5rem;
         line-height: 3.5rem;
         border-bottom: 0.0588235294117647rem solid #eee;
@@ -419,7 +418,8 @@
         line-height: 22px !important
     }
     .has_content .info{
-        padding:0 0.70588rem;
+        padding-left:0.70588rem;
+        padding-right: 3rem;
     }
     .has_content .info span{
         color:rgba(255,57,58,1);
