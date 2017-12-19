@@ -32,7 +32,7 @@
                 </div>
             </div>
             <ul class="friendsBrithday_ul">
-                <li v-for="item in list" v-if="item.userId!=1275">
+                <li v-for="item in list" v-if="user==null||item.userId!=user.id">
                     <img class="faceImg" :src="item.faceUrl" alt="">
                     <div class="info_left">
                         <div>{{item.nickName}}</div>
