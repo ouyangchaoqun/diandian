@@ -3,7 +3,11 @@
         <div v-title>好友生日</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
             <div class="friendsBrithday_top"></div>
-            <ul class="friendsBrithday_ul">
+            <div class="noFriends_box" v-if="list.length==0">
+                <img src="../images/mafriends_pic_bj.png" alt="">
+                <div>还没有朋友，快去邀请吧！</div>
+            </div>
+            <ul class="friendsBrithday_ul" v-if="list.length>0">
                 <li v-for="item in list">
                     <img :src="item.faceUrl" alt="">
                     <div class="info_left">
@@ -92,6 +96,19 @@
 
 </script>
 <style>
+    .friendsBrithday_box .noFriends_box div{
+        text-align: center;
+        width:100%;
+        position: absolute;
+        top:60%;
+    }
+    .friendsBrithday_box .noFriends_box img{
+        width: 220px;
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        margin-left: -110px;
+    }
     .friendsBrithday_box{
         background: #fff;
     }
