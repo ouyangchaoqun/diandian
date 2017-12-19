@@ -21,7 +21,7 @@
                         <div v-if="item.diff_days!=0" class="div_size">{{item.diff_days}}<span  class="span_color">天</span>
                         </div>
 
-                        <span>距{{item.years_old}}岁生日</span>
+                        <span><template v-if="item.diff_days!=0">距</template>{{item.years_old}}岁生日</span>
                     </div>
                 </li>
             </ul>
