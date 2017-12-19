@@ -39,7 +39,6 @@
                 monthN:'',
                 dayN:'',
                 showLoad:false,
-                isNull:false,
             }
         },
         mounted:function () {
@@ -78,15 +77,18 @@
                 _this.showLoad =  true;
                 _this.$http.get( web.API_PATH + 'birthday/get/list/relation/_userId_').then(function (data) {
                         let datas = data.data.data;
+                        console.log(datas)
                         for(let i = 0;i<datas.length;i++){
                             _this.isLeap(datas[i].isLeap,datas[i].birthday[1],datas[i].birthday[2],datas[i])
                         }
                         _this.list =datas;
-                        if(_this.list.length>0){
-                            _this.isNull = false
-                        }else{
-                            _this.isNull = true;
-                        }
+                    let arrLength = _this.list.length;
+                    console.log(arrLength)
+                    if(arrLength>0){
+                        _this.isNull = false
+                    }else{
+                        _this.isNull = true
+                    }
                     _this.showLoad = false;
                 })
 
