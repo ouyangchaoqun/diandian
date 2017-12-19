@@ -212,7 +212,7 @@
 <style>
     .addThanksBtn_box{padding-bottom: 4.5rem;padding-top: 1rem;}
     .addThanksBtn{width:32%;height:2.35rem;line-height: 2.4rem;background: rgba(255,102,102,1);font-size: 0.88235rem;color:rgba(245,245,245,1);text-align: center;border-radius: 2.35rem;margin: 0 auto;box-shadow: 0px 3px 10px 0px rgba(255,102,102,0.8);}
-    .addThanksImg{position: absolute;right:-12%;}
+    .addThanksImg{position: absolute;right:-10%;}
     .addTipCount{color:rgba(144,73,59,1);font-size: 0.6471rem;line-height: 1;position: absolute;top:-1.5rem;width:130%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
     .addTipCount img{width:12px;display: inline-block;float: left;margin-right: 0.235rem;}
     .redPacket_mask{z-index: 1005;
@@ -419,7 +419,7 @@
         line-height: 22px !important
     }
     .has_content .info{
-        padding-left:0.70588rem;
+        padding:0 0.70588rem;
     }
     .has_content .info span{
         color:rgba(255,57,58,1);

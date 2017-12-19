@@ -120,7 +120,7 @@ var xqzs = {
         },
         dialogCustom: function (Html,inCallback,outCallback) {
             var html = "";
-            html += '<div class="js_dialog"  >';
+            html += '<div class="js_dialog">';
             html += '   <div class="weui-mask weui-animate-fade-in"></div>';
             html += Html;
             html += '</div>';

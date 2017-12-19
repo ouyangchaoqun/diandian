@@ -74,6 +74,7 @@
                     <a class="swiper-slide habit" @click="goHabit()"><span>健康习惯</span></a>
                     <a class="swiper-slide sign" @click="dailyRecord()"><span>每日一签</span></a>
                     <a class=" swiper-slide xz" @click="goXz()"><span>星座运势</span></a>
+                    <a class=" swiper-slide friendsBrithdayList" @click="goFriendsBrithdayList()"><span>好友生日</span></a>
                     <a class=" swiper-slide set" @click="set()"><span>设置提醒</span></a>
                     <a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>
                 </div>
@@ -516,6 +517,9 @@
             goFeedback:function () {
                 this.$router.push('/me/proposal')
             },
+            goFriendsBrithdayList:function () {
+                this.$router.push('/friendsBrithday')
+            },
             set:function () {
                 this.$router.push('/me/subscribe')
             },
@@ -620,18 +624,18 @@
                 var t;
                 var nowStamp = (new Date().getTime())/1000;
                 if(_this.isNight()){
-                     t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.NIGHT_FROM_TIME
+                     t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ _this.NIGHT_FROM_TIME
                 }else {
-                    t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ this.MORNING_FROM_TIME
+                    t = xqzs.dateTime.formatYearDate(nowStamp) +' '+ _this.MORNING_FROM_TIME
                 }
 
                 var end = xqzs.dateTime.getTimeStamp(t);
                 var start = end - 3600;
                 if(nowStamp>start && nowStamp <end){
-                    this.record_timeOut = true;
+                    _this.record_timeOut = true;
                     return false;
                 }else{
-                    this.record_timeOut = false;
+                    _this.record_timeOut = false;
                     return true;
                 }
             },
@@ -748,22 +752,15 @@
                 if (_this.isGoBed) {
                      _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE)
                 }else{
-
-                    if(_this.isRecordTime()){
-                        //未打卡并在打卡时间段内
-                        _this.isGoSleep = true
-
-
+                    if(_this.isRecordTime()){//未打卡并在打卡时间段内
+                        _this.isGoSleep = true;
                         xqzs.weui.dialogCustom($(".sleep_dialog").html());
                         $(".sleep_btn_go_sleep").click(function () {
                             _this.checkIn(3)
                         })
-
                      }else{
-
                         if(!_this.recordTimeOut()){
                             console.log('提前打')
-
                             return;
                         }else{
                             _this.$router.push("sleepRank?type=" + this.NIGHT_TYPE);
@@ -774,7 +771,6 @@
                             var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
                             let nowTimeStamp=Math.round(new Date().getTime()/1000);
                             let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
-
                             if(cookie.get('loseBox_frist_night')){
                                 cookie.set('record_lose_night',false,CookieExpire)
                             }else{
@@ -1398,7 +1394,7 @@
     .index_btns a.set:before{ background: url(../images/index_btn_set.png) no-repeat #F3DCEE center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #EB9ED8}
     .index_btns a.index_feedback_btn:before{ background: url(../images/index_btn_feedback.png) no-repeat #CEE4FA  center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #3399FF}
     .index_btns a.xz:before{ background: url(../images/index_btn_xz.png) no-repeat #E2BFFA center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #9402FB }
-
+    .index_btns a.friendsBrithdayList:before{ background: url(../images/friendsBrithday_btn.png) no-repeat #ffc9ca center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #ff5860 }
 
 
     .index_btns a:active.get_up:before{background-color: #ffe294
@@ -1416,6 +1412,8 @@
     .index_btns a:active.index_feedback_btn:before{background-color: #b4cae0
     }
     .index_btns a:active.xz:before{background-color: #c0a1d7
+    }
+    .index_btns a:active.friendsBrithdayList:before{background-color: #fbb1b3
     }
     .index_btns a:active{ color:#666}
     .my_head{ margin-right: 54px !important;}
