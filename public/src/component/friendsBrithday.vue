@@ -81,7 +81,7 @@
                         for(let i = 0;i<datas.length;i++){
                             _this.isLeap(datas[i].isLeap,datas[i].birthday[1],datas[i].birthday[2],datas[i])
                         }
-                        _this.list =datas;
+                        _this.list =datas||[];
                         _this.showLoad = false;
                     }
                 })
