@@ -76,8 +76,6 @@
             getList: function () {
                 let _this = this;
                 _this.$http.get( web.API_PATH + 'birthday/get/list/relation/_userId_').then(function (data) {
-                    if(data.data.data !== null){
-                        console.log(_this.list)
                         let datas = data.data.data;
                         for(let i = 0;i<datas.length;i++){
                             _this.isLeap(datas[i].isLeap,datas[i].birthday[1],datas[i].birthday[2],datas[i])
@@ -89,7 +87,6 @@
                             _this.isNull = true;
                         }
                         _this.showLoad = false;
-                    }
                 })
 
             },
