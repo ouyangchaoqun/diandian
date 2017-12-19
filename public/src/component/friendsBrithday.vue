@@ -39,6 +39,7 @@
                 monthN:'',
                 dayN:'',
                 showLoad:false,
+                isNull:false,
             }
         },
         mounted:function () {
