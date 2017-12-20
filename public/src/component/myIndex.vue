@@ -52,7 +52,7 @@
                         </div>
                     </li>
                     <li class="centerClassItem">
-                        <div class="classImg getUpImg"></div>
+                        <div class="classImg rlImg"></div>
                         <div class="classItem_top">
                             心情日历
                             <img src="../images/me_btn_right.png" alt="">
@@ -71,7 +71,57 @@
                                 </div>
                             </div>
                             <div class="class_titleBottom">
-                                <span>05:30</span>
+                                <span>
+                                    <img src="../images/list_mood_02.png" alt="">
+                                </span>
+                                <div class="class_info">
+                                    <div>
+                                        <img src="../images/list_mood_00.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="../images/list_mood_00.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="../images/list_mood_02.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="../images/list_mood_00.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="../images/list_mood_04.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="../images/list_mood_00.png" alt="">
+                                    </div>
+                                    <div>
+                                        <img src="../images/list_mood_00.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="centerClassItem">
+                        <div class="classImg xgImg"></div>
+                        <div class="classItem_top">
+                            健康习惯
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <div class="class_titleTop">
+                                <span>今日完成</span>
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
+                                </div>
+                            </div>
+                            <div class="class_titleBottom">
+                                <span>5个</span>
                                 <div class="class_info">
                                     <div>05:00</div>
                                     <div>05:00</div>
@@ -85,7 +135,42 @@
 
                         </div>
                     </li>
+                    <li class="centerClassItem lastClassItem">
+                        <div class="classImg sportImg"></div>
+                        <div class="classItem_top">
+                            运动步数
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <div class="class_titleTop">
+                                <span>今日完成</span>
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
+                                </div>
+                            </div>
+                            <div class="class_titleBottom">
+                                <span>5523</span>
+                                <div class="class_info">
+                                    <div>5523</div>
+                                    <div>12k</div>
+                                    <div>5523</div>
+                                    <div>12k</div>
+                                    <div>5523</div>
+                                    <div>12k</div>
+                                    <div>5523</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
                 </ul>
+                <div style="height: 0.588235rem;background: rgba(238,238,238,1)"></div>
                 <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                     <div class="moodImg_right">
