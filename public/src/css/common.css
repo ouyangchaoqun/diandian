@@ -316,9 +316,23 @@ li{list-style: none}
     padding-left: 15%;
     background: #fff;
 }
+.centerClassItem .classImg{
+    width:2rem;
+    height:2rem;
+    border-radius: 0.7rem;
+    position: absolute;
+    left:-2.6rem;
+    top:1.176471rem;
+}
+.centerClassItem .classImg.getUpImg{
+    background: url("../images/index_btn_get_up.png") no-repeat #ffefcb center;
+    background-size: 1.4rem 1.4rem;
+    border:0.03rem  solid #ffb700;
+}
 .centerClassItem{
-    padding:1.176471rem 0.88235rem 0.88235rem 0;
+    padding:1.76471rem 0.88235rem 0.88235rem 0;
     border-bottom: 1px solid rgba(238,238,238,1);
+    position: relative;
 }
 .centerClassItem .classItem_top{
     font-size: 0.88235rem;
