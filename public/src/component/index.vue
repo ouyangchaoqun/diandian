@@ -70,7 +70,7 @@
                             <template v-else="">早睡打卡</template>
                         </span>
                     </a>
-                    <a class=" swiper-slide mood" @click="addMood()"><span>心情说说</span></a>
+                    <a class=" swiper-slide mood" @click="addMood()"><span>记录心情</span></a>
                     <a class="swiper-slide habit" @click="goHabit()"><span>健康习惯</span></a>
                     <a class="swiper-slide sign" @click="dailyRecord()"><span>每日一签</span></a>
                     <a class=" swiper-slide xz" @click="goXz()"><span>星座运势</span></a>

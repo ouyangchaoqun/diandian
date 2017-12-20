@@ -6,7 +6,7 @@
     </a>
     <a class="weui-tabbar__item tab" @click="friendMoods()" :class="{tabOn:tab=='friendMoods'}">
         <span   class="friendsImg tab_icon"></span>
-        <p class="weui-tabbar__label"  >小心情</p>
+        <p class="weui-tabbar__label"  >心情说说</p>
         <span v-show="hasNewFirendMood" class="hasnew" :style="newFirendMoodStyle"></span>
     </a>
 
