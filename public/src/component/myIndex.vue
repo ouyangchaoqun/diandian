@@ -23,39 +23,12 @@
                             <img src="../images/me_btn_right.png" alt="">
                         </div>
                         <div class="class_title">
-                            <span>
-                                <span class="span_top">起床时间</span>
-                                <span class="span_bottom">05:00</span>
-                            </span>
+                            <div>
+                                <span>起床时间</span>
+
+                            </div>
                             <div class="class_info">
-                               <span>
-                                    <span class="span_top">一</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
-                                <span>
-                                    <span class="span_top">二</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
-                                <span>
-                                    <span class="span_top">三</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
-                                <span>
-                                    <span class="span_top">四</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
-                                <span>
-                                    <span class="span_top">五</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
-                                <span>
-                                    <span class="span_top">六</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
-                                <span>
-                                    <span class="span_top">日</span>
-                                    <span class="span_bottom">06:30</span>
-                                </span>
+
                             </div>
 
                         </div>
