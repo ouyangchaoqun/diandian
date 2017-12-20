@@ -1388,7 +1388,7 @@
     .index_btns a.set:before{ background: url(../images/index_btn_set.png) no-repeat #F3DCEE center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #EB9ED8}
     .index_btns a.index_feedback_btn:before{ background: url(../images/index_btn_feedback.png) no-repeat #CEE4FA  center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #3399FF}
     .index_btns a.xz:before{ background: url(../images/index_btn_xz.png) no-repeat #E2BFFA center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #9402FB }
-    .index_btns a.friendsBrithdayList:before{ background: url(../images/friendsBrithday_btn.png) no-repeat #ffc9ca center; background-size: 1.441176470588235rem;   border: 0.03rem  solid #ff5860 }
+    .index_btns a.friendsBrithdayList:before{ background: url(../images/friendsBrithday_btn.png) no-repeat #ffc9ca center; background-size: 1.647rem;   border: 0.03rem  solid #ff5860 }
 
 
     .index_btns a:active.get_up:before{background-color: #ffe294

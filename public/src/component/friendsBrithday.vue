@@ -4,7 +4,7 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
             <div class="friendsBrithday_top"></div>
             <div class="myBrithday_box" v-if="user">
-                <div class="myBrithday_box myBrithday_inBox">
+                <div class="myBrithday_box myBrithday_inBox" @click="goPersonal()">
                     <img class="faceImg" :src="user.faceUrl" alt="">
                     <div class="info_left">
                         <div :class="{noBirthStyle:myBirth==null}">{{user.nickName}}</div>
@@ -14,7 +14,7 @@
                         </template>
 
                     </div>
-                    <div class="info_right" @click="goPersonal()">
+                    <div class="info_right">
                         <template v-if="myBirth==null">
                             <div style="line-height: 2.88rem;color:rgba(0,102,255,1)">去设置</div>
                         </template>
@@ -177,7 +177,7 @@
         line-height: 2.352941176470588rem;
         height: 2.352941176470588rem;
         font-size: 0.8235294117647059rem;
-        margin: 1.470588235294118rem 0.88235rem 1.764705882352941rem 0.88235rem;
+        margin: 2rem 0.88235rem 1.764705882352941rem 0.88235rem;
         color: #fff;
         display: block;
         border: 1px solid #ffad00;
