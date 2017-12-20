@@ -214,6 +214,10 @@
     .friendsBrithday_box .info_left div{
         color:rgba(51,51,51,1);
         font-size: 0.88235rem;
+        width:6rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .friendsBrithday_box .info_left span{
         font-size: 0.8235rem;
