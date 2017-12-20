@@ -234,14 +234,14 @@
         height:1.176rem;
         background: rgba(255,255,255,1);
     }
-    .friendsBrithday_ul{
-        padding:0 1.176rem;
-    }
     .friendsBrithday_ul li{
         height:2.64rem;
-        padding:0.88235rem 0;
+        padding:0.88235rem 1.176rem;
         border-bottom: 1px solid rgba(238,238,238,1);
         color:rgba(153,153,153,1);
+    }
+    .friendsBrithday_ul li:active{
+        background: rgba(248,248,248,1);
     }
     .faceImg{
         width:2.35rem;

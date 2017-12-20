@@ -49,7 +49,7 @@
                 user: {},
                 isNotLookFriend:false,
                 isNotLookMe:false,
-                memoNameLink:null,
+                memoNameLink:'',
                 isSpecial:false
 
             }
