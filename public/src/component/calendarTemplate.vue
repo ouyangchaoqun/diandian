@@ -329,16 +329,6 @@
         height: 100%;
         background: #ffffff;
     }
-
-    .banner {
-        width: 100%;
-    }
-
-    .banner img {
-        display: block;
-        width: 100%;
-    }
-
     .rl_header {
         height: 60px;
         position: relative;

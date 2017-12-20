@@ -6,7 +6,6 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="myIndex_box">
                 <div class="banner index_banner">
-                   <!-- <v-banner></v-banner>-->
                     <img src="../images/indexBanner1.jpg" alt="">
                     <router-link to="/me" class="headBox">
                         <div class="userHeaderImg">
@@ -14,112 +13,137 @@
                         </div>
                     </router-link>
                     <div class="addName">{{user.nickName}}</div>
-                    <v-indexCount :mmm="aaa"></v-indexCount>
                 </div>
-                <!--banner end -->
-                <div class="addSwiper">
-                        <a href="#" hidefocus="true" class="AddActive">心情指数</a>
-                        <a href="#" hidefocus="true">心情日历</a>
-                </div>
-                <div class="swiper-container addSwiperBox">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide content-slide swiper-no-swiping">
 
-                            <div>
-                                <div class="chart_box">
-                                    <v-chart :chartData="chartData"></v-chart>
-                                </div>
-                                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
-                                    <img class="moodImg" :src="item.moodValueUrl" alt="">
-                                    <div class="moodImg_right">
-                                        <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
-                                            <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
-                                        </div>
-                                        <template v-if="canEdit(item)">
-                                            <router-link :to="item.editLink" class="editMood" replace>
-                                                20分钟内可以补充文字和图片
-                                                <img src="../images/bianji.png" alt="">
-                                            </router-link>
-                                        </template>
-                                        <template><!--v-if=" (item.content!=''&& item.content!=null)  "-->
-                                            <div class="moodContext" v-html="formatContent(item)">
-                                            </div>
-                                        </template>
-                                        <template v-if="item.haspicture">
-                                            <div class="moodPhotoLists">
-                                                <div class="moodPhotoList" v-for="pic in item.pics">
-                                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl"  :data-w="item.pics.length>1?pic.picwidth:''"
-                                                         :data-h="item.pics.length>1?pic.picheight:''"   :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}" :style="pic.styleObject"
-                                                         @click="showBigImg(item.pics,pic)">
-                                                </div>
-                                                <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
-                                                    <div class="moodFunnyPic" v-for="gif in item.funnypics">
-                                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth"
-                                                             :data-h="gif.picheight"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-                                        <div class="moodLoc" v-if="item.address!=''&& item.address!=null">{{item.address}}</div>
-                                        <div class="moodTime">
-                                            <span>{{item.outTime}}</span>
-                                            <span v-if="canRevoke(item)"
-                                                  class="btn_del" @click="revoke(item.id,index)">撤回</span>
-                                            <span v-if="canClear(item)" class="btn_del"
-                                                  @click="empty(item.id,index)">删除</span>
-                                            <div class="moodFollow" @click="showComment(item.id,index)">
-
-                                                <div style="float: right;margin-left: 12px;">
-
-                                                    <span class="followCount">{{item.replycount}}</span>
-                                                    <img class="followtype" src="../images/comments.png" alt="">
-
-                                                </div>
-                                                <div style="float: right;">
-                                                    <span class="followCount">{{item.careCount}}</span>
-                                                    <img class="followtype" :src="item.careImg" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="show_box" v-if="item.hasComments && item.isShowComment">
-                                        <div class="arraw"></div>
-                                        <div class="show_top" v-if="item.careList.length>0">
-                                            <img class="show_img1" :src="item.careImg"/>
-                                            <img v-for="care in item.careList" :src="care.faceUrl"/>
-                                        </div>
-                                        <div class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
-                                        <ul class="show_bottom" v-if="item.commentList.length>0">
-                                            <img class="show_img2" src="../images/comments.png"/>
-                                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex"
-                                                :data-replyid="comment.id" :data-moodid="item.id"
-                                                :data-userid="comment.fromuserid" data-ajaxresult="hasface"
-                                                @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)">
-                                                <img class="show_bottom_img" :src="comment.from_faceUrl">
-                                                <div class="show_bottom_text">
-                                                    <div class="reply_author">
-                                                        <a class="pname other" href="javascript:;">{{comment.from_nickName |
-                                                        shortName(7)}}</a>
-                                                    </div>
-                                                    <div class="reply_content">
-                                                        <template v-if="comment.tomoodreplyid>0">
-                                                            <span class="text_comment">回复</span><a class="pname other"
-                                                                                                   href="javascript:;">{{comment.to_nickName
-                                                        | shortName(7)}}：</a>
-                                                        </template>
-                                                        <span class="text_comment">{{emojiContent(comment.content)}}</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                <v-indexCount :mmm="aaa"></v-indexCount>
+                <ul class="centerClass">
+                    <li class="centerClassItem">
+                        <div class="classItem_top">
+                            早起打卡
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <span>
+                                <span class="span_top">起床时间</span>
+                                <span class="span_bottom">05:00</span>
+                            </span>
+                            <div class="class_info">
+                               <span>
+                                    <span class="span_top">一</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
+                                <span>
+                                    <span class="span_top">二</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
+                                <span>
+                                    <span class="span_top">三</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
+                                <span>
+                                    <span class="span_top">四</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
+                                <span>
+                                    <span class="span_top">五</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
+                                <span>
+                                    <span class="span_top">六</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
+                                <span>
+                                    <span class="span_top">日</span>
+                                    <span class="span_bottom">06:30</span>
+                                </span>
                             </div>
 
                         </div>
-                        <div class="swiper-slide content-slide swiper-no-swiping">
-                                <v-calendarTemplate></v-calendarTemplate>
+                    </li>
+                </ul>
+                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
+                    <img class="moodImg" :src="item.moodValueUrl" alt="">
+                    <div class="moodImg_right">
+                        <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
+                            <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
                         </div>
+                        <template v-if="canEdit(item)">
+                            <router-link :to="item.editLink" class="editMood" replace>
+                                20分钟内可以补充文字和图片
+                                <img src="../images/bianji.png" alt="">
+                            </router-link>
+                        </template>
+                        <template><!--v-if=" (item.content!=''&& item.content!=null)  "-->
+                            <div class="moodContext" v-html="formatContent(item)">
+                            </div>
+                        </template>
+                        <template v-if="item.haspicture">
+                            <div class="moodPhotoLists">
+                                <div class="moodPhotoList" v-for="pic in item.pics">
+                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl"  :data-w="item.pics.length>1?pic.picwidth:''"
+                                         :data-h="item.pics.length>1?pic.picheight:''"   :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}" :style="pic.styleObject"
+                                         @click="showBigImg(item.pics,pic)">
+                                </div>
+                                <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
+                                    <div class="moodFunnyPic" v-for="gif in item.funnypics">
+                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth"
+                                             :data-h="gif.picheight"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="moodLoc" v-if="item.address!=''&& item.address!=null">{{item.address}}</div>
+                        <div class="moodTime">
+                            <span>{{item.outTime}}</span>
+                            <span v-if="canRevoke(item)"
+                                  class="btn_del" @click="revoke(item.id,index)">撤回</span>
+                            <span v-if="canClear(item)" class="btn_del"
+                                  @click="empty(item.id,index)">删除</span>
+                            <div class="moodFollow" @click="showComment(item.id,index)">
+
+                                <div style="float: right;margin-left: 12px;">
+
+                                    <span class="followCount">{{item.replycount}}</span>
+                                    <img class="followtype" src="../images/comments.png" alt="">
+
+                                </div>
+                                <div style="float: right;">
+                                    <span class="followCount">{{item.careCount}}</span>
+                                    <img class="followtype" :src="item.careImg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="show_box" v-if="item.hasComments && item.isShowComment">
+                        <div class="arraw"></div>
+                        <div class="show_top" v-if="item.careList.length>0">
+                            <img class="show_img1" :src="item.careImg"/>
+                            <img v-for="care in item.careList" :src="care.faceUrl"/>
+                        </div>
+                        <div class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
+                        <ul class="show_bottom" v-if="item.commentList.length>0">
+                            <img class="show_img2" src="../images/comments.png"/>
+                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex"
+                                :data-replyid="comment.id" :data-moodid="item.id"
+                                :data-userid="comment.fromuserid" data-ajaxresult="hasface"
+                                @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)">
+                                <img class="show_bottom_img" :src="comment.from_faceUrl">
+                                <div class="show_bottom_text">
+                                    <div class="reply_author">
+                                        <a class="pname other" href="javascript:;">{{comment.from_nickName |
+                                        shortName(7)}}</a>
+                                    </div>
+                                    <div class="reply_content">
+                                        <template v-if="comment.tomoodreplyid>0">
+                                            <span class="text_comment">回复</span><a class="pname other"
+                                                                                   href="javascript:;">{{comment.to_nickName
+                                        | shortName(7)}}：</a>
+                                        </template>
+                                        <span class="text_comment">{{emojiContent(comment.content)}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -127,7 +151,6 @@
 
             </div>
         </v-scroll>
-        <v-calendarPopup></v-calendarPopup>
     </div>
 
 
@@ -459,34 +482,34 @@
 
             }
 
-            var addtabsSwiper = new Swiper('.addSwiperBox',{
-                speed:500,
-                onSlideChangeStart: function(){
-                    if(addtabsSwiper.activeIndex ==1){
-                        var H = $(".content-slide").find('.calendarTemplate_box').height();
-                        $(".content-slide").css('height', H + 'px');
-                        $('.yo-scroll').css('background','#fff');
-                        _this.isShowMoreText=false;
-                    }else{
-                        $(".content-slide").css('height',  'auto');
-                        $('.yo-scroll').css('background','#f5f5f5');
-                        _this.isShowMoreText=true
-                    }
-                }
-            });
-
-            $(".addSwiper a").on('touchstart click',function(e){
-                e.preventDefault()
-                $(".addSwiper .AddActive").removeClass('AddActive');
-                $(this).addClass('AddActive');
-                addtabsSwiper.slideTo($(this).index());
-                //console.log($(this).index())
-            });
-            if(_this.activeCalendarIndex==1){
-                setTimeout(function () {
-                    $(".addSwiper a:eq(1)").click();
-                },1)
-            }
+//            var addtabsSwiper = new Swiper('.addSwiperBox',{
+//                speed:500,
+//                onSlideChangeStart: function(){
+//                    if(addtabsSwiper.activeIndex ==1){
+//                        var H = $(".content-slide").find('.calendarTemplate_box').height();
+//                        $(".content-slide").css('height', H + 'px');
+//                        $('.yo-scroll').css('background','#fff');
+//                        _this.isShowMoreText=false;
+//                    }else{
+//                        $(".content-slide").css('height',  'auto');
+//                        $('.yo-scroll').css('background','#f5f5f5');
+//                        _this.isShowMoreText=true
+//                    }
+//                }
+//            });
+//
+//            $(".addSwiper a").on('touchstart click',function(e){
+//                e.preventDefault()
+//                $(".addSwiper .AddActive").removeClass('AddActive');
+//                $(this).addClass('AddActive');
+//                addtabsSwiper.slideTo($(this).index());
+//                //console.log($(this).index())
+//            });
+//            if(_this.activeCalendarIndex==1){
+//                setTimeout(function () {
+//                    $(".addSwiper a:eq(1)").click();
+//                },1)
+//            }
             if(_this.$route.query.month!=undefined) {
                 let date = new Date();
                 let _month = date.getMonth();
@@ -529,6 +552,12 @@
 
 </script>
 <style>
+    .myIndex_box .index_banner{
+        height:8.8235rem;
+    }
+    .index_banner img{
+        height:100%;
+    }
     .moodState i {
         font-size: 12px;
         color: #999;

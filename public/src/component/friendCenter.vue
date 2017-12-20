@@ -11,28 +11,23 @@
                 </div>
             </router-link>
             <div class="addName">{{nickName}}</div>
-            <v-indexCount></v-indexCount>
         </div>
-        <!--banner end -->
-        <div class="addSwiper">
-            <a href="#" hidefocus="true" class="AddActive">心情指数</a>
-            <a href="#" hidefocus="true">心情日历</a>
-        </div>
-        <div class="swiper-container addSwiperBox">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide content-slide swiper-no-swiping">
-                    <div class="chart_box" v-if="isLookFriend ">
-                        <v-chart :chartData="chartData"></v-chart>
-                        <div v-if="isLookFriend " class="addSwiperBoxText">（只展示好友最近七天的心情指数）</div>
-                    </div>
-                    <div class="canot-look" v-if="!isLookFriend "></div>
-                </div>
-                <div class="swiper-slide content-slide swiper-no-swiping">
-                    <v-calendarTemplate v-if="isLookFriend"></v-calendarTemplate>
-                    <div class="canot-look" v-if="!isLookFriend "></div>
-                </div>
-            </div>
-        </div>
+        <v-indexCount></v-indexCount>
+        <!--<div class="swiper-container addSwiperBox">-->
+            <!--<div class="swiper-wrapper">-->
+                <!--<div class="swiper-slide content-slide swiper-no-swiping">-->
+                    <!--<div class="chart_box" v-if="isLookFriend ">-->
+                        <!--<v-chart :chartData="chartData"></v-chart>-->
+                        <!--<div v-if="isLookFriend " class="addSwiperBoxText">（只展示好友最近七天的心情指数）</div>-->
+                    <!--</div>-->
+                    <!--<div class="canot-look" v-if="!isLookFriend "></div>-->
+                <!--</div>-->
+                <!--<div class="swiper-slide content-slide swiper-no-swiping">-->
+                    <!--<v-calendarTemplate v-if="isLookFriend"></v-calendarTemplate>-->
+                    <!--<div class="canot-look" v-if="!isLookFriend "></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </template>
 
@@ -155,28 +150,13 @@
 
 </script>
 <style>
-    .canot-look {
-        clear: both;
-        width: 90%;
-        height: 10px;
-        background: url(../images/xt.jpg) top center no-repeat;
-        margin:35px auto;
-    }
-
     .friendIndex_box {
         background: #fff !important;
     }
-    .userHeaderImg img {
-        height: 64px;
-        width: 64px;
-        border-radius: 50%;
-        margin: auto;
-        display: block;
+    .friendIndex_box .index_banner{
+        height:8.8235rem;
     }
-    .addSwiperBoxText{
-        font-size: 12px;
-        color: #999;
-        text-align: center;
-        margin-top: 15px;
+    .index_banner img{
+        height:100%;
     }
 </style>

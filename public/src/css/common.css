@@ -254,33 +254,31 @@ li{list-style: none}
 
 }
 .IndexAdd{
-    height: 2.88rem;
+    padding:0.88235rem 0;
     width:100%;
-    background:rgba(204,204,204,0.2);
-    position: absolute;
-    bottom:0;
+    background:#fff;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
+    border-bottom: 0.588235rem solid rgba(238,238,238,1);
 }
 .IndexAdd>div{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
     text-align: center;
-    color: rgba(255,255,255,0.4);
-    font-size: 0.588rem;
-    padding-top: 0.411rem;
-    line-height: 0.647rem;
+    color: rgba(51,51,51,0.5);
+    font-size: 0.6471rem;
+    line-height: 1;
 }
 .IndexAdd>div:active{
     background: #6C7587;
 }
 .IndexAdd p{
     font-size: 1.058rem;
-    color: #fff;
-    margin-bottom: 0.294rem;
-    line-height: 1.058rem;
+    color: rgba(51,51,51,1);
+    margin-bottom: 0.35rem;
+    line-height: 1;
 }
 .IndexAddBorder{
     position: relative;
@@ -288,7 +286,7 @@ li{list-style: none}
 .IndexAddBorder span{
     width: 1px;
     height: 0.88rem;
-    background: rgba(255,255,255,0.7);
+    background: rgba(219,219,219,1);
     position: absolute;
     display: block;
     top: 50%;
@@ -313,25 +311,48 @@ li{list-style: none}
     text-align: center;
 
 }
-.addSwiper{
-    height: 2.588rem;
-    font-size: 13px;
-    border-bottom: 0.0588rem solid #eee;
-}
-.addSwiper a{
-    float: left;
-    background: #eeeeee;
-    width:50%;
-    text-align: center;
-    line-height: 2.588rem;
-    color: #999999;
-    height: 2.588rem;
-}
-.addSwiper .AddActive{
+/*新加个人主页类别统计*/
+.centerClass{
+    padding-left: 15%;
     background: #fff;
-    color: #333;
 }
-
+.centerClassItem{
+    padding:1.176471rem 0.88235rem 0.88235rem 0;
+    border-bottom: 1px solid rgba(238,238,238,1);
+}
+.centerClassItem .classItem_top{
+    font-size: 0.88235rem;
+    line-height: 1;
+    color:rgba(51,51,51,1);
+    margin-bottom: 1.12rem;
+}
+.centerClassItem .classItem_top img{
+    float: right;
+    height:0.8235rem;
+}
+.centerClassItem .class_title{
+    color:rgba(153,153,153,1);
+    font-size: 0.6471rem;
+    line-height: 1;
+}
+.class_title span{
+    display: inline-grid;
+    text-align: center;
+}
+.class_info{
+    float: right;
+}
+.span_top{
+    margin-bottom: 0.88235rem;
+}
+.class_title .span_bottom{
+    font-size: 0.88235rem;
+    color:rgba(51,51,51,1);
+}
+.class_title .class_info .span_bottom{
+    color:rgba(102,102,102,1);
+    font-size: 0.588235rem;
+}
 
 
 
