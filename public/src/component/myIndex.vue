@@ -23,12 +23,29 @@
                             <img src="../images/me_btn_right.png" alt="">
                         </div>
                         <div class="class_title">
-                            <div>
+                            <div class="class_titleTop">
                                 <span>起床时间</span>
-
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
+                                </div>
                             </div>
-                            <div class="class_info">
-
+                            <div class="class_titleBottom">
+                                <span>05:30</span>
+                                <div class="class_info">
+                                    <div>05:00</div>
+                                    <div>05:00</div>
+                                    <div>05:00</div>
+                                    <div>05:00</div>
+                                    <div>05:00</div>
+                                    <div>05:00</div>
+                                    <div>05:00</div>
+                                </div>
                             </div>
 
                         </div>
