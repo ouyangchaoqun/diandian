@@ -169,7 +169,7 @@
                     <div class="friend_list_title">
                         <div class="top">祝福<span v-if="(user!=null&&user.id!=birthdayUserId)||user==null">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人
                         </div>
-                        <span class="addThanks_html" v-if="user!=null&&user.id!=birthdayUserId">寿星答谢</span>
+                        <span class="addThanks_html" v-if="user!=null&&user.id!=birthdayUserId&&isThanks">寿星答谢</span>
                     </div>
 
                     <ul>
@@ -1298,6 +1298,10 @@
                         console.log(_this.count);
                         _this.friendList = data.body.data.reverse();
                         for (let i = 0; i < _this.friendList.length; i++) {
+                            if(_this.friendList[i].isThanked==1){
+                                console.log('有感谢')
+                                _this.isThanks = true;
+                            }
 
                             if (_this.friendList[i].content && _this.friendList[i].content != null && _this.friendList[i].content != '') {
                                 if(_this.friendList[i].content&&_this.friendList[i].content!='') _this.friendList[i].content = xqzs.face.parseEmoji(  _this.friendList[i].content )
