@@ -603,13 +603,12 @@
                 data = "?guest=true";
 
             }
-            let userId = _this.$route.query.userid;
-            console.log(userId)
+
             _this.showLoad=true;
             _this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
+                url: web.API_PATH + 'user/find/by/user/Id/' + _this.theUserId + data,
             }).then(function (data) {//es5写法
                 console.log(data)
                 if (data.data.data !== null) {
