@@ -166,7 +166,12 @@
         <div class="page_two">
             <div id="friends">
                 <div class="friend_list">
-                    <div class="top">祝福<span v-if="(user!=null&&user.id!=birthdayUserId)||user==null">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人</div>
+                    <div class="friend_list_title">
+                        <div class="top">祝福<span v-if="(user!=null&&user.id!=birthdayUserId)||user==null">他</span><span v-if="user!=null&&user.id==birthdayUserId">我</span>的人
+                        </div>
+                        <span class="addThanks_html" v-if="user!=null&&user.id!=birthdayUserId">寿星答谢</span>
+                    </div>
+
                     <ul>
                         <li v-for="(item,index) in  friendList" v-if="item.userId!=0"
                             class="has_content" :class="{no_has_content:!(item.content&&item.content!=null&&item.content!='')}">
@@ -210,6 +215,17 @@
     </div>
 </template>
 <style>
+    .friend_list .friend_list_title{
+        position: relative;
+    }
+    .friend_list_title .addThanks_html{
+        position: absolute;
+        right:0.88235rem;
+        font-size: 0.88235rem;
+        bottom:0;
+        line-height: 1;
+        color:rgba(210,159,114,1);
+    }
     .addThanksBtn_box{padding-bottom: 4.5rem;padding-top: 1rem;}
     .addThanksBtn{width:32%;height:2.35rem;line-height: 2.4rem;background: rgba(255,102,102,1);font-size: 0.88235rem;color:rgba(245,245,245,1);text-align: center;border-radius: 2.35rem;margin: 0 auto;box-shadow: 0px 3px 10px 0px rgba(255,102,102,0.8);}
     .addThanksImg{position: absolute;right:0.88235rem;}

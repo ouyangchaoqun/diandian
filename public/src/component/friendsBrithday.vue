@@ -32,7 +32,7 @@
                 </div>
             </div>
             <ul class="friendsBrithday_ul">
-                <li v-for="item in list" v-if="user==null||item.userId!=user.id">
+                <li v-for="item in list" v-if="user==null||item.userId!=user.id" @click="goFriendCenter(item.userId)">
                     <img class="faceImg" :src="item.faceUrl" alt="">
                     <div class="info_left">
                         <div>{{item.nickName}}</div>
@@ -49,6 +49,7 @@
                     </div>
                 </li>
             </ul>
+            <a class="share" @click="createinvite()">点击生成好友邀请卡</a>
     </div>
 
 </template>
@@ -74,6 +75,10 @@
         methods: {
             goPersonal:function () {
               this.$router.push('/me/personal')
+            },
+            goFriendCenter:function (friendId) {
+                console.log(friendId)
+               this.$router.push('/friendCenter/'+friendId)
             },
             isLeap:function (isLeap,M,D,_this) {
                 if( isLeap==0||isLeap==1){
@@ -129,6 +134,36 @@
                 })
 
             },
+            _createinvite:function (type,callback) {
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'wei/xin/create/invite/' + type + '/_userId_',
+                }).then(function (data) {
+                    if (data && data.data.status == 1) {
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
+                    }
+                })
+            },
+            createinvite:function () {
+                let that = this;
+                that._createinvite('link',function () {
+                    that._createinvite('card',function () {});
+                    xqzs.weui.dialog({
+                        title:'邀请卡已经发送',
+                        msg:'前往公众号查看你的专属名片',
+                        submitText:'查看',
+                        submitFun:function () {
+                            try {
+                                WeixinJSBridge.call('closeWindow');
+                            }catch (e){
+                            }
+                        }
+                    })
+                });
+            },
         },
         components: {
             'v-showLoad': showLoad
@@ -138,6 +173,18 @@
 
 </script>
 <style>
+    .share{
+        line-height: 2.352941176470588rem;
+        height: 2.352941176470588rem;
+        font-size: 0.8235294117647059rem;
+        margin: 1.470588235294118rem 0.88235rem 1.764705882352941rem 0.88235rem;
+        color: #fff;
+        display: block;
+        border: 1px solid #ffad00;
+        background: #ffaa00;
+        border-radius: 0.2941176470588235rem;
+        text-align: center;
+    }
     .noBirthStyle{
         line-height: 2.88rem;
     }

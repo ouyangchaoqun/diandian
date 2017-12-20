@@ -88,15 +88,15 @@ new Vue({
 Vue.directive('title', {
     inserted: function (el, binding) {
         console.log(el);
-        document.title = el.innerText;
 
-
-
+            document.title = el.innerText;
 
         el.remove()
     },
     update: function (el, binding) {
-        document.title = el.innerText;
+        setTimeout(function () {
+            document.title = el.innerText;
+        },10)
 
         el.remove()
     }
