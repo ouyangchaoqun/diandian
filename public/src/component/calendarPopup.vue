@@ -1,5 +1,5 @@
 <template id="calendarPopup">
-    <div style="height: 100%;width: 100%;" @click="hideSwiper()">
+    <div @click="hideSwiper()">
         <div class="weui-mask weui-animate-fade-in" v-if="isShow" style="background:rgba(0,0,0,0.8);"></div>
         <div id="bg_back" :class="[{show_box_cal:isShow,hidden_box:isHidden}]" >
             <div class="swiper-container1 clickBox">
@@ -131,13 +131,13 @@
         position: relative;
         overflow: hidden;
     }
-    .addPopupBg{
+    .addPopup .addPopupBg{
         width: 100%;
         height:12.35rem;
         display: block;
         /*border-radius:5px 5px 0 0;*/
     }
-    .addPopupMood{
+    .addPopup .addPopupMood{
         height: 3.53rem;
         width: 3.53rem;
         display: block;
@@ -147,7 +147,7 @@
         margin-left: -1.765rem;
         z-index: 100;
     }
-    .addContent{
+    .addPopup .addContent{
         height:12.35rem;
         background: #fff;
         position: relative;

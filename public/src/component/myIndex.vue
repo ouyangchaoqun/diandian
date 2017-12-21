@@ -14,10 +14,9 @@
                     </router-link>
                     <div class="addName">{{user.nickName}}</div>
                 </div>
-
                 <v-indexCount :mmm="aaa"></v-indexCount>
                 <ul class="centerClass">
-                    <li class="centerClassItem">
+                    <li class="centerClassItem classGetup" @click="goGetupCount()">
                         <div class="classImg getUpImg"></div>
                         <div class="classItem_top">
                             早起打卡
@@ -37,21 +36,20 @@
                                 </div>
                             </div>
                             <div class="class_titleBottom">
-                                <span>05:30</span>
-                                <div class="class_info">
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
+                                <span style="height:0.88235rem;">{{classGetup&&classGetup.today.shorttime}}</span>
+                                <div class="class_info" style="height:0.588235rem;">
+                                    <div v-for="item in classGetup.list">
+                                        <template v-if="item.shorttime!=''">{{item.shorttime}}</template>
+                                        <template v-if="item.weekix<=classGetup.today.weekix&&item.shorttime==''">
+                                            <img src="../images/norecord.png" alt="">
+                                        </template>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                     </li>
-                    <li class="centerClassItem">
+                    <li class="centerClassItem classCalendar" @click="gonewCalendar()">
                         <div class="classImg rlImg"></div>
                         <div class="classItem_top">
                             心情日历
@@ -72,36 +70,20 @@
                             </div>
                             <div class="class_titleBottom">
                                 <span>
-                                    <img src="../images/list_mood_02.png" alt="">
+                                    <img :src="todayMood.smailUrl" alt="">
                                 </span>
                                 <div class="class_info">
-                                    <div>
-                                        <img src="../images/list_mood_00.png" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="../images/list_mood_00.png" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="../images/list_mood_02.png" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="../images/list_mood_00.png" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="../images/list_mood_04.png" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="../images/list_mood_00.png" alt="">
-                                    </div>
-                                    <div>
-                                        <img src="../images/list_mood_00.png" alt="">
+                                    <div v-for="item in moodList">
+                                        <template>
+                                            <img :src="item.smailUrl" alt="">
+                                        </template>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                    </li>
-                    <li class="centerClassItem">
+                    </li >
+                    <li class="centerClassItem classHabit" @click="goHabit()">
                         <div class="classImg xgImg"></div>
                         <div class="classItem_top">
                             健康习惯
@@ -121,21 +103,22 @@
                                 </div>
                             </div>
                             <div class="class_titleBottom">
-                                <span>5个</span>
+                                <span style="height:0.88235rem;">{{classHabit&&classHabit.today.finishNum}}</span>
                                 <div class="class_info">
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
-                                    <div>05:00</div>
+                                    <div v-for="item in classHabit.list">
+                                        <template v-if="item.finishNum!=0">
+                                            <img src="../images/habitf.png" alt="">
+                                        </template>
+                                        <template v-if="item.finishNum==0&&classHabit.today.weekix>item.weekix">
+                                            <img src="../images/habitnof.png" alt="">
+                                        </template>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                     </li>
-                    <li class="centerClassItem lastClassItem">
+                    <li class="centerClassItem lastClassItem" @click="goStepInfo()">
                         <div class="classImg sportImg"></div>
                         <div class="classItem_top">
                             运动步数
@@ -155,15 +138,12 @@
                                 </div>
                             </div>
                             <div class="class_titleBottom">
-                                <span>5523</span>
+                                <span style="height:0.88235rem;">{{classStep&&stepChange(classStep.today.step)}}</span>
                                 <div class="class_info">
-                                    <div>5523</div>
-                                    <div>12k</div>
-                                    <div>5523</div>
-                                    <div>12k</div>
-                                    <div>5523</div>
-                                    <div>12k</div>
-                                    <div>5523</div>
+                                    <div v-for="item in classStep.list">
+                                        <template v-if="classStep.today.weekix>=item.weekix">{{stepChange(item.step)}}</template>
+                                        <template v-if="classStep.today.weekix<item.weekix"></template>
+                                    </div>
                                 </div>
                             </div>
 
@@ -171,6 +151,13 @@
                     </li>
                 </ul>
                 <div style="height: 0.588235rem;background: rgba(238,238,238,1)"></div>
+                <div class="moodList_title">
+                    <div>
+                        <div class="classImg"></div>
+                        心情说说
+                    </div>
+
+                </div>
                 <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
                     <img class="moodImg" :src="item.moodValueUrl" alt="">
                     <div class="moodImg_right">
@@ -256,9 +243,6 @@
                         </ul>
                     </div>
                 </div>
-
-
-
             </div>
         </v-scroll>
     </div>
@@ -301,7 +285,13 @@
 
                 ],
                 aaa:'',
-                activeIndex:0
+                activeIndex:0,
+                classGetup:'',
+                classCalendar:'',
+                classHabit:'',
+                classStep:'',
+                moodList:'',
+                todayMood:''
             }
         },
         props:{
@@ -315,7 +305,24 @@
             }
         },
         methods: {
-
+            goGetupCount:function () {
+              this.$router.push('/getUpStatistics?type=2')
+            },
+            gonewCalendar:function () {
+              this.$router.push('/newCalendar')
+            },
+            goHabit:function () {
+                this.$router.push("/habit")
+            },
+            goStepInfo:function () {
+                this.$router.push("/stepStatistics")
+            },
+            stepChange:function (n) {
+                if(n>=10000){
+                    n = parseInt(n/1000) + 'k';
+                }
+                return n;
+            },
             canEdit: function (mood) {
                 return xqzs.mood.canEdit(mood);
             },
@@ -570,6 +577,43 @@
                     return before;
                 }
 
+            },
+            getWeekClass:function () {
+                let _this = this;
+                _this.$http.get(web.API_PATH+'user/index/week/_userId_').then(function (data) {
+                    var res = data.data.data
+                    console.log(res)
+                    _this.classGetup = res.getUp;
+                    _this.classCalendar = res.mood;
+                    console.log(_this.classCalendar.today)
+                    _this.todayMood = res.mood.today;
+                    let todayfaceIndex = 0;
+                    if( _this.todayMood.moodValue){
+                        todayfaceIndex =  _this.todayMood.moodValue;
+                    }else {
+                        todayfaceIndex = 0;
+                        _this.todayMood.moodValue = 0;
+                    }
+                    _this.todayMood.smailUrl = web.IMG_PATH + "list_mood_0" + todayfaceIndex + ".png";
+                    _this.$set( _this.todayMood)
+                    console.log( _this.todayMood)
+
+
+                    _this.classHabit = res.habits;
+                    _this.classStep = res.weRun;
+                    let faceIndex = 0;
+                    _this.moodList =  res.mood.list;
+                    for(let i = 0;i<_this.moodList.length;i++){
+                        if(_this.moodList[i].moodValue){
+                            faceIndex = _this.moodList[i].moodValue;
+                        }else{
+                            faceIndex = 0;
+                            _this.moodList[i].moodValue= 0;
+                        }
+                        _this.moodList[i].smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
+                        _this.$set(_this.moodList,i,_this.moodList[i]);
+                    }
+                })
             }
 
         },
@@ -583,6 +627,7 @@
 
 
             var _this = this;
+            _this.getWeekClass();
             _this.activeCalendarIndex  = _this.$route.query.activeIndex;
             let scrollFromEdit = _this.$route.query.scroll;
             if(scrollFromEdit==1){
@@ -592,34 +637,6 @@
 
             }
 
-//            var addtabsSwiper = new Swiper('.addSwiperBox',{
-//                speed:500,
-//                onSlideChangeStart: function(){
-//                    if(addtabsSwiper.activeIndex ==1){
-//                        var H = $(".content-slide").find('.calendarTemplate_box').height();
-//                        $(".content-slide").css('height', H + 'px');
-//                        $('.yo-scroll').css('background','#fff');
-//                        _this.isShowMoreText=false;
-//                    }else{
-//                        $(".content-slide").css('height',  'auto');
-//                        $('.yo-scroll').css('background','#f5f5f5');
-//                        _this.isShowMoreText=true
-//                    }
-//                }
-//            });
-//
-//            $(".addSwiper a").on('touchstart click',function(e){
-//                e.preventDefault()
-//                $(".addSwiper .AddActive").removeClass('AddActive');
-//                $(this).addClass('AddActive');
-//                addtabsSwiper.slideTo($(this).index());
-//                //console.log($(this).index())
-//            });
-//            if(_this.activeCalendarIndex==1){
-//                setTimeout(function () {
-//                    $(".addSwiper a:eq(1)").click();
-//                },1)
-//            }
             if(_this.$route.query.month!=undefined) {
                 let date = new Date();
                 let _month = date.getMonth();
@@ -630,6 +647,7 @@
             }
 
             this.getList();
+
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
                 console.log(data)
@@ -662,6 +680,29 @@
 
 </script>
 <style>
+    .moodList_title{
+        height:4.35rem;
+        background: #fff;
+        line-height: 4.35rem;
+        border-bottom: 1px solid rgba(238,238,238,1);
+        padding-left: 15%;
+        color:rgba(51,51,51,1);
+        font-size: 0.88235rem;
+    }
+    .moodList_title>div{
+        position: relative;
+    }
+    .moodList_title .classImg{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.7rem;
+        position: absolute;
+        left: -2.6rem;
+        top: 1.176471rem;
+        background: url("../images/mood_btn_class.png") no-repeat rgba(219,244,251,1) center;
+        border:0.03rem solid rgba(30,190,250,1);
+        background-size: 1rem;
+    }
     .myIndex_box .index_banner{
         height:8.8235rem;
     }

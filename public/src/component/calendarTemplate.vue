@@ -188,13 +188,13 @@
 
                 this.days = days;
                 days = [];
-                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/'+this.$route.params.Id+'?date=' + year + '-' + monthchange + '-01').then(response => {
+                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/_userId_?date=' + year + '-' + monthchange + '-01').then(response => {
                     if (response.data.status === 1) {
                         if (thisMonthDays > 0) {
                             for (let i = 1; i <= thisMonthDays; i++) {
                                 let dayChange = i;
                                 if (i < 10) dayChange = "0" + i;
-                                let dateStr = year + "-" + monthchange + "-" + dayChange;
+                                let dateStr = year + "-/" + monthchange + "-/" + dayChange;
                                 let faceIndex = 0;
                                 let moods = [];
                                 for (let j = 0; j < response.data.data.length; j++) {
