@@ -19,6 +19,10 @@ $app->group(['prefix'=>'wx'],function () use($app){
     $app->get('jump','WeixinController@jump');
     $app->get('pub','WeixinController@pub');
     $app->get('pubjump','WeixinController@pubjump');
+
+    $app->get('login','WeixinController@wxLogin');
+    $app->get('login/callback','WeixinController@LoginCallback');
+
 });
 $app->get('/wxjump','WeixinController@jump');
 $app->post('/error/log','Controller@errorLog');
