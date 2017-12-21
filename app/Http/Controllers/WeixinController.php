@@ -130,7 +130,7 @@ class WeixinController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
      */
-    public function login(Request $request)
+    public function webLogin(Request $request)
     {
         $appId = env('WECHAT_APPID');
         $callback = env('WECHAT_CONNECT_CALL_BACK_URL_PUB');
@@ -153,17 +153,20 @@ class WeixinController extends Controller
      * @param ApiService $apiService
      * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
      */
-    public function LoginCallback(Request $request,ApiService $apiService)
+    public function webLoginCallback(Request $request,ApiService $apiService)
     {
-        $goUrl = 'http://';
+        $goUrl = 'http://web.xqzs.cn';
         $state = $request->input('state');
         $code = $request->input('code');
         if (!empty($state) && $state != 'index') {
             $goUrl = urldecode($state);
         }
+        var_dump($code);
+        var_dump($state);
+        var_dump($goUrl);
         //code交换openId
         //logic
         //
-        return redirect($goUrl);
+        //return redirect($goUrl);
     }
 }
