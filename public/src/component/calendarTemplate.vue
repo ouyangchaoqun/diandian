@@ -194,7 +194,7 @@
                             for (let i = 1; i <= thisMonthDays; i++) {
                                 let dayChange = i;
                                 if (i < 10) dayChange = "0" + i;
-                                let dateStr = year + "-/" + monthchange + "-/" + dayChange;
+                                let dateStr = year + "-" + monthchange + "-" + dayChange;
                                 let faceIndex = 0;
                                 let moods = [];
                                 for (let j = 0; j < response.data.data.length; j++) {
@@ -203,6 +203,7 @@
                                         moods.push(response.data.data[j]);
                                     }
                                 }
+                                console.log(dateStr)
                                 let smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
                                 days.push({index: i - 1, date: dateStr, smailUrl: smailUrl, moods: moods});
                             }
