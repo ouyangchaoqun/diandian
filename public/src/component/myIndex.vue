@@ -104,7 +104,7 @@
                             </div>
                             <div class="class_titleBottom">
                                 <span style="height:0.88235rem;">{{classHabit&&classHabit.today.finishNum}}</span>
-                                <div class="class_info">
+                                <div class="class_info" style="bottom:-2px;">
                                     <div v-for="item in classHabit.list">
                                         <template v-if="item.finishNum!=0">
                                             <img src="../images/habitf.png" alt="">
