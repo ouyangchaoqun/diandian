@@ -74,7 +74,7 @@
                                 </span>
                                 <div class="class_info">
                                     <div v-for="item in moodList">
-                                        <template>
+                                        <template v-if="item.weekix<=todayMood.weekix">
                                             <img :src="item.smailUrl" alt="">
                                         </template>
                                     </div>
@@ -109,7 +109,7 @@
                                         <template v-if="item.finishNum!=0">
                                             <img src="../images/habitf.png" alt="">
                                         </template>
-                                        <template v-if="item.finishNum==0&&classHabit.today.weekix>item.weekix">
+                                        <template v-if="item.finishNum==0&&classHabit.today.weekix>=item.weekix">
                                             <img src="../images/habitnof.png" alt="">
                                         </template>
                                     </div>
