@@ -443,7 +443,6 @@
         color:rgba(51,51,51,1);
         font-size: 0.88235rem;
         line-height: 2.4rem;
-        border-bottom: 1px solid rgba(219,219,219,1);
         margin-bottom: 0;
     }
     .stepStatistics .leftBgView {
@@ -528,8 +527,8 @@
 
     .stepStatistics .get_datesView {
         height: 1.176rem;
-        color: #828080;
-        font-size: 0.64rem;
+        color: rgba(153,153,153,1);
+        font-size: 0.70588rem;
         align-items: flex-end;
         justify-content: center;
         text-align: center;

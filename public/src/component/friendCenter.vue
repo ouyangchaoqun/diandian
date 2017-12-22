@@ -120,7 +120,7 @@
                 </div>
                 <div class="class_title">
                     <div class="class_titleTop">
-                        <span>今日完成</span>
+                        <span>今日步数</span>
                         <div class="class_info">
                             <div>一</div>
                             <div>二</div>
@@ -292,6 +292,9 @@
 <style>
     .friendIndex_box {
         background: #fff !important;
+    }
+    .friendIndex_box .IndexAdd>div:active{
+        background: none;
     }
     .friendIndex_box .index_banner{
         height:8.8235rem;
