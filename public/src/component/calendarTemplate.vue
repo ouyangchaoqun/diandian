@@ -4,11 +4,11 @@
                 <div class="canlendarView">
                     <div class="canlendarTopView">
                         <div class="leftBgView" @click="oldMonth">
-                            <img class="old" src="../images/back.png" />
+                            <img class="old" src="../images/step_topjt.png" />
                         </div>
                         <div class="centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
                         <div class="rightBgView" @click="nextMonth">
-                            <img class="next" src="../images/back.png" />
+                            <img class="next" src="../images/step_topjt.png" />
                         </div>
                     </div>
                     <div class="weekBgView">
@@ -188,7 +188,7 @@
 
                 this.days = days;
                 days = [];
-                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/'+this.$route.params.Id+'?date=' + year + '-' + monthchange + '-01').then(response => {
+                _this.$http.get(web.API_PATH + 'mood/query/calendar/list/_userId_?date=' + year + '-' + monthchange + '-01').then(response => {
                     if (response.data.status === 1) {
                         if (thisMonthDays > 0) {
                             for (let i = 1; i <= thisMonthDays; i++) {
@@ -203,6 +203,7 @@
                                         moods.push(response.data.data[j]);
                                     }
                                 }
+                                console.log(dateStr)
                                 let smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
                                 days.push({index: i - 1, date: dateStr, smailUrl: smailUrl, moods: moods});
                             }
@@ -329,16 +330,6 @@
         height: 100%;
         background: #ffffff;
     }
-
-    .banner {
-        width: 100%;
-    }
-
-    .banner img {
-        display: block;
-        width: 100%;
-    }
-
     .rl_header {
         height: 60px;
         position: relative;
@@ -346,23 +337,23 @@
     }
 
     .old {
-        left: 15px;
-        height: 20px;
-        width: 20px;
+        left: 40px;
+        height: 0.588235rem;
+        width: 0.5588rem;
         position: absolute;
-        top: 8px;
+        top: 15px;
         display: block;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
     }
 
 
     .next {
-        right: 15px;
-        transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
-        height: 20px;
-        width: 20px;
+        right: 40px;
+        height: 0.588235rem;
+        width: 0.5588rem;
         position: absolute;
-        top: 8px;
+        top:15px;
         display: block;
         margin-top: 0 !important
     }

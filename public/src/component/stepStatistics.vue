@@ -1,35 +1,18 @@
-<template id="getUpStatistics">
-    <div class="getUpStatistics_box">
-        <div v-title>{{sleepTypeName}}统计</div>
+<template id="stepStatistics">
+    <div class="stepStatistics">
+        <div v-title>步数统计</div>
         <div class="get_header">
             <div class="getupBgView">
-                <div class="addTopBox">
                     <div class="canlendarTopView">
                         <div class="leftBgView" @click="oldMonth">
-                            <img class="get_old" src="../images/back_white.png" />
+                            <img class="get_old" src="../images/step_topjt.png" />
                         </div>
-                        <div class="get_centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
+                        <div class="get_centerView">{{cur_year || "--"}}-{{cur_month || "--"}}</div>
                         <div class="rightBgView" @click="nextMonth">
-                            <img class="get_next" src="../images/back_white.png" />
+                            <img class="get_next" src="../images/step_topjt.png" />
                         </div>
                     </div>
-                    <div class="addTopColor">平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间</div>
-                    <div class="addTopTime">{{monthInfo.avgTime.timeValue||'--:--'}}</div>
-                    <div class="addTopFlex">
-                        <div class="flexLine"></div>
-                        <div class="addTopFlexItem">
-                            {{monthInfo.total}}
-                            <div class="addTopColor">累计天数</div>
-                        </div>
-                        <div>
-                            {{monthInfo.careCount}}
-                            <div class="addTopColor">收获爱心赞</div>
-                        </div>
-                    </div>
-                </div>
-
                     <div class="getUpBorder">
-                        <div class="addTitleColor">早<span v-if="!isNight">起</span><span v-if="isNight">睡</span>时间统计</div>
                     <div class="get_weekBgView">
                         <div class="weekView" v-for="item in weeks_ch">{{item}}</div>
                     </div>
@@ -38,12 +21,14 @@
                         </div>
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'get_dateSelectView' : '']"
-                             >
+                             @click="showDay(index)">
                             <a href="javascript:;">
-                                <div class="get_datesView"><div class="get_yuan">{{item.index+1}}</div>
+                                <div class="get_datesView"><div class="get_yuan">{{index+1}}</div>
 
                                 </div>
-                               <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">{{item.getuptime}}</div>
+                               <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">
+                                    {{stepChange(item.step)}}
+                               </div>
                                 <div class="recordTime" v-if="item.getuptime==0"><img src="../images/norecord.png"/></div>
                                 <div class="recordTime" v-if="item.getuptime==-1" style="height: 19px;padding-top: 2px;"></div>
                             </a>
@@ -51,27 +36,20 @@
                     </div>
                     </div>
             </div>
-        </div>
-        <div class="getUpSlice" v-if="monthCount!=''">
 
-            <div class="getUpMain">
-                <div class="getUpTitle">{{sleepTypeName}}时间段分布</div>
-                <div class="get_value" v-for="index in monthCount">
-                    <div class="getUp_time">{{index.min}}-{{index.max}}</div>
-                    <div class="getUp_progress">
-                        <div class="weui-progress">
-                            <div class="weui-progress__bar">
-                                <div class="weui-progress__inner-bar js_progress" :style="index.width" ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="getUp_count">{{index.count}}次</div>
-                </div>
-            </div>
-            <!--<div class="getUpCount">-->
-                <!--<p>本月共{{sleepTypeName}}打卡{{monthInfo.total}}天，平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>-->
-            <!--</div>-->
         </div>
+        <div style="height:0.588235rem;background: rgba(238,237,237,1)"></div>
+        <ul class="stepStatistics_info">
+            <li>
+                <img src="../images/stepInfo1.png" alt="">今日步数<div>{{stepChange(showInfo.step)}}<span>步</span></div>
+            </li>
+            <li>
+                <img src="../images/stepInfo2.png" alt="">行走距离<div>{{showKm}}<span>公里</span></div>
+            </li>
+            <li>
+                <img src="../images/stepInfo3.png" alt="">消耗卡路里<div>{{showPower}}<span>大卡</span></div>
+            </li>
+        </ul>
     </div>
 </template>
 <script type="text/javascript">
@@ -110,22 +88,15 @@
                 monthCount:'',
                 allInfo:'',
                 monthInfo:{avgTime:'--:--'},
-                isNight:false,
-                sleepTypeName:"早起"
+                showInfo:'',
+                showKm:'',
+                showPower:'',
+                user:''
             }
         },
-
         mounted: function () {
-            console.log(this.$route.query.type)
-            if(this.$route.query.type==2){
-                this.isNight = false;
-                this.sleepTypeName="早起";
-            }else{
-                this.isNight = true
-                this.sleepTypeName="早睡";
-            }
-
             this.setNowDate();
+            this.getUser()
             //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
@@ -149,6 +120,44 @@
             $(".calendar_box").click()
         },
         methods: {
+            stepChange:function (n) {
+                if(n>=10000){
+                    n = parseInt(n/1000) + 'k';
+                }
+                return n;
+            },
+            getUser:function () {
+                var _this = this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
+            showDay:function (day) {//下方展示信息
+                var _this = this;
+                _this.showInfo = _this.days[day];
+                console.log(_this.user)
+                if(_this.user.sex==2){
+                    _this.showKm = (_this.showInfo .step*0.66/1000).toFixed(1);
+                    _this.showPower = parseInt(_this.showKm*35)
+                }else{
+                    _this.showKm = (_this.showInfo .step*0.74/1000).toFixed(1);
+                    _this.showPower = parseInt(_this.showKm*40)
+                }
+                console.log(_this.showKm)
+                console.log(_this.showPower)
+                    $('.get_dateView').click(function () {
+                    $('.get_dateView').removeClass('get_dateSelectView')
+                    $(this).addClass('get_dateSelectView')
+                })
+            },
             setNowDate: function () {
                 let date = new Date();
                 var now = "";
@@ -167,6 +176,7 @@
                 let cur_year = date.getFullYear();
                 /**年份 */
                 let cur_month = date.getMonth() + 1;
+
                 /**月 */
                 this.cur_day=now;
                 console.log(this.cur_day)
@@ -174,19 +184,17 @@
                 this.nowMonth = cur_month;
                 let todayIndex = date.getDay() - 1;
                 let today = date.getDate();
+                console.log('today'+today)
                 /**日 */
-                //console.log(today)
                 this.calculateEmptyGrids(cur_year, cur_month);
                 /**调用计算空格子*/
-                this.calculateDays(cur_year, cur_month);
+                this.calculateDays(cur_year, cur_month,today);
                 let date2 = new Date();
                 let _month = date2.getMonth() + 1;
                 this.cur_year = cur_year;
                 this.cur_month = cur_month;
                 this._month = _month;
-                this.today = today
-                //console.log(today)
-                //console.log(cur_month)
+                this.today = today;
 
             },
             getThisMonthDays(year, month) {
@@ -203,7 +211,7 @@
                 var empytGrids = []
                 if (firstDayOfWeek > 0) {
                     for (var i = 0; i < firstDayOfWeek; i++) {
-                        empytGrids.push({index: i, date: "", smailUrl: ""});
+                        empytGrids.push({index: i, date: "", step: ""});
                     }
                     _this.hasEmptyGrid = true;
                     _this.empytGrids = empytGrids;
@@ -215,86 +223,38 @@
 
 
             },
-            calculateDays(year, month) {
-                let noRecord = web.IMG_PATH + "list_mood_0" + 0 + ".png";
+            calculateDays(year, month,clickDay) {
                 let _this = this;
                 let days = [];
                 let thisMonthDays = this.getThisMonthDays(year, month);
                 let monthchange = month;
                 if (month < 10) monthchange = "0" + monthchange;
-
+                console.log(month+'month')
 
                 for (let i = 1; i <= thisMonthDays; i++) {
-                    days.push({index: i - 1, date: "", smailUrl: noRecord, moods: []});
+                    days.push({index: i - 1, date: "", step: ''});
                 }
-                console.log("1111111111")
-                    console.log(this.days)
                 this.days = days;
                 days = [];
-                _this.$http.get(web.API_PATH + 'record/sleep/get/statistics/month/_userId_/'+_this.$route.query.type+'/'+year+'/'+month).then(response => {
+                _this.$http.get(web.API_PATH + 'werun/month/statistics/_userId_'+'?date='+year+'-'+monthchange+'-'+clickDay).then(response => {
                     if (response.data.status === 1) {
-                        console.log("22222222222222222")
-                        console.log(response.data.data)
-                        //进度条统计
-                        this.monthCount=response.data.data.distribute;
-                        var allcount=0;
-                        for(var k=0;k<this.monthCount.length;k++){
-                            allcount+=this.monthCount[k].count;
-                        }
-                        for(var q=0;q<this.monthCount.length;q++){
-                            if(allcount>0) {
-                                this.monthCount[q].width = "width: " + ((this.monthCount[q].count / allcount) * 100) + "%;"
-                            }
-                            else{
-                                this.monthCount[q].width="width:0%;"
-                            }
-                        }
-                        //文字统计
-                        this.allInfo=response.data.data.info;
-                        this.monthInfo=response.data.data.month;
-                        console.log(this.monthInfo)
-                        //日历输出
-                        if (thisMonthDays > 0) {
-                            for (let i = 1; i <= thisMonthDays; i++) {
-                                let dayChange = i;
-                                if (i < 10) dayChange = "0" + i;
-                                let dateStr = year + "-" + monthchange + "-" + dayChange;
-                                let shorttime = 0;
-
-                                for (let j = 0; j < response.data.data.daily.length; j++) {
-                                    if (dateStr === response.data.data.daily[j].date) {
-                                        shorttime = response.data.data.daily[j].shorttime;
-                                    }
-                                }
-                                if(dateStr<=this.cur_day){
-                                days.push({index: i - 1, date: dateStr, getuptime:shorttime});
-                                }
-                                else if(dateStr>this.cur_day){
-                                days.push({index: i - 1, date: dateStr, getuptime: -1});
-                                }else{
-
-                                days.push({index: i - 1, date: dateStr, getuptime: shorttime});
-                                }
-                            }
-                        }
-                        this.days = days;
+                    _this.days = response.data.data;
+                    _this.showDay(clickDay-1)
                     } else {
-                        for (let i = 1; i <= thisMonthDays; i++) {
-                            days.push({index: i - 1, date: "", getuptime: 0, moods: []});
-                        }
+
                     }
                 }, response => {
-                    for (let i = 1; i <= thisMonthDays; i++) {
-                        days.push({index: i - 1, date: "", getuptime: 0, moods: []});
-                    }
+
                 });
 
                 //
             },
+
             oldMonth: function () {                             //上个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
-
+                let defauDay = '01';
+                $('.get_dateView').removeClass('get_dateSelectView')
                 //阻止前面的的月份
                 let firstYear = this.nowYear;
                 let firstMonth = this.nowMonth;
@@ -314,7 +274,8 @@
                     newYear = cur_year - 1;
                     newMonth = 12;
                 }
-                this.calculateDays(newYear, newMonth);
+                this.calculateDays(newYear, newMonth,defauDay);
+
                 this.calculateEmptyGrids(newYear, newMonth);
                 this.cur_year = newYear,
                         this.cur_month = newMonth
@@ -322,20 +283,27 @@
             nextMonth: function () {                             //下个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
-
+                let defauDay = '01';
+                $('.get_dateView').removeClass('get_dateSelectView')
                 //阻止后面的月份
                 if (this.nowYear === cur_year && this.nowMonth === cur_month) {
                     return;
                 }
 
                 let newMonth = cur_month + 1;
+                let date = new Date();
+                let nowMonth = date.getMonth()+1;
+                if(newMonth==nowMonth){
+                    defauDay = date.getDate();
+                }
                 let newYear = cur_year;
                 if (newMonth > 12) {
                     newYear = cur_year + 1;
                     newMonth = 1;
                 }
 
-                this.calculateDays(newYear, newMonth);
+                this.calculateDays(newYear, newMonth,defauDay);
+
                 this.calculateEmptyGrids(newYear, newMonth);
 
                 this.cur_year = newYear;
@@ -376,23 +344,47 @@
 </script>
 
 <style>
-    .getUpStatistics_box {
+    .stepStatistics_info li{
+        padding-left:1.176471rem;
+        padding-right: 1.471rem;
+        height:2.88rem;
+        line-height: 2.88rem;
+        border-bottom: 1px solid #eee;
+        font-size: 0.8235rem;
+        color:rgba(153,153,153,1);
+        clear: both;
+    }
+    .stepStatistics_info li img{
+        width:0.70588rem;
+        margin-right: 0.88235rem;
+        vertical-align: middle;
+    }
+    .stepStatistics_info li div{
+        float: right;
+        color:rgba(102,102,102,1);
+        font-size: 1.0588rem;
+    }
+    .stepStatistics_info li div span{
+        font-size: 0.6471rem;
+        margin-left: 0.294rem;
+    }
+    .stepStatistics {
         height: 100%;
         background: #fff;
     }
-    .getUpStatistics_box .get_header {
+    .stepStatistics .get_header {
 
         position: relative;
 
     }
-    .getUpStatistics_box .recordTime{
-        color: #0D0D0D;
-        font-size:0.64rem;
+    .stepStatistics .recordTime{
+        color: rgba(102,204,153,1);
+        font-size:0.70588rem;
     }
-    .getUpStatistics_box .get_old {
+    .stepStatistics .get_old {
         left: 40px;
-        height: 1rem;
-        width: 0.6rem;
+        height: 0.588235rem;
+        width: 0.5588rem;
         position: absolute;
         top: 15px;
         display: block;
@@ -400,38 +392,34 @@
         -webkit-transform: rotate(180deg);
     }
 
-    .getUpStatistics_box .get_next {
+    .stepStatistics .get_next {
         right: 40px;
-        height:1rem;
-        width: 0.6rem;
+        height: 0.588235rem;
+        width: 0.5588rem;
         position: absolute;
         top: 15px;
         display: block;
     }
 
-    .getUpStatistics_box .getUpBorder{
-        border-radius: 10px;
-        width: 95%;
+    .stepStatistics .getUpBorder{
         margin: 0 auto;
         background-color: #fff;
-        padding-top: 10px;
+        padding-top: 0.588235rem;
         padding-bottom: 10px;
-        margin-top: -2rem;
-        box-shadow: 0px 2px 10px 2px rgba(102,102,102,0.2);
     }
-    .getUpStatistics_box .week_day text {
+    .stepStatistics .week_day text {
         flex: 1;
         text-align: center;
         color: #828080;
         font-size: 12px;
     }
 
-    .getUpStatistics_box .getupBgView {
+    .stepStatistics .getupBgView {
 
         align-items: center;
 
     }
-    .getUpStatistics_box .canlendarTopView {
+    .stepStatistics .canlendarTopView {
         height: 2.11rem;
         font-size: 1rem;
         display: flex;
@@ -442,9 +430,14 @@
         justify-content: center;
         margin-bottom: 0.647rem;
     }
-    .getUpStatistics_box .canlendarTopView .get_centerView{ margin-top: 0.7rem;}
-
-    .getUpStatistics_box .leftBgView {
+    .stepStatistics .getupBgView .canlendarTopView{
+        height:2.4rem;
+        color:rgba(51,51,51,1);
+        font-size: 0.88235rem;
+        line-height: 2.4rem;
+        margin-bottom: 0;
+    }
+    .stepStatistics .leftBgView {
         text-align: right;
         height: 2.35rem;
         -webkit-box-flex: 1;
@@ -453,19 +446,16 @@
         flex-direction: row-reverse;
     }
 
-    .getUpStatistics_box .get_centerView {
+    .stepStatistics .get_centerView {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        height: 2.12rem;
         text-align: center;
         align-items: center;
         justify-content: center;
-        line-height: 2.12rem;
-        margin-top: 15px;
     }
 
-    .getUpStatistics_box .rightBgView {
+    .stepStatistics .rightBgView {
         height: 2.35rem;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -473,14 +463,15 @@
         flex-direction: row;
     }
 
-    .getUpStatistics_box .get_weekBgView {
-        height: 1.47rem;
-        line-height: 1.47rem;
-        padding-bottom: 0.412rem;
-        color:#828080
+    .stepStatistics .get_weekBgView {
+        height: 0.8235rem;
+        line-height: 0.8235rem;
+        padding-bottom: 1rem;
+        color:rgba(51,51,51,1);
+        font-size: 0.76471rem;
     }
 
-    .getUpStatistics_box .get_weekView {
+    .stepStatistics .get_weekView {
         flex-grow: 1;
         text-align: center;
         font-size: 0.70rem;
@@ -488,7 +479,7 @@
         width: 12.85%;
     }
 
-    .getUpStatistics_box .dateBgView {
+    .stepStatistics .dateBgView {
         height: auto;
         width: 100%;
         display: flex;
@@ -496,7 +487,7 @@
         flex-wrap: wrap;
     }
 
-    .getUpStatistics_box .get_dateEmptyView {
+    .stepStatistics .get_dateEmptyView {
         width: 14.28571%;
         color: #fff;
         display: flex;
@@ -504,22 +495,20 @@
         justify-content: center;
         position: relative;
         float: left;
-        border-top: 1px solid #eee;
     }
 
 
 
-    .getUpStatistics_box .get_dateView {
+    .stepStatistics .get_dateView {
         width: 14.28571%;
         background: #ffffff;
         position: relative;
         text-align: center;
         float: left;
-        height: 2.64rem;
-        border-top: 1px solid #eee;
+        height: 3.0588rem;
     }
 
-    .getUpStatistics_box .get_dateView img {
+    .stepStatistics .get_dateView img {
         height: 1.53rem;
         width: 1.53rem;
         display: block;
@@ -528,26 +517,28 @@
         margin-bottom: 0.47rem;
     }
 
-    .getUpStatistics_box .get_datesView {
+    .stepStatistics .get_datesView {
         height: 1.176rem;
-        color: #828080;
-        font-size: 0.64rem;
+        color: rgba(153,153,153,1);
+        font-size: 0.70588rem;
         align-items: flex-end;
         justify-content: center;
         text-align: center;
     }
 
-    .getUpStatistics_box .get_dateSelectView .get_datesView .get_yuan {
+    .stepStatistics .get_dateSelectView .get_datesView .get_yuan {
         width: 1.176rem;
         height: 1.176rem;
-        color: #0BB20C;
+        color: #fff;
         margin: 0 auto;
         margin-top: 0.176rem;
+        background: rgba(120,211,157,1);
+        border-radius: 50%;
     }
-    .getUpStatistics_box .getUpTitle{
+    .stepStatistics .getUpTitle{
         text-align: center;
     }
-    .getUpStatistics_box .getUpMain{
+    .stepStatistics .getUpMain{
         width: 95%;
         margin: 0 auto;
         margin-top: 0.82rem;
@@ -556,75 +547,24 @@
         padding: 0.7rem 0;
         box-shadow: 0px 2px 10px 2px rgba(102,102,102,0.2);
     }
-    .getUpStatistics_box .get_value{
-        height: 2.35rem;
-        position: relative;
-    }
-    .getUpStatistics_box .getUp_time{
-        font-size: 0.70rem;
-        position: absolute;
-        left: 1.17rem;
-        top: 50%;
-        margin-top: -0.47rem;
-    }
-    .getUpStatistics_box .getUp_progress{
-        width: 55%;
-        position: absolute;
-        left: 5.88rem;
-        top: 50%;
-        margin-top: -0.441175rem;
-    }
-    .getUpStatistics_box .getUp_count{
-        position: absolute;
-        right: 1.17rem;
-        top:50%;
-        margin-top: -0.588rem;
-        font-size: 0.70rem;
-    }
-    .getUpStatistics_box .getUpCount{
-        text-align: center;
-        margin-top: 1.47rem;
-        margin-bottom: 20px;
-    }
-    .getUpStatistics_box .getUpCount p{
-        font-size: 0.7rem;
-        color: rgba(99,106,116,1);
-    }
-    .getUpStatistics_box .get_top{
-        margin-top: 0.82rem;
-    }
-    .getUpStatistics_box .get_dateView .recordTime img{
+
+
+
+
+     .get_dateView .recordTime img{
             height: 0.94rem;
         margin: 0 auto;
         display: block;
          width: auto;
     }
-    .getUpStatistics_box .get_value .weui-progress__bar{
-        height: 0.88235rem;
-        background: rgba(245,245,245,1);
-        border-radius: 7px;
-    }
 
-    .getUpStatistics_box .get_value .weui-progress__inner-bar {
-        border-radius: 7px;
-         background: linear-gradient(to right,rgba(24,188,132,1), rgba(20,151,160,1));;
-    }
 
-    .getUpStatistics_box .get_yuan{
+
+
+
+
+    .get_yuan{
         height: 1.176rem;
         margin-top: 0.176rem;
     }
-    .getUpStatistics_box .addTopBox{
-        height:18.471rem;
-        background: linear-gradient(rgba(24,188,132,1), rgba(20,151,160,1));
-        color:#fff;
-    }
-    .getUpStatistics_box .addTopColor{font-size: 0.88235rem;color:rgba(255,255,255,0.6);text-align: center;line-height: 1;margin-bottom: 1.1rem;padding-top:0.8rem;}
-    .getUpStatistics_box .addTopTime{text-align: center;font-size: 3.471rem;margin-bottom: 1.4rem;line-height: 1}
-    .getUpStatistics_box .addTopFlex{width:72%;margin:0 auto;display: flex;font-size: 1.76471rem;border-top: 1px solid rgba(255,255,255,0.3);position: relative;line-height: 1;padding-top:1.2rem;}
-    .getUpStatistics_box .addTopFlex>div{flex:1;text-align: center;}
-    .getUpStatistics_box .addTopFlexItem{padding-right:6rem}
-    .getUpStatistics_box .flexLine{position: absolute;left:50%;width:1px;height:2.588rem;background:rgba(255,255,255,0.3); }
-    .getUpStatistics_box .addTitleColor{color:#303030;font-size: 0.88235rem;text-align: center;margin-bottom: 1rem}
-    .getUpStatistics_box .getUpSlice{margin-bottom: 3.5rem;padding-top: 0.88235rem}
 </style>

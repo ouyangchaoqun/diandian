@@ -40,7 +40,7 @@
     	},
         methods:{
             openFriend:function () {
-                if(this.linkFriendList==''){
+                if(this.linkFriendList==''||this.linkFriendList==undefined){
                     return ;
 				}else{
                     this.$router.push( this.linkFriendList);
@@ -48,7 +48,7 @@
 
             },
             openMoodData:function () {
-                if(this.linkMoodDat==''){
+                if(this.linkMoodDat==''||this.linkMoodDat==undefined){
                     return ;
                 }else{
                     this.$router.push( this.linkMoodDat);
@@ -56,9 +56,11 @@
 
             },
 			openMoodCount:function () {
-				if(this.linkMoodCount==''){
+				if(this.linkMoodCount==''||this.linkMoodCount==undefined){
+				    console.log(this.linkMoodCount)
 					return ;
 				}else{
+                    console.log(this.linkMoodCount)
 					this.$router.push( this.linkMoodCount);
 				}
 
@@ -66,13 +68,12 @@
 
 		},
 		mounted:function () {
-            //console.log(this.$route.params.Id)
+            console.log(this.$route.params.Id)
 			if(this.$route.params.Id==''||this.$route.params.Id==undefined){
                 this.$route.params.Id = '_userId_';
                 this.linkFriendList="/friendList";
                 this.linkMoodDat='/moodData';
 				this.linkMoodCount='/monthStatistics';
-                console.log('yyyyy')
 			}
             this.$http({
                 method: 'GET',
