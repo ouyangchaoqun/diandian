@@ -293,6 +293,26 @@
     .friendIndex_box {
         background: #fff !important;
     }
+    .centerClassItem .classImg.getUpImg{
+        background: url(../images/index_btn_get_up.png) no-repeat #ffefcb center;
+        background-size: 1.4rem 1.4rem;
+        border:0.03rem  solid #ffb700;
+    }
+    .centerClassItem .classImg.rlImg{
+        background: url(../images/class_btn_rl.png) no-repeat rgba(251,208,190,1) center;
+        background-size: 1.2rem ;
+        border:0.03rem  solid rgba(255,102,51,1);
+    }
+    .centerClassItem .classImg.xgImg{
+        background: url(../images/index_btn_habit.png) no-repeat #def3cd center;
+        background-size: 1.03rem ;
+        border: 0.03rem solid #71c06d;
+    }
+    .centerClassItem .classImg.sportImg{
+        background: url(../images/class_btn_sport.png) no-repeat rgba(214,251,229,1) center;
+        background-size: 1rem ;
+        border: 0.03rem solid rgba(133,215,166,1);
+    }
     .friendIndex_box .IndexAdd>div:active{
         background: none;
     }
