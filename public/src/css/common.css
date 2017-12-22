@@ -396,8 +396,7 @@ li{list-style: none}
     position: absolute;
     left:50%;
     margin-left: -0.47rem;
-    top:50%;
-    margin-top: -0.47rem;
+    top:-0.235rem;
 }
 .classCalendar .class_info img{
     width:1.235rem;
