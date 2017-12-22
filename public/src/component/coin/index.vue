@@ -10,7 +10,7 @@
         </div>
         <div class="tabs">
             <div :class="{on:tab==1}" @click="tabChange(1)">积分商城</div>
-            <div :class="{on:tab==2}" @click="tabChange(2)">每日任务</div>
+            <div :class="{on:tab==2}" @click="tabChange(2)">赚积分</div>
         </div>
         <div class="cont_tab  swiper-container">
             <div class="swiper-wrapper">
