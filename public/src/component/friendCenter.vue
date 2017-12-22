@@ -33,7 +33,8 @@
                         </div>
                     </div>
                     <div class="class_titleBottom">
-                        <span style="height:0.88235rem;">{{classGetup&&classGetup.today.shorttime}}</span>
+                        <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime!=''">{{classGetup.today.shorttime}}</span>
+                        <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime==''">--:--</span>
                         <div class="class_info" style="height:0.588235rem;">
                             <div v-for="item in classGetup.list">
                                 <template v-if="item.shorttime!=''">{{item.shorttime}}</template>
