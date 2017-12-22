@@ -5,11 +5,11 @@
             <div class="getupBgView">
                     <div class="canlendarTopView">
                         <div class="leftBgView" @click="oldMonth">
-                            <img class="get_old" src="../images/back_white.png" />
+                            <img class="get_old" src="../images/step_topjt.png" />
                         </div>
                         <div class="get_centerView">{{cur_year || "--"}}-{{cur_month || "--"}}</div>
                         <div class="rightBgView" @click="nextMonth">
-                            <img class="get_next" src="../images/back_white.png" />
+                            <img class="get_next" src="../images/step_topjt.png" />
                         </div>
                     </div>
                     <div class="getUpBorder">
@@ -21,12 +21,14 @@
                         </div>
                         <div v-for="(item,index) in days" :key="index"
                              :class="[commonClass,_month == cur_month&&index == today-1? 'get_dateSelectView' : '']"
-                             >
+                             @click="showDay(index)">
                             <a href="javascript:;">
-                                <div class="get_datesView"><div class="get_yuan">{{item.index+1}}</div>
+                                <div class="get_datesView"><div class="get_yuan">{{index+1}}</div>
 
                                 </div>
-                               <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">5000</div>
+                               <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">
+                                    {{stepChange(item.step)}}
+                               </div>
                                 <div class="recordTime" v-if="item.getuptime==0"><img src="../images/norecord.png"/></div>
                                 <div class="recordTime" v-if="item.getuptime==-1" style="height: 19px;padding-top: 2px;"></div>
                             </a>
@@ -39,7 +41,7 @@
         <div style="height:0.588235rem;background: rgba(238,237,237,1)"></div>
         <ul class="stepStatistics_info">
             <li>
-                <img src="../images/stepInfo1.png" alt="">今日步数<div>4560<span>步</span></div>
+                <img src="../images/stepInfo1.png" alt="">今日步数<div>{{stepChange(showInfo.step)}}<span>步</span></div>
             </li>
             <li>
                 <img src="../images/stepInfo2.png" alt="">行走距离<div>2.8<span>公里</span></div>
@@ -86,20 +88,11 @@
                 monthCount:'',
                 allInfo:'',
                 monthInfo:{avgTime:'--:--'},
-                isNight:false,
-                sleepTypeName:"早起"
+                showInfo:'',
             }
         },
 
         mounted: function () {
-            console.log(this.$route.query.type)
-            if(this.$route.query.type==2){
-                this.isNight = false;
-                this.sleepTypeName="早起";
-            }else{
-                this.isNight = true
-                this.sleepTypeName="早睡";
-            }
 
             this.setNowDate();
             //轮播配置
@@ -125,6 +118,19 @@
             $(".calendar_box").click()
         },
         methods: {
+            stepChange:function (n) {
+                if(n>=10000){
+                    n = parseInt(n/1000) + 'k';
+                }
+                return n;
+            },
+            showDay:function (day) {//下方展示信息
+                this.showInfo = this.days[day];
+                $('.get_dateView').click(function () {
+                    $('.get_dateView').removeClass('get_dateSelectView')
+                    $(this).addClass('get_dateSelectView')
+                })
+            },
             setNowDate: function () {
                 let date = new Date();
                 var now = "";
@@ -143,6 +149,7 @@
                 let cur_year = date.getFullYear();
                 /**年份 */
                 let cur_month = date.getMonth() + 1;
+
                 /**月 */
                 this.cur_day=now;
                 console.log(this.cur_day)
@@ -150,19 +157,17 @@
                 this.nowMonth = cur_month;
                 let todayIndex = date.getDay() - 1;
                 let today = date.getDate();
+                console.log('today'+today)
                 /**日 */
-                //console.log(today)
                 this.calculateEmptyGrids(cur_year, cur_month);
                 /**调用计算空格子*/
-                this.calculateDays(cur_year, cur_month);
+                this.calculateDays(cur_year, cur_month,today);
                 let date2 = new Date();
                 let _month = date2.getMonth() + 1;
                 this.cur_year = cur_year;
                 this.cur_month = cur_month;
                 this._month = _month;
-                this.today = today
-                //console.log(today)
-                //console.log(cur_month)
+                this.today = today;
 
             },
             getThisMonthDays(year, month) {
@@ -179,7 +184,7 @@
                 var empytGrids = []
                 if (firstDayOfWeek > 0) {
                     for (var i = 0; i < firstDayOfWeek; i++) {
-                        empytGrids.push({index: i, date: "", smailUrl: ""});
+                        empytGrids.push({index: i, date: "", step: ""});
                     }
                     _this.hasEmptyGrid = true;
                     _this.empytGrids = empytGrids;
@@ -191,86 +196,37 @@
 
 
             },
-            calculateDays(year, month) {
-                let noRecord = web.IMG_PATH + "list_mood_0" + 0 + ".png";
+            calculateDays(year, month,clickDay) {
                 let _this = this;
                 let days = [];
                 let thisMonthDays = this.getThisMonthDays(year, month);
                 let monthchange = month;
                 if (month < 10) monthchange = "0" + monthchange;
-
+                console.log(month+'month')
 
                 for (let i = 1; i <= thisMonthDays; i++) {
-                    days.push({index: i - 1, date: "", smailUrl: noRecord, moods: []});
+                    days.push({index: i - 1, date: "", step: ''});
                 }
-                console.log("1111111111")
-                    console.log(this.days)
                 this.days = days;
                 days = [];
-                _this.$http.get(web.API_PATH + 'record/sleep/get/statistics/month/_userId_/'+_this.$route.query.type+'/'+year+'/'+month).then(response => {
+                _this.$http.get(web.API_PATH + 'werun/month/statistics/_userId_'+'?date='+year+'-'+monthchange+'-'+clickDay).then(response => {
                     if (response.data.status === 1) {
-                        console.log("22222222222222222")
-                        console.log(response.data.data)
-                        //进度条统计
-                        this.monthCount=response.data.data.distribute;
-                        var allcount=0;
-                        for(var k=0;k<this.monthCount.length;k++){
-                            allcount+=this.monthCount[k].count;
-                        }
-                        for(var q=0;q<this.monthCount.length;q++){
-                            if(allcount>0) {
-                                this.monthCount[q].width = "width: " + ((this.monthCount[q].count / allcount) * 100) + "%;"
-                            }
-                            else{
-                                this.monthCount[q].width="width:0%;"
-                            }
-                        }
-                        //文字统计
-                        this.allInfo=response.data.data.info;
-                        this.monthInfo=response.data.data.month;
-                        console.log(this.monthInfo)
-                        //日历输出
-                        if (thisMonthDays > 0) {
-                            for (let i = 1; i <= thisMonthDays; i++) {
-                                let dayChange = i;
-                                if (i < 10) dayChange = "0" + i;
-                                let dateStr = year + "-" + monthchange + "-" + dayChange;
-                                let shorttime = 0;
-
-                                for (let j = 0; j < response.data.data.daily.length; j++) {
-                                    if (dateStr === response.data.data.daily[j].date) {
-                                        shorttime = response.data.data.daily[j].shorttime;
-                                    }
-                                }
-                                if(dateStr<=this.cur_day){
-                                days.push({index: i - 1, date: dateStr, getuptime:shorttime});
-                                }
-                                else if(dateStr>this.cur_day){
-                                days.push({index: i - 1, date: dateStr, getuptime: -1});
-                                }else{
-
-                                days.push({index: i - 1, date: dateStr, getuptime: shorttime});
-                                }
-                            }
-                        }
-                        this.days = days;
+                    _this.days = response.data.data;
+                    _this.showDay(clickDay-1)
                     } else {
-                        for (let i = 1; i <= thisMonthDays; i++) {
-                            days.push({index: i - 1, date: "", getuptime: 0, moods: []});
-                        }
+
                     }
                 }, response => {
-                    for (let i = 1; i <= thisMonthDays; i++) {
-                        days.push({index: i - 1, date: "", getuptime: 0, moods: []});
-                    }
+
                 });
 
                 //
             },
+
             oldMonth: function () {                             //上个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
-
+                let defauDay = '01';
                 //阻止前面的的月份
                 let firstYear = this.nowYear;
                 let firstMonth = this.nowMonth;
@@ -290,7 +246,8 @@
                     newYear = cur_year - 1;
                     newMonth = 12;
                 }
-                this.calculateDays(newYear, newMonth);
+                this.calculateDays(newYear, newMonth,defauDay);
+
                 this.calculateEmptyGrids(newYear, newMonth);
                 this.cur_year = newYear,
                         this.cur_month = newMonth
@@ -298,20 +255,26 @@
             nextMonth: function () {                             //下个月
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
-
+                let defauDay = '01';
                 //阻止后面的月份
                 if (this.nowYear === cur_year && this.nowMonth === cur_month) {
                     return;
                 }
 
                 let newMonth = cur_month + 1;
+                let date = new Date();
+                let nowMonth = date.getMonth()+1;
+                if(newMonth==nowMonth){
+                    defauDay = date.getDate();
+                }
                 let newYear = cur_year;
                 if (newMonth > 12) {
                     newYear = cur_year + 1;
                     newMonth = 1;
                 }
 
-                this.calculateDays(newYear, newMonth);
+                this.calculateDays(newYear, newMonth,defauDay);
+
                 this.calculateEmptyGrids(newYear, newMonth);
 
                 this.cur_year = newYear;
@@ -357,7 +320,7 @@
         padding-right: 1.471rem;
         height:2.88rem;
         line-height: 2.88rem;
-        border-bottom: 1px solid rgba(228,228,228,1);
+        border-bottom: 1px solid #eee;
         font-size: 0.8235rem;
         color:rgba(153,153,153,1);
         clear: both;
@@ -391,8 +354,8 @@
     }
     .stepStatistics .get_old {
         left: 40px;
-        height: 1rem;
-        width: 0.6rem;
+        height: 0.588235rem;
+        width: 0.5588rem;
         position: absolute;
         top: 15px;
         display: block;
@@ -402,8 +365,8 @@
 
     .stepStatistics .get_next {
         right: 40px;
-        height:1rem;
-        width: 0.6rem;
+        height: 0.588235rem;
+        width: 0.5588rem;
         position: absolute;
         top: 15px;
         display: block;
