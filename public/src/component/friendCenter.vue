@@ -1,6 +1,6 @@
 <template id="friendCenter">
     <div class="myIndex_box friendIndex_box">
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <!--<v-banner></v-banner>-->
@@ -153,11 +153,13 @@
     import scroll from './lib/scroll.vue'
     import banner from "./banner.vue"
     import indexCount from './indexCount.vue'
+    import showLoad from './showLoad.vue';
     export default {
         data() {
             return {
                 friend: {},
                 isLookFriend: true,
+                showLoad:false,
                 chartData: [
                     {"days": ["1月1", "2", "3", "4", "5", "6", "7"], "moods": [0, 0, 0, 0, 0, 0, 0]},
                     {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [0, 0, 0, 0, 0, 0, 0]},
@@ -186,12 +188,12 @@
             getWeekClass:function () {
                 let _this = this;
                 let friendId = _this.$route.params.Id;
+                _this.showLoad = true
                 _this.$http.get(web.API_PATH+'user/index/week/'+friendId).then(function (data) {
                     var res = data.data.data
-                    console.log(res)
+                    _this.showLoad = false
                     _this.classGetup = res.getUp;
                     _this.classCalendar = res.mood;
-                    console.log(_this.classCalendar.today)
                     _this.todayMood = res.mood.today;
                     let todayfaceIndex = 0;
                     if( _this.todayMood.moodValue){
@@ -202,9 +204,6 @@
                     }
                     _this.todayMood.smailUrl = web.IMG_PATH + "list_mood_0" + todayfaceIndex + ".png";
                     _this.$set( _this.todayMood)
-                    console.log( _this.todayMood)
-
-
                     _this.classHabit = res.habits;
                     _this.classStep = res.weRun;
                     let faceIndex = 0;
@@ -284,7 +283,8 @@
         components: {
             "v-banner": banner,
             'v-indexCount':indexCount,
-            'v-scroll':scroll
+            'v-scroll':scroll,
+            'v-showLoad':showLoad
         }
     }
 

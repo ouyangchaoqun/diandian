@@ -384,7 +384,6 @@
                             reply.content=vm.emojiContent(reply.content)
                             vm.downdata[index].commentList.push(reply);
                             vm.$set(vm.downdata, index, vm.downdata[index])
-                            console.log(response.data.data.reply)
                         }
                     }, response => {
                         // error
@@ -586,7 +585,6 @@
                     console.log(res)
                     _this.classGetup = res.getUp;
                     _this.classCalendar = res.mood;
-                    console.log(_this.classCalendar.today)
                     _this.todayMood = res.mood.today;
                     let todayfaceIndex = 0;
                     if( _this.todayMood.moodValue){
@@ -597,7 +595,6 @@
                     }
                     _this.todayMood.smailUrl = web.IMG_PATH + "list_mood_0" + todayfaceIndex + ".png";
                     _this.$set( _this.todayMood)
-                    console.log( _this.todayMood)
 
 
                     _this.classHabit = res.habits;
