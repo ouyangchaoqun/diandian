@@ -44,10 +44,10 @@
                 <img src="../images/stepInfo1.png" alt="">今日步数<div>{{stepChange(showInfo.step)}}<span>步</span></div>
             </li>
             <li>
-                <img src="../images/stepInfo2.png" alt="">行走距离<div>2.8<span>公里</span></div>
+                <img src="../images/stepInfo2.png" alt="">行走距离<div>{{showKm}}<span>公里</span></div>
             </li>
             <li>
-                <img src="../images/stepInfo3.png" alt="">消耗卡路里<div>186<span>大卡</span></div>
+                <img src="../images/stepInfo3.png" alt="">消耗卡路里<div>{{showPower}}<span>大卡</span></div>
             </li>
         </ul>
     </div>
@@ -89,12 +89,14 @@
                 allInfo:'',
                 monthInfo:{avgTime:'--:--'},
                 showInfo:'',
+                showKm:'',
+                showPower:'',
+                user:''
             }
         },
-
         mounted: function () {
-
             this.setNowDate();
+            this.getUser()
             //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
@@ -124,9 +126,34 @@
                 }
                 return n;
             },
+            getUser:function () {
+                var _this = this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             showDay:function (day) {//下方展示信息
-                this.showInfo = this.days[day];
-                $('.get_dateView').click(function () {
+                var _this = this;
+                _this.showInfo = _this.days[day];
+                console.log(_this.user)
+                if(_this.user.sex==2){
+                    _this.showKm = (_this.showInfo .step*0.66/1000).toFixed(1);
+                    _this.showPower = parseInt(_this.showKm*35)
+                }else{
+                    _this.showKm = (_this.showInfo .step*0.74/1000).toFixed(1);
+                    _this.showPower = parseInt(_this.showKm*40)
+                }
+                console.log(_this.showKm)
+                console.log(_this.showPower)
+                    $('.get_dateView').click(function () {
                     $('.get_dateView').removeClass('get_dateSelectView')
                     $(this).addClass('get_dateSelectView')
                 })
