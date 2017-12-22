@@ -227,6 +227,7 @@
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
                 let defauDay = '01';
+                $('.get_dateView').removeClass('get_dateSelectView')
                 //阻止前面的的月份
                 let firstYear = this.nowYear;
                 let firstMonth = this.nowMonth;
@@ -256,6 +257,7 @@
                 let cur_year = this.cur_year;
                 let cur_month = this.cur_month;
                 let defauDay = '01';
+                $('.get_dateView').removeClass('get_dateSelectView')
                 //阻止后面的月份
                 if (this.nowYear === cur_year && this.nowMonth === cur_month) {
                     return;

@@ -296,6 +296,9 @@
     .friendIndex_box .IndexAdd>div:active{
         background: none;
     }
+    .friendIndex_box .centerClass{
+        margin-bottom: 2rem;
+    }
     .friendIndex_box .index_banner{
         height:8.8235rem;
     }
