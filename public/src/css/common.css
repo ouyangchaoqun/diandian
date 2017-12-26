@@ -366,9 +366,9 @@ li{list-style: none}
 }
 .class_titleTop span{
     margin: 0 auto;
-    z-index: 1;
     display: block;
     width:0.9rem;
+
     height:0.9rem;
 }
 .classGetup .class_titleBottom{
