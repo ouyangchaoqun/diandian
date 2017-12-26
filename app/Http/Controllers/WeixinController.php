@@ -165,9 +165,9 @@ class WeixinController extends Controller
         if (!empty($state) && $state != 'index') {
             $goUrl = urldecode($state);
         }
-        $apiurl = "/psy/get/expert/by/code?code={$code}";
-        $data = $apiService->execFull($request, '', $apiurl, 'GET');
+        return redirect($goUrl.'?code='.$code);
 
+        var_dump($code);
         var_dump($data);
         var_dump($code);
         var_dump($state);
