@@ -353,7 +353,8 @@ li{list-style: none}
 .class_titleTop,.class_titleBottom{
     display: flex;
    width:100%;
-    line-height: 1.1rem;
+    line-height:1.1rem;
+
 }
 .class_titleTop{
     margin-bottom: 1rem;
