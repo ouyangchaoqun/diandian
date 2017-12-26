@@ -7,7 +7,7 @@
             <div class="img"></div>
             <div class="my_income_txt">我的余额</div>
             <div class="money">￥{{formatPrice(user.balance)}}</div>
-            <!--<div class="get_money" @click="goMoneyOut()">提现</div>-->
+            <!--<div class="get_money" @click="showOut()">提现</div>-->
         </div>
         <div class="moneyOut_box" v-if="isOut" @click="hideOut()">
             <div class="money_dialog">
@@ -66,7 +66,7 @@
             formatPrice:function(price){
                 return  xqzs.string.formatPrice(price)
             },
-            goMoneyOut:function () {
+            showOut:function () {
               this.isOut = true
             },
             hideOut:function () {
@@ -110,4 +110,5 @@
     .money_dialog_detail .detail_warn .warn_red{color:rgba(255,51,0,1)}
     .my_amount_box .dialog_btn{background: rgba(255,157,24,1);border:1px solid rgba(229,135,6,1);line-height: 2.647rem;font-size: 1.0588235rem;color:rgba(255,255,255,1);border-radius: 0.294rem;text-align: center;}
     .my_amount_box .dialog_btn:active{background: rgba(229,135,6,1);}
+
 </style>

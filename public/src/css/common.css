@@ -343,75 +343,60 @@ li{list-style: none}
 .centerClassItem .classItem_top img{
     float: right;
     height:0.8235rem;
+    width: auto;
 }
 .centerClassItem .class_title{
     color:rgba(153,153,153,1);
     line-height: 1;
+    margin-left: -1rem;
 }
 .class_titleTop,.class_titleBottom{
     display: flex;
-    position: relative;
+   width:100%;
+}
+.class_titleTop{
+    margin-bottom: 1rem;
+}
+.class_titleTop div{
+    flex: 1;
+    font-size: 0.70588235rem;
+    text-align: center;
 }
 .class_titleTop span{
-    color:rgba(153,153,153,1);
-    font-size: 0.6471rem;
-    width:20%;
-    margin-bottom: 0.88235rem;
-}
-.class_titleTop .class_info{
-    color:rgba(153,153,153,1);
-    font-size: 0.70588rem;
-}
-.class_titleBottom .class_info{
-    color:rgba(102,102,102,1);
-    font-size: 0.588235rem;
-    position: absolute;
-    right:0;
-    bottom: 0;
-}
-.class_titleBottom img{
-    width:1.6471rem;
-}
-.classGetup .class_info img{
+    margin: 0 auto;
+    z-index: 1;
+    display: block;
     width:0.94rem;
-    position: absolute;
-    left:50%;
-    margin-left: -0.47rem;
-    top:-0.235rem;
+    height:0.94rem;
+    line-height: 0.94rem;
 }
-.classCalendar .class_info img{
-    width:1.235rem;
+.classGetup .class_titleBottom{
+    height: 0.941176rem;
+    line-height: 0.95rem;
 }
-.classHabit .class_info img{
-    width:0.941rem;
+
+.class_titleTop div:last-child span{
+    background: rgba(255,153,0,1);
+    border-radius: 50%;
+    color:rgba(255,255,255,1);
 }
-.class_titleBottom span{
-    color:rgba(51,51,51,1);
-    font-size: 0.88235rem;
-    width:20%;
-    font-family: PingFangSC-Regular;
-}
-.class_info{
-    float: right;
-    display: flex;
-    width:80%;
-}
-.class_info div{
+.class_titleBottom div{
+    font-size: 0.6471rem;
     flex: 1;
     text-align: center;
-    position: relative;
 }
-.span_top{
-    margin-bottom: 0.88235rem;
+.classGetup img{
+    width:0.94117rem;
+    display: inline-block;
 }
-.class_title .span_bottom{
-    font-size: 0.88235rem;
-    color:rgba(51,51,51,1);
+.classCalendar img{
+    width:1.235rem;
 }
-.class_title .class_info .span_bottom{
-    color:rgba(102,102,102,1);
-    font-size: 0.588235rem;
+.classHabit img{
+    width:0.94117rem;
+    display: inline-block;
 }
+
 
 
 
