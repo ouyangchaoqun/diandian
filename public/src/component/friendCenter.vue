@@ -76,7 +76,7 @@
                                 <img src="../images/habitf.png" alt="">
                             </template>
                             <template v-if="item.finishNum==0">
-                                <img src="../images/habitnof.png" alt="">
+                                <img src="../images/norecord.png" alt="">
                             </template>
                         </div>
                     </div>
