@@ -4,21 +4,20 @@
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="banner">
             <div v-show="isBirthday" class="RecordbrithBox">
-                <!--<img src="/dist/top_img/birthday.jpg"/>-->
-                <img src="/dist/top_img/bribg.jpg" alt="">
-                <img src="/dist/top_img/bribg.png" alt="" style="position: absolute;bottom: 0">
-                <img class="briCake" src="/dist/top_img/briCake.png" alt="">
-                <img class="brithText" src="/dist/top_img/brithText.png" alt="">
-                <img class="brithDayBg" src="/dist/top_img/brithDayBg.png" alt="">
+                <img src="../images/birthday/bribg.jpg" alt="">
+                <img src="../images/birthday/bribg.png" alt="" style="position: absolute;bottom: 0">
+                <img class="briCake" src="../images/birthday/briCake.png" alt="">
+                <img class="brithText" src="../images/birthday/brithText.png" alt="">
+                <img class="brithDayBg" src="../images/birthday/brithDayBg.png" alt="">
             </div>
             <v-banner v-show="!isBirthday"></v-banner>
         </div>
         <div class="moodBox_bg" @click="goIndex()">
         </div>
-        <div class="record_box" :class="{bgw:isShowResult&&!isNight,nightbg:isNight,night_do_ac:isDoNight}">
+        <div class="record_box" :class="{bgw:isShowResult&&!isNight,nightbg:isNight||recordType==3,night_do_ac:isDoNight}">
 
             <div class="main_record">
-                <div class="init_record" :class="{goHide:isShowResult}" v-show="!outMorningTime&&!outNightTime">
+                <div class="init_record" :class="{goHide:isShowResult}" v-show="false&&!outMorningTime&&!outNightTime">
                     <div class="notes">
                         <a class="weui-tabbar__item " @click="morning">
                             <div class="go_record record_morning "
@@ -38,7 +37,7 @@
                             <div class="go_record record_mid" :class="{recorded:isRecordMood}">
                                 <div class="record_cover"></div>
                                 <div class="img"></div>
-                                <div class="any">记录心情</div>
+                                <div class="any">心情说说</div>
                             </div>
                         </a>
                         <!--<a  class="weui-tabbar__item">-->
@@ -66,7 +65,7 @@
                         <a class="weui-tabbar__item" @click="dailyRecord">
                             <div class="go_record record_everyDay" :class="{recorded:isDailyRecord}">
                                 <div class="record_cover"></div>
-                                <div class="img"></div>
+                                <div class="img"><img :src="topImg"></div>
                                 <div class="any">每日一签</div>
                             </div>
                         </a>
@@ -244,7 +243,9 @@
                 isShowResult: false,
                 doRecordText: '',
                 isDoNight: false,
-                isBirthday: false
+                isBirthday: false,
+                topImg:xqzs.mood.getTopImg(),
+                recordType:''
 
             }
         },
@@ -413,7 +414,12 @@
 
                         }
                         setTimeout(function () {
-                            _this.$router.push("sleepRank?type=" + type)
+                            if (type == _this.MORNING_TYPE) {
+                                _this.$router.replace("sleepRank?type=" + type)
+                            }else{
+                                _this.$router.push("sleepRank?type=" + type)
+                            }
+
                         },200);
 
 
@@ -566,7 +572,11 @@
 
         mounted: function () {
             let _this = this;
-            xqzs.wx.setConfig(_this);
+            _this.recordType=_this.$route.query.record_type;
+
+
+            if(_this.user&&_this.user.faceUrl)xqzs.wx.shareConfig.home.imgUrl=_this.user.faceUrl;
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.home);
             if (xqzs.localdb.get("isBirthday") === "1") {
                 _this.isBirthday = true;
             } else {
@@ -615,6 +625,11 @@
                     _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
                     _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
                     _this.NIGHT_END_TIME = data.body.data.goBedConfig.endtime;
+                    if(_this.recordType==_this.MORNING_TYPE){
+                        _this.morning()
+                    }else if(_this.recordType==_this.NIGHT_TYPE){
+                        _this.night()
+                    }
                 }
             }, function (error) {
 
@@ -1061,8 +1076,10 @@
 
     .record_everyDay .img {
         background: url("../images/record_everyday.jpg") no-repeat center top;
-        background-size: 100%
+        background-size: 100%;
+        overflow: hidden;
     }
+    .record_everyDay .img img{ width: 100%}
 
     .record_fx {
         text-align: center;

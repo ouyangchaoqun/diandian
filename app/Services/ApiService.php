@@ -39,11 +39,14 @@ class ApiService
         $data = $request->input();
         unset($data[$request->getRequestUri()]);
         //处理userId
-        foreach ($data as $key => &$item) {
-            if ($key == "userId") {
-                $item = $userId;
+        if($userId!=0){
+            foreach ($data as $key => &$item) {
+                if ($key == "userId") {
+                    $item = $userId;
+                }
             }
         }
+
         if ($method == "GET") {
             return $this->geturl($url, $header);
         } elseif ($method == "POST") {

@@ -42,7 +42,7 @@
                 <div class="swiper-slide">
                     <ul v-if="myTestLists&&myTestLists.length!=0">
                             <li v-for="(myTestItem,testIndex) in myTestLists">
-                                <router-link :to="{ path: '/psychtestDetail', query: { testId: myTestItem.id}}">
+                                <a @click="detail(myTestItem.id)" >
                                 <div class="listStyle listNoBorder">
                                     <div class="textList_title">{{myTestItem.title}}</div>
                                     <div class="textList_content">{{myTestItem.des}}</div>
@@ -53,11 +53,14 @@
                                     <img class="psychImg" :src="myTestItem.pic" alt="">
                                 </div>
                                 <div class="addMeTest">
-                                    完成时间: {{myTestItem.addTime}}
-                                    <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click="seeMyResult(testIndex)">查看报告</div>
-                                    <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click="finishTest(testIndex)">完成测试</div>
+
+                                    <template v-if="myTestItem.answerId!=null">完成时间: {{myTestItem.addTime}}</template>
+                                    <template v-if="myTestItem.answerId==null">未完成</template>
+
+                                    <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId!=null" @click.stop="seeMyResult(testIndex)">查看报告</div>
+                                    <div class="weui-btn weui-btn_primary addTestBtn" v-if="myTestItem.answerId==null" @click.stop="finishTest(testIndex)">完成测试</div>
                                 </div>
-                                </router-link>
+                                </a>
                             </li>
 
                     </ul>
@@ -137,7 +140,9 @@
 
         },
         methods: {
-
+            detail:function (testId) {
+                this.$router.push("/psychtestDetail?testId="+testId);
+            },
             getTextList:function () {
                 let _this=this;
                 _this.$http.get(web.API_PATH+'test/get/list/1/1/10').then(response => {

@@ -6,13 +6,22 @@ document.addEventListener("touchstart", function () {
 
 var xqzs = {
     constant: {
-        PIC_SMALL: '?x-oss-process=image/resize,h_640,w_640/quality,q_100',
-        PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100'
+        PIC_SMALL: '?x-oss-process=image/resize,h_320,w_320/quality,q_100',
+        PIC_MIDDLE: '?x-oss-process=image/resize,h_750,w_750/quality,q_100',
+        PIC_BIG: '?x-oss-process=image/resize,h_1334,w_1000/quality,q_100',
+        HABIT_CARE_TYPE:6,
+        SLEEP_CARE_TYPE:3,
+        GET_UP_CARE_TYPE:2
+
     },
 
     weui: {
-        weuiMaskClose: function () {
-            $(".weui-mask").removeClass("weui-animate-fade-in").addClass("weui-animate-fade-out");
+        weuiMaskClose: function (callback) {
+            $(".weui-mask").removeClass("weui-animate-fade-in").animate({opacity:0},300,function () {
+                if(typeof callback=='function'){
+                    callback();
+                }
+            })
         },
         active: function (obj) {
             obj.on("touchstart", function () {
@@ -56,6 +65,9 @@ var xqzs = {
             }, 800);
         },
         tip: function (msg, fun) {
+            if($("#toast").length>0){
+                return ;
+            }
             var html = "";
             html += '<div id="toast"><div class="weui-mask_transparent"></div>';
             var len= msg.length;
@@ -64,9 +76,9 @@ var xqzs = {
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
                     $("#toast").remove();
-                    fun();
+                    if(typeof(fun)=="function" )fun();
                 });
-            }, 800);
+            }, 1200);
         },
         loading: function () {
             var id = '_weui_loading_' + new Date().getTime();
@@ -93,33 +105,38 @@ var xqzs = {
             html += '   </div>';
             $("body").append(html);
             $(".js_dialog .cancel").click(function () {
-                xqzs.weui.weuiMaskClose();
-                setTimeout(function () {
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                }, 300);
+                });
                 cancelFun();
             });
             $(".js_dialog .submit").click(function () {
-                xqzs.weui.weuiMaskClose();
-                submitFun();
-                setTimeout(function () {
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                }, 300);
+                });
+                submitFun();
+
             })
         },
-        dialogCustom: function (Html) {
+        dialogCustom: function (Html,inCallback,outCallback) {
             var html = "";
-            html += '<div class="js_dialog"  >';
+            html += '<div class="js_dialog">';
             html += '   <div class="weui-mask weui-animate-fade-in"></div>';
             html += Html;
             html += '</div>';
             $("body").append(html);
-            $(".js_dialog .weui-mask").click(function () {
-                xqzs.weui.weuiMaskClose();
-                setTimeout(function () {
+            if(typeof inCallback=='function'){
+                inCallback()
+            }
+            $(".js_dialog .weui-mask,.js_dialog .close_btn").click(function () {
+                if(typeof outCallback=='function'){
+                    outCallback()
+                }else{
+                    $(".js_dialog>*:not(.weui-mask)").animate({opacity:0},0);
+                }
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                }, 300);
-
+                });
             });
         },
         _dialog: function (config) {
@@ -136,7 +153,7 @@ var xqzs = {
             config = $.extend(defaultsize, config);
             var html = "";
             html += '<div class="js_dialog"  >';
-            html += '   <div class="weui-mask weui-animate-fade-in-in"></div>';
+            html += '   <div class="weui-mask weui-animate-fade-in"></div>';
             html += '   <div class="weui-dialog">';
             html += '   <div class="weui-dialog__hd"><strong class="weui-dialog__title">' + config.title + '</strong></div>';
             html += '   <div class="weui-dialog__bd">' + config.msg + '</div>';
@@ -148,16 +165,19 @@ var xqzs = {
             html += '   </div>';
             $("body").append(html);
             $(".js_dialog .cancel").click(function () {
-                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                $(".js_dialog>*:not(.weui-mask)").animate({opacity:0},0);
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
-                    config.cancelFun();
                 });
+                config.cancelFun();
+
             });
             $(".js_dialog .submit").click(function () {
-                config.submitFun();
-                $(".js_dialog").animate({opacity: 0}, 200, function () {
+                $(".js_dialog>*:not(.weui-mask)").animate({opacity:0},0);
+                xqzs.weui.weuiMaskClose(function () {
                     $(".js_dialog").remove();
                 });
+                config.submitFun();
             })
         },
         actionSheet: function (tip, actionName, doFun, cancelFun) {
@@ -221,6 +241,9 @@ var xqzs = {
         DATE_TIME: "date_time",
         TIME: "time",
         DATE_PATH: "date_path",
+        DATE:"date",
+        YEAR_DATE:"year_date",
+
         _format: function (type, time) {
             time = time * 1000;
             var now = new Date(time);
@@ -241,13 +264,26 @@ var xqzs = {
                 return hour + ":" + minute;
             } else if (type === this.DATE_PATH) {
                 return year + "/" + month + "/" + date
+            }else if (type === this.DATE) {
+                return   month + "-" + date
+            }else if(type === this.YEAR_DATE) {
+                return  year + "-" +  month + "-" + date
             }
         },
         formatTime: function (time) {
             return this._format(this.TIME, time);
         },
+        formatTimeIos: function (time) {
+            return this._format(this.DATE_PATH, time);
+        },
         formatDateTime: function (time) {
             return this._format(this.DATE_TIME, time);
+        },
+        formatYearDate: function (time) {
+            return this._format(this.YEAR_DATE, time);
+        },
+        formatDate: function (time) {
+            return this._format(this.DATE, time);
         },
         getTimeStamp: function (dateTime) {
             var _timestamp = new Date().getTime();
@@ -256,6 +292,26 @@ var xqzs = {
             }
             _timestamp = parseInt(_timestamp / 1000);
             return _timestamp;
+        },
+        getTimeFormatText: function (publishTime) {
+            var d_minutes, d_hours, d_days;
+            var timeNow = parseInt(new Date().getTime() / 1000);
+            var d;
+            d = timeNow - publishTime;
+            d_days = parseInt(d / 86400);
+            d_hours = parseInt(d / 3600);
+            d_minutes = parseInt(d / 60);
+            if (d_days > 0 && d_days < 4) {
+                return d_days + "天前";
+            } else if (d_days <= 0 && d_hours > 0) {
+                return d_hours + "小时前";
+            } else if (d_hours <= 0 && d_minutes > 0) {
+                return d_minutes + "分钟前";
+            } else {
+                var s = new Date(publishTime * 1000);
+                // s.getFullYear()+"年";
+                return (s.getMonth() + 1) + "月" + s.getDate() + "日";
+            }
         },
         getSolarData:function (beginYear,endYear) {
             var data=[];
@@ -307,7 +363,18 @@ var xqzs = {
         }
     },
 
+    eventLog:{
+        visit: function (code) {
+            var fullUrl= window.location.href;
+            $.ajax({
+                url: web.API_PATH + 'log/visit?id=' + code+"&fullUrl="+fullUrl,
+                type: 'GET',
+                success: function () {
+                }
+            });
 
+        }
+    },
     /**
      * 是否可以将base64转成blob对象
      * @param dataurl
@@ -331,6 +398,9 @@ var xqzs = {
         }
     },
     localdb: {
+        keys:{
+            MORE_HOT_POINT_CLICKED_KEY:'more_hot_point_clicked_key'
+        },
         storage: window.localStorage,
         set: function (key, value) {
             this.storage.setItem(key, value);
@@ -348,7 +418,7 @@ var xqzs = {
     shortname: function (value, len) {
         if (!value) return '';
         if (value.length > len) {
-            return value.substring(0, len) + '...';
+            return value.substring(0, len) + '..';
         } else {
             return value;
         }
@@ -376,7 +446,43 @@ var xqzs = {
         }
         img.css(imgcss);
     },
+    coin:{
+        constant:{
+            ADD_MOOD_TYPE:1,
+            GET_UP_TYPE:2,
+            SLEEP_TYPE:3,
+            HABIT_TYPE:6,
+            ADD_FRIEND:7
+        },
 
+        addAminate:function (type) {
+
+            $.ajax({
+                url: web.API_PATH + 'coin/get/coin/num/' + type,
+                type: 'get',
+                dataType: 'JSON',
+                success: function (json) {
+                    console.log(json)
+                    if(json.status==1&&json.data.coinNum){
+                        var html =        '<div class="coin_add">\n' +
+                            '            <div class="coin_add_round">\n' +
+                            '            </div>\n' +
+                            '            <div class="coin_add_coin">\n' +
+                            '            </div>\n' +
+                            '            <div class="add_num">+'+json.data.coinNum+'</div>\n' +
+                            '        </div>';
+                        $("#app").append(html);
+
+                    }
+
+                }
+            });
+
+
+
+
+        }  
+    },
     mood: {
         canEditTime: 20 * 60,//可以编辑的时间限制
         canRevokeTime: 3 * 60,//可以撤回时间
@@ -434,8 +540,11 @@ var xqzs = {
             var currTime = xqzs.dateTime.getTimeStamp();
             return currTime - mood.addTime <= this.canRevokeTime && !this.canClear(mood);
         },
-        getTopImg: function () {
-            return web.IMG_PATH + "top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH, xqzs.dateTime.getTimeStamp()) + ".jpg";
+        getTopImg: function (time) {
+            if(!time){
+                time =xqzs.dateTime.getTimeStamp();
+            }
+            return   "http://oss.xqzs.cn/xqzs/top_img/" + xqzs.dateTime._format(xqzs.dateTime.DATE_PATH,time ) + ".jpg";
         },
         getCjImg: function (scenesid) {
             for (var i = 0, l = this.moodScenesList.length; i < l; i++) {
@@ -456,10 +565,10 @@ var xqzs = {
         },
         formatContent: function (item) {
             console.log(item.scense);
-            var before = "[ 在" + item.scense.text + "方面 ]";
+            var before = " [ 在" + item.scense.text + "方面 ]";
             var before2 = "在" + item.scense.text + "方面：";
             if (item.content != '' && item.content != null && item.content != undefined) {
-                return before2 + xqzs.face.parse(item.content);
+                return   xqzs.face.parse(item.content) +before;
             } else {
                 return before;
             }
@@ -496,6 +605,63 @@ var xqzs = {
             var gourl = item.adlink;
             item.address = '<a class="showOthercom adlink" onclick="xqzs.mood.clickMoodAd(\'' + moodadid + '\')" href="' + gourl + '">阅读原文 <span class="link"></span> </a>';
         },
+        initMoodsIndex:function (data,timeType,userId) {
+            for (var i = 0; i < data.length; i++) {
+                if( data[i].finishEvents&&data[i].finishEvents.length>0)
+                data[i].finishEvents.reverse();
+                for(var j=0;j< data[i].finishEvents.length;j++){
+                    if(data[i].finishEvents[j].type=="mood"){
+                        var item= data[i].finishEvents[j].value;
+                        item.moodValueUrl = web.IMG_PATH + "list_mood_0" + item.moodValue + ".png";
+                        if (!timeType)
+                            item.formatAddTime = xqzs.dateTime.formatTime(item.addTime);
+
+                        item.hide = false;
+                        item.scense = xqzs.mood.getCjImg(item.scenesId);
+
+                        //心抱抱逻辑
+                        item.isCare = data[i].finishEvents[j].isCare;
+                        if ( !userId) {
+                            if ((item.moodValue >= 5 || item.moodValue == 0) && !item.isCare ) {
+                                item.careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
+                            } else if (item.moodValue < 5 && !item.isCare ) {
+                                item.careImg = web.IMG_PATH + "list_baob_nor.png";
+                            } else if ((item.moodValue >= 5 || item.moodValue == 0 ) && item.isCare) {
+                                item.careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
+                            } else if (item.moodValue < 5 && item.isCare ) {
+                                item.careImg = web.IMG_PATH + "list_baob_pre.png";
+                            }
+                            data[i].careImg= item.careImg
+                        }else{
+                            if(data[i].finishEvents[j].value.moodValue >= 5){
+                                if(data[i].careCount>0){
+                                    data[i].careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
+                                }else{
+                                    data[i].careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
+                                }
+                            }else{
+                                if(data[i].careCount>0){
+                                    data[i].careImg = web.IMG_PATH + "mood_icon_baob_pre.png";
+                                }else{
+                                    data[i].careImg = web.IMG_PATH + "mood_icon_baob_nor.png";
+                                }
+                            }
+                        }
+
+                        data[i].finishEvents[j].value=item;
+
+                    }else{
+                        if(data[i].finishEvents[j].isCare||(data[i].careCount>0&&userId)){
+                            data[i].careImg = web.IMG_PATH + "list_icon_dianz_pre.png";
+                        }else{
+                            data[i].careImg = web.IMG_PATH + "list_icon_dianz_nor.png";
+                        }
+                    }
+                }
+
+            }
+            return data;
+        },
         initMoodsData: function (data, timeType, userId) {
             for (var i = 0; i < data.length; i++) {
                 data[i].moodValueUrl = web.IMG_PATH + "list_mood_0" + data[i].moodValue + ".png";
@@ -508,8 +674,8 @@ var xqzs = {
                 if (data[i].haspicture) {
                     if (data[i].pics !== undefined) {
                         for (var j = 0; j < data[i].pics.length; j++) {
-                            data[i].pics[j].smallUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_640,w_640/quality,q_100";
-                            data[i].pics[j].bigUrl = data[i].pics[j].picpath + "?x-oss-process=image/resize,h_750,w_750/quality,q_100";
+                            data[i].pics[j].smallUrl = data[i].pics[j].picpath  + xqzs.constant.PIC_SMALL;
+                            data[i].pics[j].bigUrl = data[i].pics[j].picpath +  xqzs.constant.PIC_BIG;
 
                         }
                     }
@@ -530,7 +696,7 @@ var xqzs = {
 
                 //随机头像
                 if (data[i].faceIndex !== null)
-                    data[i].randomFaceUrl = web.IMG_PATH + "anonymous_face/" + data[i].faceIndex + ".jpg";
+                    data[i].randomFaceUrl = "http://oss.xqzs.cn/xqzs/anonymous_face/" + data[i].faceIndex + ".jpg";
 
                 //心抱抱逻辑
                 if (data[i].caremy !== undefined) {
@@ -579,6 +745,7 @@ var xqzs = {
         textareaAutoOldHeight: 20,
         textareaAutoBaseH: 20,
         textareaHeight: [],
+        textareaHover:false,
         textareaAutoHeight: function () {
             var textareaScrollHeight = document.getElementById("textarea").scrollHeight;
 
@@ -608,7 +775,43 @@ var xqzs = {
             if (isset == false) $("#textarea").height(document.getElementById("textarea").scrollHeight);
             xqzs.mood.textareaAutoOldHeight = textareaScrollHeight
         },
-        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength) {
+
+        //
+        actionSheetEditTimeout:function () {
+            setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
+                if (xqzs.isIos()) {
+                    //document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
+                    var localdbkey = "max_edit_height_scrool_top_last3";
+                    var nowSH = $('body').scrollTop();
+                    var oldH = xqzs.localdb.get(localdbkey);
+
+                    if (nowSH == 0) {
+                        xqzs.mood.actionSheetEditTimeout();
+                    } else {
+                        if (nowSH && nowSH != 0) {
+                            if (oldH && oldH != 0) {
+                                if (oldH < nowSH) {
+                                    xqzs.mood.actionSheetEditTimeout();
+                                    xqzs.localdb.set(localdbkey, nowSH)
+                                } else {
+                                    var lastH = oldH - nowSH;
+                                    lastH = lastH + 38;
+                                    console.log("oldH:"+oldH);
+                                    console.log("nowSH:"+nowSH);
+                                    console.log("bottom-lastH:"+lastH);
+                                   if(xqzs.mood.textareaHover){
+                                       $(".comment_box").animate({bottom: lastH}, 150)
+                                   }
+                                }
+                            } else {
+                                xqzs.localdb.set(localdbkey, nowSH)
+                            }
+                        }
+                    }
+                }
+            }, 800)
+        },
+        actionSheetEdit: function (cancelText, sendText, doFun, cancelFun, placeholder,maxLength,noHide) {
             if(!maxLength){
                 maxLength=1000;
             }
@@ -624,25 +827,34 @@ var xqzs = {
             html += ' <div class="comment_box">';
             html += '  <span class="release">' + sendText + '</span>';
             html += '<div class="box"><textarea contenteditable="true" maxlength="'+maxLength+'"  oninput="xqzs.mood.textareaAutoHeight();" class="comment_text" id="textarea" placeholder="' + placeholder + '" ></textarea></div>';
+            if(xqzs.isIos()){
+                html +='<div style=" height: 44px;    background: #f5f5f5;width: 100%;position: absolute;bottom: -44px;text-align: center;font-size: 12px;color: #ddd; line-height: 30px">一切都好一点</div>';
+            }
+
             html += '  </div>';
             html += '  </div>';
 
             $("body").append(html);
 
-            var interval ;
-            //解决第三方软键盘唤起时底部input输入框被遮挡问题
-            var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
-            $(".comment_text").focus(function () {
-                interval = setTimeout(function () {//设置一个计时器，时间设置与软键盘弹出所需时间相近
-                    document.body.scrollTop = document.body.scrollHeight;//获取焦点后将浏览器内所有内容高度赋给浏览器滚动部分高度
-                }, 180)
-            }).blur(function () {//设定输入框失去焦点时的事件
-                clearTimeout(interval);//清除计时器
-                document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
-            });
+
+             var timeout ;
+            // //解决第三方软键盘唤起时底部input输入框被遮挡问题
+            // var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+            //
+             $(".comment_text").focus(function () {
+                 xqzs.mood.textareaHover=true;
+                 xqzs.mood.actionSheetEditTimeout();
+            }).blur(function () {
+                 xqzs.mood.textareaHover=false;
+                 $(".comment_box").animate({bottom: 0}, 150)
+             });
+            //.blur(function () {//设定输入框失去焦点时的事件
+            //     clearTimeout(interval);//清除计时器
+            //      document.body.scrollTop = bfscrolltop;//将软键盘唤起前的浏览器滚动部分高度重新赋给改变后的高度
+            // });
 
 
-            $(".comment_text").focus().keyup(function () {
+            $(".comment_text").keyup(function () {
                 var val = $(this).val();
                 if (val.length > 0) {
                     $(".action-sheet-edit .release").css({'borderColor': "#05b003", "background": "#09bb07"})
@@ -652,7 +864,9 @@ var xqzs = {
                     $(".comment_p").css('display', 'block');
                 }
             });
-
+            if(!noHide){
+                $(".comment_text").focus();
+            }
 
             setTimeout(function () {
                 $(".comment_box").removeClass('subactive').addClass("addactive");
@@ -672,12 +886,17 @@ var xqzs = {
                 if (v !== "") {
                     doFun(v);
                 }
-                xqzs.weui.weuiMaskClose();
+                if(noHide){
 
-                $(".comment_box").removeClass('addactive').addClass("subactive");
-                $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
-                    $(".action-sheet-edit").remove();
-                });
+                }else{
+                    xqzs.weui.weuiMaskClose();
+
+                    $(".comment_box").removeClass('addactive').addClass("subactive");
+                    $(".action-sheet-edit").delay(100).animate({opacity: 0}, 200, function () {
+                        $(".action-sheet-edit").remove();
+                    });
+                }
+
 
             })
 
@@ -772,7 +991,7 @@ var xqzs = {
             });
         },
 
-        setConfig: function (vm, callback) {
+        setConfig: function (vm, callback,shareConfig) {
 
             var url = window.location.href;
             var guest="";
@@ -781,11 +1000,21 @@ var xqzs = {
             }
             url = encodeURIComponent(url)
             vm.$http.get(web.API_PATH + 'wei/xin/config', {params: {url: url,guest:guest}}).then(function (response) {
+                response.body.jsApiList=['getLocation','chooseImage','uploadImage','downloadImage','previewImage','onMenuShareTimeline',"onMenuShareAppMessage"
+                    ,"onMenuShareQQ"
+                    ,"onMenuShareWeibo"
+                    ,"onMenuShareQZone"
+                    ,"openAddress"
+                ];
+
+
                 wx.config(response.body);
                 wx.ready(function () {
-                    wx.hideAllNonBaseMenuItem();
                     if (callback && typeof (callback) == "function") {
                         callback()
+                    }
+                    if(shareConfig){
+                        xqzs.wx.initShare(shareConfig);
                     }
                     console.log('wx.ready');
                 });
@@ -793,6 +1022,61 @@ var xqzs = {
                     //可以更新签名
                 });
             });
+        },
+
+        shareConfig: {
+            home: {
+                title: '什么都好一点@好一点',
+                desc: '每个人都有自己的坚持，无非就是希望自己能好一点！',
+                link: web.BASE_PATH + '',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg' //#用户头像
+            },
+            rank: {
+                title: '坚持早睡早起，遇见更好的自己',
+                desc: '参与早睡早起打卡计划，培养自律，让生活更好一点！',
+                link: web.BASE_PATH + '#/sleepRank?type=2',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg' //#用户头像
+            },
+            friendMood: {
+                title: '这一刻，与你分享心情的快乐',
+                desc: '一句话、一段文、一张图，开启记录之旅，分享点滴故事！',
+                link: web.BASE_PATH + '#/friendsMoods',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            more: {
+                title: '“好一点”健康评测',
+                desc: '有趣、专业的健康测试，帮助你更好的了解自己的兴趣、性格、能力等特点。',
+                link: web.BASE_PATH + '#/more',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            test: {
+                title: '健康趣味评测@好一点',
+                desc: '',
+                link: '',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            set: {
+                title: '设置记录提醒@好一点',
+                desc: '坚持早起、记录心情，只为遇见更好自己',
+                link: web.BASE_PATH + '#/me/subscribe',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            me: {
+                title: '什么是好一点？关于我的好一点',
+                desc: '我一直在坚持，就是希望自己什么都能好一点！',
+                link: web.BASE_PATH + '#/me',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+            center: {
+                title: '我的心情指数分析图@好一点',
+                desc: '我一周的喜怒哀乐，都已经悄悄的存放在这啦！',
+                link: web.BASE_PATH + '#/myCenter/myIndex',
+                imgUrl: 'http://oss.xqzs.cn/xqzs/logo/logo.jpg'
+            },
+        },
+
+        initShare:function (config) {
+            weshare.init(wx, config)
         }
 
     },
@@ -912,6 +1196,42 @@ var xqzs = {
         f = Math.round(x * 100) / 100;
         return f;
     },
+    toDecimal2: function (x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return "0.00";
+        }
+        var f = Math.floor(x * 100) / 100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs + 2) {
+            s += '0';
+        }
+        if(!s)return '0.00';
+        return s;
+    },
+    toDecimal1: function (x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+            return "0.0";
+        }
+        var f = Math.floor(x * 10) / 10;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+            rs = s.length;
+            s += '.';
+        }
+        while (s.length <= rs +1) {
+            s += '0';
+        }
+        if(!s)return '0.00';
+        return s;
+    },
     string: {
         //封装验证手机号码
         checkUserPhoneReg: function () {
@@ -952,6 +1272,21 @@ var xqzs = {
                 }
             }
             return out;
+        },
+        formatPrice: function (v) {
+            if(v!=null&&v!=''){
+                return xqzs.toDecimal2(v)
+            }else{
+                return "0.00";
+            }
+
+        },
+        isMobile:function (v) {
+            var regExpP = /^1[34578]\d{9}$/; //手机号
+            if (regExpP.test(v)) {
+                return true;
+            }
+            return false;
         }
     },
 
@@ -982,6 +1317,18 @@ var xqzs = {
             return image;
         },
 
+    },
+    equipment:{
+        isIphoneX:function () {
+            return /iphone/gi.test(navigator.userAgent) && (screen.height == 812 && screen.width == 375)
+        },
+        tabHeight:function () {
+            if(xqzs.equipment.isIphoneX()){
+                return 68;
+            }else{
+                return 48;
+            }
+        }
     }
 };
 

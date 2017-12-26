@@ -46,12 +46,20 @@ class WeixinController extends Controller
 
         try {
             if (!empty($data)) {
+
                 $obj = json_decode($data, true);
                 if ($obj !== false) {
                     if ($obj['status'] == 1) {
-                        $this->setUserInfo($obj['data']);
-                        var_dump($obj['data']['id']);
-                        $apiService->login($obj['data']['id']);
+
+                        if($obj['data']['issubscribe']==0){
+                            $gourl = '/guest#/me/aboutUs';
+                        }else{
+                            $this->setUserInfo($obj['data']);
+                            $apiService->login($obj['data']['id']);
+                        }
+                    } else {
+                        //
+                        $gourl = '/guest#/me/aboutUs';
                     }
                 }
             }
@@ -117,4 +125,48 @@ class WeixinController extends Controller
         }
     }
 
+    /**
+     * 使用微信登录第三方网站
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
+     */
+    public function webLogin(Request $request)
+    {
+        $appId = env('WECHAT_APPID');
+        $callback = env('WECHAT_CONNECT_CALL_BACK_URL_PUB');
+        $backUrl = $request->input('reurl');
+        if (empty($backUrl)) {
+            $backUrl = 'index';
+        } else {
+            $backUrl = urlencode(urldecode($backUrl));
+        }
+        //      https://open.weixin.qq.com/connect/qrconnect?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect
+        $url = "https://open.weixin.qq.com/connect/qrconnect?appid={$appId}&redirect_uri=" . urlencode($callback)
+            . "&response_type=code&scope=snsapi_login&state={$backUrl}#wechat_redirect";
+
+        return redirect($url);
+    }
+
+    /**
+     * 使用微信登录第三方网站 回调
+     * @param Request $request
+     * @param ApiService $apiService
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
+     */
+    public function webLoginCallback(Request $request,ApiService $apiService)
+    {
+        $goUrl = 'http://web.xqzs.cn';
+        $state = $request->input('state');
+        $code = $request->input('code');
+        if (!empty($state) && $state != 'index') {
+            $goUrl = urldecode($state);
+        }
+        var_dump($code);
+        var_dump($state);
+        var_dump($goUrl);
+        //code交换openId
+        //logic
+        //
+        //return redirect($goUrl);
+    }
 }

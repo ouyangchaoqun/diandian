@@ -71,11 +71,11 @@
                     _this.$http({
                         method: 'GET',
                         type: "json",
-                        url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/1/1',
+                        url: web.API_PATH + 'mood/event/query/friend/pull/day/_userId_/1/3?version=2.0',
                     }).then(function (data) {//es5写法
                         if (data.data.status === 1 && data.data.data !== null) {
                             _this.friendMoodsSpe = eval(data.data.data);
-                            _this.friendMoodsSpe = xqzs.mood.initMoodsData(_this.friendMoodsSpe);
+                            _this.friendMoodsSpe = xqzs.mood.initMoodsIndex(_this.friendMoodsSpe);
                         }
                     }, function (error) {
                         //error
@@ -85,11 +85,15 @@
                     _this.$http({
                         method: 'GET',
                         type: "json",
-                        url: web.API_PATH + 'mood/query/friend/pull/day/_userId_/0/1',
+                        url: web.API_PATH + 'mood/event/query/friend/pull/day/_userId_/0/3?version=2.0',
                     }).then(function (data) {//es5写法
                         if (data.data.status === 1 && data.data.data !== null) {
                             _this.friendMoods = eval(data.data.data);
-                            _this.friendMoods = xqzs.mood.initMoodsData(_this.friendMoods);
+
+                            _this.friendMoods = xqzs.mood.initMoodsIndex(_this.friendMoods);
+
+
+                            console.log( _this.friendMoods)
 
                         }
                     }, function (error) {
@@ -111,17 +115,22 @@
                 }, function (error) {
                     //error
                 });
+            },
+            isTabChange: function (from, to) {
+                let tabs = [
+                    '/',
+                    '/more',
+                    '/me',
+                    '/friendsMoods'
+                ];
+
+
+                return ($.inArray(from.path, tabs) != -1 && $.inArray(to.path, tabs) != -1);
             }
         },
 
         beforeRouteUpdate (to, from, next) {
             var _this = this;
-            console.log("beforeRouteUpdate")
-
-            console.log(from.path);
-            console.log(to.path);
-
-
 
 
 
@@ -137,47 +146,50 @@
             xqzs.weui.removeWhenPageChange();
 
 
-//            let isBack = parseInt( Math.random()*10)%2;
-
-//            console.log({to:to.fullPath,from:from.fullPath});
-
-            let isBack = false;
-            for (let i = 0; i < this.pagesIn.length; i++) {
-//                console.log(this.pagesIn[i]);
-                if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
-                    isBack = true;
-                    this.pagesIn.splice(i, 1);
-                    break;
-                }
-            }
-
-            if(to.fullPath==='/')isBack=true;
-
-            if (!isBack)
-                this.pagesIn.push({to: to.fullPath, from: from.fullPath})
-
-            console.log("bearbear");
 //
-            console.log(from.fullPath);
 
-            let isBackStrIndex  =  to.fullPath.indexOf("isBack=1");
-            if(isBackStrIndex>0 ){
-                isBack= true;
-            }
+            if (this.isTabChange(from, to)) {
+                this.transitionName = '';
+            }else{
+                let isBack = false;
+                for (let i = 0; i < this.pagesIn.length; i++) {
+//                console.log(this.pagesIn[i]);
+                    if (this.pagesIn[i].to == from.fullPath && this.pagesIn[i].from == to.fullPath) {
+                        isBack = true;
+                        this.pagesIn.splice(i, 1);
+                        break;
+                    }
+                }
 
-            if(_this.$route.query.isBack!=undefined &&　_this.$route.query.isBack==1){
-                isBack= true;
-            }
-            //是否为点开心情页面；
-            if ((from.fullPath === "/" || from.fullPath === "/#") && to.fullPath === "/record") {
-                this.transitionName = 'page-xqzs-up'
-            } else if (from.fullPath === "/record" && (to.fullPath === "/" || to.fullPath === "/#")) {
-                this.transitionName = 'page-xqzs-down'
+                if(to.fullPath==='/')isBack=true;
 
-            }else if (isBack) {
-                this.transitionName = 'page-xqzs-right'
-            } else {
-                this.transitionName = 'page-xqzs-left'
+                if (!isBack)
+                    this.pagesIn.push({to: to.fullPath, from: from.fullPath})
+
+
+
+
+                let isBackStrIndex  =  to.fullPath.indexOf("isBack=1");
+                if(isBackStrIndex>0 ){
+                    isBack= true;
+                }
+
+                if(_this.$route.query.isBack!=undefined &&　_this.$route.query.isBack==1){
+                    isBack= true;
+                }
+
+
+                //是否为点开心情页面；
+                if ((from.fullPath === "/" || from.fullPath === "/#") && (to.path === "/record"||to.path==="/addMood")) {
+                    this.transitionName = 'page-xqzs-up'
+                } else if ( (from.path === "/record"||from.path==="/addMood") && (to.fullPath === "/" || to.fullPath === "/#")) {
+                    this.transitionName = 'page-xqzs-down'
+
+                }else if (isBack) {
+                    this.transitionName = 'page-xqzs-right'
+                } else {
+                    this.transitionName = 'page-xqzs-left'
+                }
             }
 
 
@@ -188,7 +200,7 @@
             })
             var tt = document.querySelector('.child-view');
             tt.addEventListener("webkitAnimationEnd", function(){
-                console.log("webkitAnimationEnd")
+//                console.log("webkitAnimationEnd")
             }, false);
 
         }
@@ -196,6 +208,100 @@
 </script>
 
 <style>
+    /*积分动画*/
+    .coin_add{ position: fixed; width:5.558823529411765rem; height: 5.558823529411765rem; top:50%; left:50%; margin-left: -2.779411764705883rem; margin-top: -2.779411764705883rem; z-index: 1000;
+        animation: coin_add_show 2.5s  forwards ;
+        -webkit-animation: coin_add_show 2.5s  forwards ;}
+    .coin_add .coin_add_round{ background: url(../images/coin_add_round.png) no-repeat center; width: 100%; height: 100%; background-size: 100%; position: absolute; top:0;
+        animation: coin_round_round 1s    infinite linear ;;
+        -webkit-animation: coin_round_round 1s  infinite linear ; ;
+        animation-delay:0.8s;
+        -webkit-animation-delay:0.8s;
+
+    }
+    .coin_add .coin_add_coin{ background: url(../images/coin_add_coin.png) no-repeat center; width: 100%; height: 100%; background-size: 3.617647058823529rem; position: absolute; top:0;
+        animation: coin_coin_round 1s   infinite linear ; ;
+        -webkit-animation: coin_coin_round 1s  infinite linear ;  ;
+        animation-delay:0.8s;
+        -webkit-animation-delay:0.8s;}
+
+    .coin_add .add_num{ font-size: 12px; color:#ffaa00; position: absolute; top:0; width: 100%; text-align: center;
+        animation: coin_big 1.5s  forwards linear;
+        -webkit-animation: coin_big 1.5s  forwards  linear;
+        animation-delay:0.8s;
+        -webkit-animation-delay:0.8s;
+    }
+    @keyframes coin_coin_round {
+        0%{
+            backface-visibility: hidden;
+            transform: rotateY(0deg);
+            -webkit-transform: rotateY(0deg);
+        }
+        100%{
+            backface-visibility: hidden;
+            transform: rotateY(720deg);
+            -webkit-transform: rotateY(720deg);
+        }
+
+    }
+
+    @keyframes coin_round_round {
+
+        0%{
+            backface-visibility: hidden;
+
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+        }
+        100%{
+            backface-visibility: hidden;
+
+            transform: rotate(720deg);
+            -webkit-transform: rotate(720deg);
+        }
+
+    }
+
+
+    @keyframes coin_big {
+        /*rotate(0deg) */
+        0%{
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0) scale(1);
+        }
+        70%{
+            transform: translate3d(0, -200%, 0)   scale(2.5);
+            -webkit-transform: translate3d(0,-200%, 0) scale(2.5);
+            opacity: 1;
+        }
+        100%{
+            transform: translate3d(20%, -300%, 0)   scale(3);
+            -webkit-transform: translate3d(20%,-300%, 0) scale(3);
+            opacity: 0;
+        }
+
+    }
+
+    @keyframes coin_add_show {
+        0%{
+            transform: translate3d(100%, -200%, 0)   scale(0);
+            -webkit-transform: translate3d(100%,-200%, 0) scale(0);
+        }
+        15%{
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0) scale(1);
+        }
+        85%{
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0) scale(1);
+        }
+        100%{
+            transform: translate3d(100%, -200%, 0)   scale(0);
+            -webkit-transform: translate3d(100%,-200%, 0) scale(0);
+        }
+    }
+
+
     .child-view {
         position: absolute !important;
         width: 100% !important;

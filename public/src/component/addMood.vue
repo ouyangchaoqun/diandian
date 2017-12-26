@@ -46,9 +46,7 @@
 <style>
 
 
-    .sogo-enter-active {
-        animation-name: sgo ;
-        animation-duration: .2s;
+    .sogo-enter-active {  animation-name: sgo ;  animation-duration: .2s;
     }
 
     @keyframes sgo {
@@ -64,109 +62,29 @@
     }
 
 
-    .addMood,.mood_box{
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-    .grids_box{
-        margin:0 15px;
-    }
+    .addMood,.mood_box{  -webkit-tap-highlight-color: rgba(0,0,0,0);  }
+    .grids_box{  margin:0 15px;  }
     .weui-grids{ overflow: inherit}
+    .weui-grid{  padding:0;  position: relative;  }
+    .moodBox_bg{  position: absolute;  top:0;  height:100%;  width:100%;  background: rgba(0,0,0,0.6);  z-index:2;  -webkit-tap-highlight-color: rgba(0,0,0,0);  }
+    .moodBox{  position: absolute;  top:0;  height:100%;  width:100%;  z-index: 3;  }
+    .scene_top{  margin-top: 1.082rem;  margin-bottom: 0.5rem;  }
+    .scene_top img{  width:1.883rem;  height:1.883rem;  display: block;  margin:0 auto;  }
+    .addMood{  height:100%;  background: #FFFFFF;  }
+    .scene_box .grid_25{  width:25%;  }
+    .banner {  width: 100%;  }
 
-    .weui-grid{
-        padding:0;
-        position: relative;
-    }
-    .moodBox_bg{
-        position: absolute;
-        top:0;
-        height:100%;
-        width:100%;
-        background: rgba(0,0,0,0.6);
-        z-index:2;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-    }
-    .moodBox{
-        position: absolute;
-        top:0;
-        height:100%;
-        width:100%;
-        z-index: 3;
-    }
-    .scene_top{
-        margin-top: 1.082rem;
-        margin-bottom: 0.5rem;
-    }
-    .scene_top img{
-        width:1.883rem;
-        height:1.883rem;
-        display: block;
-        margin:0 auto;
-    }
-    .addMood{
-        height:100%;
-        background: #FFFFFF;
-    }
-    .scene_box .grid_25{
-        width:25%;
-
-    }
-    .banner {
-        width: 100%;
-    }
-
-    .banner img {
-        display: block;
-        width: 100%;
-    }
-    .mood_box{
-        /*padding:30px 15px 36px 15px;*/
-        background: url(../images/add_mood_bj.jpg) #fff;
-        background-size: cover;
-        border-top-left-radius:5px;
-        border-top-right-radius:5px;
-        position: absolute;
-        bottom:0;
-        width:100%;
-        padding-top: 23px;
-        padding-bottom: 25px;
-        overflow: hidden;
-        z-index: 3;
-    }
-    .scene_box{
-        width:100%;
-        display: block;
-    }
-    .moodBox_header{
-        font-size: 18px;
-        color: #666666;
-        text-align: center;
-        margin-bottom: 1.411761176470588rem;
-    }
-    .grid_top{
-        margin-bottom:0.471rem;
-    }
-    .grid_top img{
-        display: block;
-        width:2.353rem;
-        height:2.353rem;
-        margin: auto;
-        margin-top: 12px;
-    }
-    .grid_bottom{
-        font-size: 12px;
-    }
-    .scene_col{
-        color: #333333;
-    }
-    .grid_row1{
-        color: #fe6103;
-    }
-    .grid_row2{
-        color: #747474;
-    }
-    .grid_row3{
-        color: #0eb80e;
-    }
+    .banner img {  display: block;  width: 100%;  }
+    .mood_box{  background: url(../images/add_mood_bj.jpg) #fff;  background-size: cover;  border-top-left-radius:5px;  border-top-right-radius:5px;  position: absolute;  bottom:0;  width:100%;  padding-top: 23px;  padding-bottom: 25px;  overflow: hidden;  z-index: 3;  }
+    .scene_box{  width:100%;  display: block;  }
+    .moodBox_header{  font-size: 18px;  color: #666666;  text-align: center;  margin-bottom: 1.411761176470588rem;  }
+    .grid_top{  margin-bottom:0.471rem;  }
+    .grid_top img{  display: block;  width:2.353rem;  height:2.353rem;  margin: auto;  margin-top: 12px;  }
+    .grid_bottom{  font-size: 12px;  }
+    .scene_col{  color: #333333;  }
+    .grid_row1{  color: #fe6103;  }
+    .grid_row2{  color: #747474;  }
+    .grid_row3{  color: #0eb80e;  }
 </style>
 <script type="es6">
     import banner from "./banner.vue";
@@ -190,6 +108,7 @@
                     {value:3,src:'list_mood_03.png',class:'grid_row3',text:'不开心'},
                     {value:2,src:'list_mood_02.png',class:'grid_row3',text:'很不开心'},
                     {value:1,src:'list_mood_01.png',class:'grid_row3',text:'超级不开心'}
+
                 ],
                 scenesList:xqzs.mood.moodScenesList,
                 goScenes:false,
@@ -208,13 +127,10 @@
         },
         methods: {
             goIndex:function () {
-
                 if(window.history.length>=2){
                     this.$router.go(0-window.history.length+1)
                 }
-
                 this.$router.replace('/');
-
             },
             moodSrc:function (src) {
                 return web.IMG_PATH+src;
@@ -222,7 +138,6 @@
             chooseData:function (key,v) {
                 this.choosedData[key] = v;
                 console.log(v)
-                //
                 if(this.canAddMood==false&&'moodValue'==key){
                     this.$router.push('/me/personal/validate');
                     this.goScenes=false;
@@ -236,39 +151,15 @@
                         }
                         params.push(keys[o]+'='+this.choosedData[keys[o]]);
                     }
-
-
-
                     let that = this;
-
-
-
                     if("scenesId"!=key||that.choosedData["moodValue"]==null){
                         return;
                     }
                     if(that.isAdded==true){
                         return;
                     }
-                    var postdata = {
-                        moodValue:that.choosedData["moodValue"],
-                        scenesId:that.choosedData["scenesId"],
-                        isOpen: true,
-                        userId: '_userId_',
-                    };
-
-                    var apiurl = 'mood/add';
                     that.isAdded=true;
-
-                    that.$http.put(web.API_PATH + apiurl,postdata)
-                        .then(function (bt) {
-                            console.log(postdata)
-                            if (bt.data && bt.data.status == 1) {
-                                that.$router.replace({path:'/myCenter/myIndex?scroll=1'});
-                            }
-                        });
-
-
-                   // this.$router.push('/myCenter/myIndex/Edit?'+params.join('&'));
+                    this.$router.replace('/myCenter/myIndex/Edit?'+params.join('&'));
                 }
 
             },
@@ -293,10 +184,11 @@
                 _this.goIndex();
             }
             this.goScenes=false;
-            xqzs.wx.setConfig(this);
+
+            if(_this.user) xqzs.wx.shareConfig.home.imgUrl=_this.user.faceUrl;
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.home);
 
             var w =$(window).width() ;
-
             var w1= ( w -31 )/4;
             $('.grid_25').width(w1).height(w1 * 1.06976744186);
 

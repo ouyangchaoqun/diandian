@@ -1,32 +1,52 @@
-<template id="friends">
+<template >
 
-    <div style="position: relative">
+    <div style="position: relative" class="friends_moods">
         <!--<div class="weui-toast">
             <i class="weui-icon-success-no-circle weui-icon_toast"></i>
             <p class="weui-toast__content">已完成</p>
         </div>-->
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div v-title>小树洞</div>
-        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
+        <div v-title>心情说说</div>
+        <v-tab tab="friendMoods"></v-tab>
+        <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" :cutHeight="cutHeight">
             <div class="friends_box">
-                <div class="friend_header">
-                    <router-link to="/treeHole">你知道“小树洞”的故事吗？</router-link>
-                </div>
+
+                <!--beforeChange-->
+                <!--<div class="friend_header">-->
+                    <!--<router-link to="/treeHole">你知道“小树洞”的故事吗？</router-link>-->
+                <!--</div>-->
                 <div class="friends_mood" v-for="( item,index)  in downdata" :key="index">
-                    <img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">
+
+                    <!--beforeChange-->
+                    <!--<img class="friendHeaderImg" :src="item.randomFaceUrl" alt="">-->
+                    <!--beforeChangeEnd-->
+
+
+                    <!--change-->
+                    <img class="friendHeaderImg" :src="item.randomFaceUrl" v-if="item.isFriend==1||item.isAd==1" alt="">
+                    <img class="friendHeaderImg" :src="item.faceUrl" v-else-if="item.isFriend!=1||item.isMyself==1" alt="">
+                    <!--changeEnd-->
+
                     <div class="friendState">
-                        <span class="mood_state" :class="item.moodValueStyle"><span :class="{bluecolor:item.isAd==1}" :style="item.typeFaceColor">{{item.moodValueText}}</span></span>
+                        <span class="mood_state" :class="item.moodValueStyle"><span :class="{bluecolor:item.isAd==1}" :style="item.typeFaceColor">
+                            <template v-if="item.isAd==1">{{item.moodValueText}}</template>
+                            <template v-else-if="item.isFriend==1"><font class="happy_txt_color">我的朋友</font></template>
+                            <template v-else-if="item.userId==user.id"><font class="unhappy_txt_color">我自己</font></template>
+                            <template v-else  ><font class="bluecolor">朋友的朋友</font></template>
+
+                        </span></span>
                         <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
 
                         <p class="mood_text" v-html="formatContent(item.content)"></p>
                         <ul class="friendImgList" v-if="item.haspicture">
                                  <li   v-for="pic in item.pics">
-                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
-                                         :data-h="pic.picheight" :style="pic.styleObject"
+                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="item.pics.length>1?pic.picwidth:''"
+                                         :data-h="item.pics.length>1?pic.picheight:''"   :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}"
+                                       :style="pic.styleObject"
                                          @click="showBigImg(item.pics,pic)">
                                 </li>
 
-                            <li v-if="item.funnypics.length > 0" class="moodFunnPicList">
+                            <li v-if="item.funnypics&&item.funnypics.length > 0" class="moodFunnPicList">
                                 <div class="moodFunnyPic" v-for="gif in item.funnypics">
                                     <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth" :data-h="gif.picheight"/>
                                 </div>
@@ -50,7 +70,7 @@
                             </div>
                         </div>
 
-                        <div class="commont_box" v-if="item.replies.length>0">
+                        <div class="commont_box" v-if="item.replies&&item.replies.length>0">
                             <div class="arrow"></div>
                             <div class="friend_commont"  v-for="(reply,replyIndex) in item.replies" :key="replyIndex" @click="commentOrDel(reply.fromuserid,reply.id,index,replyIndex)"  v-if="!reply.isDel&&replyIndex<3">
                                 <a href="javascript:;">
@@ -64,7 +84,7 @@
                                     <template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template>：</span><template v-if="reply.tomoodreplyid!=0&&reply.tomoodreplyid!=null"><span class="name"><template v-if="reply.fromuserid==item.userId">作者</template><template v-if="reply.fromuserid!=item.userId">{{reply.from_nickName | shortName(7)}}</template></span>回复<span class="name"><template v-if="reply.touserid==item.userId">作者</template><template v-else>{{reply.to_nickName | shortName(7)}}</template>：</span></template><span class="commont">{{reply.content}}</span>
                                 </a>
                             </div>
-                            <div v-if="item.replies.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
+                            <div v-if="item.replies&&item.replies.length>3" class="showOthercom" @click="showOther(index)">{{item.showordown}}</div>
                         </div>
                     </div>
                 </div>
@@ -79,10 +99,9 @@
 
 <script type="text/javascript">
     import scroll from './lib/scroll.vue';
+    import tab from './lib/tab.vue';
     import showLoad from './showLoad.vue';
-    let friends = {
-        template: '#friends'
-    };
+    import Bus from './bus.js';
     export default {
         data() {
             return {
@@ -95,7 +114,8 @@
                 showAll:false,
                 showLoad:false,
                 isPageEnd:false,
-                isShowMoreText:true
+                isShowMoreText:true,
+                cutHeight:50
             }
         },
         props:{
@@ -125,7 +145,7 @@
                 //显示loding
                 this.showLoad = true;
 
-                vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
+                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + 1 + "/" + vm.num).then((response) => {  //friend
                     vm.downdata = response.data.data.rows;
                     var maxid = 0;
                     for(var i=0,l=response.data.data.rows.length;i<l;i++){
@@ -158,7 +178,7 @@
             },
             onInfinite(done) {
                 let vm = this;
-                vm.$http.get(web.API_PATH + 'mood/query/friend/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
+                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
                     vm.counter++;
                     vm.pageEnd = vm.num * vm.counter;
                     vm.pageStart = vm.pageEnd - vm.num;
@@ -172,6 +192,9 @@
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     });
+
+
+
                     if (arr.length <vm.num) {
                         vm.isPageEnd=true;
                     }
@@ -341,12 +364,16 @@
         created: function () {
             let _this = this;
             _this.getList();
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.friendMood);
 
+        },
+        updated:function () {
+            Bus.$emit("scrollHeightInit", xqzs.equipment.tabHeight()+2);
         },
         components: {
             'v-scroll': scroll,
-            'v-showLoad':showLoad
+            'v-showLoad':showLoad,
+            'v-tab':tab,
         },
         beforeDestroy: function () {
             xqzs.weui.removeWhenPageChange()
@@ -433,7 +460,8 @@
         font-size: 14px;
         line-height: 21px;
         color: #333333;
-        padding: 4px 16px 8px 0px;
+        padding: 4px 16px 8px 0;
+        /*letter-spacing: 0.03rem;*/
     }
 
     .stateBottom {
@@ -482,9 +510,12 @@
     }
 
     .friendImgList.one li {
-        width: 10.07058823529412rem;
-        height: 7.623529411764706rem;
+        width: 100%;
+        height: auto;
     }
+
+    .friendImgList img.hw{ width: 10.05882352941176rem !important; height: auto !important}
+    .friendImgList img.hh{ height: 10.58823529411765rem !important; width: auto !important}
 
 
     .friendImgList li {
@@ -498,7 +529,6 @@
     .friendImgList img {
         display: block;
     }
-
     .commont_box {
         padding: 5px 10px 5px 10px;
         background: #f9f9f9;
@@ -516,7 +546,7 @@
         margin-top: 0;
     }
 
-    .arrow {
+.friends_moods  .arrow {
         width: 12px;
         height: 12px;
         background: #f9f9f9;
@@ -543,17 +573,17 @@
         color: #333;
         display: block;
     }
-    .name {
+  .friends_moods  .name {
         color: #5e61a2;
         font-size: 13px;
         font-weight: bold;
 
     }
-    .commont {
+.friends_moods .commont {
         font-size: 13px;
         color: #333333;
     }
-    .addCj{
+.friends_moods .addCj{
         height: 16px;
         vertical-align: middle;
         margin-top: -3px;

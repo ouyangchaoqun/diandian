@@ -6,7 +6,6 @@
         <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite" class="innnn" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
             <div class="myIndex_box">
                 <div class="banner index_banner">
-                   <!-- <v-banner></v-banner>-->
                     <img src="../images/indexBanner1.jpg" alt="">
                     <router-link to="/me" class="headBox">
                         <div class="userHeaderImg">
@@ -14,120 +13,239 @@
                         </div>
                     </router-link>
                     <div class="addName">{{user.nickName}}</div>
-                    <v-indexCount :mmm="aaa"></v-indexCount>
                 </div>
-                <!--banner end -->
-                <div class="addSwiper">
-                        <a href="#" hidefocus="true" class="AddActive">心情指数</a>
-                        <a href="#" hidefocus="true">心情日历</a>
-                </div>
-                <div class="swiper-container addSwiperBox">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide content-slide swiper-no-swiping">
-
-                            <div>
-                                <div class="chart_box">
-                                    <v-chart :chartData="chartData"></v-chart>
+                <v-indexCount :mmm="aaa"></v-indexCount>
+                <ul class="centerClass">
+                    <li class="centerClassItem classGetup" @click="goGetupCount()">
+                        <div class="classImg getUpImg"></div>
+                        <div class="classItem_top">
+                            早起打卡
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <div class="class_titleTop">
+                                <span>起床时间</span>
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
                                 </div>
-                                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
-                                    <img class="moodImg" :src="item.moodValueUrl" alt="">
-                                    <div class="moodImg_right">
-                                        <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
-                                            <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
-                                        </div>
-                                        <template v-if="canEdit(item)">
-                                            <router-link :to="item.editLink" class="editMood" replace>
-                                                20分钟内可以补充文字和图片
-                                                <img src="../images/bianji.png" alt="">
-                                            </router-link>
+                            </div>
+                            <div class="class_titleBottom">
+                                <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime!=''">{{classGetup.today.shorttime}}</span>
+                                <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime==''">--:--</span>
+                                <div class="class_info" style="height:0.588235rem;">
+                                    <div v-for="item in classGetup.list">
+                                        <template v-if="item.shorttime!=''">{{item.shorttime}}</template>
+                                        <template v-if="item.weekix<=classGetup.today.weekix&&item.shorttime==''">
+                                            <img src="../images/norecord.png" alt="">
                                         </template>
-                                        <template><!--v-if=" (item.content!=''&& item.content!=null)  "-->
-                                            <div class="moodContext" v-html="formatContent(item)">
-                                            </div>
-                                        </template>
-                                        <template v-if="item.haspicture">
-                                            <div class="moodPhotoLists">
-                                                <div class="moodPhotoList" v-for="pic in item.pics">
-                                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl" :data-w="pic.picwidth"
-                                                         :data-h="pic.picheight" :style="pic.styleObject"
-                                                         @click="showBigImg(item.pics,pic)">
-                                                </div>
-                                                <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
-                                                    <div class="moodFunnyPic" v-for="gif in item.funnypics">
-                                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth"
-                                                             :data-h="gif.picheight"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-                                        <div class="moodLoc" v-if="item.address!=''&& item.address!=null">{{item.address}}</div>
-                                        <div class="moodTime">
-                                            <span>{{item.outTime}}</span>
-                                            <span v-if="canRevoke(item)"
-                                                  class="btn_del" @click="revoke(item.id,index)">撤回</span>
-                                            <span v-if="canClear(item)" class="btn_del"
-                                                  @click="empty(item.id,index)">删除</span>
-                                            <div class="moodFollow" @click="showComment(item.id,index)">
-
-                                                <div style="float: right;margin-left: 12px;">
-
-                                                    <span class="followCount">{{item.replycount}}</span>
-                                                    <img class="followtype" src="../images/comments.png" alt="">
-
-                                                </div>
-                                                <div style="float: right;">
-                                                    <span class="followCount">{{item.careCount}}</span>
-                                                    <img class="followtype" :src="item.careImg" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="show_box" v-if="item.hasComments && item.isShowComment">
-                                        <div class="arraw"></div>
-                                        <div class="show_top" v-if="item.careList.length>0">
-                                            <img class="show_img1" :src="item.careImg"/>
-                                            <img v-for="care in item.careList" :src="care.faceUrl"/>
-                                        </div>
-                                        <div class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
-                                        <ul class="show_bottom" v-if="item.commentList.length>0">
-                                            <img class="show_img2" src="../images/comments.png"/>
-                                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex"
-                                                :data-replyid="comment.id" :data-moodid="item.id"
-                                                :data-userid="comment.fromuserid" data-ajaxresult="hasface"
-                                                @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)">
-                                                <img class="show_bottom_img" :src="comment.from_faceUrl">
-                                                <div class="show_bottom_text">
-                                                    <div class="reply_author">
-                                                        <a class="pname other" href="javascript:;">{{comment.from_nickName |
-                                                        shortName(7)}}</a>
-                                                    </div>
-                                                    <div class="reply_content">
-                                                        <template v-if="comment.tomoodreplyid>0">
-                                                            <span class="text_comment">回复</span><a class="pname other"
-                                                                                                   href="javascript:;">{{comment.to_nickName
-                                                        | shortName(7)}}：</a>
-                                                        </template>
-                                                        <span class="text_comment">{{emojiContent(comment.content)}}</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="swiper-slide content-slide swiper-no-swiping">
-                                <v-calendarTemplate></v-calendarTemplate>
+                    </li>
+                    <li class="centerClassItem classCalendar" @click="gonewCalendar()">
+                        <div class="classImg rlImg"></div>
+                        <div class="classItem_top">
+                            心情日历
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <div class="class_titleTop">
+                                <span>今日心情</span>
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
+                                </div>
+                            </div>
+                            <div class="class_titleBottom">
+                                <span>
+                                    <img :src="todayMood.smailUrl" alt="">
+                                </span>
+                                <div class="class_info">
+                                    <div v-for="item in moodList">
+                                        <template v-if="item.weekix<=todayMood.weekix">
+                                            <img :src="item.smailUrl" alt="">
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li >
+                    <li class="centerClassItem classHabit" @click="goHabit()">
+                        <div class="classImg xgImg"></div>
+                        <div class="classItem_top">
+                            健康习惯
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <div class="class_titleTop">
+                                <span>今日完成</span>
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
+                                </div>
+                            </div>
+                            <div class="class_titleBottom">
+                                <span style="height:0.88235rem;">{{classHabit&&classHabit.today.finishNum}}</span>
+                                <div class="class_info" style="bottom:-2px;">
+                                    <div v-for="item in classHabit.list">
+                                        <template v-if="item.finishNum!=0">
+                                            <img src="../images/habitf.png" alt="">
+                                        </template>
+                                        <template v-if="item.finishNum==0&&classHabit.today.weekix>=item.weekix">
+                                            <img src="../images/habitnof.png" alt="">
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="centerClassItem lastClassItem" @click="goStepInfo()">
+                        <div class="classImg sportImg"></div>
+                        <div class="classItem_top">
+                            运动步数
+                            <img src="../images/me_btn_right.png" alt="">
+                        </div>
+                        <div class="class_title">
+                            <div class="class_titleTop">
+                                <span>今日步数</span>
+                                <div class="class_info">
+                                    <div>一</div>
+                                    <div>二</div>
+                                    <div>三</div>
+                                    <div>四</div>
+                                    <div>五</div>
+                                    <div>六</div>
+                                    <div>日</div>
+                                </div>
+                            </div>
+                            <div class="class_titleBottom">
+                                <span style="height:0.88235rem;">{{classStep&&stepChange(classStep.today.step)}}</span>
+                                <div class="class_info">
+                                    <div v-for="item in classStep.list">
+                                        <template v-if="classStep.today.weekix>=item.weekix">{{stepChange(item.step)}}</template>
+                                        <template v-if="classStep.today.weekix<item.weekix"></template>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+                <div style="height: 0.588235rem;background: rgba(238,238,238,1)"></div>
+                <div class="moodList_title">
+                    <div>
+                        <div class="classImg"></div>
+                        心情说说
+                    </div>
+
+                </div>
+                <div class="myMood_list" v-for="( item,index)  in downdata" :key="index" v-show="!item.hide" >
+                    <img class="moodImg" :src="item.moodValueUrl" alt="">
+                    <div class="moodImg_right">
+                        <div class="moodState" :class="item.moodValueStyle">{{item.moodValueText}}
+                            <!--<img class="addCj" :src="item.scense.src" alt="">  <i>{{item.scense.text}}</i>-->
+                        </div>
+                        <template v-if="canEdit(item)">
+                            <router-link :to="item.editLink" class="editMood" replace>
+                                20分钟内可以补充文字和图片
+                                <img src="../images/bianji.png" alt="">
+                            </router-link>
+                        </template>
+                        <template><!--v-if=" (item.content!=''&& item.content!=null)  "-->
+                            <div class="moodContext" v-html="formatContent(item)">
+                            </div>
+                        </template>
+                        <template v-if="item.haspicture">
+                            <div class="moodPhotoLists">
+                                <div class="moodPhotoList" v-for="pic in item.pics">
+                                    <img :src="pic.smallUrl" :data-bigPic="pic.bigUrl"  :data-w="item.pics.length>1?pic.picwidth:''"
+                                         :data-h="item.pics.length>1?pic.picheight:''"   :class="{hw:pic.picwidth>pic.picheight&&item.pics.length==1,hh:pic.picwidth<=pic.picheight&&item.pics.length==1}" :style="pic.styleObject"
+                                         @click="showBigImg(item.pics,pic)">
+                                </div>
+                                <div v-if="item.funnypics.length > 0" class="moodFunnPicList">
+                                    <div class="moodFunnyPic" v-for="gif in item.funnypics">
+                                        <img :src="gif.picpath" data-type="notresize" :data-w="gif.picwidth"
+                                             :data-h="gif.picheight"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="moodLoc" v-if="item.address!=''&& item.address!=null">{{item.address}}</div>
+                        <div class="moodTime">
+                            <span>{{item.outTime}}</span>
+                            <span v-if="canRevoke(item)"
+                                  class="btn_del" @click="revoke(item.id,index)">撤回</span>
+                            <span v-if="canClear(item)" class="btn_del"
+                                  @click="empty(item.id,index)">删除</span>
+                            <div class="moodFollow" @click="showComment(item.id,index)">
+
+                                <div style="float: right;margin-left: 12px;">
+
+                                    <span class="followCount">{{item.replycount}}</span>
+                                    <img class="followtype" src="../images/comments.png" alt="">
+
+                                </div>
+                                <div style="float: right;">
+                                    <span class="followCount">{{item.careCount}}</span>
+                                    <img class="followtype" :src="item.careImg" alt="">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="show_box" v-if="item.hasComments && item.isShowComment">
+                        <div class="arraw"></div>
+                        <div class="show_top" v-if="item.careList.length>0">
+                            <img class="show_img1" :src="item.careImg"/>
+                            <img v-for="care in item.careList" :src="care.faceUrl"/>
+                        </div>
+                        <div class="line_comment" v-if="item.commentList.length>0&&item.careList.length>0"></div>
+                        <ul class="show_bottom" v-if="item.commentList.length>0">
+                            <img class="show_img2" src="../images/comments.png"/>
+                            <li v-for="(comment,commentIndex) in item.commentList" :key="commentIndex"
+                                :data-replyid="comment.id" :data-moodid="item.id"
+                                :data-userid="comment.fromuserid" data-ajaxresult="hasface"
+                                @click="commentOrDel(comment.fromuserid,comment.id,index,commentIndex)">
+                                <img class="show_bottom_img" :src="comment.from_faceUrl">
+                                <div class="show_bottom_text">
+                                    <div class="reply_author">
+                                        <a class="pname other" href="javascript:;">{{comment.from_nickName |
+                                        shortName(7)}}</a>
+                                    </div>
+                                    <div class="reply_content">
+                                        <template v-if="comment.tomoodreplyid>0">
+                                            <span class="text_comment">回复</span><a class="pname other"
+                                                                                   href="javascript:;">{{comment.to_nickName
+                                        | shortName(7)}}：</a>
+                                        </template>
+                                        <span class="text_comment">{{emojiContent(comment.content)}}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-
-
             </div>
         </v-scroll>
-        <v-calendarPopup></v-calendarPopup>
     </div>
 
 
@@ -168,7 +286,13 @@
 
                 ],
                 aaa:'',
-                activeIndex:0
+                activeIndex:0,
+                classGetup:'',
+                classCalendar:'',
+                classHabit:'',
+                classStep:'',
+                moodList:'',
+                todayMood:''
             }
         },
         props:{
@@ -182,7 +306,24 @@
             }
         },
         methods: {
-
+            goGetupCount:function () {
+              this.$router.push('/getUpStatistics?type=2')
+            },
+            gonewCalendar:function () {
+              this.$router.push('/newCalendar')
+            },
+            goHabit:function () {
+                this.$router.push("/habit")
+            },
+            goStepInfo:function () {
+                this.$router.push("/stepStatistics")
+            },
+            stepChange:function (n) {
+                if(n>=10000){
+                    n = parseInt(n/1000) + 'k';
+                }
+                return n;
+            },
             canEdit: function (mood) {
                 return xqzs.mood.canEdit(mood);
             },
@@ -243,7 +384,6 @@
                             reply.content=vm.emojiContent(reply.content)
                             vm.downdata[index].commentList.push(reply);
                             vm.$set(vm.downdata, index, vm.downdata[index])
-                            console.log(response.data.data.reply)
                         }
                     }, response => {
                         // error
@@ -371,10 +511,12 @@
                 this.showLoad = true;
                 vm.$http.get(web.API_PATH + 'mood/query/user/page/_userId_/' + 1 + "/" + vm.num).then((response) => {
                     vm.downdata = response.data.data.rows;
-                    console.log( vm.downdata)
-                    //console.log( vm.downdata[0].userId)
-                    this.aaa = vm.downdata[0].userId;
-                    vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
+                    if(vm.downdata) {
+                        console.log(vm.downdata)
+                        console.log(vm.downdata[0].userId)
+                        this.aaa = vm.downdata[0].userId;
+                        vm.downdata = xqzs.mood.initMoodsData(vm.downdata, false, vm.user.id);
+                    }
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture();//渲染完成
@@ -427,20 +569,63 @@
                 });
             },
             formatContent: function (item) {
-                var before=  "[ 在"+item.scense.text+"方面 ]";
+                var before=  "<div style='font-size: 12px; color:#999; margin-top: 3px;'>[ 在"+item.scense.text+"方面 ]</div>";
                 var before2=  "在"+item.scense.text+"方面：";
                 if(item.content!=''&&item.content!=null&&item.content!=undefined){
-                    return before2 + xqzs.face.parse(item.content);
+                    return   xqzs.face.parse(item.content) + before;
                 }else{
                     return before;
                 }
 
+            },
+            getWeekClass:function () {
+                let _this = this;
+                _this.$http.get(web.API_PATH+'user/index/week/_userId_').then(function (data) {
+                    var res = data.data.data
+                    console.log(res)
+                    _this.classGetup = res.getUp;
+                    _this.classCalendar = res.mood;
+                    _this.todayMood = res.mood.today;
+                    let todayfaceIndex = 0;
+                    if( _this.todayMood.moodValue){
+                        todayfaceIndex =  _this.todayMood.moodValue;
+                    }else {
+                        todayfaceIndex = 0;
+                        _this.todayMood.moodValue = 0;
+                    }
+                    _this.todayMood.smailUrl = web.IMG_PATH + "list_mood_0" + todayfaceIndex + ".png";
+                    _this.$set( _this.todayMood)
+
+
+                    _this.classHabit = res.habits;
+                    _this.classStep = res.weRun;
+                    let faceIndex = 0;
+                    _this.moodList =  res.mood.list;
+                    for(let i = 0;i<_this.moodList.length;i++){
+                        if(_this.moodList[i].moodValue){
+                            faceIndex = _this.moodList[i].moodValue;
+                        }else{
+                            faceIndex = 0;
+                            _this.moodList[i].moodValue= 0;
+                        }
+                        _this.moodList[i].smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
+                        _this.$set(_this.moodList,i,_this.moodList[i]);
+                    }
+                })
             }
 
         },
         mounted: function () {
+            let addmood = this.$route.query.addmood;
+            if(addmood==="true"){
+                setTimeout(function () {
+                    xqzs.coin.addAminate(xqzs.coin.constant.ADD_MOOD_TYPE);
+                },200)
+            }
+
 
             var _this = this;
+            _this.getWeekClass();
             _this.activeCalendarIndex  = _this.$route.query.activeIndex;
             let scrollFromEdit = _this.$route.query.scroll;
             if(scrollFromEdit==1){
@@ -450,34 +635,6 @@
 
             }
 
-            var addtabsSwiper = new Swiper('.addSwiperBox',{
-                speed:500,
-                onSlideChangeStart: function(){
-                    if(addtabsSwiper.activeIndex ==1){
-                        var H = $(".content-slide").find('.calendarTemplate_box').height();
-                        $(".content-slide").css('height', H + 'px');
-                        $('.yo-scroll').css('background','#fff');
-                        _this.isShowMoreText=false;
-                    }else{
-                        $(".content-slide").css('height',  'auto');
-                        $('.yo-scroll').css('background','#f5f5f5');
-                        _this.isShowMoreText=true
-                    }
-                }
-            });
-
-            $(".addSwiper a").on('touchstart click',function(e){
-                e.preventDefault()
-                $(".addSwiper .AddActive").removeClass('AddActive');
-                $(this).addClass('AddActive');
-                addtabsSwiper.slideTo($(this).index());
-                //console.log($(this).index())
-            });
-            if(_this.activeCalendarIndex==1){
-                setTimeout(function () {
-                    $(".addSwiper a:eq(1)").click();
-                },1)
-            }
             if(_this.$route.query.month!=undefined) {
                 let date = new Date();
                 let _month = date.getMonth();
@@ -488,6 +645,7 @@
             }
 
             this.getList();
+
             _this.$http.get(web.API_PATH + 'mood/get/user/mood/week/_userId_')
                 .then((data) => {
                 console.log(data)
@@ -504,7 +662,7 @@
                 })
                 .catch((response) => {
                 });
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.center);
 
         },
         components: {
@@ -520,6 +678,55 @@
 
 </script>
 <style>
+    .centerClassItem .classImg.getUpImg{
+        background: url(../images/index_btn_get_up.png) no-repeat #ffefcb center;
+        background-size: 1.4rem 1.4rem;
+        border:0.03rem  solid #ffb700;
+    }
+    .centerClassItem .classImg.rlImg{
+        background: url(../images/class_btn_rl.png) no-repeat rgba(251,208,190,1) center;
+        background-size: 1.2rem ;
+        border:0.03rem  solid rgba(255,102,51,1);
+    }
+    .centerClassItem .classImg.xgImg{
+        background: url(../images/index_btn_habit.png) no-repeat #def3cd center;
+        background-size: 1.03rem ;
+        border: 0.03rem solid #71c06d;
+    }
+    .centerClassItem .classImg.sportImg{
+        background: url(../images/class_btn_sport.png) no-repeat rgba(214,251,229,1) center;
+        background-size: 1rem ;
+        border: 0.03rem solid rgba(133,215,166,1);
+    }
+    .moodList_title{
+        height:4.35rem;
+        background: #fff;
+        line-height: 4.35rem;
+        border-bottom: 1px solid rgba(238,238,238,1);
+        padding-left: 15%;
+        color:rgba(51,51,51,1);
+        font-size: 0.88235rem;
+    }
+    .moodList_title>div{
+        position: relative;
+    }
+    .moodList_title .classImg{
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.7rem;
+        position: absolute;
+        left: -2.6rem;
+        top: 1.176471rem;
+        background: url("../images/mood_btn_class.png") no-repeat rgba(219,244,251,1) center;
+        border:0.03rem solid rgba(30,190,250,1);
+        background-size: 1rem;
+    }
+    .myIndex_box .index_banner{
+        height:8.8235rem;
+    }
+    .index_banner img{
+        height:100%;
+    }
     .moodState i {
         font-size: 12px;
         color: #999;
@@ -532,6 +739,10 @@
        -khtml-user-select:text !important;
        user-select:text !important;
     }
+
+    .moodPhotoList img.hw{ width: 10.05882352941176rem !important; height: auto !important}
+    .moodPhotoList img.hh{ height: 10.58823529411765rem !important; width: auto !important}
+
 
 
 

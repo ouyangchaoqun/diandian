@@ -2,7 +2,7 @@
 html,body{height: 100%; width: 100%;}
 
 html { /*375*/
-    font-family: -apple-system-font, Helvetica Neue, sans-serif;
+    font-family: -apple-system-font, Helvetica Neue, sans-serif,PingFangSC-Regular;
     font-size: 17px!important;
 }
 @media only screen and ( min-width:300px ) and (max-width: 321px) {
@@ -97,7 +97,7 @@ input,textarea{  -webkit-appearance:none;}
         transform: scale(1.2,1.2);
     }
 }
-
+.clear{ clear:both  }
 .happy_txt_color {
     color: #ff6f02;
 }
@@ -115,7 +115,7 @@ input,textarea{  -webkit-appearance:none;}
 .comment_box{
     width: 100%;
     background: #f5f5f5;
-    position: fixed;
+    position: absolute;
     left: 0;
     z-index: 10000;
     border-top:1px solid #ccc;
@@ -177,7 +177,7 @@ input,textarea{  -webkit-appearance:none;}
     font-size: 16px;
     line-height: 20px;
     width: 100%;
-
+    resize:none;
      border: none;
 }
 .comment_box.addactive{
@@ -254,45 +254,44 @@ li{list-style: none}
 
 }
 .IndexAdd{
-    height: 2.88rem;
     width:100%;
-    background:rgba(204,204,204,0.2);
-    position: absolute;
-    bottom:0;
+    background:#fff;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
+    border-bottom: 0.588235rem solid rgba(238,238,238,1);
+
 }
 .IndexAdd>div{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
     text-align: center;
-    color: rgba(255,255,255,0.4);
-    font-size: 0.588rem;
-    padding-top: 0.411rem;
-    line-height: 0.647rem;
+    color: rgba(51,51,51,0.5);
+    font-size: 0.6471rem;
+    line-height: 1;
+    padding:0.88235rem 0;
 }
 .IndexAdd>div:active{
-    background: #6C7587;
+    background: #f6f6f6;
 }
 .IndexAdd p{
     font-size: 1.058rem;
-    color: #fff;
-    margin-bottom: 0.294rem;
-    line-height: 1.058rem;
+    color: rgba(51,51,51,1);
+    margin-bottom: 0.35rem;
+    line-height: 1;
 }
 .IndexAddBorder{
     position: relative;
 }
 .IndexAddBorder span{
     width: 1px;
-    height: 0.88rem;
-    background: rgba(255,255,255,0.7);
+    height: 2rem;
+    background: rgba(219,219,219,1);
     position: absolute;
     display: block;
     top: 50%;
-    margin-top:-0.44rem;
+    margin-top:-1rem;
 }
 .IndexAddBorder span:nth-of-type(1){
     left:0;
@@ -313,25 +312,106 @@ li{list-style: none}
     text-align: center;
 
 }
-.addSwiper{
-    height: 2.588rem;
-    font-size: 13px;
-    border-bottom: 0.0588rem solid #eee;
-}
-.addSwiper a{
-    float: left;
-    background: #eeeeee;
-    width:50%;
-    text-align: center;
-    line-height: 2.588rem;
-    color: #999999;
-    height: 2.588rem;
-}
-.addSwiper .AddActive{
+/*新加个人主页类别统计*/
+.centerClass{
+    padding-left: 15%;
     background: #fff;
-    color: #333;
+}
+.centerClassItem .classImg{
+    width:2rem;
+    height:2rem;
+    border-radius: 0.7rem;
+    position: absolute;
+    left:-2.6rem;
+    top:1.176471rem;
 }
 
+.centerClassItem{
+    padding:1.76471rem 0.88235rem 0.88235rem 0;
+    border-bottom: 1px solid rgba(238,238,238,1);
+    position: relative;
+}
+.lastClassItem{
+    border: none;
+}
+.centerClassItem .classItem_top{
+    font-size: 0.88235rem;
+    line-height: 1;
+    color:rgba(51,51,51,1);
+    margin-bottom: 1.12rem;
+}
+.centerClassItem .classItem_top img{
+    float: right;
+    height:0.8235rem;
+}
+.centerClassItem .class_title{
+    color:rgba(153,153,153,1);
+    line-height: 1;
+}
+.class_titleTop,.class_titleBottom{
+    display: flex;
+    position: relative;
+}
+.class_titleTop span{
+    color:rgba(153,153,153,1);
+    font-size: 0.6471rem;
+    width:20%;
+    margin-bottom: 0.88235rem;
+}
+.class_titleTop .class_info{
+    color:rgba(153,153,153,1);
+    font-size: 0.70588rem;
+}
+.class_titleBottom .class_info{
+    color:rgba(102,102,102,1);
+    font-size: 0.588235rem;
+    position: absolute;
+    right:0;
+    bottom: 0;
+}
+.class_titleBottom img{
+    width:1.6471rem;
+}
+.classGetup .class_info img{
+    width:0.94rem;
+    position: absolute;
+    left:50%;
+    margin-left: -0.47rem;
+    top:-0.235rem;
+}
+.classCalendar .class_info img{
+    width:1.235rem;
+}
+.classHabit .class_info img{
+    width:0.941rem;
+}
+.class_titleBottom span{
+    color:rgba(51,51,51,1);
+    font-size: 0.88235rem;
+    width:20%;
+    font-family: PingFangSC-Regular;
+}
+.class_info{
+    float: right;
+    display: flex;
+    width:80%;
+}
+.class_info div{
+    flex: 1;
+    text-align: center;
+    position: relative;
+}
+.span_top{
+    margin-bottom: 0.88235rem;
+}
+.class_title .span_bottom{
+    font-size: 0.88235rem;
+    color:rgba(51,51,51,1);
+}
+.class_title .class_info .span_bottom{
+    color:rgba(102,102,102,1);
+    font-size: 0.588235rem;
+}
 
 
 
@@ -409,7 +489,6 @@ li{list-style: none}
     font-size: 12px;
     color: #999;
     position: relative;
-
 }
 
 .moodFollow {
@@ -437,7 +516,7 @@ li{list-style: none}
 
 .moodImg_right .moodPhotoLists.one > div {
     width: 10.07058823529412rem;
-    height: 7.623529411764706rem;
+    height:auto
 }
 
 .moodFunnPicList {
@@ -640,18 +719,28 @@ a{
     margin-bottom: 0.8235rem !important;
 }
 
-.share{
-
+.share {
     line-height: 40px;
     height: 40px;
     font-size: 14px;
     margin: 25px 15px 30px 15px;
-    color: #696969;
+    color: #fff;
     display: block;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background: #FFFFFF;
+    border: 1px solid #ffad00;
+    background: #ffaa00;
     border-radius: 5px;
     text-align: center;
+
+}
+.share:active{
+    background: #e5a000 !important;
 }
 
 .weui_tip{ position: absolute; top:50%; margin-top: -14px; line-height: 28px !important; z-index: 10000; background:rgba(0,0,0,0.8); border-radius: 10px; font-size: 13px; color:#fff; left:50%; padding: 0 10px;}
+
+
+/*屏蔽运营商劫持加入广告*/
+body>*:not(div):not(script):not(#ping_iframe):not([id*="__WeixinJSBridgeIframe"]):not(article){ display: none}
+html>*:not(body):not(head):not(#ping_iframe):not([id*="__WeixinJSBridgeIframe"]):not(#__vconsole){ display: none}
+body>div:not(#action_sheet_edit):not(#app):not(#toast):not(.actionSheet_wrap):not(.js_dialog):not(.weui-mask):not([class='']){ display: none}
+body>div[class='']>*:not(.weui-mask):not(.weui-picker){ display: none}

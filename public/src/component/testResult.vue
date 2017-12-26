@@ -1,20 +1,23 @@
 <template id="testResult">
     <div class="testResult">
-        <div class="testResult_top">
-            {{testResult_top}}
-        </div>
-        <div class="textResult_option" v-if="result.result!=null">
-            <div class="textResulth1"><img src="../images/textdg.png" alt="">测试结果</div>
-            <div class="textResulth2">{{result.result}}</div>
-        </div>
-        <div class="textResult_des" v-if="result.content!=null">
-            <div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>
-            <div class="textResult_main">{{result.content}}</div>
-        </div>
-        <div class="weui-btn weui-btn_primary textResult_btn" @click="testAgain()">重新测试</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div class="addBottomText"   v-html="result.result"></div>
+        <!--<div class="testResult_top">-->
+            <!--{{testResult_top}}-->
+        <!--</div>-->
+        <!--<div class="textResult_option" v-if="result.result!=null">-->
+            <!--<div class="textResulth1"><img src="../images/textdg.png" alt="">测试结果</div>-->
+            <!--<div class="textResulth2">{{result.result}}</div>-->
+        <!--</div>-->
+        <!--<div class="textResult_des" v-if="result.content!=null">-->
+            <!--<div class="textResulth1"><img src="../images/textsm.png" alt="">说明</div>-->
+            <!--<div class="textResult_main">{{result.content}}</div>-->
+        <!--</div>-->
+        <div class="addBtn" v-if="htmlOver" @click="toLeavMessage()">发表留言</div>
     </div>
 </template>
 <script type="text/javascript">
+    import showLoad from './showLoad.vue';
     var testResult = {
         template: '#testResult'
     }
@@ -22,18 +25,28 @@
         data() {
             return {
                 answerId: '',
+                resultId:'',
                 result: {},
-                testResult_top: ''
+                testResult_top: '',
+                showLoad:true,
+                htmlOver:false
             }
         },
         mounted: function () {
             let _this = this;
             _this.answerId = _this.$route.query.answerId;
+            _this.resultId = _this.$route.query.resultId;
             _this.$http.get(web.API_PATH + 'test/get/scoreonly/' + _this.answerId + '').then(response => {
                 if (response.data.status == 1) {
+                    _this.showLoad = false;
+                    _this.htmlOver = true;
                     _this.result = response.data.data
+                    console.log(_this.result)
                     _this.$http.get(web.API_PATH + 'test/get/' + _this.result.testId + '/_userId_').then(response => {
                         _this.testResult_top = response.data.data.title;
+                        xqzs.wx.shareConfig.test.desc=response.data.data.title;
+                        xqzs.wx.shareConfig.test.link=web.BASE_PATH+"#/psychtestDetail?testId="+_this.result.testId;
+                        xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.test);
                     }, response => {
                         // error
                     });
@@ -44,16 +57,23 @@
 
 
         },
+        components: {
+            'v-showLoad': showLoad
+        },
         methods: {
 
             testAgain: function () {
                 let _this = this;
-                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/' + _this.testId).then(function (res) {
+                _this.$http.put(web.API_PATH + 'test/create/order/_userId_/' + _this.result.testId).then(function (res) {
                     let config = res.data.data;
                     let url = web.BASE_PATH + "wxpay.php?appId=" + config.appId + "&timeStamp=" + config.timeStamp + "&nonceStr=" + config.nonceStr + "&package=" + config.package + "&signType=" + config.signType + "&paySign=" + config.paySign + "&reurl=" + encodeURIComponent(window.location.href + "&start=1");
                     window.location.href = url
                 })
             },
+            toLeavMessage:function () {
+                let _this = this;
+                _this.$router.push({path:'/testLeavMessage',query:{testId:_this.result.testId,resultId:_this.resultId}})
+            }
         }
 
     }
@@ -61,6 +81,24 @@
 <style>
     .testResult {
         background: #fff;
+        height:100%;
+        overflow-y: scroll;
+    }
+    .testResult .addBottomText{
+        padding:0.88235rem;
+    }
+    .testResult .addBtn{
+        margin:1rem auto 2rem auto;
+        width:40%;
+        height:2rem;
+        line-height: 2rem;
+        border-radius: 20px;
+        text-align: center;
+        border:1px solid #0BB20C;
+        color:#0BB20C;
+    }
+    .testResult .addBtn:active{
+        background: #eee;
     }
 
     .testResult_top {
@@ -78,12 +116,7 @@
     }
 
     .testResult img {
-        display: inline-block;
-        height: 0.88235rem;
-        width: 0.88235rem;
-        margin-top: -1px;
-        float: left;
-        margin-right: 0.588rem;
+        max-width: 100%;
     }
 
     .textResulth1 {

@@ -1,6 +1,6 @@
 <template id="friendCenter">
     <div class="myIndex_box friendIndex_box">
-
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title>好友{{nickName}}的主页</div>
         <div class="banner index_banner">
             <!--<v-banner></v-banner>-->
@@ -11,46 +11,155 @@
                 </div>
             </router-link>
             <div class="addName">{{nickName}}</div>
-            <v-indexCount></v-indexCount>
         </div>
-        <!--banner end -->
-        <div class="addSwiper">
-            <a href="#" hidefocus="true" class="AddActive">心情指数</a>
-            <a href="#" hidefocus="true">心情日历</a>
-        </div>
-        <div class="swiper-container addSwiperBox">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide content-slide swiper-no-swiping">
-                    <div class="chart_box" v-if="isLookFriend ">
-                        <v-chart :chartData="chartData"></v-chart>
-                        <div v-if="isLookFriend " class="addSwiperBoxText">（只展示好友最近七天的心情指数）</div>
+        <v-indexCount></v-indexCount>
+        <ul class="centerClass">
+            <li class="centerClassItem classGetup">
+                <div class="classImg getUpImg"></div>
+                <div class="classItem_top">
+                    早起打卡
+                </div>
+                <div class="class_title">
+                    <div class="class_titleTop">
+                        <span>起床时间</span>
+                        <div class="class_info">
+                            <div>一</div>
+                            <div>二</div>
+                            <div>三</div>
+                            <div>四</div>
+                            <div>五</div>
+                            <div>六</div>
+                            <div>日</div>
+                        </div>
                     </div>
-                    <div class="canot-look" v-if="!isLookFriend "></div>
+                    <div class="class_titleBottom">
+                        <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime!=''">{{classGetup.today.shorttime}}</span>
+                        <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime==''">--:--</span>
+                        <div class="class_info" style="height:0.588235rem;">
+                            <div v-for="item in classGetup.list">
+                                <template v-if="item.shorttime!=''">{{item.shorttime}}</template>
+                                <template v-if="item.weekix<=classGetup.today.weekix&&item.shorttime==''">
+                                    <img src="../images/norecord.png" alt="">
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="swiper-slide content-slide swiper-no-swiping">
-                    <v-calendarTemplate v-if="isLookFriend"></v-calendarTemplate>
-                    <div class="canot-look" v-if="!isLookFriend "></div>
+            </li>
+            <li class="centerClassItem classCalendar">
+                <div class="classImg rlImg"></div>
+                <div class="classItem_top">
+                    心情日历
                 </div>
-            </div>
-        </div>
+                <div class="class_title">
+                    <div class="class_titleTop">
+                        <span>今日心情</span>
+                        <div class="class_info">
+                            <div>一</div>
+                            <div>二</div>
+                            <div>三</div>
+                            <div>四</div>
+                            <div>五</div>
+                            <div>六</div>
+                            <div>日</div>
+                        </div>
+                    </div>
+                    <div class="class_titleBottom">
+                                <span>
+                                    <img :src="todayMood.smailUrl" alt="">
+                                </span>
+                        <div class="class_info">
+                            <div v-for="item in moodList">
+                                <template v-if="item.weekix<=todayMood.weekix">
+                                    <img :src="item.smailUrl" alt="">
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li >
+            <li class="centerClassItem classHabit">
+                <div class="classImg xgImg"></div>
+                <div class="classItem_top">
+                    健康习惯
+                </div>
+                <div class="class_title">
+                    <div class="class_titleTop">
+                        <span>今日完成</span>
+                        <div class="class_info">
+                            <div>一</div>
+                            <div>二</div>
+                            <div>三</div>
+                            <div>四</div>
+                            <div>五</div>
+                            <div>六</div>
+                            <div>日</div>
+                        </div>
+                    </div>
+                    <div class="class_titleBottom">
+                        <span style="height:0.88235rem;">{{classHabit&&classHabit.today.finishNum}}</span>
+                        <div class="class_info" style="bottom:-2px;">
+                            <div v-for="item in classHabit.list">
+                                <template v-if="item.finishNum!=0">
+                                    <img src="../images/habitf.png" alt="">
+                                </template>
+                                <template v-if="item.finishNum==0&&classHabit.today.weekix>=item.weekix">
+                                    <img src="../images/habitnof.png" alt="">
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li class="centerClassItem lastClassItem">
+                <div class="classImg sportImg"></div>
+                <div class="classItem_top">
+                    运动步数
+                </div>
+                <div class="class_title">
+                    <div class="class_titleTop">
+                        <span>今日步数</span>
+                        <div class="class_info">
+                            <div>一</div>
+                            <div>二</div>
+                            <div>三</div>
+                            <div>四</div>
+                            <div>五</div>
+                            <div>六</div>
+                            <div>日</div>
+                        </div>
+                    </div>
+                    <div class="class_titleBottom">
+                        <span style="height:0.88235rem;">{{classStep&&stepChange(classStep.today.step)}}</span>
+                        <div class="class_info">
+                            <div v-for="item in classStep.list">
+                                <template v-if="classStep.today.weekix>=item.weekix">{{stepChange(item.step)}}</template>
+                                <template v-if="classStep.today.weekix<item.weekix"></template>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        </ul>
     </div>
 </template>
 
 <script>
 
     import scroll from './lib/scroll.vue'
-    import chart from "./chart.vue"
     import banner from "./banner.vue"
     import indexCount from './indexCount.vue'
-    import calendarTemplate from './calendarTemplate.vue'
-    var friendCenter = {
-        template: '#friendCenter'
-    };
+    import showLoad from './showLoad.vue';
     export default {
         data() {
             return {
                 friend: {},
                 isLookFriend: true,
+                showLoad:false,
                 chartData: [
                     {"days": ["1月1", "2", "3", "4", "5", "6", "7"], "moods": [0, 0, 0, 0, 0, 0, 0]},
                     {"days": ["1月8", "9", "10", "11", "12", "13", "14"], "moods": [0, 0, 0, 0, 0, 0, 0]},
@@ -58,12 +167,59 @@
                     {"days": ["1月22", '23', "24", "25", "26", "27", "28"], "moods": [0, 0, 0, 0, 0, 0, 0]}
 
                 ],
-                friendSetLink: null
+                friendSetLink: '',
+                classGetup:'',
+                classCalendar:'',
+                classHabit:'',
+                classStep:'',
+                moodList:'',
+                todayMood:''
 
             }
         },
 
         methods: {
+            stepChange:function (n) {
+                if(n>=10000){
+                    n = parseInt(n/1000) + 'k';
+                }
+                return n;
+            },
+            getWeekClass:function () {
+                let _this = this;
+                let friendId = _this.$route.params.Id;
+                _this.showLoad = true
+                _this.$http.get(web.API_PATH+'user/index/week/'+friendId).then(function (data) {
+                    var res = data.data.data
+                    _this.showLoad = false
+                    _this.classGetup = res.getUp;
+                    _this.classCalendar = res.mood;
+                    _this.todayMood = res.mood.today;
+                    let todayfaceIndex = 0;
+                    if( _this.todayMood.moodValue){
+                        todayfaceIndex =  _this.todayMood.moodValue;
+                    }else {
+                        todayfaceIndex = 0;
+                        _this.todayMood.moodValue = 0;
+                    }
+                    _this.todayMood.smailUrl = web.IMG_PATH + "list_mood_0" + todayfaceIndex + ".png";
+                    _this.$set( _this.todayMood)
+                    _this.classHabit = res.habits;
+                    _this.classStep = res.weRun;
+                    let faceIndex = 0;
+                    _this.moodList =  res.mood.list;
+                    for(let i = 0;i<_this.moodList.length;i++){
+                        if(_this.moodList[i].moodValue){
+                            faceIndex = _this.moodList[i].moodValue;
+                        }else{
+                            faceIndex = 0;
+                            _this.moodList[i].moodValue= 0;
+                        }
+                        _this.moodList[i].smailUrl = web.IMG_PATH + "list_mood_0" + faceIndex + ".png";
+                        _this.$set(_this.moodList,i,_this.moodList[i]);
+                    }
+                })
+            },
             wxFaceUrl:function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
             },
@@ -117,66 +273,57 @@
             },
         },
         mounted: function () {
-            console.log("activated")
             let _this = this;
             _this.initData();
-            xqzs.wx.setConfig(_this);
-            $('.yo-scroll').css('background','#fff');
-            $(".addSwiper a").click(function(e){
-                e.preventDefault();
-            });
-            var addtabsSwiper = new Swiper('.addSwiperBox',{
-                speed:500,
-                initialSlide:0,
-                onSlideChangeStart: function(){
-                    if(addtabsSwiper.activeIndex ==1){
-                        var H = $(".content-slide").find('.calendarTemplate_box').height();
-                        $(".content-slide").css('height',H + 'px');
-                    }
-                }
-            });
-            $(".addSwiper a").on('touchstart mousedown',function(e){
-                e.preventDefault()
-                $(".addSwiper .AddActive").removeClass('AddActive');
-                $(this).addClass('AddActive');
-                addtabsSwiper.slideTo($(this).index());
-            });
+            _this.getWeekClass();
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
         },
 
 
         components: {
-            "v-chart": chart, "v-banner": banner,
+            "v-banner": banner,
             'v-indexCount':indexCount,
-            'v-calendarTemplate':calendarTemplate,
-            'v-scroll':scroll
+            'v-scroll':scroll,
+            'v-showLoad':showLoad
         }
     }
 
 
 </script>
 <style>
-    .canot-look {
-        clear: both;
-        width: 90%;
-        height: 10px;
-        background: url(../images/xt.jpg) top center no-repeat;
-        margin:35px auto;
-    }
-
     .friendIndex_box {
         background: #fff !important;
     }
-    .userHeaderImg img {
-        height: 64px;
-        width: 64px;
-        border-radius: 50%;
-        margin: auto;
-        display: block;
+    .centerClassItem .classImg.getUpImg{
+        background: url(../images/index_btn_get_up.png) no-repeat #ffefcb center;
+        background-size: 1.4rem 1.4rem;
+        border:0.03rem  solid #ffb700;
     }
-    .addSwiperBoxText{
-        font-size: 12px;
-        color: #999;
-        text-align: center;
-        margin-top: 15px;
+    .centerClassItem .classImg.rlImg{
+        background: url(../images/class_btn_rl.png) no-repeat rgba(251,208,190,1) center;
+        background-size: 1.2rem ;
+        border:0.03rem  solid rgba(255,102,51,1);
+    }
+    .centerClassItem .classImg.xgImg{
+        background: url(../images/index_btn_habit.png) no-repeat #def3cd center;
+        background-size: 1.03rem ;
+        border: 0.03rem solid #71c06d;
+    }
+    .centerClassItem .classImg.sportImg{
+        background: url(../images/class_btn_sport.png) no-repeat rgba(214,251,229,1) center;
+        background-size: 1rem ;
+        border: 0.03rem solid rgba(133,215,166,1);
+    }
+    .friendIndex_box .IndexAdd>div:active{
+        background: none;
+    }
+    .friendIndex_box .centerClass{
+        margin-bottom: 2rem;
+    }
+    .friendIndex_box .index_banner{
+        height:8.8235rem;
+    }
+    .index_banner img{
+        height:100%;
     }
 </style>

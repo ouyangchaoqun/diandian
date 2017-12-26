@@ -1,6 +1,6 @@
 <template id="chart">
     <div>
-        <div class="bgs" :style="chartStyle">
+        <div class="bgs" style="overflow: hidden" :style="chartStyle">
             <div class="title">心情指数</div>
             <div class="step">
                 <div class="swiper-container swiper-container-h chartSwiper">
@@ -243,6 +243,9 @@
 
                 });
 
+                setTimeout(function () {
+                    $(".highcharts-root").css({width:o.width,height:o.height});
+                },200)
 
             },
             makeCharts: function (data, width, height) {

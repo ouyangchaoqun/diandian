@@ -1,15 +1,41 @@
 <template id="sleepRank">
-    <div class="clock_box" :class="{clock_boxNight:isNight}" style="position: relative;">
+    <div class="clock_box sleep_rank_box" :class="{clock_boxNight:isNight}" style="position: relative;">
         <div v-title>{{sleepRank_title}}</div>
+        <!--新增打卡失败场景-->
+        <div class="record_loseBox weui-mask weui-animate-fade-in" v-show="isLose" @click="hideLoseBox()">
+            <div class="diglog_lose" :class="{'morning_lose':!isNight,'night_lose':isNight}">
+                <div class="title_lose">错过打卡</div>
+                <div class="record_time">
+                    打卡时间：<template v-if="!isNight">{{MORNING_FROM_TIME}}-{{MORNING_END_TIME}}</template>
+                    <template v-if="isNight">{{NIGHT_FROM_TIME}}-{{NIGHT_END_TIME}}</template> </div>
+                <div class="lose_bottom" :class="{'morning_bottom':!isNight,'night_bottom':isNight}" @click="set()">
+                    设置提醒
+                </div>
+            </div>
+            <img class="close_btn" src="../images/close_loseBox.png" alt="">
+        </div>
         <div class="myshare" v-show="isShowShareTip" @click="share()">
         </div>
         <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd"
                   :isShowMoreText="isShowMoreText">
+            <div class="day_or_night">
+                <div v-if="isNight" class="btn day_rank" @click="goDayRank()">
+                    <img src="../images/morning_rank_btn.png" alt="">
+                </div>
+                <div v-if="!isNight" class="btn night_rank" @click="goNightRank()">
+                    <img src="../images/night_rank_btn.png" alt="">
+                </div>
+
+            </div>
+            <div class="addIcon_sleepRank">
+                <img src="../images/addIcon_sleepRank.png" alt="">
+                <span>{{user.coinAmount}}</span>
+            </div>
             <div class="ranks_boxl">
                 <v-showLoad v-if="showLoad"></v-showLoad>
                 <div class="clock_top" :class="{clock_topNight:isNight}">
                     <div class="hot" v-if="!isClickFace&&!isGuest"></div>
-                    <div class="share2" @click="share">分享</div>
+                    <div class="share2" @click="share" style="display: none;">分享</div>
                     <div class="clock_head">
 
                         <img @click="goRecordCount()" :src="user.faceUrl" alt="">
@@ -49,10 +75,12 @@
                         <div class="clock_ratio">{{date}}共有{{allCount}}人陪我早睡</div>
                     </div>
                 </div>
+
+
                 <div class="clock_tab" v-show="!isGuest" :class="{clock_tabNight:isNight}" style="position: relative;">
-                    <div class="tab_title">好友排行</div>
-                    <div class="clock_tabActive tab_title tab_title_middle">总排行</div>
-                    <div class=" tab_title tab_title_right">留言榜</div>
+                    <div class="tab_title clock_tabActive ">好友排行</div>
+                    <div class="tab_title tab_title_middle">总排行</div>
+                    <div class="tab_title tab_title_right" @click="tip()">设置提醒</div>
                     <div class="tabMove"></div>
                 </div>
 
@@ -70,7 +98,7 @@
 
                 <div class="rank_Bgbox" :class="{box_padding_bottom:showBottomBtnType}">
                     <div class="rank_box gomiddle">
-                        <div class="clock_rank" :class="'clock_rank'+boxid" v-for="boxid in [1,2,3]">
+                        <div class="clock_rank" :class="'clock_rank'+boxid" v-for="boxid in [1,2]">
                             <div class="rank_list me_rank"
                                  :class="{rank_listNight:isNight,has_content:user&&currUser&&user.id==currUser.id&&myFirst.rank!=''||(!(user&&currUser&&user.id==currUser.id)&&myFirst.content!=null&&myFirst.content!='')}">
 
@@ -81,7 +109,7 @@
                                 <div class="rank_main">
                                     <img class="rank_headImg" :src="wxFaceUrl(user.faceUrl)" alt="">
                                     <div class="rank_name">
-                                        <div class="rank_NickName">{{cutNickName(user.nickName)}}</div>
+                                        <div class="rank_NickName" :class="{line32:myFirst.rank==''}">{{cutNickName(user.nickName)}}</div>
                                         <div @click="addComment(myFirst.id)" class="addLy"
                                              v-if="user&&currUser&&user.id==currUser.id&&(myFirst.content==null||myFirst.content=='')&&myFirst.rank!=''">
                                             互道{{sleepNameShort}}安或留言
@@ -115,19 +143,21 @@
                                     <div class="rank_main rank_border" :class="{rank_borderNight:isNight}">
                                         <img class="rank_headImg" :src="wxFaceUrl(rankList.faceUrl)" alt="">
                                         <div class="rank_name">
-                                            <div class="rank_NickName">{{cutNickName(rankList.nickName)}}</div>
+                                            <div class="rank_NickName">{{cutNickName(rankList.nickName)}}<span class="continue_day addMessage" style="margin-left: 0.35rem">+<span>{{rankList.totalDays}}</span>天</span></div>
+                                            <!--<div class="continue_day addMessage">累计打卡<span>{{rankList.totalDays}}</span>天</div>-->
                                             <div class="addMessage">{{rankList.content}}</div>
                                         </div>
                                         <div class="clock_time">{{rankList.time}}</div>
                                     </div>
                                     <div class="rank_right" :class="{rank_rightNight:isNight}">
-                                        <div @click.stop="addCare(rankList)" class="care_icon">
+                                        <div @click.stop="addCare(rankList,index)" class="care_icon">
                                             <span>{{rankList.careCount||0}}</span>
                                             <img :src="rankList.careImg" alt="" :class="{heartUp:rankList.hit}">
                                         </div>
                                     </div>
                                 </li>
                             </ul>
+                            <a class="share" @click="addCareAll()" v-if="canCareAll">关心所有人</a>
                             <a class="share" @click="createinvite()" v-if="boxid==1&&typeId==2">点击生成好友邀请卡</a>
                         </div>
 
@@ -155,7 +185,56 @@
     </div>
 </template>
 <style>
+    /*新增积分*/
+    .addIcon_sleepRank{
+        position: absolute;
+        top:3rem;
+        left:1rem;
+    }
+    .addIcon_sleepRank img{
+        width:0.88235rem;
+        display: inline-block;
+    }
+    .addIcon_sleepRank span{
+        color:#ffaa00;
+        font-size: 0.76471rem;
+        vertical-align: text-top;
+        display: inline-block;
+    }
+    /*新增打卡失败*/
+    .sleep_rank_box .record_loseBox{z-index:10001 !important;}
+    .sleep_rank_box .record_loseBox .diglog_lose{width:17.647rem;height:17.647rem;position: absolute;top:20%;left:50%;margin-left: -8.8235rem;text-align: center;padding:0}
+    .sleep_rank_box .morning_lose{background: url("../images/morning_lose.png") no-repeat;background-size: 100% 100%;color:rgba(51,51,51,1);}
+    .sleep_rank_box .night_lose{background: url("../images/night_lose.png") no-repeat;background-size: 100% 100%;color:rgba(255,255,255,1)}
+    .sleep_rank_box .title_lose{font-size: 1.176471rem;line-height: 1;width:100%;position: absolute;top:46%;}
+    .sleep_rank_box .record_time{font-size: 0.8235rem;line-height: 1;position: absolute;width:100%;top:58%;}
+    .sleep_rank_box .diglog_lose p{font-size: 0.76471rem;text-align: left;line-height: 1.35rem;padding:0 0.88235rem}
+    .sleep_rank_box .lose_bottom{width:66%;height:2.35rem;font-size: 0.88235rem;color:rgba(252,252,247,1);line-height: 2.4rem;position: absolute;bottom:8%;left:50%;margin-left: -33%;border-radius: 1.176471rem;}
+    .sleep_rank_box .morning_bottom{background: rgba(251,184,40,1);}
+    .sleep_rank_box .night_bottom{background: rgba(68,60,97,1);}
+    .sleep_rank_box .morning_bottom:active{background:#d69c21;}
+    .sleep_rank_box .night_bottom:active{background: #37314f;}
+    .sleep_rank_box .close_btn{display: block;width:1.471rem;position: absolute; bottom: 15%; left: 50%;margin-left: -0.7355rem;}
+    .day_or_night{
+        position: absolute;
+        display: flex;
+        right:0.88235rem;
+        z-index: 1000;
+        top:2.35rem;
+        transform: rotateY(0deg);
 
+    }
+    .day_or_night_rotate{
+        transform: rotateY(180deg);
+        transition: all 1s;
+    }
+    .day_or_night img {
+        display: block;
+        width:2.1176471rem;
+    }
+
+
+    .line32{ line-height: 2.35rem !important;}
     .share:active{
         background: #ECECEC;
     }
@@ -194,7 +273,7 @@
     }
 
     .clock_rank {
-        width: 33.333%;
+        width: 50%;
         float: left;
     }
 
@@ -343,7 +422,7 @@
     .clock_tab .tab_title {
         z-index: 100;
         position: absolute;
-        width: 33.3333%;
+        width:33.333%;
         height: 2rem;
     }
 
@@ -352,7 +431,7 @@
     }
 
     .clock_tab .tab_title_middle {
-        left: 33.33333%;
+        left: 33.333%;
     }
 
     .clock_tabNight > div {
@@ -361,7 +440,7 @@
 
     .tabMove {
         height: 100%;
-        width: 33.3333%;
+        width: 33.333%;
         background: #fff;
         border-radius: 1rem;
         position: absolute;
@@ -453,6 +532,8 @@
         display: inline;
     }
 
+    .continue_day span{   color: #ffaa00;   }
+
     .addLy:active {
         background: #eee;
 
@@ -493,10 +574,10 @@
         position: absolute;
         right: 18px;
         top: 0;
-    }
+     }
 
     .care_icon {
-        padding: 0.8rem 0.88235rem 0.85rem 1.2rem
+        padding: 0.8rem 0.88235rem 0.85rem  1.8rem
     }
 
     .clock_box .rank_right img {
@@ -530,8 +611,8 @@
         -webkit-transition: transform .5s;
         transition: transform .5s;
         /*margin-left: -100%;*/
-        -webkit-transform: translate3d(-33.333%, 0, 0);
-        transform: translate3d(-33.333%, 0, 0)
+        -webkit-transform: translate3d(-50%, 0, 0);
+        transform: translate3d(-50%, 0, 0)
     }
 
     .goright {
@@ -553,7 +634,7 @@
     }
 
     .rank_box {
-        width: 300%;
+        width: 200%;
         margin-top: 0.88235rem
     }
 
@@ -574,7 +655,7 @@
         border-bottom: none;
     }
 
-    .notice_box_p {
+   .sleep_rank_box .notice_box_p {
         padding: 16px 0;
         padding-bottom: 0
     }
@@ -667,7 +748,7 @@
     }
 
     .myshare {
-        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background: url(../images/share.png?v=2) no-repeat center top rgba(0, 0, 0, 0.9);
         background-position: 2.5rem 3.5rem;
         background-size: 80%;
         height: 100%;
@@ -695,6 +776,8 @@
         },
         data() {
             return {
+                canCareAll:false,
+                careAllIndex:0,
                 isClickFace: false,
                 sleepNameShort: "早",
                 sleepName: "早起",
@@ -722,7 +805,7 @@
                 clockMonth: '',
                 clockYear: '',
                 rankUrl: "",
-                rankType: 2,
+                rankType: 1,
                 isLoading: false,
                 careUserId: 0, //通过连接点击过来 跳到指定的用户
                 isShowMoreText: true,
@@ -734,8 +817,12 @@
                 isShowShareTip: false,
                 showBottomBtnType: 0,
                 showBottomBtnText: "",
-                isLogin: false
-
+                isLogin: false,
+                isLose:false,
+                MORNING_FROM_TIME: '5:00',
+                MORNING_END_TIME: '10:00',
+                NIGHT_FROM_TIME: '20:00',
+                NIGHT_END_TIME: '23:59',
             }
         },
 
@@ -744,166 +831,317 @@
 
         },
         mounted: function () {
-
-            let _this = this;
-            this.showLoad = true;
-            if (web.guest) _this.isGuest = true;
-
-            if (xqzs.localdb.get("rank_click_head_face") == 'true') {
-                this.isClickFace = true;
-            }
-
-
-            _this.careUserId = _this.$route.query.careUserId;
-            if (_this.$route.query.userid) {
-                _this.userid = _this.$route.query.userid;
-            }
-            let userIdStr = "_userId_";
-            if (_this.userid) {
-                userIdStr = _this.userid;
-            }
-
-            _this.time = new Date();
-            _this.typeId = _this.$route.query.type;
-            _this.clockDay = _this.time.getDate();
-            _this.clockMonth = _this.time.getMonth() + 1;
-            _this.clockYear = _this.time.getFullYear();
-            let guestUrl = "";
-            if (web.guest) {
-                guestUrl = "?guest=true"
-            }
-
-
-            if (_this.typeId == 3) {
-                _this.sleepName = "早睡"
-                _this.sleepNameShort = "晚"
-            }
-
-
-            //总排行
-            var typeId = this.$route.query.type;
-
-            if (typeId == 3) {
-                this.isNight = true;
-                this.sleepRank_title = "早睡排行";
-            } else {
-                this.sleepRank_title = "早起排行";
-            }
-
-
-            //修改排行榜类型
-            $('.clock_tab .tab_title').on('click', function () {
-
-                let domThis = this;
-
-                $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
-                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");
-
-
-                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+            let _this=this;
+            this.typeId = this.$route.query.type;
+            let checkin = this.$route.query.checkin;
+            if(checkin==="true"){
                 setTimeout(function () {
-                    $(domThis).addClass('clock_tabActive')
-                }, 150)
-//
-
-
-                switch ($(this).index()) {
-                    case 0:  //左边
-                        $('.tabMove').addClass('tab_goleft');
-                        $('.rank_box').addClass('goleft')
-                        _this.changeRankType(1);
-                        break;
-                    case 1: //中间
-                        $('.tabMove').addClass('tab_goMiddle');
-                        $('.rank_box').addClass('gomiddle')
-                        _this.changeRankType(2);
-                        break;
-                    case 2:    //右边
-                        $('.tabMove').addClass('tab_goRight');
-                        $('.rank_box').addClass('goright')
-                        _this.changeRankType(3);
-                        break
+                    xqzs.coin.addAminate(_this.typeId);
+                },200)
+            }
+            this.initData();
+            this.$nextTick(function () {
+                if((cookie.get('record_lose')=='true'&&cookie.get('loseBox_frist')=='true')||(cookie.get('record_lose_night')=='true'&&cookie.get('loseBox_frist_night')=='true')){
+                    this.initSleepConfig();
+                    let cookieYear = new Date().getFullYear().toString();
+                    let cookieMonth = new Date().getMonth().toString();
+                    let cookieDay = new Date().getDate().toString();
+                    var endTimeStamp = Math.round(new Date(cookieYear,cookieMonth,cookieDay,23,59,0).getTime()/1000);
+                    let nowTimeStamp=Math.round(new Date().getTime()/1000);
+                    let CookieExpire = (endTimeStamp-nowTimeStamp)/60/60/24;
+                    this.isLose = true;
+                    cookie.set('record_lose','false',CookieExpire)
+                    cookie.set('record_lose_night','false',CookieExpire)
                 }
-
-
             })
 
 
-            //获取查询用户信息
-
-            this.$http({
-                method: 'GET',
-                type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/' + userIdStr + '' + guestUrl,
-            }).then(function (data) {//es5写法
-                if (data.data.data !== null) {
-                    _this.user = data.data.data;
-                    //二维码
-                    _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.user.id + guestUrl).then(function (data) {//es5写法
-                        $("#output").empty();
-//                        console.log(xqzs.string.toUtf8(data.body.data));
-                        $('#output').qrcode({
-                            width: 100, height: 100,
-                            text: xqzs.string.toUtf8(data.body.data), background: "#ffffff",
-                            foreground: "red"
-                        });
-
-                    }, function (error) {
-
-                    });
-
-                    _this.$http.get(web.API_PATH + 'sleep/daily/info/' + _this.user.id + '/' + _this.typeId + guestUrl).then(data => {
-                        if (data.data.status === 1) {
-                            _this.allDay = data.data.data.allDays;
-                            _this.continueDay = data.data.data.continueDays;
-                            _this.allCount = data.data.data.userNum;
-
-
-                            let date = new Date(data.data.data.time * 1000);
-                            if (data.data.data.time && data.data.data.time != null) {
-                                _this.date = date.getFullYear() + "年" + (  date.getMonth() + 1) + "月" + date.getDate() + "日，"
-                            }
-
-                            xqzs.wx.setConfig(this, function () {
-
-
-                                let sleepName = "早起";
-                                if (_this.typeId == 3) {
-                                    sleepName = "早睡"
-                                }
-
-                                let title = "坚持" + sleepName + "，遇见更好自己";
-                                let desc = "我已经连续" + _this.continueDay + "天" + sleepName + "，" + _this.date + sleepName + "排行全国第 " + data.data.data.rank + " 名！";
-                                if (data.data.data.time == null) {
-                                    desc = "我要从明天开始，加入21天" + sleepName + "计划，挑战自己！";
-                                }
-
-
-                                wx.showAllNonBaseMenuItem();
-                                var config = {
-                                    imgUrl: _this.user.faceUrl,
-                                    title: title,
-                                    desc: desc,
-                                    link: web.BASE_PATH + "guest/#/sleepRank?type=" + _this.typeId + "&userid=" + _this.user.id,
-                                };
-                                weshare.init(wx, config, function () {
-                                }, function () {
-                                })
-                            });
-                        }
-                    });
-
-
-                }
-                _this.getCurrUser();
-            }, function (error) {
-                _this.getCurrUser();
-            });
-
-
+        },
+        watch:{
+            // shopNo改变时重新加载
+            typeId:function(typeId){
+                this.initData();
+            }
         },
         methods: {
+            set:function () {
+                this.$router.push('/me/subscribe')
+            },
+            hideLoseBox:function () {
+                this.isLose = false
+            },
+            initSleepConfig:function () {
+                let _this=this;
+                //是否打卡
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + "record/sleep/get/is/record/_userId_",
+                }).then(function (data) {
+                    if (data.body.status == 1) {
+                        _this.isGetUp = data.body.data.isGetUp;
+                        _this.isGoBed = data.body.data.isGoBed;
+                        _this.goBedId = data.body.data.goBedId;
+                        _this.getUpId = data.body.data.getUpId;
 
+                        _this.MORNING_FROM_TIME = data.body.data.getUpConfig.starttime;
+                        _this.MORNING_END_TIME = data.body.data.getUpConfig.endtime;
+                        _this.NIGHT_FROM_TIME = data.body.data.goBedConfig.starttime;
+                        _this.NIGHT_END_TIME = data.body.data.goBedConfig.endtime;
+                    }
+                }, function (error) {
+
+                });
+            },
+            tip:function () {
+                this.$router.push('/me/subscribe')
+            },
+              initData:function () {
+                let _this = this;
+                $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
+                $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");
+                $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                $('.tabMove').addClass('tab_goleft');
+                $('.rank_box').addClass('goleft')
+
+                $(".clock_tab .tab_title:first-child").addClass('clock_tabActive');
+
+
+                _this.canCareAll=false;
+                _this.careAllIndex=0;
+                _this.isClickFace= false;
+                _this.sleepNameShort= "早";
+                _this.sleepName= "早起";
+                _this.notice= {count: 0};
+                _this.FIRST_PAGE_NUM= 100;
+                _this.STEP_PAGE_NUM= 20;
+                _this.myFirst={rank: "", time: "--:--", notRecordTxt: "还未打卡"};
+                _this.rankLists= [];
+                _this.isNight= false;
+                _this.continueDay= 0;
+                _this.allDay= 0;
+                _this.earlyPre= 0;
+                _this.allCount= 0;
+                _this.clock_careCount= 0;
+                _this.sleepRank_title= '';
+                _this.swipersettime= null;
+                _this.showLoad= false;
+                _this.date= "";
+                _this.counter= 1;
+                _this.isPageEnd= false;
+                _this.num= 100;
+                _this.time= '';
+                _this.clockDay= '';
+                _this.clockMonth= '';
+                _this.clockYear= '';
+                _this.rankUrl= "";
+                _this.rankType= 1;
+                _this.isLoading= false;
+                _this.careUserId= 0; //通过连接点击过来 跳到指定的用户
+                _this.isShowMoreText= true;
+                _this.sleepId= '';
+                _this.userid= 0;
+                _this.isGuest= false;
+                _this.user= {};
+                _this.currUser= false;
+                _this.isShowShareTip= false;
+                _this.showBottomBtnType= 0;
+                _this.showBottomBtnText= "";
+                _this.isLogin=false;
+
+
+                this.showLoad = true;
+                if (web.guest) _this.isGuest = true;
+
+                if (xqzs.localdb.get("rank_click_head_face") == 'true') {
+                    this.isClickFace = true;
+                }
+
+
+                _this.careUserId = _this.$route.query.careUserId;
+                if (_this.$route.query.userid) {
+                    _this.userid = _this.$route.query.userid;
+                }
+                let userIdStr = "_userId_";
+                if (_this.userid) {
+                    userIdStr = _this.userid;
+                }
+                  let yesYear =  _this.$route.query.year;
+                  let yesMonth =  _this.$route.query.month;
+                  let yesDay =  _this.$route.query.date;
+
+                _this.time = new Date();
+                _this.clockDay = yesDay||_this.time.getDate();
+                _this.clockMonth = yesMonth||_this.time.getMonth() + 1;
+                _this.clockYear = yesYear||_this.time.getFullYear();
+                let guestUrl = "";
+                if (web.guest) {
+                    guestUrl = "?guest=true"
+                }
+
+
+                if (_this.typeId == 3) {
+                    _this.sleepName = "早睡"
+                    _this.sleepNameShort = "晚"
+                }
+
+
+                //总排行
+                var typeId = _this.typeId;
+
+                if (typeId == 3) {
+                    this.isNight = true;
+                    this.sleepRank_title = "早睡排行";
+                } else {
+                    this.sleepRank_title = "早起排行";
+                }
+
+
+                //修改排行榜类型
+                $('.clock_tab .tab_title').on('click', function () {
+
+                    let domThis = this;
+
+                    $('.rank_box').removeClass('goleft').removeClass('goright').removeClass("gomiddle")
+                    $('.tabMove').removeClass('tab_goleft').removeClass('tab_goRight').removeClass("tab_goMiddle");
+
+
+                    $('.clock_tab .clock_tabActive').removeClass('clock_tabActive');
+                    setTimeout(function () {
+                        $(domThis).addClass('clock_tabActive')
+                    }, 150)
+
+
+
+                    switch ($(this).index()) {
+                        case 0:  //左边
+                            $('.tabMove').addClass('tab_goleft');
+                            $('.rank_box').addClass('goleft')
+                            _this.changeRankType(1);
+                            break;
+                        case 1: //中间
+                            $('.tabMove').addClass('tab_goMiddle');
+                            $('.rank_box').addClass('gomiddle')
+                            _this.changeRankType(2);
+                            break;
+                        case 2:    //右边
+                            $('.tabMove').addClass('tab_goRight');
+                            $('.rank_box').addClass('goright')
+                            _this.changeRankType(3);
+                            break
+                    }
+
+
+                })
+
+
+                //获取查询用户信息
+
+                this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/' + userIdStr + '' + guestUrl,
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = data.data.data;
+                        //二维码
+                        _this.$http.get(web.API_PATH + 'user/get/qr/code/' + _this.user.id + guestUrl).then(function (data) {//es5写法
+                            $("#output").empty();
+//                        console.log(xqzs.string.toUtf8(data.body.data));
+                            if(data.body.data&&data.body.data!='')
+                                $('#output').qrcode({
+                                    width: 100, height: 100,
+                                    text: xqzs.string.toUtf8(data.body.data), background: "#ffffff",
+                                    foreground: "red"
+                                });
+
+                        }, function (error) {
+
+                        });
+
+                        _this.$http.get(web.API_PATH + 'sleep/daily/info/' + _this.user.id + '/' + _this.typeId + guestUrl).then(data => {
+                            if (data.data.status === 1) {
+                                _this.allDay = data.data.data.allDays;
+                                _this.continueDay = data.data.data.continueDays;
+                                _this.allCount = data.data.data.userNum;
+
+
+                                let date = new Date(data.data.data.time * 1000);
+                                if (data.data.data.time && data.data.data.time != null) {
+                                    _this.date = date.getFullYear() + "年" + (  date.getMonth() + 1) + "月" + date.getDate() + "日，"
+                                }
+
+                                xqzs.wx.setConfig(this, function () {
+                                    let sleepName = "早起";
+                                    if (_this.typeId == 3) {
+                                        sleepName = "早睡"
+                                    }
+
+                                    let title = "坚持" + sleepName + "，遇见更好自己";
+                                    let desc = "我已经连续" + _this.continueDay + "天" + sleepName + "，" + _this.date + sleepName + "排行全国第 " + data.data.data.rank + " 名！";
+                                    if (data.data.data.time == null) {
+                                        desc = "我要从明天开始，加入21天" + sleepName + "计划，挑战自己！";
+                                    }
+
+
+
+                                    var config = {
+                                        imgUrl: _this.user.faceUrl,
+                                        title: "坚持早睡早起，遇见更好的自己",
+                                        desc: '参与早睡早起打卡计划，培养自律，让生活更好一点！',
+                                        link: web.BASE_PATH + "guest/#/sleepRank?type=" + _this.typeId + "&userid=" + _this.user.id,
+                                    };
+                                    weshare.init(wx, config, function () {
+                                    }, function () {
+                                    })
+                                });
+                            }
+                        });
+
+
+                    }
+                    _this.getCurrUser();
+                }, function (error) {
+                    _this.getCurrUser();
+                });
+            },
+
+            autoShare:function () {
+                let _this=this;
+                let type=_this.typeId;
+                //打卡成功 判断
+                if(this.myFirst.rank!=''&&type==2){
+                    //获取cookie 数据
+                    let date=new Date();
+                    let year= date.getFullYear();
+
+                    let cookieKey="auto_share_week_one_not_night_"+year+"_"+now_week+"_"+type
+                    let autoShareCookie= cookie.get(cookieKey);
+                    if(autoShareCookie&&autoShareCookie==1){
+                        //本周已经分享过了
+                    }else{
+                        cookie.set(cookieKey,1,15);
+                        _this.share();
+                    }
+                }
+
+
+
+
+
+
+            },
+            goDayRank:function(){
+
+                if (this.typeId == 3) {
+                    this.typeId=2;
+                }
+            },
+            goNightRank:function () {
+                if (this.typeId == 2) {
+                    this.typeId=3;
+                }
+            },
             createinvite: function () {
                 let _this = this;
                 _this.showLoad = true;
@@ -944,6 +1182,10 @@
                         _this.isLogin = true;
                     }
 
+                    if(_this.currUser.id==25||_this.currUser.id==26||_this.currUser.id==27||_this.currUser.id==1656||_this.currUser.id==818||_this.currUser.id==1658||_this.currUser.id==424||_this.currUser.id==1007||_this.currUser.id==3696||_this.currUser.id==30||_this.currUser.id==32){
+                        _this.canCareAll=true;
+
+                    }
 
                     this.$http.get(web.API_PATH + "user/get/judge/relation/" + this.currUser.id + "/" + this.user.id).then((response) => {
                         let isFriend = false;
@@ -1125,8 +1367,8 @@
                 }
 
 
-                console.log(vm.isLoading)
-                console.log(vm.isPageEnd)
+                console.log(vm.isLoading);
+                console.log(vm.isPageEnd);
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -1140,6 +1382,12 @@
                     vm.showLoad = false;
                     vm.isLoading = false;
 //                    console.log(response)
+                    if(vm.counter==1&&response.data.status==20001){
+                        vm.rankLists = [];
+                    }
+                    if(response.data.status==20001){
+                        return;
+                    }
 
 
                     if (response.data.data.userRank && response.data.data.userRank.content != null) {
@@ -1147,6 +1395,9 @@
                     }
 
                     vm.myFirst = response.data.data.userRank || vm.myFirst;
+
+                    vm.autoShare();
+
                     vm.myFirst = vm.initCareImg(vm.myFirst, true);
 
 
@@ -1166,7 +1417,7 @@
                         vm.isShowMoreText = false
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
-                    if (arr.length == 0) return;
+
                     for (let i = 0; i < arr.length; i++) {
                         arr[i] = vm.initCareImg(arr[i]);
                         if (arr[i].content != null) {
@@ -1183,6 +1434,7 @@
                     } else {
                         vm.rankLists = vm.rankLists.concat(arr);
                     }
+                    if (arr.length == 0) return;
 
 
                     //判断是否从提醒页面到 那么定位到 这个用户
@@ -1259,7 +1511,7 @@
 
                 }, function (v) {
 
-                }, '最多20个字', 20)
+                }, '最多35个字', 35)
             },
             wxFaceUrl: function (faceUrl) {
                 return xqzs.mood.wxface(faceUrl);
@@ -1274,13 +1526,27 @@
                 }
 
             },
-            addCare: function (item) {
+
+            addCareAll:function () {
+                let _this= this;
+                let list = _this.rankLists;
+
+                if(parseInt(_this.careAllIndex)> list.length-1){
+                    return  '';
+                }
+                _this.addCare(list[_this.careAllIndex],_this.careAllIndex,true)
+
+
+            },
+            addCare: function (item,index,isCareAll) {
                 let _this = this;
                 //如果没有关注公众号则弹出二维码
                 if (!_this.currUser) {
                     _this.follow()
                     return;
                 }
+                let list = _this.rankLists;
+
                 if (item.caremy == 0 || item.caremy == undefined) {
                     _this.$http.put(web.API_PATH + 'mood/care/add', {
                         "moodId": null,
@@ -1289,40 +1555,47 @@
                         'withId': item.id
                     }).then(response => {
                         if (response.data.status === 1) {
-                            let list = _this.rankLists;
-                            for (let i = 0; i < list.length; i++) {
-                                if (list[i].id == item.id) {
-                                    list[i].careCount = response.data.data;
-                                    list[i].caremy = 1;
-                                    list[i].hit = true;
-                                    list[i] = _this.initCareImg(list[i])
-                                    _this.$set(_this.rankLists, i, list[i]);
-                                    //更新顶部信息
+                            list[index].careCount = response.data.data;
+                            list[index].caremy = 1;
+                            list[index].hit = true;
+                            list[index] = _this.initCareImg(list[index])
+                            _this.$set(_this.rankLists, index, list[index]);
+                            //更新顶部信息
 
-                                    if (list[i].id == _this.myFirst.id) {
+                            if (list[index].id == _this.myFirst.id) {
+                                _this.myFirst.caremy = 1;
+                                _this.myFirst.hit = true;
+                                _this.myFirst = _this.initCareImg(_this.myFirst, true);
+                                _this.myFirst.careCount = response.data.data;
+                            }
+                            if(isCareAll){
+                                _this.careAllIndex=parseInt(_this.careAllIndex)+1;
+                                _this.addCareAll();
 
-                                        _this.myFirst.caremy = 1;
-                                        _this.myFirst.hit = true;
-                                        _this.myFirst = _this.initCareImg(_this.myFirst, true);
-                                        _this.myFirst.careCount = response.data.data;
-                                    }
-                                    break;
-
-                                }
                             }
                         }
                     });
+                }else{
+                    if(isCareAll){
+                        _this.careAllIndex=parseInt(_this.careAllIndex)+1;
+                        _this.addCareAll();
+
+                    }
                 }
+                list[index].caremy = 1;
+                list[index].hit = true;
+                list[index] = _this.initCareImg(list[index])
+                _this.$set(_this.rankLists, index, list[index]);
             },
             cutNickName: function (nickName) {
                 if (!nickName) {
                     return '';
                 }
-                var len = 8;
+                var len = 5;
                 if (nickName.length <= len) {
                     return nickName;
                 }
-                return nickName.substr(0, 8) + '...';
+                return nickName.substr(0, 5) + '..';
             },
             fabulousList: function () {
 

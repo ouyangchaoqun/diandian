@@ -2,7 +2,7 @@
     <div class="luck">
         <v-showLoad v-if="showLoad"></v-showLoad>
         <div v-title class="hide_title">星座运势</div>
-        <div v-show="hasBirthday">
+        <div v-show="hasBirthday&&isNotGoOtherUrl">
             <div class="title">
 
                 <div class="addTitleBox">
@@ -33,7 +33,7 @@
             </div>
             <div class="addEwmBox" v-if="!user||(user&&theUser&&user.id!=theUser.id)">
                 <img src="../images/addEwm_top.png" alt="">
-                <div class="addEwmtext">长按二维码关注“心情指数”后,<br/>回复“星座运势”查看本月运势</div>
+                <div class="addEwmtext">长按二维码关注“好一点”后,<br/>回复“星座运势”查看本月运势</div>
                 <div class="ewm"></div><br>
                 <br>
             </div>
@@ -263,7 +263,7 @@
         height: 100%
     }
     .myshare {
-        background: url(../../dist/birthday/share.png) no-repeat center top rgba(0, 0, 0, 0.9);
+        background: url(../images/birthday/birthdayshare.png) no-repeat center top rgba(0, 0, 0, 0.9);
         background-position: 2.5rem 3.5rem;
         background-size: 80%;
         height: 100%;
@@ -574,9 +574,9 @@
                 theUser:null,user:null,
                 isLunar: 0,
                 lunarDateData:[],
-                isLeapMonth:false
-
-
+                solarDateDate:[],
+                isLeapMonth:false,
+                isNotGoOtherUrl:false
             }
         },
         components: {
@@ -594,7 +594,8 @@
                 _this.theUserId="_userId_";
             }
 
-            this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017)
+            this.lunarDateData=xqzs.dateTime.getLunarData(1949,2017);
+            this.solarDateDate= xqzs.dateTime.getSolarData(1949,2017);
 
             let data = '';
             if (web.guest) {
@@ -602,13 +603,12 @@
                 data = "?guest=true";
 
             }
-            let userId = _this.$route.query.userid;
-            console.log(userId)
+
             _this.showLoad=true;
             _this.$http({
                 method: 'GET',
                 type: "json",
-                url: web.API_PATH + 'user/find/by/user/Id/' + userId + data,
+                url: web.API_PATH + 'user/find/by/user/Id/' + _this.theUserId + data,
             }).then(function (data) {//es5写法
                 console.log(data)
                 if (data.data.data !== null) {
@@ -676,7 +676,7 @@
             }, function (error) {
                 //error
             });
-            xqzs.wx.setConfig(_this);
+
         },
         filters: {
             shortName: function (value, len) {
@@ -763,10 +763,15 @@
                     if (data.data.status == 1) {
                         constellation.data = data.data.data;
                         _this.constellation = constellation;
-
+                        _this.isNotGoOtherUrl=true;
+                        for(let i =0;i<constellation.data.length;i++){
+                            if(constellation.data[i].name=='跳转链接'&&constellation.data[i].content!=''&&constellation.data[i].content.indexOf("http")>=0){
+                                _this.isNotGoOtherUrl=false;
+                                window.location.replace(constellation.data[i].content);
+                            }
+                        }
 
                         xqzs.wx.setConfig(this, function () {
-                            wx.showAllNonBaseMenuItem();
                             var config = {
 
                                 imgUrl:web.BASE_PATH+_this.constellation.pic,
@@ -896,14 +901,16 @@
                     });
 
                 } else {
-                    weui.datePicker({
-                        start: 1949,
+
+                    weui.picker(  this.solarDateDate, {
+                        depth: 3,
                         defaultValue: defaultValue,
-                        end: new Date().getFullYear(),
                         id:"id"+Math.random(),
                         onChange: function (result) {
+                            console.log(result);
                         },
                         onConfirm: function (result) {
+
                             _this.year = result[0].value;
                             _this.month = result[1].value;
                             _this.day = result[2].value;
@@ -911,8 +918,9 @@
 
                             _this.birthday = result[0].value + ',' + result[1].value + ',' + result[2].value;
 
-                        }
+                        },
                     });
+//
                 }
             },
             lookLuck: function () {

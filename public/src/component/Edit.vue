@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......" maxlength="140"></textarea>
+            <textarea id="edit_mood" v-model="moodcontent" @input="listenContent" placeholder="这一刻的心情......" :maxlength="maxchars"></textarea>
             <div class="edit_loc" @click = "getLoc()"><img v-bind:src=locImage alt="">{{showAddress}}</div>
             <span class="edit_num">{{levelchars}}</span>
         </div>
@@ -35,8 +35,13 @@
                 <div v-show="!canuploadfunny">
                     <div><img class="optionThirdNo" src="../images/cantfunny.png" alt=""></div>
                 </div>
-
-                <div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>
+                <div class="open_box">
+                    <div class="wwww">
+                    <span class="open_btn" @click.stop="changeOpen(1)" :class="{on:isopen==1}">公开</span>
+                    <span class="open_btn"  @click.stop="changeOpen(0)"  :class="{on:isopen!=1}">私密</span>
+                    </div>
+                </div>
+                <!--<div><div class="optionFourth" :class="openstyle" @click="changeisopen()">{{isopen==1?'匿名公开':'不公开'}}</div></div>-->
             </div>
             <div><button @click="submitMood()"
                          v-bind:class="{'option_five weui-btn weui-btn_mini weui-btn_primary':true}" id="publishBtn">发布</button></div>
@@ -229,8 +234,8 @@
                 moodid:0,
                 moodcontent: '',
                 contminlength: 8,
-                maxchars:140,
-                levelchars:140,
+                maxchars:200,
+                levelchars:200,
                 cansubmit: true,
                 moodValue:0,
                 scenesId:0,
@@ -281,7 +286,7 @@
         },
         beforeRouteEnter(to, from, next){
             isCheckFromRoute = false;
-            if(from.path!='/addMood') {
+            if(from.path!='/') {
                 //来源不是addMood
                 isCheckFromRoute = true;
             }
@@ -344,6 +349,9 @@
                     that.buttons[o].curr = ison ? that.buttons[o].pre : that.buttons[o].nor;
                 }
             },
+            changeOpen:function (v) {
+                this.isopen= v;
+            },
             changeisopen:function () {
                 let that = this;
                 that.isopen = 1 - that.isopen;
@@ -353,10 +361,20 @@
                 if(!that.cansubmit){
                     return;
                 }
+
+
+                let openIs = that.isopen;
+                if(this.moodcontent.length<=7){
+                    openIs=false;
+                }
+
+
+
+
                 var postdata = {
                     moodValue:that.moodValue,
                     scenesId:that.scenesId,
-                    isOpen: that.isopen,
+                    isOpen: openIs,
                     userId: '_userId_',
                     address: that.address,
                     content: that.moodcontent,
@@ -374,7 +392,7 @@
                     .then(function (bt) {
                         console.log(postdata)
                     if (bt.data && bt.data.status == 1) {
-                        that.$router.replace({path:'/myCenter/myIndex'});
+                        that.$router.replace({path:'/myCenter/myIndex?addmood=true'});
                     }
                 });
             },
@@ -664,7 +682,8 @@
                 }
             });
             //positionList  end
-            xqzs.wx.setConfig(that);
+            if(that.user) xqzs.wx.shareConfig.home.imgUrl=that.user.faceUrl;
+            xqzs.wx.setConfig(that,false,xqzs.wx.shareConfig.home);
         },
         computed: {
             moodImage: function () {
@@ -702,6 +721,14 @@
     }
 </script>
 <style>
+    .edit_option  .open_box{ border-left:1px solid #eee; height: 1.4rem !important; font-size: 0.7rem; color:#999;
+        -webkit-box-flex:1.68;
+        -webkit-flex: 1.68;
+        flex: 1.68; overflow: auto }
+    .edit_option  .open_box .open_btn{float:left;display: inline-block; margin-left: 0.5rem;}
+    .edit_option  .open_box .open_btn:nth-child(2){ margin-left: 0.4rem;}
+    .edit_option  .open_box .open_btn:before{content: ' '; border: 1px solid #999; margin-right: 0.2rem; margin-top: 0.2rem; display: block; height: 0.6rem; width: 0.6rem; border-radius: 50%; float:left;}
+    .edit_option  .open_box .open_btn.on:before{ border: 1px solid #0b900c; background: #0BB20C}
     .addEdit{
         height:65px;
         margin-bottom:15px;
@@ -831,7 +858,7 @@
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
-        width:70%;
+        width:78%;
     }
     .edit_option>div{ height: 2.1rem;}
     .edit_option div{

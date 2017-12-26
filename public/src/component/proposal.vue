@@ -88,7 +88,7 @@
             }
         },
         mounted:function () {
-             xqzs.wx.setConfig(this);
+            xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.me);
         }
     }
 

@@ -276,8 +276,8 @@
                     }
                 })
 
-
-            xqzs.wx.setConfig(_this);
+            if(_this.user)xqzs.wx.shareConfig.rank.imgUrl=_this.user;
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.rank);
         },
         methods: {
             wxFaceUrl: function (faceUrl) {

@@ -1,39 +1,105 @@
 <template id="psychtestDetail">
-    <div class="psychtestDetail">
-        <h2 class="psychtestDetail_title">{{testDetail.title}}</h2>
-        <div class="psychtestDetail_count">{{testDetail.count}}人测过</div>
-        <img :src="testDetail.pic" alt="">
-        <div class="psychtestDetail_content">{{testDetail.des}}</div>
-        <div class="psychtestDetail_Price"><span class="nowPrice">￥{{testDetail.price}}</span><span class="oldPrice">￥{{testDetail.old_price}}</span>
-        </div>
-        <div class="psychtestDetail_item">
-            <div>{{testDetail.question_count}}道精选问题</div>
-            <div>{{testDetail.count}}人已经测试</div>
-        </div>
-        <div class="psych_test_btn_box">
-            <template v-if="testDetail.answerId!=null">
-                <div class="psych_test_btn_view" @click="viewResult()">查看报告</div>
-                <div class="psychtestDetail_btn" @click="goPay()">重新测试</div>
-            </template>
-            <template v-if="testDetail.answerId==null">
-                <div class="psychtestDetail_btn" @click="startTest()">立即测试</div>
-            </template>
-        </div>
-        <div class="addBottom">
-            <div>
-                <img src="../images/addpsyDetail.png" alt="">
-                <div class="addBottomLine">测试须知</div>
+    <div class="psychtestDetail" >
+        <v-showLoad v-if="showLoad"></v-showLoad>
+        <div v-if="htmlover">
+            <div class="psychtestDetail_header" >
+                <img :src="testDetail.pic" alt="">
+                <h2 class="psychtestDetail_title">{{testDetail.title}}</h2>
+                <div class="psychtestDetail_class">{{testDetail.sub_title}}</div>
+                <div class="psychtestDetail_flex">
+                    <div>
+                        <span></span>
+                        {{testDetail.question_count}}道精选问题
+                    </div>
+                    <div>
+                        <span></span>
+                        1份专业报告
+                    </div>
+                    <div>
+                        <span></span>
+                        {{testDetail.count}}人测试过
+                    </div>
+                </div>
             </div>
-            <div class="addBottomText">
-                <p>1.本测试为付费测试</p>
-                <p>2.本测试不能重复测试，答题结束后会生成一份专业的测评报告，请根据自己的实际情况作答</p>
+            <div class="psychtestDetail_main">
+                <div class="addBottom">
+                    <div>
+                        <div class="addBottomLine">评测介绍</div>
+                        <div class="bottom_line"></div>
+                    </div>
+                    <div class="addBottomText" v-html="testDetail.des">
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="psychtestDetail_main psychtestDetail_main_addStyle">
+                <div class="addBottom">
+                    <div>
+                        <div class="addBottomLine">评测须知</div>
+                        <div class="bottom_line"></div>
+                    </div>
+                    <div class="addBottomText" v-html="testDetail.notice">
+                    </div>
+                </div>
+            </div>
+            <div style="height:4rem" v-show="!isMessage"></div>
+            <div v-show="isMessage">
+                <div style="height:10px;background: #f4f4f8"></div>
+                <div style="padding-top: 1.76471rem">
+                    <div class="addBottom">
+                        <div>
+                            <div class="addBottomLine">用户评价</div>
+                            <div class="bottom_line"></div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="messageList">
+                    <li v-for="item in messageList">
+                        <img :src="item.faceUrl||item.sysFaceUrl" alt="">
+                        <div class="message_right">
+                            <span >
+                                <template v-if="!item.isLooked">{{item.nickName||item.sysNickName}}</template>
+                                <template v-if="item.isLooked">匿名</template>
+                            </span>
+                            <div>{{item.content}}</div>
+                            <i class="messageTime">{{formatDateText(item.addTime)}}</i>
+                        </div>
+                    </li>
+                    <div class="moreClass" v-show="!isEndPage" @click="getMessageList()">查看更多</div>
+                </ul>
+            </div>
 
+
+
+            <div class="psych_test_btn_box">
+                <!--<template v-if="testDetail.lastAnswerId!=null">-->
+                <!--<div class="psych_test_btn_view" @click="viewResult()">查看报告</div>-->
+                <!--<div class="psychtestDetail_btn" @click="startTest()">-->
+                <!--<template v-if="payed==1">完成测试</template>-->
+                <!--<template v-if="payed==0">重新测试</template>-->
+
+                <!--</div>-->
+                <!--</template>-->
+                <!--<template v-if="testDetail.lastAnswerId==null">-->
+                <!--<div class="psychtestDetail_btn" @click="startTest()">-->
+                <!--<template v-if="payed==1">完成测试</template>-->
+                <!--<template v-if="payed==0">立即测试</template></div>-->
+                <!--</template>-->
+
+                <template v-if="testDetail.status==1">
+                    <div class="psych_test_btn_price" :class="{noTestStyle:testDetail.lastAnswerId==null}">￥{{testDetail.price.toFixed(2)}} <span>￥{{testDetail.old_price.toFixed(2)}}</span></div>
+                    <div class="psych_test_btn_view" v-if="testDetail.lastAnswerId!=null" @click="viewResult()">查看报告</div>
+                    <div class="psychtestDetail_btn" :class="{noTestStyle:testDetail.lastAnswerId==null}" @click="startTest()">
+                        <template v-if="payed==1">继续测试</template>
+                        <template v-if="payed==0">立即购买</template>
+                    </div>
+                </template>
+            </div>
+        </div>
     </div>
 </template>
 <script type="text/javascript">
     import Bus from '../component/bus.js';
+    import showLoad from './showLoad.vue';
     var psychtestDetail = {
         template: '#psychtestDetail'
     }
@@ -43,36 +109,67 @@
                 testId: '',
                 testDetail: {},
                 payed: 0,
+                showLoad: false,
+                htmlover:false,
+                theUser:null,
+                page:1,
+                messageList:[],
+                resultId:'',
+                isEndPage:false,
+                isMessage:false
             }
         },
-//        beforeRouteLeave(to, from, next){
-//            console.log('离开路由时把位置存起来'+from.path) //离开路由时把位置存起来
-//            console.log('离开路由'+to.path)
-//
-//            Bus.$emit('fromDetail')
-//
-//            next()
-//        },
         mounted: function () {
 
             let _this = this;
+            _this.showLoad=true;
             _this.testId = _this.$route.query.testId;
             let start = _this.$route.query.start;
-            _this.$http.get(web.API_PATH + 'test/get/' + _this.testId + '/_userId_').then(response => {
-                if (response.data.status === 1) {
-                    console.log(response.data.data);
-                    _this.testDetail = response.data.data;
-                    _this.payed = response.data.data.payed;
-                    _this.answerId = response.data.data.answerId;
-                    console.log(_this.payed);
-                    if (start && _this.payed) {
-                        _this.$router.replace('/testQuestions?testId=' + _this.testId)
-                    }
-                }
-            }, response => {
-                // error
+            let guestData = ''
+            if (web.guest) {
+                this.isGuest = true;
+                guestData = "?guest=true";
+            }
 
-            });
+            _this.$http.get(web.API_PATH + 'user/find/by/user/Id/_userId_').then(function (data) {
+                if(data.data.status==1){
+                    _this.theUser = data.data.data.id
+                }else {
+                    _this.theUser = 0
+                }
+                _this.$http.get(web.API_PATH + 'test/get/' + _this.testId +'/'+_this.theUser+guestData).then(response => {
+                    _this.showLoad=false;
+                    _this.htmlover = true
+                    if (response.data.status === 1) {
+                        console.log(response.data.data);
+                        _this.testDetail = response.data.data;
+                        _this.payed = response.data.data.payed;
+                        _this.answerId = response.data.data.lastAnswerId;
+                        _this.resultId = response.data.data.resultId
+                        //console.log(_this.payed);
+                        if (start && _this.payed) {
+                            _this.$router.replace('/testQuestions?testId=' + _this.testId)
+                        }
+                    }
+
+                    xqzs.wx.shareConfig.test.desc=_this.testDetail.share_title;
+                    xqzs.wx.shareConfig.test.link=web.BASE_PATH+"#/psychtestDetail?testId="+_this.testId;
+                    xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.test);
+
+                }, response => {
+                    // error
+
+                });
+
+            })
+            _this.getMessageList()
+
+
+
+
+        },
+        components: {
+            'v-showLoad': showLoad
         },
         methods: {
             startTest: function () {
@@ -96,11 +193,38 @@
                 })
             },
 
+
             viewResult: function () {
                 let _this = this;
                 if (_this.answerId != null)
-                    _this.$router.push('/testResult?answerId=' + _this.answerId)
-            }
+                    _this.$router.push({path:'/testResult',query:{answerId:_this.answerId,resultId:_this.resultId}})
+            },
+            getMessageList:function () {
+                let _this = this;
+                if(_this.isEndPage)return;
+                _this.showLoad=true;
+                let rows = 5;
+                _this.$http.get(web.API_PATH + 'test/evaluate/list/'+_this.testId +'/'+_this.page+'/'+rows).then(function (data) {
+                    if(data.data.status==1){
+                        //_this.messageList = data.data.data
+                        if(data.data.data.length<rows){
+                            _this.isEndPage = true;
+                        }
+                        _this.messageList = _this.messageList.concat(data.data.data);
+                        _this.showLoad=false;
+                        if(_this.messageList.length>0){
+                            _this.isMessage = true
+                        }else {
+                            _this.isMessage = false
+                        }
+                    }
+                    console.log( _this.messageList)
+                })
+                _this.page++
+            },
+            formatDateText: function (time) {
+                return xqzs.dateTime.getTimeFormatText(time)
+            },
         }
 
     }
@@ -111,132 +235,154 @@
         height: 100%;
         position: relative;
     }
-
+    .psychtestDetail_header{
+        border-bottom: 0.588235rem solid #F2F2F5;
+    }
     .psychtestDetail_title {
-        color: #333;
+        color: #000;
         font-size: 1.17647rem;
-        line-height: 1;
-        margin-top: 1.7647rem;
-        margin-bottom: 0.88235rem;
+        margin-top: 1.117647rem;
+        margin-bottom: 1rem;
         text-align: center;
     }
-
-    .psychtestDetail_count {
-        color: #666;
-        font-size: 0.70588rem;
-        line-height: 1;
-        text-align: center;
-    }
-
-    .psychtestDetail img {
-        width: 20.294117647rem;
-        display: block;
-        margin: 0.88235rem auto;
-    }
-
-    .psychtestDetail_content {
-        padding: 0 0.88235rem;
-        color: #333;
+    .psychtestDetail_class{
         font-size: 0.8235rem;
-        margin-bottom: 2.0588rem;
-    }
-
-    .psychtestDetail_Price {
-        text-align: center;
+        color:#828282;
         line-height: 1;
-        margin-bottom: 1.8235rem;
+        margin-bottom: 1.35294rem;
+        text-align: center;
     }
-
-    .nowPrice {
-        color: #D55C03;
-        font-size: 1.41176rem;
+   .psychtestDetail .addBottomText img{
+        max-width:100%;
+       width:auto;
     }
-
-    .oldPrice {
-        color: #666;
-        font-size: 0.88235rem;
-        text-decoration: line-through;
-    }
-
-    .psychtestDetail_item {
-        display: -webkit-box;
-        display: -webkit-flex;
+    .psychtestDetail_flex{
+        color:#999;
+        font-size: 0.70588235rem;
+        line-height: 1;
         display: flex;
+        display: -webkit-flex;
         text-align: center;
-        font-size: 0.70588rem;
-        color: #666;
-        padding-top: 0.7647rem;
-        border-top: 1px solid #eee;
-        line-height: 1;
+        padding:0 1rem ;
+        margin-bottom: 1.4rem;
     }
-
-    .psychtestDetail_item div {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
+    .psychtestDetail_flex>div{
         flex: 1;
     }
+    .psychtestDetail_flex>div:nth-of-type(1){
+        text-align: left;
+    }
+    .psychtestDetail_flex>div:nth-of-type(3){
+        text-align: right;
+    }
+    .psychtestDetail_flex span{
+        width: 5px;
+        height: 5px;
+        display: inline-block;
+        background: #999;
+        border-radius: 50%;
+        vertical-align: middle;
+        margin-top: -3px;
+    }
+    .psychtestDetail_main{
+        padding:1.76471rem;
+    }
+    .psychtestDetail_main_addStyle{
+        background: #f8f8f8;
+        margin:0 1.176471rem;
+        border-radius: 5px;
+        padding:1.76471rem 1.176471rem;
+        margin-bottom:20px;
+    }
+    .psychtestDetail img {
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+    .psychtestDetail .messageList{padding-bottom:4rem;padding-left:1.176471rem}
+    .psychtestDetail .messageList li{
+        position: relative;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 0.5rem;
+        margin-bottom:0.88235rem;
+    }
+    .psychtestDetail .messageList img{
+        width:2rem;
+        height:2rem;
+        border-radius: 5px;
+        position: absolute;
+        top:0;
+    }
+    .psychtestDetail .message_right{
+        margin-left:2.8rem;
+        padding-right: 0.88235rem;
+        color:#333;
+        font-size: 0.8235rem;
+    }
+    .psychtestDetail .message_right span{font-size: 0.8235rem;color:#888;display: block;line-height: 1;padding-top:0.2rem;margin-bottom: 0.35rem}
 
+    .psychtestDetail .moreClass{width:6rem;padding:0.176471rem 0;color:#999;border:1px solid #ccc;text-align: center;font-size: 0.8235rem;border-radius: 1rem;margin:0 auto;margin-top: 0.88235rem;}
+    .psychtestDetail .moreClass:active{background: #eee;}
     .psychtestDetail_btn {
-        height: 2.5294rem;
-        background: #1AAD19;
-        text-align: center;
+        background: #FD7306;
         color: #fff;
+        width:30%;
+    }
+    .psych_test_btn_box .noTestStyle{
+        width:55%;
+    }
+    .psych_test_btn_price{
+        width:45%;
+        background: #F2F2F5 ;
+        color:#FE7301;
+        font-size: 1.0588235rem;
+    }
+    .psych_test_btn_price span{
+        color:#666;
+        font-size: 0.70588235rem;
+        text-decoration: line-through;
+        margin-left:0.471rem;
     }
 
     .psychtestDetail_btn:active {
-        background: #168416;
+        background: #d86204;
     }
 
     .psych_test_btn_view {
-        background: #E4E4E4;
+        background: #FDA333;
         text-align: center;
-        color: #666;
+        color: #fff;
+        width:25%;
     }
     .psych_test_btn_view:active {
-        background: #dedede;
+        background: #d39207;
     }
 
     .psych_test_btn_box {
-        height: 2.5294rem;
+        height: 2.588rem;
         position: fixed;
         bottom: 0;
         width: 100%;
-        line-height: 2.5294rem;
+        line-height: 2.588rem;
         border-radius: 0;
         display: -webkit-box;
         display: -webkit-flex;
         display: flex;
-
+        text-align: center;
+        font-size: 0.88235rem ;
     }
-
-    .psych_test_btn_box div {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-    }
-    .addBottom{
-        border-top: 6px solid #eee;
-        margin-top:15px;
-        padding-top: 15px;
-    }
-    .addBottom img{
-        display: block;
-        width:18px;
-        margin:0 auto;
-        margin-bottom: 9px;
-    }
-    .addBottomLine{
-        width:60px;
-        font-size: 0.70588rem;
-        border-top:1px solid #666;
+    .psychtestDetail .addBottomLine{
+        font-size: 1.0588235rem;
         margin: 0 auto;
         text-align: center;
-        padding-top: 5px;
-        color: #666;
+        color: #FE7301;
+        line-height: 1;
+        margin-bottom: 0.588235rem;
     }
-    .addBottomText{
-        padding:20px 50px 70px 50px;
-        font-size: 0.70588rem;
-        color: #666;
+    .psychtestDetail .addBottomText{
+        padding:0
     }
+    .message_right .messageTime{color:#999;font-size:0.70588235rem ;font-style: normal;}
+    .psychtestDetail .addBottomText p:last-of-type{margin: 0}
+    .addBottom .bottom_line{width:1.8235rem;height:0.176471rem;background: #DDDDDE;border-radius: 1.5px;margin:0 auto;margin-bottom: 1rem}
 </style>

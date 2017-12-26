@@ -3,16 +3,33 @@
         <div v-title>{{sleepTypeName}}统计</div>
         <div class="get_header">
             <div class="getupBgView">
+                <div class="addTopBox">
                     <div class="canlendarTopView">
                         <div class="leftBgView" @click="oldMonth">
-                            <img class="get_old" src="../images/back.png" />
+                            <img class="get_old" src="../images/back_white.png" />
                         </div>
                         <div class="get_centerView">{{cur_year || "--"}}年{{cur_month || "--"}}月</div>
                         <div class="rightBgView" @click="nextMonth">
-                            <img class="get_next" src="../images/back.png" />
+                            <img class="get_next" src="../images/back_white.png" />
                         </div>
                     </div>
+                    <div class="addTopColor">平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间</div>
+                    <div class="addTopTime">{{monthInfo.avgTime.timeValue||'--:--'}}</div>
+                    <div class="addTopFlex">
+                        <div class="flexLine"></div>
+                        <div class="addTopFlexItem">
+                            {{monthInfo.total}}
+                            <div class="addTopColor">累计天数</div>
+                        </div>
+                        <div>
+                            {{monthInfo.careCount}}
+                            <div class="addTopColor">收获爱心赞</div>
+                        </div>
+                    </div>
+                </div>
+
                     <div class="getUpBorder">
+                        <div class="addTitleColor">早<span v-if="!isNight">起</span><span v-if="isNight">睡</span>时间统计</div>
                     <div class="get_weekBgView">
                         <div class="weekView" v-for="item in weeks_ch">{{item}}</div>
                     </div>
@@ -36,8 +53,9 @@
             </div>
         </div>
         <div class="getUpSlice" v-if="monthCount!=''">
-            <div class="getUpTitle">{{sleepTypeName}}时间段分布</div>
+
             <div class="getUpMain">
+                <div class="getUpTitle">{{sleepTypeName}}时间段分布</div>
                 <div class="get_value" v-for="index in monthCount">
                     <div class="getUp_time">{{index.min}}-{{index.max}}</div>
                     <div class="getUp_progress">
@@ -47,12 +65,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="getUp_count">{{index.count}}条</div>
+                    <div class="getUp_count">{{index.count}}次</div>
                 </div>
             </div>
-            <div class="getUpCount">
-                <p>本月共{{sleepTypeName}}打卡{{monthInfo.total}}天，平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>
-            </div>
+            <!--<div class="getUpCount">-->
+                <!--<p>本月共{{sleepTypeName}}打卡{{monthInfo.total}}天，平均<span v-if="!isNight">起床</span><span v-if="isNight">睡觉</span>时间是{{monthInfo.avgTime.timeValue}}，早于{{monthInfo.earlyThan}}的用户！</p>-->
+            <!--</div>-->
         </div>
     </div>
 </template>
@@ -91,7 +109,7 @@
                 cur_day:null,
                 monthCount:'',
                 allInfo:'',
-                monthInfo:'',
+                monthInfo:{avgTime:'--:--'},
                 isNight:false,
                 sleepTypeName:"早起"
             }
@@ -111,8 +129,8 @@
             //轮播配置
             let _this = this;
             _this.mySwiper = new Swiper('.swiper-container', {});
-            xqzs.wx.setConfig(_this);
-
+            if(_this.user&&_this.user.faceUrl)xqzs.wx.shareConfig.rank=_this.user.faceUrl;
+             xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.rank);
 
             if(_this.$route.query.month!=undefined) {
                 let date = new Date();
@@ -136,7 +154,8 @@
                 var now = "";
                 now = date.getFullYear() + "-"; //读英文就行了
                 if (date.getMonth() < 10) {
-                    now = now + "0" + (date.getMonth() + 1) + "-"
+                    if((date.getMonth() + 1)<10){ now = now + "0" + (date.getMonth() + 1) + "-" }
+                    else{now = now + (date.getMonth() + 1) + "-"}
                 } else {
                 now = now + (date.getMonth() + 1) + "-";//取月的时候取的是当前月-1如果想取当前月+1就可以了
                 }
@@ -233,6 +252,7 @@
                         //文字统计
                         this.allInfo=response.data.data.info;
                         this.monthInfo=response.data.data.month;
+                        console.log(this.monthInfo)
                         //日历输出
                         if (thisMonthDays > 0) {
                             for (let i = 1; i <= thisMonthDays; i++) {
@@ -358,58 +378,60 @@
 <style>
     .getUpStatistics_box {
         height: 100%;
-        background: #f4f4f8;
+        background: #fff;
     }
-    .get_header {
+    .getUpStatistics_box .get_header {
 
         position: relative;
 
     }
-    .recordTime{
+    .getUpStatistics_box .recordTime{
         color: #0D0D0D;
         font-size:0.64rem;
     }
-    .get_old {
+    .getUpStatistics_box .get_old {
         left: 40px;
-        height: 20px;
-        width: 20px;
+        height: 1rem;
+        width: 0.6rem;
         position: absolute;
         top: 15px;
         display: block;
-    }
-
-    .get_next {
-        right: 40px;
         transform: rotate(180deg);
         -webkit-transform: rotate(180deg);
-        height: 20px;
-        width: 20px;
+    }
+
+    .getUpStatistics_box .get_next {
+        right: 40px;
+        height:1rem;
+        width: 0.6rem;
         position: absolute;
         top: 15px;
         display: block;
     }
 
-    .getUpBorder{
+    .getUpStatistics_box .getUpBorder{
         border-radius: 10px;
         width: 95%;
         margin: 0 auto;
         background-color: #fff;
         padding-top: 10px;
         padding-bottom: 10px;
+        margin-top: -2rem;
+        box-shadow: 0px 2px 10px 2px rgba(102,102,102,0.2);
     }
-    .week_day text {
+    .getUpStatistics_box .week_day text {
         flex: 1;
         text-align: center;
         color: #828080;
         font-size: 12px;
     }
 
-    .getupBgView {
+    .getUpStatistics_box .getupBgView {
 
         align-items: center;
-        background: #f4f4f8;
+
     }
-    .canlendarTopView {
+    .getUpStatistics_box .canlendarTopView {
         height: 2.11rem;
         font-size: 1rem;
         display: flex;
@@ -420,9 +442,9 @@
         justify-content: center;
         margin-bottom: 0.647rem;
     }
-    .canlendarTopView .get_centerView{ margin-top: 0.7rem;}
+    .getUpStatistics_box .canlendarTopView .get_centerView{ margin-top: 0.7rem;}
 
-    .leftBgView {
+    .getUpStatistics_box .leftBgView {
         text-align: right;
         height: 2.35rem;
         -webkit-box-flex: 1;
@@ -431,7 +453,7 @@
         flex-direction: row-reverse;
     }
 
-    .get_centerView {
+    .getUpStatistics_box .get_centerView {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         flex: 1;
@@ -443,7 +465,7 @@
         margin-top: 15px;
     }
 
-    .rightBgView {
+    .getUpStatistics_box .rightBgView {
         height: 2.35rem;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -451,14 +473,14 @@
         flex-direction: row;
     }
 
-    .get_weekBgView {
+    .getUpStatistics_box .get_weekBgView {
         height: 1.47rem;
         line-height: 1.47rem;
         padding-bottom: 0.412rem;
         color:#828080
     }
 
-    .get_weekView {
+    .getUpStatistics_box .get_weekView {
         flex-grow: 1;
         text-align: center;
         font-size: 0.70rem;
@@ -466,7 +488,7 @@
         width: 12.85%;
     }
 
-    .dateBgView {
+    .getUpStatistics_box .dateBgView {
         height: auto;
         width: 100%;
         display: flex;
@@ -474,7 +496,7 @@
         flex-wrap: wrap;
     }
 
-    .get_dateEmptyView {
+    .getUpStatistics_box .get_dateEmptyView {
         width: 14.28571%;
         color: #fff;
         display: flex;
@@ -487,7 +509,7 @@
 
 
 
-    .get_dateView {
+    .getUpStatistics_box .get_dateView {
         width: 14.28571%;
         background: #ffffff;
         position: relative;
@@ -497,7 +519,7 @@
         border-top: 1px solid #eee;
     }
 
-    .get_dateView img {
+    .getUpStatistics_box .get_dateView img {
         height: 1.53rem;
         width: 1.53rem;
         display: block;
@@ -506,7 +528,7 @@
         margin-bottom: 0.47rem;
     }
 
-    .get_datesView {
+    .getUpStatistics_box .get_datesView {
         height: 1.176rem;
         color: #828080;
         font-size: 0.64rem;
@@ -515,80 +537,94 @@
         text-align: center;
     }
 
-    .get_dateSelectView .get_datesView .get_yuan {
+    .getUpStatistics_box .get_dateSelectView .get_datesView .get_yuan {
         width: 1.176rem;
         height: 1.176rem;
         color: #0BB20C;
         margin: 0 auto;
         margin-top: 0.176rem;
     }
-    .getUpTitle{
+    .getUpStatistics_box .getUpTitle{
         text-align: center;
-        margin-top: 0.82rem;
     }
-    .getUpMain{
+    .getUpStatistics_box .getUpMain{
         width: 95%;
         margin: 0 auto;
         margin-top: 0.82rem;
         background-color: #fff;
         border-radius: 10px;
         padding: 0.7rem 0;
+        box-shadow: 0px 2px 10px 2px rgba(102,102,102,0.2);
     }
-    .get_value{
+    .getUpStatistics_box .get_value{
         height: 2.35rem;
         position: relative;
     }
-    .getUp_time{
+    .getUpStatistics_box .getUp_time{
         font-size: 0.70rem;
         position: absolute;
         left: 1.17rem;
         top: 50%;
         margin-top: -0.47rem;
     }
-    .getUp_progress{
+    .getUpStatistics_box .getUp_progress{
         width: 55%;
         position: absolute;
         left: 5.88rem;
         top: 50%;
-        margin-top: -0.11rem;
+        margin-top: -0.441175rem;
     }
-    .getUp_count{
+    .getUpStatistics_box .getUp_count{
         position: absolute;
         right: 1.17rem;
         top:50%;
         margin-top: -0.588rem;
         font-size: 0.70rem;
     }
-    .getUpCount{
+    .getUpStatistics_box .getUpCount{
         text-align: center;
         margin-top: 1.47rem;
         margin-bottom: 20px;
     }
-    .getUpCount p{
+    .getUpStatistics_box .getUpCount p{
         font-size: 0.7rem;
         color: rgba(99,106,116,1);
     }
-    .get_top{
+    .getUpStatistics_box .get_top{
         margin-top: 0.82rem;
     }
-     .get_dateView .recordTime img{
+    .getUpStatistics_box .get_dateView .recordTime img{
             height: 0.94rem;
         margin: 0 auto;
         display: block;
          width: auto;
     }
-     .get_value .weui-progress__bar{
-        height: 5px;
-        background: rgba(9, 187, 7, 0.15);
-        border-radius: 4px;
+    .getUpStatistics_box .get_value .weui-progress__bar{
+        height: 0.88235rem;
+        background: rgba(245,245,245,1);
+        border-radius: 7px;
     }
 
-     .get_value .weui-progress__inner-bar {
-        border-radius: 4px;
+    .getUpStatistics_box .get_value .weui-progress__inner-bar {
+        border-radius: 7px;
+         background: linear-gradient(to right,rgba(24,188,132,1), rgba(20,151,160,1));;
     }
-    .get_yuan{
+
+    .getUpStatistics_box .get_yuan{
         height: 1.176rem;
         margin-top: 0.176rem;
     }
-
+    .getUpStatistics_box .addTopBox{
+        height:18.471rem;
+        background: linear-gradient(rgba(24,188,132,1), rgba(20,151,160,1));
+        color:#fff;
+    }
+    .getUpStatistics_box .addTopColor{font-size: 0.88235rem;color:rgba(255,255,255,0.6);text-align: center;line-height: 1;margin-bottom: 1.1rem;padding-top:0.8rem;}
+    .getUpStatistics_box .addTopTime{text-align: center;font-size: 3.471rem;margin-bottom: 1.4rem;line-height: 1}
+    .getUpStatistics_box .addTopFlex{width:72%;margin:0 auto;display: flex;font-size: 1.76471rem;border-top: 1px solid rgba(255,255,255,0.3);position: relative;line-height: 1;padding-top:1.2rem;}
+    .getUpStatistics_box .addTopFlex>div{flex:1;text-align: center;}
+    .getUpStatistics_box .addTopFlexItem{padding-right:6rem}
+    .getUpStatistics_box .flexLine{position: absolute;left:50%;width:1px;height:2.588rem;background:rgba(255,255,255,0.3); }
+    .getUpStatistics_box .addTitleColor{color:#303030;font-size: 0.88235rem;text-align: center;margin-bottom: 1rem}
+    .getUpStatistics_box .getUpSlice{margin-bottom: 3.5rem;padding-top: 0.88235rem}
 </style>

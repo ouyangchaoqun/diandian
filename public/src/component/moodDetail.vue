@@ -147,7 +147,7 @@
                     _this.cares = _this.data.care;
                     if (_this.data.mood.pics != undefined) {
                         for (var i = 0; i < _this.data.mood.pics.length; i++) {
-                            _this.data.mood.pics[i].path = _this.data.mood.pics[i].path + xqzs.constant.PIC_MIDDLE;
+                            _this.data.mood.pics[i].path = _this.data.mood.pics[i].path + xqzs.constant.PIC_SMALL;
                         }
                     }
 
@@ -173,8 +173,7 @@
                 //error
             });
 
-            xqzs.wx.setConfig(_this);
-
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.center);
         },
         filters: {
             shortName: function (value, len) {

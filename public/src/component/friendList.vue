@@ -37,7 +37,7 @@
             </div>
             <div class="friendCount">{{friendCount}}位好友</div>
             <div class="bgw">
-                <div class=" m-30 btn-gray"><a href="http://mp.weixin.qq.com/s/JMW1ZjzUNmP4ZIaH9ot6jw">朋友太少，怎样邀请好友？</a>
+                <div class=" m-30 btn-gray"><a href="http://www.xqzs.cn/tqqt/209.html">朋友太少，怎样邀请好友？</a>
                 </div>
             </div>
             <div class="bottom-card">
@@ -249,8 +249,7 @@
                 xqzs.localdb.set("friendsScrollTop",$(this).scrollTop())
             });
             _this.getFriends();
-
-            xqzs.wx.setConfig(_this);
+            xqzs.wx.setConfig(_this,false,xqzs.wx.shareConfig.me);
         },
 
         filters:{
