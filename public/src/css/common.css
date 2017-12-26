@@ -327,7 +327,7 @@ li{list-style: none}
 }
 
 .centerClassItem{
-    padding:1.76471rem 0.88235rem 0.88235rem 0;
+    padding:1.76471rem 0.88235rem 0.8235rem 0;
     border-bottom: 1px solid rgba(238,238,238,1);
     position: relative;
 }
@@ -350,14 +350,21 @@ li{list-style: none}
     line-height: 1;
     margin-left: -1rem;
 }
-.class_titleTop,.class_titleBottom{
+.class_titleTop{
     display: flex;
    width:100%;
     line-height:1rem;
 
 }
+.class_titleBottom div:last-child{
+    color:rgba(0,0,0,1);
+}
+.class_titleBottom{
+    display: flex;
+    width:100%;
+}
 .class_titleTop{
-    margin-bottom: 1rem;
+    margin-bottom: 0.8235rem;
 }
 .class_titleTop div{
     flex: 1;
