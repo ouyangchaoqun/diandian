@@ -353,7 +353,7 @@ li{list-style: none}
 .class_titleTop,.class_titleBottom{
     display: flex;
    width:100%;
-    line-height:1.1rem;
+    line-height:1rem;
 
 }
 .class_titleTop{
@@ -368,8 +368,8 @@ li{list-style: none}
     margin: 0 auto;
     z-index: 1;
     display: block;
-    width:1rem;
-    height:1rem;
+    width:0.9rem;
+    height:0.9rem;
 }
 .classGetup .class_titleBottom{
     height: 0.941176rem;
