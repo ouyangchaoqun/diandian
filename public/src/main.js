@@ -73,6 +73,7 @@ let routers =
                 require('./routes/coin/product'),
                 require('./routes/myAmount'),
                 require('./routes/friendsBrithday'),
+                require('./routes/moneyOut'),
             ]
         }
     ];
