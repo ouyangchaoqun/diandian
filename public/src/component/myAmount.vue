@@ -7,7 +7,7 @@
             <div class="img"></div>
             <div class="my_income_txt">我的余额</div>
             <div class="money">￥{{formatPrice(user.balance)}}</div>
-            <!--<div class="get_money" @click="showOut()">提现</div>-->
+            <div class="get_money" @click="showOut()">提现</div>
         </div>
         <div class="moneyOut_box" v-if="isOut" @click="hideOut()">
             <div class="money_dialog">
@@ -28,7 +28,10 @@
                             金额已超过可提现余额
                         </span>
                     </div>
-                    <div class="dialog_btn" @click.stop>
+                    <div v-if="moneyVal<1" class="disabled_btn weui-btn weui-btn_disabled weui-btn_primary" @click.stop>
+                        确认提现
+                    </div>
+                    <div v-if="moneyVal>=1" class="dialog_btn weui-btn weui-btn_primary" @click.stop="withdraw()">
                         确认提现
                     </div>
                 </div>
@@ -59,15 +62,28 @@
 
         mounted: function () {
             let _this=this;
-            console.log(_this.user)
              xqzs.wx.setConfig(this);
         },
         methods:{
+            getUserInfo:function () {
+                let _this = this;
+                _this.$http({
+                    method: 'GET',
+                    type: "json",
+                    url: web.API_PATH + 'user/find/by/user/Id/_userId_',
+                }).then(function (data) {//es5写法
+                    if (data.data.data !== null) {
+                        _this.user = eval(data.data.data);
+                    }
+                }, function (error) {
+                    //error
+                });
+            },
             formatPrice:function(price){
                 return  xqzs.string.formatPrice(price)
             },
             showOut:function () {
-              this.isOut = true
+              this.isOut = true;
             },
             hideOut:function () {
                 this.isOut = false
@@ -78,6 +94,25 @@
                 }else {
                     this.isWarn = false;
                 }
+            },
+            withdraw:function () {
+                let _this = this;
+                console.log(_this.user)
+                let msg = {
+                    userId :_this.user.id,
+                    money  : _this.moneyVal*100
+                }
+                if(this.isWarn){
+                    xqzs.weui.tip("提现金额超限");
+                    return;
+                }
+                _this.$http.post(web.API_PATH+'user/withdraw',msg).then(function (data) {
+                    if(data.data.status==1){
+                        _this.isOut = false;
+                        xqzs.weui.tip("提交成功，等待审核");
+                        _this.getUserInfo()
+                    }
+                })
             }
         }
 
@@ -108,7 +143,9 @@
     .money_dialog_detail .detail_input input{outline: none;height:100%;font-size: 2.4rem;color: rgba(255,157,24,1);text-shadow: 0px 0px 0px rgba(51,51,51,1);-webkit-text-fill-color: transparent;width:80%;float: left}
     .money_dialog_detail .detail_warn{color:rgba(118,118,118,1);font-size: 0.7671rem;line-height: 1; margin-bottom: 1.176471rem;}
     .money_dialog_detail .detail_warn .warn_red{color:rgba(255,51,0,1)}
-    .my_amount_box .dialog_btn{background: rgba(255,157,24,1);border:1px solid rgba(229,135,6,1);line-height: 2.647rem;font-size: 1.0588235rem;color:rgba(255,255,255,1);border-radius: 0.294rem;text-align: center;}
+    .my_amount_box .dialog_btn{background: rgba(255,157,24,1);line-height: 2.647rem;font-size: 1.0588235rem;color:rgba(255,255,255,1);border-radius: 0.294rem;text-align: center;}
+.my_amount_box .disabled_btn{line-height: 2.647rem;font-size: 1.0588235rem;color:rgba(255,255,255,1);border-radius: 0.294rem;text-align: center;
+}
     .my_amount_box .dialog_btn:active{background: rgba(229,135,6,1);}
-
+.weui-btn_disabled.weui-btn_primary{background: rgba(255,157,24,.5)}
 </style>
