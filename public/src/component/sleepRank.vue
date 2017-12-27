@@ -1182,7 +1182,7 @@
                         _this.isLogin = true;
                     }
 
-                    if(_this.currUser.id==25||_this.currUser.id==26||_this.currUser.id==27||_this.currUser.id==1656||_this.currUser.id==818||_this.currUser.id==1658||_this.currUser.id==424||_this.currUser.id==1007||_this.currUser.id==3696||_this.currUser.id==30||_this.currUser.id==32){
+                    if(_this.currUser.id==25||_this.currUser.id==26||_this.currUser.id==27||_this.currUser.id==1656||_this.currUser.id==818||_this.currUser.id==1658||_this.currUser.id==424||_this.currUser.id==1007||_this.currUser.id==3696||_this.currUser.id==30||_this.currUser.id==32||_this.currUser.id==1521){
                         _this.canCareAll=true;
 
                     }
