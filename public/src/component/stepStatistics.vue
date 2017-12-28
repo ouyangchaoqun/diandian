@@ -26,11 +26,9 @@
                                 <div class="get_datesView"><div class="get_yuan">{{index+1}}</div>
 
                                 </div>
-                               <div class="recordTime" v-if="item.getuptime!=0&&item.getuptime!=-1">
+                               <div class="recordTime" v-if="index<=today-1">
                                     {{stepChange(item.step)}}
                                </div>
-                                <div class="recordTime" v-if="item.getuptime==0"><img src="../images/norecord.png"/></div>
-                                <div class="recordTime" v-if="item.getuptime==-1" style="height: 19px;padding-top: 2px;"></div>
                             </a>
                         </div>
                     </div>

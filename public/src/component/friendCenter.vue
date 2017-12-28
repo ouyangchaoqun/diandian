@@ -21,28 +21,19 @@
                 </div>
                 <div class="class_title">
                     <div class="class_titleTop">
-                        <span>起床时间</span>
-                        <div class="class_info">
-                            <div>一</div>
-                            <div>二</div>
-                            <div>三</div>
-                            <div>四</div>
-                            <div>五</div>
-                            <div>六</div>
-                            <div>日</div>
+                        <div v-for="item in classGetup.list">
+                            <span>{{subDate(item.date)}}</span>
                         </div>
                     </div>
                     <div class="class_titleBottom">
-                        <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime!=''">{{classGetup.today.shorttime}}</span>
-                        <span style="height:0.88235rem;" v-if="classGetup&&classGetup.today.shorttime==''">--:--</span>
-                        <div class="class_info" style="height:0.588235rem;">
-                            <div v-for="item in classGetup.list">
-                                <template v-if="item.shorttime!=''">{{item.shorttime}}</template>
-                                <template v-if="item.weekix<=classGetup.today.weekix&&item.shorttime==''">
-                                    <img src="../images/norecord.png" alt="">
-                                </template>
-                            </div>
+
+                        <div v-for="item in classGetup.list">
+                            <template v-if="item.shorttime!=''">{{item.shorttime}}</template>
+                            <template v-if="item.shorttime==''">
+                                <img src="../images/norecord.png" alt="">
+                            </template>
                         </div>
+
                     </div>
 
                 </div>
@@ -54,28 +45,16 @@
                 </div>
                 <div class="class_title">
                     <div class="class_titleTop">
-                        <span>今日心情</span>
-                        <div class="class_info">
-                            <div>一</div>
-                            <div>二</div>
-                            <div>三</div>
-                            <div>四</div>
-                            <div>五</div>
-                            <div>六</div>
-                            <div>日</div>
+                        <div v-for="item in classCalendar.list">
+                            <span>{{subDate(item.date)}}</span>
                         </div>
                     </div>
                     <div class="class_titleBottom">
-                                <span>
-                                    <img :src="todayMood.smailUrl" alt="">
-                                </span>
-                        <div class="class_info">
                             <div v-for="item in moodList">
-                                <template v-if="item.weekix<=todayMood.weekix">
+                                <template>
                                     <img :src="item.smailUrl" alt="">
                                 </template>
                             </div>
-                        </div>
                     </div>
 
                 </div>
@@ -87,28 +66,18 @@
                 </div>
                 <div class="class_title">
                     <div class="class_titleTop">
-                        <span>今日完成</span>
-                        <div class="class_info">
-                            <div>一</div>
-                            <div>二</div>
-                            <div>三</div>
-                            <div>四</div>
-                            <div>五</div>
-                            <div>六</div>
-                            <div>日</div>
+                        <div v-for="item in classHabit.list">
+                            <span>{{subDate(item.date)}}</span>
                         </div>
                     </div>
                     <div class="class_titleBottom">
-                        <span style="height:0.88235rem;">{{classHabit&&classHabit.today.finishNum}}</span>
-                        <div class="class_info" style="bottom:-2px;">
-                            <div v-for="item in classHabit.list">
-                                <template v-if="item.finishNum!=0">
-                                    <img src="../images/habitf.png" alt="">
-                                </template>
-                                <template v-if="item.finishNum==0&&classHabit.today.weekix>=item.weekix">
-                                    <img src="../images/habitnof.png" alt="">
-                                </template>
-                            </div>
+                        <div v-for="item in classHabit.list">
+                            <template v-if="item.finishNum!=0">
+                                <img src="../images/habitf.png" alt="">
+                            </template>
+                            <template v-if="item.finishNum==0">
+                                <img src="../images/norecord.png" alt="">
+                            </template>
                         </div>
                     </div>
 
@@ -121,24 +90,13 @@
                 </div>
                 <div class="class_title">
                     <div class="class_titleTop">
-                        <span>今日步数</span>
-                        <div class="class_info">
-                            <div>一</div>
-                            <div>二</div>
-                            <div>三</div>
-                            <div>四</div>
-                            <div>五</div>
-                            <div>六</div>
-                            <div>日</div>
+                        <div v-for="item in classStep.list">
+                            <span>{{subDate(item.date)}}</span>
                         </div>
                     </div>
                     <div class="class_titleBottom">
-                        <span style="height:0.88235rem;">{{classStep&&stepChange(classStep.today.step)}}</span>
-                        <div class="class_info">
-                            <div v-for="item in classStep.list">
-                                <template v-if="classStep.today.weekix>=item.weekix">{{stepChange(item.step)}}</template>
-                                <template v-if="classStep.today.weekix<item.weekix"></template>
-                            </div>
+                        <div v-for="item in classStep.list">
+                            <template>{{stepChange(item.step)}}</template>
                         </div>
                     </div>
 
@@ -184,6 +142,11 @@
                     n = parseInt(n/1000) + 'k';
                 }
                 return n;
+            },
+            subDate:function (date) {
+                date = date.substring(8);
+                console.log(date)
+                return date;
             },
             getWeekClass:function () {
                 let _this = this;

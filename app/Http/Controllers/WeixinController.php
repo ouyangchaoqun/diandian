@@ -132,8 +132,12 @@ class WeixinController extends Controller
      */
     public function webLogin(Request $request)
     {
-        $appId = env('WECHAT_APPID');
+        //fc8cd3816237d15eb67f5e72ca19d5ce
+        //wx1124db3d707a7566
+
+        $appId = 'wx1124db3d707a7566';//env('WECHAT_APPID');
         $callback = env('WECHAT_CONNECT_CALL_BACK_URL_PUB');
+        $callback = 'http://wx.xqzs.cn/wx/web/login/callback';
         $backUrl = $request->input('reurl');
         if (empty($backUrl)) {
             $backUrl = 'index';
@@ -161,6 +165,10 @@ class WeixinController extends Controller
         if (!empty($state) && $state != 'index') {
             $goUrl = urldecode($state);
         }
+        return redirect($goUrl.'?code='.$code);
+
+        var_dump($code);
+        var_dump($data);
         var_dump($code);
         var_dump($state);
         var_dump($goUrl);
