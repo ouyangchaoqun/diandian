@@ -206,7 +206,7 @@ class WeixinController extends Controller
      */
     public function bridgeJump(Request $request)
     {
-        $goUrl = 'http://web.xqzs.cn';
+        $goUrl = 'http://wx.xqzs.cn';
         $state = $request->input('state');
         $code = $request->input('code');
         if (!empty($state) && $state != 'index') {
