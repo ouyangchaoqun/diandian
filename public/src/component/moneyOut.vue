@@ -85,7 +85,7 @@
             getList: function (done) {
 
                 let vm = this;
-                let url = web.API_PATH + 'user/withdraw/detail' + '/_userId_/' + vm.page + '/' + vm.row;
+                let url = web.API_PATH + 'user/withdraw/detail' + '/_userId_/' + vm.row+ '/' + vm.page;
                 this.rankUrl = url + "?";
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
