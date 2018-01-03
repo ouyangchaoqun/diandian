@@ -3,7 +3,7 @@
         <div v-title>余额明细</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
             <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" :bottomHeight="50">
-            <ul v-if="list.length!=0">
+            <ul>
                 <li class="moneyOut_item" v-for="item in list">
                     <div class="time">
                         <span>{{getDateTime(item.addTime)}}</span>
@@ -17,15 +17,6 @@
                     </div>
                 </li>
             </ul>
-
-            <div class="nothing"  v-if="list.length==0">
-                <div style="padding-top:4.4rem">
-                    <img src="../images/newNoContent.png" alt="">
-                    <div class="nothing_bottom">
-                        <p>您还没有收益</p>
-                    </div>
-                </div>
-            </div>
 
         </v-scroll>
 
