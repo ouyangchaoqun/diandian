@@ -175,6 +175,10 @@
                 let cur_year = date.getFullYear();
                 /**年份 */
                 let cur_month = date.getMonth() + 1;
+                console.log(cur_year)
+                console.log(this.cur_year)
+                console.log(cur_month)
+                console.log(this.cur_month)
                 if(cur_year==this.cur_year&&cur_month==this.cur_month){
                     this.isLast = true;
                 }else{
