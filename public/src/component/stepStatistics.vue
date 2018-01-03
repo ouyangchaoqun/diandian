@@ -26,7 +26,7 @@
                                 <div class="get_datesView"><div class="get_yuan">{{index+1}}</div>
 
                                 </div>
-                               <div class="recordTime" v-if="index<=today-1||!isLast">
+                               <div class="recordTime" v-if="(index<=today-1&&isLast)||!isLast">
                                     {{stepChange(item.step)}}
                                </div>
                             </a>
