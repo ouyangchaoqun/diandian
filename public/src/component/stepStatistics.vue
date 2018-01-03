@@ -175,8 +175,7 @@
                 let cur_year = date.getFullYear();
                 /**年份 */
                 let cur_month = date.getMonth() + 1;
-               let lastYear = date.getFullYear();
-                let lastMonth = date.getMonth() + 1;
+
 
                 /**月 */
                 this.cur_day=now;
@@ -200,11 +199,7 @@
                 console.log(lastMonth)
                 console.log(this.cur_year)
                 console.log(this.cur_month)
-                if(lastYear==this.cur_year&&lastMonth==this.cur_month){
-                    this.isLast = true;
-                }else{
-                    this.isLast = false;
-                }
+
 
             },
             getThisMonthDays(year, month) {
@@ -249,7 +244,14 @@
                 _this.$http.get(web.API_PATH + 'werun/month/statistics/_userId_'+'?date='+year+'-'+monthchange+'-'+clickDay).then(response => {
                     if (response.data.status === 1) {
                     _this.days = response.data.data;
-                    console.log(_this.days)
+                    let date = new Date();
+                    let lastYear = date.getFullYear();
+                    let lastMonth = date.getMonth() + 1;
+                    if(lastYear==_this.cur_year&&lastMonth==_this.cur_month){
+                        _this.isLast = true;
+                    }else{
+                        _this.isLast = false;
+                    }
                     _this.showDay(clickDay-1)
                     } else {
 
