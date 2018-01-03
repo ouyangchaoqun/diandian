@@ -26,7 +26,7 @@
                                 <div class="get_datesView"><div class="get_yuan">{{index+1}}</div>
 
                                 </div>
-                               <div class="recordTime" v-if="index<=today-1">
+                               <div class="recordTime" v-if="index<=today-1&&isLast">
                                     {{stepChange(item.step)}}
                                </div>
                             </a>
@@ -89,7 +89,8 @@
                 showInfo:'',
                 showKm:'',
                 showPower:'',
-                user:''
+                user:'',
+                isLast:false,
             }
         },
         mounted: function () {
@@ -174,6 +175,12 @@
                 let cur_year = date.getFullYear();
                 /**年份 */
                 let cur_month = date.getMonth() + 1;
+                if(cur_year==this.cur_year&&cur_month==this.cur_month){
+                    this.isLast = true;
+                }else{
+                    this.isLast = false;
+                }
+
 
                 /**月 */
                 this.cur_day=now;
@@ -237,6 +244,7 @@
                 _this.$http.get(web.API_PATH + 'werun/month/statistics/_userId_'+'?date='+year+'-'+monthchange+'-'+clickDay).then(response => {
                     if (response.data.status === 1) {
                     _this.days = response.data.data;
+                    console.log(_this.days)
                     _this.showDay(clickDay-1)
                     } else {
 
