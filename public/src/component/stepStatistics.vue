@@ -1,6 +1,7 @@
 <template id="stepStatistics">
     <div class="stepStatistics">
         <div v-title>步数统计</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="get_header">
             <div class="getupBgView">
                     <div class="canlendarTopView">
@@ -53,7 +54,7 @@
 <script type="text/javascript">
     import banner from "./banner.vue";
     import calendarTemplate from './calendarTemplate.vue'
-
+    import showLoad from './showLoad.vue';
     var calendar = {
         template: '#calendar'
     }
@@ -64,6 +65,7 @@
         },
         data() {
             return {
+                showLoad:false,
                 hasEmptyGrid: false,
                 cur_year: '',
                 cur_month: '',
@@ -112,9 +114,9 @@
             }
 
         },
-        /*components:{
-         "v-swiper_box":swiper_box
-         },*/
+        components: {
+            'v-showLoad': showLoad
+        },
         created: function () {
             $(".calendar_box").click()
         },
@@ -225,6 +227,7 @@
             },
             calculateDays(year, month,clickDay) {
                 let _this = this;
+                _this.showLoad = true;
                 let days = [];
                 let thisMonthDays = this.getThisMonthDays(year, month);
                 let monthchange = month;
@@ -238,10 +241,11 @@
                 days = [];
                 _this.$http.get(web.API_PATH + 'werun/month/statistics/_userId_'+'?date='+year+'-'+monthchange+'-'+clickDay).then(response => {
                     if (response.data.status === 1) {
-                    _this.days = response.data.data;
-                    let date = new Date();
-                    let lastYear = date.getFullYear();
-                    let lastMonth = date.getMonth() + 1;
+                        _this.showLoad = false;
+                        _this.days = response.data.data;
+                        let date = new Date();
+                        let lastYear = date.getFullYear();
+                        let lastMonth = date.getMonth() + 1;
                     if(lastYear==_this.cur_year&&lastMonth==_this.cur_month){
                         _this.isLast = true;
                     }else{
