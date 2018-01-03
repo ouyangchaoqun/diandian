@@ -177,6 +177,7 @@
                 done() // call done
             },
             onInfinite(done) {
+                console.log('onInfiniteonInfiniteonInfiniteonInfinite')
                 let vm = this;
                 vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
                     vm.counter++;

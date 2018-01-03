@@ -2,7 +2,7 @@
     <div class="moneyOut">
         <div v-title>余额明细</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText">
+            <v-scroll :on-refresh="onRefresh" :isNotRefresh="true" :on-infinite="onInfinite" :isPageEnd="isPageEnd" :isShowMoreText="isShowMoreText" :bottomHeight="50">
             <ul v-if="list.length!=0">
                 <li class="moneyOut_item" v-for="item in list">
                     <div class="time">
@@ -41,11 +41,12 @@
         data() {
             return {
                 page: 1,
-                row: 10,
+                row: 13,
                 isPageEnd: false,
                 isShowMoreText: false,
                 showLoad: false,
                 list: [],
+                isLoading:false,
             }
         },
         props:{
@@ -90,6 +91,9 @@
                 if (web.guest) {
                     this.rankUrl = this.rankUrl + "guest=true"
                 }
+                console.log(vm.isLoading)
+                console.log(vm.isPageEnd)
+                console.log(vm.page)
                 if (vm.isLoading || vm.isPageEnd) {
                     return;
                 }
@@ -121,7 +125,7 @@
                     }
                     Bus.$emit("scrollMoreTextInit", vm.isShowMoreText);
 
-
+                    console.log(vm.page)
                     if (vm.page == 1) {
                         vm.list = arr;
                     } else {
@@ -138,7 +142,6 @@
             },
             onInfinite(done) {
                 this.getList(done);
-
             }
 
         }

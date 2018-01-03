@@ -283,7 +283,6 @@
             },
             subDate:function (date) {
                 date = date.substring(8);
-                console.log(date)
                 return date;
             },
             canEdit: function (mood) {
