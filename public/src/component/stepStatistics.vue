@@ -184,7 +184,6 @@
                 this.nowMonth = cur_month;
                 let todayIndex = date.getDay() - 1;
                 let today = date.getDate();
-                console.log('today'+today)
                 /**日 */
                 this.calculateEmptyGrids(cur_year, cur_month);
                 /**调用计算空格子*/
@@ -195,10 +194,6 @@
                 this.cur_month = cur_month;
                 this._month = _month;
                 this.today = today;
-                console.log(lastYear)
-                console.log(lastMonth)
-                console.log(this.cur_year)
-                console.log(this.cur_month)
 
 
             },
