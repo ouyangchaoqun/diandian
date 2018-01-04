@@ -94,7 +94,7 @@
         },
         methods: {
             subText: function (text) {
-                var len = 18;
+                var len = 15;
                 if (text.length > len) {
                     text = text.substr(0, len) + '...';
                 }
