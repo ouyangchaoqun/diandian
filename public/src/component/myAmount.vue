@@ -2,7 +2,7 @@
     <div style="height: 100%" class="my_amount_box wbg">
         <div v-title>我的余额</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div v-if="formatPrice(user.balance)!=0">
+        <div>
             <div class="my_income" >
                 <div class="img"></div>
                 <div class="my_income_txt">我的余额</div>
@@ -12,15 +12,6 @@
             <div class="moneyOut_detail">
                 <span @click="goMoneyOut()">余额明细</span>
                 <div></div>
-            </div>
-        </div>
-
-        <div class="nothing" v-if="formatPrice(user.balance)==0">
-            <div style="padding-top:4.4rem">
-                <img src="../images/newNoContent.png" alt="">
-                <div class="nothing_bottom">
-                    <p>您还没有收益</p>
-                </div>
             </div>
         </div>
         <div class="moneyOut_box" v-if="isOut" @click="hideOut()">
