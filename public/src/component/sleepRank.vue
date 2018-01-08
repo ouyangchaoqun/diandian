@@ -557,8 +557,8 @@
         height: 40px !important;
         width: 40px !important;
         display: block;
-        border-radius: 0.294rem;
-        margin-right: 0.88235rem;
+        border-radius: 5px;
+        margin-right: 15px;
     }
 
     .clock_box .rank_right {
