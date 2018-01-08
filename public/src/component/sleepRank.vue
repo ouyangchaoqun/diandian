@@ -548,14 +548,9 @@
     .rank_border {
 
     }
-
-    .rank_borderNight {
-
-    }
-
     .rank_main img.rank_headImg {
         height: 40px !important;
-        width: 40px !important;
+        max-width: 40px;
         display: block;
         border-radius: 0.294rem;
         margin-right: 0.88235rem;
