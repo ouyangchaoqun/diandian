@@ -497,7 +497,7 @@
     .rank_cup {
         width: 2rem;
         font-family: PingFangSC-Regular;
-        font-size: 0.94118rem;
+        font-size: 0.8235rem;
         color: #666;
         text-align: center;
         height: 0.71rem;
