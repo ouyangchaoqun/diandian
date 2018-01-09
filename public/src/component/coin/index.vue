@@ -343,8 +343,8 @@
 </script>
 <style>
     .holiday_tip{ height:8.352941176470588rem; width: 19.94117647058824rem; background: url(http://oss.xqzs.cn/resources/mood/coin_holiday_tip_bg.png) no-repeat; background-size: 19.94117647058824rem; margin: 0 auto; margin-top: -0.7rem; margin-bottom: 0.5rem; }
-    .holiday_tip .t{ color:#FF6804; font-size:0.8235294117647059rem;line-height: 1.6;  padding:1.5rem;padding-top: 1rem;padding-bottom: 0; }
-    .holiday_tip .c{font-size: 0.6470588235294118rem; color:#666; line-height: 1.6; padding:  0 1.5rem ;}
+    .holiday_tip .t{ color:#FF6804; font-size:0.8235294117647059rem;line-height: 1.6;  padding:1.4rem;padding-top: 1rem;padding-bottom: 0; }
+    .holiday_tip .c{font-size: 0.6470588235294118rem; color:#666; line-height: 1.6; padding:  0 1.4rem ;}
     .holiday_tip .c span{color:#FF6804;}
 
     .coin_index{ background: #fff;}
