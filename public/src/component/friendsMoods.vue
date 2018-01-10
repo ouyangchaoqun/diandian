@@ -60,7 +60,8 @@
                                 <div style="float: left;position: relative" @touchstart="flyStart(index,item)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
                                     <img class="time_rightimg1" :src="item.careImg" alt=""  :class="{heartUp:item.hit}">
-                                    <img v-if="item.flyhearts" v-for=" ii in item.flyhearts" :src="item.moodValue>5?'http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png':'/dist/mood_icon_baob_pre.png'"  class="fly_heart " :class="('start'+ii.rnd)" >
+                                    <div v-if="item.flyhearts&&item.moodValue>5" v-for=" ii in item.flyhearts"  style="background:url(http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png) no-repeat; background-size: 16px; "  class="fly_heart " :class="('start'+ii.rnd)" ></div>
+                                    <div v-if="item.flyhearts&&item.moodValue<=5" v-for=" ii in item.flyhearts"  style="background:url(/dist/mood_icon_baob_pre.png) no-repeat; background-size: 16px; "  class="fly_heart " :class="('start'+ii.rnd)" ></div>
                                 </div>
 
                                 <div style="float: left;margin-left: 10px;">
@@ -107,12 +108,12 @@
     export default {
         data() {
             return {
-                counter: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
-                num: 10,  // 一次显示多少条
-                pageStart: 0, // 开始页数
-                pageEnd: 0, // 结束页数
-                listdata: [], // 下拉更新数据存放数组
+                pageNo: 1, //默认已经显示出15条数据 count等于一是让从16条开始加载
+                pageSize: 10,  // 一次显示多少条
+                lastId:0,
+                lastAdId:0,
                 downdata: [],  // 上拉更多的数据存放数组
+                isLoading:false,
                 showAll:false,
                 showLoad:false,
                 isPageEnd:false,
@@ -187,29 +188,51 @@
                 console.log(this.downdata);
 
             },
-            getList(){
+            getList(done){
+                if(typeof done == 'function'){
+                    done()
+                }
                 let vm = this;
+                if( this.isLoading||this.isPageEnd){return }
                 //显示loding
                 this.showLoad = true;
+                this.isLoading=true;
 
-                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + 1 + "/" + vm.num).then((response) => {  //friend
-                    vm.downdata = response.data.data.rows;
-                    var maxid = 0;
-                    for(var i=0,l=response.data.data.rows.length;i<l;i++){
-                        maxid = Math.max(maxid,response.data.data.rows[i].id)
+                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + vm.pageNo + "/" + vm.pageSize +"?lastId=" + vm.lastId +"&lastAdId="+vm.lastAdId).then((response) => {  //friend
+                    //消失loding
+                    vm.showLoad = false;
+                    vm.isLoading=false;
+                    if(vm.pageNo==1){
+                        vm.downdata = response.data.data.rows;
+                    }else{
+                        vm.downdata = vm.downdata.concat( response.data.data.rows)
                     }
-                    xqzs.friendmood.setlast(maxid);
+
+
+                     var maxid = vm.lastId,minid= vm.lastAdId;
+                    for(var i=0,l=response.data.data.rows.length;i<l;i++){
+
+                        if(response.data.data.rows[i].id<0){
+                            minid = response.data.data.rows[i].id
+                        }else{
+                            maxid = response.data.data.rows[i].id;
+                        }
+                    }
+
+                    vm.lastId = maxid ;
+                    vm.lastAdId = minid ;
+
 
                     vm.downdata = xqzs.mood.initMoodsData(vm.downdata,false,vm.user.id);
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                     })
-                    //消失loding
-                   this.showLoad = false;
-                    if (vm.downdata.length <vm.num) {
+
+                    if (vm.downdata.length <vm.pageSize) {
                         vm.isPageEnd=true;
                     }
+                    vm.pageNo= vm.pageNo+1;
                 }, (response) => {
                     console.log('error');
                     //消失loding
@@ -220,38 +243,13 @@
             onRefresh(done) {
                 this.counter=1;
                 this.isPageEnd=false;
-                this.getList();
-                done() // call done
+                this.lastId = 0 ;
+                this.lastAdId = 0 ;
+                this.getList(done);
+
             },
             onInfinite(done) {
-                console.log('onInfiniteonInfiniteonInfiniteonInfinite')
-                let vm = this;
-                vm.$http.get(web.API_PATH + 'mood/query/all/page/_userId_/' + (vm.counter + 1) + "/" + vm.num).then((response) => {
-                    vm.counter++;
-                    vm.pageEnd = vm.num * vm.counter;
-                    vm.pageStart = vm.pageEnd - vm.num;
-                    let arr = response.data.data.rows;
-                    let i = 0;
-                    let end = vm.pageEnd;
-                    arr = xqzs.mood.initMoodsData(arr,false,vm.user.id);
-                    for (; i < arr.length; i++) {
-                        vm.downdata.push(arr[i]);
-                    }
-                    vm.$nextTick(function () {
-                        myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
-                    });
-
-
-
-                    if (arr.length <vm.num) {
-                        vm.isPageEnd=true;
-                    }
-                    console.log(vm.isPageEnd)
-
-                    done() // call done
-                }, (response) => {
-                    console.log('error');
-                });
+                this.getList(done);
             },
             showBigImg: function (list, curr) {
 
@@ -644,7 +642,7 @@
         font-style: normal;
     }
 
-.stateBottom .time_right .fly_heart { height:15px;  width:16px;  position: absolute;top:0px;}
+.stateBottom .time_right .fly_heart { height:15px;  width:16px;  position: absolute;top:0px; background-size: 15px; }
 
 
 .stateBottom .time_right   .fly_heart.start1{
