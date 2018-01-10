@@ -65,9 +65,9 @@
 
                                 </div>
 
-                                <div style="float: left;margin-left: 17px;" @click="addComment(0,index)" >
+                                <div style="float: left;margin-left: 14px;"  >
                                     <span class="frined_com">{{item.replycount}}</span>
-                                    <img class="time_rightimg2" src="../images/comments.png" alt="" >
+                                    <img class="time_rightimg2" src="../images/comments.png" @click="addComment(0,index)" alt="" >
                                 </div>
 
                             </div>
