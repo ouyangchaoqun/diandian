@@ -228,7 +228,7 @@
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
                         $(".time_right img").on('touchstart',function(ev){
-                            ev.preventDefault();
+                            ev.stopPropagation();
                         });
 
                     })
