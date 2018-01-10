@@ -57,7 +57,7 @@
                         <div class="stateBottom">
                             <div class="time">{{item.outTime}}</div>
                             <div class="time_right">
-                                <div style="float: left;position: relative" @touchstart="flyStart(index)" @touchend="flyOver()">
+                                <div style="float: left;position: relative" @touchstart="flyStart(index,item)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
                                     <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)" :class="{heartUp:item.hit}">
                                     <img v-if="item.flyhearts" v-for=" ii in item.flyhearts" src="http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png"  class="fly_heart " :class="('start'+ii.rnd)" >
@@ -132,22 +132,24 @@
         },
         methods: {
 
-            flyStart:function (index) {
+            flyStart:function (index,mood) {
                 console.log(index)
-                let _this=this;
-                var list=this.downdata;
-                let item = list[index];
-                item.flyhearts=[];
-                for(let i =0  ;i<5;i++){
-                    item.flyhearts.push({rnd:i});
-                }
-                _this.$set(_this.downdata,index,item);
-                console.log(_this.downdata)
-                timeOutHeart= setInterval(function () {
-                    console.log("Ss")
-                    _this.rndFlyHeart(item,index)
+                let _this = this;
+                if(mood.userId !=_this.user.id) {
+                    var list = this.downdata;
+                    let item = list[index];
+                    item.flyhearts = [];
+                    for (let i = 0; i < 5; i++) {
+                        item.flyhearts.push({rnd: i});
+                    }
+                    _this.$set(_this.downdata, index, item);
+                    console.log(_this.downdata)
+                    timeOutHeart = setInterval(function () {
+                        console.log("Ss")
+                        _this.rndFlyHeart(item, index)
 
-                },500)
+                    }, 500)
+                }
             },
 
             rndFlyHeart:function (item,index) {
