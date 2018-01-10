@@ -59,8 +59,8 @@
                             <div class="time_right">
                                 <div style="float: left;position: relative" @touchstart="flyStart(index,item)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
-                                    <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)" :class="{heartUp:item.hit}">
-                                    <img v-if="item.flyhearts" v-for=" ii in item.flyhearts" src="http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png"  class="fly_heart " :class="('start'+ii.rnd)" >
+                                    <img class="time_rightimg1" :src="item.careImg" alt=""  :class="{heartUp:item.hit}">
+                                    <img v-if="item.flyhearts" v-for=" ii in item.flyhearts" :src="item.moodValue>5?'http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png':'/dist/mood_icon_baob_pre.png'"  class="fly_heart " :class="('start'+ii.rnd)" >
                                 </div>
 
                                 <div style="float: left;margin-left: 10px;">
@@ -133,8 +133,10 @@
         methods: {
 
             flyStart:function (index,mood) {
+
                 console.log(index)
                 let _this = this;
+                _this.addCare(mood,index);
                 if(mood.userId !=_this.user.id) {
                     var list = this.downdata;
                     let item = list[index];
@@ -645,6 +647,9 @@
     }
 
 .stateBottom .time_right .fly_heart { height:15px;  width:16px;  position: absolute;top:0px;}
+
+.stateBottom .time_right  img{ -webkit-user-select:none;
+    -webkit-touch-callout:none;}
 .stateBottom .time_right   .fly_heart.start1{
     animation: fly_height1 1.5s forwards linear;
 }
