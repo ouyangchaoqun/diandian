@@ -150,9 +150,10 @@
                                         <div class="clock_time">{{rankList.time}}</div>
                                     </div>
                                     <div class="rank_right" :class="{rank_rightNight:isNight}" @touchstart="flystart(index,rankList)" @touchend="flyover()">
-                                        <div @click.stop="addCare(rankList,index)" class="care_icon">
+                                        <div  class="care_icon">
                                                 <img v-if="rankList.flyhearts" v-for=" ii in rankList.flyhearts" src="http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png"  class="fly_heart " :class="('start'+ii.rnd)" >
                                             <span>{{rankList.careCount||0}}</span>
+                                            <div class="heart_hover"></div>
                                             <img :src="rankList.careImg" alt="" :class="{heartUp:rankList.hit}">
                                         </div>
                                     </div>
@@ -570,7 +571,11 @@
      }
 
     .care_icon {
-        padding: 0.8rem 0.764rem 0.85rem  1.8rem
+        padding: 0.8rem 0.764rem 0.85rem  1.8rem; position: relative;
+    }
+    .care_icon .heart_hover{
+        width: 0.9412rem;
+        height: 0.88235rem; position: absolute;right:0.764rem; bottom:0.9rem;
     }
 
     .clock_box .rank_right img {
@@ -942,18 +947,16 @@
         methods: {
 
             flystart:function (index) {
-                console.log(index)
                 let _this=this;
                 var list=this.rankLists;
                 let item = list[index];
+                this.addCare(item,index);
                 item.flyhearts=[];
                 for(let i =0  ;i<5;i++){
                     item.flyhearts.push({rnd:i});
                 }
                 _this.$set(_this.rankLists,index,item);
-                console.log(_this.rankLists)
                 timeOutHeart= setInterval(function () {
-                    console.log("Ss")
                     _this.rndFlyHeart(item,index)
 
                 },500)
@@ -975,7 +978,6 @@
             },
 
             flyover:function () {
-                console.log("end")
                 if(timeOutHeart){
                     clearInterval(timeOutHeart)
                 }
