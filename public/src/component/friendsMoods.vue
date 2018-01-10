@@ -59,9 +59,9 @@
                             <div class="time_right">
                                 <div style="float: left;position: relative" @touchstart="flyStart(index,item)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
-                                    <img class="time_rightimg1" :src="item.careImg" alt=""  :class="{heartUp:item.hit}">
-                                    <div v-if="item.flyhearts&&item.moodValue>5" v-for=" ii in item.flyhearts"  style="background:url(http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png) no-repeat; background-size: 16px; "  class="fly_heart " :class="('start'+ii.rnd)" ></div>
-                                    <div v-if="item.flyhearts&&item.moodValue<=5" v-for=" ii in item.flyhearts"  style="background:url(/dist/mood_icon_baob_pre.png) no-repeat; background-size: 16px; "  class="fly_heart " :class="('start'+ii.rnd)" ></div>
+                                    <div class="time_rightimg1 img" :style="'background:url(' + item.careImg + ')  no-repeat; background-size: 14px;'"  :class="{heartUp:item.hit}"></div>
+                                    <img  v-if="item.flyhearts"  v-for="ii in item.flyhearts" :src="item.flyhearts&&item.moodValue>5?'http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png':'/dist/mood_icon_baob_pre.png'"  class="fly_heart " :class="('start'+ii.rnd)" />
+
                                 </div>
 
                                 <div style="float: left;margin-left: 10px;">
@@ -534,11 +534,13 @@
         margin-bottom: 6px;
     }
 
-    .time_right img {
+    .time_right img ,.time_right .img {
         width:14px;
         vertical-align: middle;
         margin-top: 3px !important;
-        margin-bottom: 4px
+        margin-bottom: 4px;
+        height: 13px;
+        display: inline-block;
     }
     .time_right .frined_zan ,.time_right .frined_com{
         vertical-align: middle;
