@@ -495,14 +495,14 @@
     }
 
     .rank_cup {
-        width: 2rem;
+        width: 15%;
         font-family: PingFangSC-Regular;
         font-size: 0.8235rem;
         color: #666;
         text-align: center;
         height: 0.71rem;
         line-height: 0.71rem;
-        margin: 0.88235rem 0.764rem 0 0.764rem;
+        margin-top: 0.88235rem;
     }
 
     .rank_cupNight {
@@ -564,7 +564,7 @@
         font-size: 0.88235rem;
         color: #666;
         position: absolute;
-        right: 0.294rem;
+        right: 0;
         top: 0;
      }
 
