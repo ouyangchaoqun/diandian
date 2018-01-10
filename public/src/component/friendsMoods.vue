@@ -138,17 +138,15 @@
                 let _this = this;
                 _this.addCare(mood,index);
                 if(mood.userId !=_this.user.id) {
-                    var list = this.downdata;
+                    let list = this.downdata;
                     let item = list[index];
                     item.flyhearts = [];
                     for (let i = 0; i < 5; i++) {
                         item.flyhearts.push({rnd: i});
                     }
                     _this.$set(_this.downdata, index, item);
-                    console.log(_this.downdata)
-                    timeOutHeart = setInterval(function () {
-                        console.log("Ss")
-                        _this.rndFlyHeart(item, index)
+                     timeOutHeart = setInterval(function () {
+                         _this.rndFlyHeart(item, index)
 
                     }, 500)
                 }
@@ -648,8 +646,7 @@
 
 .stateBottom .time_right .fly_heart { height:15px;  width:16px;  position: absolute;top:0px;}
 
-*{ -webkit-user-select:none;
-    -webkit-touch-callout:none;}
+
 .stateBottom .time_right   .fly_heart.start1{
     animation: fly_height1 1.5s forwards linear;
 }
