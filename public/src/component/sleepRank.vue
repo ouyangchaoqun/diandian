@@ -149,8 +149,9 @@
                                         </div>
                                         <div class="clock_time">{{rankList.time}}</div>
                                     </div>
-                                    <div class="rank_right" :class="{rank_rightNight:isNight}">
+                                    <div class="rank_right" :class="{rank_rightNight:isNight}" @touchstart="flystart(index,rankList)" @touchend="flyover()">
                                         <div @click.stop="addCare(rankList,index)" class="care_icon">
+                                                <img v-if="rankList.flyhearts" v-for=" ii in rankList.flyhearts" src="http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png"  class="fly_heart " :class="('start'+ii.rnd)" >
                                             <span>{{rankList.careCount||0}}</span>
                                             <img :src="rankList.careImg" alt="" :class="{heartUp:rankList.hit}">
                                         </div>
@@ -737,7 +738,7 @@
         padding: 2px;
     }
 
-    .ewm .output {
+     .ewm .output {
         width: 100%;
         height: 100%
     }
@@ -753,6 +754,88 @@
         left: 0;
         z-index: 10001;
     }
+    .rank_list .rank_right .fly_heart { height:15px;  width:16px;  position: absolute;top: 30px;}
+    .rank_list .rank_right   .fly_heart.start1{
+        animation: fly_height1 1.5s forwards linear;
+    }
+    .rank_list  .rank_right    .fly_heart.start2{
+        animation: fly_height2 1.8s forwards linear;
+    }
+    .rank_list   .rank_right   .fly_heart.start3{
+        animation: fly_height3 1.3s forwards linear;
+    }
+    .rank_list  .rank_right  .fly_heart.start4{
+        animation: fly_height4 3s forwards linear;
+    }
+    .rank_list  .rank_right  .fly_heart.start0{
+        animation: fly_height5 2.5s   forwards  linear;
+    }
+
+
+    @-webkit-keyframes fly_height15 {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translate3d(-3rem, -6rem, 0) scale(1);
+            -webkit-transform: translate3d(-3rem, -6rem, 0) scale(1);
+        }
+    }
+    @keyframes fly_height1{
+        0%{
+            opacity: 1;
+            transform: translate3d(0, 0, 0)   scale(1);
+            -webkit-transform: translate3d(0,0, 0)   scale(1);
+        }
+        100%{
+            opacity: 0;
+            transform: translate3d(-9rem, -1rem, 0)   scale(1);
+            -webkit-transform: translate3d(-9rem, -1rem, 0)   scale(1);
+        }
+    }
+    @keyframes fly_height2{
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            transform: translate3d(-1rem, -9rem, 0)   scale(1);
+            -webkit-transform: translate3d(-1rem, -9rem, 0)   scale(1);
+        }
+    }
+    @keyframes fly_height3{
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            transform: translate3d(-4rem, -3rem, 0)   scale(1);
+            -webkit-transform:  translate3d(-4rem, -3rem, 0)   scale(1);
+        }
+    }
+    @keyframes fly_height4{
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            transform: translate3d(-6rem, -2rem, 0)   scale(1);
+            -webkit-transform: translate3d(-6rem, -2rem, 0)   scale(1);
+        }
+    }
+    @keyframes fly_height5 {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: translate3d(-3rem, -6rem, 0) scale(1);
+            -webkit-transform: translate3d(-3rem, -6rem, 0) scale(1);
+        }
+    }
+
+
 
 
 </style>
@@ -760,7 +843,7 @@
     import showLoad from './showLoad.vue';
     import scroll from './lib/scroll.vue';
     import Bus from './bus.js';
-
+    var  timeOutHeart;
     var sleepRank = {
         template: '#sleepRank'
     }
@@ -818,6 +901,7 @@
                 MORNING_END_TIME: '10:00',
                 NIGHT_FROM_TIME: '20:00',
                 NIGHT_END_TIME: '23:59',
+
             }
         },
 
@@ -859,6 +943,47 @@
             }
         },
         methods: {
+
+            flystart:function (index) {
+                console.log(index)
+                let _this=this;
+                var list=this.rankLists;
+                let item = list[index];
+                item.flyhearts=[];
+                for(let i =0  ;i<5;i++){
+                    item.flyhearts.push({rnd:i});
+                }
+                _this.$set(_this.rankLists,index,item);
+                console.log(_this.rankLists)
+                timeOutHeart= setInterval(function () {
+                    console.log("Ss")
+                    _this.rndFlyHeart(item,index)
+
+                },500)
+            },
+
+            rndFlyHeart:function (item,index) {
+                let _this=this;
+                let rnd = parseInt(Math.random()*5);
+                console.log(typeof item.flyhearts)
+                if(typeof item.flyhearts !='object'){
+                    item.flyhearts=[];
+                }
+                item.flyhearts.push({rnd:rnd});
+                rnd = parseInt(Math.random()*5);
+                item.flyhearts.push({rnd:rnd});
+                rnd = parseInt(Math.random()*5);
+                item.flyhearts.push({rnd:rnd});
+                _this.$set(_this.rankLists,index,item);
+            },
+
+            flyover:function () {
+                console.log("end")
+                if(timeOutHeart){
+                    clearInterval(timeOutHeart)
+                }
+            },
+
             set:function () {
                 this.$router.push('/me/subscribe')
             },

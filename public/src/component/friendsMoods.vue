@@ -57,9 +57,10 @@
                         <div class="stateBottom">
                             <div class="time">{{item.outTime}}</div>
                             <div class="time_right">
-                                <div style="float: left">
+                                <div style="float: left;position: relative" @touchstart="flyStart(index)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
                                     <img class="time_rightimg1" :src="item.careImg" alt="" @click="addCare(item,index)" :class="{heartUp:item.hit}">
+                                    <img v-if="item.flyhearts" v-for=" ii in item.flyhearts" src="http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png"  class="fly_heart " :class="('start'+ii.rnd)" >
                                 </div>
 
                                 <div style="float: left;margin-left: 10px;">
@@ -102,6 +103,7 @@
     import tab from './lib/tab.vue';
     import showLoad from './showLoad.vue';
     import Bus from './bus.js';
+    var  timeOutHeart;
     export default {
         data() {
             return {
@@ -129,6 +131,49 @@
             }
         },
         methods: {
+
+            flyStart:function (index) {
+                console.log(index)
+                let _this=this;
+                var list=this.downdata;
+                let item = list[index];
+                item.flyhearts=[];
+                for(let i =0  ;i<5;i++){
+                    item.flyhearts.push({rnd:i});
+                }
+                _this.$set(_this.downdata,index,item);
+                console.log(_this.downdata)
+                timeOutHeart= setInterval(function () {
+                    console.log("Ss")
+                    _this.rndFlyHeart(item,index)
+
+                },500)
+            },
+
+            rndFlyHeart:function (item,index) {
+                let _this=this;
+                let rnd = parseInt(Math.random()*5);
+                console.log(typeof item.flyhearts)
+                if(typeof item.flyhearts !='object'){
+                    item.flyhearts=[];
+                }
+                item.flyhearts.push({rnd:rnd});
+                rnd = parseInt(Math.random()*5);
+                item.flyhearts.push({rnd:rnd});
+                rnd = parseInt(Math.random()*5);
+                item.flyhearts.push({rnd:rnd});
+                _this.$set(_this.downdata,index,item);
+            },
+
+            flyOver:function () {
+                console.log("end")
+                if(timeOutHeart){
+                    clearInterval(timeOutHeart)
+                }
+            },
+
+
+
             showOther(ix){
 
                 this.downdata[ix].showAll = !this.downdata[ix].showAll;
@@ -597,5 +642,85 @@
         font-style: normal;
     }
 
+.stateBottom .time_right .fly_heart { height:15px;  width:16px;  position: absolute;top:0px;}
+.stateBottom .time_right   .fly_heart.start1{
+    animation: fly_height1 1.5s forwards linear;
+}
+.stateBottom  .time_right    .fly_heart.start2{
+    animation: fly_height2 1.8s forwards linear;
+}
+.stateBottom   .time_right   .fly_heart.start3{
+    animation: fly_height3 1.3s forwards linear;
+}
+.stateBottom  .time_right  .fly_heart.start4{
+    animation: fly_height4 3s forwards linear;
+}
+.stateBottom  .time_right  .fly_heart.start0{
+    animation: fly_height5 2.5s  forwards linear;
+}
+
+
+@-webkit-keyframes fly_height15 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(-3rem, -6rem, 0) scale(1);
+        -webkit-transform: translate3d(-3rem, -6rem, 0) scale(1);
+    }
+}
+@keyframes fly_height1{
+    0%{
+        opacity: 1;
+        transform: translate3d(0, 0, 0)   scale(1);
+        -webkit-transform: translate3d(0,0, 0)   scale(1);
+    }
+    100%{
+        opacity: 0;
+        transform: translate3d(-9rem, -1rem, 0)   scale(1);
+        -webkit-transform: translate3d(-9rem, -1rem, 0)   scale(1);
+    }
+}
+@keyframes fly_height2{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: translate3d(-1rem, -9rem, 0)   scale(1);
+        -webkit-transform: translate3d(-1rem, -9rem, 0)   scale(1);
+    }
+}
+@keyframes fly_height3{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: translate3d(-4rem, -3rem, 0)   scale(1);
+        -webkit-transform:  translate3d(-4rem, -3rem, 0)   scale(1);
+    }
+}
+@keyframes fly_height4{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: translate3d(-6rem, -2rem, 0)   scale(1);
+        -webkit-transform: translate3d(-6rem, -2rem, 0)   scale(1);
+    }
+}
+@keyframes fly_height5 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(-3rem, -6rem, 0) scale(1);
+        -webkit-transform: translate3d(-3rem, -6rem, 0) scale(1);
+    }
+}
 
 </style>
