@@ -227,6 +227,10 @@
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
+                        $(".time_right img").on('touchstart',function(ev){
+                            ev.preventDefault();
+                        });
+
                     })
 
                     if (vm.downdata.length <vm.pageSize) {
