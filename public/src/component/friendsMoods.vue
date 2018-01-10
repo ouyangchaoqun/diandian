@@ -59,6 +59,7 @@
                             <div class="time_right">
                                 <div style="float: left;position: relative" @touchstart="flyStart(index,item)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
+                                    <div class="heart_cover"></div>
                                     <img class="time_rightimg1 img" :src="item.careImg" alt=""  :class="{heartUp:item.hit}">
                                     <img  v-if="item.flyhearts"  v-for="ii in item.flyhearts" :src="item.flyhearts&&item.moodValue>5?'http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png':'/dist/mood_icon_baob_pre.png'"  class="fly_heart " :class="('start'+ii.rnd)" />
 
@@ -227,10 +228,6 @@
                     console.log(vm.downdata);
                     vm.$nextTick(function () {
                         myResizePicture($(".friends_mood"),"friendImgList","li");//渲染完成
-                        $(".time_right img").on('touchstart',function(ev){
-                            ev.stopPropagation();
-                        });
-
                     })
 
                     if (vm.downdata.length <vm.pageSize) {
@@ -538,6 +535,9 @@
         margin-bottom: 6px;
     }
 
+
+
+    .heart_cover{   width:14px; height: 20px; position: absolute; top:0;right:0;}
     .time_right img ,.time_right .img {
         width:14px;
         vertical-align: middle;
