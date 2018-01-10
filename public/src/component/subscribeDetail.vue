@@ -47,7 +47,8 @@
                 detail:{},
                 minHour:0,
                 maxHour:24,
-                defaultArray:[]
+                defaultArray:[],
+                isFromPush:false
             }
         },
         beforeCreate: function () {
@@ -90,6 +91,7 @@
             });
         },
         mounted:function () {
+            this.isFromPush = this.$route.query.isfrompush;
             xqzs.wx.setConfig(this,false,xqzs.wx.shareConfig.me);
         },
         methods:{
@@ -146,9 +148,12 @@
                     var postdata = {subscriptionId:_this.$route.params.id,userId:''};
                     _this.$http.put(web.API_PATH + 'subscribe/unsubscribe',postdata)
                         .then(function (res) {
+                            _this.detail.issubscribe= false;
                             console.log(res)
                             xqzs.weui.toast("success", "取消成功", function () {
-                                _this.$router.go(-1);
+                                if(!_this.isFromPush ){
+                                    _this.$router.go(-1);
+                                }
                             })
 
                         });
@@ -165,9 +170,12 @@
                 console.log(postdata)
                 _this.$http.put(web.API_PATH + 'subscribe/subscribe',postdata)
                         .then(function (res) {
-                            console.log(res)
+                            console.log(res);
+                            _this.detail.issubscribe= true;
                             xqzs.weui.toast("success", "设置成功", function () {
-                                _this.$router.go(-1);
+                                if(!_this.isFromPush ){
+                                    _this.$router.go(-1);
+                                }
                             });
 
                         });

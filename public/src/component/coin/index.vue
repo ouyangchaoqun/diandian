@@ -40,7 +40,13 @@
                         </li>
                         <div class="clear"></div>
                     </ul>
+                    <div class="holiday_tip">
+                        <div class="t">温馨提示</div>
+                        <div class="c">亲爱的小伙伴们，根据公司春节放假安排，本赠书活动将于<br><span>2月1日-2月28日</span>停止兑换，敬请谅解！ <br>
+                            兑换将于<span>3月1日</span>恢复正常，届时将推出更多好物，在春节期间可继续攒积分哦~</div>
 
+
+                    </div>
                 </div>
                 <div class="tab_c swiper-slide on"   >
                     <div class="task_list">
@@ -336,6 +342,11 @@
 
 </script>
 <style>
+    .holiday_tip{ height:8.352941176470588rem; width: 19.94117647058824rem; background: url(http://oss.xqzs.cn/resources/mood/coin_holiday_tip_bg.png) no-repeat; background-size: 19.94117647058824rem; margin: 0 auto; margin-top: -0.7rem; margin-bottom: 0.5rem; }
+    .holiday_tip .t{ color:#FF6804; font-size:0.8235294117647059rem;line-height: 1.6;  padding:1.4rem;padding-top: 1rem;padding-bottom: 0; }
+    .holiday_tip .c{font-size: 0.6470588235294118rem; color:#666; line-height: 1.6; padding:  0 1.4rem ;}
+    .holiday_tip .c span{color:#FF6804;}
+
     .coin_index{ background: #fff;}
 
 

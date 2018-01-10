@@ -1,13 +1,18 @@
 <template >
     <div style="height: 100%" class="my_amount_box wbg">
-
         <div v-title>我的余额</div>
         <v-showLoad v-if="showLoad"></v-showLoad>
-        <div class="my_income">
-            <div class="img"></div>
-            <div class="my_income_txt">我的余额</div>
-            <div class="money">￥{{formatPrice(user.balance)}}</div>
-            <div class="get_money" @click="showOut()">提现</div>
+        <div>
+            <div class="my_income" >
+                <div class="img"></div>
+                <div class="my_income_txt">我的余额</div>
+                <div class="money">￥{{formatPrice(user.balance)}}</div>
+                <div class="get_money" @click="showOut()">提现</div>
+            </div>
+            <div class="moneyOut_detail">
+                <span @click="goMoneyOut()">余额明细</span>
+                <div></div>
+            </div>
         </div>
         <div class="moneyOut_box" v-if="isOut" @click="hideOut()">
             <div class="money_dialog" @click.stop>
@@ -38,10 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="moneyOut_detail">
-            <span @click="goMoneyOut()">余额明细</span>
-            <div></div>
-        </div>
+
     </div>
 </template>
 
@@ -66,12 +68,12 @@
         },
 
         mounted: function () {
-            let _this=this;
              xqzs.wx.setConfig(this);
         },
         methods:{
             getUserInfo:function () {
                 let _this = this;
+                _this.showLoad = true;
                 _this.$http({
                     method: 'GET',
                     type: "json",
@@ -79,6 +81,7 @@
                 }).then(function (data) {//es5写法
                     if (data.data.data !== null) {
                         _this.user = eval(data.data.data);
+                        _this.showLoad = false;
                     }
                 }, function (error) {
                     //error
@@ -170,4 +173,18 @@
 .weui-btn_disabled.weui-btn_primary{background: rgba(255,157,24,.5)}
     .my_amount_box .moneyOut_detail span{font-size: 0.8235rem;color:rgba(36,37,61,0.5);text-align: center;line-height: 1;display: block;margin-bottom: 0.35rem;}
     .moneyOut_detail div{width:13%;height:1px;background: rgba(36,37,61,0.5);border-radius: 1px;margin: 0 auto}
+
+.my_amount_box .nothing{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+.my_amount_box .nothing img{
+    max-width: 100%;
+}
+.my_amount_box .nothing .nothing_bottom p {
+    font-size: 0.88235rem;
+    color: #95979D;
+}
 </style>

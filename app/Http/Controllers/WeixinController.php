@@ -177,4 +177,41 @@ class WeixinController extends Controller
         //
         //return redirect($goUrl);
     }
+
+    /**
+     * 授权中转页 将code 带给第三方
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
+     */
+    public function bridge(Request $request)
+    {
+        $appid = env('WECHAT_APPID');
+        $callback = env('WECHAT_BRIDGE_CALL_BACK_URL');
+        $backurl = $request->input('reurl');
+        if (empty($backurl)) {
+            $backurl = 'index';
+        } else {
+            $backurl = urlencode(urldecode($backurl));
+        }
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri=" . urlencode($callback)
+            . "&response_type=code&scope=snsapi_base&state={$backurl}#wechat_redirect";
+
+        return redirect($url);
+    }
+
+    /**
+     * 授权中转页 将code 带给第三方
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector
+     */
+    public function bridgeJump(Request $request)
+    {
+        $goUrl = 'http://wx.xqzs.cn';
+        $state = $request->input('state');
+        $code = $request->input('code');
+        if (!empty($state) && $state != 'index') {
+            $goUrl = urldecode($state);
+        }
+        return redirect($goUrl.'?code='.$code);
+    }
 }

@@ -1,6 +1,7 @@
 <template id="stepStatistics">
     <div class="stepStatistics">
         <div v-title>步数统计</div>
+        <v-showLoad v-if="showLoad"></v-showLoad>
         <div class="get_header">
             <div class="getupBgView">
                     <div class="canlendarTopView">
@@ -26,7 +27,7 @@
                                 <div class="get_datesView"><div class="get_yuan">{{index+1}}</div>
 
                                 </div>
-                               <div class="recordTime" v-if="index<=today-1">
+                               <div class="recordTime" v-if="(index<=today-1&&isLast)||!isLast">
                                     {{stepChange(item.step)}}
                                </div>
                             </a>
@@ -53,7 +54,7 @@
 <script type="text/javascript">
     import banner from "./banner.vue";
     import calendarTemplate from './calendarTemplate.vue'
-
+    import showLoad from './showLoad.vue';
     var calendar = {
         template: '#calendar'
     }
@@ -64,6 +65,7 @@
         },
         data() {
             return {
+                showLoad:false,
                 hasEmptyGrid: false,
                 cur_year: '',
                 cur_month: '',
@@ -89,7 +91,8 @@
                 showInfo:'',
                 showKm:'',
                 showPower:'',
-                user:''
+                user:'',
+                isLast:false,
             }
         },
         mounted: function () {
@@ -111,9 +114,9 @@
             }
 
         },
-        /*components:{
-         "v-swiper_box":swiper_box
-         },*/
+        components: {
+            'v-showLoad': showLoad
+        },
         created: function () {
             $(".calendar_box").click()
         },
@@ -175,6 +178,7 @@
                 /**年份 */
                 let cur_month = date.getMonth() + 1;
 
+
                 /**月 */
                 this.cur_day=now;
                 console.log(this.cur_day)
@@ -182,7 +186,6 @@
                 this.nowMonth = cur_month;
                 let todayIndex = date.getDay() - 1;
                 let today = date.getDate();
-                console.log('today'+today)
                 /**日 */
                 this.calculateEmptyGrids(cur_year, cur_month);
                 /**调用计算空格子*/
@@ -193,6 +196,7 @@
                 this.cur_month = cur_month;
                 this._month = _month;
                 this.today = today;
+
 
             },
             getThisMonthDays(year, month) {
@@ -223,6 +227,7 @@
             },
             calculateDays(year, month,clickDay) {
                 let _this = this;
+                _this.showLoad = true;
                 let days = [];
                 let thisMonthDays = this.getThisMonthDays(year, month);
                 let monthchange = month;
@@ -236,7 +241,16 @@
                 days = [];
                 _this.$http.get(web.API_PATH + 'werun/month/statistics/_userId_'+'?date='+year+'-'+monthchange+'-'+clickDay).then(response => {
                     if (response.data.status === 1) {
-                    _this.days = response.data.data;
+                        _this.showLoad = false;
+                        _this.days = response.data.data;
+                        let date = new Date();
+                        let lastYear = date.getFullYear();
+                        let lastMonth = date.getMonth() + 1;
+                    if(lastYear==_this.cur_year&&lastMonth==_this.cur_month){
+                        _this.isLast = true;
+                    }else{
+                        _this.isLast = false;
+                    }
                     _this.showDay(clickDay-1)
                     } else {
 

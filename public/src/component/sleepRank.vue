@@ -495,9 +495,9 @@
     }
 
     .rank_cup {
-        width: 1rem;
+        width: 2rem;
         font-family: PingFangSC-Regular;
-        font-size: 0.94118rem;
+        font-size: 0.8235rem;
         color: #666;
         text-align: center;
         height: 0.71rem;
@@ -548,14 +548,9 @@
     .rank_border {
 
     }
-
-    .rank_borderNight {
-
-    }
-
     .rank_main img.rank_headImg {
         height: 40px !important;
-        width: 40px !important;
+        max-width: 40px;
         display: block;
         border-radius: 0.294rem;
         margin-right: 0.88235rem;
