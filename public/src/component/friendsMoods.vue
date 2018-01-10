@@ -59,7 +59,7 @@
                             <div class="time_right">
                                 <div style="float: left;position: relative" @touchstart="flyStart(index,item)" @touchend="flyOver()">
                                     <span class="frined_zan">{{item.careCount}}</span>
-                                    <div class="time_rightimg1 img" :style="'background:url(' + item.careImg + ')  no-repeat; background-size: 14px;'"  :class="{heartUp:item.hit}"></div>
+                                    <img class="time_rightimg1 img" :src="item.careImg" alt=""  :class="{heartUp:item.hit}">
                                     <img  v-if="item.flyhearts"  v-for="ii in item.flyhearts" :src="item.flyhearts&&item.moodValue>5?'http://oss.xqzs.cn/xqzs/mini/program/index_heart_on.png':'/dist/mood_icon_baob_pre.png'"  class="fly_heart " :class="('start'+ii.rnd)" />
 
                                 </div>
@@ -538,12 +538,9 @@
         width:14px;
         vertical-align: middle;
         margin-top: 3px !important;
-        margin-bottom: 4px;
-        height: 13px;
-        display: inline-block;
+        margin-bottom: 4px; background-size: 14px;
         -webkit-touch-callout:none;
         -webkit-user-select:none;
-        -khtml-user-select:none;
         -moz-user-select:none;
         -ms-user-select:none;
         user-select:none;
