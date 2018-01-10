@@ -648,7 +648,7 @@
 
 .stateBottom .time_right .fly_heart { height:15px;  width:16px;  position: absolute;top:0px;}
 
-.stateBottom .time_right  img{ -webkit-user-select:none;
+*{ -webkit-user-select:none;
     -webkit-touch-callout:none;}
 .stateBottom .time_right   .fly_heart.start1{
     animation: fly_height1 1.5s forwards linear;
