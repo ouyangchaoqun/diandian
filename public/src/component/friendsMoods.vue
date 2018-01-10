@@ -541,6 +541,12 @@
         margin-bottom: 4px;
         height: 13px;
         display: inline-block;
+        -webkit-touch-callout:none;
+        -webkit-user-select:none;
+        -khtml-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none;
     }
     .time_right .frined_zan ,.time_right .frined_com{
         vertical-align: middle;
