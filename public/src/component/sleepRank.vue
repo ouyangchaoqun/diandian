@@ -496,14 +496,14 @@
     }
 
     .rank_cup {
-        width: 2rem;
+        width: 15%;
         font-family: PingFangSC-Regular;
         font-size: 0.8235rem;
         color: #666;
         text-align: center;
         height: 0.71rem;
         line-height: 0.71rem;
-        margin: 0.88235rem 0.88235rem 0 0.88235rem;
+        margin-top: 0.88235rem;
     }
 
     .rank_cupNight {
@@ -516,8 +516,7 @@
 
     .rank_main {
         display: flex;
-
-        width: 76.4%;
+        width: 75%;
         position: relative;
     }
 
@@ -543,7 +542,6 @@
     .addMessage {
         font-size: 0.70588rem;
         color: #7C7B7B;
-        width: 13.5rem
     }
 
     .rank_border {
@@ -554,7 +552,7 @@
         max-width: 40px;
         display: block;
         border-radius: 0.294rem;
-        margin-right: 0.88235rem;
+        margin-right: 0.7647rem;
     }
 
     .clock_box .rank_right {
@@ -566,14 +564,13 @@
     .clock_time {
         font-size: 0.88235rem;
         color: #666;
-
         position: absolute;
-        right: 18px;
+        right: 0;
         top: 0;
      }
 
     .care_icon {
-        padding: 0.8rem 0.88235rem 0.85rem  1.8rem
+        padding: 0.8rem 0.764rem 0.85rem  1.8rem
     }
 
     .clock_box .rank_right img {
