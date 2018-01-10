@@ -110,10 +110,11 @@
               return xqzs.toDecimal1(v);
             },
             getData:function (index) {
+
                 let _this = this;
                 let countDate = new Date();
                 let _countYear = countDate.getFullYear();
-                let _countMonth =countDate.getMonth();
+                let _countMonth =countDate.getMonth() + 1;
                 let _countWeek = now_week-1;
                 let countType = [
                     {year:_countYear},
