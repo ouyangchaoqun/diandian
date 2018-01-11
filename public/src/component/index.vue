@@ -1087,7 +1087,6 @@
             this.getUserInfo();
             this.initSleepConfig();
             this.getMyInfos();
-            this.getWeather();
             this.initBtns();
             this.initBirthday();
             this.initNewNotice();
