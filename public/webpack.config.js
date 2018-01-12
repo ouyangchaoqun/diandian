@@ -5,7 +5,7 @@ module.exports = {
     entry: './src/main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
-        publicPath: 'http://moodindex.oss-cn-shanghai.aliyuncs.com/wx/build/dist/',
+        publicPath: '/dist/',
         filename: 'build.js?[hash:8]', libraryTarget: 'umd',
         umdNamedDefine: true
     },
