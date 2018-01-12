@@ -42,7 +42,7 @@
 <script src="/src/js/xqzs.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/xqzs.face.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/blocksit.min.js"></script>
-<script src="/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
+<script src="http://moodindex.oss-cn-shanghai.aliyuncs.com/wx/build/dist/build.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="/src/js/calendar.js?v=<?=STATIC_XQZS_VERSION?>"></script>
 <script src="https://cdn.staticfile.org/highcharts/5.0.9/highcharts.js"></script>
 <script src="https://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
