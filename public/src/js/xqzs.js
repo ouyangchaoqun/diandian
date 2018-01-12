@@ -60,7 +60,10 @@ var xqzs = {
             setTimeout(function () {
                 $("#toast").animate({opacity: 0}, 200, function () {
                     $("#toast").remove();
-                    fun();
+                    if(typeof  fun =='function'){
+                        fun();
+                    }
+
                 });
             }, 800);
         },
