@@ -242,7 +242,7 @@
 
             },
             onRefresh(done) {
-                this.counter=1;
+                this.pageNo=1;
                 this.isPageEnd=false;
                 this.lastId = 0 ;
                 this.lastAdId = 0 ;
