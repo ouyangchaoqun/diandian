@@ -996,7 +996,8 @@ var xqzs = {
 
         setConfig: function (vm, callback,shareConfig) {
 
-            var url = window.location.href;
+            // var url = window.location.href;
+            var url = window.location.href.split('#')[0];
             var guest="";
             if(web.guest){
                 guest="true"
