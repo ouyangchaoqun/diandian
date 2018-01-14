@@ -312,6 +312,9 @@
                         console.log('latLng：'+latLng)
                         window['geocoder'].getAddress(latLng);
                     },
+                    fail:function (res) {
+                        console.log(res)
+                    },
                     cancel: function (res) {
                         alert('用户拒绝授权获取地理位置');
                     }
