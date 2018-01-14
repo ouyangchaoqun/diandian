@@ -237,7 +237,7 @@
                 }else{
                     index =_this.index;
                 }
-                if(!isToday&&_this.data.habitList){
+                if(!isToday&&_this.data.habitList&&_this.data.habitList[index]){
                     year=_this.data.habitList[index].year;
                     month=_this.data.habitList[index].month;
                     day=_this.data.habitList[index].day;
