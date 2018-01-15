@@ -338,7 +338,7 @@
     .get_coin .con{ font-size: 0.7647058823529412rem; color:#666; line-height: 1.5rem; margin: 0 1.5rem; text-align: left;}
     .get_coin .con span{ color:#333; font-weight: bold}
     .get_coin .line{ height: 1px; width: 85%; margin: 0.8rem auto; background: #f1f1f1}
-    .get_coin .info{ color:#666; font-size: 0.7647058823529412rem;}
+    .get_coin .info{ color:#666; font-size: 0.7647058823529412rem; text-align: center}
     .get_coin .btn{background: #f97f06; border-radius: 0.3rem; line-height: 2rem; font-size: 0.8235rem; color:#fff; text-align: center; width: 80%; margin: 0 auto;position: absolute; bottom:1.3rem;left:50%; margin-left: -40%; }
     .get_coin .close{ background: url(../../images/coin_close.png) no-repeat; width: 0.8235294117647059rem; background-size:  0.8235294117647059rem;height: 0.8235294117647059rem; position: absolute; top:0.88235rem; right:0.88235rem;}
     .get_coin .coin_change_success{ background: url(../../images/coin_change_success.png) no-repeat center ; background-size: 8.382352941176471rem; }
