@@ -76,7 +76,7 @@
                     <a class=" swiper-slide xz" @click="goXz()"><span>星座运势</span></a>
                     <a class=" swiper-slide friendsBrithdayList" @click="goFriendsBrithdayList()"><span>好友生日</span></a>
                     <a class=" swiper-slide set" @click="set()"><span>设置提醒</span></a>
-                    <a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>
+                    <!--<a class=" swiper-slide index_feedback_btn" @click="goFeedback()"><span>意见反馈</span></a>-->
                 </div>
             </div>
             <!--banner end -->
