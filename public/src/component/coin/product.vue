@@ -135,7 +135,7 @@
                                     '                    <div class="close"></div>'+
                                     '                    <div class="img coin_change_success"></div>\n' +
                                     '                    <div class="h1">恭喜你，兑换成功</div>\n' +
-                                    '                    <div class="con">请耐心等待，兑换成功后，将在1-3个工作日为你发货。</div>\n' +
+                                    '                    <div class="con">快递送达，大约需要一周的时间，请保持电话畅通！</div>\n' +
                                     '                    <div class="line"></div>\n' +
                                     '                    <div class="info">(注：积分消费记录详情请在积分明细中查看）</div>\n' +
                                     '                    <div class="btn coin_success_btn">OK</div>\n' +
